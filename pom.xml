@@ -1,10 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.hsbremen.sidanet</groupId>
-  <artifactId>tnc</artifactId>
+  <groupId>de.hsbremen.tc.tnc</groupId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>jtnclib</name>
+  <name>jTNC</name>
 	<description>Partially TNC implementation.</description>
 	<url>http://sidanet.hsbremen.de/</url>
 	<organization>
@@ -15,13 +14,13 @@
 		<!-- TODO: eintragen -->
 	</developers>
 	<modules>
-		<module>nar</module>
-		<!-- <module>naa</module> -->
-		<module>example</module>
+		<module>ar</module>
+		<!-- <module>pdp</module> -->
+		<module>examples</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<main.basedir>${project.basedir}</main.basedir>
+		<!--  <main.basedir>${project.basedir}</main.basedir>  -->
 	</properties>
 	<pluginRepositories>
 		<pluginRepository>
@@ -200,4 +199,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<artifactId>jtnc</artifactId>
 </project>
