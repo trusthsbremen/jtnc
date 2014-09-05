@@ -15,5 +15,10 @@
   </properties> -->
   
 	<dependencies>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc</groupId>
+			<artifactId>nar</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

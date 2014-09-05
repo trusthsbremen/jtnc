@@ -12,6 +12,7 @@
    
   <modules>
 	<module>ar-example</module>
+	<module>imcs</module>
   </modules>
   
   <!-- <properties>

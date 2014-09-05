@@ -3,26 +3,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.hsbremen.tc.tnc</groupId>
-		<artifactId>jtnc</artifactId>
+		<artifactId>examples</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>ar</artifactId>
+	
+	<artifactId>imcs</artifactId>
 	<packaging>pom</packaging>
-	<name>Access Requestor</name>
+	<name>Integrity Measurement Collectors</name>
 	
 	<modules>
-		<module>imc</module>
-		<module>nar</module>
-		<module>tcg-tncc-if</module>
-		<module>message</module>
-		<module>tncc</module>
+		<module>java-version-imc</module>
 	</modules>
-
 	<!--  <properties>
-		<main.basedir>${project.parent.basedir}</main.basedir>
+		<main.basedir>${project.parent.parent.basedir}</main.basedir>
 	</properties> -->
 
-
+	
 	<dependencies>
 	</dependencies>
 </project>

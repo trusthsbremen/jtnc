@@ -6,24 +6,20 @@
 		<artifactId>ar</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>tncc</artifactId>
+	
+	<artifactId>imc</artifactId>
 	<packaging>jar</packaging>
-	<name>Tnc Client</name>
-
-	<!-- <properties>
+	<name>Integrity Measurement Collector</name>
+	
+	<!--  <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>
-	</properties>  -->
+	</properties> -->
 
 	
 	<dependencies>
 		<dependency>
 			<groupId>de.hsbremen.tc.tnc</groupId>
 			<artifactId>tcg-tncc-if</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>
-			<artifactId>nar</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
