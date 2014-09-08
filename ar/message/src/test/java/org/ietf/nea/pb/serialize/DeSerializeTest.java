@@ -3,13 +3,10 @@ package org.ietf.nea.pb.serialize;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
-import org.ietf.nea.pb.message.AbstractPbMessageValue;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
@@ -20,24 +17,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializationHandler;
-
 public class DeSerializeTest {
 
 	
 	TestData batch;
-	PbBatchSerializationHandler bs;
+	PbBatchSerializer bs;
 	
 	@Before
 	public void setUp(){
 		batch = new TestData();
-		Map<Long, Map<Long,TnccsSerializationHandler<AbstractPbMessageValue>>> messageValueHandler = new HashMap<Long, Map<Long,TnccsSerializationHandler<AbstractPbMessageValue>>>();
-		messageValueHandler.put(0L, new HashMap<Long,TnccsSerializationHandler<AbstractPbMessageValue>>());
-		messageValueHandler.get(0L).put(1L,(TnccsSerializationHandler)PbMessageImSerializationHandler.getInstance());
-		messageValueHandler.get(0L).put(3L,(TnccsSerializationHandler)PbMessageAccessRecommendationSerializationHandler.getInstance());
-		messageValueHandler.get(0L).put(7L,(TnccsSerializationHandler)PbMessageReasonStringSerializationHandler.getInstance());
-		PbMessageSerializationHandler ms = new PbMessageSerializationHandler(messageValueHandler);
-		bs = new PbBatchSerializationHandler(ms);
+		bs = new PbBatchSerializer(PbMessageSerializerFactory.createDefault());
 	}
 	
 	@Test

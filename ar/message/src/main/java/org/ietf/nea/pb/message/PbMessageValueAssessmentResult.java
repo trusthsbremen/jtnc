@@ -40,7 +40,7 @@ public class PbMessageValueAssessmentResult extends AbstractPbMessageValue{
 
     private final PbMessageAssessmentResultEnum result;                                        //32 bit(s)
 
-	public PbMessageValueAssessmentResult(PbMessageAssessmentResultEnum result) {
+	PbMessageValueAssessmentResult(PbMessageAssessmentResultEnum result) {
 		super(FIXED_LENGTH);
 		this.result = result;
 	}

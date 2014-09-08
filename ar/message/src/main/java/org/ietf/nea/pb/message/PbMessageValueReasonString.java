@@ -58,7 +58,7 @@ public class PbMessageValueReasonString extends AbstractPbMessageValue{
 
     
     
-	public PbMessageValueReasonString(String reasonString, String langCode) {
+	PbMessageValueReasonString(String reasonString, String langCode) {
 		super(FIXED_LENGTH + reasonString.getBytes(Charset.forName("UTF-8")).length 
 				+ langCode.getBytes(Charset.forName("US-ASCII")).length);
 		this.reasonString = reasonString;

@@ -1,10 +1,8 @@
 package org.ietf.nea.pb.batch;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.ietf.nea.IETFConstants;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
@@ -25,31 +23,12 @@ public class PbBatch implements TnccsBatch {
     
     
 	PbBatch(PbBatchDirectionalityEnum directionality, int reserved,
-			PbBatchTypeEnum type, List<PbMessage> messages) {
-		if(directionality == null){
-			throw new NullPointerException("Directionality can not be null.");
-		}
-		if(type == null){
-			throw new NullPointerException("Type can not be null.");
-		}
-		if(messages == null){
-			messages = new ArrayList<>();
-		}
-		
-		// Add up and check Batch length
-		long messagesLength = PbBatch.FIXED_LENGTH;
-		for (PbMessage pbMessage : messages) {
-			long messageLength = pbMessage.getLength();
-			if(messageLength > 0 && (IETFConstants.MAX_LENGTH - messageLength) < messagesLength){
-				throw new ArithmeticException("Batch size is to large.");
-			}
-			messagesLength += messageLength;
-		}
+			PbBatchTypeEnum type, long lenth, List<PbMessage> messages) {
 		
 		this.directionality = directionality;
 		this.reserved = reserved;
 		this.type = type;
-		this.length = messagesLength;
+		this.length = lenth;
 		this.messages = messages;
 	}
 

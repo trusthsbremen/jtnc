@@ -9,15 +9,15 @@ import org.ietf.nea.pb.message.PbMessageValueLanguagePreference;
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
-import org.ietf.nea.pb.validate.PbMessageAccessRecommendationValidator2;
-import org.ietf.nea.pb.validate.PbMessageAssessmentResultValidator2;
-import org.ietf.nea.pb.validate.PbMessageErrorValidator2;
-import org.ietf.nea.pb.validate.PbMessageExperimentalValidator2;
-import org.ietf.nea.pb.validate.PbMessageImValidator2;
-import org.ietf.nea.pb.validate.PbMessageLanguagePreferenceValidator2;
-import org.ietf.nea.pb.validate.PbMessageReasonStringValidator2;
-import org.ietf.nea.pb.validate.PbMessageRemediationParameterStringValidator2;
-import org.ietf.nea.pb.validate.PbMessageRemediationParameterUriValidator2;
+import org.ietf.nea.pb.validate.PbMessageAccessRecommendationValidator;
+import org.ietf.nea.pb.validate.PbMessageAssessmentResultValidator;
+import org.ietf.nea.pb.validate.PbMessageErrorValidator;
+import org.ietf.nea.pb.validate.PbMessageExperimentalValidator;
+import org.ietf.nea.pb.validate.PbMessageImValidator;
+import org.ietf.nea.pb.validate.PbMessageLanguagePreferenceValidator;
+import org.ietf.nea.pb.validate.PbMessageReasonStringValidator;
+import org.ietf.nea.pb.validate.PbMessageRemediationParameterStringValidator;
+import org.ietf.nea.pb.validate.PbMessageRemediationParameterUriValidator;
 import org.trustedcomputinggroup.tnc.TNCException;
 
 import de.hsbremen.tc.tnc.message.handler.pb.util.PaDeliveryAgent;
@@ -37,7 +37,7 @@ public class DefaultPbIetfMessageHandler extends AbstractPbIetfMessageHandler{
 	@Override
 	 protected void handlePbMessageIm(PbMessageValueIm actualMessage) throws TNCException{
          //validate
-         PbMessageImValidator2.getInstance().validate(actualMessage); 
+         PbMessageImValidator.getInstance().validate(actualMessage); 
          //send to IM
          imcDistribution.dispatchMessage(actualMessage, context);
      }
@@ -45,51 +45,51 @@ public class DefaultPbIetfMessageHandler extends AbstractPbIetfMessageHandler{
 	@Override
 	 protected void handlePbMessageError(PbMessageValueError actualMessage) throws TNCException{
          //validate
-         PbMessageErrorValidator2.getInstance().validate(actualMessage);;
+         PbMessageErrorValidator.getInstance().validate(actualMessage);;
          // TODO Let TncClient handle this messages
 
      }
 	@Override
 	 protected void handlePbMessageAssessmentResult(PbMessageValueAssessmentResult actualMessage) throws TNCException{
          //validate
-         PbMessageAssessmentResultValidator2.getInstance().validate(actualMessage);
+         PbMessageAssessmentResultValidator.getInstance().validate(actualMessage);
          // TODO Let TncClient handle this messages
 	 }
 	@Override
      protected void handlePbMessageAccessRecommendation(PbMessageValueAccessRecommendation actualMessage) throws TNCException{
 	     //validate
-	     PbMessageAccessRecommendationValidator2.getInstance().validate(actualMessage);
+	     PbMessageAccessRecommendationValidator.getInstance().validate(actualMessage);
 	     // TODO Let TncClient handle this messages
      }
 	@Override
      protected void handlePbMessageRemediationParameterString (PbMessageValueRemediationParameterString actualMessage) throws TNCException{
          	// validate
-         	PbMessageRemediationParameterStringValidator2.getInstance().validate(actualMessage);
+         	PbMessageRemediationParameterStringValidator.getInstance().validate(actualMessage);
          	// TODO Let TncClient handle this messages
      }
 	@Override
      protected void handlePbMessageRemediationParameterUri(PbMessageValueRemediationParameterUri actualMessage) throws TNCException{
          	// validate
-         	PbMessageRemediationParameterUriValidator2.getInstance().validate(actualMessage);
+         	PbMessageRemediationParameterUriValidator.getInstance().validate(actualMessage);
          	// TODO Let TncClient handle this messages
      }
 	@Override    
      protected void handlePbMessageLanguagePreference(PbMessageValueLanguagePreference actualMessage) throws TNCException{
          //validate
-         PbMessageLanguagePreferenceValidator2.getInstance().validate(actualMessage);
+         PbMessageLanguagePreferenceValidator.getInstance().validate(actualMessage);
          // TODO Let TncClient handle this messages
      }
 	@Override
      protected void handlePbMessageReasonString(PbMessageValueReasonString actualMessage) throws TNCException{
          //validate
-         PbMessageReasonStringValidator2.getInstance().validate(actualMessage);
+         PbMessageReasonStringValidator.getInstance().validate(actualMessage);
          // TODO Let TncClient handle this messages
          
      }
 	@Override
      protected void handlePbMessageExperimental(PbMessageValueExperimental actualMessage) throws TNCException{
          //validate
-         PbMessageExperimentalValidator2.getInstance().validate(actualMessage);
+         PbMessageExperimentalValidator.getInstance().validate(actualMessage);
          // TODO Let TncClient handle this messages
      }
 }

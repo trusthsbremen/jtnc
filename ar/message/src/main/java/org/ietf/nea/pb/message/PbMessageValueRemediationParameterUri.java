@@ -10,6 +10,7 @@ public class PbMessageValueRemediationParameterUri extends AbstractPbMessageValu
   
     private final URI remediationUri; //variable length
 
+    // TODO make protected
 	public PbMessageValueRemediationParameterUri(URI remediationUri) {
 		super(remediationUri.toString().getBytes().length);
 		this.remediationUri = remediationUri;

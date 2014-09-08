@@ -41,7 +41,7 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
 
     
     
-    public PbMessageValueRemediationParameters(byte reserved,
+    PbMessageValueRemediationParameters(byte reserved,
 			long rpVendorId, long rpType,
 			AbstractPbMessageValueRemediationParametersValue parameter) {
 		super(FIXED_LENGTH + parameter.getLength());

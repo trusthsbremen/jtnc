@@ -45,7 +45,7 @@ public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue{
 
     
     
-    public PbMessageValueAccessRecommendation(short reserved,
+    PbMessageValueAccessRecommendation(short reserved,
 			PbMessageAccessRecommendationEnum recommendation) {
 		super(FIXED_LENGTH);
 		this.reserved = reserved;

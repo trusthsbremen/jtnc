@@ -45,7 +45,7 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
 
     public static final byte FIXED_LENGTH = 12;
     
-    protected final EnumSet<PbMessageImFlagsEnum> imFlags; //  8 bit(s)
+    private final EnumSet<PbMessageImFlagsEnum> imFlags; //  8 bit(s)
    
     private final long subVendorId;                                           // 24 bit(s)
     private final long subType;                                               // 32 bit(s)
@@ -57,7 +57,7 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
    
     
     
-    public PbMessageValueIm(PbMessageImFlagsEnum[] flags, long subVendorId, long subType,
+    PbMessageValueIm(PbMessageImFlagsEnum[] flags, long subVendorId, long subType,
 			long collectorId, long validatorId, byte[] message) {
 		super(FIXED_LENGTH + message.length);
 		

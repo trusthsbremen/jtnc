@@ -15,7 +15,7 @@ public class PbMessageValueRemediationParameterString extends AbstractPbMessageV
 //    //overload the superclass default vendorId, type and length value
 //    protected final long rpVendorId = IETFConstants.IETF_PEN_VENDORID; // 24 bit(s)
 //    protected final long rpType = PbMessageRemediationParameterTypeEnum.IETF_URI.type();         // 32 bit(s)
-    
+    // TODO make protected
     public PbMessageValueRemediationParameterString(String remediationString, String langCode){
     	super(FIXED_LENGTH + remediationString.getBytes(Charset.forName("UTF-8")).length 
 				+ langCode.getBytes(Charset.forName("US-ASCII")).length);

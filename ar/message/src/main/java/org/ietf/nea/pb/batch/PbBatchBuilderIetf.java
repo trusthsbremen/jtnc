@@ -8,7 +8,9 @@ import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
 
-public class PbBatchBuilderIetf {
+import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchBuilder;
+
+public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 
 	private PbBatchTypeEnum type;
 	private PbBatchDirectionalityEnum direction;
@@ -72,7 +74,12 @@ public class PbBatchBuilderIetf {
 		return this;
 	}
 	
-	public PbBatch toBatch(){
+	/*
+	 * (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchBuilder#toBatch()
+	 */
+	@Override
+	public  PbBatch toBatch(){
 		int reserved = 0; // defined in RFC5793 
 		if(direction == null){
 			throw new IllegalStateException("Direction must be set first.");
@@ -81,13 +88,13 @@ public class PbBatchBuilderIetf {
 			throw new IllegalStateException("Type must be set first.");
 		}
 		
-		PbBatch batch = new PbBatch(direction, reserved, type, messages);
+		PbBatch batch = new PbBatch(direction, reserved, type, batchLength, messages);
 		return batch;
 	}
 	
 	private void addMessageAndCheckLength(PbMessage message){
 			long messageLength = message.getLength();
-			if(messageLength > 0 && (IETFConstants.MAX_LENGTH - messageLength) < this.batchLength){
+			if(messageLength > 0 && (IETFConstants.IETF_MAX_LENGTH - messageLength) < this.batchLength){
 				throw new ArithmeticException("Batch size is to large.");
 			}
 			this.batchLength += messageLength;

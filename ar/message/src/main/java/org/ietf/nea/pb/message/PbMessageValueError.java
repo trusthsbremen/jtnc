@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 
 /**
@@ -33,16 +32,16 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 
     public static final byte FIXED_LENGTH = 8;
     
-    protected final EnumSet<PbMessageErrorFlagsEnum> errorFlags; //  8 bit(s) 
+    private final EnumSet<PbMessageErrorFlagsEnum> errorFlags; //  8 bit(s) 
     private final long errorVendorId;                                           // 24 bit(s)
-    private final PbMessageErrorCodeEnum errorCode;                                                // 16 bit(s)
+    private final short errorCode;                                                // 16 bit(s)
     private final short reserved;                                         // 16 bit(s) should be 0
     private byte[] errorParameter; //32 bit(s) , may be (1) (one field full 32 bit length) if offset or (4) (4 fields every field has 8 bit length) if version information is needed.
     
     
 
-	public PbMessageValueError(PbMessageErrorFlagsEnum[] flags, long errorVendorId,
-			PbMessageErrorCodeEnum errorCode, short reserved,
+	PbMessageValueError(PbMessageErrorFlagsEnum[] flags, long errorVendorId,
+			short errorCode, short reserved,
 			byte[] errorParameter) {
 		super(FIXED_LENGTH + errorParameter.length);
 		
@@ -76,7 +75,7 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 	/**
 	 * @return the errCode
 	 */
-	public PbMessageErrorCodeEnum getErrorCode() {
+	public short getErrorCode() {
 		return this.errorCode;
 	}
 

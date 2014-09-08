@@ -15,8 +15,13 @@ public class ValidateTest {
 		batch = new TestData();
 	}
 	
-	@Test(expected= ValidationException.class)
+	@Test(expected = ValidationException.class)
 	public void validateIm() throws ValidationException{
-		PbMessageImValidator2.getInstance().validate(batch.getInvalidImMessage());
+		try{ 
+			batch.getInvalidImMessage();
+		}catch(ValidationException e){
+			e.printStackTrace();
+			throw e;
+		}
 	}
 }

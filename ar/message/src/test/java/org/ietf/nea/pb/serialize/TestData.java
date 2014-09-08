@@ -9,14 +9,15 @@ import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchBuilderIetf;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
-import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
-import org.ietf.nea.pb.message.PbMessageValueIm;
+import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
+
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class TestData {
 
@@ -84,8 +85,8 @@ public class TestData {
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
-		long collectorId = 1L;
-		long validatorId = 0xFFFFL;
+		short collectorId = 1;
+		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
 		
 		batchBuilder.addMessage(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
@@ -99,8 +100,8 @@ public class TestData {
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
-		long collectorId = 1L;
-		long validatorId = 0xFFFFL;
+		short collectorId = 1;
+		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
 		
 		batchBuilder.addMessage(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
@@ -129,8 +130,8 @@ public class TestData {
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
-		long collectorId = 1L;
-		long validatorId = 0xFFFFL;
+		short collectorId = 1;
+		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
 		
 		batchBuilder.addMessage(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
@@ -139,12 +140,18 @@ public class TestData {
 		return batchBuilder.toBatch();
 	}
 	
-	public PbMessage getInvalidImMessage(){
+	public PbBatch getInvalidImMessage() throws ValidationException{
+		initBatchBuilder();
 		PbMessageBuilderIetf builder = new PbMessageBuilderIetf();
 		builder.setFlags(new PbMessageFlagsEnum[0]);
 		builder.setVendorId(IETFConstants.IETF_PEN_VENDORID);
 		builder.setType(PbMessageTypeEnum.IETF_PB_PA.messageType());
-		builder.setValue(new PbMessageValueIm(new PbMessageImFlagsEnum[0], 0, 0, 0xFFFFL, 1L, new byte[]{ -128, 34, 12}));
-		return builder.toMessage();
+		builder.setValue(PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12}));
+
+
+		batchBuilder.addMessage(builder.toMessage());
+		
+		
+		return batchBuilder.toBatch();
 	}
 }
