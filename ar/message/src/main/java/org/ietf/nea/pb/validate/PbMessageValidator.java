@@ -44,8 +44,8 @@ public class PbMessageValidator implements TnccsValidator<PbMessage> {
 
 
 	@Override
-	public void addValidator(Long vendorId, Long messageType,
-			TnccsValidator<PbMessage> validator) {
+	public void addValidator(final Long vendorId, final Long messageType,
+			final TnccsValidator<PbMessage> validator) {
 		if(pbMessageValidators.containsKey(vendorId)){
 			pbMessageValidators.get(vendorId).put(messageType, validator);
 		}else{
@@ -58,7 +58,7 @@ public class PbMessageValidator implements TnccsValidator<PbMessage> {
 
 
 	@Override
-	public void removeValidator(Long vendorId, Long messageType) {
+	public void removeValidator(final Long vendorId, final Long messageType) {
 		if(pbMessageValidators.containsKey(vendorId)){
 			if(pbMessageValidators.get(vendorId).containsKey(messageType)){
 				pbMessageValidators.get(vendorId).remove(messageType);

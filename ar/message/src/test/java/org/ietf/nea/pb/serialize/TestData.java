@@ -3,12 +3,13 @@ package org.ietf.nea.pb.serialize;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.ietf.nea.IETFConstants;
 import org.ietf.nea.pb.batch.PbBatch;
-import org.ietf.nea.pb.batch.PbBatchBuilderIetf;
-import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
-import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
+import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
+import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
@@ -53,16 +54,6 @@ public class TestData {
 	
 	byte[] recommendationBatch = new byte[]{2, -128, 0, 1, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1};
 	
-	
-	PbBatchBuilderIetf batchBuilder;
-	PbMessageFactoryIetf messageFactory;
-	
-	private void initBatchBuilder(){
-		batchBuilder = new PbBatchBuilderIetf();
-		batchBuilder.setBatchDirection(PbBatchDirectionalityEnum.TO_PBS);
-		batchBuilder.setBatchType(PbBatchTypeEnum.CDATA);
-	}
-
 	public ByteArrayInputStream getBatchWithImAsStream() throws IOException{
 		return new ByteArrayInputStream(imBatch);
 	}
@@ -80,7 +71,7 @@ public class TestData {
 	}
 	
 	public PbBatch getBatchWithImMessage(){
-		initBatchBuilder();
+		
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -88,14 +79,12 @@ public class TestData {
 		short collectorId = 1;
 		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
-		
-		batchBuilder.addMessage(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
-		
-		return batchBuilder.toBatch();
+		List<PbMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
+		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
 	public PbBatch getBatchWithInvalidImMessage(){
-		initBatchBuilder();
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -103,29 +92,30 @@ public class TestData {
 		short collectorId = 1;
 		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
+		List<PbMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
 		
-		batchBuilder.addMessage(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
-		
-		return batchBuilder.toBatch();
+		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
 	
 	public PbBatch getBatchWithAccessRecommendation(){
-		initBatchBuilder();
 		
-		batchBuilder.addMessage(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
-		return batchBuilder.toBatch();
+		List<PbMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
+		
+		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
 	public PbBatch getBatchWithReasonString(){
-		initBatchBuilder();
 		
-		batchBuilder.addMessage(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
-		return batchBuilder.toBatch();
+		List<PbMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
+		
+		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
 	public PbBatch getBatchWithMixedMessages(){
-		initBatchBuilder();
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -133,25 +123,25 @@ public class TestData {
 		short collectorId = 1;
 		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
+		List<PbMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
+		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
+		messages.add(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
 		
-		batchBuilder.addMessage(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
-		batchBuilder.addMessage(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
-		batchBuilder.addMessage(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
-		return batchBuilder.toBatch();
+		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
 	public PbBatch getInvalidImMessage() throws ValidationException{
-		initBatchBuilder();
 		PbMessageBuilderIetf builder = new PbMessageBuilderIetf();
 		builder.setFlags(new PbMessageFlagsEnum[0]);
 		builder.setVendorId(IETFConstants.IETF_PEN_VENDORID);
 		builder.setType(PbMessageTypeEnum.IETF_PB_PA.messageType());
 		builder.setValue(PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12}));
 
-
-		batchBuilder.addMessage(builder.toMessage());
+		List<PbMessage> messages = new ArrayList<>();
+		messages.add(builder.toMessage());
 		
 		
-		return batchBuilder.toBatch();
+		return PbBatchFactoryIetf.createClientData(messages);
 	}
 }

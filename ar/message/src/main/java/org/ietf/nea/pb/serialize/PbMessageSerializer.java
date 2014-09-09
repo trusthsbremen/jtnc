@@ -196,8 +196,8 @@ public class PbMessageSerializer implements
 	}
 	
 
-	public void addSerializer(Long vendorId, Long messageType,
-			TnccsSerializer<AbstractPbMessageValue> validator) {
+	public void addSerializer(final Long vendorId, final Long messageType,
+			final TnccsSerializer<AbstractPbMessageValue> validator) {
 		if(pbMessageTranslators.containsKey(vendorId)){
 			pbMessageTranslators.get(vendorId).put(messageType, validator);
 		}else{
@@ -208,7 +208,7 @@ public class PbMessageSerializer implements
 	}
 
 
-	public void removeSerializer(Long vendorId, Long messageType) {
+	public void removeSerializer(final Long vendorId, final Long messageType) {
 		if(pbMessageTranslators.containsKey(vendorId)){
 			if(pbMessageTranslators.get(vendorId).containsKey(messageType)){
 				pbMessageTranslators.get(vendorId).remove(messageType);

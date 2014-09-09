@@ -40,9 +40,9 @@ public class PbMessageValueError extends AbstractPbMessageValue {
     
     
 
-	PbMessageValueError(PbMessageErrorFlagsEnum[] flags, long errorVendorId,
-			short errorCode, short reserved,
-			byte[] errorParameter) {
+	PbMessageValueError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId,
+			final short errorCode, final short reserved,
+			final byte[] errorParameter) {
 		super(FIXED_LENGTH + errorParameter.length);
 		
 		if(flags != null && flags.length > 0){

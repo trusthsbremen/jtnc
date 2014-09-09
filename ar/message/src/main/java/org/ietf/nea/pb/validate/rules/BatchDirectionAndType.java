@@ -8,7 +8,7 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class BatchDirectionAndType {
 
-	public static void check(PbBatchDirectionalityEnum direction, PbBatchTypeEnum type) throws ValidationException{
+	public static void check(final PbBatchDirectionalityEnum direction, final PbBatchTypeEnum type) throws ValidationException{
 		if(direction == null){
 			throw new NullPointerException("Direction cannot be null.");
 		}

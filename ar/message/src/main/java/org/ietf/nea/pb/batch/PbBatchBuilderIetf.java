@@ -7,8 +7,10 @@ import org.ietf.nea.IETFConstants;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.validate.PbBatchValidator;
 
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchBuilder;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 
@@ -79,7 +81,7 @@ public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 	 * @see de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchBuilder#toBatch()
 	 */
 	@Override
-	public  PbBatch toBatch(){
+	public  PbBatch toBatch() throws ValidationException{
 		int reserved = 0; // defined in RFC5793 
 		if(direction == null){
 			throw new IllegalStateException("Direction must be set first.");
@@ -89,6 +91,9 @@ public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 		}
 		
 		PbBatch batch = new PbBatch(direction, reserved, type, batchLength, messages);
+		
+		PbBatchValidator.getInstance().validate(batch);
+		
 		return batch;
 	}
 	

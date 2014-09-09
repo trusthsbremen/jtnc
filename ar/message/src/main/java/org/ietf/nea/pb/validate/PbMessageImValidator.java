@@ -44,14 +44,14 @@ public class PbMessageImValidator implements TnccsValidator<PbMessage> {
 		MinMessageLength.check(message.getLength(), fixedMessageLength);
     }
     
-    @Override
-	public void addValidator(Long vendorId, Long messageType,
-			TnccsValidator<PbMessage> validator) {
+	@Override
+	public void addValidator(final Long vendorId, final Long messageType,
+			final TnccsValidator<PbMessage> validator) {
 		throw new UnsupportedOperationException("Method is not supported by this implementation.");
 	}
 
 	@Override
-	public void removeValidator(Long vendorId, Long messageType) {
+	public void removeValidator(final Long vendorId, final Long messageType) {
 		throw new UnsupportedOperationException("Method is not supported by this implementation.");
 	}
 }

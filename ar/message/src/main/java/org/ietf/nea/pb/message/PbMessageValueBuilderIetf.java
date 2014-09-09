@@ -11,7 +11,7 @@ import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
 
 public class PbMessageValueBuilderIetf {
 	
-	public static PbMessageValueIm createImValue(final PbMessageImFlagsEnum[] imFlags, long subVendorId, long subType, short collectorId, short validatorId, byte[] message){
+	public static PbMessageValueIm createImValue(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType, final short collectorId, final short validatorId, final byte[] message){
 
 		if(imFlags == null){
 			throw new NullPointerException("Supplied flags cannot be null.");
@@ -30,7 +30,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueIm(imFlags, subVendorId, subType, collectorId, validatorId, message);
 	}
 	
-	public static PbMessageValueAccessRecommendation createAccessRecommendationValue(short reserved, PbMessageAccessRecommendationEnum recommendation){
+	public static PbMessageValueAccessRecommendation createAccessRecommendationValue(final short reserved, final PbMessageAccessRecommendationEnum recommendation){
 		
 		short reservedIgnored = 0;
 		
@@ -41,7 +41,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueAccessRecommendation(reservedIgnored, recommendation);
 	}
 	
-	public static PbMessageValueAssessmentResult createAssessmentResultValue(PbMessageAssessmentResultEnum result){
+	public static PbMessageValueAssessmentResult createAssessmentResultValue(final PbMessageAssessmentResultEnum result){
 		
 		if(result == null){
 			throw new NullPointerException("Result cannot be null.");
@@ -50,7 +50,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueAssessmentResult(result);
 	}
 	
-	public static PbMessageValueError createErrorValue(PbMessageErrorFlagsEnum[] errorFlags, long errorVendorId, short errorCode, short reserved, byte[] errorParameter){
+	public static PbMessageValueError createErrorValue(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final short reserved, final byte[] errorParameter){
 	
 		short reservedIgnored = 0;
 		
@@ -69,7 +69,7 @@ public class PbMessageValueBuilderIetf {
 		
 	}
 	
-	public static PbMessageValueLanguagePreference createLanguagePreferenceValue(String preferedLanguage){
+	public static PbMessageValueLanguagePreference createLanguagePreferenceValue(final String preferedLanguage){
 		
 		if(preferedLanguage == null){
 			throw new NullPointerException("Result cannot be null.");
@@ -79,7 +79,7 @@ public class PbMessageValueBuilderIetf {
 		
 	}
 	
-	public static PbMessageValueExperimental createExperimentalValue(String message){
+	public static PbMessageValueExperimental createExperimentalValue(final String message){
 		
 		if(message == null){
 			throw new NullPointerException("Result cannot be null.");
@@ -88,7 +88,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueExperimental(message);
 	}
 	
-	public static PbMessageValueReasonString createReasonStringValue(String reasonString, String langCode){
+	public static PbMessageValueReasonString createReasonStringValue(final String reasonString, final String langCode){
 		
 		if(reasonString == null){
 			throw new NullPointerException("Reason string cannot be null.");
@@ -103,7 +103,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueReasonString(reasonString, langCode);
 	}
 	
-	public static PbMessageValueRemediationParameters createRemediationParameterString(byte reserved, long rpVendorId, long rpType, String remediationString, String langCode){
+	public static PbMessageValueRemediationParameters createRemediationParameterString(final byte reserved, final long rpVendorId, final long rpType, final String remediationString, final String langCode){
 	
 		if(remediationString == null){
 			throw new NullPointerException("Remediation string cannot be null.");
@@ -123,7 +123,7 @@ public class PbMessageValueBuilderIetf {
 		return createRemediationParameter(reserved, rpVendorId, rpType, parameter);
 	}
 	
-	public static PbMessageValueRemediationParameters createRemediationParameterUri(byte reserved, long rpVendorId, long rpType, String uri){
+	public static PbMessageValueRemediationParameters createRemediationParameterUri(final byte reserved, final long rpVendorId, final long rpType, String uri){
 		
 		if(uri == null){
 			throw new NullPointerException("URI cannot be null.");
@@ -138,7 +138,7 @@ public class PbMessageValueBuilderIetf {
 		
 	}
 	
-	private static PbMessageValueRemediationParameters createRemediationParameter(byte reserved, long rpVendorId, long rpType, AbstractPbMessageValueRemediationParametersValue parameter){
+	private static PbMessageValueRemediationParameters createRemediationParameter(final byte reserved, final long rpVendorId, final long rpType, final AbstractPbMessageValueRemediationParametersValue parameter){
 		byte reservedIgnored = 0;
 		
 		if(rpVendorId > IETFConstants.IETF_MAX_VENDOR_ID){

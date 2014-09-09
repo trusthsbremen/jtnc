@@ -11,7 +11,7 @@ import de.hsbremen.tc.tnc.tnccs.validate.TnccsValidator;
 
 public class PbMessageBuilderIetf implements TnccsMessageBuilder {
 
-	private static final TnccsValidator<PbMessage> VALIDATOR = PbMessageValidatorFactroy.createDefault(); 
+	private final TnccsValidator<PbMessage> validator; 
 	
 	protected PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[0];
 	protected long vendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -19,7 +19,15 @@ public class PbMessageBuilderIetf implements TnccsMessageBuilder {
 	protected long length = PbMessage.FIXED_LENGTH;
 	protected AbstractPbMessageValue value = null;
 	
-	public void setFlags(PbMessageFlagsEnum[] flags){
+	public PbMessageBuilderIetf(){
+		this(PbMessageValidatorFactroy.createDefault());
+	}
+	
+	public PbMessageBuilderIetf(final TnccsValidator<PbMessage> validator){
+		this.validator = validator;
+	}
+	
+	public void setFlags(final PbMessageFlagsEnum[] flags){
 		if(flags == null){
 			throw new NullPointerException("Flags cannot be null.");
 		}
@@ -59,7 +67,7 @@ public class PbMessageBuilderIetf implements TnccsMessageBuilder {
 
 		PbMessage message = new PbMessage(flags, vendorId, type, value);
 	
-		VALIDATOR.validate(message);
+		validator.validate(message);
 		
 		return message;
 	}

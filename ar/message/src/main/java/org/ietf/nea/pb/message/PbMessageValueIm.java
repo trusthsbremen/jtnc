@@ -57,8 +57,8 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
    
     
     
-    PbMessageValueIm(PbMessageImFlagsEnum[] flags, long subVendorId, long subType,
-			long collectorId, long validatorId, byte[] message) {
+    PbMessageValueIm(final PbMessageImFlagsEnum[] flags, final long subVendorId, final long subType,
+			final long collectorId, final long validatorId, final byte[] message) {
 		super(FIXED_LENGTH + message.length);
 		
 		if(flags != null && flags.length > 0){

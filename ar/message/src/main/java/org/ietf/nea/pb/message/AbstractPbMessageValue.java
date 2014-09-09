@@ -6,11 +6,11 @@ public abstract class AbstractPbMessageValue implements TnccsMessageValue {
 
 	private final long length;
 
-	AbstractPbMessageValue(long length) {
+	AbstractPbMessageValue(final long length) {
 		this.length = length;
 	}
 	
-	public final long getLength(){
+	public long getLength(){
 		return this.length;
 	}
 	

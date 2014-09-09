@@ -9,7 +9,7 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class UriSyntax {
 
-	public static void check(String uri) throws ValidationException{
+	public static void check(final String uri) throws ValidationException{
 		if(uri == null){
 			throw new NullPointerException("URI string cannot be null.");
 		}

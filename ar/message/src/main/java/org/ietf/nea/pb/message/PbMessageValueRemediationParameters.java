@@ -41,9 +41,9 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
 
     
     
-    PbMessageValueRemediationParameters(byte reserved,
-			long rpVendorId, long rpType,
-			AbstractPbMessageValueRemediationParametersValue parameter) {
+    PbMessageValueRemediationParameters(final byte reserved,
+			final long rpVendorId, final long rpType,
+			final AbstractPbMessageValueRemediationParametersValue parameter) {
 		super(FIXED_LENGTH + parameter.getLength());
 		this.reserved = reserved;
 		this.rpVendorId = rpVendorId;

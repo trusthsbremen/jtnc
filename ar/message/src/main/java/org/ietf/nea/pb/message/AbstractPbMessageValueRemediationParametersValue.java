@@ -4,11 +4,11 @@ public abstract class AbstractPbMessageValueRemediationParametersValue {
 	
 	private final long length;
 
-	AbstractPbMessageValueRemediationParametersValue(long length) {
+	AbstractPbMessageValueRemediationParametersValue(final long length) {
 		this.length = length;
 	}
 	
-	public final long getLength(){
+	public long getLength(){
 		return this.length;
 	}
 	

@@ -6,7 +6,7 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class BatchVersion {
 
-	public static void check(final byte actuallVersion, byte supportedVersion) throws ValidationException{
+	public static void check(final byte actuallVersion, final byte supportedVersion) throws ValidationException{
         if(actuallVersion != supportedVersion){
             throw new ValidationException("The version "+actuallVersion+" is not supported.",true,PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(),Long.toString(actuallVersion));
         }

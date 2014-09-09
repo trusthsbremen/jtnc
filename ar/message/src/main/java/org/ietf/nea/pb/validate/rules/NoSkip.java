@@ -10,8 +10,7 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class NoSkip {
 	 public static void check(final Set<PbMessageFlagsEnum> flags) throws ValidationException {
-	        if(!flags.contains(PbMessageFlagsEnum.NOSKIP)){
-	        	
+	        if(!flags.contains(PbMessageFlagsEnum.NOSKIP)){	
 	            throw new ValidationException("NOSKIP must be set for this message.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),Arrays.toString(flags.toArray()));
 	        }
 	    }

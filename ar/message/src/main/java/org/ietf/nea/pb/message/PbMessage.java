@@ -20,7 +20,7 @@ public class PbMessage implements TnccsMessage {
     private final long length;// 32 bit(s) min value is 12 for the 12 bytes in this header 
     private final AbstractPbMessageValue value;
 
-    PbMessage(PbMessageFlagsEnum[] flags, long vendorId, long type, AbstractPbMessageValue value) {
+    PbMessage(final PbMessageFlagsEnum[] flags, final long vendorId, final long type, final AbstractPbMessageValue value) {
     	if(flags.length > 0){
          	this.flags = EnumSet.copyOf(Arrays.asList(flags));
         }else {

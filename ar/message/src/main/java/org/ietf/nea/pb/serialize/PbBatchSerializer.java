@@ -16,6 +16,7 @@ import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbBatchSerializer implements
@@ -80,7 +81,7 @@ public class PbBatchSerializer implements
 	}
 
 	@Override
-	public PbBatch decode(final InputStream in, long length) throws SerializationException {
+	public PbBatch decode(final InputStream in, final long length) throws SerializationException {
 
 		PbBatchBuilderIetf builder = new PbBatchBuilderIetf();
 		
@@ -111,7 +112,14 @@ public class PbBatchSerializer implements
 			messageLength = addMessageToBatch(builder, in, l);
 		}
 		
-		return builder.toBatch();
+		PbBatch batch = null;
+		try{
+			batch = builder.toBatch();
+		}catch (ValidationException e){
+			throw new SerializationException("The batch is not valid because of constraint violations.", e);
+		}
+		
+		return batch;
 	}
 
 	private long createBatchHeader(final PbBatchBuilderIetf builder, final byte[] data) throws SerializationException{
