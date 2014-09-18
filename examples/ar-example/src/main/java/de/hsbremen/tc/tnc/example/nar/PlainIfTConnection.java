@@ -13,9 +13,9 @@ import org.ietf.nea.pb.translate.MessageContentTranslatorFactoryBatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.nar.connection.IfTConnection;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsMessageTranslator;
+import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
 
 public class PlainIfTConnection implements IfTConnection {
 
