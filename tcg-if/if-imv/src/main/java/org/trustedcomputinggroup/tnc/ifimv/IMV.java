@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimv;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * An Integrity Measurement Verifier (IMV).
  * These methods are implemented by the IMV and called by the 

@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimv;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * These methods are implemented by the TNC Server and 
  * called by the IMV.

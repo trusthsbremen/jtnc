@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimc;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * This interface can be implemented by an object that already supports 
  * the TNCC interface to indicate that this object is a TNCC that 

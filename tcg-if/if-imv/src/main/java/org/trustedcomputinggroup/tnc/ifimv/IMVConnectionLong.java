@@ -1,6 +1,6 @@
 package org.trustedcomputinggroup.tnc.ifimv;
 
-import org.trustedcomputinggroup.tnc.TNCException;
+
 /**
  * This interface can be implemented by an object that already supports 
  * the IMVConnection interface to indicate that this object is an 
@@ -111,7 +111,7 @@ public interface IMVConnectionLong {
 	 * this method. Since this method was not included in IF-IMV 1.2, 
 	 * many TNCSs do not implement it. IMVs MUST work properly if a 
 	 * TNCS does not implement this method. The IMV is never required 
-	 * to call this method. The TNCS MUST work with IMVs that don’t 
+	 * to call this method. The TNCS MUST work with IMVs that don't 
 	 * call this method. The IMV also SHOULD check the Has Long 
 	 * attribute for a given connection to determine whether this 
 	 * connection supports long types before calling this method 

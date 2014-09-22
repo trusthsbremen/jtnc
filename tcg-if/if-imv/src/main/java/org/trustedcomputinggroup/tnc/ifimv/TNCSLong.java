@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimv;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * This interface can be implemented by an object that already supports 
  * the TNCS interface to indicate that this object is a TNCS that 

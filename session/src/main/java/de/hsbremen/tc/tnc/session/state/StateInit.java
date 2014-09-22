@@ -1,33 +1,56 @@
 package de.hsbremen.tc.tnc.session.state;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.trustedcomputinggroup.tnc.TNCConstants;
-import org.trustedcomputinggroup.tnc.TNCException;
-import org.trustedcomputinggroup.tnc.tncc.IMCConnection;
-
-import de.hsbremen.jtnc.ar.exception.tncc.ImcMessageBufferMandatoryException;
-import de.hsbremen.jtnc.ar.message.enums.TnccsBatchDirectionalityEnum;
-import de.hsbremen.jtnc.ar.message.enums.TnccsBatchTypeEnum;
-import de.hsbremen.jtnc.ar.message.tnccs.TnccsAbstractMessage;
-import de.hsbremen.jtnc.ar.message.tnccs.TnccsBatch;
-import de.hsbremen.jtnc.ar.message.tnccs.ietf.TnccsMessageIm;
-import de.hsbremen.jtnc.ar.message.validator.TnccsHeaderValidatorFactory;
-import de.hsbremen.jtnc.ar.tncc.imc.ImcContainer;
-import de.hsbremen.jtnc.ar.tncc.imc.connection.ImcMessageBuffer;
-import de.hsbremen.jtnc.ar.tncc.session.TnccsSession;
-import de.hsbremen.jtnc.ar.tncc.session.timed.AbstractTimedImcFunctionCall;
-import de.hsbremen.jtnc.ar.tncc.session.timed.BeginHandshake;
 import de.hsbremen.tc.tnc.session.context.SessionContext;
+import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
-public class StateInit implements SessionState {
+public class StateInit extends AbstractPbState {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(StateInit.class);
 
 	@Override
-	public void handle(SessionContext context) {
-		context.initSession();
+	protected SessionState handleServer(SessionContext context)
+			throws ConnectionException, SerializationException {
 		
+		TnccsBatch b = createServerDataBatch();
+		
+		try{
+			context.sendBatch(b);
+		}catch(ConnectionException | SerializationException e){
+			LOGGER.error("Exception occured while trying to send a batch. Exception will be handled by super class.");
+			throw e;
+		}
+		
+		return new StateClientWorking();
 	}
 
+	@Override
+	protected SessionState handleClient(SessionContext context)
+			throws ConnectionException, SerializationException {
+		
+		TnccsBatch b = createClientDataBatch();
+		
+		try{
+			context.sendBatch(b);
+		}catch(ConnectionException | SerializationException e){
+			LOGGER.error("Exception occured while trying to send a batch. Exception will be handled by super class.");
+			throw e;
+		}
+		
+		return new StateServerWorking();
+	}
+	
+	private TnccsBatch createServerDataBatch(){
+		
+		return null;
+	}
+
+	private TnccsBatch createClientDataBatch(){
+		
+		return null;
+	}
 }

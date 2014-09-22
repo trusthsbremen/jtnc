@@ -8,15 +8,18 @@ import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.trustedcomputinggroup.tnc.TNCConstants;
-import org.trustedcomputinggroup.tnc.TNCException;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
+import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.client.exception.NoImIdsLeftException;
-import de.hsbremen.tc.tnc.im.container.ImcContainer;
+import de.hsbremen.tc.tnc.im.container.DefaultImContainer;
+import de.hsbremen.tc.tnc.im.container.ImContainer;
 import de.hsbremen.tc.tnc.im.loader.ImLoader;
+import de.hsbremen.tc.tnc.im.manager.ImManager;
 import de.hsbremen.tc.tnc.session.TncContext;
 import de.hsbremen.tc.tnc.session.context.TncSession;
+import de.hsbremen.tc.tnc.session.context.enums.SessionEventEnum;
 import de.hsbremen.tc.tnc.transport.IfTransportFactory;
 import de.hsbremen.tc.tnc.transport.connection.IfTAddress;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
@@ -24,23 +27,24 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class TncClient implements TnccConnector, TncContext{
 
+	// this is very simple and should be changed in the future to make IDs reusable if an IMC is terminated.
 	private long imcCounter;
 	
 	private final Map<String,IfTAddress> peers;
 	private final Map<String,TncSession> activeSessions;
-	private final List<ImcContainer> imcList;
+	private final List<ImContainer<IMC>> imcList;
 	
 	private final ExecutorService executor;
-	private final ImLoader<IMC> imcLoader;
+	private final ImManager<IMC> imcManager;
 	private final IfTransportFactory transportFactory;
 	
-	public TncClient(Map<String, IfTAddress> peers, ImLoader<IMC> loader, IfTransportFactory transportFactory, ExecutorService executor) {
+	public TncClient(Map<String, IfTAddress> peers, ImManager<IMC> imcManager, IfTransportFactory transportFactory, ExecutorService executor) {
 
 		this.imcCounter = 0;
 		
 		this.peers = peers;
 		this.executor = executor;
-		this.imcLoader = loader;
+		this.imcManager = imcManager;
 		this.transportFactory = transportFactory;
 		
 		this.imcList = new LinkedList<>();
@@ -50,11 +54,12 @@ public class TncClient implements TnccConnector, TncContext{
 	@Override
 	public void startUp() throws NoImIdsLeftException {
 		
-		List<IMC> ims = imcLoader.loadImlist();
+		imcManager.loadAll(tncConfig);
 		for (IMC im : ims) {
 			long imcId = this.reserveImId();
 			if(imcId >= 0){
-				this.imcList.add(new ImcContainer(this.reserveImId(), im));
+				// TODO invoke initialize
+				this.imcList.add(new DefaultImContainer<IMC>(this.reserveImId(), im));
 			}else{
 				throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",Long.toString(imcCounter));
 			}
@@ -79,9 +84,9 @@ public class TncClient implements TnccConnector, TncContext{
 			e.printStackTrace();
 		}
 		// terminate IMC
-		for (ImcContainer imc : this.imcList) {
+		for (ImContainer<IMC> imc : this.imcList) {
 			try {
-				((IMC)imc.getIm()).terminate();
+				imc.getIm().terminate();
 			} catch (TNCException e) {
 				// TODO LOG
 				e.printStackTrace();
@@ -150,6 +155,13 @@ public class TncClient implements TnccConnector, TncContext{
 	@Override
 	public boolean isServer() {
 		return false;
+	}
+
+	@Override
+	public void notifyClient(String sessionId, SessionEventEnum event,
+			Object updateData) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

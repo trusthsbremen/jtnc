@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimc;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * The IMC and TNCC use this IMCConnection object to refer 
  * to the network connection when delivering messages 

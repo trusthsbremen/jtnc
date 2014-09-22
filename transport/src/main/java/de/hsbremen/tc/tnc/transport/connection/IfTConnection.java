@@ -1,6 +1,6 @@
 package de.hsbremen.tc.tnc.transport.connection;
 
-import de.hsbremen.tc.tnc.ifimc.Attributed;
+import de.hsbremen.tc.tnc.im.Attributed;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;

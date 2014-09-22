@@ -21,7 +21,7 @@ public class SimpleImcLoader implements ImLoader<IMC>{
 	@Override
 	public List<IMC> loadImlist() {
 		List<String> lines = TncConfigFilter.getLines(this.tncConfig, TYPE.classifier());
-		List<IMC> imList = JarLoader.loadImcList(lines);
+		List<IMC> imList = JarLoader.loadImList(lines);
 		
 		return imList;
 	}

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.trustedcomputinggroup.tnc.TNCConstants;
-import org.trustedcomputinggroup.tnc.TNCException;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
+import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 import org.trustedcomputinggroup.tnc.tncc.IMCConnection;
 
 import de.hsbremen.jtnc.ar.exception.tncc.ImcMessageBufferMandatoryException;

@@ -9,11 +9,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.trustedcomputinggroup.tnc.TNCConstants;
-import org.trustedcomputinggroup.tnc.TNCException;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
+import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
-import de.hsbremen.tc.tnc.im.container.ImcContainer;
+import de.hsbremen.tc.tnc.im.container.DefaultImContainer;
+import de.hsbremen.tc.tnc.im.container.ImContainer;
 import de.hsbremen.tc.tnc.im.loader.ImLoader;
 import de.hsbremen.tc.tnc.session.context.DefaultPbcSessionBuilder;
 import de.hsbremen.tc.tnc.session.context.TncSession;
@@ -25,7 +26,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 
 	
 	private long imcCounter;
-    private List<ImcContainer> imcList;
+    private List<DefaultImContainer> imcList;
     private ExecutorService executor;
     private Map<IfTConnection,TncSession> activeSessions;
     private TncSessionBuilder sessionBuilder;
@@ -84,7 +85,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 			e.printStackTrace();
 		}
 		// terminate IMC
-		for (ImcContainer imc : imcList) {
+		for (ImContainer imc : imcList) {
 			try {
 				((IMC)imc.getIm()).terminate();
 			} catch (TNCException e) {
@@ -105,7 +106,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 		for (IMC im : ims) {
 			if(im instanceof IMC){
 				if(imcCounter < TNCConstants.TNC_IMCID_ANY){
-					this.imcList.add(new ImcContainer(++imcCounter, im));
+					this.imcList.add(new DefaultImContainer(++imcCounter, im));
 				}else{
 					throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",Long.toString(imcCounter));
 				}

@@ -8,13 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
 
-import de.hsbremen.tc.tnc.ifimc.Attributed;
+public class DefaultImContainer<T> implements ImContainer<T>{
 
-public class ImcContainer implements Attributed{
-
-    private final IMC im;
+    private final T im;
     
     private final long primaryId;
     
@@ -25,7 +22,7 @@ public class ImcContainer implements Attributed{
    
     private List<SupportedMessageType> supportedMessageTypes;
 
-    public ImcContainer(final long primaryImId, final IMC im) {
+    public DefaultImContainer(final long primaryImId, final T im) {
     	this.primaryId = primaryImId;
     	this.imIds = new ArrayList<>();
     	this.imIds.add(primaryImId);
@@ -33,31 +30,52 @@ public class ImcContainer implements Attributed{
     }
     
 
-	public IMC getIm(){
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#getIm()
+	 */
+	@Override
+	public T getIm(){
     	return this.im;
     }
     
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#getPrimaryId()
+	 */
+	@Override
 	public long getPrimaryId(){
     	return primaryId;
     }
     
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#getSupportedMessageTypes()
+	 */
+	@Override
 	public List<SupportedMessageType> getSupportedMessageTypes(){
 	   return Collections.unmodifiableList(supportedMessageTypes);
     }
 
-	/**
-	 * @return the tncsFirstSupport
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#hasTncsFirstSupport()
 	 */
-	public boolean hasTncsFirstSupport() {
+	@Override
+	public boolean supportsTncsFirst() {
 		return this.tncsFirstSupport;
 	}
 
-	public List<Long> getImIds(){
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#getImIds()
+	 */
+	@Override
+	public List<Long> getAllImIds(){
     	return Collections.unmodifiableList(imIds);
     }
     
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#addImId(long)
+	 */
+	@Override
 	public void addImId(long imId){
     	if(imId == 0){
     		throw new IllegalArgumentException("ID cannot be 0.");
@@ -65,6 +83,10 @@ public class ImcContainer implements Attributed{
     	this.imIds.add(imId);
     }
 	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#setSupportedMessageTypes(java.util.List)
+	 */
+	@Override
 	public void setSupportedMessageTypes(final List<SupportedMessageType> supportedTypes){
     	if(supportedTypes != null){
     		this.supportedMessageTypes = supportedTypes;
@@ -74,6 +96,9 @@ public class ImcContainer implements Attributed{
     }
 
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#getAttribute(java.lang.Long)
+	 */
 	@Override
 	public Object getAttribute(Long id) {
 		Object o = null;
@@ -89,6 +114,9 @@ public class ImcContainer implements Attributed{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#getAttributes()
+	 */
 	@Override
 	public Map<Long, Object> getAttributes() {
 		Map<Long, Object> attributes = new HashMap<>();
@@ -100,6 +128,9 @@ public class ImcContainer implements Attributed{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#setAttribute(java.lang.Long, java.lang.Object)
+	 */
 	@Override
 	public boolean setAttribute(Long id, Object value) {
 		boolean success = false;

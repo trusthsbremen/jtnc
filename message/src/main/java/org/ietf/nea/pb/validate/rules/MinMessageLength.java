@@ -9,7 +9,7 @@ public class MinMessageLength {
 
 	 public static void check(final long actualLength, final long minLength) throws ValidationException {
 		 	if(actualLength < minLength){
-	            throw new ValidationException("Message has an invalid length for its type.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.LENGTH_TO_SHORT.number(),Long.toString(actualLength));
+	            throw new ValidationException("Batch/Message has an invalid length for its type.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.LENGTH_TO_SHORT.number(),Long.toString(actualLength));
 	        }
 	 }
 	

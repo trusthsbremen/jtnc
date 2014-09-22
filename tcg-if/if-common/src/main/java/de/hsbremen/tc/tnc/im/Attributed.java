@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.ifimc;
+package de.hsbremen.tc.tnc.im;
 
 import java.util.Map;
 

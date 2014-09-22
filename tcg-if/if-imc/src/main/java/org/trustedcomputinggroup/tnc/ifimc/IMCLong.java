@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimc;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * This interface can be implemented by an object that already supports
  * the IMC interface to indicate that this object is an IMC that 
@@ -119,7 +118,7 @@ public interface IMCLong {
 	 * In the messageVendorID and messageSubtype parameters, the TNCC 
 	 * MUST pass the vendor ID and message subtype of the message. 
 	 * These values MUST match one of the values previously supplied 
-	 * by the IMC to the TNCC in the IMC’s most recent call to 
+	 * by the IMC to the TNCC in the IMCï¿½s most recent call to 
 	 * reportMessageTypes or reportMessageTypesLong. The TNCC MUST NOT
 	 * specify a message type whose vendor ID is 0xffffff or whose 
 	 * subtype is 0xff. These values are reserved for use as wild 

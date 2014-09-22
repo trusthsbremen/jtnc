@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimc;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * These methods can be implemented by an object in the IMC package to
  * get or set attributes.  This interface also includes a collection 

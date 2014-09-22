@@ -41,7 +41,7 @@ public class JarLoader {
 		return lines;
 	}
 	
-	public static <T> List<T> loadImcList(List<String> lines) {
+	public static <T> List<T> loadImList(List<String> lines) {
 		List<T> imList = new ArrayList<>();
 		//TODO maybe a more complex pattern here
 		String javaNaming = "([a-zA-Z_$]{1}[a-zA-Z_$0-9]*(\\.[a-zA-Z_$]{1}[a-zA-Z_$0-9]*)*)";
@@ -56,7 +56,7 @@ public class JarLoader {
 			String mainClass = m.group(2).trim();
 			// 4 is an intermediate match
 			String path = m.group(4).trim();
-			T im = loadImc(name, mainClass, path);
+			T im = loadIm(name, mainClass, path);
 			
 			if(im != null){
 				imList.add(im);
@@ -67,7 +67,7 @@ public class JarLoader {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	private static <T> T loadImc(String name, String mainClass, String path){
+	private static <T> T loadIm(String name, String mainClass, String path){
 		T im = null;
 		
 		URL url = null;

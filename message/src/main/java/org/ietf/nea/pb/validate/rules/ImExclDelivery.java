@@ -5,7 +5,7 @@ import java.util.Set;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
-import org.trustedcomputinggroup.tnc.TNCConstants;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 

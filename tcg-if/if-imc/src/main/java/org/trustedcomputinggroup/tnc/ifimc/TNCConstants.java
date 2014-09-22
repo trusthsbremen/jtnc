@@ -1,4 +1,4 @@
-package org.trustedcomputinggroup.tnc;
+package org.trustedcomputinggroup.tnc.ifimc;
 /**
 * A collection of well known or common constants 
 * to be used by the IMC and IMV packages.
@@ -80,7 +80,7 @@ public interface TNCConstants {
    public static final long TNC_CONNECTION_STATE_ACCESS_NONE = 4;
    
    /**
-    * About to delete network connection . Remove all associated 
+    * About to delete network connection. Remove all associated 
     * state.
     */
    
@@ -112,117 +112,20 @@ public interface TNCConstants {
 
     /**
      * Message flag specifying whether connection supports exclusive
-	 * delivery of messages to IMV.
+	 * delivery of messages to IMC.
      */
+
 	public static final long TNC_MESSAGE_FLAGS_EXCLUSIVE = 0x80000000;
-    
-    /**
-     * Preferred human-readable language(s) as an Accept-Language
-     * header (type String, may get from a TNCS or IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_PREFERRED_LANGUAGE = 1;
-    
-    /**
-     * Reason for IMV Recommendation (type String, may set for
-     * an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_REASON_STRING = 2;
-    
-    /**
-     * Language(s) for Reason String as an RFC 3066 language tag
-     * (type String, may set for an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_REASON_LANGUAGE = 3;
-
-    /**
-     * Maximum round trips supported by the underlying protocol 
-	 * (type Integer, may get from an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_MAX_ROUND_TRIPS = 0x00559700;
-
-    /**
-     * Maximum message size supported by the underlying protocol 
-	 * (type Integer, may get from an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_MAX_MESSAGE_SIZE = 0x00559701;
-
-    /**
-     * Diffie-Hellman Pre-Negotiation value provided by the underlying 
-	 * protocol (type byte[], may get from an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_DHPN_VALUE = 0x00559702;
-
-    /**
-     * Flag indicating if the connection supports long message types 
-	 * (type boolean, may get from an IMVConnection) 
-     */
-    public static final long TNC_ATTRIBUTEID_HAS_LONG_TYPES = 0x00559703;
-
-    /**
-     * Flag indicating if the connection supports exclusive delivery 
-	 * of messages (type boolean, may get from an IMVConnection) 
-     */
-    public static final long TNC_ATTRIBUTEID_HAS_EXCLUSIVE = 0x00559704;
-
-    /**
-     * Flag indicating if the connection supports SOH functions 
-	 * (type boolean, may get from an IMVConnection) 
-     */
-    public static final long TNC_ATTRIBUTEID_HAS_SOH = 0x00559705;
-
-    /**
-     * Contents of SOH (type byte [], may get from an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_SOH = 0x00559706;
-
-    /**
-     * Contents of SSOH (type byte [], may get from an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_SSOH = 0x00559707;
-
-    /**
-     * IF-TNCCS Protocol Name (type String, may get from 
-	 * an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_IFTNCCS_PROTOCOL = 0x0055970A;
-
-    /**
-     * IF-TNCCS Protocol Version (type String, may get from 
-	 * an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_IFTNCCS_VERSION = 0x0055970B;
-
-    /**
-     * IF-T Protocol Name (type String, may get from 
-	 * an IMVConnection) 
-     */
-    public static final long TNC_ATTRIBUTEID_IFT_PROTOCOL = 0x0055970C;
-
-    /**
-     * IF-T Protocol Version (type String, may get from 
-	 * an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_IFT_VERSION = 0x0055970D;
-
-    /**
-     * TLS-Unique value provided by the underlying protocol (type 
-	 * byte[], may get from a IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_TLS_UNIQUE = 0x0055970E;
-
-    /**
-     * Primary ID for IMV (type Long, may get from a TNCS or 
-	 * an IMVConnection)
-     */
-    public static final long TNC_ATTRIBUTEID_PRIMARY_IMV_ID = 0x00559710;
 
     /**
 	 * Reserved value for IMC ID.
      */
+
 	public static final long TNC_IMCID_ANY = 0xffff;
 
     /**
      * Reserved value for IMV ID.
      */
+
 	public static final long TNC_IMVID_ANY = 0xffff;
 }

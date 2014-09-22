@@ -9,12 +9,10 @@ public interface SessionContext extends TncSession {
 	
 	abstract boolean isServerSession();
 	
-	abstract void initSession();
-	
 	abstract TnccsBatch getCurrentBatch();
 	
 	// TODO throws exception if not working
-	abstract void receiveBatch() throws SerializationException, ConnectionException;
+	abstract TnccsBatch receiveBatch() throws SerializationException, ConnectionException;
 
 	// TODO throws exception if not working
 	abstract void sendBatch(TnccsBatch b) throws SerializationException, ConnectionException;

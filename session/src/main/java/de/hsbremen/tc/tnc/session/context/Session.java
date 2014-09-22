@@ -3,7 +3,6 @@ package de.hsbremen.tc.tnc.session.context;
 import de.hsbremen.tc.tnc.session.TncContext;
 import de.hsbremen.tc.tnc.session.context.enums.SessionEventEnum;
 import de.hsbremen.tc.tnc.session.state.SessionState;
-import de.hsbremen.tc.tnc.session.state.StateEnd;
 import de.hsbremen.tc.tnc.session.state.StateInit;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.exception.HandlingException;
@@ -18,6 +17,7 @@ public class Session implements SessionContext, TncSession{
 	private boolean shutdown;
 	private TncContext context;
 	private IfTConnection connection;
+	
 	
 	public Session(TncContext context, IfTConnection connection){
 		this.shutdown = false;
@@ -43,12 +43,6 @@ public class Session implements SessionContext, TncSession{
 	@Override
 	public boolean isServerSession() {
 		return context.isServer();
-	}
-
-	@Override
-	public void initSession() {
-		// INIT IMC/V and Notify CREATE
-		
 	}
 
 	@Override

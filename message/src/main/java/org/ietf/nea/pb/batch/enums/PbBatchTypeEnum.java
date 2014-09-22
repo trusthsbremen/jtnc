@@ -56,7 +56,8 @@ public enum PbBatchTypeEnum {
     RESULT ((byte)3),
     CRETRY ((byte)4),
     SRETRY ((byte)5),
-    CLOSE  ((byte)6);
+    CLOSE  ((byte)6),
+    UNKNOWN ((byte)0);
     
     private byte number;
     

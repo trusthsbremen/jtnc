@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimc;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 /**
  * These methods are implemented by the IMC and called by the 

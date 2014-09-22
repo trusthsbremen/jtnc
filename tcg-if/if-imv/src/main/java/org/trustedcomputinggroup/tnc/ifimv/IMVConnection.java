@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimv;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * The IMV and TNCS use this IMVConnection object to 
  * refer to the network connection when delivering 

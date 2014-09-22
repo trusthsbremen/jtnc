@@ -1,6 +1,5 @@
 package org.trustedcomputinggroup.tnc.ifimv;
 
-import org.trustedcomputinggroup.tnc.TNCException;
 /**
  * This interface can be implemented by an object that already supports
  * the IMV interface to indicate that this object is an IMV that 
@@ -119,7 +118,7 @@ public interface IMVLong {
 	 * In the messageVendorID and messageSubtype parameters, the TNCS 
 	 * MUST pass the vendor ID and message subtype of the message. 
 	 * These values MUST match one of the values previously supplied 
-	 * by the IMV to the TNCS in the IMV’s most recent call to 
+	 * by the IMV to the TNCS in the IMVï¿½s most recent call to 
 	 * reportMessageTypes or reportMessageTypesLong. The TNCS MUST NOT
 	 * specify a message type whose vendor ID is 0xffffff or whose 
 	 * subtype is 0xff. These values are reserved for use as wild 
@@ -142,7 +141,9 @@ public interface IMVLong {
 	 * 
 	 * @throws TNCException if a TNC error occurs
 	 */
-	void receiveMessageLong(IMVConnectionLong c,
+	// FIXME corrected this to the super interface IMVConnection as is the case in IMCConnectionLong
+	// Genzel 2014-09-20
+	void receiveMessageLong(IMVConnection c,
 							long messageFlags,
 							long messageVendorID,
 							long messageSubtype,

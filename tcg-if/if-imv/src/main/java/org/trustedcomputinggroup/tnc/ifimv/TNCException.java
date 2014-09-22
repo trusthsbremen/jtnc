@@ -1,4 +1,4 @@
-package org.trustedcomputinggroup.tnc;
+package org.trustedcomputinggroup.tnc.ifimv;
 /**
  * An exception that provides information on IF-IMC/IF-IMV errors.  This
  * exception class which wraps the result codes defined in the IF-IMC
@@ -64,6 +64,11 @@ package org.trustedcomputinggroup.tnc;
 public class TNCException extends Exception {
 	
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1701914844092560832L;
+
+	/**
      * The IMC or IMV's <code>initialize</code> method has not been called.
      */
     
