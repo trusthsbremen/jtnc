@@ -1,7 +1,6 @@
 package org.ietf.nea.pb.validate.rules;
 
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
-import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 

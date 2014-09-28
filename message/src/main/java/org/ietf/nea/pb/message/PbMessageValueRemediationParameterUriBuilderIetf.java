@@ -8,8 +8,6 @@ import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 import org.ietf.nea.pb.validate.rules.NoZeroString;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageSubValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageSubValueBuilder;
 
 public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessageValueRemediationParameterUriBuilder{
 
@@ -23,18 +21,21 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
 	 * @see org.ietf.nea.pb.message.PbMessageValueRemediationParameterUriBuilder#setUri(java.lang.String)
 	 */
 	@Override
-	public void setUri(String uri) throws ValidationException {
-		NoZeroString.check(uri);
+	public PbMessageValueRemediationParameterUriBuilder setUri(String uri) throws ValidationException {
 		
+		NoZeroString.check(uri);
 		try{
 			this.uri = new URI(uri);
 		} catch (URISyntaxException e) {
 			throw new ValidationException("URI syntax not valid.",e, true, PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.URI_SYNTAX_NOT_VALID.number(),uri);
 		}
+		
+		return this;
 	}
 
 	@Override
-	public TnccsMessageSubValue toValue() throws ValidationException {
+	public PbMessageValueRemediationParameterUri toValue() throws ValidationException {
+		
 		if( uri == null){
 				throw new IllegalStateException("A message value has to be set.");
 		}
@@ -43,7 +44,7 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
 	}
 
 	@Override
-	public TnccsMessageSubValueBuilder clear() {
+	public PbMessageValueRemediationParameterUriBuilder clear() {
 
 		return new PbMessageValueRemediationParameterUriBuilderIetf();
 	}

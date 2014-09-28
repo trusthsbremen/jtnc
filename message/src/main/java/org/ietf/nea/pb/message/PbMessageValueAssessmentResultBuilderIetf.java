@@ -4,8 +4,6 @@ import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.validate.rules.AssessmentResult;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueAssessmentResultBuilderIetf implements
 		PbMessageValueAssessmentResultBuilder {
@@ -21,19 +19,22 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 	 * @see org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilder#setResult(long)
 	 */
 	@Override
-	public void setResult(long result) throws ValidationException {
+	public PbMessageValueAssessmentResultBuilder setResult(long result) throws ValidationException {
+		
 		AssessmentResult.check(result);
 		this.result = PbMessageAssessmentResultEnum.fromNumber(result);
+		
+		return this;
 	}
 
 	@Override
-	public TnccsMessageValue toValue() throws ValidationException {
+	public PbMessageValueAssessmentResult toValue() throws ValidationException {
 		
 		return new PbMessageValueAssessmentResult(this.result);
 	}
 
 	@Override
-	public TnccsMessageValueBuilder clear() {
+	public PbMessageValueAssessmentResultBuilder clear() {
 		// TODO Auto-generated method stub
 		return new PbMessageValueAssessmentResultBuilderIetf();
 	}

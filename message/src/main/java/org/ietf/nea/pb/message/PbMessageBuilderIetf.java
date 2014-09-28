@@ -6,6 +6,7 @@ import java.util.EnumSet;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.validate.rules.PaMessageNoSkip;
+import org.ietf.nea.pb.validate.rules.PaMessageUnknownButNoSkip;
 import org.ietf.nea.pb.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -31,41 +32,50 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 	 * @see org.ietf.nea.pb.message.PbMessageBuilder#setFlags(byte)
 	 */
 	@Override
-	public void setFlags(final byte flags){
+	public PbMessageBuilder setFlags(final byte flags){
 		
 		if ((flags & 0x80) == PbMessageFlagsEnum.NOSKIP.bit()) {
 			this.flags = new PbMessageFlagsEnum[]{PbMessageFlagsEnum.NOSKIP};
 		}
+		
+		return this;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageBuilder#setVendorId(long)
 	 */
 	@Override
-	public void setVendorId(final long vendorId) throws ValidationException{
-		VendorIdReservedAndLimits.check(vendorId);
+	public PbMessageBuilder setVendorId(final long vendorId) throws ValidationException{
 		
+		VendorIdReservedAndLimits.check(vendorId);
 		this.vendorId = vendorId;
+		
+		return this;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageBuilder#setType(long)
 	 */
 	@Override
-	public void setType(final long type) throws ValidationException{
-		VendorIdReservedAndLimits.check(type);
+	public PbMessageBuilder setType(final long type) throws ValidationException{
 		
+		VendorIdReservedAndLimits.check(type);
 		this.type = type;
+		
+		return this;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageBuilder#setValue(org.ietf.nea.pb.message.AbstractPbMessageValue)
 	 */
 	@Override
-	public void setValue(final AbstractPbMessageValue value){
+	public PbMessageBuilder setValue(final AbstractPbMessageValue value){
+		
 		if(value != null){
 			this.addValueAndCheckLength(value);
 		}
+		
+		return this;
 	}
 	
 	
@@ -75,12 +85,13 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 	 */
 	@Override
 	public PbMessage toMessage() throws ValidationException{
+		
 		if(value == null){
 			throw new IllegalStateException("A message value has to be set.");
 		}
 		
 		PaMessageNoSkip.check(this.value, EnumSet.copyOf(Arrays.asList(flags)));
-		
+		PaMessageUnknownButNoSkip.check(this.value, EnumSet.copyOf(Arrays.asList(flags)));
 		// TODO if necessary make a message length check here, first finding the correct message type the the length parameter
 		// it seems not necessary, because the length is set by the content.
 		
@@ -95,6 +106,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 			throw new ArithmeticException("Message size is to large.");
 		}
 		this.length += valueLength;
+		
 		this.value = value;
 }
 

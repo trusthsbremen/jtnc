@@ -5,7 +5,7 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public interface PbMessageValueLanguagePreferenceBuilder extends TnccsMessageValueBuilder{
 
-	public abstract void setLanguagePreference(String languagePreference)
+	public abstract PbMessageValueLanguagePreferenceBuilder setLanguagePreference(String languagePreference)
 			throws ValidationException;
 
 }

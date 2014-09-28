@@ -2,7 +2,7 @@ package org.ietf.nea.pb.message;
 
 import java.net.URI;
 
-public class PbMessageValueRemediationParameterUri extends AbstractPbMessageValueRemediationParametersValue{
+public class PbMessageValueRemediationParameterUri extends AbstractPbMessageSubValue{
 
 //    //overload the superclass default vendorId, type and length value
 //    protected final long rpVendorId = IETFConstants.IETF_PEN_VENDORID; // 24 bit(s)

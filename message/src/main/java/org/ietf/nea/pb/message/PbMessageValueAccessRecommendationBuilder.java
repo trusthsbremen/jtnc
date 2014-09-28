@@ -5,7 +5,7 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public interface PbMessageValueAccessRecommendationBuilder extends TnccsMessageValueBuilder{
 
-	public abstract void setRecommendation(short recommendation)
+	public abstract PbMessageValueAccessRecommendationBuilder setRecommendation(short recommendation)
 			throws ValidationException;
 
 }

@@ -9,6 +9,6 @@ public interface PbMessageValueAssessmentResultBuilder extends TnccsMessageValue
 	 * @param result the result to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setResult(long result) throws ValidationException;
+	public abstract PbMessageValueAssessmentResultBuilder setResult(long result) throws ValidationException;
 
 }

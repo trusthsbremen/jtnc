@@ -128,8 +128,10 @@ public class PbBatchSerializer implements
 				if(t != null && t instanceof PbMessageUnknownException){
 					// TODO log
 					PbMessage pb = ((PbMessageUnknownException)t).getPbMessage();
+					// get the length to continue message parsing.
 					messageLength = (pb != null) ? pb.getLength() : 0;
 				}else{
+					// throw this message because it can not be handled here.
 					throw e;
 				}
 			}

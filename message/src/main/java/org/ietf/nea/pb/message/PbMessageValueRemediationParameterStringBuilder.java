@@ -9,14 +9,14 @@ public interface PbMessageValueRemediationParameterStringBuilder extends TnccsMe
 	 * @param remediationString the remediationString to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setRemediationString(String remediationString)
+	public abstract PbMessageValueRemediationParameterStringBuilder setRemediationString(String remediationString)
 			throws ValidationException;
 
 	/**
 	 * @param langCode the langCode to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setLangCode(String langCode)
+	public abstract PbMessageValueRemediationParameterStringBuilder setLangCode(String langCode)
 			throws ValidationException;
 
 }

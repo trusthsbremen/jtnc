@@ -5,7 +5,7 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public interface PbMessageValueExperimentalBuilder extends TnccsMessageValueBuilder{
 
-	public abstract void setMessage(String message)
+	public abstract PbMessageValueExperimentalBuilder setMessage(String message)
 			throws ValidationException;
 
 }

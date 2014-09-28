@@ -44,7 +44,7 @@ import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 public class PbMessageValueIm extends AbstractPbMessageValue{
 
     public static final byte FIXED_LENGTH = 12;
-    private static final boolean NO_SKIP = Boolean.TRUE;
+    private static final boolean OMMITTABLE = Boolean.FALSE;
     
     private final EnumSet<PbMessageImFlagsEnum> imFlags; //  8 bit(s)
    
@@ -60,7 +60,7 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
     
     PbMessageValueIm(final PbMessageImFlagsEnum[] flags, final long subVendorId, final long subType,
 			final long collectorId, final long validatorId, final byte[] message) {
-		super(FIXED_LENGTH + message.length, NO_SKIP);
+		super(FIXED_LENGTH + message.length, OMMITTABLE);
 		
 		if(flags != null && flags.length > 0){
 	        	this.imFlags = EnumSet.copyOf(Arrays.asList(flags));

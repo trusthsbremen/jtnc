@@ -14,6 +14,7 @@ import org.ietf.nea.pb.exception.PbMessageUnknownException;
 import org.ietf.nea.pb.message.AbstractPbMessageValue;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilder;
+import org.ietf.nea.pb.message.PbMessageValueBuilderHsb;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
@@ -117,6 +118,7 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 					Integer.toString(count));
 		}
 
+		PbMessage message = null;
 		if (this.pbMessageValueSerializers.containsKey(vendorId)) {
 			if (this.pbMessageValueSerializers.get(vendorId)
 					.containsKey(messageType)) {
@@ -125,23 +127,20 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 						.get(vendorId).get(messageType)
 						.decode(in, messageLength - PbMessage.FIXED_LENGTH);
 				pbBuilder.setValue(value);
-				
-				PbMessage message = null;
-				
+
 				message = (PbMessage) pbBuilder.toMessage();
 				
 				return message;
 			}
 		}
 		
+		// Unknown message error creation
 		byte[] dump = dumpContent(in, messageLength - PbMessage.FIXED_LENGTH);
-
-		throw new SerializationException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",new PbMessageUnknownException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.", pbBuilder, ((flags & PbMessageFlagsEnum.NOSKIP.bit()) > 0), dump));
-
+		pbBuilder.setValue(PbMessageValueBuilderHsb.createUnknownValue(((flags & PbMessageFlagsEnum.NOSKIP.bit()) > 0), dump));
+		message = (PbMessage) pbBuilder.toMessage();
 		
-//		throw new SerializationException(
-//				"Message vendor and/or type are not supported.",
-//				Long.toString(vendorId), Long.toString(messageType));
+		throw new SerializationException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",
+				new PbMessageUnknownException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",message), Long.toString(vendorId), Long.toString(messageType));
 	}
 
 	private byte[] dumpContent(final InputStream in, long length) throws SerializationException{

@@ -2,7 +2,7 @@ package org.ietf.nea.pb.message;
 
 import java.nio.charset.Charset;
 
-public class PbMessageValueRemediationParameterString extends AbstractPbMessageValueRemediationParametersValue{
+public class PbMessageValueRemediationParameterString extends AbstractPbMessageSubValue{
 
     public static final byte FIXED_LENGTH = 5;
    

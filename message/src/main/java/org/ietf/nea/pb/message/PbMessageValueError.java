@@ -31,7 +31,7 @@ import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 public class PbMessageValueError extends AbstractPbMessageValue {
 
     public static final byte FIXED_LENGTH = 8;
-    private static final boolean NO_SKIP = Boolean.TRUE;
+    private static final boolean OMMITTABLE = Boolean.FALSE;
     
     private final EnumSet<PbMessageErrorFlagsEnum> errorFlags; //  8 bit(s) 
     private final long errorVendorId;                                           // 24 bit(s)
@@ -44,7 +44,7 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 	PbMessageValueError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId,
 			final short errorCode, final short reserved,
 			final byte[] errorParameter) {
-		super(FIXED_LENGTH + errorParameter.length, NO_SKIP);
+		super(FIXED_LENGTH + errorParameter.length, OMMITTABLE);
 		
 		if(flags != null && flags.length > 0){
 	       	this.errorFlags = EnumSet.copyOf(Arrays.asList(flags));

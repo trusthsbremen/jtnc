@@ -8,38 +8,38 @@ public interface PbMessageValueImBuilder extends TnccsMessageValueBuilder {
 	/**
 	 * @param imFlags the imFlags to set
 	 */
-	public abstract void setImFlags(byte imFlags);
+	public abstract PbMessageValueImBuilder setImFlags(byte imFlags);
 
 	/**
 	 * @param subVendorId the subVendorId to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setSubVendorId(long subVendorId)
+	public abstract PbMessageValueImBuilder setSubVendorId(long subVendorId)
 			throws ValidationException;
 
 	/**
 	 * @param subType the subType to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setSubType(long subType) throws ValidationException;
+	public abstract PbMessageValueImBuilder setSubType(long subType) throws ValidationException;
 
 	/**
 	 * @param collectorId the collectorId to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setCollectorId(long collectorId)
+	public abstract PbMessageValueImBuilder setCollectorId(long collectorId)
 			throws ValidationException;
 
 	/**
 	 * @param validatorId the validatorId to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setValidatorId(long validatorId)
+	public abstract PbMessageValueImBuilder setValidatorId(long validatorId)
 			throws ValidationException;
 
 	/**
 	 * @param message the message to set
 	 */
-	public abstract void setMessage(byte[] message);
+	public abstract PbMessageValueImBuilder setMessage(byte[] message);
 
 }

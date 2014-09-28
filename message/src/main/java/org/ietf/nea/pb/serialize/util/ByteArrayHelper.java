@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-
 public final class ByteArrayHelper {
 
 	public static long toLong(byte[] b){

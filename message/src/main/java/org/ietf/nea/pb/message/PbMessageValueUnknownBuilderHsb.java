@@ -1,41 +1,45 @@
 package org.ietf.nea.pb.message;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueUnknownBuilderHsb implements
 		PbMessageValueUnknownBuilder {
 	
 	private byte[] message; //ImMessage as byte[]
-	private boolean noSkip;
+	private boolean ommittable;
 	
 	
 	public PbMessageValueUnknownBuilderHsb(){
 		this.message = new byte[0];
-		this.noSkip = Boolean.FALSE;
+		this.ommittable = Boolean.FALSE;
 	}
 	
-    public void setHasNoSkip(boolean noSkip){
-    	this.noSkip = noSkip;
-    }
+	@Override
+    public PbMessageValueUnknownBuilder setOmmittable(boolean ommittable){
+    	
+		this.ommittable = ommittable;
+		
+		return this;
+	}
 	
 	@Override
-	public void setMessage(byte[] message) throws ValidationException {
+	public PbMessageValueUnknownBuilder setMessage(byte[] message) throws ValidationException {
 		// no checks necessary because experimental
 		if(message != null){
 			this.message = message;
 		}
+
+		return this;
 	}
 	
 	@Override
-	public TnccsMessageValue toValue() throws ValidationException {
+	public PbMessageValueUnknown toValue() throws ValidationException {
 
-		return new PbMessageValueUnknown(this.noSkip, this.message);
+		return new PbMessageValueUnknown(this.ommittable, this.message);
 	}
 
 	@Override
-	public TnccsMessageValueBuilder clear() {
+	public PbMessageValueUnknownBuilder clear() {
 		
 		return new PbMessageValueUnknownBuilderHsb();
 	}

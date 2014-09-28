@@ -1,8 +1,6 @@
 package org.ietf.nea.pb.message;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueExperimentalBuilderIetf implements
 		PbMessageValueExperimentalBuilder {
@@ -14,21 +12,23 @@ public class PbMessageValueExperimentalBuilderIetf implements
 	}
 	
 	@Override
-	public void setMessage(String message) throws ValidationException {
+	public PbMessageValueExperimentalBuilder setMessage(String message) throws ValidationException {
 		// no checks necessary because experimental
 		if(message != null){
 			this.message = message;
 		}
+		
+		return this;
 	}
 	
 	@Override
-	public TnccsMessageValue toValue() throws ValidationException {
+	public PbMessageValueExperimental toValue() throws ValidationException {
 
 		return new PbMessageValueExperimental(this.message);
 	}
 
 	@Override
-	public TnccsMessageValueBuilder clear() {
+	public PbMessageValueExperimentalBuilder clear() {
 		
 		return new PbMessageValueExperimentalBuilderIetf();
 	}

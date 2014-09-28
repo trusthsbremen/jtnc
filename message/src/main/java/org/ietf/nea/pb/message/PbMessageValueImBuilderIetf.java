@@ -32,62 +32,74 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setImFlags(byte)
 	 */
 	@Override
-	public void setImFlags(byte imFlags) {
+	public PbMessageValueImBuilder setImFlags(byte imFlags) {
+		
 		if ((imFlags & 0x80)  == PbMessageImFlagsEnum.EXCL.bit()) {
 			this.imFlags = new PbMessageImFlagsEnum[]{PbMessageImFlagsEnum.EXCL};
 		}
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setSubVendorId(long)
 	 */
 	@Override
-	public void setSubVendorId(long subVendorId) throws ValidationException {
+	public PbMessageValueImBuilder setSubVendorId(long subVendorId) throws ValidationException {
 		
 		ImMessageTypeReservedAndLimits.check(subVendorId);
 		this.subVendorId = subVendorId;
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setSubType(long)
 	 */
 	@Override
-	public void setSubType(long subType) throws ValidationException {
+	public PbMessageValueImBuilder setSubType(long subType) throws ValidationException {
 		
 		ImMessageTypeReservedAndLimits.check(subType);
 		this.subType = subType;
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setCollectorId(long)
 	 */
 	@Override
-	public void setCollectorId(long collectorId) throws ValidationException {
+	public PbMessageValueImBuilder setCollectorId(long collectorId) throws ValidationException {
 		
 		ImIdLimits.check(collectorId);
 		this.collectorId = collectorId;
-	
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setValidatorId(long)
 	 */
 	@Override
-	public void setValidatorId(long validatorId) throws ValidationException {
+	public PbMessageValueImBuilder setValidatorId(long validatorId) throws ValidationException {
 		
 		ImIdLimits.check(validatorId);
 		this.validatorId = validatorId;
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setMessage(byte[])
 	 */
 	@Override
-	public void setMessage(byte[] message) {
+	public PbMessageValueImBuilder setMessage(byte[] message) {
 		
 		if(message != null){
 			this.message = message;
 		}
+		
+		return this;
 	}
 
 	/* (non-Javadoc)

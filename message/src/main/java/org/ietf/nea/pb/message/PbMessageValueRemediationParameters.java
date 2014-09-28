@@ -36,14 +36,14 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
     private final long rpVendorId;         // 24 bit(s)
     private final long rpType;             // 32 bit(s)
     
-    private final AbstractPbMessageValueRemediationParametersValue parameter;
+    private final AbstractPbMessageSubValue parameter;
     
 
     
     
     PbMessageValueRemediationParameters(final byte reserved,
 			final long rpVendorId, final long rpType,
-			final AbstractPbMessageValueRemediationParametersValue parameter) {
+			final AbstractPbMessageSubValue parameter) {
 		super(FIXED_LENGTH + parameter.getLength());
 		this.reserved = reserved;
 		this.rpVendorId = rpVendorId;
@@ -74,7 +74,7 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
 		return this.reserved;
 	}
 
-	public AbstractPbMessageValueRemediationParametersValue getParameter(){
+	public AbstractPbMessageSubValue getParameter(){
 		return this.parameter;
 	}
 }

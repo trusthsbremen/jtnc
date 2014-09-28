@@ -6,8 +6,6 @@ import org.ietf.nea.pb.validate.rules.RpVendorIdLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueRemediationParametersBuilderIetf implements PbMessageValueRemediationParametersBuilder{
 
@@ -16,7 +14,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
     private long rpVendorId;         // 24 bit(s)
     private long rpType;             // 32 bit(s)
     
-    private AbstractPbMessageValueRemediationParametersValue parameter;
+    private AbstractPbMessageSubValue parameter;
     
     public PbMessageValueRemediationParametersBuilderIetf(){
     	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -28,38 +26,42 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpVendorId(long)
 	 */
 	@Override
-	public void setRpVendorId(long rpVendorId) throws ValidationException {
+	public PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId) throws ValidationException {
 		
 		RpVendorIdLimits.check(rpVendorId);
 		this.rpVendorId = rpVendorId;
 	
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpType(long)
 	 */
 	@Override
-	public void setRpType(long rpType) throws ValidationException {
+	public PbMessageValueRemediationParametersBuilder setRpType(long rpType) throws ValidationException {
 		
 		RpMessageTypeLimits.check(rpType);
 		this.rpType = rpType;
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setParameter(org.ietf.nea.pb.message.AbstractPbMessageValueRemediationParametersValue)
 	 */
 	@Override
-	public void setParameter(
-			AbstractPbMessageValueRemediationParametersValue parameter) {
+	public PbMessageValueRemediationParametersBuilder setParameter(
+			AbstractPbMessageSubValue parameter) {
 		
 		if(parameter != null){
 			this.parameter = parameter;
 		}
 		
+		return this;
 	}
 
 	@Override
-	public TnccsMessageValue toValue() throws ValidationException {
+	public PbMessageValueRemediationParameters toValue() throws ValidationException {
 		if(parameter == null){
 			throw new IllegalStateException("A message value has to be set.");
 		}
@@ -68,7 +70,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	}
 
 	@Override
-	public TnccsMessageValueBuilder clear() {
+	public PbMessageValueRemediationParametersBuilder clear() {
 
 		return new PbMessageValueRemediationParametersBuilderIetf();
 	}

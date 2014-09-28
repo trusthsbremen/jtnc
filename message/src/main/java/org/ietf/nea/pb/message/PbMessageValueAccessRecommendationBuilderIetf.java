@@ -4,8 +4,6 @@ import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.validate.rules.AccessRecommendation;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueAccessRecommendationBuilderIetf implements
 		PbMessageValueAccessRecommendationBuilder {
@@ -24,19 +22,22 @@ public class PbMessageValueAccessRecommendationBuilderIetf implements
 	 * @see org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder#setRecommendation(short)
 	 */
 	@Override
-	public void setRecommendation(short recommendation) throws ValidationException {
+	public PbMessageValueAccessRecommendationBuilder setRecommendation(short recommendation) throws ValidationException {
+		
 		AccessRecommendation.check(recommendation);
 		this.recommendation = PbMessageAccessRecommendationEnum.fromNumber(recommendation);
+		
+		return this;
 	}
 
 	@Override
-	public TnccsMessageValue toValue() throws ValidationException {
+	public PbMessageValueAccessRecommendation toValue() throws ValidationException {
 		
 		return new PbMessageValueAccessRecommendation(RESERVED,this.recommendation);
 	}
 
 	@Override
-	public TnccsMessageValueBuilder clear() {
+	public PbMessageValueAccessRecommendationBuilder clear() {
 		// TODO Auto-generated method stub
 		return new PbMessageValueAccessRecommendationBuilderIetf();
 	}

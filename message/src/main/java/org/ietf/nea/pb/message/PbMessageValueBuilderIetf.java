@@ -139,7 +139,7 @@ public class PbMessageValueBuilderIetf {
 		
 	}
 	
-	private static PbMessageValueRemediationParameters createRemediationParameter(final byte reserved, final long rpVendorId, final long rpType, final AbstractPbMessageValueRemediationParametersValue parameter){
+	private static PbMessageValueRemediationParameters createRemediationParameter(final byte reserved, final long rpVendorId, final long rpType, final AbstractPbMessageSubValue parameter){
 		byte reservedIgnored = 0;
 		
 		if(rpVendorId > IETFConstants.IETF_MAX_VENDOR_ID){

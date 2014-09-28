@@ -9,6 +9,6 @@ public interface PbMessageValueRemediationParameterUriBuilder extends TnccsMessa
 	 * @param uri the uri to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setUri(String uri) throws ValidationException;
+	public abstract  PbMessageValueRemediationParameterUriBuilder setUri(String uri) throws ValidationException;
 
 }

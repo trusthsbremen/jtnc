@@ -7,8 +7,6 @@ import org.ietf.nea.pb.validate.rules.ErrorVendorIdLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilder{
 
@@ -30,50 +28,60 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorFlags(byte)
 	 */
 	@Override
-	public void setErrorFlags(byte errorFlags) {
+	public PbMessageValueErrorBuilder setErrorFlags(byte errorFlags) {
+		
 		if ((errorFlags & 0x80)  == PbMessageErrorFlagsEnum.FATAL.bit()) {
 			this.errorFlags = new PbMessageErrorFlagsEnum[]{PbMessageErrorFlagsEnum.FATAL};
 		}
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorVendorId(long)
 	 */
 	@Override
-	public void setErrorVendorId(long errorVendorId) throws ValidationException {
+	public PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId) throws ValidationException {
 		
 		ErrorVendorIdLimits.check(errorVendorId);
 		this.errorVendorId = errorVendorId;
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorCode(short)
 	 */
 	@Override
-	public void setErrorCode(short errorCode) throws ValidationException {
+	public PbMessageValueErrorBuilder setErrorCode(short errorCode) throws ValidationException {
 		
 		ErrorCodeLimits.check(errorCode);
 		this.errorCode = errorCode;
+		
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorParameter(byte[])
 	 */
 	@Override
-	public void setErrorParameter(byte[] errorParameter) {
+	public PbMessageValueErrorBuilder setErrorParameter(byte[] errorParameter) {
+		
 		if( errorParameter != null){
 			this.errorParameter = errorParameter;
 		}
+		
+		return this;
 	}
 
 	@Override
-	public TnccsMessageValue toValue() throws ValidationException {
+	public PbMessageValueError toValue() throws ValidationException {
 
 		return new PbMessageValueError(errorFlags, errorVendorId, errorCode, RESERVED, errorParameter);
 	}
 
 	@Override
-	public TnccsMessageValueBuilder clear() {
+	public PbMessageValueErrorBuilder clear() {
 
 		return new PbMessageValueErrorBuilderIetf();
 	}

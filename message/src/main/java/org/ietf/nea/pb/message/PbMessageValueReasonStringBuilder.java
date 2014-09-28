@@ -5,10 +5,10 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public interface PbMessageValueReasonStringBuilder extends TnccsMessageValueBuilder{
 
-	public abstract void setReasonString(String reasonString)
+	public abstract PbMessageValueReasonStringBuilder setReasonString(String reasonString)
 			throws ValidationException;
 
-	public abstract void setLangCode(String langCode)
+	public abstract PbMessageValueReasonStringBuilder setLangCode(String langCode)
 			throws ValidationException;
 
 }

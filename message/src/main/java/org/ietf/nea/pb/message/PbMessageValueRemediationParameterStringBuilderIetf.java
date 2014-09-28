@@ -5,8 +5,6 @@ import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pb.validate.rules.NoZeroString;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageSubValue;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageSubValueBuilder;
 
 public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMessageValueRemediationParameterStringBuilder{
 
@@ -22,30 +20,33 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	 * @see org.ietf.nea.pb.message.PbMessageValueRmediationParameterStringBuilder#setRemediationString(java.lang.String)
 	 */
 	@Override
-	public void setRemediationString(String remediationString) throws ValidationException {
+	public PbMessageValueRemediationParameterStringBuilder setRemediationString(String remediationString) throws ValidationException {
 
 		NoZeroString.check(remediationString);
 		NoNullTerminatedString.check(remediationString);
 		this.remediationString = remediationString;
 
+		return this;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.ietf.nea.pb.message.PbMessageValueRmediationParameterStringBuilder#setLangCode(java.lang.String)
 	 */
 	@Override
-	public void setLangCode(String langCode) throws ValidationException {
-		 // Zero length string for language code allowed.
+	public PbMessageValueRemediationParameterStringBuilder setLangCode(String langCode) throws ValidationException {
+		
+		// Zero length string for language code allowed.
         if(langCode != null){
         	NoNullTerminatedString.check(langCode);
         	LangCodeStringLimit.check(langCode);
         	this.langCode = langCode;
         }
 		
+        return this;
 	}
 
 	@Override
-	public TnccsMessageSubValue toValue() throws ValidationException {
+	public PbMessageValueRemediationParameterString toValue() throws ValidationException {
 
 		// check again because it has to set properly
 		NoZeroString.check(this.remediationString);
@@ -54,7 +55,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	}
 
 	@Override
-	public TnccsMessageSubValueBuilder clear() {
+	public PbMessageValueRemediationParameterStringBuilder clear() {
 
 		return new PbMessageValueRemediationParameterStringBuilderIetf();
 	}

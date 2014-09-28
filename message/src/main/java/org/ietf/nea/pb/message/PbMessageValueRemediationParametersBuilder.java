@@ -9,19 +9,19 @@ public interface PbMessageValueRemediationParametersBuilder extends TnccsMessage
 	 * @param rpVendorId the rpVendorId to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setRpVendorId(long rpVendorId)
+	public abstract PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId)
 			throws ValidationException;
 
 	/**
 	 * @param rpType the rpType to set
 	 * @throws ValidationException 
 	 */
-	public abstract void setRpType(long rpType) throws ValidationException;
+	public abstract PbMessageValueRemediationParametersBuilder setRpType(long rpType) throws ValidationException;
 
 	/**
 	 * @param parameter the parameter to set
 	 */
-	public abstract void setParameter(
-			AbstractPbMessageValueRemediationParametersValue parameter);
+	public abstract PbMessageValueRemediationParametersBuilder setParameter(
+			AbstractPbMessageSubValue parameter);
 
 }

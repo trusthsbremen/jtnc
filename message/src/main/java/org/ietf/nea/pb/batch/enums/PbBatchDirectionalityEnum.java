@@ -1,7 +1,5 @@
 package org.ietf.nea.pb.batch.enums;
 
-import java.util.HashSet;
-import java.util.Set;
 
 
 public enum PbBatchDirectionalityEnum {
