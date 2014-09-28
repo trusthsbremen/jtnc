@@ -59,14 +59,44 @@ public enum PbBatchTypeEnum {
     CLOSE  ((byte)6),
     UNKNOWN ((byte)0);
     
-    private byte number;
+    private byte type;
     
     private PbBatchTypeEnum(byte number){
-        this.number = number;
+        this.type = number;
     }
     
-    public byte number(){
-        return this.number;
+    public byte type(){
+        return this.type;
     }
+    
+  public static PbBatchTypeEnum fromType(byte type){
+    	
+    	if(type == CDATA.type){
+    		return CDATA;
+    	}
+    	
+    	if(type == SDATA.type){
+    		return SDATA;
+    	}
+    	
+    	if(type == RESULT.type){
+    		return RESULT;
+    	}
+    	
+    	if(type == CRETRY.type){
+    		return CRETRY;
+    	}
+    	
+    	if(type == SRETRY.type){
+    		return SRETRY;
+    	}
+    	
+    	if(type == CLOSE.type){
+    		return CLOSE;
+    	}
+    	
+    	return null;
+    }
+    
     
 }

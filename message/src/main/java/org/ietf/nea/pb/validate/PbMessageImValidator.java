@@ -4,8 +4,8 @@ import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.validate.rules.ImExclDelivery;
-import org.ietf.nea.pb.validate.rules.ImMessageTypeNotReserved;
-import org.ietf.nea.pb.validate.rules.ImVendorIdNotReserved;
+import org.ietf.nea.pb.validate.rules.ImMessageTypeReservedAndLimits;
+import org.ietf.nea.pb.validate.rules.ImVendorIdReservedAndLimits;
 import org.ietf.nea.pb.validate.rules.MinMessageLength;
 import org.ietf.nea.pb.validate.rules.NoSkip;
 
@@ -36,8 +36,8 @@ public class PbMessageImValidator implements TnccsValidator<PbMessage> {
     	
         NoSkip.check(message.getFlags());
 		PbMessageValueIm imValue = (PbMessageValueIm) message.getValue();
-        ImVendorIdNotReserved.check(imValue.getSubVendorId());
-		ImMessageTypeNotReserved.check(imValue.getSubType());
+        ImVendorIdReservedAndLimits.check(imValue.getSubVendorId());
+		ImMessageTypeReservedAndLimits.check(imValue.getSubType());
 		//TODO test if this will eventually throw always an error.
 		ImExclDelivery.check(imValue.getImFlags(), imValue.getCollectorId());
 		ImExclDelivery.check(imValue.getImFlags(), imValue.getValidatorId());

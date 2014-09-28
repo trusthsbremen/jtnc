@@ -6,64 +6,86 @@ import java.util.List;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.validate.rules.BatchDirectionAndType;
+import org.ietf.nea.pb.validate.rules.BatchDirectionality;
+import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
+import org.ietf.nea.pb.validate.rules.BatchType;
+import org.ietf.nea.pb.validate.rules.BatchVersion;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchBuilder;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
-public class PbBatchBuilderIetf implements TnccsBatchBuilder {
+public class PbBatchBuilderIetf implements PbBatchBuilder {
 
+	private static final byte SUPPORTED_VERSION = 2;
+	private static final int RESERVED = 0;  // defined in RFC5793 
+	private byte version;
 	private PbBatchTypeEnum type;
 	private PbBatchDirectionalityEnum direction;
 	private List<PbMessage> messages;
 	private long batchLength;
 	
 	
+	
 	public PbBatchBuilderIetf(){
+		this.version = SUPPORTED_VERSION;
+		this.type = null;
+		this.type =  null;
 		this.messages = new LinkedList<>();
 		this.batchLength = PbBatch.FIXED_LENGTH;
 	}
 	
-	public PbBatchBuilderIetf setBatchDirection(PbBatchDirectionalityEnum direction){
+	@Override
+	public PbBatchBuilder setVersion(byte version) throws ValidationException {
+		BatchVersion.check(version, SUPPORTED_VERSION);
 		
-		if(!validDirectionAndType(this.direction,type)){
-			throw new IllegalStateException("Current type "+ type.toString() +" can not be used with the supplied direction.");
-		}
-//		if(type != null && direction != null){
-//			if(direction == PbBatchDirectionalityEnum.TO_PBS && (type == PbBatchTypeEnum.RESULT || type == PbBatchTypeEnum.SRETRY || type == PbBatchTypeEnum.SDATA)){
-//				throw new IllegalStateException("Current type "+type.toString()+" can not be used with the supplied direction.");
-//			}
-//			if(direction == PbBatchDirectionalityEnum.TO_PBC && (type == PbBatchTypeEnum.CDATA || type == PbBatchTypeEnum.CRETRY)){
-//				throw new IllegalStateException("Current type "+ type.toString() +" can not be used with the supplied direction.");
-//			}
-//		}
-		
-		this.direction = direction;
+		this.version = version;
 		
 		return this;
 	}
 	
-	public PbBatchBuilderIetf setBatchType(PbBatchTypeEnum type){
+	/* (non-Javadoc)
+	 * @see org.ietf.nea.pb.batch.PbBatchBuilder#setBatchDirection(org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum)
+	 */
+	@Override
+	public PbBatchBuilder setDirection(byte direction) throws ValidationException{
+		
+		BatchDirectionality.check(direction);
+		PbBatchDirectionalityEnum tempDir = PbBatchDirectionalityEnum.fromDirectionality(direction);
+		
+		if(type != null){
+			BatchDirectionAndType.check(tempDir, type);
+		}
 
-		if(!validDirectionAndType(this.direction,type)){
-			throw new IllegalStateException("Current direction "+type.toString()+" can not be used with the supplied type.");
-		}
-		
-//		if(direction != null && type != null){
-//			if(direction == PbBatchDirectionalityEnum.TO_PBS && (type == PbBatchTypeEnum.RESULT || type == PbBatchTypeEnum.SRETRY || type == PbBatchTypeEnum.SDATA)){
-//				throw new IllegalStateException("Current direction "+type.toString()+" can not be used with the supplied type.");
-//			}
-//	
-//			if(direction == PbBatchDirectionalityEnum.TO_PBC && (type == PbBatchTypeEnum.CDATA || type == PbBatchTypeEnum.CRETRY)){
-//				throw new IllegalStateException("Current direction "+ type.toString() +" can not be used with the supplied type.");
-//			}
-//		}
-		
-		this.type = type;
+		this.direction = tempDir;
 		
 		return this;
 	}
 	
-	public PbBatchBuilderIetf addMessage(PbMessage message){
+	/* (non-Javadoc)
+	 * @see org.ietf.nea.pb.batch.PbBatchBuilder#setBatchType(org.ietf.nea.pb.batch.enums.PbBatchTypeEnum)
+	 */
+	@Override
+	public PbBatchBuilder setType(byte type) throws ValidationException{
+
+		BatchType.check(type);
+		
+		PbBatchTypeEnum tempType = PbBatchTypeEnum.fromType(type);
+	
+		if(direction != null){
+			BatchDirectionAndType.check(direction, tempType);
+		}
+		
+		this.type = tempType;
+		
+		return this;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.ietf.nea.pb.batch.PbBatchBuilder#addMessage(org.ietf.nea.pb.message.PbMessage)
+	 */
+	@Override
+	public PbBatchBuilder addMessage(PbMessage message){
 		if(message != null){
 			this.addMessageAndCheckLength(message);
 		}
@@ -71,7 +93,11 @@ public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 		return this;
 	}
 	
-	public PbBatchBuilderIetf addAllMessages(List<PbMessage> messages){
+	/* (non-Javadoc)
+	 * @see org.ietf.nea.pb.batch.PbBatchBuilder#addAllMessages(java.util.List)
+	 */
+	@Override
+	public PbBatchBuilder addMessages(List<PbMessage> messages){
 		if(messages != null){
 			for (PbMessage pbMessage : messages) {
 				this.addMessage(pbMessage);
@@ -86,8 +112,7 @@ public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 	 * @see de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchBuilder#toBatch()
 	 */
 	@Override
-	public  PbBatch toBatch(){
-		int reserved = 0; // defined in RFC5793 
+	public  PbBatch toBatch() throws ValidationException{
 		if(direction == null){
 			throw new IllegalStateException("Direction must be set first.");
 		}
@@ -95,24 +120,13 @@ public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 			throw new IllegalStateException("Type must be set first.");
 		}
 		
-		PbBatch batch = new PbBatch(direction, reserved, type, batchLength, messages);
+		BatchResultWithoutMessageAssessmentResult.check(type, messages);
+		
+		PbBatch batch = new PbBatch(version,direction, RESERVED, type, batchLength, messages);
 		
 		return batch;
 	}
 	
-	private boolean validDirectionAndType(PbBatchDirectionalityEnum direction, PbBatchTypeEnum type){
-		boolean b = true;
-		if(direction != null && type != null){
-			if(direction == PbBatchDirectionalityEnum.TO_PBS && (type == PbBatchTypeEnum.RESULT || type == PbBatchTypeEnum.SRETRY || type == PbBatchTypeEnum.SDATA)){
-				b = false;
-			}
-	
-			if(direction == PbBatchDirectionalityEnum.TO_PBC && (type == PbBatchTypeEnum.CDATA || type == PbBatchTypeEnum.CRETRY)){
-				b = false;
-			}
-		}
-		return b;
-	}
 	
 	private void addMessageAndCheckLength(PbMessage message){
 			long messageLength = message.getLength();
@@ -122,5 +136,11 @@ public class PbBatchBuilderIetf implements TnccsBatchBuilder {
 			this.batchLength += messageLength;
 			this.messages.add(message);
 	}
+
+	@Override
+	public PbBatchBuilder clear() {
+		return new PbBatchBuilderIetf();
+	}
+
 
 }

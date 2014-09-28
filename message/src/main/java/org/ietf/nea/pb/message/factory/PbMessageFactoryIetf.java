@@ -1,5 +1,9 @@
-package org.ietf.nea.pb.message;
+package org.ietf.nea.pb.message.factory;
 
+import org.ietf.nea.pb.message.AbstractPbMessageValue;
+import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.PbMessageBuilderIetf;
+import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
@@ -19,7 +23,7 @@ public class PbMessageFactoryIetf {
 	
 		short reserved = 0; // defined in RFC5793
 		
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[0]; 
+		byte flags = 0; 
 	    long type = PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType();
 	    
 	    return createMessage(flags, type,
@@ -30,7 +34,7 @@ public class PbMessageFactoryIetf {
 
 	public static PbMessage createAssessmentResult(final PbMessageAssessmentResultEnum result) {
 
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[]{PbMessageFlagsEnum.NOSKIP};
+		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 	    long type = PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType();
 	    
 	    return createMessage(flags, type, 
@@ -44,7 +48,7 @@ public class PbMessageFactoryIetf {
 		short reserved = 0; // defined in RFC5793
 		long errorVendorId = vendorId;
 		
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[]{PbMessageFlagsEnum.NOSKIP};
+		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 	    long type = PbMessageTypeEnum.IETF_PB_ERROR.messageType();   				                  
 
 	    return createMessage(flags, type, 
@@ -53,7 +57,7 @@ public class PbMessageFactoryIetf {
 
 	public static PbMessage createExperimental(final String content) {
 
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[0]; 	     
+		byte flags = 0; 	     
 	    long type =  PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.messageType();
 		
 	    return createMessage(flags, type, 
@@ -64,7 +68,7 @@ public class PbMessageFactoryIetf {
 	public static PbMessage createIm(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType,
 			final short collectorId, final short validatorId, final byte[] imMessage) {
 
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[]{PbMessageFlagsEnum.NOSKIP};
+		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 		long type = PbMessageTypeEnum.IETF_PB_PA.messageType();
 		
 		return createMessage(flags, type, 
@@ -74,7 +78,7 @@ public class PbMessageFactoryIetf {
 
 	public static PbMessage createLanguagePreference(final String preferedLanguage) {
 		
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[0];
+		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType();
 	    
 	    return createMessage(flags, type, 
@@ -84,7 +88,7 @@ public class PbMessageFactoryIetf {
 
 	public static PbMessage createReasonString(final String reasonString, final String langCode) {
 		
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[0];
+		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType();
 		
 	    return createMessage(flags, type,
@@ -98,7 +102,7 @@ public class PbMessageFactoryIetf {
 		long rpVendorId = vendorId; 
 		long rpType = PbMessageRemediationParameterTypeEnum.IETF_STRING.type();
 		
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[0];
+		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.messageType(); 
 	    
 	    return createMessage(flags, type, 
@@ -112,7 +116,7 @@ public class PbMessageFactoryIetf {
 		long rpVendorId = vendorId; 
 		long rpType = PbMessageRemediationParameterTypeEnum.IETF_URI.type();
 		
-		PbMessageFlagsEnum[] flags = new PbMessageFlagsEnum[0];
+		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.messageType(); 
 	    
 	    return createMessage(flags, type, 
@@ -120,7 +124,8 @@ public class PbMessageFactoryIetf {
 
 	}
 	
-	private static PbMessage createMessage(final PbMessageFlagsEnum[] flags, final long type, final AbstractPbMessageValue value) {
+	// TODO what do we do with errors
+	private static PbMessage createMessage(final byte flags, final long type, final AbstractPbMessageValue value) {
 	    
 	    PbMessageBuilderIetf mBuilder = new PbMessageBuilderIetf();
 	    PbMessage message = null;

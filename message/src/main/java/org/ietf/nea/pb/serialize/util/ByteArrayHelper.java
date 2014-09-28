@@ -1,6 +1,12 @@
 package org.ietf.nea.pb.serialize.util;
 
-public class ByteArrayHelper {
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+
+import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+
+public final class ByteArrayHelper {
 
 	public static long toLong(byte[] b){
 		if(b == null || b.length > 8 ){
@@ -31,5 +37,21 @@ public class ByteArrayHelper {
 		System.arraycopy(first, 0, merged, 0, first.length);
 		System.arraycopy(second, 0, merged, first.length, second.length);
 		return merged;
+	}
+	
+	public static byte[] arrayFromStream(InputStream in, int length) throws IOException{
+		byte[] buffer = new byte[0];
+		
+		if(length > 0){
+			buffer = new byte[length];
+		}
+	
+		int count = 0;
+		
+		count = in.read(buffer); // blocks until data is available or stream is closed
+		
+		// shorten the array to the actual data
+		return Arrays.copyOf(buffer, count);
+
 	}
 }

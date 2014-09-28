@@ -6,8 +6,8 @@ import java.util.Map;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
-import org.ietf.nea.pb.validate.rules.MessageTypNotReserved;
-import org.ietf.nea.pb.validate.rules.VendorIdNotReserved;
+import org.ietf.nea.pb.validate.rules.MessageReservedAndLimits;
+import org.ietf.nea.pb.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.validate.TnccsValidator;
@@ -25,8 +25,8 @@ public class PbMessageValidator implements TnccsValidator<PbMessage>, Combined<T
     
     @Override
     public void validate(final PbMessage message) throws ValidationException {
-        VendorIdNotReserved.check(message.getVendorId());
-        MessageTypNotReserved.check(message.getType());
+        VendorIdReservedAndLimits.check(message.getVendorId());
+        MessageReservedAndLimits.check(message.getType());
         
         long vendorId = message.getVendorId();
     	long messageType = message.getType();

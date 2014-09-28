@@ -6,31 +6,25 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.Set;
 
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueIm;
+import org.ietf.nea.pb.message.PbMessageValueImBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueIm.FIXED_LENGTH;
 	
-	private static final class Singleton{
-		private static final PbMessageImSerializer INSTANCE = new  PbMessageImSerializer();  
-	}
+	private PbMessageValueImBuilder builder;
 	
-	public static  PbMessageImSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
-	    
-	private  PbMessageImSerializer(){
-	    	// Singleton
+	public PbMessageImSerializer(PbMessageValueImBuilder builder){
+	    this.builder = builder;
 	}
 	
 	
@@ -107,8 +101,9 @@ public class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> 
 	}
 
 	@Override
-	public PbMessageValueIm decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueIm decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		PbMessageValueIm value = null; 	
+		this.builder.clear();
 		
 		if(length <= 0){
 			return value;
@@ -133,25 +128,25 @@ public class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> 
 		if (count >= MESSAGE_VALUE_FIXED_SIZE){
 			
 			/* Flags */
-			PbMessageImFlagsEnum[] imFlags = null;
-			// All reserved bits must be ignored
-			PbMessageImFlagsEnum flag = PbMessageImFlagsEnum.fromBit((byte)(buffer[0] & PbMessageImFlagsEnum.EXCL.bit()));
-			if(flag != null && flag == PbMessageImFlagsEnum.EXCL){
-				imFlags = new PbMessageImFlagsEnum[]{flag};
-			}else{
-				EnumSet<PbMessageImFlagsEnum>flags = EnumSet.noneOf(PbMessageImFlagsEnum.class);
-				imFlags = flags.toArray(new PbMessageImFlagsEnum[flags.size()]);
-			}
-			
+			byte imFlags = buffer[0];
+			this.builder.setImFlags(imFlags);
+		
 			long subVendorId = ByteArrayHelper.toLong(
 					new byte[] { buffer[1], buffer[2], buffer[3] });
+			this.builder.setSubVendorId(subVendorId);
+			
 			long subType = ByteArrayHelper.toLong(
 					new byte[] { buffer[4], buffer[5], buffer[6], buffer[7] });
+			this.builder.setSubType(subType);
+			
 			short collectorId = ByteArrayHelper.toShort(
 					new byte[] { buffer[8], buffer[9]});
+			this.builder.setCollectorId(collectorId);
+			
 			short validatorId = ByteArrayHelper.toShort( 
 					new byte[] { buffer[10], buffer[11]});
-		
+			this.builder.setValidatorId(validatorId);
+			
 			byte[] imMessage = new byte[0];
 			count = 0;
 			for(long l = messageLength-PbMessageValueIm.FIXED_LENGTH; l > 0; l -= count){
@@ -165,8 +160,9 @@ public class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> 
 				}
 				imMessage = ByteArrayHelper.mergeArrays(imMessage, Arrays.copyOfRange(buffer, 0, count));
 			}
+			this.builder.setMessage(imMessage);
 			
-			value = PbMessageValueBuilderIetf.createImValue(imFlags, subVendorId, subType, collectorId, validatorId, imMessage);
+			value = (PbMessageValueIm)this.builder.toValue();
 			
 		} else {
 			throw new SerializationException("Returned data length (" + count

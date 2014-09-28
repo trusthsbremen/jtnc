@@ -8,25 +8,21 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResult;
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
-import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
+import org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMessageValueAssessmentResult> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueAssessmentResult.FIXED_LENGTH;
-	private static final class Singleton{
-		private static final PbMessageAssessmentResultSerializer INSTANCE = new  PbMessageAssessmentResultSerializer(); 
-	}
-	public static  PbMessageAssessmentResultSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
-	    
-	private  PbMessageAssessmentResultSerializer(){
-	    	// Singleton
+	
+	private PbMessageValueAssessmentResultBuilder builder;
+	
+	public PbMessageAssessmentResultSerializer(PbMessageValueAssessmentResultBuilder builder){
+	    this.builder = builder;
 	}
 	
 	
@@ -54,9 +50,9 @@ public class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMe
 	}
 
 	@Override
-	public PbMessageValueAssessmentResult decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueAssessmentResult decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		PbMessageValueAssessmentResult value = null; 	
-		
+		this.builder.clear();
 		// ignore any given length and find out on your own.
 
 		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
@@ -78,13 +74,8 @@ public class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMe
 			/* Assessment result */
 			long code = ByteArrayHelper.toLong(Arrays.copyOfRange(buffer, 0, MESSAGE_VALUE_FIXED_SIZE));
 			
-			PbMessageAssessmentResultEnum result = PbMessageAssessmentResultEnum.fromNumber(code);
-			
-			if(result != null){
-				value = PbMessageValueBuilderIetf.createAssessmentResultValue(result);
-			}else{
-				throw new SerializationException("Access result code #"+code+" could not be recognized.", Long.toString(code));
-			}
+			this.builder.setResult(code);
+			value = (PbMessageValueAssessmentResult)this.builder.toValue();
 
 		} else {
 			throw new SerializationException("Returned data length (" + count

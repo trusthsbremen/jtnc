@@ -111,7 +111,7 @@ public class DeSerializeTest {
 		byte[] serialized = out.toByteArray();
 		
 		Assert.assertEquals(0x02,serialized[0]);
-		Assert.assertEquals(PbBatchTypeEnum.CDATA.number(),serialized[3]);
+		Assert.assertEquals(PbBatchTypeEnum.CDATA.type(),serialized[3]);
 		Assert.assertEquals(b.getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
 		Assert.assertEquals(((PbMessageValueIm)b.getMessages().get(0).getValue()).getSubType(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 24, 28)));
 		Assert.assertEquals(b.getLength(),serialized.length);
@@ -131,7 +131,7 @@ public class DeSerializeTest {
 		byte[] serialized = out.toByteArray();
 		
 		Assert.assertEquals(0x02,serialized[0]);
-		Assert.assertEquals(PbBatchTypeEnum.CDATA.number(),serialized[3]);
+		Assert.assertEquals(PbBatchTypeEnum.CDATA.type(),serialized[3]);
 		Assert.assertEquals(b.getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
 		Assert.assertEquals(((PbMessageValueAccessRecommendation)b.getMessages().get(0).getValue()).getRecommendation(), PbMessageAccessRecommendationEnum.fromNumber(ByteArrayHelper.toShort(Arrays.copyOfRange(serialized, 22, 24))));
 		Assert.assertEquals(b.getLength(),serialized.length);
@@ -151,7 +151,7 @@ public class DeSerializeTest {
 		byte [] serialized = out.toByteArray();
 		
 		Assert.assertEquals(0x02,serialized[0]);
-		Assert.assertEquals(PbBatchTypeEnum.CDATA.number(),serialized[3]);
+		Assert.assertEquals(PbBatchTypeEnum.CDATA.type(),serialized[3]);
 		Assert.assertEquals(b.getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
 		Assert.assertEquals(((PbMessageValueReasonString)b.getMessages().get(0).getValue()).getReasonString(), new String(Arrays.copyOfRange(serialized, 24, (int)(24+((PbMessageValueReasonString)b.getMessages().get(0).getValue()).getStringLength()))));
 		Assert.assertEquals(b.getLength(),serialized.length);
@@ -171,10 +171,10 @@ public class DeSerializeTest {
 	    byte [] serialized = out.toByteArray();
 	    
 	    Assert.assertEquals(0x02,serialized[0]);
-		Assert.assertEquals(PbBatchTypeEnum.CDATA.number(),serialized[3]);
+		Assert.assertEquals(PbBatchTypeEnum.CDATA.type(),serialized[3]);
 		Assert.assertEquals(b.getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
 		Assert.assertEquals(0x02,serialized[0]);
-		Assert.assertEquals(PbBatchTypeEnum.CDATA.number(),serialized[3]);
+		Assert.assertEquals(PbBatchTypeEnum.CDATA.type(),serialized[3]);
 		Assert.assertEquals(b.getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
 		Assert.assertEquals(((PbMessageValueIm)b.getMessages().get(0).getValue()).getSubType(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 24, 28)));
 		Assert.assertEquals(b.getLength(),serialized.length);

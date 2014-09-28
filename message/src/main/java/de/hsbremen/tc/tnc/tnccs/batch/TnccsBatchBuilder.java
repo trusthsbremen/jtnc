@@ -6,4 +6,5 @@ public interface TnccsBatchBuilder {
 
 	public abstract TnccsBatch toBatch() throws ValidationException;
 
+	public abstract TnccsBatchBuilder clear();
 }

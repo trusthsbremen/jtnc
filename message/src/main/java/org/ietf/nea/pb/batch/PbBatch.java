@@ -10,9 +10,10 @@ import org.ietf.nea.pb.message.PbMessage;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 
 public class PbBatch implements TnccsBatch {
+	
 	public static final byte FIXED_LENGTH = 8;
 	
-    private final byte version = 2;                       //  8 bit(s)
+    private final byte version;                       //  8 bit(s)
     private final PbBatchDirectionalityEnum directionality;  //  1 bit(s)
     private final int reserved;       // 19 bit(s) should be 0
     private final PbBatchTypeEnum type;                      //  4 bit(s)
@@ -22,9 +23,10 @@ public class PbBatch implements TnccsBatch {
 
     
     
-	PbBatch(PbBatchDirectionalityEnum directionality, int reserved,
+	PbBatch(byte version, PbBatchDirectionalityEnum directionality, int reserved,
 			PbBatchTypeEnum type, long lenth, List<PbMessage> messages) {
 		
+		this.version = version;
 		this.directionality = directionality;
 		this.reserved = reserved;
 		this.type = type;

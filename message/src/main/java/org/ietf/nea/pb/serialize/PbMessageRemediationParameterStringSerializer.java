@@ -9,25 +9,21 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
+import org.ietf.nea.pb.message.PbMessageValueRemediationParameterStringBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<PbMessageValueRemediationParameterString> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueRemediationParameterString.FIXED_LENGTH;
 	
-	private static final class Singleton{
-		static final PbMessageRemediationParameterStringSerializer INSTANCE = new  PbMessageRemediationParameterStringSerializer();  
-	}
-	
-	static  PbMessageRemediationParameterStringSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
+	private PbMessageValueRemediationParameterStringBuilder builder;
 	    
-	private  PbMessageRemediationParameterStringSerializer(){
-	    	// Singleton
+	PbMessageRemediationParameterStringSerializer( PbMessageValueRemediationParameterStringBuilder builder){
+	    	this.builder = builder;
 	}
 	
 	
@@ -77,18 +73,20 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterString decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueRemediationParameterString decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		PbMessageValueRemediationParameterString value = null; 	
-
+		this.builder.clear();
 		// ignore any given length and find out on your own.
 			
 		// First 4 bytes are the remediation string length.
 		String remediationString = readString((int)(MESSAGE_VALUE_FIXED_SIZE - 1), in, Charset.forName("UTF-8"));
+		this.builder.setRemediationString(remediationString);
+		
 		// Last 1 byte is the language code length.
 		String langCode = readString((int)(MESSAGE_VALUE_FIXED_SIZE - 4), in, Charset.forName("US-ASCII"));
-		
-		// TODO unclean but right now no better solution.
-		value = new PbMessageValueRemediationParameterString(remediationString, langCode);
+		this.builder.setLangCode(langCode);
+
+		value = (PbMessageValueRemediationParameterString)this.builder.toValue();
 		
 		return value;
 	}

@@ -34,14 +34,15 @@ public class PbBatchFactoryIetf {
 		return createBatch(PbBatchDirectionalityEnum.TO_PBS, PbBatchTypeEnum.CLOSE, messages);
 	}
 
+	// TODO what do we do with errors
 	private static PbBatch createBatch(PbBatchDirectionalityEnum direction, PbBatchTypeEnum type, List<PbMessage> messages){
 		if(messages == null){
 			throw new NullPointerException("Messages cannot be null.");
 		}
 		PbBatchBuilderIetf builder = new PbBatchBuilderIetf();
-		builder.setBatchDirection(direction);
-		builder.setBatchType(type);
-		builder.addAllMessages(messages);
+		builder.setDirection(direction.directionality());
+		builder.setType(type.type());
+		builder.addMessages(messages);
 		
 		PbBatch batch = null;
 		

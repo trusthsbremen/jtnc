@@ -7,4 +7,5 @@ public interface TnccsMessageBuilder {
 
 	public abstract TnccsMessage toMessage() throws ValidationException;
 
+	public abstract TnccsMessageBuilder clear();
 }

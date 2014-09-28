@@ -7,28 +7,21 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
-import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
+import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessageValueAccessRecommendation> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueAccessRecommendation.FIXED_LENGTH;
+	private static final int MESSAGE_VALUE_FIXED_SIZE = 4;
 	
-	private static final class Singleton{
-		private static final PbMessageAccessRecommendationSerializer INSTANCE = new  PbMessageAccessRecommendationSerializer();
-	}
-	  
+	private PbMessageValueAccessRecommendationBuilder builder;
 	
-	public static  PbMessageAccessRecommendationSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
-	    
-	private  PbMessageAccessRecommendationSerializer(){
-	    	// Singleton
+	public  PbMessageAccessRecommendationSerializer(PbMessageValueAccessRecommendationBuilder builder){
+		this.builder = builder;
 	}
 	
 	
@@ -66,10 +59,10 @@ public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<
 	}
 
 	@Override
-	public PbMessageValueAccessRecommendation decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueAccessRecommendation decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		
 		PbMessageValueAccessRecommendation value = null; 	
-		
+		builder.clear();
 		// ignore any given length and find out on your own.
 
 		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
@@ -93,13 +86,8 @@ public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<
 			/* Access Recommendation */
 			short code = ByteArrayHelper.toShort(new byte[]{buffer[2], buffer[3]});
 			
-			PbMessageAccessRecommendationEnum recommendation = PbMessageAccessRecommendationEnum.fromNumber(code);
-			
-			if(recommendation != null){
-				value = PbMessageValueBuilderIetf.createAccessRecommendationValue((short)0, recommendation);
-			}else{
-				throw new SerializationException("Recommendation code #"+code+" could not be recognized.", Short.toString(code));
-			}
+			builder.setRecommendation(code);
+			value = (PbMessageValueAccessRecommendation)builder.toValue();
 
 		} else {
 			throw new SerializationException("Returned data length (" + count

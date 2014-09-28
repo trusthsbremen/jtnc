@@ -6,30 +6,25 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.Set;
 
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueError;
+import org.ietf.nea.pb.message.PbMessageValueErrorBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueError> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueError.FIXED_LENGTH;
-	private static final class Singleton{
-		private static final  PbMessageErrorSerializer INSTANCE = new  PbMessageErrorSerializer();  
-	}
-
-	public static  PbMessageErrorSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
-	    
-	private  PbMessageErrorSerializer(){
-	    	// Singleton
+	
+	private PbMessageValueErrorBuilder builder;    
+	
+	public PbMessageErrorSerializer(PbMessageValueErrorBuilder builder){
+	    	this.builder = builder;
 	}
 	
 	
@@ -99,9 +94,10 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 	}
 
 	@Override
-	public PbMessageValueError decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueError decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		
 		PbMessageValueError value = null; 	
+		this.builder.clear();
 		
 		if(length <= 0){
 			return value;
@@ -126,25 +122,19 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 		if (count >= MESSAGE_VALUE_FIXED_SIZE){
 
 			/* Flags */
-			PbMessageErrorFlagsEnum[] errFlags = null;
-			// All reserved bits must be ignored
-			PbMessageErrorFlagsEnum flag = PbMessageErrorFlagsEnum.fromBit((byte)(buffer[0] & PbMessageErrorFlagsEnum.FATAL.bit()));
-			if(flag != null && flag == PbMessageErrorFlagsEnum.FATAL){
-				errFlags = new PbMessageErrorFlagsEnum[]{flag};
-			}else{
-				EnumSet<PbMessageErrorFlagsEnum>flags = EnumSet.noneOf(PbMessageErrorFlagsEnum.class);
-				errFlags = flags.toArray(new PbMessageErrorFlagsEnum[flags.size()]);
-			}
+			byte errFlags = buffer[0];
+			this.builder.setErrorFlags(errFlags);
 			
 			/* Vendor ID */
 			long errorVendorId = ByteArrayHelper.toLong(
 					new byte[] { buffer[1], buffer[2], buffer[3] });
+			this.builder.setErrorVendorId(errorVendorId);
 			
 			/* Error Code */
 			short errorCode = ByteArrayHelper.toShort(new byte[]{buffer[4], buffer[5]});
-
+			this.builder.setErrorCode(errorCode);
+			
 			/* Ignore Reserved */
-			short reserved = 0;
 			
 			/* Content */
 			byte[] errorParameter = new byte[0];
@@ -160,8 +150,9 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 				}
 				errorParameter = ByteArrayHelper.mergeArrays(errorParameter, Arrays.copyOfRange(buffer, 0, count));
 			}
+			this.builder.setErrorParameter(errorParameter);
 			
-			value = PbMessageValueBuilderIetf.createErrorValue(errFlags, errorVendorId, errorCode, reserved, errorParameter);
+			value = (PbMessageValueError)this.builder.toValue();
 			
 			
 		} else {

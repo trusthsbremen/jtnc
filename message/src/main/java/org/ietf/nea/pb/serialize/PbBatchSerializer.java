@@ -9,24 +9,27 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.ietf.nea.pb.batch.PbBatch;
-import org.ietf.nea.pb.batch.PbBatchBuilderIetf;
-import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
-import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
+import org.ietf.nea.pb.batch.PbBatchBuilder;
+import org.ietf.nea.pb.exception.PbMessageUnknownException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbBatchSerializer implements
 		TnccsSerializer<PbBatch> {
 
-	private static final int BATCH_HEAD_SIZE = PbBatch.FIXED_LENGTH; /* in byte */
+	private static final int BATCH_HEAD_SIZE = 8; /* in byte */
 
-	private TnccsSerializer<PbMessage> messageHandler;
+	private TnccsSerializer<PbMessage> messageSerializer;
 	
-	public PbBatchSerializer(TnccsSerializer<PbMessage> messageHandler) {
-		this.messageHandler = messageHandler;
+	private PbBatchBuilder builder;
+	
+	public PbBatchSerializer(PbBatchBuilder builder, TnccsSerializer<PbMessage> messageSerializer) {
+		this.builder = builder; 
+		this.messageSerializer = messageSerializer;
 	}
 	
 	@Override
@@ -53,7 +56,7 @@ public class PbBatchSerializer implements
 		
 		/* Reserved 4 bit(s) + Type 4 bit(s) */
 		buffer.write((byte) ((batch.getReserved() & 0x0000000F) << 4 | (batch
-				.getType().number() & 0x0F)));
+				.getType().type() & 0x0F)));
 
 		/* Length 32 bit(s) */
 		byte[] length = Arrays.copyOfRange(ByteBuffer.allocate(8).putLong(batch.getLength()).array(),4,8);
@@ -75,91 +78,67 @@ public class PbBatchSerializer implements
 		List<PbMessage> messages = batch.getMessages();
 		
 		for (PbMessage message : messages) {
-			this.messageHandler.encode(message, out);
+			this.messageSerializer.encode(message, out);
 		}
 	}
 
 	@Override
-	public PbBatch decode(final InputStream in, final long length) throws SerializationException {
+	public PbBatch decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 
-		PbBatchBuilderIetf builder = new PbBatchBuilderIetf();
-		
-		byte[] buffer = new byte[BATCH_HEAD_SIZE];
-		int count = 0;
-		/* wait until data is available */
-		while(count == 0){
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException("InputStream could not be read.",e);
-			}
-		}
-		
 		// ignore any given length and find out on your own.
 		long batchLength = 0L;
+				
+		builder = (PbBatchBuilder)builder.clear();
+		
+		byte[] buffer = new byte[0];
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, BATCH_HEAD_SIZE);
+		}catch(IOException e){
+			throw new SerializationException("Batch header could not be read from the InputStream.", e);
+		}
 
 		/* Batch header values */
-		if(count >= BATCH_HEAD_SIZE){
-			batchLength = createBatchHeader(builder,buffer);
+		if(buffer.length < BATCH_HEAD_SIZE){
+			/* PbBatch must be of version 2 */
+			builder.setVersion(buffer[0]);
+
+			byte directionality = (byte) (buffer[1] >>> 7);
+			builder.setDirection(directionality);
+
+			/* ignore reserved and continue with type */
+			byte type = (byte)(buffer[3] & 0x0F); 
+			builder.setType(type);
+			
+			/* length */
+			batchLength = ByteArrayHelper.toLong(Arrays.copyOfRange(buffer, 4, 8));
+			
 		}else{
-			throw new SerializationException("Returned data length ("+count+") for batch is to short or stream may be closed.", Integer.toString(count));
+			throw new SerializationException("Returned data length ("+buffer.length+") for batch is to short or stream may be closed.", Integer.toString(buffer.length));
 		}
 
 		/* PB messages */
 		long messageLength = 0;
-		for(long l = batchLength - PbBatch.FIXED_LENGTH; l > 0; l -= messageLength){				
-			messageLength = addMessageToBatch(builder, in, l);
+		for(long l = (batchLength - BATCH_HEAD_SIZE); l > 0; l -= messageLength){				
+			try{
+				PbMessage message = (PbMessage) this.messageSerializer.decode(in, length);
+				builder.addMessage(message);
+				messageLength = message.getLength();
+			}catch(SerializationException e){
+				Throwable t = e.getCause();
+				if(t != null && t instanceof PbMessageUnknownException){
+					// TODO log
+					PbMessage pb = ((PbMessageUnknownException)t).getPbMessage();
+					messageLength = (pb != null) ? pb.getLength() : 0;
+				}else{
+					throw e;
+				}
+			}
 		}
 		
 		PbBatch batch = null;
-//		try{
-		batch = builder.toBatch();
-//		}catch (ValidationException e){
-//			throw new SerializationException("The batch is not valid because of constraint violations.", e);
-//		}
+
+		batch = (PbBatch)builder.toBatch();
 		
 		return batch;
-	}
-
-	private long createBatchHeader(final PbBatchBuilderIetf builder, final byte[] data) throws SerializationException{
-		/* PbBatch must be of version 2 */
-		if(data[0] != 2){
-			throw new SerializationException("The Version #"+ data[0] +" is not supported!",Byte.toString(data[0]));
-		}
-
-		byte directionality = (byte) (data[1] >>> 7);
-		builder.setBatchDirection( (directionality == PbBatchDirectionalityEnum.TO_PBC.directionality()) ? 
-				PbBatchDirectionalityEnum.TO_PBC : PbBatchDirectionalityEnum.TO_PBS);
-
-		/* ignore reserved and continue with type */
-		byte type = (byte)(data[3] & 0x0F); 
-		
-		if (type == PbBatchTypeEnum.CDATA.number()){
-			builder.setBatchType(PbBatchTypeEnum.CDATA);
-		}else if (type == PbBatchTypeEnum.CRETRY.number()){
-			builder.setBatchType(PbBatchTypeEnum.CRETRY);
-		}else if (type == PbBatchTypeEnum.CLOSE.number()){
-			builder.setBatchType(PbBatchTypeEnum.CLOSE);
-		}else if (type == PbBatchTypeEnum.SDATA.number()){
-			builder.setBatchType(PbBatchTypeEnum.SDATA);
-		}else if (type == PbBatchTypeEnum.SRETRY.number()){
-			builder.setBatchType(PbBatchTypeEnum.SRETRY);
-		}else if (type == PbBatchTypeEnum.RESULT.number()){
-			builder.setBatchType(PbBatchTypeEnum.RESULT);
-		}else{
-			throw new SerializationException("Batch type with #" + type +" is not supported.", Integer.toString(type));
-		}
-		
-		/* length */
-
-		long length = ByteArrayHelper.toLong(Arrays.copyOfRange(data, 4, 8));
-
-		return length;
-	}
-	
-	private long addMessageToBatch(final PbBatchBuilderIetf builder, final InputStream in, final long length) throws SerializationException{
-		PbMessage message = (PbMessage) this.messageHandler.decode(in, length);
-		builder.addMessage(message);
-		return message.getLength();
 	}
 }

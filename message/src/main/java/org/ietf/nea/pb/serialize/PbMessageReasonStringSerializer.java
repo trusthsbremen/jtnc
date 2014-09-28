@@ -8,27 +8,22 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
+import org.ietf.nea.pb.message.PbMessageValueReasonStringBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueReasonString> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueReasonString.FIXED_LENGTH;
+ 
+	private PbMessageValueReasonStringBuilder builder;
 	
-	private static final class Singleton{
-		static final PbMessageReasonStringSerializer INSTANCE = new  PbMessageReasonStringSerializer();  
-	}
-	
-	public static  PbMessageReasonStringSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
-	    
-	private  PbMessageReasonStringSerializer(){
-	    	// Singleton
+	public  PbMessageReasonStringSerializer(PbMessageValueReasonStringBuilder builder){
+		this.builder = builder;
 	}
 	
 	
@@ -78,18 +73,20 @@ public class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessag
 	}
 
 	@Override
-	public PbMessageValueReasonString decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueReasonString decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		
 		PbMessageValueReasonString value = null; 	
-
+		this.builder.clear();
 		// ignore any given length and find out on your own.
 		
 		// First 4 bytes are the reason string length.
 		String reasonString = readString(MESSAGE_VALUE_FIXED_SIZE - 1, in, Charset.forName("UTF-8"));
+		this.builder.setReasonString(reasonString);
 		// Last 1 byte is the language code length;
 		String langCode = readString(MESSAGE_VALUE_FIXED_SIZE - 4, in, Charset.forName("US-ASCII"));
+		this.builder.setLangCode(langCode);
 		
-		value = PbMessageValueBuilderIetf.createReasonStringValue(reasonString, langCode);
+		value = (PbMessageValueReasonString)this.builder.toValue();
 		
 		return value;
 	}

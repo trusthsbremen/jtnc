@@ -1,5 +1,9 @@
 package org.ietf.nea.pb.batch.enums;
 
+import java.util.HashSet;
+import java.util.Set;
+
+
 public enum PbBatchDirectionalityEnum {
     TO_PBC  ((byte)0),
     TO_PBS  ((byte)1);
@@ -10,7 +14,20 @@ public enum PbBatchDirectionalityEnum {
         this.directionality = directionality;
     }
     
-    public byte directionality(){
+	public byte directionality(){
         return this.directionality;
+    }
+    
+    public static PbBatchDirectionalityEnum fromDirectionality(byte directionality){
+    	
+    	if(directionality == TO_PBC.directionality){
+    		return TO_PBC;
+    	}
+    	
+    	if(directionality == TO_PBS.directionality){
+    		return TO_PBS;
+    	}
+    	
+    	return null;
     }
 }

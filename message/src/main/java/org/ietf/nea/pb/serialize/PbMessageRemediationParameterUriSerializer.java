@@ -4,31 +4,25 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
+import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUriBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMessageValueRemediationParameterUri> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = 0;
 	
-	private static final class Singleton{
-		static final PbMessageRemediationParameterUriSerializer INSTANCE = new  PbMessageRemediationParameterUriSerializer();  
-	}
+	private PbMessageValueRemediationParameterUriBuilder builder;
 	
-	static  PbMessageRemediationParameterUriSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
-	    
-	private  PbMessageRemediationParameterUriSerializer(){
-	    	// Singleton
+	public PbMessageRemediationParameterUriSerializer(PbMessageValueRemediationParameterUriBuilder builder){
+	    	this.builder = builder;
 	}
 	
 	
@@ -54,10 +48,11 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterUri decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueRemediationParameterUri decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		
 		PbMessageValueRemediationParameterUri value = null; 	
-
+		this.builder.clear();
+		
 		if(length <= 0){
 			return value;
 		}
@@ -86,12 +81,9 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 			uri = new String(temp, Charset.forName("UTF-8"));
 		}
 		
-		try {
-			// TODO unclean but right now no better solution.
-			value = new PbMessageValueRemediationParameterUri(new URI(uri));
-		} catch (URISyntaxException e) {
-			throw new SerializationException("Parsed data is no valid URI. Found: " + uri, e, uri);
-		}
+		this.builder.setUri(uri);
+		
+		value = (PbMessageValueRemediationParameterUri)this.builder.toValue();
 		
 		return value;
 	}

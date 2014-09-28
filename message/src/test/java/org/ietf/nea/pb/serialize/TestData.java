@@ -10,12 +10,12 @@ import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilderIetf;
-import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
+import org.ietf.nea.pb.message.factory.PbMessageFactoryIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;

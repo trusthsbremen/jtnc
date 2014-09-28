@@ -7,26 +7,22 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueExperimental;
+import org.ietf.nea.pb.message.PbMessageValueExperimentalBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessageValueExperimental> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = 0;
 	
-	private static final class Singleton{
-		private static final PbMessageExperimentalSerializer INSTANCE = new  PbMessageExperimentalSerializer();  
-	}
-	public static  PbMessageExperimentalSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
+	private PbMessageValueExperimentalBuilder builder;
 	    
-	private  PbMessageExperimentalSerializer(){
-	    	// Singleton
+	public  PbMessageExperimentalSerializer(PbMessageValueExperimentalBuilder builder){
+		this.builder = builder;
 	}
 	
 	
@@ -52,8 +48,9 @@ public class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessag
 	}
 
 	@Override
-	public PbMessageValueExperimental decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueExperimental decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		PbMessageValueExperimental value = null; 	
+		this.builder.clear();
 		
 		if(length <= 0){
 			return value;
@@ -82,8 +79,9 @@ public class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessag
 		if(temp != null && temp.length > 0){
 			content = new String(temp, Charset.forName("UTF-8"));
 		}
+		this.builder.setMessage(content);
 		
-		value = PbMessageValueBuilderIetf.createExperimentalValue(content);
+		value = (PbMessageValueExperimental) this.builder.toValue();
 		
 		return value;
 	}

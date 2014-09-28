@@ -7,26 +7,22 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueLanguagePreference;
+import org.ietf.nea.pb.message.PbMessageValueLanguagePreferenceBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessageValueLanguagePreference> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = 0;
 	
-	private static final class Singleton{
-		private static final PbMessageLanguagePreferenceSerializer INSTANCE = new PbMessageLanguagePreferenceSerializer();  
-	}
-	public static  PbMessageLanguagePreferenceSerializer getInstance(){
-	    	return Singleton.INSTANCE;
-	}
-	    
-	private  PbMessageLanguagePreferenceSerializer(){
-	    	// Singleton
+	private PbMessageValueLanguagePreferenceBuilder builder;
+	
+	public PbMessageLanguagePreferenceSerializer(PbMessageValueLanguagePreferenceBuilder builder){
+	    	this.builder = builder;
 	}
 	
 	
@@ -52,8 +48,9 @@ public class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<Pb
 	}
 
 	@Override
-	public PbMessageValueLanguagePreference decode(final InputStream in, final long length) throws SerializationException {
+	public PbMessageValueLanguagePreference decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		PbMessageValueLanguagePreference value = null; 	
+		this.builder.clear();
 		
 		if(length <= 0){
 			return value;
@@ -64,7 +61,8 @@ public class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<Pb
 		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
 
 		int count = 0;
-		String preferedLanguage = "Accept-Language: en";
+		//String preferedLanguage = "Accept-Language: en";
+		String preferedLanguage = "";
 		
 		count = 0;
 		byte[] temp = new byte[0];
@@ -83,7 +81,9 @@ public class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<Pb
 			preferedLanguage = new String(temp, Charset.forName("US-ASCII"));
 		}
 		
-		value = PbMessageValueBuilderIetf.createLanguagePreferenceValue(preferedLanguage);
+		this.builder.setLanguagePreference(preferedLanguage);
+		
+		value = (PbMessageValueLanguagePreference)this.builder.toValue();
 		
 		return value;
 	}
