@@ -6,6 +6,7 @@ import java.util.List;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.BatchDirectionAndType;
 import org.ietf.nea.pb.validate.rules.BatchDirectionality;
 import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
@@ -32,7 +33,7 @@ public class PbBatchBuilderIetf implements PbBatchBuilder {
 		this.type = null;
 		this.type =  null;
 		this.messages = new LinkedList<>();
-		this.batchLength = PbBatch.FIXED_LENGTH;
+		this.batchLength = PbMessageTlvFixedLength.BATCH.length();
 	}
 	
 	@Override

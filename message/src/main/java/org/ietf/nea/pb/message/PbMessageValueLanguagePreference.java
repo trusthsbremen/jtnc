@@ -1,6 +1,5 @@
 package org.ietf.nea.pb.message;
 
-import java.nio.charset.Charset;
 
 /**
  *
@@ -54,8 +53,8 @@ public class PbMessageValueLanguagePreference extends AbstractPbMessageValue {
     private final String preferedLanguage; //32 bit(s), accept-Language header, as described in RFC 3282 [4]  as Accept-Language included in that RFC, US-ASCII only, no control characters allowed, no comments, no NUL termination)
 
     
-	PbMessageValueLanguagePreference(final String preferedLanguage) {
-		super(preferedLanguage.getBytes(Charset.forName("US-ASCII")).length);
+	PbMessageValueLanguagePreference(final long length, final String preferedLanguage) {
+		super(length);
 		this.preferedLanguage = preferedLanguage;
 	}
 

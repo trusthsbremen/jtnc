@@ -8,19 +8,20 @@ import java.nio.ByteBuffer;
 
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessageValueAccessRecommendation> {
+class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessageValueAccessRecommendation> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = 4;
+	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.ACC_REC_VALUE.length();
 	
 	private PbMessageValueAccessRecommendationBuilder builder;
 	
-	public  PbMessageAccessRecommendationSerializer(PbMessageValueAccessRecommendationBuilder builder){
+	PbMessageAccessRecommendationSerializer(PbMessageValueAccessRecommendationBuilder builder){
 		this.builder = builder;
 	}
 	
@@ -37,7 +38,7 @@ public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<
 			buffer.write(reserved);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Reserved space could not be written to the buffer.", e,
+					"Reserved space could not be written to the buffer.", e, false, 0,
 					Short.toString(data.getReserved()));
 		}
 		
@@ -47,14 +48,14 @@ public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<
 			buffer.write(code);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Recommendation code could not be written to the buffer.", e,
+					"Recommendation code could not be written to the buffer.", e, false, 0,
 					Short.toString(data.getRecommendation().number()));
 		}
 		
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -65,21 +66,17 @@ public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<
 		builder.clear();
 		// ignore any given length and find out on your own.
 
-		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
+		byte[] buffer = new byte[0];
 
-		int count = 0;
-		// wait till data is available
-		while (count == 0) {
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException(
-						"InputStream could not be read.", e);
-			}
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_VALUE_FIXED_SIZE);
+		}catch(IOException e){
+			throw new SerializationException(
+						"InputStream could not be read.", e, true, 0);
 		}
 
 		
-		if (count >= MESSAGE_VALUE_FIXED_SIZE){
+		if (buffer.length >= MESSAGE_VALUE_FIXED_SIZE){
 
 			/* Ignore Reserved */
 			/* ... */
@@ -90,9 +87,9 @@ public class PbMessageAccessRecommendationSerializer implements TnccsSerializer<
 			value = (PbMessageValueAccessRecommendation)builder.toValue();
 
 		} else {
-			throw new SerializationException("Returned data length (" + count
-					+ ") for message is to short or stream may be closed.",
-					Integer.toString(count));
+			throw new SerializationException("Returned data length (" + buffer.length
+					+ ") for message is to short or stream may be closed.", true, 0,
+					Integer.toString(buffer.length));
 		}
 		
 		return value;

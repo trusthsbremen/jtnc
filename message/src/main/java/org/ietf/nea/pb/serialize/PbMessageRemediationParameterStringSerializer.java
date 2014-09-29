@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterStringBuilder;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
@@ -18,7 +19,7 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<PbMessageValueRemediationParameterString> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueRemediationParameterString.FIXED_LENGTH;
+	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.REM_STR_SUB_VALUE.length();
 	
 	private PbMessageValueRemediationParameterStringBuilder builder;
 	    
@@ -40,7 +41,7 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 			buffer.write(length);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Message length could not be written to the buffer.", e,
+					"Message length could not be written to the buffer.", e, false, 0,
 					Long.toString(data.getStringLength()));
 		}
 		
@@ -49,7 +50,7 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 			buffer.write(data.getRemediationString().getBytes(Charset.forName("UTF-8")));
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Reason could not be written to the buffer.", e,
+					"Reason could not be written to the buffer.", e, false, 0,
 					data.getRemediationString());
 		}
 		
@@ -61,14 +62,14 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 			buffer.write(data.getLangCode().getBytes(Charset.forName("US-ASCII")));
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Language could not be written to the buffer.", e,
+					"Language could not be written to the buffer.", e, false, 0,
 					data.getLangCode());
 		}
 
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -97,38 +98,33 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 		
 		int stringLength = length;
 		
-		byte[] buffer = new byte[stringLength];
+		byte[] buffer = new byte[0];
 
-		int count = 0;
-		// wait till data is available
-		while (count == 0) {
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException(
-						"InputStream could not be read.", e);
-			}
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, stringLength);
+		}catch(IOException e){
+			throw new SerializationException(
+						"InputStream could not be read.", e, true, 0);
 		}
 
-		if (count >= stringLength){
+		if (buffer.length >= stringLength){
 			
 			long contentLength =  ByteArrayHelper.toLong(Arrays.copyOfRange(buffer, 0, stringLength));
 			
 			buffer = new byte[0];
 			byte[] temp = new byte[0];
-			count = 0;
 			
-			for(; contentLength > 0; contentLength -= count){
+			for(; contentLength > 0; contentLength -= buffer.length){
 				
-				buffer = (stringLength < 65535) ? new byte[(int)stringLength] : new byte[65535];
-				try {
-					count = in.read(buffer);
-				} catch (IOException e) {
+				try{
+					buffer = ByteArrayHelper.arrayFromStream(in, ((contentLength < 65535) ?(int)contentLength : 65535));
+				}catch(IOException e){
 					throw new SerializationException(
-							"InputStream could not be read.", e);
+							"InputStream could not be read.", e, true, 0);
 				}
 				
-				temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer, 0, count));
+				temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, buffer.length));
+
 			}
 			if(temp != null && temp.length > 0){
 				returnValue = new String(temp, charset);

@@ -3,9 +3,6 @@ package org.ietf.nea.pb.message;
 import java.nio.charset.Charset;
 
 public class PbMessageValueRemediationParameterString extends AbstractPbMessageSubValue{
-
-    public static final byte FIXED_LENGTH = 5;
-   
   
     private final long stringLength;          // 32 bit(s) length of the string in octets
     private final String remediationString;   // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
@@ -16,9 +13,8 @@ public class PbMessageValueRemediationParameterString extends AbstractPbMessageS
 //    protected final long rpVendorId = IETFConstants.IETF_PEN_VENDORID; // 24 bit(s)
 //    protected final long rpType = PbMessageRemediationParameterTypeEnum.IETF_URI.type();         // 32 bit(s)
     // TODO make protected
-    public PbMessageValueRemediationParameterString(final String remediationString, final String langCode){
-    	super(FIXED_LENGTH + remediationString.getBytes(Charset.forName("UTF-8")).length 
-				+ langCode.getBytes(Charset.forName("US-ASCII")).length);
+    public PbMessageValueRemediationParameterString(final long length,final String remediationString, final String langCode){
+    	super(length);
 		this.remediationString = remediationString;
 		this.stringLength = remediationString.getBytes(Charset.forName("UTF-8")).length;
 		this.langCode = langCode;

@@ -15,13 +15,11 @@ import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessageValueLanguagePreference> {
-
-	private static final int MESSAGE_VALUE_FIXED_SIZE = 0;
+class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessageValueLanguagePreference> {
 	
 	private PbMessageValueLanguagePreferenceBuilder builder;
 	
-	public PbMessageLanguagePreferenceSerializer(PbMessageValueLanguagePreferenceBuilder builder){
+	PbMessageLanguagePreferenceSerializer(PbMessageValueLanguagePreferenceBuilder builder){
 	    	this.builder = builder;
 	}
 	
@@ -37,13 +35,13 @@ public class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<Pb
 			buffer.write(data.getPreferedLanguage().getBytes(Charset.forName("US-ASCII")));
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Message could not be written to the buffer.", e,
+					"Message could not be written to the buffer.", e, false, 0,
 					data.getPreferedLanguage());
 		}
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -57,25 +55,20 @@ public class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<Pb
 		}
 		
 		long messageLength = length;
-		
-		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
-
-		int count = 0;
 		//String preferedLanguage = "Accept-Language: en";
 		String preferedLanguage = "";
-		
-		count = 0;
+		byte[] buffer = new byte[0];
 		byte[] temp = new byte[0];
-		for(long l = messageLength; l > 0; l -= count){
+		
+		for(long l = messageLength; l > 0; l -= buffer.length){
 			
-			buffer = (l < 65535) ? new byte[(int)l] : new byte[65535];
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
+			try{
+				buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
+			}catch(IOException e){
 				throw new SerializationException(
-						"InputStream could not be read.", e);
+						"InputStream could not be read.", e, true, 0);
 			}
-			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer, 0, count));
+			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer, 0, buffer.length));
 		}
 		if(temp != null && temp.length > 0){
 			preferedLanguage = new String(temp, Charset.forName("US-ASCII"));

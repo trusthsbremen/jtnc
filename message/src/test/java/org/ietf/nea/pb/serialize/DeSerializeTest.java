@@ -17,6 +17,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+
 public class DeSerializeTest {
 
 	
@@ -26,7 +28,7 @@ public class DeSerializeTest {
 	@Before
 	public void setUp(){
 		batch = new TestData();
-		bs = new PbBatchSerializer(PbMessageSerializerFactory.createDefault());
+		bs = PbSerializerFactory.createDefault();
 	}
 	
 	@Test
@@ -97,7 +99,7 @@ public class DeSerializeTest {
 	
 	
 	@Test
-	public void serializePbBatchWithIm(){
+	public void serializePbBatchWithIm() throws ValidationException{
 		
 		PbBatch b = batch.getBatchWithImMessage();
 		
@@ -117,7 +119,7 @@ public class DeSerializeTest {
 		Assert.assertEquals(b.getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithAccessRecommendation(){
+	public void serializePbBatchWithAccessRecommendation() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
@@ -137,7 +139,7 @@ public class DeSerializeTest {
 		Assert.assertEquals(b.getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithReasonString(){
+	public void serializePbBatchWithReasonString() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 			
@@ -157,7 +159,7 @@ public class DeSerializeTest {
 		Assert.assertEquals(b.getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithMixedMessageTypes(){
+	public void serializePbBatchWithMixedMessageTypes() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 				

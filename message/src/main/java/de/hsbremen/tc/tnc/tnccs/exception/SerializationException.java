@@ -8,13 +8,18 @@ public class SerializationException extends ComprehensibleException{
 	 * 
 	 */
 	private static final long serialVersionUID = 6714101079655195252L;
+	private final boolean streamAffected;
+	private final long exceptionOffset;
+	
 	
 	
 	/**
 	 * @param arg0
 	 */
-	public SerializationException(final String message, final String...reasons) {
+	public SerializationException(final String message, final boolean streamAffected, final long exceptionOffset ,final String...reasons) {
 		super(message, reasons);
+		this.streamAffected = streamAffected;
+		this.exceptionOffset = exceptionOffset;
 	}
 
 
@@ -22,7 +27,28 @@ public class SerializationException extends ComprehensibleException{
 	 * @param message
 	 * @param arg1
 	 */
-	public SerializationException(final String message, final Throwable arg1, final String...reasons) {
-		super(message, arg1, reasons);
+	public SerializationException(final String message, final Throwable throwable, final boolean streamAffected, final long exceptionOffset, final String...reasons) {
+		super(message, throwable, reasons);
+		this.streamAffected = streamAffected;
+		this.exceptionOffset = exceptionOffset;
 	}
+
+
+	/**
+	 * @return the streamAffected
+	 */
+	public boolean isStreamAffected() {
+		return this.streamAffected;
+	}
+
+
+	/**
+	 * @return the exceptionOffset
+	 */
+	public long getExceptionOffset() {
+		return this.exceptionOffset;
+	}
+	
+	
+	
 }

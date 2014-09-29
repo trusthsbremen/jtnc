@@ -5,11 +5,13 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 public class PbMessageValueUnknownBuilderHsb implements
 		PbMessageValueUnknownBuilder {
 	
+	private long length;
 	private byte[] message; //ImMessage as byte[]
 	private boolean ommittable;
 	
 	
 	public PbMessageValueUnknownBuilderHsb(){
+		this.length = 0;
 		this.message = new byte[0];
 		this.ommittable = Boolean.FALSE;
 	}
@@ -27,6 +29,7 @@ public class PbMessageValueUnknownBuilderHsb implements
 		// no checks necessary because experimental
 		if(message != null){
 			this.message = message;
+			this.length = message.length;
 		}
 
 		return this;
@@ -35,7 +38,7 @@ public class PbMessageValueUnknownBuilderHsb implements
 	@Override
 	public PbMessageValueUnknown toValue() throws ValidationException {
 
-		return new PbMessageValueUnknown(this.ommittable, this.message);
+		return new PbMessageValueUnknown(this.ommittable, this.length, this.message);
 	}
 
 	@Override

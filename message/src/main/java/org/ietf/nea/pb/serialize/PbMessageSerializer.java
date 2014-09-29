@@ -16,6 +16,7 @@ import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilder;
 import org.ietf.nea.pb.message.PbMessageValueBuilderHsb;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
@@ -23,17 +24,16 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 import de.hsbremen.tc.tnc.util.Combined;
 
-public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsSerializer<AbstractPbMessageValue>>
+class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsSerializer<AbstractPbMessageValue>>
 		/*TnccsSerializer<PbMessage>*/ {
 
-	private static final int MESSAGE_HEAD_SIZE = 
-			PbMessage.FIXED_LENGTH; // in byte
+	private static final int MESSAGE_HEAD_FIXED_SIZE = PbMessageTlvFixedLength.MESSAGE.length(); // in byte
 
 	private PbMessageBuilder pbBuilder;
 	
 	private Map<Long, Map<Long, TnccsSerializer<AbstractPbMessageValue>>> pbMessageValueSerializers;
 
-	public PbMessageSerializer(PbMessageBuilder builder){
+	PbMessageSerializer(PbMessageBuilder builder){
 		this.pbBuilder = builder;
 		this.pbMessageValueSerializers = new HashMap<>();
 		
@@ -61,20 +61,20 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 						.encode(pbMessage.getValue(), out);
 			} else {
 				throw new SerializationException(
-						"Message type is not supported.",
+						"Message type is not supported.",false ,0 ,
 						Long.toString(pbMessage.getVendorId()),
 						Long.toString(pbMessage.getType()));
 			}
 		} else {
 			throw new SerializationException(
-					"Message vendor is not supported.", Long.toString(pbMessage
+					"Message vendor is not supported.",false, 0, Long.toString(pbMessage
 							.getVendorId()), Long.toString(pbMessage.getType()));
 		}
 	}
 
 	@Override
 	public PbMessage decode(final InputStream in, final long length)
-			throws SerializationException, ValidationException{
+			throws SerializationException, ValidationException {
 
 		pbBuilder = (PbMessageBuilder) pbBuilder.clear();
 
@@ -85,19 +85,15 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 		long messageType = 0;
 		long messageLength = 0;
 
-		byte[] buffer = new byte[MESSAGE_HEAD_SIZE];
-		int count = 0;
-		// wait till data is available
-		while (count == 0) {
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException(
-						"InputStream could not be read.", e);
-			}
+		byte[] buffer = new byte[0];
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_HEAD_FIXED_SIZE);
+		}catch(IOException e){
+			throw new SerializationException(
+						"InputStream could not be read.", e, true, 0);
 		}
 
-		if (count >= MESSAGE_HEAD_SIZE) {
+		if (buffer.length >= MESSAGE_HEAD_FIXED_SIZE) {
 			flags = buffer[0];
 			pbBuilder.setFlags(flags);
 
@@ -113,9 +109,9 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 					buffer[10], buffer[11] });
 			
 		} else {
-			throw new SerializationException("Returned data length (" + count
-					+ ") for batch is to short or stream may be closed.",
-					Integer.toString(count));
+			throw new SerializationException("Returned data length (" + buffer.length
+					+ ") for batch is to short or stream may be closed.",true ,0 ,
+					Integer.toString(buffer.length));
 		}
 
 		PbMessage message = null;
@@ -125,7 +121,7 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 				
 				AbstractPbMessageValue value = (AbstractPbMessageValue) this.pbMessageValueSerializers
 						.get(vendorId).get(messageType)
-						.decode(in, messageLength - PbMessage.FIXED_LENGTH);
+						.decode(in, messageLength - MESSAGE_HEAD_FIXED_SIZE);
 				pbBuilder.setValue(value);
 
 				message = (PbMessage) pbBuilder.toMessage();
@@ -135,31 +131,30 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 		}
 		
 		// Unknown message error creation
-		byte[] dump = dumpContent(in, messageLength - PbMessage.FIXED_LENGTH);
+		byte[] dump = dumpContent(in, messageLength - MESSAGE_HEAD_FIXED_SIZE);
 		pbBuilder.setValue(PbMessageValueBuilderHsb.createUnknownValue(((flags & PbMessageFlagsEnum.NOSKIP.bit()) > 0), dump));
 		message = (PbMessage) pbBuilder.toMessage();
 		
 		throw new SerializationException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",
-				new PbMessageUnknownException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",message), Long.toString(vendorId), Long.toString(messageType));
+				new PbMessageUnknownException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",message) ,false ,0 , Long.toString(vendorId), Long.toString(messageType));
 	}
 
 	private byte[] dumpContent(final InputStream in, long length) throws SerializationException{
-		byte[] buffer = new byte[0];
+		
 		long contentLength = length;
-		int count = 0;
+		byte[] buffer = new byte[0];
 		byte[] temp = new byte[0];
 		
-		for(; contentLength > 0; contentLength -= count){
-			
-			buffer = (contentLength < 65535) ? new byte[(int)contentLength] : new byte[65535];
+		for(; contentLength > 0; contentLength -= buffer.length){
+
 			try {
-				count = in.read(buffer);
+				buffer = ByteArrayHelper.arrayFromStream(in, ((contentLength < 65535) ? (int)contentLength : 65535));
 			} catch (IOException e) {
 				throw new SerializationException(
-						"InputStream could not be read.", e);
+						"InputStream could not be read.", e, true, 0);
 			}
 			
-			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, count));
+			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, buffer.length));
 
 		}
 		if(temp != null && temp.length > 0){
@@ -192,7 +187,7 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 			buffer.write(vendorId);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Vendor ID could not be written to the buffer.", e,
+					"Vendor ID could not be written to the buffer.", e, false, 0,
 					Long.toString(pbMessage.getVendorId()));
 		}
 
@@ -204,7 +199,7 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 			buffer.write(messageType);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Message type could not be written to the buffer.", e,
+					"Message type could not be written to the buffer.", e, false, 0,
 					Long.toString(pbMessage.getType()));
 		}
 
@@ -216,7 +211,7 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 			buffer.write(length);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Message length could not be written to the buffer.", e,
+					"Message length could not be written to the buffer.", e, false, 0,
 					Long.toString(pbMessage.getLength()));
 		}
 
@@ -224,7 +219,7 @@ public class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined
 			buffer.writeTo(out);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Batch header could not be written to the OutputStream.", e);
+					"Batch header could not be written to the OutputStream.", e, true, 0);
 		}
 
 	}

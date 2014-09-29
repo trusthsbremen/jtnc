@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.validate.rules.PaMessageNoSkip;
 import org.ietf.nea.pb.validate.rules.PaMessageUnknownButNoSkip;
@@ -24,7 +25,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 		this.flags = new PbMessageFlagsEnum[0];
 		this.vendorId = IETFConstants.IETF_PEN_VENDORID;
 		this.type = PbMessageTypeEnum.IETF_PB_PA.messageType();
-		this.length = PbMessage.FIXED_LENGTH;
+		this.length = PbMessageTlvFixedLength.MESSAGE.length();
 		this.value = null;
 	}
 	
@@ -33,8 +34,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 	 */
 	@Override
 	public PbMessageBuilder setFlags(final byte flags){
-		
-		if ((flags & 0x80) == PbMessageFlagsEnum.NOSKIP.bit()) {
+		if ((byte)(flags & 0x80) == PbMessageFlagsEnum.NOSKIP.bit()) {
 			this.flags = new PbMessageFlagsEnum[]{PbMessageFlagsEnum.NOSKIP};
 		}
 		
@@ -90,12 +90,19 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 			throw new IllegalStateException("A message value has to be set.");
 		}
 		
-		PaMessageNoSkip.check(this.value, EnumSet.copyOf(Arrays.asList(flags)));
-		PaMessageUnknownButNoSkip.check(this.value, EnumSet.copyOf(Arrays.asList(flags)));
+		EnumSet<PbMessageFlagsEnum> tempFlags;
+		if(flags.length > 0){
+			tempFlags = EnumSet.copyOf(Arrays.asList(flags));
+		}else{
+			tempFlags = EnumSet.noneOf(PbMessageFlagsEnum.class);
+		}
+		
+		PaMessageNoSkip.check(this.value,tempFlags);
+		PaMessageUnknownButNoSkip.check(this.value, tempFlags);
 		// TODO if necessary make a message length check here, first finding the correct message type the the length parameter
 		// it seems not necessary, because the length is set by the content.
 		
-		PbMessage message = new PbMessage(flags, vendorId, type, value);
+		PbMessage message = new PbMessage(this.flags, this.vendorId, this.type, this.length, this.value);
 		
 		return message;
 	}
@@ -105,7 +112,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 		if(valueLength > 0 && (IETFConstants.IETF_MAX_LENGTH - valueLength) < this.length){
 			throw new ArithmeticException("Message size is to large.");
 		}
-		this.length += valueLength;
+		this.length = PbMessageTlvFixedLength.MESSAGE.length() + valueLength;
 		
 		this.value = value;
 }

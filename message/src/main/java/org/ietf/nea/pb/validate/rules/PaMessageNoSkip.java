@@ -22,11 +22,11 @@ public class PaMessageNoSkip {
 		}
 		
 		if(!value.isOmmittable()){
-			 if(!flags.contains(PbMessageFlagsEnum.NOSKIP)){	
+			 if(flags.isEmpty() || !flags.contains(PbMessageFlagsEnum.NOSKIP)){	
 		            throw new ValidationException("NOSKIP must be set for this message.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NOSKIP_MISSING.number(),Arrays.toString(flags.toArray()));
 		     }
 		}else{
-			if(flags.contains(PbMessageFlagsEnum.NOSKIP)){
+			if(!flags.isEmpty() && flags.contains(PbMessageFlagsEnum.NOSKIP)){
 		        throw new ValidationException("NOSKIP not allowed in this message.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NOSKIP_NOT_ALLOWED.number(),Arrays.toString(flags.toArray()));
 		    }
 		}

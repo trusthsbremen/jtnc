@@ -2,6 +2,7 @@ package org.ietf.nea.pb.message;
 
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.ErrorCodeLimits;
 import org.ietf.nea.pb.validate.rules.ErrorVendorIdLimits;
 
@@ -15,12 +16,14 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	private PbMessageErrorFlagsEnum[] errorFlags; //  8 bit(s) 
     private long errorVendorId;                                           // 24 bit(s)
     private short errorCode;                                                // 16 bit(s)
+    private long length;
     private byte[] errorParameter; //32 bit(s) , may be (1) (one field full 32 bit length) if offset or (4) (4 fields every field has 8 bit length) if version information is needed.
     
     public PbMessageValueErrorBuilderIetf(){
     	this.errorFlags = new PbMessageErrorFlagsEnum[0];
     	this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
     	this.errorCode = PbMessageErrorCodeEnum.IETF_LOCAL.code();
+    	this.length = PbMessageTlvFixedLength.ERR_VALUE.length();
     	this.errorParameter = new byte[0];
     }
 
@@ -30,7 +33,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	@Override
 	public PbMessageValueErrorBuilder setErrorFlags(byte errorFlags) {
 		
-		if ((errorFlags & 0x80)  == PbMessageErrorFlagsEnum.FATAL.bit()) {
+		if ((byte)(errorFlags & 0x80)  == PbMessageErrorFlagsEnum.FATAL.bit()) {
 			this.errorFlags = new PbMessageErrorFlagsEnum[]{PbMessageErrorFlagsEnum.FATAL};
 		}
 		
@@ -69,6 +72,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 		
 		if( errorParameter != null){
 			this.errorParameter = errorParameter;
+			this.length = PbMessageTlvFixedLength.ERR_VALUE.length() + errorParameter.length;
 		}
 		
 		return this;
@@ -77,7 +81,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	@Override
 	public PbMessageValueError toValue() throws ValidationException {
 
-		return new PbMessageValueError(errorFlags, errorVendorId, errorCode, RESERVED, errorParameter);
+		return new PbMessageValueError(this.errorFlags, this.errorVendorId, this.errorCode, RESERVED, this.length, this.errorParameter);
 	}
 
 	@Override

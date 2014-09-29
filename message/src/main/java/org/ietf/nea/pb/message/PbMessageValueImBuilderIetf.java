@@ -1,6 +1,7 @@
 package org.ietf.nea.pb.message;
 
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.ImIdLimits;
 import org.ietf.nea.pb.validate.rules.ImMessageTypeReservedAndLimits;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
@@ -16,6 +17,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
     private long subType;                                               // 32 bit(s)
     private long collectorId;                                            // 16 bit(s)
     private long validatorId;                                            // 16 bit(s)
+    private long length;
     
     private byte[] message; //ImMessage as byte[]
 
@@ -25,6 +27,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
     	this.subType = 0;
     	this.collectorId = TNCConstants.TNC_IMCID_ANY;
     	this.validatorId = TNCConstants.TNC_IMVID_ANY;
+    	this.length = PbMessageTlvFixedLength.IM_VALUE.length();
     	this.message = new byte[0];
     }
     
@@ -34,7 +37,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	@Override
 	public PbMessageValueImBuilder setImFlags(byte imFlags) {
 		
-		if ((imFlags & 0x80)  == PbMessageImFlagsEnum.EXCL.bit()) {
+		if ((byte)(imFlags & 0x80)  == PbMessageImFlagsEnum.EXCL.bit()) {
 			this.imFlags = new PbMessageImFlagsEnum[]{PbMessageImFlagsEnum.EXCL};
 		}
 		
@@ -97,6 +100,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		
 		if(message != null){
 			this.message = message;
+			this.length = PbMessageTlvFixedLength.IM_VALUE.length() + message.length;
 		}
 		
 		return this;
@@ -108,7 +112,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	@Override
 	public PbMessageValueIm toValue() throws ValidationException {
 
-		return new PbMessageValueIm(imFlags, subVendorId, subType, collectorId, validatorId, message);
+		return new PbMessageValueIm(this.imFlags, this.subVendorId, this.subType, this.collectorId, this.validatorId, this.length, this.message);
 	}
 
 	/* (non-Javadoc)

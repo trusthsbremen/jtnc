@@ -11,19 +11,20 @@ import java.util.Set;
 import org.ietf.nea.pb.message.PbMessageValueError;
 import org.ietf.nea.pb.message.PbMessageValueErrorBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueError> {
+class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueError> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueError.FIXED_LENGTH;
+	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.ERR_VALUE.length();
 	
 	private PbMessageValueErrorBuilder builder;    
 	
-	public PbMessageErrorSerializer(PbMessageValueErrorBuilder builder){
+	PbMessageErrorSerializer(PbMessageValueErrorBuilder builder){
 	    	this.builder = builder;
 	}
 	
@@ -53,7 +54,7 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 			buffer.write(vendorId);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Error vendor ID could not be written to the buffer.", e,
+					"Error vendor ID could not be written to the buffer.", e, false, 0,
 					Long.toString(data.getErrorVendorId()));
 		}
 
@@ -63,7 +64,7 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 			buffer.write(code);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Error code could not be written to the buffer.", e,
+					"Error code could not be written to the buffer.", e, false, 0,
 					Short.toString(data.getErrorCode()));
 		}
 		
@@ -73,7 +74,7 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 			buffer.write(reserved);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Reserved space could not be written to the buffer.", e,
+					"Reserved space could not be written to the buffer.", e, false, 0,
 					Short.toString(data.getReserved()));
 		}
 		
@@ -82,14 +83,14 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 			buffer.write(data.getErrorParameter());
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Error content could not be written to the buffer.", e,
+					"Error content could not be written to the buffer.", e, false, 0,
 					Arrays.toString(data.getErrorParameter()));
 		}
 
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -107,19 +108,16 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 		
 		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
 
-		int count = 0;
-		// wait till data is available
-		while (count == 0) {
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException(
-						"InputStream could not be read.", e);
-			}
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_VALUE_FIXED_SIZE);
+		}catch(IOException e){
+			throw new SerializationException(
+						"InputStream could not be read.", e, true, 0);
+			
 		}
 
 		
-		if (count >= MESSAGE_VALUE_FIXED_SIZE){
+		if (buffer.length >= MESSAGE_VALUE_FIXED_SIZE){
 
 			/* Flags */
 			byte errFlags = buffer[0];
@@ -137,18 +135,18 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 			/* Ignore Reserved */
 			
 			/* Content */
+			buffer = new byte[0];
 			byte[] errorParameter = new byte[0];
-			count = 0;
-			for(long l = messageLength - PbMessageValueError.FIXED_LENGTH; l > 0; l -= count){
-				
-				buffer = (l < 65535) ? new byte[(int)l] : new byte[65535];
-				try {
-					count = in.read(buffer);
-				} catch (IOException e) {
+
+			for(long l = messageLength - MESSAGE_VALUE_FIXED_SIZE; l > 0; l -= buffer.length){
+
+				try{
+					buffer = ByteArrayHelper.arrayFromStream(in, (l < 65535) ?(int)l : 65535);
+				}catch(IOException e){
 					throw new SerializationException(
-							"InputStream could not be read.", e);
+							"InputStream could not be read.", e, true, 0);
 				}
-				errorParameter = ByteArrayHelper.mergeArrays(errorParameter, Arrays.copyOfRange(buffer, 0, count));
+				errorParameter = ByteArrayHelper.mergeArrays(errorParameter, Arrays.copyOfRange(buffer, 0, buffer.length));
 			}
 			this.builder.setErrorParameter(errorParameter);
 			
@@ -156,9 +154,9 @@ public class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueE
 			
 			
 		} else {
-			throw new SerializationException("Returned data length (" + count
-					+ ") for message is to short or stream may be closed.",
-					Integer.toString(count));
+			throw new SerializationException("Returned data length (" + buffer.length
+					+ ") for message is to short or stream may be closed.", true, 0,
+					Integer.toString(buffer.length));
 		}
 		
 		return value;

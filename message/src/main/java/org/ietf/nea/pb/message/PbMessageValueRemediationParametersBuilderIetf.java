@@ -1,6 +1,7 @@
 package org.ietf.nea.pb.message;
 
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.RpMessageTypeLimits;
 import org.ietf.nea.pb.validate.rules.RpVendorIdLimits;
 
@@ -14,11 +15,14 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
     private long rpVendorId;         // 24 bit(s)
     private long rpType;             // 32 bit(s)
     
+    private long length; 
+    
     private AbstractPbMessageSubValue parameter;
     
     public PbMessageValueRemediationParametersBuilderIetf(){
     	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
     	this.rpType = PbMessageRemediationParameterTypeEnum.IETF_STRING.type();
+    	this.length = PbMessageTlvFixedLength.REM_PAR_VALUE.length();
     	this.parameter = null;
     }
 
@@ -55,6 +59,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 		
 		if(parameter != null){
 			this.parameter = parameter;
+			this.length = PbMessageTlvFixedLength.REM_PAR_VALUE.length() + parameter.getLength();
 		}
 		
 		return this;
@@ -66,7 +71,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 			throw new IllegalStateException("A message value has to be set.");
 		}
 		
-		return new PbMessageValueRemediationParameters(RESERVED, rpVendorId, rpType, parameter);
+		return new PbMessageValueRemediationParameters(RESERVED, this.rpVendorId, this.rpType, this.length, this.parameter);
 	}
 
 	@Override

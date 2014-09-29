@@ -1,6 +1,7 @@
 package org.ietf.nea.pb.message;
 
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.AssessmentResult;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
@@ -9,9 +10,11 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 		PbMessageValueAssessmentResultBuilder {
 	
 	
+	private long length;
 	private PbMessageAssessmentResultEnum result;      
 	
 	public PbMessageValueAssessmentResultBuilderIetf(){
+		this.length = PbMessageTlvFixedLength.ASS_RES_VALUE.length();
 		this.result = PbMessageAssessmentResultEnum.COMPLIANT;
 	}
 
@@ -30,7 +33,7 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 	@Override
 	public PbMessageValueAssessmentResult toValue() throws ValidationException {
 		
-		return new PbMessageValueAssessmentResult(this.result);
+		return new PbMessageValueAssessmentResult(this.length, this.result);
 	}
 
 	@Override

@@ -28,8 +28,6 @@ package org.ietf.nea.pb.message;
  * 
  */
 public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
-
-    public static final byte FIXED_LENGTH = 8;
     
     private final byte reserved;           //  8 bit(s) should be 0
     
@@ -41,10 +39,10 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
 
     
     
-    PbMessageValueRemediationParameters(final byte reserved,
+    PbMessageValueRemediationParameters(final byte reserved, final long length,
 			final long rpVendorId, final long rpType,
 			final AbstractPbMessageSubValue parameter) {
-		super(FIXED_LENGTH + parameter.getLength());
+		super(length);
 		this.reserved = reserved;
 		this.rpVendorId = rpVendorId;
 		this.rpType = rpType;

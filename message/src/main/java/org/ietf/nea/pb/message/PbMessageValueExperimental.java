@@ -31,8 +31,8 @@ public class PbMessageValueExperimental extends AbstractPbMessageValue{
 
     
     
-    PbMessageValueExperimental(final String message) {
-		super(message.getBytes().length);
+    PbMessageValueExperimental(final long length, final String message) {
+		super(length);
 		this.message = message;
 	}
 

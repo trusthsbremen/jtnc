@@ -5,9 +5,11 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 public class PbMessageValueExperimentalBuilderIetf implements
 		PbMessageValueExperimentalBuilder {
 	
+	private long length;
 	private String message; //ImMessage as byte[]
 	
 	public PbMessageValueExperimentalBuilderIetf(){
+		this.length = 0;
 		this.message = "";
 	}
 	
@@ -16,6 +18,7 @@ public class PbMessageValueExperimentalBuilderIetf implements
 		// no checks necessary because experimental
 		if(message != null){
 			this.message = message;
+			this.length = message.getBytes().length;
 		}
 		
 		return this;
@@ -24,7 +27,7 @@ public class PbMessageValueExperimentalBuilderIetf implements
 	@Override
 	public PbMessageValueExperimental toValue() throws ValidationException {
 
-		return new PbMessageValueExperimental(this.message);
+		return new PbMessageValueExperimental(this.length,this.message);
 	}
 
 	@Override

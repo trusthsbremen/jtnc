@@ -12,7 +12,6 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
 
 public class PbMessage implements TnccsMessage {
-    public static final byte FIXED_LENGTH = 12;
     
     private final EnumSet<PbMessageFlagsEnum> flags;                               //  8 bit(s)
     private final long vendorId;                                // 24 bit(s)
@@ -20,7 +19,7 @@ public class PbMessage implements TnccsMessage {
     private final long length;// 32 bit(s) min value is 12 for the 12 bytes in this header 
     private final AbstractPbMessageValue value;
 
-    PbMessage(final PbMessageFlagsEnum[] flags, final long vendorId, final long type, final AbstractPbMessageValue value) {
+    PbMessage(final PbMessageFlagsEnum[] flags, final long vendorId, final long type, final long length, final AbstractPbMessageValue value) {
     	if(flags.length > 0){
          	this.flags = EnumSet.copyOf(Arrays.asList(flags));
         }else {
@@ -29,7 +28,7 @@ public class PbMessage implements TnccsMessage {
     	this.vendorId = vendorId;
 		this.type = type;
 		this.value = value;
-		this.length = value.getLength() + FIXED_LENGTH;
+		this.length = length;
 	}
     
 	/**

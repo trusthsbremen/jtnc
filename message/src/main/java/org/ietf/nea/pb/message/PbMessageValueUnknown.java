@@ -19,8 +19,8 @@ public class PbMessageValueUnknown extends AbstractPbMessageValue{
     
     private final byte[] message; //ImMessage as byte[]
 
-    PbMessageValueUnknown(final boolean ommittable,final byte[] message) {
-		super(message.length, ommittable);
+    PbMessageValueUnknown(final boolean ommittable, final long length,final byte[] message) {
+		super(length, ommittable);
 		this.message = message;
 	}
 

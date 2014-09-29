@@ -10,7 +10,7 @@ public class PbMessageValueBuilderHsb {
 			throw new NullPointerException("Result cannot be null.");
 		}
 		
-		return new PbMessageValueUnknown(ommittable, message);
+		return new PbMessageValueUnknown(ommittable, message.length, message);
 	}
 	
 }

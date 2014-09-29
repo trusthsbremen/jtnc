@@ -12,22 +12,23 @@ import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchBuilder;
 import org.ietf.nea.pb.exception.PbMessageUnknownException;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbBatchSerializer implements
+class PbBatchSerializer implements
 		TnccsSerializer<PbBatch> {
 
-	private static final int BATCH_HEAD_SIZE = 8; /* in byte */
+	private static final int BATCH_HEAD_FIXED_SIZE = PbMessageTlvFixedLength.BATCH.length();
 
 	private TnccsSerializer<PbMessage> messageSerializer;
 	
 	private PbBatchBuilder builder;
 	
-	public PbBatchSerializer(PbBatchBuilder builder, TnccsSerializer<PbMessage> messageSerializer) {
+	PbBatchSerializer(PbBatchBuilder builder, TnccsSerializer<PbMessage> messageSerializer) {
 		this.builder = builder; 
 		this.messageSerializer = messageSerializer;
 	}
@@ -64,14 +65,14 @@ public class PbBatchSerializer implements
 		try {
 			buffer.write(length);
 		} catch (IOException e) {
-			throw new SerializationException("Batch length could not be written to the buffer.", e);
+			throw new SerializationException("Batch length could not be written to the buffer.",e,false,0);
 		}
 		
 		// make the first write with batch data
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Batch header could not be written to the OutputStream.",e);
+			throw new SerializationException("Batch header could not be written to the OutputStream.",e,true,0);
 		}
 		
 		/* PB messages */
@@ -92,33 +93,39 @@ public class PbBatchSerializer implements
 		
 		byte[] buffer = new byte[0];
 		try{
-			buffer = ByteArrayHelper.arrayFromStream(in, BATCH_HEAD_SIZE);
+			buffer = ByteArrayHelper.arrayFromStream(in, BATCH_HEAD_FIXED_SIZE);
 		}catch(IOException e){
-			throw new SerializationException("Batch header could not be read from the InputStream.", e);
+			throw new SerializationException("Batch header could not be read from the InputStream.", e, true,0);
 		}
 
 		/* Batch header values */
-		if(buffer.length < BATCH_HEAD_SIZE){
+		
+		
+		if(buffer.length >= BATCH_HEAD_FIXED_SIZE){
+			
+			
 			/* PbBatch must be of version 2 */
+			
 			builder.setVersion(buffer[0]);
 
-			byte directionality = (byte) (buffer[1] >>> 7);
+			byte directionality = (byte) ((buffer[1] & 0x80) >>> 7);
 			builder.setDirection(directionality);
 
 			/* ignore reserved and continue with type */
 			byte type = (byte)(buffer[3] & 0x0F); 
 			builder.setType(type);
-			
+
 			/* length */
 			batchLength = ByteArrayHelper.toLong(Arrays.copyOfRange(buffer, 4, 8));
 			
+			
 		}else{
-			throw new SerializationException("Returned data length ("+buffer.length+") for batch is to short or stream may be closed.", Integer.toString(buffer.length));
+			throw new SerializationException("Returned data length ("+buffer.length+") for batch is to short or stream may be closed.",true,0,Integer.toString(buffer.length));
 		}
 
 		/* PB messages */
 		long messageLength = 0;
-		for(long l = (batchLength - BATCH_HEAD_SIZE); l > 0; l -= messageLength){				
+		for(long l = (batchLength - BATCH_HEAD_FIXED_SIZE); l > 0; l -= messageLength){				
 			try{
 				PbMessage message = (PbMessage) this.messageSerializer.decode(in, length);
 				builder.addMessage(message);

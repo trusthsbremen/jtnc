@@ -9,19 +9,20 @@ import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResult;
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilder;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMessageValueAssessmentResult> {
+class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMessageValueAssessmentResult> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueAssessmentResult.FIXED_LENGTH;
+	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.ASS_RES_VALUE.length();
 	
 	private PbMessageValueAssessmentResultBuilder builder;
 	
-	public PbMessageAssessmentResultSerializer(PbMessageValueAssessmentResultBuilder builder){
+	PbMessageAssessmentResultSerializer(PbMessageValueAssessmentResultBuilder builder){
 	    this.builder = builder;
 	}
 	
@@ -38,14 +39,14 @@ public class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMe
 			buffer.write(result);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Result code could not be written to the buffer.", e,
+					"Result code could not be written to the buffer.", e, false, 0,
 					Long.toString(data.getResult().number()));
 		}
 		
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -55,21 +56,18 @@ public class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMe
 		this.builder.clear();
 		// ignore any given length and find out on your own.
 
-		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
+		byte[] buffer = new byte[0];
 
-		int count = 0;
-		// wait till data is available
-		while (count == 0) {
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException(
-						"InputStream could not be read.", e);
-			}
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_VALUE_FIXED_SIZE);
+		}catch(IOException e){
+			throw new SerializationException(
+						"InputStream could not be read.", e, true, 0);
+			
 		}
 
 		
-		if (count >= MESSAGE_VALUE_FIXED_SIZE){
+		if (buffer.length >= MESSAGE_VALUE_FIXED_SIZE){
 
 			/* Assessment result */
 			long code = ByteArrayHelper.toLong(Arrays.copyOfRange(buffer, 0, MESSAGE_VALUE_FIXED_SIZE));
@@ -78,9 +76,9 @@ public class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMe
 			value = (PbMessageValueAssessmentResult)this.builder.toValue();
 
 		} else {
-			throw new SerializationException("Returned data length (" + count
-					+ ") for message is to short or stream may be closed.",
-					Integer.toString(count));
+			throw new SerializationException("Returned data length (" + buffer.length
+					+ ") for message is to short or stream may be closed.", true, 0,
+					Integer.toString(buffer.length));
 		}
 		
 		return value;

@@ -35,14 +35,13 @@ import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
  */
 
 public class PbMessageValueAssessmentResult extends AbstractPbMessageValue{
-    
-	public static final byte FIXED_LENGTH = 4;
+
 	private static final boolean OMMITTABLE = Boolean.FALSE;
 
     private final PbMessageAssessmentResultEnum result;                                        //32 bit(s)
 
-	PbMessageValueAssessmentResult(final PbMessageAssessmentResultEnum result) {
-		super(FIXED_LENGTH, OMMITTABLE);
+	PbMessageValueAssessmentResult(final long length,final PbMessageAssessmentResultEnum result) {
+		super(length, OMMITTABLE);
 		this.result = result;
 	}
 

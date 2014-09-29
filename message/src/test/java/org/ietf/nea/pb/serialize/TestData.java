@@ -12,7 +12,6 @@ import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
-import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.message.factory.PbMessageFactoryIetf;
@@ -70,7 +69,7 @@ public class TestData {
 		return new ByteArrayInputStream(mixedBatch);
 	}
 	
-	public PbBatch getBatchWithImMessage(){
+	public PbBatch getBatchWithImMessage() throws ValidationException{
 		
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
@@ -84,7 +83,7 @@ public class TestData {
 		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
-	public PbBatch getBatchWithInvalidImMessage(){
+	public PbBatch getBatchWithInvalidImMessage() throws ValidationException{
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -99,7 +98,7 @@ public class TestData {
 	}
 	
 	
-	public PbBatch getBatchWithAccessRecommendation(){
+	public PbBatch getBatchWithAccessRecommendation() throws ValidationException{
 		
 		List<PbMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
@@ -107,7 +106,7 @@ public class TestData {
 		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
-	public PbBatch getBatchWithReasonString(){
+	public PbBatch getBatchWithReasonString() throws ValidationException{
 		
 		List<PbMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
@@ -115,7 +114,7 @@ public class TestData {
 		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
-	public PbBatch getBatchWithMixedMessages(){
+	public PbBatch getBatchWithMixedMessages() throws ValidationException{
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -133,7 +132,7 @@ public class TestData {
 	
 	public PbBatch getInvalidImMessage() throws ValidationException{
 		PbMessageBuilderIetf builder = new PbMessageBuilderIetf();
-		builder.setFlags(new PbMessageFlagsEnum[0]);
+		builder.setFlags((byte)0);
 		builder.setVendorId(IETFConstants.IETF_PEN_VENDORID);
 		builder.setType(PbMessageTypeEnum.IETF_PB_PA.messageType());
 		builder.setValue(PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12}));

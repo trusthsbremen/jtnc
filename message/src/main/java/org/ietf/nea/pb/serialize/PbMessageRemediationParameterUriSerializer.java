@@ -16,12 +16,10 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMessageValueRemediationParameterUri> {
-
-	private static final int MESSAGE_VALUE_FIXED_SIZE = 0;
 	
 	private PbMessageValueRemediationParameterUriBuilder builder;
 	
-	public PbMessageRemediationParameterUriSerializer(PbMessageValueRemediationParameterUriBuilder builder){
+	PbMessageRemediationParameterUriSerializer(PbMessageValueRemediationParameterUriBuilder builder){
 	    	this.builder = builder;
 	}
 	
@@ -37,13 +35,13 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 			buffer.write(data.getRemediationUri().toString().getBytes(Charset.forName("UTF-8")));
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Message could not be written to the buffer.", e,
+					"Message could not be written to the buffer.", e, false, 0,
 					data.getRemediationUri().toString());
 		}
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -58,24 +56,20 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 		}
 		
 		long messageLength = length;
-	
-		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
-
-		int count = 0;
 		String uri = "";
-		
-		count = 0;
+		byte[] buffer = new byte[0];
 		byte[] temp = new byte[0];
-		for(long l= messageLength; l > 0; l -= count){
+		
+		for(long l= messageLength; l > 0; l -= buffer.length){
 			
-			buffer = (l < 65535) ? new byte[(int)l] : new byte[65535];
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
+			
+			try{
+				buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
+			}catch(IOException e){
 				throw new SerializationException(
-						"InputStream could not be read.", e);
+						"InputStream could not be read.", e, true, 0);
 			}
-			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, count));
+			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, buffer.length));
 		}
 		if(temp != null && temp.length > 0){
 			uri = new String(temp, Charset.forName("UTF-8"));

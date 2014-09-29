@@ -1,5 +1,7 @@
 package org.ietf.nea.pb.serialize;
 
+import org.ietf.nea.pb.batch.PbBatch;
+import org.ietf.nea.pb.batch.PbBatchBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilderIetf;
@@ -16,43 +18,43 @@ import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageSerializerFactory {
+public class PbSerializerFactory {
 
-	
-	 
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static PbMessageSerializer createDefault(){
-		
+	public static TnccsSerializer<PbBatch> createDefault(){
+
 		/* 
 		 * TODO Remove raw types and unchecked conversion.
 		 * Unfortunately I could not find a way around using 
 		 * raw types and unchecked conversion my be some one 
 		 * else can.
 		 */
-		PbMessageSerializer serializer = new PbMessageSerializer(new PbMessageBuilderIetf());
+		PbMessageSerializer mSerializer = new PbMessageSerializer(new PbMessageBuilderIetf());
 		
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType(),
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType(),
 				(TnccsSerializer)new PbMessageAccessRecommendationSerializer(new PbMessageValueAccessRecommendationBuilderIetf()));
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType(), 
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType(), 
 				(TnccsSerializer)new PbMessageAssessmentResultSerializer(new PbMessageValueAssessmentResultBuilderIetf()));
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ERROR.messageType(), 
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ERROR.messageType(), 
 				(TnccsSerializer)new PbMessageErrorSerializer(new PbMessageValueErrorBuilderIetf()));
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.messageType(),
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.messageType(),
 				(TnccsSerializer)new PbMessageExperimentalSerializer( new PbMessageValueExperimentalBuilderIetf()));
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType(),
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType(),
 				(TnccsSerializer)new PbMessageLanguagePreferenceSerializer(new PbMessageValueLanguagePreferenceBuilderIetf()));
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.messageType(),
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.messageType(),
 				(TnccsSerializer)new PbMessageImSerializer(new PbMessageValueImBuilderIetf()));
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(),
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(),
 				(TnccsSerializer)new PbMessageReasonStringSerializer(new PbMessageValueReasonStringBuilderIetf()));
-		serializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.messageType(),
+		mSerializer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.messageType(),
 				(TnccsSerializer)new PbMessageRemediationParameterSerializer(
 						new PbMessageValueRemediationParametersBuilderIetf(), 
 						new PbMessageRemediationParameterStringSerializer(new PbMessageValueRemediationParameterStringBuilderIetf()),
 						new PbMessageRemediationParameterUriSerializer(new PbMessageValueRemediationParameterUriBuilderIetf())
 						));
 		
-		return serializer;
+		PbBatchSerializerBuffered bSerializer = new PbBatchSerializerBuffered(new PbBatchSerializer(new PbBatchBuilderIetf(), mSerializer));
+
+		return bSerializer;
 	}
 	
 }

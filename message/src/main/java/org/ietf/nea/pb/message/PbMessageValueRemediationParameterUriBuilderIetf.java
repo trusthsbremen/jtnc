@@ -11,9 +11,11 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessageValueRemediationParameterUriBuilder{
 
+	private long length;
     private URI uri;
     
     public PbMessageValueRemediationParameterUriBuilderIetf(){
+    	this.length = 0;
     	this.uri = null;
     }
 
@@ -29,7 +31,7 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
 		} catch (URISyntaxException e) {
 			throw new ValidationException("URI syntax not valid.",e, true, PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.URI_SYNTAX_NOT_VALID.number(),uri);
 		}
-		
+		this.length = this.uri.toString().getBytes().length;
 		return this;
 	}
 
@@ -40,7 +42,7 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
 				throw new IllegalStateException("A message value has to be set.");
 		}
 		
-		return new PbMessageValueRemediationParameterUri(uri);
+		return new PbMessageValueRemediationParameterUri(this.length, this.uri);
 	}
 
 	@Override

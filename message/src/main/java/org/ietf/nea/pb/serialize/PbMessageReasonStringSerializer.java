@@ -16,13 +16,13 @@ import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueReasonString> {
+class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueReasonString> {
 
 	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueReasonString.FIXED_LENGTH;
  
 	private PbMessageValueReasonStringBuilder builder;
 	
-	public  PbMessageReasonStringSerializer(PbMessageValueReasonStringBuilder builder){
+	PbMessageReasonStringSerializer(PbMessageValueReasonStringBuilder builder){
 		this.builder = builder;
 	}
 	
@@ -40,7 +40,7 @@ public class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessag
 			buffer.write(length);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Message length could not be written to the buffer.", e,
+					"Message length could not be written to the buffer.", e, false, 0,
 					Long.toString(data.getStringLength()));
 		}
 		
@@ -49,7 +49,7 @@ public class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessag
 			buffer.write(data.getReasonString().getBytes(Charset.forName("UTF-8")));
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Reason could not be written to the buffer.", e,
+					"Reason could not be written to the buffer.", e, false, 0,
 					data.getReasonString());
 		}
 		
@@ -61,14 +61,14 @@ public class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessag
 			buffer.write(data.getLangCode().getBytes(Charset.forName("US-ASCII")));
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Language could not be written to the buffer.", e,
+					"Language could not be written to the buffer.", e, false, 0,
 					data.getLangCode());
 		}
 
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -97,38 +97,32 @@ public class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessag
 		
 		int stringLength = length;
 		
-		byte[] buffer = new byte[stringLength];
+		byte[] buffer = new byte[0];
 
-		int count = 0;
-		// wait till data is available
-		while (count == 0) {
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException(
-						"InputStream could not be read.", e);
-			}
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, stringLength);
+		}catch(IOException e){
+			throw new SerializationException(
+						"InputStream could not be read.", e, true, 0);
 		}
 
-		if (count >= stringLength){
+		if (buffer.length >= stringLength){
 			
 			long contentLength =  ByteArrayHelper.toLong(Arrays.copyOfRange(buffer, 0, stringLength));
 			
 			buffer = new byte[0];
 			byte[] temp = new byte[0];
-			count = 0;
 			
-			for(; contentLength > 0; contentLength -= count){
+			for(; contentLength > 0; contentLength -= buffer.length){
 				
-				buffer = (contentLength < 65535) ? new byte[(int)contentLength] : new byte[65535];
-				try {
-					count = in.read(buffer);
-				} catch (IOException e) {
+				try{
+					buffer = ByteArrayHelper.arrayFromStream(in, ((contentLength < 65535) ?(int)contentLength : 65535));
+				}catch(IOException e){
 					throw new SerializationException(
-							"InputStream could not be read.", e);
+							"InputStream could not be read.", e, true, 0);
 				}
 				
-				temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, count));
+				temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, buffer.length));
 
 			}
 			if(temp != null && temp.length > 0){

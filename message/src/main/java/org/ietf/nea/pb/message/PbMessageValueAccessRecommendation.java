@@ -37,17 +37,15 @@ import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
  */
 public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue{
 
-    public static final byte FIXED_LENGTH = 4;
-
     protected final short reserved;   // 16 bit(s) should be 0
     
     private final PbMessageAccessRecommendationEnum recommendation;  //16 bit(s)
 
     
     
-    PbMessageValueAccessRecommendation(final short reserved,
+    PbMessageValueAccessRecommendation(final short reserved,final long length,
 			final PbMessageAccessRecommendationEnum recommendation) {
-		super(FIXED_LENGTH);
+		super(length);
 		this.reserved = reserved;
 		this.recommendation = recommendation;
 	}

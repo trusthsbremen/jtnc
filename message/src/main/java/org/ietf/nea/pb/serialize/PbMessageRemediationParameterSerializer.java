@@ -12,6 +12,7 @@ import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameters;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParametersBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -19,9 +20,9 @@ import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessageValueRemediationParameters> {
+class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessageValueRemediationParameters> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueRemediationParameters.FIXED_LENGTH;
+	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.REM_PAR_VALUE.length();
 
 	private final PbMessageRemediationParameterStringSerializer stringParamsSerializer;
 	
@@ -56,7 +57,7 @@ public class PbMessageRemediationParameterSerializer implements TnccsSerializer<
 			buffer.write(rpVendorId);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Remediation vendor ID could not be written to the buffer.", e,
+					"Remediation vendor ID could not be written to the buffer.", e, false, 0,
 					Long.toString(data.getRpVendorId()));
 		}
 
@@ -68,14 +69,14 @@ public class PbMessageRemediationParameterSerializer implements TnccsSerializer<
 			buffer.write(rpType);
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Remediation type could not be written to the buffer.", e,
+					"Remediation type could not be written to the buffer.", e, false, 0,
 					Long.toString(data.getRpType()));
 		}
 		
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 		
 		if(data.getRpVendorId() == IETFConstants.IETF_PEN_VENDORID){
@@ -98,21 +99,18 @@ public class PbMessageRemediationParameterSerializer implements TnccsSerializer<
 			return value;
 		}
 
-		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
-
-		int count = 0;
-		// wait till data is available
-		while (count == 0) {
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
-				throw new SerializationException(
-						"InputStream could not be read.", e);
-			}
+		byte[] buffer = new byte[0];
+		
+		try{
+			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_VALUE_FIXED_SIZE);
+		}catch(IOException e){
+			throw new SerializationException(
+						"InputStream could not be read.", e, true, 0);
+			
 		}
 
 		
-		if (count >= MESSAGE_VALUE_FIXED_SIZE){
+		if (buffer.length >= MESSAGE_VALUE_FIXED_SIZE){
 
 			/* Ignore Reserved */
 
@@ -138,15 +136,15 @@ public class PbMessageRemediationParameterSerializer implements TnccsSerializer<
 		       this.builder.setParameter(paramString);
 			}else{
 				// TODO ignore or read into some byte array as general parameter type
-				throw new SerializationException("Remediation type #"+type+" could not be recognized.", Long.toString(type));
+				throw new SerializationException("Remediation type #"+type+" could not be recognized.", false, 0,Long.toString(type));
 			}
 			
 			value = (PbMessageValueRemediationParameters)this.builder.toValue(); 
 			
 		} else {
-			throw new SerializationException("Returned data length (" + count
-					+ ") for message is to short or stream may be closed.",
-					Integer.toString(count));
+			throw new SerializationException("Returned data length (" + buffer.length
+					+ ") for message is to short or stream may be closed.", false, 0,
+					Integer.toString(buffer.length));
 		}
 		
 		return value;

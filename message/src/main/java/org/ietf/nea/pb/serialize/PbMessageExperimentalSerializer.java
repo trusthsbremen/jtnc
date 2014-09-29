@@ -15,13 +15,11 @@ import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
-public class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessageValueExperimental> {
-
-	private static final int MESSAGE_VALUE_FIXED_SIZE = 0;
+class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessageValueExperimental> {
 	
 	private PbMessageValueExperimentalBuilder builder;
 	    
-	public  PbMessageExperimentalSerializer(PbMessageValueExperimentalBuilder builder){
+	PbMessageExperimentalSerializer(PbMessageValueExperimentalBuilder builder){
 		this.builder = builder;
 	}
 	
@@ -37,13 +35,13 @@ public class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessag
 			buffer.write(data.getMessage().getBytes(Charset.forName("UTF-8")));
 		} catch (IOException e) {
 			throw new SerializationException(
-					"Message could not be written to the buffer.", e,
+					"Message could not be written to the buffer.", e, false, 0,
 					data.getMessage());
 		}
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {
-			throw new SerializationException("Message could not be written to the OutputStream.",e);
+			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 	}
 
@@ -57,24 +55,19 @@ public class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessag
 		}
 		
 		long messageLength = length;
-		
-		byte[] buffer = new byte[MESSAGE_VALUE_FIXED_SIZE];
-
-		int count = 0;
 		String content = "";
-		
-		count = 0;
+		byte[] buffer = new byte[0];
 		byte[] temp = new byte[0];
-		for(long l = messageLength; l > 0; l -= count){
-			
-			buffer = (l < 65535) ? new byte[(int)l] : new byte[65535];
-			try {
-				count = in.read(buffer);
-			} catch (IOException e) {
+
+		for(long l = messageLength ; l > 0; l -= buffer.length){
+
+			try{
+				buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
+			}catch(IOException e){
 				throw new SerializationException(
-						"InputStream could not be read.", e);
+						"InputStream could not be read.", e, true, 0);
 			}
-			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer, 0, count));
+			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer, 0, buffer.length));
 		}
 		if(temp != null && temp.length > 0){
 			content = new String(temp, Charset.forName("UTF-8"));
