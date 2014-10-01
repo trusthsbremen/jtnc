@@ -11,7 +11,6 @@ import java.util.Set;
 import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.PbMessageValueImBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
@@ -20,7 +19,7 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.IM_VALUE.length();
+	//private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.IM_VALUE.length();
 	
 	private PbMessageValueImBuilder builder;
 	
@@ -35,7 +34,7 @@ class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		/* Flags 8 bit(s) */
+		/* flags 8 bit(s) */
 		Set<PbMessageImFlagsEnum> flags = data.getImFlags();
 		byte bFlags = 0;
 		for (PbMessageImFlagsEnum pbMessageImFlagsEnum : flags) {
@@ -43,7 +42,7 @@ class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 		}
 		buffer.write(bFlags);
 
-		/* Vendor ID 24 bit(s) */
+		/* vendor ID 24 bit(s) */
 		byte[] vendorId = Arrays
 				.copyOfRange(
 						ByteBuffer.allocate(8).putLong(data.getSubVendorId())
@@ -57,7 +56,7 @@ class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 					Long.toString(data.getSubVendorId()));
 		}
 
-		/* Message Type 32 bit(s) */
+		/* message type 32 bit(s) */
 		byte[] type = Arrays.copyOfRange(
 				ByteBuffer.allocate(8).putLong(data.getSubType()).array(), 4,
 				8);
@@ -69,7 +68,7 @@ class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 					Long.toString(data.getSubType()));
 		}
 
-		/* Collector ID */
+		/* collector ID */
 		byte[] collector = Arrays.copyOfRange(
 				ByteBuffer.allocate(8).putLong(data.getCollectorId()).array(),
 				6, 8);
@@ -81,7 +80,7 @@ class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 					Long.toString(data.getCollectorId()));
 		}
 		
-		/* Validator ID */
+		/* validator ID */
 		byte[] validator = Arrays.copyOfRange(
 				ByteBuffer.allocate(8).putLong(data.getValidatorId()).array(),
 				6, 8);
@@ -114,57 +113,53 @@ class PbMessageImSerializer implements TnccsSerializer<PbMessageValueIm> {
 
 		byte[] buffer = new byte[0];
 		try{
-			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_VALUE_FIXED_SIZE);
-		}catch(IOException e){
-			throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
-		}
-
-		
-		if (buffer.length >= MESSAGE_VALUE_FIXED_SIZE){
-			
-			/* Flags */
+			/* flags */
+			buffer = ByteArrayHelper.arrayFromStream(in, 1);
 			byte imFlags = buffer[0];
 			this.builder.setImFlags(imFlags);
 		
-			long subVendorId = ByteArrayHelper.toLong(
-					new byte[] { buffer[1], buffer[2], buffer[3] });
+			/* sub vendor ID */ 
+			buffer = ByteArrayHelper.arrayFromStream(in, 3);
+			long subVendorId = ByteArrayHelper.toLong(buffer);
 			this.builder.setSubVendorId(subVendorId);
 			
-			long subType = ByteArrayHelper.toLong(
-					new byte[] { buffer[4], buffer[5], buffer[6], buffer[7] });
+			/* sub message type */
+			buffer = ByteArrayHelper.arrayFromStream(in, 4);
+			long subType = ByteArrayHelper.toLong(buffer);
 			this.builder.setSubType(subType);
 			
-			long collectorId = ByteArrayHelper.toLong(
-					new byte[] { buffer[8], buffer[9]});
+			/* collector ID */
+			buffer = ByteArrayHelper.arrayFromStream(in, 2);
+			long collectorId = ByteArrayHelper.toLong(buffer);
 			this.builder.setCollectorId(collectorId);
 			
-			long validatorId = ByteArrayHelper.toLong( 
-					new byte[] { buffer[10], buffer[11]});
-			this.builder.setValidatorId(validatorId);
+			/* validator ID */
+			buffer = ByteArrayHelper.arrayFromStream(in, 2);
+			long validatorId = ByteArrayHelper.toLong(buffer);
+			this.builder.setValidatorId(validatorId);	
 			
-			byte[] imMessage = new byte[0];
-			buffer = new byte[0];
-			for(long l = messageLength-MESSAGE_VALUE_FIXED_SIZE; l > 0; l -= buffer.length){
-				
-				try{
-					buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
-				}catch(IOException e){
-					throw new SerializationException(
-							"InputStream could not be read.", e, true, 0);
-				}
-				imMessage = ByteArrayHelper.mergeArrays(imMessage, Arrays.copyOfRange(buffer, 0, buffer.length));
-			}
-			this.builder.setMessage(imMessage);
-			
-			value = (PbMessageValueIm)this.builder.toValue();
-			
-		} else {
-			throw new SerializationException("Returned data length (" + buffer.length
-					+ ") for message is to short or stream may be closed.", true, 0,
-					Integer.toString(buffer.length));
+		}catch (IOException e){
+			throw new SerializationException(
+					"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 		}
 		
+		/* PA message */
+		byte[] imMessage = new byte[0];
+		buffer = new byte[0];
+		for(long l = messageLength - 12; l > 0; l -= buffer.length){
+			
+			try{
+				buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
+			}catch(IOException e){
+				throw new SerializationException(
+						"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
+			}
+			imMessage = ByteArrayHelper.mergeArrays(imMessage, Arrays.copyOfRange(buffer, 0, buffer.length));
+		}
+		this.builder.setMessage(imMessage);
+		
+		value = (PbMessageValueIm)this.builder.toValue();
+			
 		return value;
 	}
 }

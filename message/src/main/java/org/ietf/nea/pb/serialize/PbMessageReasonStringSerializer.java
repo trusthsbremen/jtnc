@@ -18,7 +18,7 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueReasonString> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueReasonString.FIXED_LENGTH;
+	//private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageValueReasonString.FIXED_LENGTH;
  
 	private PbMessageValueReasonStringBuilder builder;
 	
@@ -44,7 +44,7 @@ class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueR
 					Long.toString(data.getStringLength()));
 		}
 		
-		/* Reason String*/
+		/* reason String*/
 		try{
 			buffer.write(data.getReasonString().getBytes(Charset.forName("UTF-8")));
 		} catch (IOException e) {
@@ -53,10 +53,10 @@ class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueR
 					data.getReasonString());
 		}
 		
-		/* Language Code length 8 bit(s)*/
+		/* language code length 8 bit(s)*/
 		buffer.write(data.getLangCodeLength());
 		
-		/* Language Code */
+		/* language code */
 		try{
 			buffer.write(data.getLangCode().getBytes(Charset.forName("US-ASCII")));
 		} catch (IOException e) {
@@ -80,10 +80,11 @@ class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueR
 		// ignore any given length and find out on your own.
 		
 		// First 4 bytes are the reason string length.
-		String reasonString = readString(MESSAGE_VALUE_FIXED_SIZE - 1, in, Charset.forName("UTF-8"));
+		String reasonString = readString(4, in, Charset.forName("UTF-8"));
 		this.builder.setReasonString(reasonString);
-		// Last 1 byte is the language code length;
-		String langCode = readString(MESSAGE_VALUE_FIXED_SIZE - 4, in, Charset.forName("US-ASCII"));
+		
+		// Last byte is the language code length;
+		String langCode = readString(1, in, Charset.forName("US-ASCII"));
 		this.builder.setLangCode(langCode);
 		
 		value = (PbMessageValueReasonString)this.builder.toValue();
@@ -103,7 +104,7 @@ class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueR
 			buffer = ByteArrayHelper.arrayFromStream(in, stringLength);
 		}catch(IOException e){
 			throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
+					"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 		}
 
 		if (buffer.length >= stringLength){
@@ -119,7 +120,7 @@ class PbMessageReasonStringSerializer implements TnccsSerializer<PbMessageValueR
 					buffer = ByteArrayHelper.arrayFromStream(in, ((contentLength < 65535) ?(int)contentLength : 65535));
 				}catch(IOException e){
 					throw new SerializationException(
-							"InputStream could not be read.", e, true, 0);
+							"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 				}
 				
 				temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, buffer.length));

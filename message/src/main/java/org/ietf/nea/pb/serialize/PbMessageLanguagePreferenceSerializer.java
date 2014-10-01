@@ -30,7 +30,7 @@ class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessage
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		/* Message */
+		/* preference */
 		try{
 			buffer.write(data.getPreferedLanguage().getBytes(Charset.forName("US-ASCII")));
 		} catch (IOException e) {
@@ -54,6 +54,7 @@ class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessage
 			return value;
 		}
 		
+		/* preference */
 		long messageLength = length;
 		//String preferedLanguage = "Accept-Language: en";
 		String preferedLanguage = "";
@@ -66,7 +67,7 @@ class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessage
 				buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
 			}catch(IOException e){
 				throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
+						"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 			}
 			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer, 0, buffer.length));
 		}

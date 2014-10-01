@@ -12,7 +12,6 @@ import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameters;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParametersBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -22,7 +21,7 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessageValueRemediationParameters> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.REM_PAR_VALUE.length();
+//	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.REM_PAR_VALUE.length();
 
 	private final PbMessageRemediationParameterStringSerializer stringParamsSerializer;
 	
@@ -44,15 +43,14 @@ class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessa
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		/* Reserved 8 bit(s) */
+		/* reserved 8 bit(s) */
 		buffer.write(data.getReserved());
 
-		/* Vendor ID 24 bit(s) */
+		/* vendor ID 24 bit(s) */
 		byte[] rpVendorId = Arrays
 				.copyOfRange(
 						ByteBuffer.allocate(8).putLong(data.getRpVendorId())
 								.array(), 5, 7);
-
 		try {
 			buffer.write(rpVendorId);
 		} catch (IOException e) {
@@ -61,7 +59,7 @@ class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessa
 					Long.toString(data.getRpVendorId()));
 		}
 
-		/* Remediation Type 32 bit(s) */
+		/* remediation type 32 bit(s) */
 		byte[] rpType = Arrays.copyOfRange(
 				ByteBuffer.allocate(8).putLong(data.getRpType()).array(), 4,
 				8);
@@ -79,73 +77,78 @@ class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessa
 			throw new SerializationException("Message could not be written to the OutputStream.",e, true, 0);
 		}
 		
+		/* remediation parameter */
 		if(data.getRpVendorId() == IETFConstants.IETF_PEN_VENDORID){
 	       	if(data.getRpType() == PbMessageRemediationParameterTypeEnum.IETF_STRING.type()){
 	       		this.stringParamsSerializer.encode((PbMessageValueRemediationParameterString)data.getParameter(), out);
 	       		
 	       	}else if(data.getRpType() == PbMessageRemediationParameterTypeEnum.IETF_URI.type()){
 	       		this.uriParamsSerializer.encode((PbMessageValueRemediationParameterUri)data.getParameter(), out);
-	       	}
-	    }else{
-	        	throw new IllegalArgumentException("Unsupported remediation message type with vendor ID "+ data.getRpVendorId() +" and message type "+ data.getRpType() +".");
-	    }
+	       	} else {
+				throw new SerializationException(
+						"Remediation message type is not supported.",false ,0 ,
+						Long.toString(data.getRpVendorId()),
+						Long.toString(data.getRpType()));
+			}
+		} else {
+			throw new SerializationException(
+					"Remediation vendor ID is not supported.",false ,0 ,
+					Long.toString(data.getRpVendorId()),
+					Long.toString(data.getRpType()));
+		}
 	}
 
 	@Override
 	public PbMessageValueRemediationParameters decode(final InputStream in, final long length) throws SerializationException, ValidationException {
 		PbMessageValueRemediationParameters value = null; 	
 		this.builder.clear();
+		
 		if(length <= 0){
 			return value;
 		}
 
+		long rpVendorId  = 0L;
+		long rpType = 0L;
+		
 		byte[] buffer = new byte[0];
-		
 		try{
-			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_VALUE_FIXED_SIZE);
-		}catch(IOException e){
-			throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
+
+			/* ignore reserved */
+			ByteArrayHelper.arrayFromStream(in, 1);
 			
-		}
-
-		
-		if (buffer.length >= MESSAGE_VALUE_FIXED_SIZE){
-
-			/* Ignore Reserved */
-
-			/* Vendor ID */
-			long rpVendorId = ByteArrayHelper.toLong(new byte[] { buffer[1], buffer[2], buffer[3] });
+			/* vendor ID */
+			buffer = ByteArrayHelper.arrayFromStream(in, 3);
+			rpVendorId = ByteArrayHelper.toLong(buffer);
 			this.builder.setRpVendorId(rpVendorId);
 			
-			/* Remediation Type */
-			long type = ByteArrayHelper.toLong(new byte[] { buffer[4], buffer[5], buffer[6], buffer[7] });
-			this.builder.setRpType(type);
-
-//			AbstractPbMessageValueRemediationParametersValue rpParam = null;
-			
-			// value length = header length - overall message length
-			long valueLength = length - MESSAGE_VALUE_FIXED_SIZE;
-
-			if(type == PbMessageRemediationParameterTypeEnum.IETF_URI.type()){
-				PbMessageValueRemediationParameterUri paramUri = this.uriParamsSerializer.decode(in, valueLength);
-				this.builder.setParameter(paramUri);
-				
-			}else if(type == PbMessageRemediationParameterTypeEnum.IETF_STRING.type()){
-				PbMessageValueRemediationParameterString paramString = this.stringParamsSerializer.decode(in, valueLength);
-		       this.builder.setParameter(paramString);
-			}else{
-				// TODO ignore or read into some byte array as general parameter type
-				throw new SerializationException("Remediation type #"+type+" could not be recognized.", false, 0,Long.toString(type));
-			}
-			
-			value = (PbMessageValueRemediationParameters)this.builder.toValue(); 
-			
-		} else {
-			throw new SerializationException("Returned data length (" + buffer.length
-					+ ") for message is to short or stream may be closed.", false, 0,
-					Integer.toString(buffer.length));
+			/* remediation type */
+			buffer = ByteArrayHelper.arrayFromStream(in, 4);
+			rpType = ByteArrayHelper.toLong(buffer);
+			this.builder.setRpType(rpType);
+		
+		}catch(IOException e){
+			throw new SerializationException(
+					"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
+	
 		}
+		
+		/* remediation parameter */
+		// value length = header length - overall message length
+		long valueLength = length - 8;
+
+		if(rpType == PbMessageRemediationParameterTypeEnum.IETF_URI.type()){
+			PbMessageValueRemediationParameterUri paramUri = this.uriParamsSerializer.decode(in, valueLength);
+			this.builder.setParameter(paramUri);
+			
+		}else if(rpType == PbMessageRemediationParameterTypeEnum.IETF_STRING.type()){
+			PbMessageValueRemediationParameterString paramString = this.stringParamsSerializer.decode(in, valueLength);
+	       this.builder.setParameter(paramString);
+		}else{
+			// TODO ignore or read into some byte array as general parameter type
+			throw new SerializationException("Remediation type #"+rpType+" could not be recognized.", false, 0,Long.toString(rpType));
+		}
+		
+		value = (PbMessageValueRemediationParameters)this.builder.toValue(); 
 		
 		return value;
 	}

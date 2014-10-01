@@ -48,8 +48,12 @@ public final class ByteArrayHelper {
 		
 		count = in.read(buffer); // blocks until data is available or stream is closed
 		
-		// shorten the array to the actual data
-		return Arrays.copyOf(buffer, count);
+		if(count >= length){
+			// shorten the array to the actual data
+			return Arrays.copyOf(buffer, count);
+		}else{
+			throw new IOException("Stream must be closed, not enough data to read.");
+		}
 
 	}
 }

@@ -18,12 +18,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class DeSerializeTest {
 
 	
 	TestData batch;
-	PbBatchSerializer bs;
+	TnccsSerializer<PbBatch> bs;
 	
 	@Before
 	public void setUp(){

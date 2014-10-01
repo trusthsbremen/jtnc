@@ -1,6 +1,7 @@
 package org.ietf.nea.pb.serialize;
 
 import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -31,15 +32,26 @@ class PbBatchSerializerBuffered implements TnccsSerializer<PbBatch>{
 		
 		BufferedOutputStream bOut = new BufferedOutputStream(out, this.bufferSize);
 		serializer.encode(data, bOut);
+		try {
+			bOut.flush();
+		} catch (IOException e) {
+			new SerializationException("OutputStream could not be flushed.",e , true, 0);
+		}
 		
 	}
 
 	@Override
 	public PbBatch decode(InputStream in, long length)
-			throws SerializationException, ValidationException {
+			throws SerializationException{
 		
 		TrackedBufferedInputStream tIn = new TrackedBufferedInputStream(in, this.bufferSize);
-		PbBatch batch = serializer.decode(tIn, length);
+		PbBatch batch = null;
+		try{
+			batch = serializer.decode(tIn, length);
+		}catch(ValidationException e){
+			// TODO does not work, because some problems are discovered later as they are read. getTracked is to far gone at the time
+			throw new SerializationException("ValidationException occured: " + e.getMessage(), e, false, tIn.getTracked());
+		}
 		
 		return batch;
 	}

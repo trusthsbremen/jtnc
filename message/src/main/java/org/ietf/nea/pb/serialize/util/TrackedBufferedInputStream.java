@@ -3,26 +3,25 @@ package org.ietf.nea.pb.serialize.util;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 
 public class TrackedBufferedInputStream extends BufferedInputStream {
 
-	private BigInteger trackedLarge;
-	private BigInteger markedLarge;
+	private long tracked;
+	private long marked;
 	private int readLimit;
 	
 	public TrackedBufferedInputStream(InputStream in) {
 		super(in);
-		this.trackedLarge = BigInteger.ZERO;
-		this.markedLarge = BigInteger.ZERO;
+		this.tracked = 0L;
+		this.marked = 0L;
 		this.readLimit = 0;
 		
 	}
 	
 	public TrackedBufferedInputStream(InputStream in, int bufferSize) {
 		super(in, bufferSize);
-		this.trackedLarge = BigInteger.ZERO;
-		this.markedLarge = BigInteger.ZERO;
+		this.tracked = 0L;
+		this.marked = 0L;
 		this.readLimit = 0;
 	}
 
@@ -101,9 +100,9 @@ public class TrackedBufferedInputStream extends BufferedInputStream {
 	@Override
 	public void close() throws IOException {
 		
-		this.markedLarge = BigInteger.ZERO;
+		this.marked = 0L;
 		this.readLimit = 0;
-		this.trackedLarge = BigInteger.ZERO;
+		this.tracked = 0L;
 		super.close();
 	}
 
@@ -111,9 +110,12 @@ public class TrackedBufferedInputStream extends BufferedInputStream {
 		if(readLimit > 0){
 			this.decrementReadlimit(count);
 		}
-		if(count >  0 ){
-			
-			this.trackedLarge = this.trackedLarge.add(BigInteger.valueOf(count));
+		if(count >  0 && this.tracked > -1){
+			if(Long.MAX_VALUE - count >= this.tracked){
+				this.tracked = this.tracked + count;
+			}else{
+				this.tracked = -1;
+			}
 		}
 	}
 
@@ -125,19 +127,19 @@ public class TrackedBufferedInputStream extends BufferedInputStream {
 	}
 
 	private void setMarked(){
-		this.markedLarge = new BigInteger(this.trackedLarge.toByteArray());
+		this.marked = this.tracked;
 	}
 	
 	private void resetTracked(){
 		if(this.readLimit > 0){
-			if(this.markedLarge != BigInteger.ZERO)
-				this.trackedLarge = new BigInteger(this.markedLarge.toByteArray());
-				this.markedLarge = BigInteger.ZERO;
+			if(this.marked != 0)
+				this.tracked = this.marked;
+				this.marked = 0;
 		}
 		this.readLimit = 0;
 	}
 	
-	public BigInteger getTracked(){
-		return this.trackedLarge;
+	public long getTracked(){
+		return this.tracked;
 	}
 }

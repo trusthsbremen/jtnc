@@ -30,7 +30,7 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		/* Message */
+		/* URI */
 		try{
 			buffer.write(data.getRemediationUri().toString().getBytes(Charset.forName("UTF-8")));
 		} catch (IOException e) {
@@ -55,6 +55,7 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 			return value;
 		}
 		
+		/* URI */
 		long messageLength = length;
 		String uri = "";
 		byte[] buffer = new byte[0];
@@ -67,7 +68,7 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 				buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
 			}catch(IOException e){
 				throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
+						"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 			}
 			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, buffer.length));
 		}

@@ -8,7 +8,6 @@ import java.nio.ByteBuffer;
 
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
@@ -17,7 +16,7 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessageValueAccessRecommendation> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.ACC_REC_VALUE.length();
+	//private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.ACC_REC_VALUE.length();
 	
 	private PbMessageValueAccessRecommendationBuilder builder;
 	
@@ -32,7 +31,7 @@ class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessa
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		/* Reserved */
+		/* reserved */
 		byte[] reserved = ByteBuffer.allocate(2).putShort(data.getReserved()).array();
 		try {
 			buffer.write(reserved);
@@ -42,7 +41,7 @@ class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessa
 					Short.toString(data.getReserved()));
 		}
 		
-		/* Access Recommendation */
+		/* recommendation */
 		byte[] code = ByteBuffer.allocate(2).putShort(data.getRecommendation().number()).array();
 		try {
 			buffer.write(code);
@@ -64,33 +63,26 @@ class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessa
 		
 		PbMessageValueAccessRecommendation value = null; 	
 		builder.clear();
+		
 		// ignore any given length and find out on your own.
 
 		byte[] buffer = new byte[0];
 
 		try{
-			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_VALUE_FIXED_SIZE);
+			/* ignore reserved */
+			ByteArrayHelper.arrayFromStream(in, 2);
+			
+			/* recommendation */
+			buffer = ByteArrayHelper.arrayFromStream(in, 2);
+			short code = ByteArrayHelper.toShort(buffer);
+			builder.setRecommendation(code);
+			
 		}catch(IOException e){
 			throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
+						"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 		}
-
 		
-		if (buffer.length >= MESSAGE_VALUE_FIXED_SIZE){
-
-			/* Ignore Reserved */
-			/* ... */
-			/* Access Recommendation */
-			short code = ByteArrayHelper.toShort(new byte[]{buffer[2], buffer[3]});
-			
-			builder.setRecommendation(code);
-			value = (PbMessageValueAccessRecommendation)builder.toValue();
-
-		} else {
-			throw new SerializationException("Returned data length (" + buffer.length
-					+ ") for message is to short or stream may be closed.", true, 0,
-					Integer.toString(buffer.length));
-		}
+		value = (PbMessageValueAccessRecommendation)builder.toValue();
 		
 		return value;
 	}

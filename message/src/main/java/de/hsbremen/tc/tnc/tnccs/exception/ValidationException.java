@@ -41,4 +41,18 @@ public class ValidationException extends ComprehensibleException {
 	public int getErrorCause(){
 		return this.errorCause;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + "ValidationException [fatal=" + this.fatal + ", errorCode="
+				+ this.errorCode + ", errorCause=" + this.errorCause + "]";
+	}
+	
+	
+	
+	
+	
 }

@@ -65,7 +65,7 @@ class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessageValueE
 				buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
 			}catch(IOException e){
 				throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
+						"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 			}
 			temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer, 0, buffer.length));
 		}

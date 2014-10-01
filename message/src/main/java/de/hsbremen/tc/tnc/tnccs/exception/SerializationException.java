@@ -48,6 +48,15 @@ public class SerializationException extends ComprehensibleException{
 	public long getExceptionOffset() {
 		return this.exceptionOffset;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + "SerializationException [streamAffected=" + this.streamAffected
+				+ ", exceptionOffset=" + this.exceptionOffset + "]";
+	}
 	
 	
 	

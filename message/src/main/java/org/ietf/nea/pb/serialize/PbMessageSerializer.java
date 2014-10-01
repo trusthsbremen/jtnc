@@ -79,39 +79,35 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 		pbBuilder = (PbMessageBuilder) pbBuilder.clear();
 
 		// ignore any given length and find out on your own.
-
+		long messageLength = 0L;
+		
 		byte flags = 0;
-		long vendorId = 0;
-		long messageType = 0;
-		long messageLength = 0;
+		long vendorId = 0L;
+		long messageType = 0L;
 
 		byte[] buffer = new byte[0];
 		try{
-			buffer = ByteArrayHelper.arrayFromStream(in, MESSAGE_HEAD_FIXED_SIZE);
-		}catch(IOException e){
-			throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
-		}
-
-		if (buffer.length >= MESSAGE_HEAD_FIXED_SIZE) {
+			/* flags */
+			buffer = ByteArrayHelper.arrayFromStream(in, 1);
 			flags = buffer[0];
 			pbBuilder.setFlags(flags);
 
-			vendorId = ByteArrayHelper.toLong(new byte[] { buffer[1],
-					buffer[2], buffer[3] });
+			/* vendor ID */
+			buffer = ByteArrayHelper.arrayFromStream(in, 3);
+			vendorId = ByteArrayHelper.toLong(buffer);
 			pbBuilder.setVendorId(vendorId);
 			
-			messageType = ByteArrayHelper.toLong(new byte[] { buffer[4],
-					buffer[5], buffer[6], buffer[7] });
+			/* message type */ 
+			buffer = ByteArrayHelper.arrayFromStream(in, 4);
+			messageType = ByteArrayHelper.toLong(buffer);
 			pbBuilder.setType(messageType);
 			
-			messageLength = ByteArrayHelper.toLong(new byte[] { buffer[8], buffer[9],
-					buffer[10], buffer[11] });
+			/* message length */
+			buffer = ByteArrayHelper.arrayFromStream(in, 4);
+			messageLength = ByteArrayHelper.toLong(buffer);
 			
-		} else {
-			throw new SerializationException("Returned data length (" + buffer.length
-					+ ") for batch is to short or stream may be closed.",true ,0 ,
-					Integer.toString(buffer.length));
+		}catch (IOException e){
+			throw new SerializationException("Returned data for message header is to short or stream may be closed.",true,0,Integer.toString(buffer.length));
 		}
 
 		PbMessage message = null;
@@ -130,11 +126,11 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 			}
 		}
 		
-		// Unknown message error creation
+		/* Unknown message error creation */
 		byte[] dump = dumpContent(in, messageLength - MESSAGE_HEAD_FIXED_SIZE);
 		pbBuilder.setValue(PbMessageValueBuilderHsb.createUnknownValue(((flags & PbMessageFlagsEnum.NOSKIP.bit()) > 0), dump));
 		message = (PbMessage) pbBuilder.toMessage();
-		
+	
 		throw new SerializationException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",
 				new PbMessageUnknownException("Message with vendor ID " + vendorId + " and type " + messageType + " is unknown.",message) ,false ,0 , Long.toString(vendorId), Long.toString(messageType));
 	}
@@ -169,7 +165,7 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		/* Flags 8 bit(s) */
+		/* flags 8 bit(s) */
 		Set<PbMessageFlagsEnum> flags = pbMessage.getFlags();
 		byte bFlags = 0;
 		for (PbMessageFlagsEnum pbMessageFlagsEnum : flags) {
@@ -177,7 +173,7 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 		}
 		buffer.write(bFlags);
 
-		/* Vendor ID 24 bit(s) */
+		/* vendor ID 24 bit(s) */
 		byte[] vendorId = Arrays
 				.copyOfRange(
 						ByteBuffer.allocate(8).putLong(pbMessage.getVendorId())
@@ -191,7 +187,7 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 					Long.toString(pbMessage.getVendorId()));
 		}
 
-		/* Message Type 32 bit(s) */
+		/* message Type 32 bit(s) */
 		byte[] messageType = Arrays.copyOfRange(
 				ByteBuffer.allocate(8).putLong(pbMessage.getType()).array(), 4,
 				8);
@@ -203,7 +199,7 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 					Long.toString(pbMessage.getType()));
 		}
 
-		/* Message length 32 bit(s) only reserved here and later added */
+		/* message length 32 bit(s) */
 		byte[] length = Arrays.copyOfRange(
 				ByteBuffer.allocate(8).putLong(pbMessage.getLength()).array(),
 				4, 8);
@@ -215,6 +211,7 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 					Long.toString(pbMessage.getLength()));
 		}
 
+		// write to output
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {

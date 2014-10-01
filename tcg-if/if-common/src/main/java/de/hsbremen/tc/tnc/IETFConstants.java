@@ -38,6 +38,7 @@ public final class IETFConstants {
 	
 	public static final long IETF_PEN_VENDORID = 0L;
 	public static final long IETF_MESSAGE_TYPE_RESERVED = 0xFFFFFFFFL;
+	public static final long IETF_VENDOR_ID_RESERVED = 0xFFFFFFL;
 	public static final long IETF_MAX_LENGTH = 0xFFFFFFFFL;
 	public static final long IETF_MAX_VENDOR_ID = 0xFFFFFFL;
 	public static final long IETF_MAX_TYPE = 0xFFFFFFFFL;

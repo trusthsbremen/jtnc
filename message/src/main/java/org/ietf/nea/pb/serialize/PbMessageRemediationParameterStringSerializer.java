@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterStringBuilder;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
@@ -19,7 +18,7 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<PbMessageValueRemediationParameterString> {
 
-	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.REM_STR_SUB_VALUE.length();
+//	private static final int MESSAGE_VALUE_FIXED_SIZE = PbMessageTlvFixedLength.REM_STR_SUB_VALUE.length();
 	
 	private PbMessageValueRemediationParameterStringBuilder builder;
 	    
@@ -80,11 +79,11 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 		// ignore any given length and find out on your own.
 			
 		// First 4 bytes are the remediation string length.
-		String remediationString = readString((int)(MESSAGE_VALUE_FIXED_SIZE - 1), in, Charset.forName("UTF-8"));
+		String remediationString = readString(4, in, Charset.forName("UTF-8"));
 		this.builder.setRemediationString(remediationString);
 		
 		// Last 1 byte is the language code length.
-		String langCode = readString((int)(MESSAGE_VALUE_FIXED_SIZE - 4), in, Charset.forName("US-ASCII"));
+		String langCode = readString(1, in, Charset.forName("US-ASCII"));
 		this.builder.setLangCode(langCode);
 
 		value = (PbMessageValueRemediationParameterString)this.builder.toValue();
@@ -104,7 +103,7 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 			buffer = ByteArrayHelper.arrayFromStream(in, stringLength);
 		}catch(IOException e){
 			throw new SerializationException(
-						"InputStream could not be read.", e, true, 0);
+					"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 		}
 
 		if (buffer.length >= stringLength){
@@ -120,7 +119,7 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 					buffer = ByteArrayHelper.arrayFromStream(in, ((contentLength < 65535) ?(int)contentLength : 65535));
 				}catch(IOException e){
 					throw new SerializationException(
-							"InputStream could not be read.", e, true, 0);
+							"Returned data for message value is to short or stream may be closed.", e, true, 0, Integer.toString(buffer.length));
 				}
 				
 				temp = ByteArrayHelper.mergeArrays(temp, Arrays.copyOfRange(buffer,0, buffer.length));

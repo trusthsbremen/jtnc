@@ -91,36 +91,32 @@ class PbBatchSerializer implements
 				
 		builder = (PbBatchBuilder)builder.clear();
 		
+		/* PbBatch must be of version 2 */
 		byte[] buffer = new byte[0];
 		try{
-			buffer = ByteArrayHelper.arrayFromStream(in, BATCH_HEAD_FIXED_SIZE);
-		}catch(IOException e){
-			throw new SerializationException("Batch header could not be read from the InputStream.", e, true,0);
-		}
-
-		/* Batch header values */
-		
-		
-		if(buffer.length >= BATCH_HEAD_FIXED_SIZE){
-			
-			
-			/* PbBatch must be of version 2 */
-			
+			/* version */
+			buffer = ByteArrayHelper.arrayFromStream(in, 1);
 			builder.setVersion(buffer[0]);
 
-			byte directionality = (byte) ((buffer[1] & 0x80) >>> 7);
+			/* direction */
+			buffer = ByteArrayHelper.arrayFromStream(in, 1);
+			byte directionality = (byte) ((buffer[0] & 0x80) >>> 7);
 			builder.setDirection(directionality);
 
-			/* ignore reserved and continue with type */
-			byte type = (byte)(buffer[3] & 0x0F); 
+			/* ignore reserved */
+			ByteArrayHelper.arrayFromStream(in, 1);
+			
+			/* type */
+			buffer = ByteArrayHelper.arrayFromStream(in, 1);
+			byte type = (byte)(buffer[0] & 0x0F); 
 			builder.setType(type);
 
 			/* length */
-			batchLength = ByteArrayHelper.toLong(Arrays.copyOfRange(buffer, 4, 8));
+			buffer = ByteArrayHelper.arrayFromStream(in, 4);
+			batchLength = ByteArrayHelper.toLong(buffer);
 			
-			
-		}else{
-			throw new SerializationException("Returned data length ("+buffer.length+") for batch is to short or stream may be closed.",true,0,Integer.toString(buffer.length));
+		}catch (IOException e){
+			throw new SerializationException("Returned data for batch header is to short or stream may be closed.",true,0,Integer.toString(buffer.length));
 		}
 
 		/* PB messages */
@@ -138,7 +134,7 @@ class PbBatchSerializer implements
 					// get the length to continue message parsing.
 					messageLength = (pb != null) ? pb.getLength() : 0;
 				}else{
-					// throw this message because it can not be handled here.
+					// throw this error because it can not be handled here.
 					throw e;
 				}
 			}
