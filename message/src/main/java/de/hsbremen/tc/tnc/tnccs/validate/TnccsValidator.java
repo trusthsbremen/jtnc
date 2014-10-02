@@ -1,9 +1,9 @@
 package de.hsbremen.tc.tnc.tnccs.validate;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import org.ietf.nea.pb.exception.RuleException;
 
 public interface TnccsValidator<T> {
 
-    public abstract void validate(final T structure) throws ValidationException;
+    public abstract void validate(final T structure) throws RuleException;
 
 }

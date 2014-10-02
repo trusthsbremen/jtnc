@@ -1,10 +1,10 @@
 package de.hsbremen.tc.tnc.tnccs.message;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import org.ietf.nea.pb.exception.RuleException;
 
 public interface TnccsMessageValueBuilder {
 
-	public abstract TnccsMessageValue toValue() throws ValidationException;
+	public abstract TnccsMessageValue toValue() throws RuleException;
 
 	public abstract TnccsMessageValueBuilder clear();
 }

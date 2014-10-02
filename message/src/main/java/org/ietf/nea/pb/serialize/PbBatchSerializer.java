@@ -11,12 +11,13 @@ import java.util.List;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchBuilder;
 import org.ietf.nea.pb.exception.PbMessageUnknownException;
+import org.ietf.nea.pb.exception.PbValidationExceptionHandler;
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbBatchSerializer implements
@@ -26,11 +27,14 @@ class PbBatchSerializer implements
 
 	private TnccsSerializer<PbMessage> messageSerializer;
 	
+	private PbValidationExceptionHandler exHandler;
+	
 	private PbBatchBuilder builder;
 	
-	PbBatchSerializer(PbBatchBuilder builder, TnccsSerializer<PbMessage> messageSerializer) {
+	PbBatchSerializer(PbBatchBuilder builder, TnccsSerializer<PbMessage> messageSerializer, PbValidationExceptionHandler exHandler) {
 		this.builder = builder; 
 		this.messageSerializer = messageSerializer;
+		this.exHandler = exHandler;
 	}
 	
 	@Override
@@ -84,7 +88,7 @@ class PbBatchSerializer implements
 	}
 
 	@Override
-	public PbBatch decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbBatch decode(final InputStream in, final long length) throws SerializationException, RuleException {
 
 		// ignore any given length and find out on your own.
 		long batchLength = 0L;
@@ -93,6 +97,7 @@ class PbBatchSerializer implements
 		
 		/* PbBatch must be of version 2 */
 		byte[] buffer = new byte[0];
+		
 		try{
 			/* version */
 			buffer = ByteArrayHelper.arrayFromStream(in, 1);
@@ -111,6 +116,7 @@ class PbBatchSerializer implements
 			byte type = (byte)(buffer[0] & 0x0F); 
 			builder.setType(type);
 
+			// check batch length
 			/* length */
 			buffer = ByteArrayHelper.arrayFromStream(in, 4);
 			batchLength = ByteArrayHelper.toLong(buffer);
@@ -120,23 +126,32 @@ class PbBatchSerializer implements
 		}
 
 		/* PB messages */
-		long messageLength = 0;
-		for(long l = (batchLength - BATCH_HEAD_FIXED_SIZE); l > 0; l -= messageLength){				
+		//long messageLength = 0;
+		//for(long l = (batchLength - BATCH_HEAD_FIXED_SIZE); l > 0; l -= messageLength){
+		long batchContentLength = (batchLength - BATCH_HEAD_FIXED_SIZE);
+		for(long l = 0; l < batchContentLength;){
 			try{
 				PbMessage message = (PbMessage) this.messageSerializer.decode(in, length);
 				builder.addMessage(message);
-				messageLength = message.getLength();
+				//messageLength = message.getLength();
+				l += message.getLength();
+				// here validation error handling because I know the actual length (start of next message and
+				// the batch length it should be possible with an special error handler to calculate the actual byte 
+				
 			}catch(SerializationException e){
 				Throwable t = e.getCause();
 				if(t != null && t instanceof PbMessageUnknownException){
 					// TODO log
 					PbMessage pb = ((PbMessageUnknownException)t).getPbMessage();
 					// get the length to continue message parsing.
-					messageLength = (pb != null) ? pb.getLength() : 0;
+					//messageLength = (pb != null) ? pb.getLength() : 0;
+					l += (pb != null) ? pb.getLength() : 0;
 				}else{
 					// throw this error because it can not be handled here.
 					throw e;
 				}
+			}catch(RuleException e){
+				this.exHandler.handleException(e, BATCH_HEAD_FIXED_SIZE, l);
 			}
 		}
 		

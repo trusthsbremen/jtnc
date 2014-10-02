@@ -2,12 +2,11 @@ package org.ietf.nea.pb.message;
 
 import java.nio.charset.Charset;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.LangCodeStringLimit;
 import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pb.validate.rules.NoZeroString;
-
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReasonStringBuilder{
 
@@ -25,7 +24,7 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 	 * @see org.ietf.nea.pb.message.PbMessageValueReasonStringBuilder#setReasonString(java.lang.String)
 	 */
 	@Override
-	public PbMessageValueReasonStringBuilder setReasonString(String reasonString) throws ValidationException {
+	public PbMessageValueReasonStringBuilder setReasonString(String reasonString) throws RuleException {
 
 		NoZeroString.check(reasonString);
 		NoNullTerminatedString.check(reasonString);
@@ -39,7 +38,7 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 	 * @see org.ietf.nea.pb.message.PbMessageValueReasonStringBuilder#setLangCode(java.lang.String)
 	 */
 	@Override
-	public PbMessageValueReasonStringBuilder setLangCode(String langCode) throws ValidationException {
+	public PbMessageValueReasonStringBuilder setLangCode(String langCode) throws RuleException {
 		
 		// Zero length string for language code allowed.
         if(langCode != null){
@@ -53,9 +52,9 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 	}
 
 	@Override
-	public PbMessageValueReasonString toValue() throws ValidationException {
+	public PbMessageValueReasonString toValue() throws RuleException {
 
-		// check again because it has to set properly
+		// check again because it has to be set properly
 		NoZeroString.check(this.reasonString);
 		
 		return new PbMessageValueReasonString(this.length, this.reasonString, this.langCode);

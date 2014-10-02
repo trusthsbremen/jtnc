@@ -1,6 +1,7 @@
 package org.ietf.nea.pb.message;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import org.ietf.nea.pb.exception.RuleException;
+
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public interface PbMessageValueImBuilder extends TnccsMessageValueBuilder {
@@ -12,30 +13,30 @@ public interface PbMessageValueImBuilder extends TnccsMessageValueBuilder {
 
 	/**
 	 * @param subVendorId the subVendorId to set
-	 * @throws ValidationException 
+	 * @throws RuleException 
 	 */
 	public abstract PbMessageValueImBuilder setSubVendorId(long subVendorId)
-			throws ValidationException;
+			throws RuleException;
 
 	/**
 	 * @param subType the subType to set
-	 * @throws ValidationException 
+	 * @throws RuleException 
 	 */
-	public abstract PbMessageValueImBuilder setSubType(long subType) throws ValidationException;
+	public abstract PbMessageValueImBuilder setSubType(long subType) throws RuleException;
 
 	/**
 	 * @param collectorId the collectorId to set
-	 * @throws ValidationException 
+	 * @throws RuleException 
 	 */
 	public abstract PbMessageValueImBuilder setCollectorId(long collectorId)
-			throws ValidationException;
+			throws RuleException;
 
 	/**
 	 * @param validatorId the validatorId to set
-	 * @throws ValidationException 
+	 * @throws RuleException 
 	 */
 	public abstract PbMessageValueImBuilder setValidatorId(long validatorId)
-			throws ValidationException;
+			throws RuleException;
 
 	/**
 	 * @param message the message to set

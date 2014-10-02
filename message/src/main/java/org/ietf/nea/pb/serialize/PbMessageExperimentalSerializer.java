@@ -7,12 +7,12 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueExperimental;
 import org.ietf.nea.pb.message.PbMessageValueExperimentalBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessageValueExperimental> {
@@ -46,7 +46,7 @@ class PbMessageExperimentalSerializer implements TnccsSerializer<PbMessageValueE
 	}
 
 	@Override
-	public PbMessageValueExperimental decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueExperimental decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		PbMessageValueExperimental value = null; 	
 		this.builder.clear();
 		

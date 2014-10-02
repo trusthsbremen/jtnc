@@ -1,5 +1,6 @@
 package org.ietf.nea.pb.message.factory;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.AbstractPbMessageValue;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilderIetf;
@@ -14,13 +15,12 @@ import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageFactoryIetf {
 
 	private static long vendorId = IETFConstants.IETF_PEN_VENDORID;
 
-	public static PbMessage createAccessRecommendation(final PbMessageAccessRecommendationEnum recommendation) throws ValidationException {
+	public static PbMessage createAccessRecommendation(final PbMessageAccessRecommendationEnum recommendation) throws RuleException {
 	
 		short reserved = 0; // defined in RFC5793
 		
@@ -33,7 +33,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createAssessmentResult(final PbMessageAssessmentResultEnum result) throws ValidationException {
+	public static PbMessage createAssessmentResult(final PbMessageAssessmentResultEnum result) throws RuleException {
 
 		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 	    long type = PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType();
@@ -44,7 +44,7 @@ public class PbMessageFactoryIetf {
 	}
 
 	public static PbMessage createError(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode,
-			final byte[] errorParameter) throws ValidationException {
+			final byte[] errorParameter) throws RuleException {
 	
 		short reserved = 0; // defined in RFC5793
 		long errorVendorId = vendorId;
@@ -56,7 +56,7 @@ public class PbMessageFactoryIetf {
 	    		PbMessageValueBuilderIetf.createErrorValue(errorFlags, errorVendorId, errorCode.code(), reserved, errorParameter));
 	}
 
-	public static PbMessage createExperimental(final String content) throws ValidationException {
+	public static PbMessage createExperimental(final String content) throws RuleException {
 
 		byte flags = 0; 	     
 	    long type =  PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.messageType();
@@ -67,7 +67,7 @@ public class PbMessageFactoryIetf {
 	}
 
 	public static PbMessage createIm(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType,
-			final short collectorId, final short validatorId, final byte[] imMessage) throws ValidationException {
+			final short collectorId, final short validatorId, final byte[] imMessage) throws RuleException {
 
 		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 		long type = PbMessageTypeEnum.IETF_PB_PA.messageType();
@@ -77,7 +77,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createLanguagePreference(final String preferedLanguage) throws ValidationException {
+	public static PbMessage createLanguagePreference(final String preferedLanguage) throws RuleException {
 		
 		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType();
@@ -87,7 +87,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createReasonString(final String reasonString, final String langCode) throws ValidationException {
+	public static PbMessage createReasonString(final String reasonString, final String langCode) throws RuleException {
 		
 		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType();
@@ -97,7 +97,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createRemediationParameterString(final String remediationString, final String langCode) throws ValidationException {
+	public static PbMessage createRemediationParameterString(final String remediationString, final String langCode) throws RuleException {
 		
 		byte reserved = 0; // defined in RFC5793
 		long rpVendorId = vendorId; 
@@ -111,7 +111,7 @@ public class PbMessageFactoryIetf {
 		
 	}
 	
-	public static PbMessage createRemediationParameterUri(final String uri) throws ValidationException {
+	public static PbMessage createRemediationParameterUri(final String uri) throws RuleException {
 		
 		byte reserved = 0; // defined in RFC5793
 		long rpVendorId = vendorId; 
@@ -126,7 +126,7 @@ public class PbMessageFactoryIetf {
 	}
 	
 	// TODO what do we do with errors
-	private static PbMessage createMessage(final byte flags, final long type, final AbstractPbMessageValue value) throws ValidationException {
+	private static PbMessage createMessage(final byte flags, final long type, final AbstractPbMessageValue value) throws RuleException {
 	    
 	    PbMessageBuilderIetf mBuilder = new PbMessageBuilderIetf();
 	    PbMessage message = null;

@@ -7,12 +7,12 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUriBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMessageValueRemediationParameterUri> {
@@ -46,7 +46,7 @@ class PbMessageRemediationParameterUriSerializer implements TnccsSerializer<PbMe
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterUri decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueRemediationParameterUri decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		
 		PbMessageValueRemediationParameterUri value = null; 	
 		this.builder.clear();

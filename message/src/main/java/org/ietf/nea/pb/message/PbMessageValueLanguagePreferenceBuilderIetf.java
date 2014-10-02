@@ -2,9 +2,9 @@ package org.ietf.nea.pb.message;
 
 import java.nio.charset.Charset;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessageValueBuilder, PbMessageValueLanguagePreferenceBuilder{
@@ -22,7 +22,7 @@ public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessage
 	 * @see org.ietf.nea.pb.message.PbMessageValueLanguagePreferenceBuilder#setReasonString(java.lang.String)
 	 */
 	@Override
-	public PbMessageValueLanguagePreferenceBuilder setLanguagePreference(String languagePreference) throws ValidationException {
+	public PbMessageValueLanguagePreferenceBuilder setLanguagePreference(String languagePreference) throws RuleException {
 
 		// TODO regular expression test for language string (RFC 2234).
 		// No Null termination is one thing of that.
@@ -33,7 +33,7 @@ public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessage
 	}
 
 	@Override
-	public PbMessageValueLanguagePreference toValue() throws ValidationException {
+	public PbMessageValueLanguagePreference toValue() throws RuleException {
 
 		return new PbMessageValueLanguagePreference(this.length,this.languagePreference);
 	}

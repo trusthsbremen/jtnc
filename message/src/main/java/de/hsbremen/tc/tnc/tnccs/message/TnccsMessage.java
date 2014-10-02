@@ -6,5 +6,8 @@ package de.hsbremen.tc.tnc.tnccs.message;
  *
  */
 public interface TnccsMessage {
+	
+	public TnccsMessageHeader getHeader();
 
+	public TnccsMessageValue getValue();
 }

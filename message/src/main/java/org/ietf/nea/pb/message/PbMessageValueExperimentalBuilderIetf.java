@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import org.ietf.nea.pb.exception.RuleException;
 
 public class PbMessageValueExperimentalBuilderIetf implements
 		PbMessageValueExperimentalBuilder {
@@ -14,7 +14,7 @@ public class PbMessageValueExperimentalBuilderIetf implements
 	}
 	
 	@Override
-	public PbMessageValueExperimentalBuilder setMessage(String message) throws ValidationException {
+	public PbMessageValueExperimentalBuilder setMessage(String message) throws RuleException {
 		// no checks necessary because experimental
 		if(message != null){
 			this.message = message;
@@ -25,7 +25,7 @@ public class PbMessageValueExperimentalBuilderIetf implements
 	}
 	
 	@Override
-	public PbMessageValueExperimental toValue() throws ValidationException {
+	public PbMessageValueExperimental toValue() throws RuleException {
 
 		return new PbMessageValueExperimental(this.length,this.message);
 	}

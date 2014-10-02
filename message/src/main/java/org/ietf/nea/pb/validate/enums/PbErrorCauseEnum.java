@@ -1,10 +1,10 @@
 package org.ietf.nea.pb.validate.enums;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import org.ietf.nea.pb.exception.RuleException;
 
 public enum PbErrorCauseEnum {
 
-	NOT_SPECIFIED 			(ValidationException.NOT_SPECIFIED),
+	NOT_SPECIFIED 			(RuleException.NOT_SPECIFIED),
 	VENDOR_ID_RESERVED 		(1),
 	MESSAGE_TYPE_RESERVED	(2),
 	SUB_VENDOR_ID_RESERVED	(3),

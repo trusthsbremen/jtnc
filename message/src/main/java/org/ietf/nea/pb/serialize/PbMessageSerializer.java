@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.ietf.nea.pb.exception.PbMessageUnknownException;
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.AbstractPbMessageValue;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageBuilder;
@@ -20,7 +21,6 @@ import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 import de.hsbremen.tc.tnc.util.Combined;
 
@@ -74,7 +74,7 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 
 	@Override
 	public PbMessage decode(final InputStream in, final long length)
-			throws SerializationException, ValidationException {
+			throws SerializationException, RuleException {
 
 		pbBuilder = (PbMessageBuilder) pbBuilder.clear();
 
@@ -102,6 +102,7 @@ class PbMessageSerializer implements TnccsSerializer<PbMessage>, Combined<TnccsS
 			messageType = ByteArrayHelper.toLong(buffer);
 			pbBuilder.setType(messageType);
 			
+			// TODO check max message length
 			/* message length */
 			buffer = ByteArrayHelper.arrayFromStream(in, 4);
 			messageLength = ByteArrayHelper.toLong(buffer);

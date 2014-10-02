@@ -1,10 +1,9 @@
 package org.ietf.nea.pb.validate;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.serialize.TestData;
 import org.junit.Before;
 import org.junit.Test;
-
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class ValidateTest {
 	
@@ -15,11 +14,11 @@ public class ValidateTest {
 		batch = new TestData();
 	}
 	
-	@Test(expected = ValidationException.class)
-	public void validateIm() throws ValidationException{
+	@Test(expected = RuleException.class)
+	public void validateIm() throws RuleException{
 		try{ 
 			batch.getInvalidImMessage();
-		}catch(ValidationException e){
+		}catch(RuleException e){
 			e.printStackTrace();
 			throw e;
 		}

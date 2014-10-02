@@ -1,5 +1,6 @@
 package org.ietf.nea.pb.message;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.ImIdLimits;
@@ -7,7 +8,6 @@ import org.ietf.nea.pb.validate.rules.ImMessageTypeReservedAndLimits;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 
@@ -48,7 +48,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setSubVendorId(long)
 	 */
 	@Override
-	public PbMessageValueImBuilder setSubVendorId(long subVendorId) throws ValidationException {
+	public PbMessageValueImBuilder setSubVendorId(long subVendorId) throws RuleException {
 		
 		ImMessageTypeReservedAndLimits.check(subVendorId);
 		this.subVendorId = subVendorId;
@@ -60,7 +60,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setSubType(long)
 	 */
 	@Override
-	public PbMessageValueImBuilder setSubType(long subType) throws ValidationException {
+	public PbMessageValueImBuilder setSubType(long subType) throws RuleException {
 		
 		ImMessageTypeReservedAndLimits.check(subType);
 		this.subType = subType;
@@ -72,7 +72,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setCollectorId(long)
 	 */
 	@Override
-	public PbMessageValueImBuilder setCollectorId(long collectorId) throws ValidationException {
+	public PbMessageValueImBuilder setCollectorId(long collectorId) throws RuleException {
 		
 		ImIdLimits.check(collectorId);
 		this.collectorId = collectorId;
@@ -84,7 +84,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setValidatorId(long)
 	 */
 	@Override
-	public PbMessageValueImBuilder setValidatorId(long validatorId) throws ValidationException {
+	public PbMessageValueImBuilder setValidatorId(long validatorId) throws RuleException {
 		
 		ImIdLimits.check(validatorId);
 		this.validatorId = validatorId;
@@ -110,7 +110,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#toValue()
 	 */
 	@Override
-	public PbMessageValueIm toValue() throws ValidationException {
+	public PbMessageValueIm toValue() throws RuleException {
 
 		return new PbMessageValueIm(this.imFlags, this.subVendorId, this.subType, this.collectorId, this.validatorId, this.length, this.message);
 	}

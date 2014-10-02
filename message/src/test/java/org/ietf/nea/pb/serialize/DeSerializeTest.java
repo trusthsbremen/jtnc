@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
@@ -17,7 +18,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 public class DeSerializeTest {
@@ -100,7 +100,7 @@ public class DeSerializeTest {
 	
 	
 	@Test
-	public void serializePbBatchWithIm() throws ValidationException{
+	public void serializePbBatchWithIm() throws RuleException{
 		
 		PbBatch b = batch.getBatchWithImMessage();
 		
@@ -120,7 +120,7 @@ public class DeSerializeTest {
 		Assert.assertEquals(b.getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithAccessRecommendation() throws ValidationException{
+	public void serializePbBatchWithAccessRecommendation() throws RuleException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
@@ -140,7 +140,7 @@ public class DeSerializeTest {
 		Assert.assertEquals(b.getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithReasonString() throws ValidationException{
+	public void serializePbBatchWithReasonString() throws RuleException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 			
@@ -160,7 +160,7 @@ public class DeSerializeTest {
 		Assert.assertEquals(b.getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithMixedMessageTypes() throws ValidationException{
+	public void serializePbBatchWithMixedMessageTypes() throws RuleException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 				

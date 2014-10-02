@@ -8,12 +8,12 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterStringBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<PbMessageValueRemediationParameterString> {
@@ -73,7 +73,7 @@ class PbMessageRemediationParameterStringSerializer implements TnccsSerializer<P
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterString decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueRemediationParameterString decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		PbMessageValueRemediationParameterString value = null; 	
 		this.builder.clear();
 		// ignore any given length and find out on your own.

@@ -2,12 +2,11 @@ package org.ietf.nea.pb.message;
 
 import java.nio.charset.Charset;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.LangCodeStringLimit;
 import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pb.validate.rules.NoZeroString;
-
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMessageValueRemediationParameterStringBuilder{
 
@@ -25,7 +24,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	 * @see org.ietf.nea.pb.message.PbMessageValueRmediationParameterStringBuilder#setRemediationString(java.lang.String)
 	 */
 	@Override
-	public PbMessageValueRemediationParameterStringBuilder setRemediationString(String remediationString) throws ValidationException {
+	public PbMessageValueRemediationParameterStringBuilder setRemediationString(String remediationString) throws RuleException {
 
 		NoZeroString.check(remediationString);
 		NoNullTerminatedString.check(remediationString);
@@ -39,7 +38,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	 * @see org.ietf.nea.pb.message.PbMessageValueRmediationParameterStringBuilder#setLangCode(java.lang.String)
 	 */
 	@Override
-	public PbMessageValueRemediationParameterStringBuilder setLangCode(String langCode) throws ValidationException {
+	public PbMessageValueRemediationParameterStringBuilder setLangCode(String langCode) throws RuleException {
 		
 		// Zero length string for language code allowed.
         if(langCode != null){
@@ -53,7 +52,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterString toValue() throws ValidationException {
+	public PbMessageValueRemediationParameterString toValue() throws RuleException {
 
 		// check again because it has to set properly
 		NoZeroString.check(this.remediationString);

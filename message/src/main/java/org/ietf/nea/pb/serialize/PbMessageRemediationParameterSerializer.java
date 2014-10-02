@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameters;
@@ -16,7 +17,6 @@ import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessageValueRemediationParameters> {
@@ -99,7 +99,7 @@ class PbMessageRemediationParameterSerializer implements TnccsSerializer<PbMessa
 	}
 
 	@Override
-	public PbMessageValueRemediationParameters decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueRemediationParameters decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		PbMessageValueRemediationParameters value = null; 	
 		this.builder.clear();
 		

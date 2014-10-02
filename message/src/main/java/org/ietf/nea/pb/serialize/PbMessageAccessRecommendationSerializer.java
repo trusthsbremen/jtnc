@@ -6,12 +6,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessageValueAccessRecommendation> {
@@ -59,7 +59,7 @@ class PbMessageAccessRecommendationSerializer implements TnccsSerializer<PbMessa
 	}
 
 	@Override
-	public PbMessageValueAccessRecommendation decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueAccessRecommendation decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		
 		PbMessageValueAccessRecommendation value = null; 	
 		builder.clear();

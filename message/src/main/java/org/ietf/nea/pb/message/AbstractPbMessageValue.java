@@ -1,28 +1,27 @@
 package org.ietf.nea.pb.message;
 
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
-public abstract class AbstractPbMessageValue implements TnccsMessageValue {
+public abstract class AbstractPbMessageValue implements PbMessageValue {
 
 	private final long length;
-	private final boolean ommittable;  
+	private final boolean omittable;  
 	
 	
 	protected AbstractPbMessageValue(final long length) {
 		this(length, true);
 	}
 	
-	protected AbstractPbMessageValue(final long length, final boolean ommittable){
+	protected AbstractPbMessageValue(final long length, final boolean omittable){
 		this.length = length;
-		this.ommittable = ommittable;
+		this.omittable = omittable;
 	}
 	
 	public long getLength(){
 		return this.length;
 	}
 
-	public boolean isOmmittable() {
-		return ommittable;
+	public boolean isOmittable() {
+		return omittable;
 	}
 	
 }

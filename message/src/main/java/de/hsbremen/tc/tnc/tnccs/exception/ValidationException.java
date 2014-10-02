@@ -2,44 +2,29 @@ package de.hsbremen.tc.tnc.tnccs.exception;
 
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 
-public class ValidationException extends ComprehensibleException {
-
-	public static final int NOT_SPECIFIED = 0; 
+public class ValidationException extends ComprehensibleException{
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -860068945081676249L;
-	
-	private final boolean fatal;
-	private final int errorCode;
-	private final int errorCause;
-	
-	public ValidationException(final String message, final boolean fatal,
-			final int errorCode, int errorCause , final String... reasons) {
-		super(message, reasons);
-		this.fatal = fatal;
-		this.errorCode = errorCode;
-		this.errorCause = errorCause;
-	}
-	
-	public ValidationException(final String message, Throwable original, final boolean fatal,
-			final int errorCode, int errorCause ,final String... reasons) {
-		super(message, original, reasons);
-		this.fatal = fatal;
-		this.errorCode = errorCode;
-		this.errorCause = errorCause;
-	}
-	
-	public boolean isFatal(){
-		return this.fatal;
-	}
-	
-	public int getErrorCode(){
-		return this.errorCode;
+	private static final long serialVersionUID = 6714101079655195252L;
+	private final long exceptionOffset;
+
+	/**
+	 * @param message
+	 * @param arg1
+	 */
+	public ValidationException(final String message, final Throwable throwable, final long exceptionOffset, final String...reasons) {
+		super(message, throwable, reasons);
+		
+		this.exceptionOffset = exceptionOffset;
 	}
 
-	public int getErrorCause(){
-		return this.errorCause;
+	/**
+	 * @return the exceptionOffset
+	 */
+	public long getExceptionOffset() {
+		return this.exceptionOffset;
 	}
 
 	/* (non-Javadoc)
@@ -47,11 +32,8 @@ public class ValidationException extends ComprehensibleException {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "ValidationException [fatal=" + this.fatal + ", errorCode="
-				+ this.errorCode + ", errorCause=" + this.errorCause + "]";
+		return super.toString() + "SerializationException [exceptionOffset=" + this.exceptionOffset + "]";
 	}
-	
-	
 	
 	
 	

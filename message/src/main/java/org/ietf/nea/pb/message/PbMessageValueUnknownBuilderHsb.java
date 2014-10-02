@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import org.ietf.nea.pb.exception.RuleException;
 
 public class PbMessageValueUnknownBuilderHsb implements
 		PbMessageValueUnknownBuilder {
@@ -25,7 +25,7 @@ public class PbMessageValueUnknownBuilderHsb implements
 	}
 	
 	@Override
-	public PbMessageValueUnknownBuilder setMessage(byte[] message) throws ValidationException {
+	public PbMessageValueUnknownBuilder setMessage(byte[] message) throws RuleException {
 		// no checks necessary because experimental
 		if(message != null){
 			this.message = message;
@@ -36,7 +36,7 @@ public class PbMessageValueUnknownBuilderHsb implements
 	}
 	
 	@Override
-	public PbMessageValueUnknown toValue() throws ValidationException {
+	public PbMessageValueUnknown toValue() throws RuleException {
 
 		return new PbMessageValueUnknown(this.ommittable, this.length, this.message);
 	}

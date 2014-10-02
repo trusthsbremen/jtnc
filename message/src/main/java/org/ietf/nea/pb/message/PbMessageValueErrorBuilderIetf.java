@@ -1,5 +1,6 @@
 package org.ietf.nea.pb.message;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
@@ -7,7 +8,6 @@ import org.ietf.nea.pb.validate.rules.ErrorCodeLimits;
 import org.ietf.nea.pb.validate.rules.ErrorVendorIdLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilder{
 
@@ -44,7 +44,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorVendorId(long)
 	 */
 	@Override
-	public PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId) throws ValidationException {
+	public PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId) throws RuleException {
 		
 		ErrorVendorIdLimits.check(errorVendorId);
 		this.errorVendorId = errorVendorId;
@@ -56,7 +56,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorCode(short)
 	 */
 	@Override
-	public PbMessageValueErrorBuilder setErrorCode(short errorCode) throws ValidationException {
+	public PbMessageValueErrorBuilder setErrorCode(short errorCode) throws RuleException {
 		
 		ErrorCodeLimits.check(errorCode);
 		this.errorCode = errorCode;
@@ -79,7 +79,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	}
 
 	@Override
-	public PbMessageValueError toValue() throws ValidationException {
+	public PbMessageValueError toValue() throws RuleException {
 
 		return new PbMessageValueError(this.errorFlags, this.errorVendorId, this.errorCode, RESERVED, this.length, this.errorParameter);
 	}

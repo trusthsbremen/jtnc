@@ -1,12 +1,12 @@
 package org.ietf.nea.pb.message;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.RpMessageTypeLimits;
 import org.ietf.nea.pb.validate.rules.RpVendorIdLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueRemediationParametersBuilderIetf implements PbMessageValueRemediationParametersBuilder{
 
@@ -30,7 +30,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpVendorId(long)
 	 */
 	@Override
-	public PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId) throws ValidationException {
+	public PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId) throws RuleException {
 		
 		RpVendorIdLimits.check(rpVendorId);
 		this.rpVendorId = rpVendorId;
@@ -42,7 +42,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpType(long)
 	 */
 	@Override
-	public PbMessageValueRemediationParametersBuilder setRpType(long rpType) throws ValidationException {
+	public PbMessageValueRemediationParametersBuilder setRpType(long rpType) throws RuleException {
 		
 		RpMessageTypeLimits.check(rpType);
 		this.rpType = rpType;
@@ -66,7 +66,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	}
 
 	@Override
-	public PbMessageValueRemediationParameters toValue() throws ValidationException {
+	public PbMessageValueRemediationParameters toValue() throws RuleException {
 		if(parameter == null){
 			throw new IllegalStateException("A message value has to be set.");
 		}

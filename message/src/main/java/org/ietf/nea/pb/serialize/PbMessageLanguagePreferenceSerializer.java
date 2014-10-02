@@ -7,12 +7,12 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueLanguagePreference;
 import org.ietf.nea.pb.message.PbMessageValueLanguagePreferenceBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessageValueLanguagePreference> {
@@ -46,7 +46,7 @@ class PbMessageLanguagePreferenceSerializer implements TnccsSerializer<PbMessage
 	}
 
 	@Override
-	public PbMessageValueLanguagePreference decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueLanguagePreference decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		PbMessageValueLanguagePreference value = null; 	
 		this.builder.clear();
 		

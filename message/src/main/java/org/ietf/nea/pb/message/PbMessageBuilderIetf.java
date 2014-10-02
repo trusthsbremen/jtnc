@@ -3,15 +3,15 @@ package org.ietf.nea.pb.message;
 import java.util.Arrays;
 import java.util.EnumSet;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
-import org.ietf.nea.pb.validate.rules.PaMessageNoSkip;
+import org.ietf.nea.pb.validate.rules.PbMessageNoSkip;
 import org.ietf.nea.pb.validate.rules.PaMessageUnknownButNoSkip;
 import org.ietf.nea.pb.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageBuilderIetf implements PbMessageBuilder {
 
@@ -45,7 +45,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 	 * @see org.ietf.nea.pb.message.PbMessageBuilder#setVendorId(long)
 	 */
 	@Override
-	public PbMessageBuilder setVendorId(final long vendorId) throws ValidationException{
+	public PbMessageBuilder setVendorId(final long vendorId) throws RuleException{
 		
 		VendorIdReservedAndLimits.check(vendorId);
 		this.vendorId = vendorId;
@@ -57,7 +57,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 	 * @see org.ietf.nea.pb.message.PbMessageBuilder#setType(long)
 	 */
 	@Override
-	public PbMessageBuilder setType(final long type) throws ValidationException{
+	public PbMessageBuilder setType(final long type) throws RuleException{
 		
 		VendorIdReservedAndLimits.check(type);
 		this.type = type;
@@ -84,7 +84,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 	 * @see de.hsbremen.tc.tnc.tnccs.message.TnccMessageBuilder#toMessage()
 	 */
 	@Override
-	public PbMessage toMessage() throws ValidationException{
+	public PbMessage toMessage() throws RuleException{
 		
 		if(value == null){
 			throw new IllegalStateException("A message value has to be set.");
@@ -97,7 +97,7 @@ public class PbMessageBuilderIetf implements PbMessageBuilder {
 			tempFlags = EnumSet.noneOf(PbMessageFlagsEnum.class);
 		}
 		
-		PaMessageNoSkip.check(this.value,tempFlags);
+		PbMessageNoSkip.check(this.value,tempFlags);
 		PaMessageUnknownButNoSkip.check(this.value, tempFlags);
 		// TODO if necessary make a message length check here, first finding the correct message type the the length parameter
 		// it seems not necessary, because the length is set by the content.

@@ -2,6 +2,7 @@ package org.ietf.nea.pb.serialize;
 
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchBuilderIetf;
+import org.ietf.nea.pb.exception.PbValidationExceptionHandler;
 import org.ietf.nea.pb.message.PbMessageBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilderIetf;
@@ -52,7 +53,7 @@ public class PbSerializerFactory {
 						new PbMessageRemediationParameterUriSerializer(new PbMessageValueRemediationParameterUriBuilderIetf())
 						));
 		
-		PbBatchSerializerBuffered bSerializer = new PbBatchSerializerBuffered(new PbBatchSerializer(new PbBatchBuilderIetf(), mSerializer));
+		PbBatchSerializerBuffered bSerializer = new PbBatchSerializerBuffered(new PbBatchSerializer(new PbBatchBuilderIetf(), mSerializer, new PbValidationExceptionHandler()));
 
 		return bSerializer;
 	}

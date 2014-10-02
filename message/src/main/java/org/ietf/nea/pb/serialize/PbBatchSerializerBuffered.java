@@ -6,10 +6,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.ietf.nea.pb.batch.PbBatch;
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.serialize.util.TrackedBufferedInputStream;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbBatchSerializerBuffered implements TnccsSerializer<PbBatch>{
@@ -42,17 +42,11 @@ class PbBatchSerializerBuffered implements TnccsSerializer<PbBatch>{
 
 	@Override
 	public PbBatch decode(InputStream in, long length)
-			throws SerializationException{
+			throws SerializationException, RuleException{
 		
 		TrackedBufferedInputStream tIn = new TrackedBufferedInputStream(in, this.bufferSize);
-		PbBatch batch = null;
-		try{
-			batch = serializer.decode(tIn, length);
-		}catch(ValidationException e){
-			// TODO does not work, because some problems are discovered later as they are read. getTracked is to far gone at the time
-			throw new SerializationException("ValidationException occured: " + e.getMessage(), e, false, tIn.getTracked());
-		}
-		
+		PbBatch batch = serializer.decode(tIn, length);
+
 		return batch;
 	}
 

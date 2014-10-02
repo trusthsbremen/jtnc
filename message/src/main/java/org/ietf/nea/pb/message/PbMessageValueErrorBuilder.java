@@ -1,6 +1,7 @@
 package org.ietf.nea.pb.message;
 
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import org.ietf.nea.pb.exception.RuleException;
+
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
 
 public interface PbMessageValueErrorBuilder extends TnccsMessageValueBuilder {
@@ -12,17 +13,17 @@ public interface PbMessageValueErrorBuilder extends TnccsMessageValueBuilder {
 
 	/**
 	 * @param errorVendorId the errorVendorId to set
-	 * @throws ValidationException 
+	 * @throws RuleException 
 	 */
 	public abstract PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId)
-			throws ValidationException;
+			throws RuleException;
 
 	/**
 	 * @param errorCode the errorCode to set
-	 * @throws ValidationException 
+	 * @throws RuleException 
 	 */
 	public abstract PbMessageValueErrorBuilder setErrorCode(short errorCode)
-			throws ValidationException;
+			throws RuleException;
 
 	/**
 	 * @param errorParameter the errorParameter to set

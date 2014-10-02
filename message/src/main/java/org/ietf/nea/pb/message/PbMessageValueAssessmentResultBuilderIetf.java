@@ -1,10 +1,9 @@
 package org.ietf.nea.pb.message;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.AssessmentResult;
-
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueAssessmentResultBuilderIetf implements
 		PbMessageValueAssessmentResultBuilder {
@@ -22,7 +21,7 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 	 * @see org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilder#setResult(long)
 	 */
 	@Override
-	public PbMessageValueAssessmentResultBuilder setResult(long result) throws ValidationException {
+	public PbMessageValueAssessmentResultBuilder setResult(long result) throws RuleException {
 		
 		AssessmentResult.check(result);
 		this.result = PbMessageAssessmentResultEnum.fromNumber(result);
@@ -31,7 +30,7 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 	}
 
 	@Override
-	public PbMessageValueAssessmentResult toValue() throws ValidationException {
+	public PbMessageValueAssessmentResult toValue() throws RuleException {
 		
 		return new PbMessageValueAssessmentResult(this.length, this.result);
 	}

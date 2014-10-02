@@ -1,10 +1,9 @@
 package org.ietf.nea.pb.message;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.AccessRecommendation;
-
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbMessageValueAccessRecommendationBuilderIetf implements
 		PbMessageValueAccessRecommendationBuilder {
@@ -25,7 +24,7 @@ public class PbMessageValueAccessRecommendationBuilderIetf implements
 	 * @see org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder#setRecommendation(short)
 	 */
 	@Override
-	public PbMessageValueAccessRecommendationBuilder setRecommendation(short recommendation) throws ValidationException {
+	public PbMessageValueAccessRecommendationBuilder setRecommendation(short recommendation) throws RuleException {
 		
 		AccessRecommendation.check(recommendation);
 		this.recommendation = PbMessageAccessRecommendationEnum.fromNumber(recommendation);
@@ -34,7 +33,7 @@ public class PbMessageValueAccessRecommendationBuilderIetf implements
 	}
 
 	@Override
-	public PbMessageValueAccessRecommendation toValue() throws ValidationException {
+	public PbMessageValueAccessRecommendation toValue() throws RuleException {
 		
 		return new PbMessageValueAccessRecommendation(RESERVED,this.length, this.recommendation);
 	}

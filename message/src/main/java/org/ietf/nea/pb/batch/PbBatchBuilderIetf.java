@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.BatchDirectionAndType;
@@ -14,7 +15,6 @@ import org.ietf.nea.pb.validate.rules.BatchType;
 import org.ietf.nea.pb.validate.rules.BatchVersion;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 
 public class PbBatchBuilderIetf implements PbBatchBuilder {
 
@@ -37,7 +37,7 @@ public class PbBatchBuilderIetf implements PbBatchBuilder {
 	}
 	
 	@Override
-	public PbBatchBuilder setVersion(byte version) throws ValidationException {
+	public PbBatchBuilder setVersion(byte version) throws RuleException {
 		BatchVersion.check(version, SUPPORTED_VERSION);
 		
 		this.version = version;
@@ -49,7 +49,7 @@ public class PbBatchBuilderIetf implements PbBatchBuilder {
 	 * @see org.ietf.nea.pb.batch.PbBatchBuilder#setBatchDirection(org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum)
 	 */
 	@Override
-	public PbBatchBuilder setDirection(byte direction) throws ValidationException{
+	public PbBatchBuilder setDirection(byte direction) throws RuleException{
 		
 		BatchDirectionality.check(direction);
 		PbBatchDirectionalityEnum tempDir = PbBatchDirectionalityEnum.fromDirectionality(direction);
@@ -67,7 +67,7 @@ public class PbBatchBuilderIetf implements PbBatchBuilder {
 	 * @see org.ietf.nea.pb.batch.PbBatchBuilder#setBatchType(org.ietf.nea.pb.batch.enums.PbBatchTypeEnum)
 	 */
 	@Override
-	public PbBatchBuilder setType(byte type) throws ValidationException{
+	public PbBatchBuilder setType(byte type) throws RuleException{
 
 		BatchType.check(type);
 		
@@ -113,7 +113,7 @@ public class PbBatchBuilderIetf implements PbBatchBuilder {
 	 * @see de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchBuilder#toBatch()
 	 */
 	@Override
-	public  PbBatch toBatch() throws ValidationException{
+	public  PbBatch toBatch() throws RuleException{
 		if(direction == null){
 			throw new IllegalStateException("Direction must be set first.");
 		}

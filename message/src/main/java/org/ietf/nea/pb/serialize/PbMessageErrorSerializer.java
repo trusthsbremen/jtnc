@@ -8,13 +8,13 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Set;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueError;
 import org.ietf.nea.pb.message.PbMessageValueErrorBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueError> {
@@ -94,7 +94,7 @@ class PbMessageErrorSerializer implements TnccsSerializer<PbMessageValueError> {
 	}
 
 	@Override
-	public PbMessageValueError decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueError decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		
 		PbMessageValueError value = null; 	
 		this.builder.clear();

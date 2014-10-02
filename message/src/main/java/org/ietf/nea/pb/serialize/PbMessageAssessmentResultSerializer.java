@@ -7,12 +7,12 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResult;
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilder;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
 
 class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMessageValueAssessmentResult> {
@@ -50,7 +50,7 @@ class PbMessageAssessmentResultSerializer implements TnccsSerializer<PbMessageVa
 	}
 
 	@Override
-	public PbMessageValueAssessmentResult decode(final InputStream in, final long length) throws SerializationException, ValidationException {
+	public PbMessageValueAssessmentResult decode(final InputStream in, final long length) throws SerializationException, RuleException {
 		PbMessageValueAssessmentResult value = null; 	
 		this.builder.clear();
 		
