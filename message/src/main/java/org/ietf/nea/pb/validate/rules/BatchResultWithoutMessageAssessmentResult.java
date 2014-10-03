@@ -19,7 +19,7 @@ public class BatchResultWithoutMessageAssessmentResult {
 		}
 		if(messages != null){
 			for (PbMessage pbMessage : messages) {
-				if(pbMessage.getVendorId() == IETFConstants.IETF_PEN_VENDORID && pbMessage.getType() ==  PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType()){
+				if(pbMessage.getHeader().getVendorId() == IETFConstants.IETF_PEN_VENDORID && pbMessage.getHeader().getMessageType() ==  PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType()){
 					return;
 				}
 			}

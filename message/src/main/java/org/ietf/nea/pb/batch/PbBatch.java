@@ -4,17 +4,21 @@ import java.util.Collections;
 import java.util.List;
 
 import org.ietf.nea.pb.message.PbMessage;
-import org.ietf.nea.pb.message.PbMessageNew;
 
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchHeader;
 
 public class PbBatch implements TnccsBatch {
 	
     private final PbBatchHeader header;                           // 32 bit(s) min value is 8 for the 8 bytes in this header
-    private final List<PbMessageNew> messages;
+    private final List<PbMessage> messages;
 
-	public PbBatch(final PbBatchHeader header, List<PbMessageNew> messages) {
+	public PbBatch(final PbBatchHeader header, List<PbMessage> messages) {
+		if(header == null){
+			throw new NullPointerException("Batch header cannot be null.");
+		}
+		if(messages == null){
+			throw new NullPointerException("Messages cannot be null.");
+		}
 		this.header = header;
 		this.messages = messages;
 	}
@@ -23,12 +27,12 @@ public class PbBatch implements TnccsBatch {
      * @return the messages
      */
 	@Override
-    public List<PbMessageNew> getMessages() {
+    public List<PbMessage> getMessages() {
         return Collections.unmodifiableList(messages);
     }
 
 	@Override
-	public TnccsBatchHeader getHeader() {
+	public PbBatchHeader getHeader() {
 		return this.header;
 	}
 

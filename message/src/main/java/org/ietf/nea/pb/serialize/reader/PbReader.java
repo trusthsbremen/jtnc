@@ -12,7 +12,7 @@ import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageHeader;
-import org.ietf.nea.pb.message.PbMessageNew;
+import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
@@ -26,13 +26,13 @@ import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 import de.hsbremen.tc.tnc.util.Combined;
 
-public class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageValue>> {
+class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageValue>> {
 
 	private final TnccsReader<PbBatchHeader> bHeadReader;
 	private final TnccsReader<PbMessageHeader> mHeadReader;
 	private final Map<Long, Map<Long, TnccsReader<PbMessageValue>>> valueReader;
 	
-	public PbReader(TnccsReader<PbBatchHeader> bHeadReader,
+	PbReader(TnccsReader<PbBatchHeader> bHeadReader,
 			TnccsReader<PbMessageHeader> mHeadReader) {
 		this(bHeadReader, mHeadReader, new HashMap<Long, Map<Long, TnccsReader<PbMessageValue>>>());
 
@@ -65,7 +65,7 @@ public class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMe
 		}
 		
 		/* messages */
-		List<PbMessageNew> msgs = new LinkedList<>();
+		List<PbMessage> msgs = new LinkedList<>();
 		long contentLength = bHead.getLength() - PbMessageTlvFixedLength.BATCH.length();
 		if(contentLength >= mHeadReader.getMinDataLength()){
 			for(long cl = 0; cl < contentLength;){
@@ -98,17 +98,19 @@ public class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMe
 							
 							mValue = vr.read(bIn, mHead.getLength()-PbMessageTlvFixedLength.MESSAGE.length());
 							
-							// Now that the value is known do the no skip check.
-							try{
-								PbMessageNoSkip.check(mValue, mHead.getFlags());
-							}catch(RuleException e1){
-								// Remove header offset because this is a late header check. Flags is the first field
-								// in the message header.
-								headerOffset = 0;
-								throw new ValidationException(e1.getMessage(), e1,0);
+							if(mValue != null){
+								// Now that the value is known do the no skip check.
+								try{
+									PbMessageNoSkip.check(mValue, mHead.getFlags());
+								}catch(RuleException e1){
+									// Remove header offset because this is a late header check. Flags is the first field
+									// in the message header.
+									headerOffset = 0;
+									throw new ValidationException(e1.getMessage(), e1,0);
+								}
+								
+								msgs.add(new PbMessage(mHead, mValue));
 							}
-							
-							msgs.add(new PbMessageNew(mHead, mValue));
 							
 						}else{
 							try{
@@ -118,6 +120,13 @@ public class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMe
 								// in the message header.
 								headerOffset = 0;
 								throw new ValidationException(e1.getMessage(), e1,0);
+							}
+							
+							try{
+								// skip the remaining bytes of the message
+								bIn.skip(mHead.getLength() - headerOffset);
+							}catch (IOException e1){
+								throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 							}
 						}
 					}else{
@@ -129,6 +138,14 @@ public class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMe
 							headerOffset = 0;
 							throw new ValidationException(e1.getMessage(), e1, 0);
 						}
+						
+						try{
+							// skip the remaining bytes of the message
+							bIn.skip(mHead.getLength() - headerOffset);
+						}catch (IOException e1){
+							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
+						}
+						
 					}
 				}catch(ValidationException e){
 					

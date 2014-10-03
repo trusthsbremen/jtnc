@@ -6,8 +6,8 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.ietf.nea.pb.exception.RuleException;
-import org.ietf.nea.pb.message.PbMessageValueReasonString;
-import org.ietf.nea.pb.message.PbMessageValueReasonStringBuilder;
+import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
+import org.ietf.nea.pb.message.PbMessageValueRemediationParameterStringBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
@@ -15,22 +15,22 @@ import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 
-class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReasonString>{
+class PbMessageRemediationParameterStringSubValueReader implements TnccsReader<PbMessageValueRemediationParameterString>{
 
-	private PbMessageValueReasonStringBuilder builder;
+	private PbMessageValueRemediationParameterStringBuilder builder;
 	
-	PbMessageReasonStringValueReader(PbMessageValueReasonStringBuilder builder){
+	PbMessageRemediationParameterStringSubValueReader(PbMessageValueRemediationParameterStringBuilder builder){
 		this.builder = builder;
 	}
 	
 	@Override
-	public PbMessageValueReasonString read(final InputStream in, final long messageLength)
+	public PbMessageValueRemediationParameterString read(final InputStream in, final long messageLength)
 			throws SerializationException, ValidationException {
 		
 		long errorOffset = 0;
 		
-		PbMessageValueReasonString value = null;
-		builder = (PbMessageValueReasonStringBuilder)builder.clear();
+		PbMessageValueRemediationParameterString value = null;
+		builder = (PbMessageValueRemediationParameterStringBuilder)builder.clear();
 
 		try{
 			
@@ -46,7 +46,7 @@ class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReas
 				errorOffset += byteSize;
 				
 				String reasonString = readString(reasonLength, in, Charset.forName("UTF-8"));
-				this.builder.setReasonString(reasonString);
+				this.builder.setRemediationString(reasonString);
 				errorOffset += reasonLength;
 				
 				// Last byte is the language code length;
@@ -63,7 +63,7 @@ class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReas
 				throw new SerializationException("Returned data for batch header is to short or stream may be closed.",e,true);
 			}
 
-			value = (PbMessageValueReasonString)builder.toValue();
+			value = (PbMessageValueRemediationParameterString)builder.toValue();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

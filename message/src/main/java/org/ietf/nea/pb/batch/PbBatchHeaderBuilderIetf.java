@@ -92,7 +92,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 	 * @see org.ietf.nea.pb.batch.PbBatchHeaderBuilder#toBatch()
 	 */
 	@Override
-	public  PbBatchHeader toBatchHeader() throws RuleException{
+	public  PbBatchHeader toBatchHeader(){
 		if(direction == null){
 			throw new IllegalStateException("Direction must be set first.");
 		}

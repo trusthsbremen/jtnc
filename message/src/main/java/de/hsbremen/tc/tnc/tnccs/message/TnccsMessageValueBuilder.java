@@ -1,10 +1,9 @@
 package de.hsbremen.tc.tnc.tnccs.message;
 
-import org.ietf.nea.pb.exception.RuleException;
 
 public interface TnccsMessageValueBuilder {
 
-	public abstract TnccsMessageValue toValue() throws RuleException;
+	public abstract TnccsMessageValue toValue();
 
 	public abstract TnccsMessageValueBuilder clear();
 }

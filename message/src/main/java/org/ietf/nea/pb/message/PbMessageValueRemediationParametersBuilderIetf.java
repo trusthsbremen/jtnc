@@ -9,8 +9,6 @@ import org.ietf.nea.pb.validate.rules.RpVendorIdLimits;
 import de.hsbremen.tc.tnc.IETFConstants;
 
 public class PbMessageValueRemediationParametersBuilderIetf implements PbMessageValueRemediationParametersBuilder{
-
-    private static final byte RESERVED = 0;           //  8 bit(s) should be 0
     
     private long rpVendorId;         // 24 bit(s)
     private long rpType;             // 32 bit(s)
@@ -66,12 +64,12 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	}
 
 	@Override
-	public PbMessageValueRemediationParameters toValue() throws RuleException {
+	public PbMessageValueRemediationParameters toValue(){
 		if(parameter == null){
 			throw new IllegalStateException("A message value has to be set.");
 		}
 		
-		return new PbMessageValueRemediationParameters(RESERVED, this.rpVendorId, this.rpType, this.length, this.parameter);
+		return new PbMessageValueRemediationParameters(this.rpVendorId, this.rpType, this.length, this.parameter);
 	}
 
 	@Override

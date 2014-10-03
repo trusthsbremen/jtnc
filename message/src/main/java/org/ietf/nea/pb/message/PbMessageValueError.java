@@ -35,13 +35,13 @@ public class PbMessageValueError extends AbstractPbMessageValue {
     private final EnumSet<PbMessageErrorFlagsEnum> errorFlags; //  8 bit(s) 
     private final long errorVendorId;                                           // 24 bit(s)
     private final short errorCode;                                                // 16 bit(s)
-    private final short reserved;                                         // 16 bit(s) should be 0
+    //private final short reserved;                                         // 16 bit(s) should be 0
     private byte[] errorParameter; //32 bit(s) , may be (1) (one field full 32 bit length) if offset or (4) (4 fields every field has 8 bit length) if version information is needed.
     
     
 
 	PbMessageValueError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId,
-			final short errorCode, final short reserved, final long length,
+			final short errorCode, final long length,
 			final byte[] errorParameter) {
 		super(length, OMMITTABLE);
 		
@@ -53,7 +53,6 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 
 		this.errorVendorId = errorVendorId;
 		this.errorCode = errorCode;
-		this.reserved = reserved;
 		this.errorParameter = errorParameter;
 	}
 
@@ -87,12 +86,4 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 		return Arrays.copyOf(this.errorParameter, this.errorParameter.length);
 	}
 
-	/**
-	 * @return the reserved
-	 */
-	public short getReserved() {
-		return this.reserved;
-	}
-    
-    
 }

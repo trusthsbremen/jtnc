@@ -9,13 +9,13 @@ import java.util.List;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.pb.message.PbMessageFactoryIetf;
+import org.ietf.nea.pb.message.PbMessageHeaderBuilderIetf;
 import org.ietf.nea.pb.message.PbMessage;
-import org.ietf.nea.pb.message.PbMessageBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
-import org.ietf.nea.pb.message.factory.PbMessageFactoryIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 
@@ -131,14 +131,14 @@ public class TestData {
 	}
 	
 	public PbBatch getInvalidImMessage() throws RuleException{
-		PbMessageBuilderIetf builder = new PbMessageBuilderIetf();
+		PbMessageHeaderBuilderIetf builder = new PbMessageHeaderBuilderIetf();
 		builder.setFlags((byte)0);
 		builder.setVendorId(IETFConstants.IETF_PEN_VENDORID);
 		builder.setType(PbMessageTypeEnum.IETF_PB_PA.messageType());
-		builder.setValue(PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12}));
+
 
 		List<PbMessage> messages = new ArrayList<>();
-		messages.add(builder.toMessage());
+		messages.add(new PbMessage(builder.toMessageHeader(), PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12})));
 		
 		
 		return PbBatchFactoryIetf.createClientData(messages);

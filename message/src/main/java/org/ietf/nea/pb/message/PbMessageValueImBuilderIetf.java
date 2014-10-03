@@ -110,7 +110,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#toValue()
 	 */
 	@Override
-	public PbMessageValueIm toValue() throws RuleException {
+	public PbMessageValueIm toValue(){
 
 		return new PbMessageValueIm(this.imFlags, this.subVendorId, this.subType, this.collectorId, this.validatorId, this.length, this.message);
 	}

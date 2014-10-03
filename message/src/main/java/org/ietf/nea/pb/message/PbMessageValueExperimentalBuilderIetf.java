@@ -25,7 +25,7 @@ public class PbMessageValueExperimentalBuilderIetf implements
 	}
 	
 	@Override
-	public PbMessageValueExperimental toValue() throws RuleException {
+	public PbMessageValueExperimental toValue(){
 
 		return new PbMessageValueExperimental(this.length,this.message);
 	}

@@ -30,7 +30,7 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 	}
 
 	@Override
-	public PbMessageValueAssessmentResult toValue() throws RuleException {
+	public PbMessageValueAssessmentResult toValue(){
 		
 		return new PbMessageValueAssessmentResult(this.length, this.result);
 	}

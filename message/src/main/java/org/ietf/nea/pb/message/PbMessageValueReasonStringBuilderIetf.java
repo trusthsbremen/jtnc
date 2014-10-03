@@ -16,7 +16,7 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
     
     public PbMessageValueReasonStringBuilderIetf(){
     	this.length = PbMessageTlvFixedLength.REA_STR_VALUE.length();
-    	this.reasonString = "";
+    	this.reasonString = null;
     	this.langCode = "";
     }
 
@@ -52,10 +52,11 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 	}
 
 	@Override
-	public PbMessageValueReasonString toValue() throws RuleException {
-
-		// check again because it has to be set properly
-		NoZeroString.check(this.reasonString);
+	public PbMessageValueReasonString toValue() {
+		
+		if(reasonString == null){
+			throw new IllegalStateException("A reason string has to be set.");
+		}
 		
 		return new PbMessageValueReasonString(this.length, this.reasonString, this.langCode);
 	}

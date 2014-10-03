@@ -7,9 +7,6 @@ import org.ietf.nea.pb.validate.rules.AccessRecommendation;
 
 public class PbMessageValueAccessRecommendationBuilderIetf implements
 		PbMessageValueAccessRecommendationBuilder {
-	
-	
-	private static final short RESERVED = 0;   // 16 bit(s) should be 0
     
 	private long length;
     private PbMessageAccessRecommendationEnum recommendation;  //16 bit(s)
@@ -33,9 +30,9 @@ public class PbMessageValueAccessRecommendationBuilderIetf implements
 	}
 
 	@Override
-	public PbMessageValueAccessRecommendation toValue() throws RuleException {
+	public PbMessageValueAccessRecommendation toValue(){
 		
-		return new PbMessageValueAccessRecommendation(RESERVED,this.length, this.recommendation);
+		return new PbMessageValueAccessRecommendation(this.length, this.recommendation);
 	}
 
 	@Override

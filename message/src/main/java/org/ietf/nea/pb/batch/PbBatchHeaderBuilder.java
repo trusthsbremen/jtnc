@@ -2,7 +2,9 @@ package org.ietf.nea.pb.batch;
 
 import org.ietf.nea.pb.exception.RuleException;
 
-public interface PbBatchHeaderBuilder {
+import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchHeaderBuilder;
+
+public interface PbBatchHeaderBuilder extends TnccsBatchHeaderBuilder {
 
 	public abstract PbBatchHeaderBuilder setVersion(byte version)
 			throws RuleException;
@@ -15,9 +17,5 @@ public interface PbBatchHeaderBuilder {
 
 	public abstract PbBatchHeaderBuilder setLength(long length)
 			throws RuleException;
-
-	public abstract PbBatchHeader toBatchHeader() throws RuleException;
-
-	public abstract PbBatchHeaderBuilder clear();
 
 }

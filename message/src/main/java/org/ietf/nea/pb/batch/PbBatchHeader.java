@@ -13,7 +13,7 @@ public class PbBatchHeader implements TnccsBatchHeader{
 	    
 	    private final long length;
 
-	    public PbBatchHeader(final byte version, final PbBatchDirectionalityEnum directionality,
+	    PbBatchHeader(final byte version, final PbBatchDirectionalityEnum directionality,
 				final PbBatchTypeEnum type, final long length) {
 			this.version = version;
 	    	this.directionality = directionality;

@@ -6,6 +6,7 @@ import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 
 public class PbBatchFactoryIetf {
 	
@@ -40,14 +41,19 @@ public class PbBatchFactoryIetf {
 		if(messages == null){
 			throw new NullPointerException("Messages cannot be null.");
 		}
-		PbBatchBuilderIetf builder = new PbBatchBuilderIetf();
+		
+		PbBatchHeaderBuilderIetf builder = new PbBatchHeaderBuilderIetf();
 		builder.setDirection(direction.directionality());
 		builder.setType(type.type());
-		builder.addMessages(messages);
 		
-		PbBatch batch = null;
+		long l = 0;
+		for (PbMessage pbMessage : messages) {
+			l += pbMessage.getHeader().getLength();
+		}
 		
-		batch = builder.toBatch();
+		builder.setLength(l + PbMessageTlvFixedLength.BATCH.length());		
+		PbBatch batch = new PbBatch(builder.toBatchHeader(), messages);
+
 		
 		return batch; 
 	}

@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 import org.ietf.nea.pb.exception.RuleException;
-import org.ietf.nea.pb.message.PbMessageValueIm;
-import org.ietf.nea.pb.message.PbMessageValueImBuilder;
+import org.ietf.nea.pb.message.PbMessageValueError;
+import org.ietf.nea.pb.message.PbMessageValueErrorBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
@@ -14,22 +14,22 @@ import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 
-class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
+class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 
-	private PbMessageValueImBuilder builder;
+	private PbMessageValueErrorBuilder builder;
 	
-	PbMessageImValueReader(PbMessageValueImBuilder builder){
+	PbMessageErrorValueReader(PbMessageValueErrorBuilder builder){
 		this.builder = builder;
 	}
 	
 	@Override
-	public PbMessageValueIm read(final InputStream in, final long messageLength)
+	public PbMessageValueError read(final InputStream in, final long messageLength)
 			throws SerializationException, ValidationException {
 		
 		long errorOffset = 0;
 		
-		PbMessageValueIm value = null;
-		builder = (PbMessageValueImBuilder)builder.clear();
+		PbMessageValueError value = null;
+		builder = (PbMessageValueErrorBuilder)builder.clear();
 
 		try{
 			
@@ -41,49 +41,40 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 				/* flags */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				this.builder.setImFlags(buffer[0]);
+				this.builder.setErrorFlags(buffer[0]);
 				errorOffset += byteSize;
-			
-				/* sub vendor ID */ 
+				
+				/* vendor ID */
 				byteSize = 3;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				long subVendorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setSubVendorId(subVendorId);
+				long errorVendorId = ByteArrayHelper.toLong(buffer);
+				this.builder.setErrorVendorId(errorVendorId);
 				errorOffset += byteSize;
 				
-				/* sub message type */
-				byteSize = 4;
-				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				long subType = ByteArrayHelper.toLong(buffer);
-				this.builder.setSubType(subType);
-				errorOffset += byteSize;
-				
-				/* collector ID */
+				/* error Code */
 				byteSize = 2;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				long collectorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setCollectorId(collectorId);
+				short errorCode = ByteArrayHelper.toShort(buffer);
+				this.builder.setErrorCode(errorCode);
 				errorOffset += byteSize;
 				
-				/* validator ID */
+				/* ignore Reserved */
 				byteSize = 2;
-				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				long validatorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setValidatorId(validatorId);	
+				ByteArrayHelper.arrayFromStream(in, byteSize);
 				errorOffset += byteSize;
-			
-				/* PA message */
-				byte[] imMessage = new byte[0];
+				
+				/* error content */
+				byte[] content = new byte[0];
 				buffer = new byte[0];
 				
 				for(long l = messageLength - errorOffset; l > 0; l -= buffer.length){
 					
 					buffer = ByteArrayHelper.arrayFromStream(in, ((l < 65535) ?(int)l : 65535));
-					imMessage = ByteArrayHelper.mergeArrays(imMessage, Arrays.copyOfRange(buffer, 0, buffer.length));
+					content = ByteArrayHelper.mergeArrays(content, Arrays.copyOfRange(buffer, 0, buffer.length));
 				}
 				
-				byteSize = imMessage.length;
-				this.builder.setMessage(imMessage);
+				byteSize = content.length;
+				this.builder.setErrorParameter(content);
 				errorOffset += byteSize;
 			
 			}catch (IOException e){
@@ -91,7 +82,7 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 						"Returned data for message value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PbMessageValueIm)builder.toValue();
+			value = (PbMessageValueError)builder.toValue();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);
@@ -102,7 +93,7 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 
 	@Override
 	public byte getMinDataLength() {
-		return PbMessageTlvFixedLength.IM_VALUE.length();
+		return PbMessageTlvFixedLength.ERR_VALUE.length();
 	}
 
 }

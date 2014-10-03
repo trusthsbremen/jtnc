@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
-import org.ietf.nea.pb.message.factory.PbMessageFactoryIetf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

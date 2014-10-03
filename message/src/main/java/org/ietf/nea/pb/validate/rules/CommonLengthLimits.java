@@ -10,7 +10,7 @@ public class CommonLengthLimits {
 
 	 public static void check(final long messageLength) throws RuleException {
 
-	        if(messageLength > IETFConstants.IETF_MAX_TYPE){
+	        if(messageLength > IETFConstants.IETF_MAX_LENGTH){
 	        	throw new RuleException("Length is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),Long.toString(messageLength));
 	        }
 	        if(messageLength < 0){

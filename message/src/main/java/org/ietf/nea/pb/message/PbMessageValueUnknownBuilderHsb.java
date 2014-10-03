@@ -36,7 +36,7 @@ public class PbMessageValueUnknownBuilderHsb implements
 	}
 	
 	@Override
-	public PbMessageValueUnknown toValue() throws RuleException {
+	public PbMessageValueUnknown toValue(){
 
 		return new PbMessageValueUnknown(this.ommittable, this.length, this.message);
 	}

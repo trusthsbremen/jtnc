@@ -33,7 +33,7 @@ public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessage
 	}
 
 	@Override
-	public PbMessageValueLanguagePreference toValue() throws RuleException {
+	public PbMessageValueLanguagePreference toValue(){
 
 		return new PbMessageValueLanguagePreference(this.length,this.languagePreference);
 	}

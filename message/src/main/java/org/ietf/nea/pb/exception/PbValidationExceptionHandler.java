@@ -8,6 +8,7 @@ import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 
+@Deprecated
 public class PbValidationExceptionHandler {
 	
 	private List<RuleException> nonFatalExceptions = new ArrayList<>();
@@ -17,11 +18,11 @@ public class PbValidationExceptionHandler {
 		if(e.isFatal()){
 			SerializationException s = null;
 			if(e.getErrorCause() == PbErrorCauseEnum.NOSKIP_MISSING.number()){
-					s = new SerializationException("ValidationException occured: " + e.getMessage(), e, false, (batchLength + currentMessageStart));
+					s = new SerializationException("ValidationException occured: " + e.getMessage(), e, false);
 			}
 			
 			if(e.getErrorCause() == PbErrorCauseEnum.NOSKIP_NOT_ALLOWED.number()){
-				s = new SerializationException("ValidationException occured: " + e.getMessage(), e, false, (batchLength + currentMessageStart));
+				s = new SerializationException("ValidationException occured: " + e.getMessage(), e, false);
 			}
 			
 			if(s != null){

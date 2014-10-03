@@ -10,8 +10,6 @@ import org.ietf.nea.pb.validate.rules.ErrorVendorIdLimits;
 import de.hsbremen.tc.tnc.IETFConstants;
 
 public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilder{
-
-	private static final short RESERVED = 0;
 	
 	private PbMessageErrorFlagsEnum[] errorFlags; //  8 bit(s) 
     private long errorVendorId;                                           // 24 bit(s)
@@ -79,9 +77,9 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	}
 
 	@Override
-	public PbMessageValueError toValue() throws RuleException {
+	public PbMessageValueError toValue(){
 
-		return new PbMessageValueError(this.errorFlags, this.errorVendorId, this.errorCode, RESERVED, this.length, this.errorParameter);
+		return new PbMessageValueError(this.errorFlags, this.errorVendorId, this.errorCode, this.length, this.errorParameter);
 	}
 
 	@Override

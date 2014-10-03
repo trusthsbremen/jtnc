@@ -29,7 +29,7 @@ package org.ietf.nea.pb.message;
  */
 public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
     
-    private final byte reserved;           //  8 bit(s) should be 0
+    //private final byte reserved;           //  8 bit(s) should be 0
     
     private final long rpVendorId;         // 24 bit(s)
     private final long rpType;             // 32 bit(s)
@@ -39,11 +39,10 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
 
     
     
-    PbMessageValueRemediationParameters(final byte reserved, final long length,
+    PbMessageValueRemediationParameters(final long length,
 			final long rpVendorId, final long rpType,
 			final AbstractPbMessageSubValue parameter) {
 		super(length);
-		this.reserved = reserved;
 		this.rpVendorId = rpVendorId;
 		this.rpType = rpType;
 		this.parameter = parameter;
@@ -63,13 +62,6 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
 	 */
 	public long getRpType() {
 		return this.rpType;
-	}
-
-	/**
-	 * @return the reserved
-	 */
-	public byte getReserved() {
-		return this.reserved;
 	}
 
 	public AbstractPbMessageSubValue getParameter(){

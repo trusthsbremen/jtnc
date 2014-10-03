@@ -2,7 +2,9 @@ package org.ietf.nea.pb.message;
 
 import org.ietf.nea.pb.exception.RuleException;
 
-public interface PbMessageHeaderBuilder {
+import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageHeaderBuilder;
+
+public interface PbMessageHeaderBuilder extends TnccsMessageHeaderBuilder {
 
 	public abstract PbMessageHeaderBuilder setFlags(byte flags);
 
@@ -14,9 +16,4 @@ public interface PbMessageHeaderBuilder {
 
 	public abstract PbMessageHeaderBuilder setLength(long length)
 			throws RuleException;
-
-	public abstract PbMessageHeader toMessageHeader() throws RuleException;
-
-	public abstract PbMessageHeaderBuilder clear();
-
 }

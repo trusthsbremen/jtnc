@@ -35,15 +35,13 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueIm(imFlags, subVendorId, subType, collectorId, validatorId, length, message);
 	}
 	
-	public static PbMessageValueAccessRecommendation createAccessRecommendationValue(final short reserved, final PbMessageAccessRecommendationEnum recommendation){
-		
-		short reservedIgnored = 0;
+	public static PbMessageValueAccessRecommendation createAccessRecommendationValue(final PbMessageAccessRecommendationEnum recommendation){
 		
 		if(recommendation == null){
 			throw new NullPointerException("Recommendation cannot be null.");
 		}
 		
-		return new PbMessageValueAccessRecommendation(reservedIgnored,PbMessageTlvFixedLength.ACC_REC_VALUE.length(),recommendation);
+		return new PbMessageValueAccessRecommendation(PbMessageTlvFixedLength.ACC_REC_VALUE.length(),recommendation);
 	}
 	
 	public static PbMessageValueAssessmentResult createAssessmentResultValue(final PbMessageAssessmentResultEnum result){
@@ -55,9 +53,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueAssessmentResult(PbMessageTlvFixedLength.ASS_RES_VALUE.length(),result);
 	}
 	
-	public static PbMessageValueError createErrorValue(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final short reserved, final byte[] errorParameter){
-	
-		short reservedIgnored = 0;
+	public static PbMessageValueError createErrorValue(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final byte[] errorParameter){
 		
 		if(errorFlags == null){
 			throw new NullPointerException("Error flags cannot be null.");
@@ -72,7 +68,7 @@ public class PbMessageValueBuilderIetf {
 		
 		long length = PbMessageTlvFixedLength.ERR_VALUE.length() + errorParameter.length;
 		
-		return new PbMessageValueError(errorFlags, errorVendorId, errorCode, reservedIgnored, length, errorParameter);
+		return new PbMessageValueError(errorFlags, errorVendorId, errorCode, length, errorParameter);
 		
 	}
 	
@@ -120,7 +116,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueReasonString(length, reasonString, langCode);
 	}
 	
-	public static PbMessageValueRemediationParameters createRemediationParameterString(final byte reserved, final long rpVendorId, final long rpType, final String remediationString, final String langCode){
+	public static PbMessageValueRemediationParameters createRemediationParameterString(final long rpVendorId, final long rpType, final String remediationString, final String langCode){
 	
 		if(remediationString == null){
 			throw new NullPointerException("Remediation string cannot be null.");
@@ -145,10 +141,10 @@ public class PbMessageValueBuilderIetf {
 		
 		PbMessageValueRemediationParameterString parameter = new PbMessageValueRemediationParameterString(length,remediationString, langCode);
 		
-		return createRemediationParameter(reserved, rpVendorId, rpType, parameter);
+		return createRemediationParameter(rpVendorId, rpType, parameter);
 	}
 	
-	public static PbMessageValueRemediationParameters createRemediationParameterUri(final byte reserved, final long rpVendorId, final long rpType, String uri){
+	public static PbMessageValueRemediationParameters createRemediationParameterUri(final long rpVendorId, final long rpType, String uri){
 		
 		if(uri == null){
 			throw new NullPointerException("URI cannot be null.");
@@ -161,12 +157,11 @@ public class PbMessageValueBuilderIetf {
 		
 		PbMessageValueRemediationParameterUri parameter = new PbMessageValueRemediationParameterUri(temp.toString().getBytes().length,temp);
 		
-		return createRemediationParameter(reserved, rpVendorId, rpType, parameter);
+		return createRemediationParameter(rpVendorId, rpType, parameter);
 		
 	}
 	
-	private static PbMessageValueRemediationParameters createRemediationParameter(final byte reserved, final long rpVendorId, final long rpType, final AbstractPbMessageSubValue parameter){
-		byte reservedIgnored = 0;
+	private static PbMessageValueRemediationParameters createRemediationParameter(final long rpVendorId, final long rpType, final AbstractPbMessageSubValue parameter){
 		
 		if(rpVendorId > IETFConstants.IETF_MAX_VENDOR_ID){
 			throw new IllegalArgumentException("Vendor ID is greater than "+ Long.toString(IETFConstants.IETF_MAX_VENDOR_ID) + ".");
@@ -177,7 +172,7 @@ public class PbMessageValueBuilderIetf {
 
 		long length = PbMessageTlvFixedLength.REM_PAR_VALUE.length() + parameter.getLength();
 		
-		return new PbMessageValueRemediationParameters(reservedIgnored, rpVendorId, rpType, length,parameter);
+		return new PbMessageValueRemediationParameters(rpVendorId, rpType, length,parameter);
 	}
 	
 }

@@ -76,7 +76,7 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#toMessage()
 	 */
 	@Override
-	public PbMessageHeader toMessageHeader() throws RuleException{
+	public PbMessageHeader toMessageHeader(){
 		
 		PbMessageHeader mHead = new PbMessageHeader(this.flags, this.vendorId, this.type, this.length);
 		

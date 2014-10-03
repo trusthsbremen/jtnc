@@ -37,16 +37,13 @@ import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
  */
 public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue{
 
-    protected final short reserved;   // 16 bit(s) should be 0
+    //protected final short reserved;   // 16 bit(s) should be 0
     
     private final PbMessageAccessRecommendationEnum recommendation;  //16 bit(s)
-
     
-    
-    PbMessageValueAccessRecommendation(final short reserved,final long length,
+    PbMessageValueAccessRecommendation(final long length,
 			final PbMessageAccessRecommendationEnum recommendation) {
 		super(length);
-		this.reserved = reserved;
 		this.recommendation = recommendation;
 	}
 
@@ -58,11 +55,4 @@ public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue{
         
     }
 
-	/**
-	 * @return the reserved
-	 */
-	public short getReserved() {
-		return this.reserved;
-	}
-    
 }

@@ -13,16 +13,16 @@ import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 
-public class PbBatchHeaderReader implements TnccsReader<PbBatchHeader>{
+class PbBatchHeaderReader implements TnccsReader<PbBatchHeader>{
 
 	private PbBatchHeaderBuilder builder;
 	
-	public PbBatchHeaderReader(PbBatchHeaderBuilder builder){
+	PbBatchHeaderReader(PbBatchHeaderBuilder builder){
 		this.builder = builder;
 	}
 	
 	@Override
-	public PbBatchHeader read(InputStream in, long batchLength)
+	public PbBatchHeader read(final InputStream in, final long batchLength)
 			throws SerializationException, ValidationException{
 		
 				// ignore any given length and find out on your own.
