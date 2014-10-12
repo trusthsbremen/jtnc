@@ -10,7 +10,7 @@ public class BatchAccessRecommendationNotInResult {
 
 	public static boolean filter(final PbBatchTypeEnum type, final PbMessage message){
 		if(type != PbBatchTypeEnum.RESULT){
-			if(message.getVendorId() == IETFConstants.IETF_PEN_VENDORID && message.getType() == PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType()){
+			if(message.getHeader().getVendorId() == IETFConstants.IETF_PEN_VENDORID && message.getHeader().getMessageType() == PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType()){
 				return false;
 			}
 		}

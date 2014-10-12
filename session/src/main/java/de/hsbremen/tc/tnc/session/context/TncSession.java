@@ -5,6 +5,6 @@ public interface TncSession extends Runnable{
 	// called by tncc
 	public abstract void requestHandshake();
 
-	public abstract void cancel();
+	public abstract void closeSession();
 
 }

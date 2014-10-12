@@ -6,17 +6,17 @@ import java.util.Map;
 
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.handler.filter.MessageFilter;
-import org.ietf.nea.pb.message.AbstractPbMessageValue;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 
 import de.hsbremen.tc.tnc.tnccs.exception.HandlingException;
 import de.hsbremen.tc.tnc.tnccs.handler.TnccsHandler;
 import de.hsbremen.tc.tnc.util.Combined;
 
-public class PbBatchHandler implements TnccsHandler<PbBatch>, Combined<TnccsHandler<AbstractPbMessageValue>> {
+public class PbBatchHandler implements TnccsHandler<PbBatch>, Combined<TnccsHandler<PbMessageValue>> {
 
-	private Map<Long,Map<Long,TnccsHandler<AbstractPbMessageValue>>> pbMessageHandlers;
+	private Map<Long,Map<Long,TnccsHandler<PbMessageValue>>> pbMessageHandlers;
 	private MessageFilter filter;
 	
 	public PbBatchHandler(){
@@ -42,12 +42,12 @@ public class PbBatchHandler implements TnccsHandler<PbBatch>, Combined<TnccsHand
 	private void checkCanHandleNoSkips(PbBatch batch) throws HandlingException{
 		List<PbMessage> messages = batch.getMessages();
 		for (PbMessage pbMessage : messages) {
-			if(pbMessage.getFlags().contains(PbMessageFlagsEnum.NOSKIP)){
-				if(!pbMessageHandlers.containsKey(pbMessage.getVendorId())){
-					throw new HandlingException("One message has NOSKIP set, but cannot be handled by one of the handlers.", Long.toString(pbMessage.getVendorId()));
+			if(pbMessage.getHeader().getFlags().contains(PbMessageFlagsEnum.NOSKIP)){
+				if(!pbMessageHandlers.containsKey(pbMessage.getHeader().getVendorId())){
+					throw new HandlingException("One message has NOSKIP set, but cannot be handled by one of the handlers.", Long.toString(pbMessage.getHeader().getVendorId()));
 				}
-				if(!pbMessageHandlers.get(pbMessage.getVendorId()).containsKey(pbMessage.getType())){
-					throw new HandlingException("One message has NOSKIP set, but cannot be handled by one of the handlers.", Long.toString(pbMessage.getVendorId()), Long.toString(pbMessage.getType()));
+				if(!pbMessageHandlers.get(pbMessage.getHeader().getVendorId()).containsKey(pbMessage.getHeader().getMessageType())){
+					throw new HandlingException("One message has NOSKIP set, but cannot be handled by one of the handlers.", Long.toString(pbMessage.getHeader().getVendorId()), Long.toString(pbMessage.getHeader().getMessageType()));
 				}
 			}
 		}
@@ -56,10 +56,10 @@ public class PbBatchHandler implements TnccsHandler<PbBatch>, Combined<TnccsHand
 	private void dispatchMessagesToHandler(PbBatch batch) throws HandlingException{
 		List<PbMessage> messages = batch.getMessages();
 		for (PbMessage pbMessage : messages) {
-			if(pbMessageHandlers.containsKey(pbMessage.getVendorId())){
-				if(pbMessageHandlers.get(pbMessage.getVendorId()).containsKey(pbMessage.getType())){
+			if(pbMessageHandlers.containsKey(pbMessage.getHeader().getVendorId())){
+				if(pbMessageHandlers.get(pbMessage.getHeader().getVendorId()).containsKey(pbMessage.getHeader().getMessageType())){
 					if(filter == null || filter.noFilter(batch, pbMessage)){
-						pbMessageHandlers.get(pbMessage.getVendorId()).get(pbMessage.getType()).handle(pbMessage.getValue());
+						pbMessageHandlers.get(pbMessage.getHeader().getVendorId()).get(pbMessage.getHeader().getMessageType()).handle(pbMessage.getValue());
 					}
 					// Else Ignore because message should be ignored, see RFC5793.
 				}
@@ -72,11 +72,11 @@ public class PbBatchHandler implements TnccsHandler<PbBatch>, Combined<TnccsHand
 
 	@Override
 	public void add(Long vendorId, Long messageType,
-			TnccsHandler<AbstractPbMessageValue> handler) {
+			TnccsHandler<PbMessageValue> handler) {
 		if(pbMessageHandlers.containsKey(vendorId)){
 			pbMessageHandlers.get(vendorId).put(messageType, handler);
 		}else{
-			pbMessageHandlers.put(vendorId, new HashMap<Long, TnccsHandler<AbstractPbMessageValue>>());
+			pbMessageHandlers.put(vendorId, new HashMap<Long, TnccsHandler<PbMessageValue>>());
 			pbMessageHandlers.get(vendorId).put(messageType, handler);
 		}
 	}

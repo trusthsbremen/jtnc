@@ -7,6 +7,7 @@ import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
 
 public class PbBatchFactoryIetf {
 	
@@ -51,7 +52,10 @@ public class PbBatchFactoryIetf {
 			l += pbMessage.getHeader().getLength();
 		}
 		
-		builder.setLength(l + PbMessageTlvFixedLength.BATCH.length());		
+		builder.setLength(l + PbMessageTlvFixedLength.BATCH.length());
+		
+		BatchResultWithoutMessageAssessmentResult.check(type, messages);
+		
 		PbBatch batch = new PbBatch(builder.toBatchHeader(), messages);
 
 		

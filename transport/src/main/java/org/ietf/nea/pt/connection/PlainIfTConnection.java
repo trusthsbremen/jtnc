@@ -8,7 +8,8 @@ import java.net.UnknownHostException;
 import java.util.Map;
 
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.transport.connection.IfTAddress;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
@@ -18,8 +19,9 @@ public class PlainIfTConnection extends AbstractIfTConnection {
 	private final NetworkIfTAddress address;
 	
 	PlainIfTConnection(final IfTAddress address, final String connectionId,
-			final TnccsSerializer<TnccsBatch> serializer, final Map<Long,Object> attributes) {
-		super(connectionId, serializer,attributes);
+			final TnccsReader<TnccsBatch> reader, TnccsWriter<TnccsBatch> writer, final Map<Long,Object> attributes) {
+		super(connectionId, reader, writer, attributes /*, selfInitated*/);
+	        
 		this.address = (NetworkIfTAddress)address;
 	}
 

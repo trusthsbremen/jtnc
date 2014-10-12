@@ -13,8 +13,8 @@ public class PbServerBatchMessageFilter implements MessageFilter {
 	public boolean noFilter(PbBatch batch, PbMessage message){
 		boolean f = true;
 		
-		f = f && BatchAssessmentResultNotInResult.filter(batch.getType(), message);
-		f = f && BatchAccessRecommendationNotInResult.filter(batch.getType(), message);
+		f = f && BatchAssessmentResultNotInResult.filter(batch.getHeader().getType(), message);
+		f = f && BatchAccessRecommendationNotInResult.filter(batch.getHeader().getType(), message);
 		
 		return f;
 		

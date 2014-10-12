@@ -1,10 +1,10 @@
 package de.hsbremen.tc.tnc.session.state;
 
-import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
+import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
@@ -27,9 +27,9 @@ public abstract class AbstractPbState implements SessionState {
 		SessionState next = null;
 		try{
 			if(context.isServerSession()){
-				next = handleServer(context);
+				next = handleAsServer(context);
 			}else{
-				next = handleClient(context);
+				next = handleAsClient(context);
 			}
 		}catch(ConnectionException | SerializationException e){
 			this.handleException(e, context);
@@ -38,9 +38,9 @@ public abstract class AbstractPbState implements SessionState {
 		return next;
 	}
 
-	protected abstract SessionState handleServer(SessionContext context) throws ConnectionException, SerializationException;
+	protected abstract SessionState handleAsServer(SessionContext context) throws ConnectionException, SerializationException;
 	
-	protected abstract SessionState handleClient(SessionContext context) throws ConnectionException, SerializationException;
+	protected abstract SessionState handleAsClient(SessionContext context) throws ConnectionException, SerializationException;
 		
 	private SessionState handleException(ComprehensibleException e, SessionContext context) {
 		LOGGER.error("Exception of type " + e.getClass().getCanonicalName() + " occured: " + e.getMessage());
@@ -60,15 +60,19 @@ public abstract class AbstractPbState implements SessionState {
 			
 			LOGGER.error("Because the state does allow it, try to send a close batch, containing an error of type local error.");
 			
-			List<PbMessage> messages = new ArrayList<>();
-			PbMessageFactoryIetf.createError(new PbMessageErrorFlagsEnum[]{PbMessageErrorFlagsEnum.FATAL}, PbMessageErrorCodeEnum.IETF_LOCAL,new byte[0]);
-	
 			TnccsBatch b = null;
-			if(context.isServerSession()){
-				b = PbBatchFactoryIetf.createServerClose(messages);
+			try{
+				List<PbMessage> messages = new ArrayList<>();
+				PbMessageFactoryIetf.createError(new PbMessageErrorFlagsEnum[]{PbMessageErrorFlagsEnum.FATAL}, PbMessageErrorCodeEnum.IETF_LOCAL,new byte[0]);
+	
+				if(context.isServerSession()){
+					b = PbBatchFactoryIetf.createServerClose(messages);
+					
+				}else{
+					b = PbBatchFactoryIetf.createClientClose(messages);
+				}
+			}catch(RuleException e){
 				
-			}else{
-				b = PbBatchFactoryIetf.createClientClose(messages);
 			}
 			
 			try {

@@ -13,24 +13,24 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
-import de.hsbremen.tc.tnc.im.container.DefaultImContainer;
-import de.hsbremen.tc.tnc.im.container.ImContainer;
-import de.hsbremen.tc.tnc.im.loader.ImLoader;
+import de.hsbremen.tc.tnc.im.loader.ImFileLoader;
+import de.hsbremen.tc.tnc.im.module.DefaultImModule;
+import de.hsbremen.tc.tnc.im.module.ImModule;
 import de.hsbremen.tc.tnc.session.context.DefaultPbcSessionBuilder;
 import de.hsbremen.tc.tnc.session.context.TncSession;
 import de.hsbremen.tc.tnc.session.context.TncSessionBuilder;
 import de.hsbremen.tc.tnc.client.exception.NoImIdsLeftException;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
-
+@Deprecated
 public class TncClientBackUp implements TncContext, TnccConnector {
 
 	
 	private long imcCounter;
-    private List<DefaultImContainer> imcList;
+    private List<DefaultImModule> imcList;
     private ExecutorService executor;
     private Map<IfTConnection,TncSession> activeSessions;
     private TncSessionBuilder sessionBuilder;
-    private ImLoader imcLoader;
+    private ImFileLoader imcLoader;
     private Map<Long,Object> attributes;
     
     // TODO add reference to connectionHandler with Method establishConnection
@@ -44,11 +44,11 @@ public class TncClientBackUp implements TncContext, TnccConnector {
     	return new TncClientBackUp(Executors.newFixedThreadPool(Math.max(1, (Runtime.getRuntime().availableProcessors() + 3)/4)), new DefaultPbcSessionBuilder());
     }
     
-    public static TncClientBackUp CustomClient(ExecutorService executor, TncSessionBuilder sessionBuilder, ImLoader<IMC> imcLoader){
+    public static TncClientBackUp CustomClient(ExecutorService executor, TncSessionBuilder sessionBuilder, ImFileLoader<IMC> imcLoader){
     	return new TncClientBackUp(executor, sessionBuilder, imcLoader);
     }
    
-    private TncClientBackUp(ExecutorService executor, TncSessionBuilder sessionBuilder, ImLoader<IMC> imcLoader){
+    private TncClientBackUp(ExecutorService executor, TncSessionBuilder sessionBuilder, ImFileLoader<IMC> imcLoader){
     	this.executor = executor;
     	this.sessionBuilder = sessionBuilder;
     	this.imcLoader = imcLoader;
@@ -85,7 +85,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 			e.printStackTrace();
 		}
 		// terminate IMC
-		for (ImContainer imc : imcList) {
+		for (ImModule imc : imcList) {
 			try {
 				((IMC)imc.getIm()).terminate();
 			} catch (TNCException e) {
@@ -106,7 +106,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 		for (IMC im : ims) {
 			if(im instanceof IMC){
 				if(imcCounter < TNCConstants.TNC_IMCID_ANY){
-					this.imcList.add(new DefaultImContainer(++imcCounter, im));
+					this.imcList.add(new DefaultImModule(++imcCounter, im));
 				}else{
 					throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",Long.toString(imcCounter));
 				}

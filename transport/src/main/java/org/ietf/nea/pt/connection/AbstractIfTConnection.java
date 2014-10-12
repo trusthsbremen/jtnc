@@ -9,7 +9,9 @@ import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
+import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
@@ -17,13 +19,15 @@ public abstract class AbstractIfTConnection implements IfTConnection {
     
     //should only be set once and never changed
     private final String connectionId;
-    private final TnccsSerializer<TnccsBatch> serializer;
+    private final TnccsReader<TnccsBatch> reader;
+    private final TnccsWriter<TnccsBatch> writer;
     private final Map<Long,Object> attributes;
     //boolean selfInitiated;
     
-    protected AbstractIfTConnection(final String connectionId, final TnccsSerializer<TnccsBatch> serializer, final Map<Long,Object> attributes /*, boolean selfInitated*/){
+    protected AbstractIfTConnection(final String connectionId, final TnccsReader<TnccsBatch> reader, final TnccsWriter<TnccsBatch> writer, final Map<Long,Object> attributes /*, boolean selfInitated*/){
         this.connectionId = connectionId;
-        this.serializer = serializer;
+        this.reader = reader;
+        this.writer = writer;	
         this.attributes = attributes;
         //this.selfInitiated = selfInitated;
        // this.connection = connection;
@@ -79,18 +83,19 @@ public abstract class AbstractIfTConnection implements IfTConnection {
     	if(out == null){
     		throw new ConnectionException("Could not get OutputStream, got null instead.");
     	}
-    	serializer.encode(data, out);
+    	writer.write(data, out);
     }
     
     @Override
-    public TnccsBatch receive() throws SerializationException,ConnectionException{
+    public TnccsBatch receive() throws ConnectionException, SerializationException, ValidationException{
     	InputStream in = getInputStream();
     	if(in == null){
     		throw new ConnectionException("Could not get InputStream, got null instead.");
     	}
     	
     	TnccsBatch b = null;
-    	serializer.decode(in, -1);
+    	reader.read(in, -1);
+    	
     	return b;
     }
     

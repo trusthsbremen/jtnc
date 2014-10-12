@@ -13,7 +13,7 @@ public class StateInit extends AbstractPbState {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StateInit.class);
 
 	@Override
-	protected SessionState handleServer(SessionContext context)
+	protected SessionState handleAsServer(SessionContext context)
 			throws ConnectionException, SerializationException {
 		
 		TnccsBatch b = createServerDataBatch();
@@ -29,7 +29,7 @@ public class StateInit extends AbstractPbState {
 	}
 
 	@Override
-	protected SessionState handleClient(SessionContext context)
+	protected SessionState handleAsClient(SessionContext context)
 			throws ConnectionException, SerializationException {
 		
 		TnccsBatch b = createClientDataBatch();

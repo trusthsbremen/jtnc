@@ -13,10 +13,10 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.client.exception.NoImIdsLeftException;
-import de.hsbremen.tc.tnc.im.container.DefaultImContainer;
-import de.hsbremen.tc.tnc.im.container.ImContainer;
-import de.hsbremen.tc.tnc.im.loader.ImLoader;
-import de.hsbremen.tc.tnc.im.manager.ImManager;
+import de.hsbremen.tc.tnc.im.loader.ImFileLoader;
+import de.hsbremen.tc.tnc.im.manager.ImModuleManager;
+import de.hsbremen.tc.tnc.im.module.DefaultImModule;
+import de.hsbremen.tc.tnc.im.module.ImModule;
 import de.hsbremen.tc.tnc.session.TncContext;
 import de.hsbremen.tc.tnc.session.context.TncSession;
 import de.hsbremen.tc.tnc.session.context.enums.SessionEventEnum;
@@ -32,13 +32,13 @@ public class TncClient implements TnccConnector, TncContext{
 	
 	private final Map<String,IfTAddress> peers;
 	private final Map<String,TncSession> activeSessions;
-	private final List<ImContainer<IMC>> imcList;
+	private final List<ImModule<IMC>> imcList;
 	
 	private final ExecutorService executor;
-	private final ImManager<IMC> imcManager;
+	private final ImModuleManager<IMC> imcManager;
 	private final IfTransportFactory transportFactory;
 	
-	public TncClient(Map<String, IfTAddress> peers, ImManager<IMC> imcManager, IfTransportFactory transportFactory, ExecutorService executor) {
+	public TncClient(Map<String, IfTAddress> peers, ImModulManager<IMC> imcManager, IfTransportFactory transportFactory, ExecutorService executor) {
 
 		this.imcCounter = 0;
 		
@@ -59,7 +59,7 @@ public class TncClient implements TnccConnector, TncContext{
 			long imcId = this.reserveImId();
 			if(imcId >= 0){
 				// TODO invoke initialize
-				this.imcList.add(new DefaultImContainer<IMC>(this.reserveImId(), im));
+				this.imcList.add(new DefaultImModule<IMC>(this.reserveImId(), im));
 			}else{
 				throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",Long.toString(imcCounter));
 			}
@@ -84,7 +84,7 @@ public class TncClient implements TnccConnector, TncContext{
 			e.printStackTrace();
 		}
 		// terminate IMC
-		for (ImContainer<IMC> imc : this.imcList) {
+		for (ImModule<IMC> imc : this.imcList) {
 			try {
 				imc.getIm().terminate();
 			} catch (TNCException e) {
@@ -123,10 +123,10 @@ public class TncClient implements TnccConnector, TncContext{
 		}
 	}
 	
-	@Override
-	public void notifyClient(String sessionId, Object updateData) {
-		this.activeSessions.remove(sessionId);
-	}
+//	@Override
+//	public void notifyClient(String sessionId, Object updateData) {
+//		this.activeSessions.remove(sessionId);
+//	}
 
 	@Override
 	public long reserveImId() {

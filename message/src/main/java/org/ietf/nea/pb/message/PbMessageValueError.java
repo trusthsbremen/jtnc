@@ -83,6 +83,7 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 	 * @return the content
 	 */
 	public byte[] getErrorParameter() {
+		// TODO use real values like offset or version e.g. see remediation parameter string/uri
 		return Arrays.copyOf(this.errorParameter, this.errorParameter.length);
 	}
 

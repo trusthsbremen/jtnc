@@ -11,22 +11,20 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 public class TimedFunctionCallDecorator implements FunctionCall{
     
-    private static final long DEFAULT_TIMEOUT = 500;
-    
     private final long timeout;
     
     private final ScheduledExecutorService exec;
 
 	private final FunctionCall function;
-    
-	public TimedFunctionCallDecorator(final FunctionCall function){
-		this(function, DEFAULT_TIMEOUT);
-	}
 	
     public TimedFunctionCallDecorator(final FunctionCall function, long timeout){
         this.exec = Executors.newScheduledThreadPool(2);
         this.function = function;
-        this.timeout = timeout;
+        if(timeout < 1000){
+        	this.timeout = timeout;
+        }else{
+        	throw new IllegalArgumentException("Timeout of "+ timeout + " milliseconds is to large, timeout must be less than one second ( < 1000 milliseconds).");
+        }
     }
 
     

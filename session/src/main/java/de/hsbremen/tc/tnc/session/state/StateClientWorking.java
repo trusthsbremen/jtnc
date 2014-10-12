@@ -14,7 +14,7 @@ public class StateClientWorking extends AbstractPbState{
 	private static final Logger LOGGER = LoggerFactory.getLogger(StateClientWorking.class);
 	
 	@Override
-	protected SessionState handleServer(SessionContext context)
+	protected SessionState handleAsServer(SessionContext context)
 			throws ConnectionException, SerializationException {
 
 		TnccsBatch b = null;
@@ -33,7 +33,7 @@ public class StateClientWorking extends AbstractPbState{
 	}
 
 	@Override
-	protected SessionState handleClient(SessionContext context)
+	protected SessionState handleAsClient(SessionContext context)
 			throws ConnectionException, SerializationException {
 
 		

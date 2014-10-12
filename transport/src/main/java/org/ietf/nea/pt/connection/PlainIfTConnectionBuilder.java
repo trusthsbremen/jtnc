@@ -8,16 +8,20 @@ import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.transport.connection.IfTAddress;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnectionBuilder;
 
 public class PlainIfTConnectionBuilder implements IfTConnectionBuilder {
 
-	private TnccsSerializer<TnccsBatch> serializer;
+	private TnccsReader<TnccsBatch> reader;
+	private TnccsWriter<TnccsBatch> writer;
+	
 	private NetworkIfTAddress address = new NetworkIfTAddress("localhost", 10271);
 	private Map<Long, Object> attributes;
+
 	
 	public PlainIfTConnectionBuilder(){
 		this.attributes = new HashMap<>();
@@ -27,8 +31,13 @@ public class PlainIfTConnectionBuilder implements IfTConnectionBuilder {
 		this.attributes.put(AttributeSupport.TNC_ATTRIBUTEID_MAX_ROUND_TRIPS, 0xFFFFFFFFL);
 	}
 	
-	public IfTConnectionBuilder setSerializer(final TnccsSerializer<TnccsBatch> serializer){
-		this.serializer = serializer;
+	public IfTConnectionBuilder setReader(final TnccsReader<TnccsBatch> reader){
+		this.reader = reader;
+		return this;
+	}
+	
+	public IfTConnectionBuilder setWriter(final TnccsWriter<TnccsBatch> writer){
+		this.writer = writer;
 		return this;
 	}
 	
@@ -41,13 +50,18 @@ public class PlainIfTConnectionBuilder implements IfTConnectionBuilder {
 	
 	@Override
 	public IfTConnection toConnection() {
-		if(this.serializer == null){
-			throw new IllegalStateException("Serializer must be set first.");
+		if(this.reader == null){
+			throw new IllegalStateException("Reader must be set.");
 		}
+		
+		if(this.writer == null){
+			throw new IllegalStateException("Writer must be set.");
+		}
+		
 
 		String input = this.address.getHost() + ":" + this.address.getPort();
 
-		return new PlainIfTConnection(this.address, input, this.serializer, this.attributes);
+		return new PlainIfTConnection(this.address, input, this.reader, this.writer, this.attributes);
 	}
 
 }

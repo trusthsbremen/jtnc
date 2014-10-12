@@ -1,18 +1,21 @@
 package org.ietf.nea.pt.connection;
 
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsSerializer;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.transport.IfTransportFactory;
 import de.hsbremen.tc.tnc.transport.connection.IfTAddress;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class PlainIfTransportFactory implements IfTransportFactory{
+	
+	private TnccsReader<TnccsBatch> reader;
+	private TnccsWriter<TnccsBatch> writer;
 
-	private TnccsSerializer<TnccsBatch> serializer;
-
-	public PlainIfTransportFactory(TnccsSerializer<TnccsBatch> serializer){
-		this.serializer = serializer;
+	public PlainIfTransportFactory(TnccsReader<TnccsBatch> reader, TnccsWriter<TnccsBatch> writer){
+		this.reader = reader;
+		this.writer = writer;
 	}
 	
 	@Override
@@ -21,7 +24,8 @@ public class PlainIfTransportFactory implements IfTransportFactory{
 			throw new IllegalArgumentException("Destination must be of type "+ NetworkIfTAddress.class.getCanonicalName() + ".");
 		}
 		PlainIfTConnectionBuilder builder = new PlainIfTConnectionBuilder();
-		builder.setSerializer(this.serializer);
+		builder.setReader(this.reader);
+		builder.setWriter(this.writer);
 		builder.setDestination((NetworkIfTAddress) destination);
 		
 		IfTConnection connection = builder.toConnection();

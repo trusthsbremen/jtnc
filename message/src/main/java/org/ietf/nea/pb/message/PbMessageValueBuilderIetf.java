@@ -16,9 +16,6 @@ public class PbMessageValueBuilderIetf {
 	
 	public static PbMessageValueIm createImValue(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType, final short collectorId, final short validatorId, final byte[] message){
 
-		if(imFlags == null){
-			throw new NullPointerException("Supplied flags cannot be null.");
-		}
 		if(message == null){
 			throw new NullPointerException("Supplied message array cannot be null.");
 		}

@@ -11,14 +11,13 @@ import java.util.Map;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.exception.RuleException;
-import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageValue;
-import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
-import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
+import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
 import org.ietf.nea.pb.validate.rules.MinMessageLength;
+import org.ietf.nea.pb.validate.rules.NoSkipOnUnknownMessage;
 import org.ietf.nea.pb.validate.rules.PbMessageNoSkip;
 
 import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
@@ -55,15 +54,10 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 		
 		/* batch header */
 		PbBatchHeader bHead = null;
-		try{
-			// ignore length here, because header has a length field.
-			bHead = bHeadReader.read(bIn, -1);
-		}catch (ValidationException e){
-			//TODO full exception handling
-			long offset = e.getExceptionOffset();
-			System.out.println("Error occured at offset: " + offset + "\n" + e.toString());
-		}
-		
+
+		// ignore length here, because header has a length field.
+		bHead = bHeadReader.read(bIn, -1);
+
 		/* messages */
 		List<PbMessage> msgs = new LinkedList<>();
 		long contentLength = bHead.getLength() - PbMessageTlvFixedLength.BATCH.length();
@@ -110,11 +104,11 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 								}
 								
 								msgs.add(new PbMessage(mHead, mValue));
-							}
+							} // if null you can ignore the message
 							
 						}else{
 							try{
-								this.checkNoSkipOnUnknown(mHead);
+								NoSkipOnUnknownMessage.check(mHead.getFlags());
 							}catch(RuleException e1){
 								// Remove header offset because this is a late header check. Flags is the first field
 								// in the message header.
@@ -131,7 +125,7 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 						}
 					}else{
 						try{
-							this.checkNoSkipOnUnknown(mHead);
+							NoSkipOnUnknownMessage.check(mHead.getFlags());
 						}catch(RuleException e1){
 							// Remove header offset because this is a late header check. Flags is the first field
 							// in the message header.
@@ -159,7 +153,7 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 						throw e;
 					}else if(((RuleException)t).isFatal()){
 						// Repack the exception with the fully calculated offset and throw it.
-						throw new ValidationException(e.getMessage(), e, offset);
+						throw new ValidationException(e.getMessage(), (RuleException)e.getCause(), offset);
 					}else{
 					
 						try{
@@ -177,15 +171,15 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 			}
 		}
 		
+		try{
+			BatchResultWithoutMessageAssessmentResult.check(bHead.getType(), msgs);
+		}catch(RuleException e){
+			throw new ValidationException(e.getMessage(), e, 0);
+		}
+		
 		PbBatch b = new PbBatch(bHead,msgs);
 		
 		return b;
-	}
-
-	private void checkNoSkipOnUnknown(PbMessageHeader mHead) throws RuleException {
-		if(mHead.getFlags().contains(PbMessageFlagsEnum.NOSKIP)){
-			throw new RuleException("Message is not supported but has No Skip set.",true,PbMessageErrorCodeEnum.IETF_UNSUPPORTED_MANDATORY_MESSAGE.code(),PbErrorCauseEnum.NOT_SPECIFIED.number());
-		}
 	}
 
 	@Override

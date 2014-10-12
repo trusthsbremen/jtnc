@@ -10,7 +10,7 @@ import de.hsbremen.tc.tnc.clients.handler.TnccsMessageHandler;
 import de.hsbremen.tc.tnc.clients.message.TnccsMessage;
 import de.hsbremen.tc.tnc.session.state.SessionState;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
-
+@Deprecated
 public class DefaultTncSessionBackup implements SessionContext{
 
 	private TnccsMessageHandler messageHandler;
