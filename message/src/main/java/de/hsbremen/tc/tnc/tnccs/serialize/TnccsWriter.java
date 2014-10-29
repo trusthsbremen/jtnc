@@ -2,7 +2,7 @@ package de.hsbremen.tc.tnc.tnccs.serialize;
 
 import java.io.OutputStream;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 
 public interface TnccsWriter<T> {
 

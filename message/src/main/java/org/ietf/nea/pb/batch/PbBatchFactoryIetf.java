@@ -2,9 +2,9 @@ package org.ietf.nea.pb.batch;
 
 import java.util.List;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
@@ -44,7 +44,7 @@ public class PbBatchFactoryIetf {
 		}
 		
 		PbBatchHeaderBuilderIetf builder = new PbBatchHeaderBuilderIetf();
-		builder.setDirection(direction.directionality());
+		builder.setDirection(direction.toDirectionalityBit());
 		builder.setType(type.type());
 		
 		long l = 0;

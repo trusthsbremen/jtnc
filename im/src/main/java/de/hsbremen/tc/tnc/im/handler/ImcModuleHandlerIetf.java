@@ -1,6 +1,5 @@
 package de.hsbremen.tc.tnc.im.handler;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,28 +21,30 @@ import de.hsbremen.tc.tnc.im.exception.HandshakeAlreadyStartedException;
 import de.hsbremen.tc.tnc.im.module.ImModule;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 import de.hsbremen.tc.tnc.im.route.ImMessageRouteComponent;
-import de.hsbremen.tc.tnc.im.route.ImMessageRouteFactory;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
-public class ImcModuleHandlerIetf implements ImModuleHandler<IMC>, ImConnectionMessageObserver {
+public class ImcModuleHandlerIetf implements ImModuleHandler<IMC>{
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImcModuleHandlerIetf.class);
 	
 	private long connectionState;
 	
 	private Map<ImModule<IMC>,IMCConnection> imcs;
-	private List<TnccsMessageValue> returnMessages;
+	private ImConnectionMessageQueue messageQueue;
 	private ImMessageRouteComponent<ImModule<IMC>> routingTable;
 	
 	private ImcFunctionCallBuilder functionCallBuilder;
 	private ImcConnectionAdapterBuilder connectionAdapterBuilder;
 	
-	public ImcModuleHandlerIetf(ImcConnectionAdapterBuilder builder, ImMessageRouteFactory routeFactory, ImcFunctionCallBuilder functionBuilder){
+	public ImcModuleHandlerIetf(ImConnectionMessageQueue queue, ImMessageRouteComponent<ImModule<IMC>> routingTable, ImcConnectionAdapterBuilder builder, ImcFunctionCallBuilder functionBuilder){
 		this.imcs = new HashMap<>();
+		
+		this.routingTable = routingTable;
+		this.messageQueue = queue;
+		
 		this.functionCallBuilder = functionBuilder;
 		this.connectionAdapterBuilder = builder;
-		this.routingTable = routeFactory.createRoutingTable();
-	
+
 		this.connectionState = TNCConstants.TNC_CONNECTION_STATE_CREATE;
 	}
 	
@@ -51,7 +52,6 @@ public class ImcModuleHandlerIetf implements ImModuleHandler<IMC>, ImConnectionM
 	
 	@Override
 	public List<TnccsMessageValue> startHandshake(){
-		this.returnMessages = new ArrayList<>();
 		this.connectionState = TNCConstants.TNC_CONNECTION_STATE_HANDSHAKE;
 		for (Iterator<Entry<ImModule<IMC>,IMCConnection>> iter = this.imcs.entrySet().iterator(); iter.hasNext();) {
 			Entry<ImModule<IMC>,IMCConnection> entry = iter.next();
@@ -66,13 +66,17 @@ public class ImcModuleHandlerIetf implements ImModuleHandler<IMC>, ImConnectionM
 				this.handleExceptionWhileIterating(iter, entry);
 			}
 		}
-		return this.returnMessages;
+		
+		List<TnccsMessageValue> returnMsgs = this.messageQueue.getMessages();
+		this.messageQueue.clear();
+		
+		return returnMsgs;
 	}
 
 	@Override
 	public List<TnccsMessageValue> forwardMessages(
 			List<TnccsMessageValue> values) {
-		this.returnMessages = new ArrayList<>();
+		this.messageQueue.clear();
 		
 		
 		if(values != null){
@@ -110,12 +114,14 @@ public class ImcModuleHandlerIetf implements ImModuleHandler<IMC>, ImConnectionM
 			}
 		}
 		
-		return this.returnMessages;
+		List<TnccsMessageValue> returnMsgs = this.messageQueue.getMessages();
+		this.messageQueue.clear();
+		
+		return returnMsgs;
 	}
 
 	@Override
 	public void endHandshake(long result) {
-		this.returnMessages = new ArrayList<>();
 		for (Iterator<Entry<ImModule<IMC>,IMCConnection>> iter = this.imcs.entrySet().iterator(); iter.hasNext();) {
 			Entry<ImModule<IMC>,IMCConnection> entry = iter.next();
 			try{
@@ -139,7 +145,7 @@ public class ImcModuleHandlerIetf implements ImModuleHandler<IMC>, ImConnectionM
 		
 		if(module != null && !this.imcs.containsKey(module)){
 			// add to map
-			this.imcs.put(module,connectionAdapterBuilder.buildAdapter(module.getIm(), this));
+			this.imcs.put(module,connectionAdapterBuilder.buildAdapter(module.getIm(), this.messageQueue));
 		
 			// add to routing
 			List<SupportedMessageType> sMessages = module.getSupportedMessageTypes();
@@ -206,13 +212,5 @@ public class ImcModuleHandlerIetf implements ImModuleHandler<IMC>, ImConnectionM
 		iter.remove();
 		
 	}
-	
-	/* ConnectionMessageObserver */
-	
-	@Override
-	public void addReturnValue(TnccsMessageValue value){
-		if(value != null){
-			this.returnMessages.add(value);
-		}
-	}
+
 }

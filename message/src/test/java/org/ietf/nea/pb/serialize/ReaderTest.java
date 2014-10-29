@@ -26,7 +26,7 @@ public class ReaderTest {
 	@Before
 	public void setUp(){
 		batch = new TestData();
-		bs = PbReaderFactory.createDefault();
+		bs = PbReaderFactory.createProductionDefault();
 	}
 	
 	@Test

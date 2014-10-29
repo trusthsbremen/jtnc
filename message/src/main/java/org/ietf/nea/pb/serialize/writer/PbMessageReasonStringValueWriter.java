@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbMessageReasonStringValueWriter implements TnccsWriter<PbMessageValueReasonString>{

@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
-import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbMessageRemediationParameterUriSubValueWriter implements TnccsWriter<PbMessageValueRemediationParameterUri>{

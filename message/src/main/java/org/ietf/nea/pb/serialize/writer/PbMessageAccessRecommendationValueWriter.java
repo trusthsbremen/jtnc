@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbMessageAccessRecommendationValueWriter implements TnccsWriter<PbMessageValueAccessRecommendation>{

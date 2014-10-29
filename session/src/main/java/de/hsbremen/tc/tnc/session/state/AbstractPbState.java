@@ -3,8 +3,8 @@ package de.hsbremen.tc.tnc.session.state;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
@@ -13,9 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.session.context.SessionContext;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public abstract class AbstractPbState implements SessionState {

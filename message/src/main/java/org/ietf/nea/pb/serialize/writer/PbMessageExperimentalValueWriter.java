@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
 
 import org.ietf.nea.pb.message.PbMessageValueExperimental;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbMessageExperimentalValueWriter implements TnccsWriter<PbMessageValueExperimental>{

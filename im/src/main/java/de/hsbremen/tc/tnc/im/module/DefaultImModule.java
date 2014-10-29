@@ -134,6 +134,7 @@ public class DefaultImModule<T> implements ImModule<T>{
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#getAttributes()
 	 */
+	@Deprecated
 	@Override
 	public Map<Long, Object> getAttributes() {
 		Map<Long, Object> attributes = new HashMap<>();
@@ -148,6 +149,7 @@ public class DefaultImModule<T> implements ImModule<T>{
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.im.container.ImConttainerIf#setAttribute(java.lang.Long, java.lang.Object)
 	 */
+	@Deprecated
 	@Override
 	public void setAttribute(Long id, Object value) throws AttributeException{
 		

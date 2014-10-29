@@ -1,9 +1,9 @@
 package de.hsbremen.tc.tnc.session.context;
 
+import de.hsbremen.tc.tnc.exception.HandlingException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.exception.HandlingException;
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public interface SessionContext extends TncSession {

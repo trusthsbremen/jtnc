@@ -5,4 +5,6 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 public interface PbMessageValue extends TnccsMessageValue{
 
 	public boolean isOmittable();
+
+	public long getLength();
 }

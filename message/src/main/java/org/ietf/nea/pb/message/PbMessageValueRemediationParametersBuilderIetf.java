@@ -1,10 +1,11 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
-import org.ietf.nea.pb.validate.rules.RpMessageTypeLimits;
-import org.ietf.nea.pb.validate.rules.RpVendorIdLimits;
+import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
+import org.ietf.nea.pb.validate.rules.TypeReservedAndLimits;
+import org.ietf.nea.pb.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 
@@ -15,7 +16,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
     
     private long length; 
     
-    private AbstractPbMessageSubValue parameter;
+    private AbstractPbMessageValueRemediationParameter parameter;
     
     public PbMessageValueRemediationParametersBuilderIetf(){
     	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
@@ -30,7 +31,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	@Override
 	public PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId) throws RuleException {
 		
-		RpVendorIdLimits.check(rpVendorId);
+		VendorIdReservedAndLimits.check(rpVendorId);
 		this.rpVendorId = rpVendorId;
 	
 		return this;
@@ -42,7 +43,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	@Override
 	public PbMessageValueRemediationParametersBuilder setRpType(long rpType) throws RuleException {
 		
-		RpMessageTypeLimits.check(rpType);
+		TypeReservedAndLimits.check(rpType);
 		this.rpType = rpType;
 		
 		return this;
@@ -53,7 +54,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	 */
 	@Override
 	public PbMessageValueRemediationParametersBuilder setParameter(
-			AbstractPbMessageSubValue parameter) {
+			AbstractPbMessageValueRemediationParameter parameter) {
 		
 		if(parameter != null){
 			this.parameter = parameter;
@@ -66,7 +67,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	@Override
 	public PbMessageValueRemediationParameters toValue(){
 		if(parameter == null){
-			throw new IllegalStateException("A message value has to be set.");
+			throw new IllegalStateException("A remediation value has to be set.");
 		}
 		
 		return new PbMessageValueRemediationParameters(this.rpVendorId, this.rpType, this.length, this.parameter);

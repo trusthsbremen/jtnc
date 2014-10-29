@@ -6,14 +6,14 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnectionLong;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
-import de.hsbremen.tc.tnc.im.handler.ImConnectionMessageObserver;
+import de.hsbremen.tc.tnc.im.handler.ImConnectionMessageQueue;
 
 class ImcConnectionAdapterIetfLong implements IMCConnection, IMCConnectionLong{
 
-	private ImConnectionMessageObserver messageObserver; 
+	private ImConnectionMessageQueue messageObserver; 
 	private IMCConnection stdConnection;
 	
-	ImcConnectionAdapterIetfLong(final IMCConnection stdConnection, final ImConnectionMessageObserver messageObserver){
+	ImcConnectionAdapterIetfLong(final IMCConnection stdConnection, final ImConnectionMessageQueue messageObserver){
 		this.messageObserver = messageObserver;
 		this.stdConnection = stdConnection;
 	}
@@ -42,7 +42,7 @@ class ImcConnectionAdapterIetfLong implements IMCConnection, IMCConnectionLong{
 			imFlags = new PbMessageImFlagsEnum[]{PbMessageImFlagsEnum.EXCL};
 		}
 		
-		this.messageObserver.addReturnValue(PbMessageValueBuilderIetf.createImValue(imFlags, messageVendorID, messageSubtype, (short)sourceIMCID, (short)destinationIMVID, message));
+		this.messageObserver.addMessage(PbMessageValueBuilderIetf.createImValue(imFlags, messageVendorID, messageSubtype, (short)sourceIMCID, (short)destinationIMVID, message));
 		
 	}	
 

@@ -3,15 +3,15 @@ package org.ietf.nea.pb.serialize.reader;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageHeaderBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
-import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
 class PbMessageHeaderReader implements TnccsReader<PbMessageHeader>{
 
@@ -67,7 +67,7 @@ class PbMessageHeaderReader implements TnccsReader<PbMessageHeader>{
 				
 				
 			}catch (IOException e){
-				throw new SerializationException("Returned data for batch header is to short or stream may be closed.",e,true);
+				throw new SerializationException("Returned data for message header is to short or stream may be closed.",e,true);
 			}
 
 			messageHeader = (PbMessageHeader)builder.toMessageHeader();

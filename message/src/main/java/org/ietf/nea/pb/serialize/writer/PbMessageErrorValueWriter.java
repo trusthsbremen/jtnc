@@ -8,15 +8,30 @@ import java.util.Arrays;
 import java.util.Set;
 
 import org.ietf.nea.pb.message.PbMessageValueError;
+import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffset;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 
 	private static final short RESERVED = 0;
 	
+	// TODO should be a map to make the error parameters more customizable
+	private final PbMessageErrorParameterOffsetSubValueWriter offsetWriter;
+	private final PbMessageErrorParameterVersionSubValueWriter versionWriter;
+
+	PbMessageErrorValueWriter(
+			PbMessageErrorParameterOffsetSubValueWriter offsetWriter,
+			PbMessageErrorParameterVersionSubValueWriter versionWriter) {
+		this.offsetWriter = offsetWriter;
+		this.versionWriter = versionWriter;
+	}
+
 	@Override
 	public void write(final PbMessageValueError data, final OutputStream out)
 			throws SerializationException {
@@ -73,11 +88,35 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 		try {
 			buffer.writeTo(out);
 			
-			/* error parameter */
-			out.write((mValue.getErrorParameter() != null)? mValue.getErrorParameter() : new byte[0]); 
-			
 		} catch (IOException e) {
 			throw new SerializationException("Message could not be written to the OutputStream.",e, true);
+		}
+		
+		/* remediation parameter */
+		long errorVendor = mValue.getErrorVendorId();
+		long errorCode = mValue.getErrorCode();
+		
+		if(errorVendor == IETFConstants.IETF_PEN_VENDORID){
+	       	if(errorCode == PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code() || errorCode == PbMessageErrorCodeEnum.IETF_UNSUPPORTED_MANDATORY_MESSAGE.code()){
+	       		
+	       		this.offsetWriter.write((PbMessageValueErrorParameterOffset)mValue.getErrorParameter(), out);
+	       		
+	       	}else if(errorCode == PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code()){
+	       		
+	       		this.versionWriter.write((PbMessageValueErrorParameterVersion)mValue.getErrorParameter(), out);
+	       	
+	       	}else if(errorCode != PbMessageErrorCodeEnum.IETF_LOCAL.code() && errorCode != PbMessageErrorCodeEnum.IETF_UNEXPECTED_BATCH_TYPE.code()){
+				
+	       		throw new SerializationException(
+						"Remediation message type is not supported.",false,
+						Long.toString(errorVendor),
+						Long.toString(errorCode));
+			}
+		} else {
+			throw new SerializationException(
+					"Remediation vendor ID is not supported.",false,
+					Long.toString(errorVendor),
+					Long.toString(errorCode));
 		}
 	}
 

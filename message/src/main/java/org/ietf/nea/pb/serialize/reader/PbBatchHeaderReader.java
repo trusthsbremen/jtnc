@@ -3,15 +3,15 @@ package org.ietf.nea.pb.serialize.reader;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.batch.PbBatchHeaderBuilder;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
-import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
 class PbBatchHeaderReader implements TnccsReader<PbBatchHeader>{
 

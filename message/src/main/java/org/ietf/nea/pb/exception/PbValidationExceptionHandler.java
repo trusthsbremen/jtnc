@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 
 @Deprecated
 public class PbValidationExceptionHandler {

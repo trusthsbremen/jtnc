@@ -5,13 +5,13 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
-import de.hsbremen.tc.tnc.im.handler.ImConnectionMessageObserver;
+import de.hsbremen.tc.tnc.im.handler.ImConnectionMessageQueue;
 
 class ImcConnectionAdapterIetf implements IMCConnection{
 
-	private ImConnectionMessageObserver messageObserver; 
+	private ImConnectionMessageQueue messageObserver; 
 	
-	ImcConnectionAdapterIetf(final ImConnectionMessageObserver messageObserver){
+	ImcConnectionAdapterIetf(final ImConnectionMessageQueue messageObserver){
 		this.messageObserver = messageObserver;
 	}
 	
@@ -22,7 +22,7 @@ class ImcConnectionAdapterIetf implements IMCConnection{
 		long subType = (byte)(messageType & 0xFF);
 		long subVendorId = (messageType & 0xFFFFFF00) >>> 8;
 		
-		this.messageObserver.addReturnValue(PbMessageValueBuilderIetf.createImValue(null, subVendorId, subType, (short)TNCConstants.TNC_IMCID_ANY, (short)TNCConstants.TNC_IMVID_ANY, message));
+		this.messageObserver.addMessage(PbMessageValueBuilderIetf.createImValue(null, subVendorId, subType, (short)TNCConstants.TNC_IMCID_ANY, (short)TNCConstants.TNC_IMVID_ANY, message));
 	}
 
 	@Override

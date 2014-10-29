@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.transport.connection.IfTConnection;

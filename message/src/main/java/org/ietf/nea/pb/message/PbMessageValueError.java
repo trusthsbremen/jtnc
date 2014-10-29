@@ -6,6 +6,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
+import org.ietf.nea.pb.message.util.AbstractPbMessageValueErrorParameter;
 
 /**
  * Reference IETF RFC 5793 section 4.9:
@@ -36,13 +37,13 @@ public class PbMessageValueError extends AbstractPbMessageValue {
     private final long errorVendorId;                                           // 24 bit(s)
     private final short errorCode;                                                // 16 bit(s)
     //private final short reserved;                                         // 16 bit(s) should be 0
-    private byte[] errorParameter; //32 bit(s) , may be (1) (one field full 32 bit length) if offset or (4) (4 fields every field has 8 bit length) if version information is needed.
+    private AbstractPbMessageValueErrorParameter errorParameter; //32 bit(s) , may be (1) (one field full 32 bit length) if offset or (4) (4 fields every field has 8 bit length) if version information is needed.
     
     
 
 	PbMessageValueError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId,
 			final short errorCode, final long length,
-			final byte[] errorParameter) {
+			final AbstractPbMessageValueErrorParameter errorParameter) {
 		super(length, OMMITTABLE);
 		
 		if(flags != null && flags.length > 0){
@@ -82,9 +83,9 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 	/**
 	 * @return the content
 	 */
-	public byte[] getErrorParameter() {
-		// TODO use real values like offset or version e.g. see remediation parameter string/uri
-		return Arrays.copyOf(this.errorParameter, this.errorParameter.length);
+	public AbstractPbMessageValueErrorParameter getErrorParameter() {
+
+		return this.errorParameter;
 	}
 
 }

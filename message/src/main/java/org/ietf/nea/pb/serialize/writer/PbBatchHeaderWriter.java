@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import org.ietf.nea.pb.batch.PbBatchHeader;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbBatchHeaderWriter implements TnccsWriter<PbBatchHeader>{
@@ -30,7 +30,7 @@ class PbBatchHeaderWriter implements TnccsWriter<PbBatchHeader>{
 		buffer.write(bHead.getVersion());
 
 		/* Direction 1 bit(s) + Reserved 7 bit(s) */
-		buffer.write((byte) (bHead.getDirectionality().directionality() << 7 | RESERVED));
+		buffer.write((byte) (bHead.getDirectionality().toDirectionalityBit() << 7 | RESERVED));
 		
 		/* Reserved 8 bit(s) */
 		buffer.write(RESERVED);

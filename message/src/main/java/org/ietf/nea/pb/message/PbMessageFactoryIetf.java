@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
@@ -36,18 +36,6 @@ public class PbMessageFactoryIetf {
 	    return createMessage(flags, type, 
 	    		PbMessageValueBuilderIetf.createAssessmentResultValue(result));
 
-	}
-
-	public static PbMessage createError(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode,
-			final byte[] errorParameter) throws RuleException {
-		
-		long errorVendorId = VENDORID;
-		
-		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
-	    long type = PbMessageTypeEnum.IETF_PB_ERROR.messageType();   				                  
-
-	    return createMessage(flags, type, 
-	    		PbMessageValueBuilderIetf.createErrorValue(errorFlags, errorVendorId, errorCode.code(),errorParameter));
 	}
 
 	public static PbMessage createExperimental(final String content) throws RuleException {
@@ -90,7 +78,40 @@ public class PbMessageFactoryIetf {
 			   PbMessageValueBuilderIetf.createReasonStringValue(reasonString, langCode));
 
 	}
+	
+	public static PbMessage createErrorSimple(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode) throws RuleException {
+		
+		long errorVendorId = VENDORID;
+		
+		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
+	    long type = PbMessageTypeEnum.IETF_PB_ERROR.messageType();   				                  
 
+	    return createMessage(flags, type, 
+	    		PbMessageValueBuilderIetf.createErrorValueSimple(errorFlags, errorVendorId, errorCode.code()));
+	}
+	
+	public static PbMessage createErrorOffset(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode, long offset) throws RuleException {
+		
+		long errorVendorId = VENDORID;
+		
+		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
+	    long type = PbMessageTypeEnum.IETF_PB_ERROR.messageType();   				                  
+
+	    return createMessage(flags, type, 
+	    		PbMessageValueBuilderIetf.createErrorValueWithOffset(errorFlags, errorVendorId, errorCode.code(), offset));
+	}
+	
+	public static PbMessage createErrorVersion(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode, short badVersion, short maxVersion, short minVersion) throws RuleException {
+		
+		long errorVendorId = VENDORID;
+		
+		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
+	    long type = PbMessageTypeEnum.IETF_PB_ERROR.messageType();   				                  
+
+	    return createMessage(flags, type, 
+	    		PbMessageValueBuilderIetf.createErrorValueWithVersion(errorFlags, errorVendorId, errorCode.code(), badVersion, maxVersion, minVersion));
+	}
+	
 	public static PbMessage createRemediationParameterString(final String remediationString, final String langCode) throws RuleException {
 
 		long rpVendorId = VENDORID; 

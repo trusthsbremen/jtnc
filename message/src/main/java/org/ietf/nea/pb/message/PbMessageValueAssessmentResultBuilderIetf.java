@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.AssessmentResult;

@@ -2,8 +2,8 @@ package org.ietf.nea.pb.validate.rules;
 
 import java.util.List;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;

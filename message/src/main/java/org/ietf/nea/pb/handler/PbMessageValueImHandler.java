@@ -2,7 +2,7 @@ package org.ietf.nea.pb.handler;
 
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResult;
 
-import de.hsbremen.tc.tnc.tnccs.exception.HandlingException;
+import de.hsbremen.tc.tnc.exception.HandlingException;
 import de.hsbremen.tc.tnc.tnccs.handler.TnccsHandler;
 
 public class PbMessageValueImHandler implements TnccsHandler<PbMessageValueAssessmentResult> {

@@ -7,9 +7,9 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbMessageRemediationParameterStringSubValueWriter implements TnccsWriter<PbMessageValueRemediationParameterString>{

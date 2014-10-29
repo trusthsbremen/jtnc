@@ -14,7 +14,7 @@ import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.util.Combined;
 

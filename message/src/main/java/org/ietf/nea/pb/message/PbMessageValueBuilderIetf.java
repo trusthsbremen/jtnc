@@ -1,14 +1,21 @@
 package org.ietf.nea.pb.message;
 
-import java.net.URI;
 import java.nio.charset.Charset;
 
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
+import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
-import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.util.AbstractPbMessageValueErrorParameter;
+import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterFactoryIetf;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffset;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterFactoryIetf;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 
@@ -50,23 +57,29 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueAssessmentResult(PbMessageTlvFixedLength.ASS_RES_VALUE.length(),result);
 	}
 	
-	public static PbMessageValueError createErrorValue(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final byte[] errorParameter){
+	public static PbMessageValueError createErrorValueWithOffset(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final long offset){
 		
-		if(errorFlags == null){
-			throw new NullPointerException("Error flags cannot be null.");
+		PbMessageValueErrorParameterOffset errorParameter = PbMessageValueErrorParameterFactoryIetf.createErrorParameterOffset(errorVendorId, errorCode, offset);
+		
+		return createError(errorFlags, errorVendorId, errorCode, errorParameter);
+		
+	}
+	
+	public static PbMessageValueError createErrorValueWithVersion(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final short badVersion, final short maxVersion, final short minVersion){
+		
+		PbMessageValueErrorParameterVersion errorParameter = PbMessageValueErrorParameterFactoryIetf.createErrorParameterVersion(errorVendorId, errorCode, badVersion, maxVersion, minVersion);
+		
+		return createError(errorFlags, errorVendorId, errorCode, errorParameter);
+		
+	}
+	
+	public static PbMessageValueError createErrorValueSimple(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode){
+
+		if(errorVendorId == IETFConstants.IETF_PEN_VENDORID && (errorCode == PbMessageErrorCodeEnum.IETF_LOCAL.code() || errorCode == PbMessageErrorCodeEnum.IETF_UNEXPECTED_BATCH_TYPE.code() )){
+			return createError(errorFlags, errorVendorId, errorCode, null);
 		}
-		if(errorParameter == null){
-			throw new NullPointerException("Error parameter cannot be null.");
-		}
 		
-		if(errorVendorId > IETFConstants.IETF_MAX_VENDOR_ID){
-			throw new IllegalArgumentException("Vendor ID is greater than "+ Long.toString(IETFConstants.IETF_MAX_VENDOR_ID) + ".");
-		}
-		
-		long length = PbMessageTlvFixedLength.ERR_VALUE.length() + errorParameter.length;
-		
-		return new PbMessageValueError(errorFlags, errorVendorId, errorCode, length, errorParameter);
-		
+		throw new NullPointerException("Error parameter cannot be NULL for error with vendor ID " + errorVendorId + " and with code " + errorCode + ".");
 	}
 	
 	public static PbMessageValueLanguagePreference createLanguagePreferenceValue(final String preferedLanguage){
@@ -114,51 +127,21 @@ public class PbMessageValueBuilderIetf {
 	}
 	
 	public static PbMessageValueRemediationParameters createRemediationParameterString(final long rpVendorId, final long rpType, final String remediationString, final String langCode){
-	
-		if(remediationString == null){
-			throw new NullPointerException("Remediation string cannot be null.");
-		}
-		if(langCode == null){
-			throw new NullPointerException("Language code cannot be null.");
-		}
-		if(langCode.length() > 0xFF){
-			throw new IllegalArgumentException("Language code length " +langCode.length()+ "is to long.");
-		}
-		if(rpVendorId != IETFConstants.IETF_PEN_VENDORID || rpType != PbMessageRemediationParameterTypeEnum.IETF_STRING.type()){
-			throw new IllegalArgumentException("Requested remediation value is not supported in message with remediation vendor ID "+ rpVendorId +" and of remediation type "+ rpType +".");
-		}
 		
-		long length = PbMessageTlvFixedLength.REM_STR_SUB_VALUE.length();
-		if(remediationString.length() > 0){
-			length += remediationString.getBytes(Charset.forName("UTF-8")).length;
-		}
-		if(langCode.length() > 0){
-			length += langCode.getBytes(Charset.forName("US-ASCII")).length;
-		}
-		
-		PbMessageValueRemediationParameterString parameter = new PbMessageValueRemediationParameterString(length,remediationString, langCode);
+		PbMessageValueRemediationParameterString parameter = PbMessageValueRemediationParameterFactoryIetf.createRemediationParameterString(rpVendorId, rpType, remediationString, langCode);
 		
 		return createRemediationParameter(rpVendorId, rpType, parameter);
 	}
 	
 	public static PbMessageValueRemediationParameters createRemediationParameterUri(final long rpVendorId, final long rpType, String uri){
 		
-		if(uri == null){
-			throw new NullPointerException("URI cannot be null.");
-		}
-		if(rpVendorId != IETFConstants.IETF_PEN_VENDORID || rpType != PbMessageRemediationParameterTypeEnum.IETF_URI.type()){
-			throw new IllegalArgumentException("Requested remediation value is not supported in message with remediation vendor ID "+ rpVendorId +" and of remediation type "+ rpType +".");
-		}
-		
-		URI temp = URI.create(uri);
-		
-		PbMessageValueRemediationParameterUri parameter = new PbMessageValueRemediationParameterUri(temp.toString().getBytes().length,temp);
+		PbMessageValueRemediationParameterUri parameter = PbMessageValueRemediationParameterFactoryIetf.createRemediationParameterUri(rpVendorId, rpType, uri);
 		
 		return createRemediationParameter(rpVendorId, rpType, parameter);
 		
 	}
 	
-	private static PbMessageValueRemediationParameters createRemediationParameter(final long rpVendorId, final long rpType, final AbstractPbMessageSubValue parameter){
+	private static PbMessageValueRemediationParameters createRemediationParameter(final long rpVendorId, final long rpType, final AbstractPbMessageValueRemediationParameter parameter){
 		
 		if(rpVendorId > IETFConstants.IETF_MAX_VENDOR_ID){
 			throw new IllegalArgumentException("Vendor ID is greater than "+ Long.toString(IETFConstants.IETF_MAX_VENDOR_ID) + ".");
@@ -170,6 +153,24 @@ public class PbMessageValueBuilderIetf {
 		long length = PbMessageTlvFixedLength.REM_PAR_VALUE.length() + parameter.getLength();
 		
 		return new PbMessageValueRemediationParameters(rpVendorId, rpType, length,parameter);
+	}
+	
+	private static PbMessageValueError createError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId, final short errorCode, final AbstractPbMessageValueErrorParameter errorParameter){
+		
+		if(flags == null){
+			throw new NullPointerException("Error flags cannot be null.");
+		}
+		
+		if(errorVendorId > IETFConstants.IETF_MAX_VENDOR_ID){
+			throw new IllegalArgumentException("Vendor ID is greater than "+ Long.toString(IETFConstants.IETF_MAX_VENDOR_ID) + ".");
+		}
+		if(errorCode > IETFConstants.IETF_MAX_ERROR_CODE){
+			throw new IllegalArgumentException("Code is greater than "+ Long.toString(IETFConstants.IETF_MAX_ERROR_CODE) + ".");
+		}
+
+		long length = PbMessageTlvFixedLength.ERR_VALUE.length() + errorParameter.getLength();
+		
+		return new PbMessageValueError(flags, errorVendorId, errorCode, length, errorParameter);
 	}
 	
 }

@@ -16,10 +16,12 @@ public abstract class AbstractPbMessageValue implements PbMessageValue {
 		this.omittable = omittable;
 	}
 	
+	@Override
 	public long getLength(){
 		return this.length;
 	}
 
+	@Override
 	public boolean isOmittable() {
 		return omittable;
 	}

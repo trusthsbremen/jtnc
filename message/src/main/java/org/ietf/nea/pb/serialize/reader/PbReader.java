@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchHeader;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageValue;
@@ -20,8 +20,8 @@ import org.ietf.nea.pb.validate.rules.MinMessageLength;
 import org.ietf.nea.pb.validate.rules.NoSkipOnUnknownMessage;
 import org.ietf.nea.pb.validate.rules.PbMessageNoSkip;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 import de.hsbremen.tc.tnc.util.Combined;
 

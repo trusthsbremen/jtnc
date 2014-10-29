@@ -6,13 +6,13 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
-import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameters;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 class PbMessageRemediationParametersValueWriter implements TnccsWriter<PbMessageValueRemediationParameters>{
@@ -46,7 +46,7 @@ class PbMessageRemediationParametersValueWriter implements TnccsWriter<PbMessage
 		byte[] rpVendorId = Arrays
 				.copyOfRange(
 						ByteBuffer.allocate(8).putLong(mValue.getRpVendorId())
-								.array(), 5, 7);
+								.array(), 5, 8);
 		try {
 			buffer.write(rpVendorId);
 		} catch (IOException e) {

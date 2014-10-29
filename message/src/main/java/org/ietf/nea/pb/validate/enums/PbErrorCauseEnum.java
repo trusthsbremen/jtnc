@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.validate.enums;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 
 public enum PbErrorCauseEnum {
 
@@ -60,6 +60,28 @@ public enum PbErrorCauseEnum {
     			return NULL_TERMINATION;
     		case 9:
     			return ZERO_STRING;
+    		case 10:
+    			return VENDOR_ID_NOT_SUPPORTED;
+    		case 11:
+    			return MESSAGE_TYPE_NOT_SUPPORTED;
+    		case 12:
+    			return BATCH_DIRECTION_OR_TYPE_UNEXPECTED;
+    		case 13:
+    			return BATCH_VERSION_NOT_SUPPORTED;
+    		case 14:	
+    			return EXCL_DELIVERY_NOT_POSSIBLE;
+    		case 15:
+    			return URI_SYNTAX_NOT_VALID;
+    		case 16:	
+    			return BATCH_RESULT_NO_ASSESSMENT_RESULT;
+    		case 17:	
+    			return VALUE_TO_LARGE;
+    		case 18:	
+    			return NEGATIV_UNSIGNED;
+    		case 19:
+    			return ASSESSMENT_RESULT_NOT_SUPPORTED;
+    		case 20:	
+    			return ACCESS_RECOMMENDATION_NOT_SUPPORTED;
     		default:
     			return NOT_SPECIFIED;
     	}

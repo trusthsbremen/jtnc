@@ -6,9 +6,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.PbMessageHeaderBuilderIetf;
 import org.ietf.nea.pb.message.PbMessage;

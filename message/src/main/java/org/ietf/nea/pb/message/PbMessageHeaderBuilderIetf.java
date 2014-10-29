@@ -1,11 +1,11 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.validate.rules.CommonLengthLimits;
-import org.ietf.nea.pb.validate.rules.MessageReservedAndLimits;
+import org.ietf.nea.pb.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pb.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -54,7 +54,7 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 	@Override
 	public PbMessageHeaderBuilder setType(final long type) throws RuleException{
 		
-		MessageReservedAndLimits.check(type);
+		TypeReservedAndLimits.check(type);
 		this.type = type;
 		
 		return this;

@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 
 public class PbMessageValueExperimentalBuilderIetf implements
 		PbMessageValueExperimentalBuilder {

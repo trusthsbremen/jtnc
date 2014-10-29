@@ -3,7 +3,7 @@ package org.ietf.nea.pb.validate.rules;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 

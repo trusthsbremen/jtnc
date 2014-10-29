@@ -3,9 +3,9 @@ package de.hsbremen.tc.tnc.session.state;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.session.context.SessionContext;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class StateInit extends AbstractPbState {

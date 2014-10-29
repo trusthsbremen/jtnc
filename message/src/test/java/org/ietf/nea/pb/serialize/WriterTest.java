@@ -3,20 +3,20 @@ package org.ietf.nea.pb.serialize;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
-import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 import org.ietf.nea.pb.serialize.writer.PbWriterFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
 public class WriterTest {
 
@@ -27,7 +27,7 @@ public class WriterTest {
 	@Before
 	public void setUp(){
 		batch = new TestData();
-		bs = PbWriterFactory.createDefault();
+		bs = PbWriterFactory.createProductionDefault();
 	}
 	
 	@Test

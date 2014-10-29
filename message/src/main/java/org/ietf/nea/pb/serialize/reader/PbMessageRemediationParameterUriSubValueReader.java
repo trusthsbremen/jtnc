@@ -5,14 +5,14 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.ietf.nea.pb.exception.RuleException;
-import org.ietf.nea.pb.message. PbMessageValueRemediationParameterUri;
-import org.ietf.nea.pb.message. PbMessageValueRemediationParameterUriBuilder;
-import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
+import org.ietf.nea.exception.RuleException;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilder;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
 class PbMessageRemediationParameterUriSubValueReader implements TnccsReader< PbMessageValueRemediationParameterUri>{
 

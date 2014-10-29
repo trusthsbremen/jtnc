@@ -3,7 +3,7 @@ package org.ietf.nea.pb.validate.rules;
 import java.util.Arrays;
 import java.util.Set;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;

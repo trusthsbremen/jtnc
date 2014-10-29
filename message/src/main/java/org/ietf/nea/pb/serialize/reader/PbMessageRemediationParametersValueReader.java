@@ -3,18 +3,18 @@ package org.ietf.nea.pb.serialize.reader;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.ietf.nea.pb.exception.RuleException;
-import org.ietf.nea.pb.message.PbMessageValueRemediationParameterString;
-import org.ietf.nea.pb.message.PbMessageValueRemediationParameterUri;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameters;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParametersBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
-import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
 class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessageValueRemediationParameters>{
 

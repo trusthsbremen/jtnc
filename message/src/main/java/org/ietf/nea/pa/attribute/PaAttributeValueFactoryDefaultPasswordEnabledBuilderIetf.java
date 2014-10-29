@@ -1,0 +1,44 @@
+package org.ietf.nea.pa.attribute;
+
+import org.ietf.nea.exception.RuleException;
+import org.ietf.nea.pa.attribute.enums.PaAttributeFactoryDefaultPasswordStatusEnum;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.validate.rules.FactoryDefaultPasswordStatus;
+
+public class PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf implements
+	PaAttributeValueFactoryDefaultPasswordEnabledBuilder {
+	
+	
+	private long length;
+	private PaAttributeFactoryDefaultPasswordStatusEnum status;      
+	
+	public PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf(){
+		this.length = PaAttributeTlvFixedLength.FAC_PW.length();
+		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.IETF_NOT_SET;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.ietf.nea.pb.message.PaAttributeValueAssessmentResultBuilder#setResult(long)
+	 */
+	@Override
+	public PaAttributeValueFactoryDefaultPasswordEnabledBuilder setStatus(long status) throws RuleException {
+		
+		FactoryDefaultPasswordStatus.check(status);
+		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.fromNumber(status);
+		
+		return this;
+	}
+
+	@Override
+	public PaAttributeValueFactoryDefaultPasswordEnabled toValue(){
+		
+		return new PaAttributeValueFactoryDefaultPasswordEnabled(this.length, this.status);
+	}
+
+	@Override
+	public PaAttributeValueFactoryDefaultPasswordEnabledBuilder clear() {
+		// TODO Auto-generated method stub
+		return new PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf();
+	}
+
+}

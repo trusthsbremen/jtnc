@@ -1,5 +1,7 @@
 package org.ietf.nea.pb.message;
 
+import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
+
 /**
  * Reference IETF RFC 5793 section 4.8:
  * ------------------------------------
@@ -34,14 +36,14 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
     private final long rpVendorId;         // 24 bit(s)
     private final long rpType;             // 32 bit(s)
     
-    private final AbstractPbMessageSubValue parameter;
+    private final AbstractPbMessageValueRemediationParameter parameter;
     
 
     
     
     PbMessageValueRemediationParameters(final long length,
 			final long rpVendorId, final long rpType,
-			final AbstractPbMessageSubValue parameter) {
+			final AbstractPbMessageValueRemediationParameter parameter) {
 		super(length);
 		this.rpVendorId = rpVendorId;
 		this.rpType = rpType;
@@ -64,7 +66,7 @@ public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
 		return this.rpType;
 	}
 
-	public AbstractPbMessageSubValue getParameter(){
+	public AbstractPbMessageValueRemediationParameter getParameter(){
 		return this.parameter;
 	}
 }

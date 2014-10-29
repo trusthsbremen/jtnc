@@ -4,7 +4,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
 
-import de.hsbremen.tc.tnc.im.handler.ImConnectionMessageObserver;
+import de.hsbremen.tc.tnc.im.handler.ImConnectionMessageQueue;
 
 
 public class ImcConnectionAdapterBuilderIetf implements
@@ -12,7 +12,7 @@ public class ImcConnectionAdapterBuilderIetf implements
 
 	@Override
 	public IMCConnection buildAdapter(IMC type,
-			ImConnectionMessageObserver observer) {
+			ImConnectionMessageQueue observer) {
 		
 		IMCConnection con = new ImcConnectionAdapterIetf(observer);
 		

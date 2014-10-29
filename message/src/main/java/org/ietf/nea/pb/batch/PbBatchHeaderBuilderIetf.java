@@ -1,8 +1,8 @@
 package org.ietf.nea.pb.batch;
 
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
-import org.ietf.nea.pb.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.validate.rules.BatchDirectionAndType;
 import org.ietf.nea.pb.validate.rules.BatchDirectionality;
@@ -45,7 +45,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 	public PbBatchHeaderBuilder setDirection(byte direction) throws RuleException{
 		
 		BatchDirectionality.check(direction);
-		PbBatchDirectionalityEnum tempDir = PbBatchDirectionalityEnum.fromDirectionality(direction);
+		PbBatchDirectionalityEnum tempDir = PbBatchDirectionalityEnum.fromDirectionalityBit(direction);
 		
 		if(type != null){
 			BatchDirectionAndType.check(tempDir, type);

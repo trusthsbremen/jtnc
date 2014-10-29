@@ -1,6 +1,6 @@
 package de.hsbremen.tc.tnc.tnccs.handler;
 
-import de.hsbremen.tc.tnc.tnccs.exception.HandlingException;
+import de.hsbremen.tc.tnc.exception.HandlingException;
 
 public interface TnccsHandler<T> {
 

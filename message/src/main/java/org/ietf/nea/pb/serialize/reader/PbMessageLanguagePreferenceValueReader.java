@@ -5,14 +5,14 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.ietf.nea.pb.exception.RuleException;
+import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueLanguagePreference;
 import org.ietf.nea.pb.message.PbMessageValueLanguagePreferenceBuilder;
-import org.ietf.nea.pb.serialize.util.ByteArrayHelper;
 
-import de.hsbremen.tc.tnc.tnccs.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.exception.ValidationException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
 class PbMessageLanguagePreferenceValueReader implements TnccsReader<PbMessageValueLanguagePreference>{
 

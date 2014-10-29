@@ -3,26 +3,30 @@ package org.ietf.nea.pb.batch.enums;
 
 
 public enum PbBatchDirectionalityEnum {
-    TO_PBC  ((byte)0),
-    TO_PBS  ((byte)1);
+    TO_PBC  (false),
+    TO_PBS  (true);
     
-    private final byte directionality;
+    private final boolean directionality;
    
-    private PbBatchDirectionalityEnum(byte directionality){
+    private PbBatchDirectionalityEnum(boolean directionality){
         this.directionality = directionality;
     }
     
-	public byte directionality(){
+	public boolean directionality(){
         return this.directionality;
     }
+	
+	public byte toDirectionalityBit(){
+		return (byte) (this.directionality ? 1 : 0); 
+	}
     
-    public static PbBatchDirectionalityEnum fromDirectionality(byte directionality){
+    public static PbBatchDirectionalityEnum fromDirectionalityBit(byte directionality){
     	
-    	if(directionality == TO_PBC.directionality){
+    	if(directionality == 0){
     		return TO_PBC;
     	}
     	
-    	if(directionality == TO_PBS.directionality){
+    	if(directionality == 1){
     		return TO_PBS;
     	}
     	
