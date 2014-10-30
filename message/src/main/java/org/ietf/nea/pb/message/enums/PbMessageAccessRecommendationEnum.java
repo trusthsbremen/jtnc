@@ -14,21 +14,21 @@ package org.ietf.nea.pb.message.enums;
  */
 public enum PbMessageAccessRecommendationEnum {
 
-    ALLOWED     ((short)1),
-    DENIED      ((short)2),
-    QURANTINED  ((short)3);
+    ALLOWED     (1),
+    DENIED      (2),
+    QURANTINED  (3);
    
-    private short number;
+    private int number;
     
-    private PbMessageAccessRecommendationEnum(short number){
+    private PbMessageAccessRecommendationEnum(int number){
         this.number = number;
     }
     
-    public short number(){
+    public int number(){
         return this.number;
     }
     
-    public static PbMessageAccessRecommendationEnum fromNumber(short number){
+    public static PbMessageAccessRecommendationEnum fromNumber(int number){
     	
     	if(number == ALLOWED.number){
 			return ALLOWED;

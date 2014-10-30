@@ -4,8 +4,9 @@ import java.io.InputStream;
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.m.ImData;
 
-public interface ImReader<T> {
+public interface ImReader<T extends ImData> {
 
 	 public byte getMinDataLength(); 
 	

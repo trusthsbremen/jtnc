@@ -22,11 +22,11 @@ public class PaAttributeNoSkip {
 		
 		if(!value.isOmittable()){
 			 if(flags.isEmpty() || !flags.contains(PaAttributeFlagsEnum.NOSKIP)){	
-		            throw new RuleException("NOSKIP must be set for this message.",true,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.NOSKIP_MISSING.number(),Arrays.toString(flags.toArray()));
+		            throw new RuleException("NOSKIP must be set for this attribute.",true,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.NOSKIP_MISSING.number(),Arrays.toString(flags.toArray()));
 		     }
 		}else{
 			if(!flags.isEmpty() && flags.contains(PaAttributeFlagsEnum.NOSKIP)){
-		        throw new RuleException("NOSKIP not allowed in this message.",true,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.NOSKIP_NOT_ALLOWED.number(),Arrays.toString(flags.toArray()));
+		        throw new RuleException("NOSKIP not allowed in this attribute.",true,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.NOSKIP_NOT_ALLOWED.number(),Arrays.toString(flags.toArray()));
 		    }
 		}
 	}

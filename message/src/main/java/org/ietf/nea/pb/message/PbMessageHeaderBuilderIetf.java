@@ -24,9 +24,6 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 		this.length = PbMessageTlvFixedLength.MESSAGE.length();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setFlags(byte)
-	 */
 	@Override
 	public PbMessageHeaderBuilder setFlags(final byte flags){
 		if ((byte)(flags & 0x80) == PbMessageFlagsEnum.NOSKIP.bit()) {
@@ -36,9 +33,6 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setVendorId(long)
-	 */
 	@Override
 	public PbMessageHeaderBuilder setVendorId(final long vendorId) throws RuleException{
 		
@@ -48,9 +42,6 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setType(long)
-	 */
 	@Override
 	public PbMessageHeaderBuilder setType(final long type) throws RuleException{
 		
@@ -60,9 +51,6 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setLength(long)
-	 */
 	@Override
 	public PbMessageHeaderBuilder setLength(final long length) throws RuleException{
 		
@@ -71,10 +59,7 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 		
 		return this;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#toMessage()
-	 */
+
 	@Override
 	public PbMessageHeader toMessageHeader(){
 		
@@ -83,12 +68,8 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 		return mHead;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#clear()
-	 */
 	@Override
 	public PbMessageHeaderBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PbMessageHeaderBuilderIetf();
 	}
 }

@@ -1,6 +1,8 @@
 package de.hsbremen.tc.tnc.tnccs.batch;
 
-public interface TnccsBatchHeader {
+import de.hsbremen.tc.tnc.tnccs.TnccsData;
+
+public interface TnccsBatchHeader extends TnccsData{
 
 	public short getVersion();
 	

@@ -13,10 +13,10 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageHeader;
 
 public class PbMessageHeader implements TnccsMessageHeader {
     
-    private final EnumSet<PbMessageFlagsEnum> flags;                               //  8 bit(s)
+    private final EnumSet<PbMessageFlagsEnum> flags;            //  8 bit(s)
     private final long vendorId;                                // 24 bit(s)
     private final long type;                                    // 32 bit(s)
-    private final long length;// 32 bit(s) min value is 12 for the 12 bytes in this header 
+    private final long length;									// 32 bit(s) min value is 12 for the 12 bytes in this header 
 
     PbMessageHeader(final PbMessageFlagsEnum[] flags, final long vendorId, final long type, final long length) {
     	if(flags.length > 0){

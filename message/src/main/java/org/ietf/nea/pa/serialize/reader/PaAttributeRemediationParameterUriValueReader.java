@@ -11,10 +11,10 @@ import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUriBui
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.m.serialize.ImReader;
 import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
-class PaAttributeRemediationParameterUriValueReader implements TnccsReader<PaAttributeValueRemediationParameterUri>{
+class PaAttributeRemediationParameterUriValueReader implements ImReader<PaAttributeValueRemediationParameterUri>{
 
 	private  PaAttributeValueRemediationParameterUriBuilder builder;
 	
@@ -38,7 +38,7 @@ class PaAttributeRemediationParameterUriValueReader implements TnccsReader<PaAtt
 				// int byteSize = 0;
 				// byte[] buffer = new byte[byteSize];
 				
-				/* message */
+				/* uri */
 				String uriString = readString(messageLength, in, Charset.forName("US-ASCII"));
 				this.builder.setUri(uriString);
 				errorOffset += messageLength;

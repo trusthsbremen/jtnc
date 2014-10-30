@@ -17,14 +17,11 @@ public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessage
     	this.languagePreference = "";
     }
 
-	
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueLanguagePreferenceBuilder#setReasonString(java.lang.String)
-	 */
 	@Override
 	public PbMessageValueLanguagePreferenceBuilder setLanguagePreference(String languagePreference) throws RuleException {
 
 		// TODO regular expression test for language string (RFC 2234).
+		
 		// No Null termination is one thing of that.
 		NoNullTerminatedString.check(languagePreference);
 		this.languagePreference = languagePreference;

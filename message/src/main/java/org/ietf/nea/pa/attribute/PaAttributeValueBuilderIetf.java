@@ -46,7 +46,7 @@ public class PaAttributeValueBuilderIetf {
 	public static PaAttributeValueFactoryDefaultPasswordEnabled createFactoryDefaultPasswordValue(final PaAttributeFactoryDefaultPasswordStatusEnum status){
 		
 		if(status == null){
-			throw new NullPointerException("Result cannot be null.");
+			throw new NullPointerException("Status cannot be null.");
 		}
 		
 		return new PaAttributeValueFactoryDefaultPasswordEnabled(PaAttributeTlvFixedLength.FAC_PW.length(),status);
@@ -55,7 +55,7 @@ public class PaAttributeValueBuilderIetf {
 	public static PaAttributeValueForwardingEnabled createForwardingEnabledValue(final PaAttributeForwardingStatusEnum status){
 		
 		if(status == null){
-			throw new NullPointerException("Result cannot be null.");
+			throw new NullPointerException("Status cannot be null.");
 		}
 		
 		return new PaAttributeValueForwardingEnabled(PaAttributeTlvFixedLength.FWD_EN.length(),status);

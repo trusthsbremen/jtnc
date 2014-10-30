@@ -18,9 +18,6 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
     	this.uri = null;
     }
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueRemediationParameterUriBuilder#setUri(java.lang.String)
-	 */
 	@Override
 	public PbMessageValueRemediationParameterUriBuilder setUri(String uri) throws RuleException {
 		
@@ -38,7 +35,7 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
 	public PbMessageValueRemediationParameterUri toValue() throws RuleException {
 		
 		if( uri == null){
-				throw new IllegalStateException("A message value has to be set.");
+				throw new IllegalStateException("An uri value has to be set.");
 		}
 		
 		return new PbMessageValueRemediationParameterUri(this.length, this.uri);

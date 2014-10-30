@@ -12,11 +12,11 @@ import de.hsbremen.tc.tnc.IETFConstants;
 
 public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilder{
 	
-	private PbMessageErrorFlagsEnum[] errorFlags; //  8 bit(s) 
-    private long errorVendorId;                                           // 24 bit(s)
-    private short errorCode;                                                // 16 bit(s)
+	private PbMessageErrorFlagsEnum[] errorFlags;  //  8 bit(s) 
+    private long errorVendorId;                    // 24 bit(s)
+    private int errorCode;                         // 16 bit(s)
     private long length;
-    private AbstractPbMessageValueErrorParameter errorParameter; //32 bit(s) , may be (1) (one field full 32 bit length) if offset or (4) (4 fields every field has 8 bit length) if version information is needed.
+    private AbstractPbMessageValueErrorParameter errorParameter; //32 bit(s)
     
     public PbMessageValueErrorBuilderIetf(){
     	this.errorFlags = new PbMessageErrorFlagsEnum[0];
@@ -26,9 +26,6 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
     	this.errorParameter = null;
     }
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorFlags(byte)
-	 */
 	@Override
 	public PbMessageValueErrorBuilder setErrorFlags(byte errorFlags) {
 		
@@ -39,9 +36,6 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorVendorId(long)
-	 */
 	@Override
 	public PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId) throws RuleException {
 		
@@ -51,11 +45,8 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorCode(short)
-	 */
 	@Override
-	public PbMessageValueErrorBuilder setErrorCode(short errorCode) throws RuleException {
+	public PbMessageValueErrorBuilder setErrorCode(int errorCode) throws RuleException {
 		
 		ErrorCodeLimits.check(errorCode);
 		this.errorCode = errorCode;
@@ -63,9 +54,6 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueErrorBuilder#setErrorParameter(byte[])
-	 */
 	@Override
 	public PbMessageValueErrorBuilder setErrorParameter(AbstractPbMessageValueErrorParameter errorParameter) {
 		

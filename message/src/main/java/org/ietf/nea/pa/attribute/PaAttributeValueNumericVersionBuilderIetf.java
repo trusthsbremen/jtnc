@@ -54,7 +54,6 @@ public class PaAttributeValueNumericVersionBuilderIetf implements
 
 	@Override
 	public PaAttributeValueNumericVersionBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PaAttributeValueNumericVersionBuilderIetf();
 	}
 

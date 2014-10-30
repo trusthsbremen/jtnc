@@ -70,7 +70,7 @@ class PaAttributeRemediationParametersValueReader implements ImReader<PaAttribut
 			
 			}catch (IOException e){
 				throw new SerializationException(
-						"Returned data for message value is to short or stream may be closed.", e, true);
+						"Returned data for attribute value is to short or stream may be closed.", e, true);
 			}
 			
 			

@@ -29,7 +29,7 @@ class PaAttributeInstalledPackagesValueWriter implements ImWriter<PaAttributeVal
 		
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-		/* Reserved 16 bit(s) */
+		/* reserved 16 bit(s) */
 		try {
 			buffer.write(RESERVED);
 		} catch (IOException e) {

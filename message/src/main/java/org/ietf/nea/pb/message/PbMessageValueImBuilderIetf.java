@@ -31,9 +31,6 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
     	this.message = new byte[0];
     }
     
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setImFlags(byte)
-	 */
 	@Override
 	public PbMessageValueImBuilder setImFlags(byte imFlags) {
 		
@@ -44,9 +41,6 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setSubVendorId(long)
-	 */
 	@Override
 	public PbMessageValueImBuilder setSubVendorId(long subVendorId) throws RuleException {
 		
@@ -56,9 +50,6 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setSubType(long)
-	 */
 	@Override
 	public PbMessageValueImBuilder setSubType(long subType) throws RuleException {
 		
@@ -68,9 +59,6 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setCollectorId(long)
-	 */
 	@Override
 	public PbMessageValueImBuilder setCollectorId(long collectorId) throws RuleException {
 		
@@ -80,9 +68,6 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setValidatorId(long)
-	 */
 	@Override
 	public PbMessageValueImBuilder setValidatorId(long validatorId) throws RuleException {
 		
@@ -92,9 +77,6 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#setMessage(byte[])
-	 */
 	@Override
 	public PbMessageValueImBuilder setMessage(byte[] message) {
 		
@@ -106,21 +88,15 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#toValue()
-	 */
 	@Override
 	public PbMessageValueIm toValue(){
 
 		return new PbMessageValueIm(this.imFlags, this.subVendorId, this.subType, this.collectorId, this.validatorId, this.length, this.message);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueImBuilder#clear()
-	 */
 	@Override
 	public PbMessageValueImBuilder clear() {
-		// TODO Auto-generated method stub
+
 		return new PbMessageValueImBuilderIetf();
 	}
 

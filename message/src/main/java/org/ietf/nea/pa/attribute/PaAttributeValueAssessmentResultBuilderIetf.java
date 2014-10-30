@@ -17,9 +17,6 @@ public class PaAttributeValueAssessmentResultBuilderIetf implements
 		this.result = PaAttributeAssessmentResultEnum.COMPLIANT;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PaAttributeValueAssessmentResultBuilder#setResult(long)
-	 */
 	@Override
 	public PaAttributeValueAssessmentResultBuilder setResult(long result) throws RuleException {
 		
@@ -37,7 +34,7 @@ public class PaAttributeValueAssessmentResultBuilderIetf implements
 
 	@Override
 	public PaAttributeValueAssessmentResultBuilder clear() {
-		// TODO Auto-generated method stub
+
 		return new PaAttributeValueAssessmentResultBuilderIetf();
 	}
 

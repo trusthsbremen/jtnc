@@ -24,9 +24,7 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		this.length = PaAttributeTlvFixedLength.MESSAGE.length();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setFlags(byte)
-	 */
+
 	@Override
 	public PaAttributeHeaderBuilder setFlags(final byte flags){
 		if ((byte)(flags & 0x80) == PaAttributeFlagsEnum.NOSKIP.bit()) {
@@ -36,9 +34,6 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setVendorId(long)
-	 */
 	@Override
 	public PaAttributeHeaderBuilder setVendorId(final long vendorId) throws RuleException{
 		
@@ -48,9 +43,6 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setType(long)
-	 */
 	@Override
 	public PaAttributeHeaderBuilder setType(final long type) throws RuleException{
 		
@@ -60,9 +52,6 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#setLength(long)
-	 */
 	@Override
 	public PaAttributeHeaderBuilder setLength(final long length) throws RuleException{
 		
@@ -72,9 +61,6 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		return this;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#toMessage()
-	 */
 	@Override
 	public PaAttributeHeader toAttributeHeader(){
 		
@@ -83,12 +69,9 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		return mHead;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageHeaderBuilder#clear()
-	 */
 	@Override
 	public PaAttributeHeaderBuilder clear() {
-		// TODO Auto-generated method stub
+
 		return new PaAttributeHeaderBuilderIetf();
 	}
 }

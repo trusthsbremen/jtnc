@@ -7,9 +7,9 @@ import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
 public class AccessRecommendation {
 
-	public static void check(final short recommendation) throws RuleException{
+	public static void check(final int recommendation) throws RuleException{
 		if(PbMessageAccessRecommendationEnum.fromNumber(recommendation) == null){
-        	throw new RuleException("The type value " + recommendation + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.ACCESS_RECOMMENDATION_NOT_SUPPORTED.number(),Short.toString(recommendation));
+        	throw new RuleException("The type value " + recommendation + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.ACCESS_RECOMMENDATION_NOT_SUPPORTED.number(),Integer.toString(recommendation));
         }
     }
 	

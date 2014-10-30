@@ -36,8 +36,6 @@ import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
    field.
  */
 public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue{
-
-    //protected final short reserved;   // 16 bit(s) should be 0
     
     private final PbMessageAccessRecommendationEnum recommendation;  //16 bit(s)
     

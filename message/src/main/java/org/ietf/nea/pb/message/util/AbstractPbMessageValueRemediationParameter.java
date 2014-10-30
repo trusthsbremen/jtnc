@@ -1,7 +1,9 @@
 package org.ietf.nea.pb.message.util;
 
+import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageSubValue;
 
-public abstract class AbstractPbMessageValueRemediationParameter {
+
+public abstract class AbstractPbMessageValueRemediationParameter implements TnccsMessageSubValue{
 	
 	private final long length;
 

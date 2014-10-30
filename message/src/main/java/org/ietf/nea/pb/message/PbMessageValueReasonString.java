@@ -53,7 +53,7 @@ public class PbMessageValueReasonString extends AbstractPbMessageValue{
 
     private final long stringLength;          // 32 bit(s) length of the string in octets
     private final String reasonString;        // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
-    private final byte langCodeLength;        // 8 bit(s) length of language code in octets, 0 = language unknown
+    private final short langCodeLength;        // 8 bit(s) length of language code in octets, 0 = language unknown
     private final String langCode;            // variable length, US-ASCII string composed of a well-formed RFC 4646 [3] language tag
 
     
@@ -76,7 +76,7 @@ public class PbMessageValueReasonString extends AbstractPbMessageValue{
 	/**
 	 * @return the langCodeLength
 	 */
-	public byte getLangCodeLength() {
+	public short getLangCodeLength() {
 		return this.langCodeLength;
 	}
 

@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 
@@ -18,7 +19,7 @@ class PbMessageAccessRecommendationValueWriter implements TnccsWriter<PbMessageV
 	public void write(final PbMessageValueAccessRecommendation data, final OutputStream out)
 			throws SerializationException {
 		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
+			throw new NullPointerException("Message value cannot be NULL.");
 		}
 		
 		PbMessageValueAccessRecommendation mValue = data;
@@ -36,13 +37,13 @@ class PbMessageAccessRecommendationValueWriter implements TnccsWriter<PbMessageV
 		}
 		
 		/* recommendation */
-		byte[] code = ByteBuffer.allocate(2).putShort(mValue.getRecommendation().number()).array();
+		byte[] code = Arrays.copyOfRange(ByteBuffer.allocate(4).putInt(mValue.getRecommendation().number()).array(), 2,4);
 		try {
 			buffer.write(code);
 		} catch (IOException e) {
 			throw new SerializationException(
 					"Recommendation code could not be written to the buffer.", e, false,
-					Short.toString(mValue.getRecommendation().number()));
+					Integer.toString(mValue.getRecommendation().number()));
 		}
 
 		try {

@@ -20,9 +20,6 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
     	this.langCode = "";
     }
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueRmediationParameterStringBuilder#setRemediationString(java.lang.String)
-	 */
 	@Override
 	public PbMessageValueRemediationParameterStringBuilder setRemediationString(String remediationString) throws RuleException {
 
@@ -34,9 +31,6 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueRmediationParameterStringBuilder#setLangCode(java.lang.String)
-	 */
 	@Override
 	public PbMessageValueRemediationParameterStringBuilder setLangCode(String langCode) throws RuleException {
 		

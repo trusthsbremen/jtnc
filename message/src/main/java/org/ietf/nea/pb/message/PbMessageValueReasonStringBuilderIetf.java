@@ -20,9 +20,6 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
     	this.langCode = "";
     }
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueReasonStringBuilder#setReasonString(java.lang.String)
-	 */
 	@Override
 	public PbMessageValueReasonStringBuilder setReasonString(String reasonString) throws RuleException {
 
@@ -34,9 +31,6 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueReasonStringBuilder#setLangCode(java.lang.String)
-	 */
 	@Override
 	public PbMessageValueReasonStringBuilder setLangCode(String langCode) throws RuleException {
 		

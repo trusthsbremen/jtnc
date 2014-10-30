@@ -1,6 +1,8 @@
 package de.hsbremen.tc.tnc.tnccs.message;
 
-public interface TnccsMessageHeader {
+import de.hsbremen.tc.tnc.tnccs.TnccsData;
+
+public interface TnccsMessageHeader extends TnccsData{
 	
 	public long getVendorId();
 	

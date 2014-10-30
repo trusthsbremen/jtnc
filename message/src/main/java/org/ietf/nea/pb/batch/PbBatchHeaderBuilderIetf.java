@@ -26,9 +26,6 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 		this.batchLength = PbMessageTlvFixedLength.BATCH.length();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.batch.PbBatchHeaderBuilder#setVersion(byte)
-	 */
 	@Override
 	public PbBatchHeaderBuilder setVersion(byte version) throws RuleException {
 		BatchVersion.check(version, SUPPORTED_VERSION);
@@ -38,9 +35,6 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.batch.PbBatchHeaderBuilder#setDirection(byte)
-	 */
 	@Override
 	public PbBatchHeaderBuilder setDirection(byte direction) throws RuleException{
 		
@@ -56,9 +50,6 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.batch.PbBatchHeaderBuilder#setType(byte)
-	 */
 	@Override
 	public PbBatchHeaderBuilder setType(byte type) throws RuleException{
 
@@ -74,10 +65,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 		
 		return this;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.batch.PbBatchHeaderBuilder#setLength(long)
-	 */
+
 	@Override
 	public PbBatchHeaderBuilder setLength(long length) throws RuleException{
 		
@@ -88,9 +76,6 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 		return this;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.batch.PbBatchHeaderBuilder#toBatch()
-	 */
 	@Override
 	public  PbBatchHeader toBatchHeader(){
 		if(direction == null){
@@ -105,15 +90,9 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 		return batch;
 	}
 	
-
-
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.batch.PbBatchHeaderBuilder#clear()
-	 */
 	@Override
 	public PbBatchHeaderBuilder clear() {
 		return new PbBatchHeaderBuilderIetf();
 	}
-
 
 }

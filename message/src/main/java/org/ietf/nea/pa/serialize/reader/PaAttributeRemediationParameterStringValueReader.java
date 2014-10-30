@@ -60,7 +60,7 @@ class PaAttributeRemediationParameterStringValueReader implements ImReader<PaAtt
 				errorOffset += langLength;
 			
 			}catch (IOException e){
-				throw new SerializationException("Returned data for batch header is to short or stream may be closed.",e,true);
+				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
 			value = (PaAttributeValueRemediationParameterString)builder.toValue();

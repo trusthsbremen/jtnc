@@ -16,7 +16,7 @@ class PbMessageExperimentalValueWriter implements TnccsWriter<PbMessageValueExpe
 	public void write(final PbMessageValueExperimental data, final OutputStream out)
 			throws SerializationException {
 		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
+			throw new NullPointerException("Message value cannot be NULL.");
 		}
 		
 		PbMessageValueExperimental mValue = data;

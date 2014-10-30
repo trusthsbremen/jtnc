@@ -9,7 +9,7 @@ import de.hsbremen.tc.tnc.m.message.ImMessage;
 
 public class PaMessage implements ImMessage {
 
-	 private final PaMessageHeader header;                           // 32 bit(s) min value is 8 for the 8 bytes in this header
+	 private final PaMessageHeader header;                        
 	 private final List<PaAttribute> attributes;
 
 	 public PaMessage(final PaMessageHeader header, List<PaAttribute> attributes) {

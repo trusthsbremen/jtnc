@@ -13,7 +13,7 @@ import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
-class PbMessageErrorParameterVersionSubValueReader implements TnccsReader< PbMessageValueErrorParameterVersion>{
+class PbMessageErrorParameterVersionSubValueReader implements TnccsReader<PbMessageValueErrorParameterVersion>{
 
 	private  PbMessageValueErrorParameterVersionBuilder builder;
 	

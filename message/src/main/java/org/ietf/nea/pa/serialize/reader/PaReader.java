@@ -51,13 +51,13 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 		
 		BufferedInputStream bIn = (in instanceof BufferedInputStream)? (BufferedInputStream)in : new BufferedInputStream(in) ;
 		
-		/* batch header */
+		/* message header */
 		PaMessageHeader mHead = null;
 
 		// ignore length here, because header has a fixed length.
 		mHead = mHeadReader.read(bIn, -1);
 
-		/* messages */
+		/* attributes */
 		long contentLength = length - PaAttributeTlvFixedLength.MESSAGE.length();
 		
 		List<PaAttribute> attributes = new LinkedList<>();
@@ -85,7 +85,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 								MinAttributeLength.check(valueLength, vr.getMinDataLength());
 							}catch(RuleException e1){
 								// Remove 4 from header offset because this is a late header check. Length is the last field
-								// in the message header.
+								// in the attribute header.
 								headerOffset -= 4;
 								throw new ValidationException(e1.getMessage(), e1,0);
 							}
@@ -98,7 +98,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 									PaAttributeNoSkip.check(aValue, aHead.getFlags());
 								}catch(RuleException e1){
 									// Remove header offset because this is a late header check. Flags is the first field
-									// in the message header.
+									// in the attribute header.
 									headerOffset = 0;
 									throw new ValidationException(e1.getMessage(), e1,0);
 								}
@@ -111,13 +111,13 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 								NoSkipOnUnknownAttribute.check(aHead.getFlags());
 							}catch(RuleException e1){
 								// Remove header offset because this is a late header check. Flags is the first field
-								// in the message header.
+								// in the attribute header.
 								headerOffset = 0;
 								throw new ValidationException(e1.getMessage(), e1,0);
 							}
 							
 							try{
-								// skip the remaining bytes of the message
+								// skip the remaining bytes of the attribute
 								bIn.skip(aHead.getLength() - headerOffset);
 							}catch (IOException e1){
 								throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
@@ -128,13 +128,13 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 							NoSkipOnUnknownAttribute.check(aHead.getFlags());
 						}catch(RuleException e1){
 							// Remove header offset because this is a late header check. Flags is the first field
-							// in the message header.
+							// in the attribute header.
 							headerOffset = 0;
 							throw new ValidationException(e1.getMessage(), e1, 0);
 						}
 						
 						try{
-							// skip the remaining bytes of the message
+							// skip the remaining bytes of the attribute
 							bIn.skip(aHead.getLength() - headerOffset);
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
@@ -143,7 +143,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 					}
 				}catch(ValidationException e){
 					
-					// current message position + batch header length + the message header offset (if already parsed) 
+					// current attribute position + message header length + the attribute header offset (if already parsed) 
 					// + the offset of the exception data 	
 					long offset = cl + PaAttributeTlvFixedLength.MESSAGE.length() + headerOffset + e.getExceptionOffset();
 					System.out.println("Error occured at offset: " + offset + "\n" + e.toString());
@@ -171,11 +171,6 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 			}
 		}
 		
-//		try{
-//			BatchResultWithoutMessageAssessmentResult.check(mHead.getType(), msgs);
-//		}catch(RuleException e){
-//			throw new ValidationException(e.getMessage(), e, 0);
-//		}
 		
 		PaMessage b = new PaMessage(mHead,attributes);
 		

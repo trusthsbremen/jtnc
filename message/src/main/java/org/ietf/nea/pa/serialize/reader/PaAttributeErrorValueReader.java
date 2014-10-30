@@ -77,7 +77,7 @@ class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 			}
 			
 			
-			/* remediation parameter */
+			/* error parameter */
 			// value length = header length - overall message length
 			long valueLength = messageLength - errorOffset;
 

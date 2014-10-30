@@ -20,23 +20,23 @@ package org.ietf.nea.pb.message.enums;
  */
 public enum PbMessageErrorCodeEnum {
     // IETF
-    IETF_UNEXPECTED_BATCH_TYPE          ((short)0),
-    IETF_INVALID_PARAMETER              ((short)1),
-    IETF_LOCAL                          ((short)2),
-    IETF_UNSUPPORTED_MANDATORY_MESSAGE  ((short)3),
-    IETF_UNSUPPORTED_VERSION            ((short)4);
+    IETF_UNEXPECTED_BATCH_TYPE          (0),
+    IETF_INVALID_PARAMETER              (1),
+    IETF_LOCAL                          (2),
+    IETF_UNSUPPORTED_MANDATORY_MESSAGE  (3),
+    IETF_UNSUPPORTED_VERSION            (4);
     
-    private short code;
+    private int code;
     
-    private PbMessageErrorCodeEnum(short code){
+    private PbMessageErrorCodeEnum(int code){
         this.code = code;
     }
     
-    public short code(){
+    public int code(){
         return this.code;
     }
     
-    public static PbMessageErrorCodeEnum fromCode(short code){
+    public static PbMessageErrorCodeEnum fromCode(int code){
     	
     	if(code == IETF_UNEXPECTED_BATCH_TYPE.code){
     		return IETF_UNEXPECTED_BATCH_TYPE;

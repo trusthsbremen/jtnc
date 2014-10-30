@@ -27,13 +27,11 @@ public class PaAttributeValueTestingBuilderIetf implements PaAttributeValueTesti
 	
 	@Override
 	public PaAttributeValueTesting toValue() {
-		// TODO Auto-generated method stub
 		return new PaAttributeValueTesting(this.length, this.content);
 	}
 
 	@Override
 	public PaAttributeValueTestingBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PaAttributeValueTestingBuilderIetf();
 	}
 	

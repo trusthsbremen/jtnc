@@ -53,13 +53,11 @@ public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValu
 	
 	@Override
 	public PaAttributeValueStringVersion toValue() {
-		// TODO Auto-generated method stub
 		return new PaAttributeValueStringVersion(this.length, this.productVersion, this.buildVersion, this.configVersion);
 	}
 
 	@Override
 	public PaAttributeValueStringVersionBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PaAttributeValueStringVersionBuilderIetf();
 	}
 	

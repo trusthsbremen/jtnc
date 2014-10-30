@@ -26,17 +26,17 @@ class PaMessageHeaderWriter implements ImWriter<PaMessageHeader>{
 		
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		
-		/* Version 8 bit(s) */
+		/* version 8 bit(s) */
 		buffer.write(mHead.getVersion());
 
-		/* Reserved 24 bit(s) */
+		/* reserved 24 bit(s) */
 		try {
 			buffer.write(RESERVED);
 		} catch (IOException e) {
 			throw new SerializationException("Reserved space could not be written to the buffer.",e,false);
 		}
 
-		/* Identifier 32 bit(s) */
+		/* identifier 32 bit(s) */
 		byte[] identifier = Arrays
 				.copyOfRange(
 						ByteBuffer.allocate(8).putLong(mHead.getIdentifier())
@@ -48,7 +48,6 @@ class PaMessageHeaderWriter implements ImWriter<PaMessageHeader>{
 			throw new SerializationException("Identifier could not be written to the buffer.",e,false);
 		}
 		
-		// make the first write with message data
 		try {
 			buffer.writeTo(out);
 		} catch (IOException e) {

@@ -4,9 +4,8 @@ import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
 
 public class PaAttributeValueError extends AbstractPaAttributeValue {
 	
-	//private final PaMessageHeader messageHeader; // 24 bit(s) key, 32 bit(s) value must have at minimum one entry
 	private final long errorVendorId;                                           // 24 bit(s)
-    private final long errorCode;  
+    private final long errorCode;  												// 32 bit(s)	
 	
     private final AbstractPaAttributeValueErrorInformation errorInformation;
     

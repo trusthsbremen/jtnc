@@ -2,6 +2,7 @@ package de.hsbremen.tc.tnc.m.message;
 
 import java.util.List;
 
+import de.hsbremen.tc.tnc.m.ImData;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 
 /**
@@ -9,7 +10,7 @@ import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
  * @author Carl-Heinz Genzel
  *
  */
-public interface ImMessage {
+public interface ImMessage extends ImData{
 	
 	public ImMessageHeader getHeader();
 

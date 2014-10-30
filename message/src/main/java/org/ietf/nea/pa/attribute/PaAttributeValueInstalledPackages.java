@@ -7,7 +7,7 @@ import org.ietf.nea.pa.attribute.util.PackageEntry;
 
 public class PaAttributeValueInstalledPackages extends AbstractPaAttributeValue {
 	
-	private final List<PackageEntry> packages; // 0 or bigger
+	private final List<PackageEntry> packages; // 0 or larger
 	
 	PaAttributeValueInstalledPackages(long length, List<PackageEntry> packages) {
 		super(length);

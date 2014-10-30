@@ -1,6 +1,8 @@
 package de.hsbremen.tc.tnc.m.attribute;
 
-public interface ImAttributeHeader {
+import de.hsbremen.tc.tnc.m.ImData;
+
+public interface ImAttributeHeader extends ImData {
 
 	public long getVendorId();
 	

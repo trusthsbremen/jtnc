@@ -1,5 +1,7 @@
 package de.hsbremen.tc.tnc.m.attribute;
 
-public interface ImAttributeValue {
+import de.hsbremen.tc.tnc.m.ImData;
+
+public interface ImAttributeValue extends ImData{
 
 }

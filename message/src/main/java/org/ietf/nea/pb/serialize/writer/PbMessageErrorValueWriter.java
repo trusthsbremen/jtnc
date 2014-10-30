@@ -36,7 +36,7 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 	public void write(final PbMessageValueError data, final OutputStream out)
 			throws SerializationException {
 		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
+			throw new NullPointerException("Message value cannot be NULL.");
 		}
 		
 		PbMessageValueError mValue = data;
@@ -66,13 +66,13 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 		}
 
 		/* error Code */
-		byte[] code = ByteBuffer.allocate(2).putShort(mValue.getErrorCode()).array();
+		byte[] code = Arrays.copyOfRange(ByteBuffer.allocate(4).putInt(mValue.getErrorCode()).array(),2,4);
 		try {
 			buffer.write(code);
 		} catch (IOException e) {
 			throw new SerializationException(
 					"Error code could not be written to the buffer.", e, false,
-					Short.toString(mValue.getErrorCode()));
+					Integer.toString(mValue.getErrorCode()));
 		}
 		
 		/* reserved */
@@ -92,7 +92,7 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 			throw new SerializationException("Message could not be written to the OutputStream.",e, true);
 		}
 		
-		/* remediation parameter */
+		/* error parameter */
 		long errorVendor = mValue.getErrorVendorId();
 		long errorCode = mValue.getErrorCode();
 		
@@ -108,13 +108,13 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 	       	}else if(errorCode != PbMessageErrorCodeEnum.IETF_LOCAL.code() && errorCode != PbMessageErrorCodeEnum.IETF_UNEXPECTED_BATCH_TYPE.code()){
 				
 	       		throw new SerializationException(
-						"Remediation message type is not supported.",false,
+						"Error message type is not supported.",false,
 						Long.toString(errorVendor),
 						Long.toString(errorCode));
 			}
 		} else {
 			throw new SerializationException(
-					"Remediation vendor ID is not supported.",false,
+					"Error vendor ID is not supported.",false,
 					Long.toString(errorVendor),
 					Long.toString(errorCode));
 		}

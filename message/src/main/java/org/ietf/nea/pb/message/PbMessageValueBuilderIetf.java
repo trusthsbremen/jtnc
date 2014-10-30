@@ -21,7 +21,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
 
 public class PbMessageValueBuilderIetf {
 	
-	public static PbMessageValueIm createImValue(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType, final short collectorId, final short validatorId, final byte[] message){
+	public static PbMessageValueIm createImValue(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType, final int collectorId, final int validatorId, final byte[] message){
 
 		if(message == null){
 			throw new NullPointerException("Supplied message array cannot be null.");
@@ -57,7 +57,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueAssessmentResult(PbMessageTlvFixedLength.ASS_RES_VALUE.length(),result);
 	}
 	
-	public static PbMessageValueError createErrorValueWithOffset(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final long offset){
+	public static PbMessageValueError createErrorValueWithOffset(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final int errorCode, final long offset){
 		
 		PbMessageValueErrorParameterOffset errorParameter = PbMessageValueErrorParameterFactoryIetf.createErrorParameterOffset(errorVendorId, errorCode, offset);
 		
@@ -65,7 +65,7 @@ public class PbMessageValueBuilderIetf {
 		
 	}
 	
-	public static PbMessageValueError createErrorValueWithVersion(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode, final short badVersion, final short maxVersion, final short minVersion){
+	public static PbMessageValueError createErrorValueWithVersion(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final int errorCode, final short badVersion, final short maxVersion, final short minVersion){
 		
 		PbMessageValueErrorParameterVersion errorParameter = PbMessageValueErrorParameterFactoryIetf.createErrorParameterVersion(errorVendorId, errorCode, badVersion, maxVersion, minVersion);
 		
@@ -73,7 +73,7 @@ public class PbMessageValueBuilderIetf {
 		
 	}
 	
-	public static PbMessageValueError createErrorValueSimple(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final short errorCode){
+	public static PbMessageValueError createErrorValueSimple(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final int errorCode){
 
 		if(errorVendorId == IETFConstants.IETF_PEN_VENDORID && (errorCode == PbMessageErrorCodeEnum.IETF_LOCAL.code() || errorCode == PbMessageErrorCodeEnum.IETF_UNEXPECTED_BATCH_TYPE.code() )){
 			return createError(errorFlags, errorVendorId, errorCode, null);
@@ -155,7 +155,7 @@ public class PbMessageValueBuilderIetf {
 		return new PbMessageValueRemediationParameters(rpVendorId, rpType, length,parameter);
 	}
 	
-	private static PbMessageValueError createError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId, final short errorCode, final AbstractPbMessageValueErrorParameter errorParameter){
+	private static PbMessageValueError createError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId, final int errorCode, final AbstractPbMessageValueErrorParameter errorParameter){
 		
 		if(flags == null){
 			throw new NullPointerException("Error flags cannot be null.");

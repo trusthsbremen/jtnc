@@ -18,7 +18,7 @@ class PbMessageRemediationParameterStringSubValueWriter implements TnccsWriter<P
 	public void write(final PbMessageValueRemediationParameterString data, final OutputStream out)
 			throws SerializationException {
 		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
+			throw new NullPointerException("Message value cannot be NULL.");
 		}
 		
 		PbMessageValueRemediationParameterString mValue = data;

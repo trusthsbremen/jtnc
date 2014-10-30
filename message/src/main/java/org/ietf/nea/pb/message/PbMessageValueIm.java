@@ -52,7 +52,7 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
     private final long collectorId;                                            // 16 bit(s)
     private final long validatorId;                                            // 16 bit(s)
     
-    private final byte[] message; //ImMessage as byte[]
+    private final byte[] message; //PA message as byte[]
 
    
     

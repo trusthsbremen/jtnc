@@ -25,9 +25,6 @@ public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBu
     	this.errorInformation = null;
     }
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpVendorId(long)
-	 */
 	@Override
 	public PaAttributeValueErrorBuilder setErrorVendorId(long rpVendorId) throws RuleException {
 		
@@ -37,9 +34,6 @@ public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBu
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpType(long)
-	 */
 	@Override
 	public PaAttributeValueErrorBuilder setErrorCode(long rpType) throws RuleException {
 		
@@ -49,9 +43,6 @@ public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBu
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setParameter(org.ietf.nea.pb.message.AbstractPbMessageValueRemediationParametersValue)
-	 */
 	@Override
 	public PaAttributeValueErrorBuilder setErrorInformation(
 			AbstractPaAttributeValueErrorInformation parameter) {

@@ -19,7 +19,7 @@ class PbMessageImValueWriter implements TnccsWriter<PbMessageValueIm>{
 	public void write(final PbMessageValueIm data, final OutputStream out)
 			throws SerializationException {
 		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
+			throw new NullPointerException("Message value cannot be NULL.");
 		}
 		
 		PbMessageValueIm mValue = data;

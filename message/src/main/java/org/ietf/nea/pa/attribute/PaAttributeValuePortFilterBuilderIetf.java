@@ -22,9 +22,6 @@ public class PaAttributeValuePortFilterBuilderIetf implements
 		this.filterEntries = new LinkedList<>();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PaAttributeValueAssessmentResultBuilder#setResult(long)
-	 */
 	@Override
 	public PaAttributeValuePortFilterBuilder addEntries(PortFilterEntry entry, PortFilterEntry... entries) throws RuleException {
 		
@@ -60,7 +57,6 @@ public class PaAttributeValuePortFilterBuilderIetf implements
 
 	@Override
 	public PaAttributeValuePortFilterBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PaAttributeValuePortFilterBuilderIetf();
 	}
 

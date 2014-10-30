@@ -17,9 +17,6 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 		this.result = PbMessageAssessmentResultEnum.COMPLIANT;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueAssessmentResultBuilder#setResult(long)
-	 */
 	@Override
 	public PbMessageValueAssessmentResultBuilder setResult(long result) throws RuleException {
 		
@@ -37,7 +34,6 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 
 	@Override
 	public PbMessageValueAssessmentResultBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PbMessageValueAssessmentResultBuilderIetf();
 	}
 

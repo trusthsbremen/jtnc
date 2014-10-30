@@ -7,13 +7,13 @@ import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchHeader;
 
 public class PbBatchHeader implements TnccsBatchHeader{
 
-	 	private final byte version;                       //  8 bit(s)
+	 	private final short version;                       //  8 bit(s)
 	    private final PbBatchDirectionalityEnum directionality;  //  1 bit(s)
 	    private final PbBatchTypeEnum type;                      //  4 bit(s)
 	    
 	    private final long length;
 
-	    PbBatchHeader(final byte version, final PbBatchDirectionalityEnum directionality,
+	    PbBatchHeader(final short version, final PbBatchDirectionalityEnum directionality,
 				final PbBatchTypeEnum type, final long length) {
 			this.version = version;
 	    	this.directionality = directionality;

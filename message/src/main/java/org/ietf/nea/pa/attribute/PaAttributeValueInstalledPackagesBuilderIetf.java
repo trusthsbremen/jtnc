@@ -22,9 +22,6 @@ PaAttributeValueInstalledPackagesBuilder {
 		this.packages = new LinkedList<>();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PaAttributeValueAssessmentResultBuilder#setResult(long)
-	 */
 	@Override
 	public PaAttributeValueInstalledPackagesBuilder addPackages(PackageEntry pkg, PackageEntry... pkgs) throws RuleException {
 		
@@ -67,7 +64,6 @@ PaAttributeValueInstalledPackagesBuilder {
 
 	@Override
 	public PaAttributeValueInstalledPackagesBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PaAttributeValueInstalledPackagesBuilderIetf();
 	}
 

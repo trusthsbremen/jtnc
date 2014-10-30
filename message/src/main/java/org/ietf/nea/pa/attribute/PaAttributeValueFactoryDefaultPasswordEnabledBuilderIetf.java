@@ -17,9 +17,6 @@ public class PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf implements
 		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.IETF_NOT_SET;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PaAttributeValueAssessmentResultBuilder#setResult(long)
-	 */
 	@Override
 	public PaAttributeValueFactoryDefaultPasswordEnabledBuilder setStatus(long status) throws RuleException {
 		

@@ -22,9 +22,6 @@ PaAttributeValueAttributeRequestBuilder {
 		this.references = new LinkedList<>();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PaAttributeValueAssessmentResultBuilder#setResult(long)
-	 */
 	@Override
 	public PaAttributeValueAttributeRequestBuilder addReferences(AttributeReference reference, AttributeReference... references) throws RuleException {
 		
@@ -60,7 +57,7 @@ PaAttributeValueAttributeRequestBuilder {
 
 	@Override
 	public PaAttributeValueAttributeRequestBuilder clear() {
-		// TODO Auto-generated method stub
+
 		return new PaAttributeValueAttributeRequestBuilderIetf();
 	}
 

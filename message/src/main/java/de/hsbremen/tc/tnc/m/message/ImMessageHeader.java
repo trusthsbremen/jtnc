@@ -1,6 +1,8 @@
 package de.hsbremen.tc.tnc.m.message;
 
-public interface ImMessageHeader {
+import de.hsbremen.tc.tnc.m.ImData;
+
+public interface ImMessageHeader extends ImData{
 	
 	/* 1. must be 1 for IETF compliant version
 	 * 2. Version not Supported Error in PA-TNC message (no additional messages allowed)

@@ -9,7 +9,7 @@ import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 
 public class PbBatch implements TnccsBatch {
 	
-    private final PbBatchHeader header;                           // 32 bit(s) min value is 8 for the 8 bytes in this header
+    private final PbBatchHeader header;                           
     private final List<PbMessage> messages;
 
 	public PbBatch(final PbBatchHeader header, List<PbMessage> messages) {

@@ -27,7 +27,7 @@ package org.ietf.nea.pb.message;
 public class PbMessageValueExperimental extends AbstractPbMessageValue{
 
     
-    private final String message; //ImMessage as byte[]
+    private final String message; //variable string
 
     
     

@@ -14,7 +14,7 @@ import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
-class PbMessageRemediationParameterUriSubValueReader implements TnccsReader< PbMessageValueRemediationParameterUri>{
+class PbMessageRemediationParameterUriSubValueReader implements TnccsReader<PbMessageValueRemediationParameterUri>{
 
 	private  PbMessageValueRemediationParameterUriBuilder builder;
 	
@@ -44,7 +44,7 @@ class PbMessageRemediationParameterUriSubValueReader implements TnccsReader< PbM
 				errorOffset += messageLength;
 			
 			}catch (IOException e){
-				throw new SerializationException("Returned data for batch header is to short or stream may be closed.",e,true);
+				throw new SerializationException("Returned data for message value is to short or stream may be closed.",e,true);
 			}
 
 			value = ( PbMessageValueRemediationParameterUri)builder.toValue();

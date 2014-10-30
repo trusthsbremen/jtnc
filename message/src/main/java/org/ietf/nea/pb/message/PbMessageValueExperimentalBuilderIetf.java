@@ -6,7 +6,7 @@ public class PbMessageValueExperimentalBuilderIetf implements
 		PbMessageValueExperimentalBuilder {
 	
 	private long length;
-	private String message; //ImMessage as byte[]
+	private String message; // variable string
 	
 	public PbMessageValueExperimentalBuilderIetf(){
 		this.length = 0;

@@ -17,9 +17,6 @@ public class PaAttributeValueForwardingEnabledBuilderIetf implements
 		this.status = PaAttributeForwardingStatusEnum.IETF_UNKNWON;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PaAttributeValueAssessmentResultBuilder#setResult(long)
-	 */
 	@Override
 	public PaAttributeValueForwardingEnabledBuilder setStatus(long status) throws RuleException {
 		

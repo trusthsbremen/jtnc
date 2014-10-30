@@ -11,10 +11,10 @@ import org.ietf.nea.pa.attribute.PaAttributeValueTestingBuilder;
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.m.serialize.ImReader;
 import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
-class PaAttributeTestingValueReader implements TnccsReader<PaAttributeValueTesting>{
+class PaAttributeTestingValueReader implements ImReader<PaAttributeValueTesting>{
 
 	private PaAttributeValueTestingBuilder builder;
 	

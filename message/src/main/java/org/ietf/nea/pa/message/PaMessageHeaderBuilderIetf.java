@@ -44,7 +44,6 @@ public class PaMessageHeaderBuilderIetf implements PaMessageHeaderBuilder{
 	
 	@Override
 	public PaMessageHeaderBuilder clear() {
-		// TODO Auto-generated method stub
 		return new PaMessageHeaderBuilderIetf();
 	}
 

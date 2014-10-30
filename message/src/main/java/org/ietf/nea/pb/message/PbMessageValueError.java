@@ -34,15 +34,14 @@ public class PbMessageValueError extends AbstractPbMessageValue {
     private static final boolean OMMITTABLE = Boolean.FALSE;
     
     private final EnumSet<PbMessageErrorFlagsEnum> errorFlags; //  8 bit(s) 
-    private final long errorVendorId;                                           // 24 bit(s)
-    private final short errorCode;                                                // 16 bit(s)
-    //private final short reserved;                                         // 16 bit(s) should be 0
-    private AbstractPbMessageValueErrorParameter errorParameter; //32 bit(s) , may be (1) (one field full 32 bit length) if offset or (4) (4 fields every field has 8 bit length) if version information is needed.
+    private final long errorVendorId;                           // 24 bit(s)
+    private final int errorCode;                              // 16 bit(s)
+    private AbstractPbMessageValueErrorParameter errorParameter; //32 bit(s)
     
     
 
 	PbMessageValueError(final PbMessageErrorFlagsEnum[] flags, final long errorVendorId,
-			final short errorCode, final long length,
+			final int errorCode, final long length,
 			final AbstractPbMessageValueErrorParameter errorParameter) {
 		super(length, OMMITTABLE);
 		
@@ -75,7 +74,7 @@ public class PbMessageValueError extends AbstractPbMessageValue {
 	/**
 	 * @return the errCode
 	 */
-	public short getErrorCode() {
+	public int getErrorCode() {
 		return this.errorCode;
 	}
 

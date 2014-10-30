@@ -47,7 +47,7 @@ class PbMessageAccessRecommendationValueReader implements TnccsReader<PbMessageV
 				/* recommendation */
 				byteSize = 2;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				short code = ByteArrayHelper.toShort(buffer);
+				int code = ByteArrayHelper.toInt(buffer);
 				builder.setRecommendation(code);
 				errorOffset += byteSize;
 				

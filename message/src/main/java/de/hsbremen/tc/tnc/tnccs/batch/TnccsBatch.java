@@ -2,6 +2,7 @@ package de.hsbremen.tc.tnc.tnccs.batch;
 
 import java.util.List;
 
+import de.hsbremen.tc.tnc.tnccs.TnccsData;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
 /**
@@ -9,7 +10,7 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
  * @author sidanetdev
  *
  */
-public interface TnccsBatch {
+public interface TnccsBatch extends TnccsData{
 
 	public TnccsBatchHeader getHeader();
 	

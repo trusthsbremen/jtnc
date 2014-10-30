@@ -20,18 +20,12 @@ public class PaAttributeValueProductInformationBuilderIetf implements
 		this.name = "";
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pa.attribute.PaAttributeValueProductInformationBuilder#setVendorId(long)
-	 */
 	@Override
 	public void setVendorId(long vendorId) throws RuleException {
 		ProductInformationZeroConstraint.check(this.vendorId, this.productId);
 		this.vendorId = vendorId;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pa.attribute.PaAttributeValueProductInformationBuilder#setProductId(int)
-	 */
 	@Override
 	public void setProductId(int productId) throws RuleException {
 		
@@ -39,9 +33,6 @@ public class PaAttributeValueProductInformationBuilderIetf implements
 		this.productId = productId;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pa.attribute.PaAttributeValueProductInformationBuilder#setName(java.lang.String)
-	 */
 	@Override
 	public void setName(String name){
 		if(name != null){
@@ -56,7 +47,7 @@ public class PaAttributeValueProductInformationBuilderIetf implements
 
 	@Override
 	public PaAttributeValueProductInformationBuilder clear() {
-		// TODO Auto-generated method stub
+
 		return new PaAttributeValueProductInformationBuilderIetf();
 	}
 

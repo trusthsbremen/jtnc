@@ -16,12 +16,8 @@ public class PbMessageValueAccessRecommendationBuilderIetf implements
 		this.recommendation = PbMessageAccessRecommendationEnum.ALLOWED;
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder#setRecommendation(short)
-	 */
 	@Override
-	public PbMessageValueAccessRecommendationBuilder setRecommendation(short recommendation) throws RuleException {
+	public PbMessageValueAccessRecommendationBuilder setRecommendation(int recommendation) throws RuleException {
 		
 		AccessRecommendation.check(recommendation);
 		this.recommendation = PbMessageAccessRecommendationEnum.fromNumber(recommendation);
@@ -37,7 +33,7 @@ public class PbMessageValueAccessRecommendationBuilderIetf implements
 
 	@Override
 	public PbMessageValueAccessRecommendationBuilder clear() {
-		// TODO Auto-generated method stub
+
 		return new PbMessageValueAccessRecommendationBuilderIetf();
 	}
 

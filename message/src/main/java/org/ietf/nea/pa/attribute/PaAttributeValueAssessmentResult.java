@@ -4,7 +4,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
 
 public class PaAttributeValueAssessmentResult extends AbstractPaAttributeValue {
 	
-	private final PaAttributeAssessmentResultEnum result; // 32 bit(s) key, 32 bit(s) value must have at minimum one entry
+	private final PaAttributeAssessmentResultEnum result; // 32 bit(s)
 	
 	PaAttributeValueAssessmentResult(long length, PaAttributeAssessmentResultEnum result) {
 		super(length);

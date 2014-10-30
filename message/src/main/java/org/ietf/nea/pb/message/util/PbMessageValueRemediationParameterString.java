@@ -6,12 +6,8 @@ public class PbMessageValueRemediationParameterString extends AbstractPbMessageV
   
     private final long stringLength;          // 32 bit(s) length of the string in octets
     private final String remediationString;   // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
-    private final byte langCodeLength;        // 8 bit(s) length of language code in octets, 0 = language unknown
+    private final short langCodeLength;        // 8 bit(s) length of language code in octets, 0 = language unknown
     private final String langCode;            // variable length, US-ASCII string composed of a well-formed RFC 4646 [3] language tag
-    
-//    //overload the superclass default vendorId, type and length value
-//    protected final long rpVendorId = IETFConstants.IETF_PEN_VENDORID; // 24 bit(s)
-//    protected final long rpType = PbMessageRemediationParameterTypeEnum.IETF_URI.type();         // 32 bit(s)
 
     PbMessageValueRemediationParameterString(final long length,final String remediationString, final String langCode){
     	super(length);
@@ -38,7 +34,7 @@ public class PbMessageValueRemediationParameterString extends AbstractPbMessageV
 	/**
 	 * @return the langCodeLength
 	 */
-	public byte getLangCodeLength() {
+	public short getLangCodeLength() {
 		return this.langCodeLength;
 	}
 

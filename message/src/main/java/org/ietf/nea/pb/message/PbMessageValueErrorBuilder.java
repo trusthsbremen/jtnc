@@ -23,7 +23,7 @@ public interface PbMessageValueErrorBuilder extends TnccsMessageValueBuilder {
 	 * @param errorCode the errorCode to set
 	 * @throws RuleException 
 	 */
-	public abstract PbMessageValueErrorBuilder setErrorCode(short errorCode)
+	public abstract PbMessageValueErrorBuilder setErrorCode(int errorCode)
 			throws RuleException;
 
 	/**

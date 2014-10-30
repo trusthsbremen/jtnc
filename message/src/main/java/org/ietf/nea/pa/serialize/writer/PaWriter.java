@@ -55,6 +55,7 @@ class PaWriter implements ImWriter<PaMessage>, Combined<ImWriter<PaAttributeValu
 		PaMessageHeader mHead = message.getHeader();
 		mHeadWriter.write(mHead, bOut);
 		
+		/* attributes */
 		List<PaAttribute> attributes = message.getAttributes();
 		if(attributes != null){
 			for (PaAttribute paAttribute : attributes) {

@@ -44,7 +44,7 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 		builder = (PbMessageValueErrorBuilder)builder.clear();
 
 		long errorVendorId = 0L;
-		short errorCode = 0;
+		int errorCode = 0;
 		
 		try{
 			
@@ -69,7 +69,7 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 				/* error Code */
 				byteSize = 2;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				errorCode = ByteArrayHelper.toShort(buffer);
+				errorCode = ByteArrayHelper.toInt(buffer);
 				this.builder.setErrorCode(errorCode);
 				errorOffset += byteSize;
 				

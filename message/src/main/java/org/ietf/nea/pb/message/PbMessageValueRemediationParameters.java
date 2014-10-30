@@ -30,9 +30,7 @@ import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
  * 
  */
 public class PbMessageValueRemediationParameters extends AbstractPbMessageValue{
-    
-    //private final byte reserved;           //  8 bit(s) should be 0
-    
+
     private final long rpVendorId;         // 24 bit(s)
     private final long rpType;             // 32 bit(s)
     

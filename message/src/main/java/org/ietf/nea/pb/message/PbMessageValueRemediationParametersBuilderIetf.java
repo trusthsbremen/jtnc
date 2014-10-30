@@ -25,9 +25,6 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
     	this.parameter = null;
     }
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpVendorId(long)
-	 */
 	@Override
 	public PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId) throws RuleException {
 		
@@ -37,9 +34,6 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setRpType(long)
-	 */
 	@Override
 	public PbMessageValueRemediationParametersBuilder setRpType(long rpType) throws RuleException {
 		
@@ -49,9 +43,6 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageRemediationParametersBuilder#setParameter(org.ietf.nea.pb.message.AbstractPbMessageValueRemediationParametersValue)
-	 */
 	@Override
 	public PbMessageValueRemediationParametersBuilder setParameter(
 			AbstractPbMessageValueRemediationParameter parameter) {

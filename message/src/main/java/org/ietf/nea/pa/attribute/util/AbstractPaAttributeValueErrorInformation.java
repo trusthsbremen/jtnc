@@ -1,7 +1,9 @@
 package org.ietf.nea.pa.attribute.util;
 
+import de.hsbremen.tc.tnc.m.attribute.ImAttributeSubValue;
 
-public abstract class AbstractPaAttributeValueErrorInformation {
+
+public abstract class AbstractPaAttributeValueErrorInformation implements ImAttributeSubValue{
 	
 	private final long length;
 

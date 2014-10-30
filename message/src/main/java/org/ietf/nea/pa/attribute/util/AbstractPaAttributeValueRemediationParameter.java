@@ -1,7 +1,9 @@
 package org.ietf.nea.pa.attribute.util;
 
+import de.hsbremen.tc.tnc.m.attribute.ImAttributeSubValue;
 
-public abstract class AbstractPaAttributeValueRemediationParameter {
+
+public abstract class AbstractPaAttributeValueRemediationParameter implements ImAttributeSubValue {
 	
 	private final long length;
 

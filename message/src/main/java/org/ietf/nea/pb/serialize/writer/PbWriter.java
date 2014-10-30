@@ -56,6 +56,7 @@ class PbWriter implements TnccsWriter<PbBatch>, Combined<TnccsWriter<PbMessageVa
 		PbBatchHeader bHead = batch.getHeader();
 		bHeadWriter.write(bHead, bOut);
 		
+		/* messages */
 		List<PbMessage> msgs = batch.getMessages();
 		if(msgs != null && bHead.getLength() > PbMessageTlvFixedLength.BATCH.length()){
 			for (PbMessage pbMessage : msgs) {
