@@ -12,7 +12,7 @@ public class HandlingException extends ComprehensibleException{
 	/**
 	 * @param arg0
 	 */
-	public HandlingException(final String message, final String...reasons) {
+	public HandlingException(final String message, final Object...reasons) {
 		super(message, reasons);
 	}
 
@@ -21,7 +21,7 @@ public class HandlingException extends ComprehensibleException{
 	 * @param message
 	 * @param arg1
 	 */
-	public HandlingException(final String message, final Throwable arg1, final String...reasons) {
+	public HandlingException(final String message, final Throwable arg1, final Object...reasons) {
 		super(message, arg1, reasons);
 	}
 }

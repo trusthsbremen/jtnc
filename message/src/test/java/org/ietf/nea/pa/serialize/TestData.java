@@ -9,9 +9,13 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
+import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
+
+import de.hsbremen.tc.tnc.IETFConstants;
 
 public class TestData {
 
@@ -31,6 +35,9 @@ public class TestData {
 	
 	byte[] assessmentMessage = new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 16, 0, 0, 0, 1};
 	
+	byte[] attributeRequestStringVersion = new byte[] {1, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 1,
+	                                                   0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 4}; 
+	
 	public byte[] getMessageWithNumericVersionAsByteArray() throws IOException{
 		return numericVersionMessage;
 	}
@@ -41,6 +48,10 @@ public class TestData {
 	
 	public byte[] getMessageWithInstalledPackagesAsByteArray() throws IOException{
 		return installedPackageMessage;
+	}
+	
+	public byte[] getMessageWithAttributeRequestAsByteArray() throws IOException{
+		return attributeRequestStringVersion;
 	}
 	
 	public byte[] getBatchWithMixedAttributesAsByteArray() throws IOException{
@@ -72,6 +83,17 @@ public class TestData {
 		packages.add(new PackageEntry("java","1.7.0_40"));
 		
 		PaAttribute a = PaAttributeFactoryIetf.createInstalledPackages(packages);
+		List<PaAttribute> attributes = new ArrayList<>();
+		attributes.add(a);
+		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);
+		
+	}
+	
+	public PaMessage getMessageWithAttributeRequest() throws RuleException{
+		
+		AttributeReference ref1 = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType());
+		
+		PaAttribute a = PaAttributeFactoryIetf.createAttributeRequest(ref1);
 		List<PaAttribute> attributes = new ArrayList<>();
 		attributes.add(a);
 		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);

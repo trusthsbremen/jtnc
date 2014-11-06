@@ -8,7 +8,7 @@ public class BatchVersion {
 
 	public static void check(final byte actuallVersion, final byte supportedVersion) throws RuleException{
         if(actuallVersion != supportedVersion){
-            throw new RuleException("The version "+actuallVersion+" is not supported.",true,PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(),PbErrorCauseEnum.BATCH_VERSION_NOT_SUPPORTED.number(),Long.toString(actuallVersion));
+            throw new RuleException("The version "+actuallVersion+" is not supported.",true,PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(),PbErrorCauseEnum.BATCH_VERSION_NOT_SUPPORTED.number(),actuallVersion);
         }
     }
 	

@@ -108,13 +108,13 @@ public class PaAttributeValueBuilderIetf {
 	public static PaAttributeValueStringVersion createStringVersionValue(String versionNumber, String buildVersion, String configVersion){
 		
 		if(versionNumber == null){
-			throw new NullPointerException("Version number cannot be null.");
+			versionNumber = "";
 		}
 		if(buildVersion == null){
-			throw new NullPointerException("Build number cannot be null.");
+			buildVersion = "";
 		}
 		if(configVersion == null){
-			throw new NullPointerException("Build number cannot be null.");
+			configVersion = "";
 		}
 		
 		if(versionNumber.length() > 0xFF){

@@ -16,7 +16,7 @@ public class ValidationException extends ComprehensibleException{
 	 * @param message
 	 * @param arg1
 	 */
-	public ValidationException(final String message, final RuleException throwable, final long exceptionOffset, final String...reasons) {
+	public ValidationException(final String message, final RuleException throwable, final long exceptionOffset, final Object...reasons) {
 		super(message, throwable, reasons);
 		
 		this.exceptionOffset = exceptionOffset;

@@ -11,15 +11,15 @@ public class ImVendorIdReservedAndLimits {
 
 	public static void check(final long vendorId) throws RuleException{
 	        if(vendorId == TNCConstants.TNC_VENDORID_ANY){
-	            throw new RuleException("Sub Vendor ID is set to reserved value.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.SUB_VENDOR_ID_RESERVED.number(),Long.toString(vendorId));
+	            throw new RuleException("Sub Vendor ID is set to reserved value.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.SUB_VENDOR_ID_RESERVED.number(),vendorId);
 	        }
 	       
 	        if(vendorId > IETFConstants.IETF_MAX_VENDOR_ID){
-	            throw new RuleException("Subvendor ID is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),Long.toString(vendorId));
+	            throw new RuleException("Subvendor ID is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),vendorId);
 	        }
 	        
 	        if(vendorId < 0){
-	            throw new RuleException("Subvendor ID cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),Long.toString(vendorId));
+	            throw new RuleException("Subvendor ID cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),vendorId);
 	        }
 	        
 	    }

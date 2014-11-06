@@ -15,7 +15,7 @@ public class SerializationException extends ComprehensibleException{
 	/**
 	 * @param arg0
 	 */
-	public SerializationException(final String message, final boolean streamAffected,final String...reasons) {
+	public SerializationException(final String message, final boolean streamAffected,final Object...reasons) {
 		super(message, reasons);
 		this.streamAffected = streamAffected;
 	}
@@ -25,7 +25,7 @@ public class SerializationException extends ComprehensibleException{
 	 * @param message
 	 * @param arg1
 	 */
-	public SerializationException(final String message, final Throwable throwable, final boolean streamAffected, final String...reasons) {
+	public SerializationException(final String message, final Throwable throwable, final boolean streamAffected, final Object...reasons) {
 		super(message, throwable, reasons);
 		this.streamAffected = streamAffected;
 	}

@@ -108,7 +108,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 				if(imcCounter < TNCConstants.TNC_IMCID_ANY){
 					this.imcList.add(new DefaultImModule(++imcCounter, im));
 				}else{
-					throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",Long.toString(imcCounter));
+					throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",imcCounter);
 				}
 			}else{
 				throw new NoImIdsLeftException("IM is not of type IMC and cannot be loaded as part of a TNCC.", im.getClass().getCanonicalName());

@@ -11,14 +11,14 @@ public class ImMessageTypeReservedAndLimits {
 	public static void check(final long messageType) throws RuleException{
 
         if(messageType == TNCConstants.TNC_SUBTYPE_ANY){
-            throw new RuleException("Sub Message type is set to reserved value.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.SUB_TYPE_RESERVED.number(),Long.toString(messageType));
+            throw new RuleException("Sub Message type is set to reserved value.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.SUB_TYPE_RESERVED.number(),messageType);
         }  
         
         if(messageType > IETFConstants.IETF_MAX_TYPE){
-        	throw new RuleException("Message subtype is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),Long.toString(messageType));
+        	throw new RuleException("Message subtype is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),messageType);
         }
         if(messageType < 0){
-            throw new RuleException("Message subtype cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),Long.toString(messageType));
+            throw new RuleException("Message subtype cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),messageType);
         }
 	        
 	    

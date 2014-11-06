@@ -15,7 +15,7 @@ public class RuleException extends ComprehensibleException {
 	private final int errorCause;
 	
 	public RuleException(final String message, final boolean fatal,
-			final long errorCode, int errorCause , final String... reasons) {
+			final long errorCode, int errorCause , final Object... reasons) {
 		super(message, reasons);
 		this.fatal = fatal;
 		this.errorCode = errorCode;
@@ -23,7 +23,7 @@ public class RuleException extends ComprehensibleException {
 	}
 	
 	public RuleException(final String message, Throwable original, final boolean fatal,
-			final long errorCode, int errorCause ,final String... reasons) {
+			final long errorCode, int errorCause ,final Object... reasons) {
 		super(message, original, reasons);
 		this.fatal = fatal;
 		this.errorCode = errorCode;

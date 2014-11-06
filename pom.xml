@@ -14,7 +14,9 @@
 		<!-- TODO: eintragen -->
 	</developers>
 	<modules>
+		<module>native</module>
 		<module>im</module>
+		<module>im-handler</module>
 		<module>transport</module>
 		<module>tcg-tncc-if</module>
 		<module>message</module>

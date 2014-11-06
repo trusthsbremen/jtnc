@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
+import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.ietf.nea.pa.attribute.PaAttributeValueInstalledPackages;
 import org.ietf.nea.pa.attribute.PaAttributeValueNumericVersion;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
@@ -74,6 +75,23 @@ public class ReaderTest {
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals("1.7.0_40", ((PaAttributeValueInstalledPackages)b.getAttributes().get(0).getValue()).getPackages().get(1).getPackageVersion());
+
+	}
+	
+	@Test
+	public void deserializePaMessageWithAttributeRequest(){
+
+		PaMessage b = null;
+		try{
+			byte[] msg = batch.getMessageWithAttributeRequestAsByteArray();
+			InputStream in = new ByteArrayInputStream(msg);
+			b = bs.read(in, msg.length);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		Assert.assertEquals(1,b.getHeader().getVersion());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType(), ((PaAttributeValueAttributeRequest)b.getAttributes().get(0).getValue()).getReferences().get(0).getType());
 
 	}
 	

@@ -9,7 +9,7 @@ public class BatchDirectionality {
 
 	public static void check(final byte direction) throws RuleException{
 		if(PbBatchDirectionalityEnum.fromDirectionalityBit(direction) == null){
-        	throw new RuleException("The direction value " + direction + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.BATCH_DIRECTION_OR_TYPE_UNEXPECTED.number(),Byte.toString(direction));
+        	throw new RuleException("The direction value " + direction + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.BATCH_DIRECTION_OR_TYPE_UNEXPECTED.number(),direction);
         }
     }
 	

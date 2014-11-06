@@ -9,7 +9,7 @@ public class AssessmentResult {
 
 	public static void check(final long result) throws RuleException{
 		if(PaAttributeAssessmentResultEnum.fromNumber(result) == null){
-        	throw new RuleException("The type value " + result + " is unknown.",false,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.ASSESSMENT_RESULT_NOT_SUPPORTED.number(),Long.toString(result));
+        	throw new RuleException("The type value " + result + " is unknown.",false,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.ASSESSMENT_RESULT_NOT_SUPPORTED.number(),result);
         }
     }
 	

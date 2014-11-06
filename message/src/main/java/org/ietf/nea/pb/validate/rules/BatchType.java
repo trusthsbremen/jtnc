@@ -9,7 +9,7 @@ public class BatchType {
 
 	public static void check(final byte type) throws RuleException{
 		if(PbBatchTypeEnum.fromType(type) == null){
-        	throw new RuleException("The type value " + type + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.BATCH_DIRECTION_OR_TYPE_UNEXPECTED.number(),Byte.toString(type));
+        	throw new RuleException("The type value " + type + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.BATCH_DIRECTION_OR_TYPE_UNEXPECTED.number(), type);
         }
     }
 	

@@ -11,7 +11,7 @@ public class MinEntryCount {
 	public static void check(final byte minSize, final List<?> entries) throws RuleException{
 	
 		if(entries == null || entries.size() < minSize){
-			throw new RuleException("List has an invalid length for its type.",false,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.LENGTH_TO_SHORT.number(),Long.toString((entries == null) ? 0 : entries.size()));
+			throw new RuleException("List has an invalid length for its type.",false,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.LENGTH_TO_SHORT.number(),(entries == null) ? 0 : entries.size());
 		}
 		
 	}

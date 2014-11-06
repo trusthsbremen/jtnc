@@ -40,7 +40,7 @@ public class PlainIfTConnection extends AbstractIfTConnection {
 		try {
 			this.socket = new Socket(this.address.getHost(), this.address.getPort());
 		} catch (UnknownHostException e) {
-			throw new ConnectionException("Host is unknown or could not be resolved.",e,this.address.getHost(), Integer.toString(this.address.getPort()));
+			throw new ConnectionException("Host is unknown or could not be resolved.",e,this.address.getHost(), this.address.getPort());
 		} catch (IOException e) {
 			throw new ConnectionException("IO error occured during socket connect.",e);
 		}

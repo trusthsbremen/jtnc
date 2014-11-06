@@ -10,10 +10,10 @@ public class ErrorCodeLimits {
 	public static void check(final int errorCode) throws RuleException{
         
         if((errorCode) > IETFConstants.IETF_MAX_ERROR_CODE){
-        	throw new RuleException("Error code is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),Integer.toString(errorCode));
+        	throw new RuleException("Error code is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),errorCode);
         }
         if((errorCode) < 0){
-            throw new RuleException("Error code cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),Integer.toString(errorCode));
+            throw new RuleException("Error code cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),errorCode);
         }
 	        
 	    

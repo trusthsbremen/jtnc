@@ -61,7 +61,7 @@ public class TncClient implements TnccConnector, TncContext{
 				// TODO invoke initialize
 				this.imcList.add(new DefaultImModule<IMC>(this.reserveImId(), im));
 			}else{
-				throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",Long.toString(imcCounter));
+				throw new NoImIdsLeftException("No IMC IDs left, because all IDs are already assigned.",imcCounter);
 			}
 		}
 	}

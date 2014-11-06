@@ -2,11 +2,8 @@ package de.hsbremen.tc.tnc.im.module;
 
 import java.util.List;
 
-import de.hsbremen.tc.tnc.im.Attributed;
+public interface ImModule /*extends Attributed*/{
 
-public interface ImModule<T> extends Attributed{
-
-	public abstract T getIm();
 
 	public abstract long getPrimaryId();
 	
@@ -21,5 +18,6 @@ public interface ImModule<T> extends Attributed{
 
 	public abstract boolean supportsTncsFirst();
 
+	public void setSupportsTncsFirst(boolean support);
 	
 }

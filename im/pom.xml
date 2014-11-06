@@ -9,7 +9,7 @@
 	
 	<artifactId>im</artifactId>
 	<packaging>jar</packaging>
-	<name>Integrity Measurement Collector</name>
+	<name>Integrity Measurement Module Handling</name>
 	
 	<!--  <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>
@@ -25,6 +25,11 @@
 		<dependency>
 			<groupId>de.hsbremen.tc.tnc</groupId>
 			<artifactId>message</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc</groupId>
+			<artifactId>native</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

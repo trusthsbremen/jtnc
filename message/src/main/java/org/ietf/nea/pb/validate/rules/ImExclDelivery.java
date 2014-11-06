@@ -14,7 +14,7 @@ public class ImExclDelivery {
         // check if exclusive flag is set, but no receiver address was set.
     	// TODO has to be checked in interoperability test if this does not always evaluate true.
         if(!flags.isEmpty() && flags.contains(PbMessageImFlagsEnum.EXCL) && deliveryAddressId == TNCConstants.TNC_IMCID_ANY){
-            throw new RuleException("Exclusive flag found, but address id set to ANY.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.EXCL_DELIVERY_NOT_POSSIBLE.number(),Long.toString(deliveryAddressId)); 
+            throw new RuleException("Exclusive flag found, but address id set to ANY.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.EXCL_DELIVERY_NOT_POSSIBLE.number(),deliveryAddressId); 
         }
     }
 	

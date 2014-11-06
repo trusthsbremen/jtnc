@@ -25,6 +25,6 @@ public class BatchResultWithoutMessageAssessmentResult {
 			}
 		}
 		throw new RuleException("The batch of type " + type.toString() + " must contain a message with vendor id " + IETFConstants.IETF_PEN_VENDORID + " and message type " + PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType() + ".", true, PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(), PbErrorCauseEnum.BATCH_RESULT_NO_ASSESSMENT_RESULT.number(), 
-				type.toString(), Long.toString(IETFConstants.IETF_PEN_VENDORID), PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.toString());
+				type.toString(), IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.toString());
 	}
 }

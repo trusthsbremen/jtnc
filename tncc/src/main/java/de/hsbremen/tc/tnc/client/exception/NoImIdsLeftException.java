@@ -9,11 +9,11 @@ public class NoImIdsLeftException extends ComprehensibleException {
 	 */
 	private static final long serialVersionUID = 2751977144540515135L;
 
-	public NoImIdsLeftException(String arg0, String...reasons) {
+	public NoImIdsLeftException(String arg0, Object...reasons) {
 		super(arg0, reasons);
 	}
 	
-	public NoImIdsLeftException(String arg0, Throwable t, String...reasons){
+	public NoImIdsLeftException(String arg0, Throwable t, Object...reasons){
 		super(arg0,t,reasons);
 	}
 

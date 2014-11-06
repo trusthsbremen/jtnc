@@ -11,10 +11,10 @@ public class CommonLengthLimits {
 	 public static void check(final long length) throws RuleException {
 
 	        if(length > IETFConstants.IETF_MAX_LENGTH){
-	        	throw new RuleException("Length is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),Long.toString(length));
+	        	throw new RuleException("Length is to large.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.VALUE_TO_LARGE.number(),length);
 	        }
 	        if(length < 0){
-	            throw new RuleException("Length cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),Long.toString(length));
+	            throw new RuleException("Length cannot be negativ.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.NEGATIV_UNSIGNED.number(),length);
 	        }
 	 }
 }
