@@ -1,15 +1,12 @@
 package de.hsbremen.tc.tnc.im.evaluate;
 
-import java.util.List;
+import java.util.Set;
 
+import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 
-@Deprecated
-public interface ImEvaluatorManager {
+public interface ImEvaluatorManager extends ImEvaluationComponent<ImObjectComponent>{
 
-	public abstract List<ImEvaluator> getEvaluators();
-
-	public abstract List<SupportedMessageType> getSupportedTypes();
-
-	public abstract void terminate();
+	public abstract Set<SupportedMessageType> getSupportedMessageTypes();
+	
 }

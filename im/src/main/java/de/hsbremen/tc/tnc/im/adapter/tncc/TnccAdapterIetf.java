@@ -7,6 +7,8 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCCLong;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
+import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
@@ -27,15 +29,19 @@ class TnccAdapterIetf implements TnccAdapter, GlobalHandshakeRetryListener {
 	 */
 	@Override
 	public void reportMessageTypes(Set<SupportedMessageType>supportedTypes)
-			throws TNCException {
-		if(this.tncc instanceof TNCCLong){
-			long[][] messageTypes = SupportedMessageTypeFactory.createSupportedMessageTypeArray(supportedTypes);
-			((TNCCLong)this.tncc).reportMessageTypesLong(this.imc, messageTypes[0], messageTypes[1]);
-		
-		}else{
+			throws TncException {
+		try{
+			if(this.tncc instanceof TNCCLong){
+				long[][] messageTypes = SupportedMessageTypeFactory.createSupportedMessageTypeArray(supportedTypes);
+				((TNCCLong)this.tncc).reportMessageTypesLong(this.imc, messageTypes[0], messageTypes[1]);
 			
-			long[] messageTypes = SupportedMessageTypeFactory.createSupportedMessageTypeArrayLegacy(supportedTypes);
-			this.tncc.reportMessageTypes(this.imc, messageTypes);
+			}else{
+				
+				long[] messageTypes = SupportedMessageTypeFactory.createSupportedMessageTypeArrayLegacy(supportedTypes);
+				this.tncc.reportMessageTypes(this.imc, messageTypes);
+			}
+		}catch(TNCException e){
+			throw new TncException(e);
 		}
 	}
 
@@ -43,11 +49,15 @@ class TnccAdapterIetf implements TnccAdapter, GlobalHandshakeRetryListener {
 	 * @see de.hsbremen.tc.tnc.im.adapter.imc.TnccAdapter#requestHandshakeRetry(long)
 	 */
 	@Override
-	public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason) throws TNCException {
+	public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason) throws TncException {
 		if(reason.toString().contains("IMC")){
-			this.tncc.requestHandshakeRetry(this.imc, reason.code());
+			try{
+				this.tncc.requestHandshakeRetry(this.imc, reason.code());
+			}catch(TNCException e){
+				throw new TncException(e);
+			}
 		}else{
-			throw new TNCException("Reason is not useable with IMC and TNCC.", TNCException.TNC_RESULT_INVALID_PARAMETER);
+			throw new TncException("Reason is not useable with IMC and TNCC.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
 		}
 	}
 
@@ -55,9 +65,13 @@ class TnccAdapterIetf implements TnccAdapter, GlobalHandshakeRetryListener {
 	 * @see de.hsbremen.tc.tnc.im.adapter.imc.TnccAdapter#reserveAdditionalId()
 	 */
 	@Override
-	public long reserveAdditionalId() throws TNCException {
+	public long reserveAdditionalId() throws TncException {
 		if(this.tncc instanceof TNCCLong){
-			return ((TNCCLong) this.tncc).reserveAdditionalIMCID(this.imc);
+			try{
+				return ((TNCCLong) this.tncc).reserveAdditionalIMCID(this.imc);
+			}catch(TNCException e){
+				throw new TncException(e);
+			}
 		}
 	
 		throw new UnsupportedOperationException(this.tncc.getClass().getName() + " instance is not of type " + TNCCLong.class.getSimpleName() + ".");

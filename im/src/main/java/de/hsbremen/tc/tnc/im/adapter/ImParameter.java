@@ -1,27 +1,28 @@
-package de.hsbremen.tc.tnc.im.adapter.imc;
+package de.hsbremen.tc.tnc.im.adapter;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 
 
 public class ImParameter {
-
-	public static final long UNKNOWN_PRIMARY_ID = -1L;
 	
 	private Set<SupportedMessageType> supportedMessageTypes;
-	private boolean tncsFirstSupport;
-	private boolean useExclusive;
+	private boolean tncsFirstSupport; 
 	private long primaryId;
-	
+
 	public ImParameter(){
-		this.setPrimaryId(UNKNOWN_PRIMARY_ID);
-		this.setTncsFirstSupport(false);
+		this(false);
+	}	
+	
+	public ImParameter(boolean tncsFirstSupport){
+		this.setPrimaryId(HSBConstants.HSB_IM_ID_UNKNOWN);
+		this.setTncsFirstSupport(tncsFirstSupport);
 		this.supportedMessageTypes = new HashSet<>();
 	}
-	
 	
 	public boolean hasTncsFirstSupport() {
 		return this.tncsFirstSupport;
@@ -49,16 +50,6 @@ public class ImParameter {
 
 	public void setSupportedMessageTypes(Set<SupportedMessageType> supportedMessageTypes) {
 		this.supportedMessageTypes = supportedMessageTypes;
-	}
-
-
-	public boolean shouldUseExclusive() {
-		return useExclusive;
-	}
-
-
-	public void setUseExclusive(boolean useExclusive) {
-		this.useExclusive = useExclusive;
 	}
 
 }

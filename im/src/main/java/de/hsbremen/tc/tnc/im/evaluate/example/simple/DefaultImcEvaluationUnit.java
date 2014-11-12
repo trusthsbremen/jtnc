@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.im.evaluate;
+package de.hsbremen.tc.tnc.im.evaluate.example.simple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +13,20 @@ import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
+import de.hsbremen.tc.tnc.im.evaluate.AbstractImcEvaluationUnitIetf;
+import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 
-public class DefaultImEvaluationUnit extends AbstractImEvaluationUnitIetf{
+class DefaultImcEvaluationUnit extends AbstractImcEvaluationUnitIetf implements ImcEvaluationUnit{
 
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImEvaluationUnit.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcEvaluationUnit.class);
 	
 	public final static long VENDOR_ID = TNCConstants.TNC_VENDORID_ANY;
 	public final static long TYPE = TNCConstants.TNC_SUBTYPE_ANY;
 	
-	protected DefaultImEvaluationUnit(
+	DefaultImcEvaluationUnit(
 			GlobalHandshakeRetryListener globalHandshakeRetryListener) {
 		super(globalHandshakeRetryListener);
 	}

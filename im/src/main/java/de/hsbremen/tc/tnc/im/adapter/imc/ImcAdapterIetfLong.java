@@ -1,81 +1,63 @@
 package de.hsbremen.tc.tnc.im.adapter.imc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
 import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
+import de.hsbremen.tc.tnc.attribute.TncClientAttributeTypeEnum;
+import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.im.adapter.ImParameter;
+import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
+import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
+import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
+import de.hsbremen.tc.tnc.im.session.ImcSession;
+import de.hsbremen.tc.tnc.m.message.ImMessage;
+import de.hsbremen.tc.tnc.m.serialize.ImReader;
 
-public class ImcAdapterIetfLong implements IMC, IMCLong, AttributeSupport{
+public class ImcAdapterIetfLong extends ImcAdapterIetf implements IMCLong{
 
-	private final ImcAdapter stdImc;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImcAdapterIetfLong.class);
 	
 	public ImcAdapterIetfLong(){
-		this.stdImc = new ImcAdapterIetf();
+		super();
+	}
+	
+	public ImcAdapterIetfLong(ImParameter parameter, ImSessionFactory<ImcSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessage> imReader){
+		super(parameter, sessionFactory, evaluatorFactory, connectionFactory, imReader);
+
 	}
 	
 	@Override
 	public void initialize(TNCC tncc) throws TNCException {
-		this.stdImc.initialize(tncc);
-	}
-
-	@Override
-	public void terminate() throws TNCException {
-		this.stdImc.terminate();
-		
-	}
-
-	@Override
-	public void notifyConnectionChange(IMCConnection c, long newState)
-			throws TNCException {
-		this.stdImc.notifyConnectionChange(c, newState);
-		
-	}
-
-	@Override
-	public void beginHandshake(IMCConnection c) throws TNCException {
-		this.stdImc.beginHandshake(c);
-		
-	}
-
-	@Override
-	public void receiveMessage(IMCConnection c, long messageType, byte[] message)
-			throws TNCException {
-		
-		this.stdImc.receiveMessage(c, messageType, message);
-		
-	}
-
-	@Override
-	public void batchEnding(IMCConnection c) throws TNCException {
-		this.stdImc.batchEnding(c);
-		
-	}
-
-	@Override
-	public Object getAttribute(long attributeID) throws TNCException {
-
-		return this.stdImc.getAttribute(attributeID);
-		
-	}
-
-	@Override
-	public void setAttribute(long attributeID, Object attributeValue)
-			throws TNCException {
-		
-		this.stdImc.setAttribute(attributeID, attributeValue);
-		
+		if(tncc instanceof AttributeSupport){
+			try{
+				Object o = ((AttributeSupport) tncc).getAttribute(TncClientAttributeTypeEnum.TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id());
+				if(o instanceof Long){
+					long id = ((Long)o).longValue();
+					super.setPrimaryId(id);
+				}
+			}catch (TNCException | UnsupportedOperationException e){
+				LOGGER.warn("Primary ID initalization failed, this IMC will only work in basic mode.",e);
+			}
+			
+		}
+		super.initialize(tncc);
 	}
 
 	@Override
 	public void receiveMessageLong(IMCConnection c, long messageFlags,
 			long messageVendorID, long messageSubtype, byte[] message,
 			long sourceIMVID, long destinationIMCID) throws TNCException {
-		
-		this.stdImc.receiveMessage(ImComponentFactory.createRawComponent((byte)(messageFlags & 0xFF), messageVendorID, messageSubtype, destinationIMCID, sourceIMVID, message));
-		
+		super.checkInitialization();
+		try{
+			super.receiveMessage(ImComponentFactory.createRawComponent((byte)(messageFlags & 0xFF), messageVendorID, messageSubtype, destinationIMCID, sourceIMVID, message));
+		}catch(TncException e){
+			throw new TNCException(e.getMessage(), e.getResultCode().result());
+		}
 	}
 }

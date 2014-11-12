@@ -1,29 +1,27 @@
-package de.hsbremen.tc.tnc.im.adapter.imc;
+package de.hsbremen.tc.tnc.im.adapter;
 
 import java.io.ByteArrayInputStream;
 
-import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
-import org.trustedcomputinggroup.tnc.ifimc.TNCException;
-
 import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
 import de.hsbremen.tc.tnc.m.message.ImMessage;
 import de.hsbremen.tc.tnc.m.serialize.ImReader;
 
-abstract class ImcAdapter implements IMC, AttributeSupport{
+public abstract class ImAdapter{
 
 	private final ImReader<ImMessage> byteReader;
 	
 	@SuppressWarnings("unchecked")
-	ImcAdapter(ImReader<? extends ImMessage> imReader) {
+	protected ImAdapter(ImReader<? extends ImMessage> imReader) {
 		this.byteReader = (ImReader<ImMessage>)imReader;
 	}
 	
-	protected ImObjectComponent receiveMessage(ImRawComponent rawComponent) throws TNCException{
+	protected ImObjectComponent receiveMessage(ImRawComponent rawComponent) throws TncException{
 		ImMessage imMessage = this.byteArrayToMessage(rawComponent.getMessage());
 			
 		ImObjectComponent component = ImComponentFactory.createObjectComponent(rawComponent.getImFlags(), 
@@ -35,19 +33,17 @@ abstract class ImcAdapter implements IMC, AttributeSupport{
 	
 	}
 	
-	private ImMessage byteArrayToMessage(byte[] message) throws TNCException{
+	private ImMessage byteArrayToMessage(byte[] message) throws TncException{
 		ImMessage imMessage = null;
 		try {
 			imMessage = this.byteReader.read(new ByteArrayInputStream(message), message.length);
 		} catch (SerializationException e) {
-			throw new TNCException(e.getMessage(),TNCException.TNC_RESULT_OTHER);
+			throw new TncException(e.getMessage(),TncExceptionCodeEnum.TNC_RESULT_OTHER);
 		} catch (ValidationException e) {
-			throw new TNCException(e.getMessage(),TNCException.TNC_RESULT_OTHER);
+			throw new TncException(e.getMessage(),TncExceptionCodeEnum.TNC_RESULT_OTHER);
 		}
 		
 		return imMessage;
 	}
-	
-	protected abstract void checkInitialization() throws TNCException;
 	
 }

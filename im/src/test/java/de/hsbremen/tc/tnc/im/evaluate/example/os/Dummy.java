@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
 
-import org.trustedcomputinggroup.tnc.ifimc.TNCException;
-
+import de.hsbremen.tc.tnc.attribute.TncAttributeType;
+import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.AbstractDummy;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.ImConnectionStateEnum;
@@ -30,6 +30,11 @@ public class Dummy extends AbstractDummy{
 			public ImConnectionStateEnum getConnectionState() {
 				return ImConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN;
 			}
+
+			@Override
+			public Object getAttribute(TncAttributeType type) {
+				throw new UnsupportedOperationException("Operation is in dummy not supported.");
+			}
 		};
 	}
 	
@@ -39,7 +44,7 @@ public class Dummy extends AbstractDummy{
 			
 			@Override
 			public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason)
-					throws TNCException {
+					throws TncException {
 				System.out.println("Globale handshake retry requested.");
 				
 			}
@@ -57,21 +62,21 @@ public class Dummy extends AbstractDummy{
 				
 				@Override
 				public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason)
-						throws TNCException {
+						throws TncException {
 					System.out.println("Globale handshake retry requested.");
 					
 				}
 			};
 			
 			@Override
-			public long reserveAdditionalId() throws TNCException {
+			public long reserveAdditionalId() throws TncException {
 				
 				return ++i;
 			}
 			
 			@Override
 			public void reportMessageTypes(Set<SupportedMessageType> supportedTypes)
-					throws TNCException {
+					throws TncException {
 				System.out.println(Arrays.toString(supportedTypes.toArray()));
 				
 			}

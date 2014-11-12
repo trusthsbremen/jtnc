@@ -1,7 +1,7 @@
 package de.hsbremen.tc.tnc.im.adapter.data;
 
 
-abstract class AbstractImComponent {
+public abstract class AbstractImComponent {
 
 	
 	private final long vendorId;

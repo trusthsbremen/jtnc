@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluationUnitIetf;
+import de.hsbremen.tc.tnc.im.evaluate.AbstractImcEvaluationUnitIetf;
 import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
@@ -28,15 +28,15 @@ import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.natives.CLibrary;
 import de.hsbremen.tc.tnc.natives.CLibrary.UTSNAME;
 
-public class OsImEvaluationUnit extends AbstractImEvaluationUnitIetf{
+public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OsImEvaluationUnit.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OsImcEvaluationUnit.class);
 	
 	public final static long VENDOR_ID = IETFConstants.IETF_PEN_VENDORID;
 	public final static long TYPE = ImTypeEnum.IETF_PA_OPERATING_SYSTEM.type();
 
 	
-	public OsImEvaluationUnit(GlobalHandshakeRetryListener globalHandshakeRetryListener){
+	public OsImcEvaluationUnit(GlobalHandshakeRetryListener globalHandshakeRetryListener){
 		super(globalHandshakeRetryListener);
 	}
 	
@@ -132,6 +132,7 @@ public class OsImEvaluationUnit extends AbstractImEvaluationUnitIetf{
 			PaAttributeValueRemediationParameters value, ImSessionContext context) {
 		// TODO implement remediation handling.
 		LOGGER.info("Remediation instructions were received.");
+
 		context.requestConnectionHandshakeRetry(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_REMEDIATION_COMPLETE);
 		
 		return new ArrayList<>(0);
@@ -175,5 +176,4 @@ public class OsImEvaluationUnit extends AbstractImEvaluationUnitIetf{
 		LOGGER.info("Last call received.");
 		return new ArrayList<>(0);
 	}
-
 }

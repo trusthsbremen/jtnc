@@ -2,6 +2,7 @@ package de.hsbremen.tc.tnc.im.adapter.data;
 
 import java.util.List;
 
+import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
@@ -41,6 +42,6 @@ public class ImComponentFactory {
 		long vendorId = messageType >>> 8;
 		long type = messageType & 0xFF;
 		
-		return createRawComponent((byte)0, vendorId, type, -1L, -1L, message);
+		return createRawComponent((byte)0, vendorId, type, HSBConstants.HSB_IM_ID_UNKNOWN, HSBConstants.HSB_IM_ID_UNKNOWN, message);
 	}
 }

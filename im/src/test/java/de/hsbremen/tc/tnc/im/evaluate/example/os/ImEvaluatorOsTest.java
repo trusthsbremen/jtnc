@@ -2,8 +2,6 @@ package de.hsbremen.tc.tnc.im.evaluate.example.os;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
@@ -15,21 +13,21 @@ import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
-import de.hsbremen.tc.tnc.im.adapter.imc.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
-import de.hsbremen.tc.tnc.im.evaluate.ImEvaluator;
+import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 
 public class ImEvaluatorOsTest {
 	
-	private Map<Long,ImEvaluator> evaluator;
+	private ImEvaluatorManager evaluator;
 	private static final long IM_ID = 109;  
 	private ImSessionContext ctx;
 	
@@ -43,23 +41,21 @@ public class ImEvaluatorOsTest {
 		ImParameter params = new ImParameter();
 		try {
 			params.setPrimaryId(adapter.reserveAdditionalId());
-		} catch (TNCException e) {
+		} catch (TncException e) {
 			// will never happen with dummy
 		}
-		params.setUseExclusive(false);
 		
-		evaluator = new OsImEvaluatorFactory().createUnits(adapter,params);
+		evaluator = OsImcEvaluatorFactory.getInstance().getEvaluators(adapter,params);
 	}
 
 	@Test
 	public void testEvaluate(){
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test evaluate method."));
-		for (Entry<Long,ImEvaluator> entry: evaluator.entrySet()) {
 		
-			List<ImObjectComponent> components = entry.getValue().evaluate(this.ctx);
+		
+			List<ImObjectComponent> components = evaluator.evaluate(this.ctx);
 			
 			for (ImObjectComponent imComponent : components) {
-				Assert.assertEquals(imComponent.getCollectorId(), entry.getValue().getId());
 				List<? extends ImAttribute> attributes = imComponent.getAttributes();
 				
 				if(attributes == null){
@@ -84,7 +80,7 @@ public class ImEvaluatorOsTest {
 				}
 			}
 			
-		}
+		
 		
 	}
 	
@@ -101,12 +97,12 @@ public class ImEvaluatorOsTest {
 
 		ImObjectComponent component = ImComponentFactory.createObjectComponent((byte)0, IETFConstants.IETF_PEN_VENDORID,ImTypeEnum.IETF_PA_OPERATING_SYSTEM.type(), IM_ID, 0, attributes);
 		
-		for (Entry<Long,ImEvaluator> entry: evaluator.entrySet()) {
-			
-			List<ImObjectComponent> components = entry.getValue().handle(component, this.ctx);
+		
+			List<ImObjectComponent> params = new ArrayList<>();
+			params.add(component);
+			List<ImObjectComponent> components = evaluator.handle(params, this.ctx);
 			for (ImObjectComponent imComponent : components) {
 		
-				Assert.assertEquals(imComponent.getCollectorId(), entry.getValue().getId());
 				List<? extends ImAttribute> attributesRespond = imComponent.getAttributes();
 				
 				if(attributesRespond == null){
@@ -130,7 +126,7 @@ public class ImEvaluatorOsTest {
 					}
 				}
 			}
-		}
+		
 		
 	}
 	

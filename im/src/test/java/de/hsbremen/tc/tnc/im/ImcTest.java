@@ -1,10 +1,7 @@
 package de.hsbremen.tc.tnc.im;
 
-import java.util.Random;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
@@ -118,9 +115,9 @@ public class ImcTest {
 	
 	private void initializeImc() throws TNCException{
 		this.imc.initialize(Dummy.getTncc());
-		if(this.imc instanceof AttributeSupport){
-			((AttributeSupport) imc).setAttribute(AttributeSupport.TNC_ATTRIBUTEID_PRIMARY_IMC_ID, new Long(new Random().nextInt(100)));
-		}
+//		if(this.imc instanceof AttributeSupport){
+//			((AttributeSupport) imc).setAttribute(AttributeSupport.TNC_ATTRIBUTEID_PRIMARY_IMC_ID, new Long(new Random().nextInt(100)));
+//		}
 	}
 	
 	

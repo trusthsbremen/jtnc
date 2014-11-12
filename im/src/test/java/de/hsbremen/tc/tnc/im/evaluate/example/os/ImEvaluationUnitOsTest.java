@@ -15,18 +15,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.im.evaluate.ImEvaluationUnit;
+import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 
 public class ImEvaluationUnitOsTest {
 	
-	ImEvaluationUnit evlUnit;
+	ImcEvaluationUnit evlUnit;
 	ImSessionContext ctx;
 	@Before
 	public void setUp(){
 		Dummy.setLogSettings();
-		evlUnit = new OsImEvaluationUnit(Dummy.getHandshakeListener());
+		evlUnit = new OsImcEvaluationUnit(Dummy.getHandshakeListener());
 		ctx = Dummy.getSessionContext();
 	}
 	
