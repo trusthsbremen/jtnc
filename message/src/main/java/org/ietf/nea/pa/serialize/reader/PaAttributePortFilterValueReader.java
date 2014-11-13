@@ -65,6 +65,8 @@ class PaAttributePortFilterValueReader implements ImReader<PaAttributeValuePortF
 					
 					this.builder.addEntries(new PortFilterEntry(blocked, protocol, port));
 					
+					// TODO error offset is vague because it cannot be calculated to the exact offset. 
+					
 					errorOffset += count;
 					
 				}while(messageLength - errorOffset > 0);

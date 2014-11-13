@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 
 import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
@@ -52,14 +51,14 @@ public class ImcConnectionAdapterFactoryIetf implements ImcConnectionAdapterFact
 		b.append("Create session with connection ")
 		.append(connection.toString())
 		.append(".\n");
-
+		
 		b.append("The following parameters are set and accessible:\n");
 		List<TncAttributeType> clientTypes = DefaultTncAttributeTypeFactory.getInstance().getClientTypes();
 		try{
 			for (TncAttributeType tncAttributeType : clientTypes) {
 				
 				try{
-					Object o = connection.getAttribute(DefaultTncAttributeTypeFactory.getInstance().fromIdClientOnly(AttributeSupport.TNC_ATTRIBUTEID_IFTNCCS_VERSION));
+					Object o = connection.getAttribute(tncAttributeType);
 					if( o != null ){
 						b.append(tncAttributeType.toString() + ": ");
 						b.append(o.toString()).append("\n");

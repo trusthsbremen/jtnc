@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.log4j.BasicConfigurator;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
@@ -28,10 +29,8 @@ public class TestData {
 	byte[] numericVersionMessage = new byte[]{1, 0, 0, 0, 0, 0, 0, 38, 0, 0, 0, 0, 
 			0, 0, 0, 3, 0, 0, 0, 28, 0, 0, 0, 1, 0, 0, 0, 7, 0, 0, 1, 2, 0, 0, 0, 1};
 
-	byte[] installedPackageMessage = new byte[]{1, 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 0,
-			0, 0, 0, 7, 0, 0, 0, 46, 0, 0, 0, 2, 8, 105, 112, 116, 97, 98, 108, 101,
-			115, 6, 49, 46, 52, 46, 49, 50, 4, 106, 97, 118, 97, 8, 49, 46, 55, 46, 
-			48, 95, 52, 48};
+	byte[] installedPackageMessage = new byte[]{1, 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 46, 0, 0, 0, 2, 8, 105, 112, 116, 97, 98, 108, 101, 115, 6, 49, 46, 52, 46, 49, 50, 4, 106, 97, 118, 97, 8, 49, 46, 55, 46, 48, 95, 52, 48};
+	byte[] installedPackageMessag2 = new byte[]{1, 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 47, 0, 0, 0, 2, 9, 105, 112, 116, 97, 98, 108, 101, 115, 0, 6, 49, 46, 52, 46, 49, 50, 4, 106, 97, 118, 97, 8, 49, 46, 55, 46, 48, 95, 52, 48};
 	
 	byte[] assessmentMessage = new byte[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 16, 0, 0, 0, 1};
 	
@@ -79,7 +78,7 @@ public class TestData {
 	public PaMessage getMessageWithInstalledPackages() throws RuleException{
 		
 		List<PackageEntry> packages = new ArrayList<>();
-		packages.add(new PackageEntry("iptables", "1.4.12"));
+		packages.add(new PackageEntry("iptables\0", "1.4.12"));
 		packages.add(new PackageEntry("java","1.7.0_40"));
 		
 		PaAttribute a = PaAttributeFactoryIetf.createInstalledPackages(packages);
@@ -120,6 +119,21 @@ public class TestData {
 		
 		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);
 		
+	}
+	
+	public static final void setLogSettings(){
+		BasicConfigurator.configure();
+	}
+	
+	public static String getTestDescriptionHead(String className, String head){
+		StringBuilder b = new StringBuilder();
+		b.append("----- \n");
+		b.append(className);
+		b.append(" - ");
+		b.append(head);
+		b.append("\n----- \n");
+	
+		return b.toString();
 	}
 	
 //	

@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.input.CountingInputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchHeader;
@@ -19,6 +20,8 @@ import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
 import org.ietf.nea.pb.validate.rules.MinMessageLength;
 import org.ietf.nea.pb.validate.rules.NoSkipOnUnknownMessage;
 import org.ietf.nea.pb.validate.rules.PbMessageNoSkip;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -27,6 +30,8 @@ import de.hsbremen.tc.tnc.util.Combined;
 
 class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageValue>> {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(PbReader.class);
+			
 	private final TnccsReader<PbBatchHeader> bHeadReader;
 	private final TnccsReader<PbMessageHeader> mHeadReader;
 	private final Map<Long, Map<Long, TnccsReader<PbMessageValue>>> valueReader;
@@ -66,9 +71,10 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 				PbMessageHeader mHead = null;
 				PbMessageValue mValue = null;
 				long headerOffset = 0;
+				CountingInputStream cIn = new CountingInputStream(bIn);
 				try{
 					// ignore length here because header has a length field
-					mHead = mHeadReader.read(bIn, -1);
+					mHead = mHeadReader.read(cIn, -1);
 					headerOffset = PbMessageTlvFixedLength.MESSAGE.length();
 					
 					long vendor = mHead.getVendorId();
@@ -90,7 +96,7 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 								throw new ValidationException(e1.getMessage(), e1,0);
 							}
 							
-							mValue = vr.read(bIn, mHead.getLength()-PbMessageTlvFixedLength.MESSAGE.length());
+							mValue = vr.read(cIn, mHead.getLength()-PbMessageTlvFixedLength.MESSAGE.length());
 							
 							if(mValue != null){
 								// Now that the value is known do the no skip check.
@@ -118,7 +124,7 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 							
 							try{
 								// skip the remaining bytes of the message
-								bIn.skip(mHead.getLength() - headerOffset);
+								cIn.skip(mHead.getLength() - headerOffset);
 							}catch (IOException e1){
 								throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 							}
@@ -135,7 +141,7 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 						
 						try{
 							// skip the remaining bytes of the message
-							bIn.skip(mHead.getLength() - headerOffset);
+							cIn.skip(mHead.getLength() - headerOffset);
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 						}
@@ -146,7 +152,8 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 					// current message position + batch header length + the message header offset (if already parsed) 
 					// + the offset of the exception data 	
 					long offset = cl + PbMessageTlvFixedLength.BATCH.length() + headerOffset + e.getExceptionOffset();
-					System.out.println("Error occured at offset: " + offset + "\n" + e.toString());
+					
+					LOGGER.warn("Validation exception occured while processing message with vendor ID " + mHead.getVendorId() +" and type " + mHead.getMessageType() + ". Offset: " + offset,e);
 					
 					Throwable t = e.getCause();
 					if(t == null || !(t instanceof RuleException)){
@@ -158,7 +165,8 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 					
 						try{
 							// skip the remaining bytes of the message
-							bIn.skip(mHead.getLength() - (e.getExceptionOffset() + headerOffset));
+							cIn.skip(mHead.getLength() - cIn.getByteCount());
+							
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 						}

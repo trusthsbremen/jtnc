@@ -19,7 +19,7 @@ import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 
-public class ImEvaluationUnitOsTest {
+public class ImcEvaluationUnitOsTest {
 	
 	ImcEvaluationUnit evlUnit;
 	ImSessionContext ctx;

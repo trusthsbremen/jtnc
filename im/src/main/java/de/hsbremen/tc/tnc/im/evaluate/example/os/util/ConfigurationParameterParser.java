@@ -12,7 +12,7 @@ public class ConfigurationParameterParser {
 		Properties p = new Properties();
 		
 		
-		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("os_imv.properties"));
+		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("src/main/resources/os_imv.properties"));
 		
 		p.load(stream);
 		

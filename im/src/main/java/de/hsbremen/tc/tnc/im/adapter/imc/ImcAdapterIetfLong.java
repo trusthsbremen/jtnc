@@ -13,6 +13,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
+import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImcSession;
@@ -55,7 +56,8 @@ public class ImcAdapterIetfLong extends ImcAdapterIetf implements IMCLong{
 			long sourceIMVID, long destinationIMCID) throws TNCException {
 		super.checkInitialization();
 		try{
-			super.receiveMessage(ImComponentFactory.createRawComponent((byte)(messageFlags & 0xFF), messageVendorID, messageSubtype, destinationIMCID, sourceIMVID, message));
+			ImObjectComponent component = super.receiveMessage(ImComponentFactory.createRawComponent((byte)(messageFlags & 0xFF), messageVendorID, messageSubtype, destinationIMCID, sourceIMVID, message));
+			super.findSessionByConnection(c).handleMessage(component);
 		}catch(TncException e){
 			throw new TNCException(e.getMessage(), e.getResultCode().result());
 		}

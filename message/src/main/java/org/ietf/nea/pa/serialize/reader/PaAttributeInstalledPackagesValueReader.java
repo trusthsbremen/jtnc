@@ -75,6 +75,8 @@ class PaAttributeInstalledPackagesValueReader implements ImReader<PaAttributeVal
 					this.builder.addPackages(new PackageEntry(packageName, packageVersion));
 					errorOffset += count;
 					
+					// TODO error offset is vague because it cannot be calculated to the exact offset.  
+					
 					--pkgCount;
 					
 				};

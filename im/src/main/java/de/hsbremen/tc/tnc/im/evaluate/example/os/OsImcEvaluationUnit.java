@@ -141,16 +141,16 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 	@Override
 	protected List<? extends ImAttribute> handleResult(
 			PaAttributeValueAssessmentResult value, ImSessionContext context) {
-		LOGGER.info("Assessment result is: " + value.getResult().toString() + " - ( # " + value.getResult().number() +")");
+		LOGGER.info("Assessment result is: " + value.getResult().toString() + " - (# " + value.getResult().number() +")");
 		return new ArrayList<>(0);
 	}
 
 	private PaAttribute getStringVersion(UTSNAME systemDescription) throws RuleException {
-		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release),null,new String(systemDescription.machine));
+		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release).trim(),null,new String(systemDescription.machine).trim());
 	}
 
 	private PaAttribute getNumericVersion(UTSNAME systemDescription) throws NumberFormatException, RuleException, PatternNotFoundException {
-		String release = new String(systemDescription.release);
+		String release = new String(systemDescription.release).trim();
 		Pattern p = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)-(\\d+)");
 		Matcher m = p.matcher(release);
 		if(m.find()){
@@ -167,7 +167,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 
 	private PaAttribute getProductInformation(UTSNAME systemDescription) throws RuleException {
 		// RFC 5792 Vendor ID unknown = 0 => Product ID  = 0
-		return PaAttributeFactoryIetf.createProductInformation(0,0, new String(systemDescription.version));
+		return PaAttributeFactoryIetf.createProductInformation(0,0, new String(systemDescription.version).trim());
 	}
 
 	@Override

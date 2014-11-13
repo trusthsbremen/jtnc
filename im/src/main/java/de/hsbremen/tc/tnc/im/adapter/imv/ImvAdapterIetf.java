@@ -14,16 +14,17 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImAdapter;
-import de.hsbremen.tc.tnc.im.adapter.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
+import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapter;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluatorFactory;
+import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
@@ -51,7 +52,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 		// FIXME this is only a default constructor and should only be used for testing purpose.
 		this(new ImParameter(),
 				new DefaultImvSessionFactory(),
-				DefaultImcEvaluatorFactory.getInstance(),
+				DefaultImvEvaluatorFactory.getInstance(),
 				new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 				PaReaderFactory.createProductionDefault());
 	}
@@ -118,12 +119,12 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 		
 		if(message != null && message.length > 0){
 			try{
-				this.findSessionByConnection(c).handleMessage(this.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message)));
+				ImObjectComponent component = this.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message));
+				this.findSessionByConnection(c).handleMessage(component);
 			}catch(TncException e){
 				throw new TNCException(e.getMessage(),e.getResultCode().result());
 			}
 		}
-		
 	}
 
 	@Override
@@ -192,7 +193,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 	}
 	
 	protected void checkInitialization() throws TNCException{
-		if (this.tncs == null || this.parameter.getPrimaryId() < 0){
+		if (this.tncs == null){
 			throw new TNCException("IMV is not initialized.",TNCException.TNC_RESULT_NOT_INITIALIZED);
 		}
 	}

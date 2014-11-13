@@ -1,8 +1,8 @@
 package de.hsbremen.tc.tnc.im.session;
 
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.im.adapter.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapter;
+import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
@@ -47,7 +47,7 @@ public class DefaultImvSession extends AbstractDefaultImSession<ImvConnectionAda
 	
 	private final void lookForRecommendation() throws TncException{
 		
-		if(super.getEvaluator() instanceof ImvEvaluator){
+		if(super.getEvaluator() instanceof ImvEvaluatorManager){
 			
 			ImvEvaluatorManager manager = (ImvEvaluatorManager)super.getEvaluator();
 			

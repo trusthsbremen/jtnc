@@ -1,7 +1,7 @@
 package de.hsbremen.tc.tnc.im.session;
 
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.im.adapter.ImConnectionStateEnum;
+import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 

@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.im.adapter.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
+import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
@@ -66,6 +66,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	 */
 	@Override
 	public final void setConnectionState(final ImConnectionStateEnum connectionState) {
+		LOGGER.debug("Connection state has changed to: " + connectionState.toString());
 		this.connectionState = connectionState;
 	}
 	
@@ -83,8 +84,10 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 		switch (reason) {
 			case BEGIN_HANDSHAKE:
 				components =  evaluators.evaluate(this);
+				break;
 			case BATCH_ENDING:
 				components = evaluators.lastCall(this);
+				break;
 		}
 
 		if(components != null && !components.isEmpty()){
@@ -100,6 +103,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	 */
 	@Override
 	public void handleMessage(final ImObjectComponent component) throws TncException{
+		LOGGER.debug("Handle message with vendor ID " + component.getVendorId() + " and type " + component.getType() + ".");
 		List<ImObjectComponent> cmpList = new LinkedList<>();
 
 		List<ImObjectComponent> parameterList  = new ArrayList<ImObjectComponent>();
@@ -128,7 +132,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	}
 	
 	private final void dispatchMessagesToConnection(final List<ImObjectComponent> componentList) throws TncException{
-		
+		LOGGER.debug("Dispatch messages to connection " + this.connection.toString() + ".");
 		if(this.connectionHandshakeRetryRequested.size() > 0){
 			// use the first reason, because only one can be used. It is anyway usually only after remediation.
 			try{

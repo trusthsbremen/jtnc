@@ -66,7 +66,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 
 	@Override
 	public List<ImAttribute> evaluate(ImSessionContext context) {
-
+		this.recommendation = null;
 		List<ImAttribute> attributes = new ArrayList<>();
 		try{
 			PaAttribute attrReq = this.getAttributeRefequest();
@@ -82,7 +82,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	public List<ImAttribute> handle(List<? extends ImAttribute> attribute,
 			ImSessionContext context) {
 		List<ImAttribute> attributes = new ArrayList<>();
-		
+		this.recommendation = null;
 		if(properties != null){
 			int rating = 0;
 			for (ImAttribute imAttribute : attribute) {
@@ -97,6 +97,9 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 					this.handleError((PaAttributeValueError)value, context);
 				}
 			}
+			
+			LOGGER.debug("Rating: " + rating + " of 10." );
+			
 			if(rating < 8){
 				this.recommendation = new ImvRecommendationObject(ImvActionRecommendationEnum.TNC_IMV_ACTION_RECOMMENDATION_NO_ACCESS, ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MAJOR);
 			}else{
@@ -105,7 +108,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 			
 			try{
 				attributes.add(PaAttributeFactoryIetf.createAssessmentResult(
-						(this.recommendation.equals(ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MAJOR)) ? 
+						(this.recommendation.getResult().equals(ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MAJOR)) ? 
 								PaAttributeAssessmentResultEnum.SIGNIFICANT_DIFFERENCES : 
 								PaAttributeAssessmentResultEnum.COMPLIANT));
 			}catch(RuleException e){
@@ -120,16 +123,15 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 			ImSessionContext context) {
 		
 		int i = 0;
-		
-		if(value.getBuildVersion().equals(properties.getProperty("str_build_number"))){
+		if(value.getBuildVersion().trim().equals(properties.getProperty("str_build_number").trim())){
 			i++;
 		}
 		
-		if(value.getVersionNumber().equals(properties.getProperty("str_version_number"))){
+		if(value.getVersionNumber().trim().equals(properties.getProperty("str_version_number").trim())){
 			i++;
 		}
-		
-		if(value.getConfigurationVersion().equals(properties.getProperty("str_config_number"))){
+	
+		if(value.getConfigurationVersion().trim().equals(properties.getProperty("str_config_number").trim())){
 			i++;	
 		}
 		
@@ -146,7 +148,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	private int handleProductInformationVersion(
 			PaAttributeValueProductInformation value, ImSessionContext context) {
 		int i = 0;
-		
+
 		if(value.getName().contains(properties.getProperty("pi_name"))){
 			i+=2;
 		}
@@ -195,8 +197,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	 */
 	@Override
 	public boolean hasRecommendation() {
-		// TODO Auto-generated method stub
-		return (this.recommendation == null);
+		return (this.recommendation != null);
 	}
 
 	@Override

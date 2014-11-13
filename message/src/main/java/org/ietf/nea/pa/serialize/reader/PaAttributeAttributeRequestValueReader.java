@@ -62,6 +62,8 @@ class PaAttributeAttributeRequestValueReader implements ImReader<PaAttributeValu
 
 					this.builder.addReferences(new AttributeReference(vendorId, attributeId));
 					
+					// TODO error offset is vague because it cannot be calculated to the exact offset. 
+					
 					errorOffset += count;
 					
 				}while(messageLength - errorOffset > 0);

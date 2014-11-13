@@ -1,8 +1,8 @@
 package de.hsbremen.tc.tnc.im.session;
 
-import de.hsbremen.tc.tnc.im.adapter.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapter;
+import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 

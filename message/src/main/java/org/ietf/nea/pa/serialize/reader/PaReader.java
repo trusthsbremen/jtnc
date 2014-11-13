@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.input.CountingInputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
@@ -18,6 +19,8 @@ import org.ietf.nea.pa.message.PaMessageHeader;
 import org.ietf.nea.pa.validate.rules.MinAttributeLength;
 import org.ietf.nea.pa.validate.rules.NoSkipOnUnknownAttribute;
 import org.ietf.nea.pa.validate.rules.PaAttributeNoSkip;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -25,7 +28,8 @@ import de.hsbremen.tc.tnc.m.serialize.ImReader;
 import de.hsbremen.tc.tnc.util.Combined;
 
 class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValue>> {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(PaReader.class);
+	
 	private final ImReader<PaMessageHeader> mHeadReader;
 	private final ImReader<PaAttributeHeader> aHeadReader;
 	private final Map<Long, Map<Long, ImReader<PaAttributeValue>>> valueReader;
@@ -59,16 +63,16 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 
 		/* attributes */
 		long contentLength = length - PaAttributeTlvFixedLength.MESSAGE.length();
-		
 		List<PaAttribute> attributes = new LinkedList<>();
 		if(contentLength >= aHeadReader.getMinDataLength()){
 			for(long cl = 0; cl < contentLength;){
 				PaAttributeHeader aHead = null;
 				PaAttributeValue aValue = null;
 				long headerOffset = 0;
+				CountingInputStream cIn = new CountingInputStream(bIn);
 				try{
 					// ignore length here because header has a length field
-					aHead = aHeadReader.read(bIn, -1);
+					aHead = aHeadReader.read(cIn, -1);
 					headerOffset = PaAttributeTlvFixedLength.ATTRIBUTE.length();
 					
 					long vendor = aHead.getVendorId();
@@ -90,7 +94,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 								throw new ValidationException(e1.getMessage(), e1,0);
 							}
 							
-							aValue = vr.read(bIn, aHead.getLength()-PaAttributeTlvFixedLength.ATTRIBUTE.length());
+							aValue = vr.read(cIn, aHead.getLength()-PaAttributeTlvFixedLength.ATTRIBUTE.length());
 							
 							if(aValue != null){
 								// Now that the value is known do the no skip check.
@@ -117,8 +121,9 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 							}
 							
 							try{
+								LOGGER.warn("Vendor ID " + vendor + " with type "+ type +" not supported, attribute will be skipped.");
 								// skip the remaining bytes of the attribute
-								bIn.skip(aHead.getLength() - headerOffset);
+								cIn.skip(aHead.getLength() - headerOffset);
 							}catch (IOException e1){
 								throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 							}
@@ -134,8 +139,9 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 						}
 						
 						try{
+							LOGGER.warn("Vendor ID " + vendor + " not supported, attribute will be skipped.");
 							// skip the remaining bytes of the attribute
-							bIn.skip(aHead.getLength() - headerOffset);
+							cIn.skip(aHead.getLength() - headerOffset);
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 						}
@@ -146,7 +152,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 					// current attribute position + message header length + the attribute header offset (if already parsed) 
 					// + the offset of the exception data 	
 					long offset = cl + PaAttributeTlvFixedLength.MESSAGE.length() + headerOffset + e.getExceptionOffset();
-					System.out.println("Error occured at offset: " + offset + "\n" + e.toString());
+					LOGGER.warn("Validation exception occured while processing attribute with vendor ID " + aHead.getVendorId() +" and type " + aHead.getAttributeType() + ". Offset: " + offset,e);
 					
 					Throwable t = e.getCause();
 					if(t == null || !(t instanceof RuleException)){
@@ -158,7 +164,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 					
 						try{
 							// skip the remaining bytes of the attribute
-							bIn.skip(aHead.getLength() - (e.getExceptionOffset() + headerOffset));
+							cIn.skip(aHead.getLength() - (cIn.getByteCount()));
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 						}
@@ -206,5 +212,4 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 			}
 		}
 	}
-
 }

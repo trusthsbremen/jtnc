@@ -15,11 +15,12 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImAdapter;
-import de.hsbremen.tc.tnc.im.adapter.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
+import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
@@ -130,7 +131,8 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 		
 		if(message != null && message.length > 0){
 			try{
-				this.findSessionByConnection(c).handleMessage(this.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message)));
+				ImObjectComponent component = this.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message));
+				this.findSessionByConnection(c).handleMessage(component);
 			}catch(TncException e){
 				throw new TNCException(e.getMessage(),e.getResultCode().result());
 			}
@@ -183,7 +185,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 		
 	}
 	
-	private ImcSession findSessionByConnection(IMCConnection connection){
+	protected ImcSession findSessionByConnection(IMCConnection connection){
 		if(this.sessions.containsKey(connection)){
 			return this.sessions.get(connection);
 		}

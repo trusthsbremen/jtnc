@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.im.adapter;
+package de.hsbremen.tc.tnc.im.adapter.connection.enums;
 
 
 

@@ -22,7 +22,7 @@ public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements ImvE
 	@SuppressWarnings("unchecked")
 	@Override
 	public ImvRecommendationObject getRecommendation(ImSessionContext context) {
-		LOGGER.debug("recommend() called, with connection state: " + context.getConnectionState().toString());
+		LOGGER.debug("getRecommendation() called, with connection state: " + context.getConnectionState().toString());
 		
 		//TODO make recommendation ranking according to least privilieges;
 		ImvRecommendationObject rec = null;

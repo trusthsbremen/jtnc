@@ -20,12 +20,13 @@ import de.hsbremen.tc.tnc.m.serialize.ImReader;
 public class ReaderTest {
 
 
-	TestData batch;
+	TestData data;
 	ImReader<PaMessage> bs;
 	
 	@Before
 	public void setUp(){
-		batch = new TestData();
+		TestData.setLogSettings();
+		data = new TestData();
 		bs = PaReaderFactory.createProductionDefault();
 	}
 	
@@ -34,7 +35,7 @@ public class ReaderTest {
 
 		PaMessage b = null;
 		try{
-			byte[] msg = batch.getMessageWithAssessmentResultAsByteArray();
+			byte[] msg = data.getMessageWithAssessmentResultAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
 			b = bs.read(in, msg.length);
 		}catch(Exception e){
@@ -50,7 +51,7 @@ public class ReaderTest {
 
 		PaMessage b = null;
 		try{
-			byte[] msg = batch.getMessageWithNumericVersionAsByteArray();
+			byte[] msg = data.getMessageWithNumericVersionAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
 			b = bs.read(in, msg.length);
 		}catch(Exception e){
@@ -66,7 +67,7 @@ public class ReaderTest {
 
 		PaMessage b = null;
 		try{
-			byte[] msg = batch.getMessageWithInstalledPackagesAsByteArray();
+			byte[] msg = data.getMessageWithInstalledPackagesAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
 			b = bs.read(in, msg.length);
 		}catch(Exception e){
@@ -83,7 +84,7 @@ public class ReaderTest {
 
 		PaMessage b = null;
 		try{
-			byte[] msg = batch.getMessageWithAttributeRequestAsByteArray();
+			byte[] msg = data.getMessageWithAttributeRequestAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
 			b = bs.read(in, msg.length);
 		}catch(Exception e){
@@ -100,7 +101,7 @@ public class ReaderTest {
 
 		PaMessage b = null;
 		try{
-			byte[] msg = batch.getBatchWithMixedAttributesAsByteArray();
+			byte[] msg = data.getBatchWithMixedAttributesAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
 			b = bs.read(in, msg.length);
 		}catch(Exception e){
