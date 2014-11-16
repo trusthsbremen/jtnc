@@ -1,25 +1,17 @@
 package org.ietf.nea.pa.attribute.util;
 
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
-import org.ietf.nea.pa.message.PaMessageHeader;
+import org.ietf.nea.pa.attribute.RawMessageHeader;
 
 public class PaAttributeValueErrorInformationUnsupportedAttribute extends AbstractPaAttributeValueErrorInformation{
   
-    private final PaMessageHeader messageHeader; //variable length
     private final PaAttributeHeader attributeHeader;
 
-	PaAttributeValueErrorInformationUnsupportedAttribute(final long length, final PaMessageHeader messageHeader, final PaAttributeHeader attributeHeader) {
-		super(length);
-		this.messageHeader = messageHeader;
+	PaAttributeValueErrorInformationUnsupportedAttribute(final long length, final RawMessageHeader messageHeader, final PaAttributeHeader attributeHeader) {
+		super(length, messageHeader);
 		this.attributeHeader = attributeHeader;
 	}
 
-	/**
-	 * @return the messageHeader
-	 */
-	public PaMessageHeader getMessageHeader() {
-		return this.messageHeader;
-	}
 
 	/**
 	 * @return the attributeHeader

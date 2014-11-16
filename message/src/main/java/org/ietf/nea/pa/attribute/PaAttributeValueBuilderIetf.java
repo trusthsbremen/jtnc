@@ -27,7 +27,6 @@ import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterString
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
-import org.ietf.nea.pa.message.PaMessageHeader;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 
@@ -251,21 +250,21 @@ public class PaAttributeValueBuilderIetf {
 		return new PaAttributeValueRemediationParameters(rpVendorId, rpType, length,parameter);
 	}
 	
-	public static PaAttributeValueError createErrorInformationUnsupportedVersion(final long errVendorId, final long errCode, final PaMessageHeader messageHeader, final short maxVersion, final short minVersion){
+	public static PaAttributeValueError createErrorInformationUnsupportedVersion(final long errVendorId, final long errCode, final byte[] messageHeader, final short maxVersion, final short minVersion){
 		
 		PaAttributeValueErrorInformationUnsupportedVersion errorInformation = PaAttributeValueErrorInformationFactoryIetf.createErrorInformationUnsupportedVersion(errVendorId, errCode, messageHeader, maxVersion, minVersion);
 		
 		return createErrorValue(errVendorId, errCode, errorInformation);
 	}
 	
-	public static PaAttributeValueError createErrorInformationUnsupportedAttribute(final long errVendorId, final long errCode, final PaMessageHeader messageHeader, final PaAttributeHeader attributeHeader){
+	public static PaAttributeValueError createErrorInformationUnsupportedAttribute(final long errVendorId, final long errCode, final byte[] messageHeader, final PaAttributeHeader attributeHeader){
 		
 		PaAttributeValueErrorInformationUnsupportedAttribute errorInformation = PaAttributeValueErrorInformationFactoryIetf.createErrorInformationUnsupportedAttribute(errVendorId, errCode, messageHeader, attributeHeader);
 		
 		return createErrorValue(errVendorId, errCode, errorInformation);
 	}
 	
-	public static PaAttributeValueError createErrorInformationInvalidParameter(final long errVendorId, final long errCode, final PaMessageHeader messageHeader, final long offset){
+	public static PaAttributeValueError createErrorInformationInvalidParameter(final long errVendorId, final long errCode, final byte[] messageHeader, final long offset){
 		
 		PaAttributeValueErrorInformationInvalidParam errorInformation = PaAttributeValueErrorInformationFactoryIetf.createErrorInformationInvalidParameter(errVendorId, errCode,  messageHeader, offset);
 		

@@ -47,9 +47,9 @@ public class PaWriterFactory {
 				(ImWriter)new PaAttributeStringVersionValueWriter());
 		
 		writer.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ERROR.attributeType(),
-				(ImWriter)new PaAttributeErrorValueWriter(new PaAttributeErrorInformationInvalidParamValueWriter(mWriter), 
-						new PaAttributeErrorInformationUnsupportedVersionValueWriter(mWriter), 
-						new PaAttributeErrorInformationUnsupportedAttributeValueWriter(mWriter)
+				(ImWriter)new PaAttributeErrorValueWriter(new PaAttributeErrorInformationInvalidParamValueWriter(), 
+						new PaAttributeErrorInformationUnsupportedVersionValueWriter(), 
+						new PaAttributeErrorInformationUnsupportedAttributeValueWriter()
 						)
 		);
 		

@@ -15,6 +15,7 @@ import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
+import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImValueExceptionHandler;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImvEvaluatorManager;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
@@ -41,7 +42,7 @@ public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 		List<ImvEvaluationUnit> units = new ArrayList<>();
 		units.add(new OsImvEvaluationUnit(tncc.getHandshakeRetryListener()));
 		
-		ImvEvaluator evaluator = new DefaultImvEvaluator(imParams.getPrimaryId(), units);
+		ImvEvaluator evaluator = new DefaultImvEvaluator(imParams.getPrimaryId(), units, new DefaultImValueExceptionHandler());
 		
 		Map<Long,ImvEvaluator> evaluators = new HashMap<>();
 		evaluators.put(evaluator.getId(), evaluator);

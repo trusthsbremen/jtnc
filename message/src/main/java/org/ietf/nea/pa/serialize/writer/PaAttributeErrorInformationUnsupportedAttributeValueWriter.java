@@ -16,12 +16,6 @@ import de.hsbremen.tc.tnc.m.serialize.ImWriter;
 
 class PaAttributeErrorInformationUnsupportedAttributeValueWriter implements ImWriter<PaAttributeValueErrorInformationUnsupportedAttribute>{
 	
-	private PaMessageHeaderWriter writer;
-	
-	PaAttributeErrorInformationUnsupportedAttributeValueWriter(
-			PaMessageHeaderWriter writer) {
-		this.writer = writer;
-	}
 
 	@Override
 	public void write(final PaAttributeValueErrorInformationUnsupportedAttribute data, final OutputStream out)
@@ -31,18 +25,32 @@ class PaAttributeErrorInformationUnsupportedAttributeValueWriter implements ImWr
 		}
 		
 		PaAttributeValueErrorInformationUnsupportedAttribute aValue = data;
-
-		/* message header copy 64 bit(s) */
-		this.writer.write(aValue.getMessageHeader(), out);
-		
-		/* attribute header parameter copy 64 bit(s) */
-		this.writeAttribute(aValue.getAttributeHeader(), out);
-
-	}
-	
-	private void writeAttribute(final PaAttributeHeader aHead, final OutputStream out) throws SerializationException{
-		
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		
+		/* message header copy 64 bit(s) */
+		/* copy version 8 bit(s) */
+		buffer.write(data.getMessageHeader().getVersion());
+
+		/* copy reserved 24 bit(s) */
+		try {
+			buffer.write(data.getMessageHeader().getReserved());
+		} catch (IOException e) {
+			throw new SerializationException("Reserved space could not be written to the buffer.",e,false);
+		}
+
+		/* copy identifier 32 bit(s) */
+		byte[] identifier = Arrays
+				.copyOfRange(
+						ByteBuffer.allocate(8).putLong(data.getMessageHeader().getIdentifier())
+								.array(), 4, 8);
+		try {
+			buffer.write(identifier);
+		} catch (IOException e) {
+			throw new SerializationException("Idenitfier could not be written to the buffer.",e,false);
+		}
+		
+		/* attribute header copy 64 bit(s) */
+		PaAttributeHeader aHead = aValue.getAttributeHeader();
 		
 		/* flags 8 bit(s) */
 		Set<PaAttributeFlagsEnum> flags = aHead.getFlags();

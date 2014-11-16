@@ -13,11 +13,10 @@ import java.util.Set;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvActionRecommendationEnum;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
+import de.hsbremen.tc.tnc.im.evaluate.example.simple.util.DefaultRecommendationComparator;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 
@@ -142,7 +141,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager{
 			List<ImvRecommendationObject> recommendations = 
 					new LinkedList<>(this.evaluatorRecommendations.values());
 			
-			RecommendationComparator comparator = new RecommendationComparator();
+			Comparator<ImvRecommendationObject> comparator = new DefaultRecommendationComparator();
 			Collections.sort(recommendations,comparator);		
 			// because of the sort get last from list which should be the most severe
 			return recommendations.get((recommendations.size() -1));
@@ -166,43 +165,5 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager{
 	@Override
 	public boolean hasRecommendation() {
 		return(this.evaluators.size() == this.evaluatorRecommendations.size());
-	}
-	
-	private class RecommendationComparator implements Comparator<ImvRecommendationObject>{
-
-		private int weightImvAction(ImvActionRecommendationEnum action){
-			
-			if(action.number() == 0) return 1;
-			if(action.number() == 1) return 3;
-			if(action.number() == 2) return 2;
-			
-			return 0;
-		}
-		
-		private int weightImvEvaluation(ImvEvaluationResultEnum result){
-			
-			if(result.code() == 0) return 2;
-			if(result.code() == 1) return 3;
-			if(result.code() == 2) return 4;
-			if(result.code() == 3) return 1;
-			
-			return 0;
-		}
-		
-		@Override
-		public int compare(ImvRecommendationObject o1,
-				ImvRecommendationObject o2) {
-			ImvActionRecommendationEnum o1a = o1.getRecommendation();
-			ImvActionRecommendationEnum o2a = o2.getRecommendation();
-			
-			int actionWeight = this.weightImvAction(o1a) - this.weightImvAction(o2a); 
-			if(actionWeight != 0) return actionWeight;
-	
-					
-			ImvEvaluationResultEnum o1e = o1.getResult();
-			ImvEvaluationResultEnum o2e = o2.getResult();
-			return this.weightImvEvaluation(o1e) - this.weightImvEvaluation(o2e); 
-			
-		}
 	}
 }

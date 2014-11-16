@@ -32,6 +32,15 @@ public class ValidationException extends ComprehensibleException{
 	}
 
 	/* (non-Javadoc)
+	 * @see java.lang.Throwable#getCause()
+	 */
+	@Override
+	public synchronized RuleException getCause() {
+		// must be RuleException because of the constructor
+		return (RuleException)super.getCause();
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

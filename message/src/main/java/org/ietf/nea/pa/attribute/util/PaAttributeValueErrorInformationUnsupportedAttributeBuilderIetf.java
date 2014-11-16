@@ -2,16 +2,15 @@ package org.ietf.nea.pa.attribute.util;
 
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeHeaderBuilderIetf;
+import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
-import org.ietf.nea.pa.message.PaMessageHeader;
-import org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf;
 
 public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf implements
 	PaAttributeValueErrorInformationUnsupportedAttributeBuilder {
 	
 	
 	private long length;
-	private PaMessageHeader messageHeader;
+	private RawMessageHeader messageHeader;
 	private PaAttributeHeader attributeHeader;
 
 	
@@ -20,12 +19,12 @@ public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf imp
 				PaAttributeTlvFixedLength.MESSAGE.length() + 
 				PaAttributeTlvFixedLength.ATTRIBUTE.length() - 4; // -4 = attribute length is ignored
 		
-		this.messageHeader = new PaMessageHeaderBuilderIetf().toMessageHeader();
+		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
 		this.attributeHeader = new PaAttributeHeaderBuilderIetf().toAttributeHeader();
 	}
 
 	@Override
-	public void setMessageHeader(PaMessageHeader messageHeader) {
+	public void setMessageHeader(RawMessageHeader messageHeader) {
 		if(messageHeader != null){
 			this.messageHeader = messageHeader;
 		}

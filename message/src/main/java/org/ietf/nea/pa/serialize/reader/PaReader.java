@@ -119,7 +119,7 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 								// Remove header offset because this is a late header check. Flags is the first field
 								// in the attribute header.
 								headerOffset = 0;
-								throw new ValidationException(e1.getMessage(), e1,0);
+								throw new ValidationException(e1.getMessage(), e1,0, aHead);
 							}
 							
 							try{
@@ -137,7 +137,7 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 							// Remove header offset because this is a late header check. Flags is the first field
 							// in the attribute header.
 							headerOffset = 0;
-							throw new ValidationException(e1.getMessage(), e1, 0);
+							throw new ValidationException(e1.getMessage(), e1, 0, aHead);
 						}
 						
 						try{
@@ -154,19 +154,19 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 					// current attribute position + message header length + the attribute header offset (if already parsed) 
 					// + the offset of the exception data 	
 					long offset = cl + PaAttributeTlvFixedLength.MESSAGE.length() + headerOffset + e.getExceptionOffset();
-					LOGGER.warn("Validation exception occured while processing attribute with vendor ID " + aHead.getVendorId() +" and type " + aHead.getAttributeType() + ". Offset: " + offset,e);
+					ValidationException updatedException = new ValidationException(e.getMessage(), e.getCause(), offset, e.getReasons());
 					
-					Throwable t = e.getCause();
-					if(t == null || !(t instanceof RuleException)){
-						throw e;
-					}else if(((RuleException)t).isFatal()){
+					RuleException t = updatedException.getCause();
+					if(t == null){
+						throw updatedException;
+					}else if(t.isFatal()){
 						// Repack the exception with the fully calculated offset and throw it.
-						throw new ValidationException(e.getMessage(), (RuleException)e.getCause(), offset);
+						throw updatedException;
 					}else{
 					
 						try{
 							// skip the remaining bytes of the attribute
-							minorExceptions.add(e);
+							minorExceptions.add(updatedException);
 							cIn.skip(aHead.getLength() - (cIn.getByteCount()));
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
@@ -188,8 +188,8 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 
 	@Override
 	public byte getMinDataLength() {
-		// no minimal requirement
-		return 0;
+		// message header is minimal data length
+		return mHeadReader.getMinDataLength();
 	}
 
 	@Override

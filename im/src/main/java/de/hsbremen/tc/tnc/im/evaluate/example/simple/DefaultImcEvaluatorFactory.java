@@ -40,7 +40,7 @@ public class DefaultImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 		List<ImcEvaluationUnit> units = new ArrayList<>();
 		units.add(new DefaultImcEvaluationUnit(tncc.getHandshakeRetryListener()));
 		
-		ImcEvaluator evaluator = new DefaultImcEvaluator(imParams.getPrimaryId(), units);
+		ImcEvaluator evaluator = new DefaultImcEvaluator(imParams.getPrimaryId(), units, new DefaultImValueExceptionHandler());
 		
 		Map<Long,ImcEvaluator> evaluators = new HashMap<>();
 		evaluators.put(evaluator.getId(), evaluator);

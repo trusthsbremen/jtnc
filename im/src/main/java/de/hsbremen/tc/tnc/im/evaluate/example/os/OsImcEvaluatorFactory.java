@@ -15,6 +15,7 @@ import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager;
+import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImValueExceptionHandler;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluatorManager;
 import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
@@ -41,7 +42,7 @@ public class OsImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 		List<ImcEvaluationUnit> units = new ArrayList<>();
 		units.add(new OsImcEvaluationUnit(tncc.getHandshakeRetryListener()));
 		
-		ImcEvaluator evaluator = new DefaultImcEvaluator(imParams.getPrimaryId(), units);
+		ImcEvaluator evaluator = new DefaultImcEvaluator(imParams.getPrimaryId(), units, new DefaultImValueExceptionHandler());
 		
 		Map<Long,ImcEvaluator> evaluators = new HashMap<>();
 		evaluators.put(evaluator.getId(), evaluator);

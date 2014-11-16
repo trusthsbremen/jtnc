@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.ietf.nea.exception.RuleException;
+import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParamBuilder;
-import org.ietf.nea.pa.message.PaMessageHeader;
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -17,11 +17,9 @@ import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 class PaAttributeErrorInformationInvalidParamValueReader implements ImReader<PaAttributeValueErrorInformationInvalidParam>{
 
 	private PaAttributeValueErrorInformationInvalidParamBuilder builder;
-	private PaMessageHeaderReader reader;
 	
-	PaAttributeErrorInformationInvalidParamValueReader(PaAttributeValueErrorInformationInvalidParamBuilder builder, PaMessageHeaderReader reader){
+	PaAttributeErrorInformationInvalidParamValueReader(PaAttributeValueErrorInformationInvalidParamBuilder builder){
 		this.builder = builder;
-		this.reader = reader;
 	}
 	
 	@Override
@@ -33,18 +31,31 @@ class PaAttributeErrorInformationInvalidParamValueReader implements ImReader<PaA
 		PaAttributeValueErrorInformationInvalidParam value = null;
 		builder = (PaAttributeValueErrorInformationInvalidParamBuilder)builder.clear();
 		
-		/* message header */
-		PaMessageHeader messageHeader = this.reader.read(in, messageLength);
-		this.builder.setMessageHeader(messageHeader);
-		errorOffset += PaAttributeTlvFixedLength.MESSAGE.length();
-		
 		try{
 			
 			try{
 
 				int byteSize = 0;
 				byte[] buffer = new byte[byteSize];
+		
+				/* message header */
+				/* copy version */
+				byteSize = 1;
+				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
+				short version = buffer[0];
 
+				/* copy reserved */
+				byteSize = 3;
+				byte[] reserved = ByteArrayHelper.arrayFromStream(in, byteSize);
+	
+				/* copy identifier */
+				byteSize = 4;
+				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
+				long identifier = ByteArrayHelper.toLong(buffer);
+	
+				this.builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
+				errorOffset += PaAttributeTlvFixedLength.MESSAGE.length();
+				
 				/* offset */
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);

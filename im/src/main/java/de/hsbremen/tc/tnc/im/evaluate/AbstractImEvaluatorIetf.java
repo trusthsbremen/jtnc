@@ -12,6 +12,7 @@ import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
+import de.hsbremen.tc.tnc.im.adapter.data.ImFaultyObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluationUnit;
@@ -25,10 +26,12 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
 	
 	private final long id;
 	private final List<? extends ImEvaluationUnit> evaluationUnits;
+	private final ImValueExceptionHandler valueExceptionHandler;
 	
-	public AbstractImEvaluatorIetf(long id ,List<? extends ImEvaluationUnit> evaluationUnits){
+	public AbstractImEvaluatorIetf(long id ,List<? extends ImEvaluationUnit> evaluationUnits, ImValueExceptionHandler valueExceptionHandler){
 		this.id = id;
 		this.evaluationUnits = evaluationUnits;
+		this.valueExceptionHandler = valueExceptionHandler;
 	}
 	
 	@Override
@@ -67,10 +70,12 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
 		
 		List<ImObjectComponent> componentList = new LinkedList<>();
 		
+		if(this.evaluationUnits == null){
+			return componentList;
+		}
+		
 		for (ImObjectComponent component : components) {
-				
-			
-			
+
 			boolean useExcl = false;
 			if(component.getCollectorId() != HSBConstants.HSB_IM_ID_UNKNOWN && 
 					component.getValidatorId() != HSBConstants.HSB_IM_ID_UNKNOWN && 
@@ -79,38 +84,47 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
 				useExcl = this.checkExclusiveDeliverySupport(context) ;
 			}
 			
-			if(this.evaluationUnits != null){
-				for (ImEvaluationUnit unit: this.evaluationUnits) {
-					
-					long givenVendorId = component.getVendorId();
-					long givenType = component.getType();
-					long interestedVendorId = unit.getVendorId();
-					long interestedType = unit.getType();
-					
-					if((interestedVendorId == TNCConstants.TNC_VENDORID_ANY) ||
-							(
-									(givenVendorId == interestedVendorId) &&
-									(
-											(givenType == TNCConstants.TNC_SUBTYPE_ANY) ||
-											(givenType == interestedType)
-									)
-							)
-						){
-						List<ImAttribute> attributes = unit.handle(component.getAttributes(), context);
-						if(attributes != null && !attributes.isEmpty()){
-							componentList.add(ImComponentFactory.createObjectComponent(
-									((useExcl) ? ImComponentFlagsEnum.EXCL.bit() : 0), 
-									unit.getVendorId(), 
-									unit.getType(), 
-									this.getId(),
-									component.getValidatorId(),
-									attributes)
-							);
+			for (ImEvaluationUnit unit: this.evaluationUnits) {
+				
+				long givenVendorId = component.getVendorId();
+				long givenType = component.getType();
+				long interestedVendorId = unit.getVendorId();
+				long interestedType = unit.getType();
+				
+				if((interestedVendorId == TNCConstants.TNC_VENDORID_ANY) ||
+						(
+								(givenVendorId == interestedVendorId) &&
+								(
+										(givenType == TNCConstants.TNC_SUBTYPE_ANY) ||
+										(givenType == interestedType)
+								)
+						)
+					){
+					List<ImAttribute> attributes = unit.handle(component.getAttributes(), context);
+					if(component instanceof ImFaultyObjectComponent){
+						List<ImAttribute> errorAttributes = this.valueExceptionHandler.handle((ImFaultyObjectComponent)component);
+						if(errorAttributes != null){
+							if(attributes != null){
+								attributes.addAll(errorAttributes); 
+							}else{
+								attributes = errorAttributes;
+							}
 						}
+					}
+					if(attributes != null && !attributes.isEmpty()){
+						componentList.add(ImComponentFactory.createObjectComponent(
+								((useExcl) ? ImComponentFlagsEnum.EXCL.bit() : 0), 
+								unit.getVendorId(), 
+								unit.getType(), 
+								this.getId(),
+								component.getValidatorId(),
+								attributes)
+						);
 					}
 				}
 			}
 		}
+		
 		return componentList;
 	}
 	

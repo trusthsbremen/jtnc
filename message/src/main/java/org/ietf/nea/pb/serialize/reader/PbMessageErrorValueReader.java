@@ -109,7 +109,7 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 				}
 			}catch(ValidationException e){
 				// catch exception and add throw with recalculated offset, pass on the rule exception
-				throw new ValidationException(e.getMessage(), (RuleException)e.getCause(),e.getExceptionOffset() + errorOffset);
+				throw new ValidationException(e.getMessage(), e.getCause(),e.getExceptionOffset() + errorOffset);
 			}
 			
 			value = (PbMessageValueError)builder.toValue();

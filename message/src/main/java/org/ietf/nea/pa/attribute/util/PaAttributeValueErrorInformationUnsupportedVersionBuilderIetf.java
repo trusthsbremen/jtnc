@@ -1,27 +1,26 @@
 package org.ietf.nea.pa.attribute.util;
 
+import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
-import org.ietf.nea.pa.message.PaMessageHeader;
-import org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf;
 
 public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf implements
 		PaAttributeValueErrorInformationUnsupportedVersionBuilder {
 	
 	
 	private long length;
-	private PaMessageHeader messageHeader;
+	private RawMessageHeader messageHeader;
 	private short maxVersion;
 	private short minVersion;
 	
 	public PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf(){
 		this.length = PaAttributeTlvFixedLength.ERR_INF.length() + PaAttributeTlvFixedLength.MESSAGE.length() + 4; // 4 = min + max version
-		this.messageHeader = new PaMessageHeaderBuilderIetf().toMessageHeader();
+		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
 		this.minVersion = 0;
 		this.maxVersion = 0;
 	}
 
 	@Override
-	public void setMessageHeader(PaMessageHeader messageHeader) {
+	public void setMessageHeader(RawMessageHeader messageHeader) {
 		if(messageHeader != null){
 			this.messageHeader = messageHeader;
 		}

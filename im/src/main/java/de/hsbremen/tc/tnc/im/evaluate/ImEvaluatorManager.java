@@ -9,4 +9,6 @@ public interface ImEvaluatorManager extends ImEvaluationComponent<ImObjectCompon
 
 	public abstract Set<SupportedMessageType> getSupportedMessageTypes();
 	
+	
+	
 }

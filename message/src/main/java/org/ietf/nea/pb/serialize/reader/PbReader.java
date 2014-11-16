@@ -171,20 +171,19 @@ class PbReader implements TnccsReader<PbBatchContainer>, Combined<TnccsReader<Pb
 					// current message position + batch header length + the message header offset (if already parsed) 
 					// + the offset of the exception data 	
 					long offset = cl + PbMessageTlvFixedLength.BATCH.length() + headerOffset + e.getExceptionOffset();
+					ValidationException updatedException = new ValidationException(e.getMessage(), e.getCause(), offset, e.getReasons());
 					
-					LOGGER.warn("Validation exception occured while processing message with vendor ID " + mHead.getVendorId() +" and type " + mHead.getMessageType() + ". Offset: " + offset,e);
-					
-					Throwable t = e.getCause();
-					if(t == null || !(t instanceof RuleException)){
-						throw e;
-					}else if(((RuleException)t).isFatal()){
+					RuleException t = updatedException.getCause();
+					if(t == null){
+						throw updatedException;
+					}else if(t.isFatal()){
 						// Repack the exception with the fully calculated offset and throw it.
-						throw new ValidationException(e.getMessage(), (RuleException)e.getCause(), offset);
+						throw updatedException;
 					}else{
 					
 						try{
 							// skip the remaining bytes of the message
-							minorExceptions.add(e);
+							minorExceptions.add(updatedException);
 							cIn.skip(mHead.getLength() - cIn.getByteCount());
 							try{
 								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
@@ -219,8 +218,8 @@ class PbReader implements TnccsReader<PbBatchContainer>, Combined<TnccsReader<Pb
 
 	@Override
 	public byte getMinDataLength() {
-		// no minimal requirement
-		return 0;
+		// batch header is minimal requirement
+		return bHeadReader.getMinDataLength();
 	}
 
 	@Override

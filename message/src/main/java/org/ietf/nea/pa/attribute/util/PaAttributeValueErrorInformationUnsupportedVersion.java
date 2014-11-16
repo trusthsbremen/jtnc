@@ -1,25 +1,17 @@
 package org.ietf.nea.pa.attribute.util;
 
-import org.ietf.nea.pa.message.PaMessageHeader;
+import org.ietf.nea.pa.attribute.RawMessageHeader;
 
 public class PaAttributeValueErrorInformationUnsupportedVersion extends AbstractPaAttributeValueErrorInformation{
   
-    private final PaMessageHeader messageHeader; //variable length
     private final short maxVersion;
     private final short minVersion;   
     
-	PaAttributeValueErrorInformationUnsupportedVersion(final long length, final PaMessageHeader messageHeader, final short maxVersion, final short minVersion) {
-		super(length);
-		this.messageHeader = messageHeader;
+	PaAttributeValueErrorInformationUnsupportedVersion(final long length, final RawMessageHeader messageHeader, final short maxVersion, final short minVersion) {
+		super(length, messageHeader);
+	
 		this.maxVersion = maxVersion;
 		this.minVersion = minVersion;
-	}
-
-	/**
-	 * @return the messageHeader
-	 */
-	public PaMessageHeader getMessageHeader() {
-		return this.messageHeader;
 	}
 
 	/**

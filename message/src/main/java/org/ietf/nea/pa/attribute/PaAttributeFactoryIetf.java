@@ -16,7 +16,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
-import org.ietf.nea.pa.message.PaMessageHeader;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -139,7 +138,7 @@ public class PaAttributeFactoryIetf {
 
 	}
 	
-	public static PaAttribute createErrorInformationInvalidParam(final PaMessageHeader messageHeaderCopy, final long errorOffset ) throws ValidationException {
+	public static PaAttribute createErrorInformationInvalidParam(final byte[] messageHeaderCopy, final long errorOffset ) throws ValidationException {
 
 		long errorVendorId = VENDORID; 
 		long errorCode = PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code();
@@ -152,7 +151,7 @@ public class PaAttributeFactoryIetf {
 		
 	}
 	
-	public static PaAttribute createErrorInformationUnsupportedVersion(final PaMessageHeader messageHeaderCopy, final short maxVersion , final short minVersion) throws ValidationException {
+	public static PaAttribute createErrorInformationUnsupportedVersion(final byte[] messageHeaderCopy, final short maxVersion , final short minVersion) throws ValidationException {
 
 		long errorVendorId = VENDORID; 
 		long errorCode = PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code();
@@ -165,7 +164,7 @@ public class PaAttributeFactoryIetf {
 		
 	}
 	
-	public static PaAttribute createErrorInformationUnsupportedAttribute(final PaMessageHeader messageHeaderCopy, final PaAttributeHeader attributeHeaderCopy) throws ValidationException {
+	public static PaAttribute createErrorInformationUnsupportedAttribute(final byte[] messageHeaderCopy, final PaAttributeHeader attributeHeaderCopy) throws ValidationException {
 
 		long errorVendorId = VENDORID; 
 		long errorCode = PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code();

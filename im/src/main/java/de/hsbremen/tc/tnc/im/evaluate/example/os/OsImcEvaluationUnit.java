@@ -11,8 +11,10 @@ import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.ietf.nea.pa.attribute.PaAttributeValueError;
 import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters;
+import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,7 +125,20 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 	@Override
 	protected List<? extends ImAttribute> handleError(PaAttributeValueError value, ImSessionContext context) {
 		//TODO implement error handling
-		LOGGER.error("An error was received.");
+		StringBuilder b = new StringBuilder();
+		b.append("An error was received: \n")
+		.append("Error with vendor ID ").append(value.getErrorVendorId())
+		.append(" and type ")
+		.append(PaAttributeErrorCodeEnum.fromCode(value.getErrorCode()))
+		.append(".\n")
+		.append("Error was found in message ").append(value.getErrorInformation().getMessageHeader().toString());
+		if(value.getErrorInformation() instanceof PaAttributeValueErrorInformationInvalidParam){
+			b.append(" at offset ")
+			.append(((PaAttributeValueErrorInformationInvalidParam) value.getErrorInformation()).getOffset());
+		}
+		b.append(".");
+		LOGGER.error(b.toString());
+		
 		return new ArrayList<>(0);
 	}
 
@@ -146,7 +161,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 	}
 
 	private PaAttribute getStringVersion(UTSNAME systemDescription) throws ValidationException {
-		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release).trim(),null,new String(systemDescription.machine).trim());
+		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release),null,new String(systemDescription.machine));
 	}
 
 	private PaAttribute getNumericVersion(UTSNAME systemDescription) throws NumberFormatException, ValidationException, PatternNotFoundException {

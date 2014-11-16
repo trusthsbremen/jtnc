@@ -90,11 +90,11 @@ public class PaReaderFactory {
 				(ImReader)new PaAttributeErrorValueReader(
 						new PaAttributeValueErrorBuilderIetf(), 
 						new PaAttributeErrorInformationInvalidParamValueReader(
-								new PaAttributeValueErrorInformationInvalidParamBuilderIetf(), mReader), 
+								new PaAttributeValueErrorInformationInvalidParamBuilderIetf()), 
 						new PaAttributeErrorInformationUnsupportedVersionValueReader(
-								new PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf(), mReader),
+								new PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf()),
 						new PaAttributeErrorInformationUnsupportedAttributeValueReader(
-								new PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf(), new PaAttributeHeaderBuilderIetf(), mReader)
+								new PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf(), new PaAttributeHeaderBuilderIetf())
 						)
 		);
 	

@@ -15,7 +15,7 @@ interface ImSession {
 
 	public abstract void triggerMessage(ImMessageTriggerEnum reason) throws TncException;
 
-	public abstract void handleMessage(ImObjectComponent component) throws TncException;
+	public abstract <T extends ImObjectComponent> void handleMessage(T component) throws TncException;
 
 	public abstract void terminate();
 

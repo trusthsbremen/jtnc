@@ -1,25 +1,24 @@
 package org.ietf.nea.pa.attribute.util;
 
+import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
-import org.ietf.nea.pa.message.PaMessageHeader;
-import org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf;
 
 public class PaAttributeValueErrorInformationInvalidParamBuilderIetf implements
 		PaAttributeValueErrorInformationInvalidParamBuilder {
 	
 	
 	private long length;
-	private PaMessageHeader messageHeader;
+	private RawMessageHeader messageHeader;
 	private long offset;
 	
 	public PaAttributeValueErrorInformationInvalidParamBuilderIetf(){
 		this.length = PaAttributeTlvFixedLength.ERR_INF.length() + PaAttributeTlvFixedLength.MESSAGE.length() + 4; // 4 = offset
-		this.messageHeader = new PaMessageHeaderBuilderIetf().toMessageHeader();
+		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
 		this.offset = 0;
 	}
 
 	@Override
-	public void setMessageHeader(PaMessageHeader messageHeader) {
+	public void setMessageHeader(RawMessageHeader messageHeader) {
 		if(messageHeader != null){
 			this.messageHeader = messageHeader;
 		}
