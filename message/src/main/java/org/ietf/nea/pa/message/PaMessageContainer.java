@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.m.message.ImMessageContainer;
+import de.hsbremen.tc.tnc.m.serialize.ImMessageContainer;
 
 public class PaMessageContainer implements ImMessageContainer {
 

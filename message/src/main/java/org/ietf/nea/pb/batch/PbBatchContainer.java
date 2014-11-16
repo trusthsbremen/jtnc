@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
 
 public class PbBatchContainer implements TnccsBatchContainer {
 
