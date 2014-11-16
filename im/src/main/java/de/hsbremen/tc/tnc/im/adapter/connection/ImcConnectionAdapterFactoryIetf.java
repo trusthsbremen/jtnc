@@ -35,7 +35,6 @@ public class ImcConnectionAdapterFactoryIetf implements ImcConnectionAdapterFact
 		if(connection == null){
 			throw new NullPointerException("Connection cannot be null.");
 		}
-
 		
 		ImcConnectionAdapter adapter = new ImcConnectionAdapterIetf(writer, connection);
 		

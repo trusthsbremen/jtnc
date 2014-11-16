@@ -3,7 +3,6 @@ package org.ietf.nea.pa.serialize;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.ietf.nea.pa.attribute.PaAttributeValueInstalledPackages;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
@@ -14,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.m.serialize.ImWriter;
 import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
@@ -30,7 +30,7 @@ public class WriterTest {
 	}
 	
 	@Test
-	public void serializePaMessageWithAssessmentResult() throws RuleException{
+	public void serializePaMessageWithAssessmentResult() throws ValidationException{
 		
 		PaMessage b = message.getMessageWithAssessmentResult();
 		
@@ -53,7 +53,7 @@ public class WriterTest {
 	}
 	@Test
 	
-	public void serializePaMessageWithNumericVersion() throws RuleException{
+	public void serializePaMessageWithNumericVersion() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
@@ -75,7 +75,7 @@ public class WriterTest {
 		
 	}
 	@Test
-	public void serializePaMessageWithInstalledPackages() throws RuleException{
+	public void serializePaMessageWithInstalledPackages() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 			
@@ -98,7 +98,7 @@ public class WriterTest {
 	}
 	
 	@Test
-	public void serializePaMessageWithAttributeRequest() throws RuleException{
+	public void serializePaMessageWithAttributeRequest() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 			
@@ -120,7 +120,7 @@ public class WriterTest {
 	}
 	
 	@Test
-	public void serializePaMessageWithMixedAttributes() throws RuleException{
+	public void serializePaMessageWithMixedAttributes() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 			

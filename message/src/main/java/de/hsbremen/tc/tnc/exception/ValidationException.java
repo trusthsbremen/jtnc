@@ -6,6 +6,8 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 
 public class ValidationException extends ComprehensibleException{
 	
+	public static final long OFFSET_NOT_SET = Long.MIN_VALUE;
+	
 	/**
 	 * 
 	 */

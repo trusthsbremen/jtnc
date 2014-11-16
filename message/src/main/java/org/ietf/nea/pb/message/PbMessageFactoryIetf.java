@@ -12,12 +12,13 @@ import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 
 public class PbMessageFactoryIetf {
 
 	private static final long VENDORID = IETFConstants.IETF_PEN_VENDORID;
 
-	public static PbMessage createAccessRecommendation(final PbMessageAccessRecommendationEnum recommendation) throws RuleException {
+	public static PbMessage createAccessRecommendation(final PbMessageAccessRecommendationEnum recommendation) throws ValidationException {
 		
 		byte flags = 0; 
 	    long type = PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType();
@@ -28,7 +29,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createAssessmentResult(final PbMessageAssessmentResultEnum result) throws RuleException {
+	public static PbMessage createAssessmentResult(final PbMessageAssessmentResultEnum result) throws ValidationException {
 
 		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 	    long type = PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType();
@@ -38,7 +39,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createExperimental(final String content) throws RuleException {
+	public static PbMessage createExperimental(final String content) throws ValidationException {
 
 		byte flags = 0; 	     
 	    long type =  PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.messageType();
@@ -49,7 +50,7 @@ public class PbMessageFactoryIetf {
 	}
 
 	public static PbMessage createIm(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType,
-			final short collectorId, final short validatorId, final byte[] imMessage) throws RuleException {
+			final short collectorId, final short validatorId, final byte[] imMessage) throws ValidationException {
 
 		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 		long type = PbMessageTypeEnum.IETF_PB_PA.messageType();
@@ -59,7 +60,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createLanguagePreference(final String preferedLanguage) throws RuleException {
+	public static PbMessage createLanguagePreference(final String preferedLanguage) throws ValidationException {
 		
 		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType();
@@ -69,7 +70,7 @@ public class PbMessageFactoryIetf {
 
 	}
 
-	public static PbMessage createReasonString(final String reasonString, final String langCode) throws RuleException {
+	public static PbMessage createReasonString(final String reasonString, final String langCode) throws ValidationException {
 		
 		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType();
@@ -79,7 +80,7 @@ public class PbMessageFactoryIetf {
 
 	}
 	
-	public static PbMessage createErrorSimple(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode) throws RuleException {
+	public static PbMessage createErrorSimple(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode) throws ValidationException {
 		
 		long errorVendorId = VENDORID;
 		
@@ -90,7 +91,7 @@ public class PbMessageFactoryIetf {
 	    		PbMessageValueBuilderIetf.createErrorValueSimple(errorFlags, errorVendorId, errorCode.code()));
 	}
 	
-	public static PbMessage createErrorOffset(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode, long offset) throws RuleException {
+	public static PbMessage createErrorOffset(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode, long offset) throws ValidationException {
 		
 		long errorVendorId = VENDORID;
 		
@@ -101,7 +102,7 @@ public class PbMessageFactoryIetf {
 	    		PbMessageValueBuilderIetf.createErrorValueWithOffset(errorFlags, errorVendorId, errorCode.code(), offset));
 	}
 	
-	public static PbMessage createErrorVersion(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode, short badVersion, short maxVersion, short minVersion) throws RuleException {
+	public static PbMessage createErrorVersion(final PbMessageErrorFlagsEnum[] errorFlags, final PbMessageErrorCodeEnum errorCode, short badVersion, short maxVersion, short minVersion) throws ValidationException {
 		
 		long errorVendorId = VENDORID;
 		
@@ -112,7 +113,7 @@ public class PbMessageFactoryIetf {
 	    		PbMessageValueBuilderIetf.createErrorValueWithVersion(errorFlags, errorVendorId, errorCode.code(), badVersion, maxVersion, minVersion));
 	}
 	
-	public static PbMessage createRemediationParameterString(final String remediationString, final String langCode) throws RuleException {
+	public static PbMessage createRemediationParameterString(final String remediationString, final String langCode) throws ValidationException {
 
 		long rpVendorId = VENDORID; 
 		long rpType = PbMessageRemediationParameterTypeEnum.IETF_STRING.type();
@@ -125,7 +126,7 @@ public class PbMessageFactoryIetf {
 		
 	}
 	
-	public static PbMessage createRemediationParameterUri(final String uri) throws RuleException {
+	public static PbMessage createRemediationParameterUri(final String uri) throws ValidationException {
 
 		long rpVendorId = VENDORID; 
 		long rpType = PbMessageRemediationParameterTypeEnum.IETF_URI.type();
@@ -138,17 +139,20 @@ public class PbMessageFactoryIetf {
 
 	}
 	
-	// TODO what do we do with errors
-	private static PbMessage createMessage(final byte flags, final long type, final AbstractPbMessageValue value) throws RuleException {
+	private static PbMessage createMessage(final byte flags, final long type, final AbstractPbMessageValue value) throws ValidationException {
 		if(value == null){
 			throw new NullPointerException("Value cannot be null.");
 		}
 		
 	    PbMessageHeaderBuilderIetf mBuilder = new PbMessageHeaderBuilderIetf();
-		mBuilder.setFlags(flags);
-		mBuilder.setVendorId(VENDORID);
-		mBuilder.setType(type);
-		mBuilder.setLength(PbMessageTlvFixedLength.MESSAGE.length() + value.getLength());
+		try{
+		    mBuilder.setFlags(flags);
+			mBuilder.setVendorId(VENDORID);
+			mBuilder.setType(type);
+			mBuilder.setLength(PbMessageTlvFixedLength.MESSAGE.length() + value.getLength());
+		}catch(RuleException e){
+			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
+		}
 
 		PbMessage message = new PbMessage(mBuilder.toMessageHeader(), value);
 		

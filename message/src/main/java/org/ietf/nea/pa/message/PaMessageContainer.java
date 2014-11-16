@@ -1,25 +1,25 @@
-package org.ietf.nea.pb.batch;
+package org.ietf.nea.pa.message;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.m.message.ImMessageContainer;
 
-public class PbBatchContainer implements TnccsBatchContainer {
+public class PaMessageContainer implements ImMessageContainer {
 
-	private final PbBatch batch;
+	private final PaMessage message;
 	
 	private final List<ValidationException> exceptions;
 
-	public PbBatchContainer(PbBatch batch, List<ValidationException> exceptions) {
+	public PaMessageContainer(PaMessage message, List<ValidationException> exceptions) {
 		
-		if(batch == null){
-			throw new NullPointerException("Batch cannot be null.");
+		if(message == null){
+			throw new NullPointerException("Message cannot be null.");
 		}
 		
-		this.batch = batch;
+		this.message = message;
 		this.exceptions = ((exceptions != null) ? exceptions : new ArrayList<ValidationException>(0));
 	}
 
@@ -29,8 +29,8 @@ public class PbBatchContainer implements TnccsBatchContainer {
 	}
 
 	@Override
-	public PbBatch getResult() {
-		return this.batch;
+	public PaMessage getResult() {
+		return this.message;
 	}
 
 }

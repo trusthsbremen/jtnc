@@ -52,7 +52,7 @@ class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
 			try{
 				message = PaMessageFactoryIetf.createMessage(VERSION, identifier, this.filterTypes(component.getAttributes()));
 			}catch(RuleException e){
-				throw new TncException(e.getMessage(), TncExceptionCodeEnum.TNC_RESULT_OTHER);
+				throw new TncException(e.getMessage(), e, TncExceptionCodeEnum.TNC_RESULT_OTHER);
 			}
 
 			byte [] byteMessage = this.messageToByteArray(message);

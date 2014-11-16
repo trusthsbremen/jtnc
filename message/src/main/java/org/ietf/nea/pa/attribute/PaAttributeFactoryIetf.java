@@ -19,12 +19,13 @@ import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 import org.ietf.nea.pa.message.PaMessageHeader;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 
 public class PaAttributeFactoryIetf {
 
 	private static final long VENDORID = IETFConstants.IETF_PEN_VENDORID;
 
-	public static PaAttribute createAssessmentResult(final PaAttributeAssessmentResultEnum result) throws RuleException {
+	public static PaAttribute createAssessmentResult(final PaAttributeAssessmentResultEnum result) throws ValidationException{
 
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.attributeType();
@@ -34,7 +35,7 @@ public class PaAttributeFactoryIetf {
 
 	}
 	
-	public static PaAttribute createFactoryDefaultPassword(final PaAttributeFactoryDefaultPasswordStatusEnum status) throws RuleException {
+	public static PaAttribute createFactoryDefaultPassword(final PaAttributeFactoryDefaultPasswordStatusEnum status) throws ValidationException {
 
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_FACTORY_DEFAULT_PW_ENABLED.attributeType();
@@ -44,7 +45,7 @@ public class PaAttributeFactoryIetf {
 
 	}
 	
-	public static PaAttribute createForwardingEnabled(final PaAttributeForwardingStatusEnum status) throws RuleException {
+	public static PaAttribute createForwardingEnabled(final PaAttributeForwardingStatusEnum status) throws ValidationException {
 
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_FORWARDING_ENABLED.attributeType();
@@ -54,7 +55,7 @@ public class PaAttributeFactoryIetf {
 
 	}
 	
-	public static PaAttribute createProductInformation(long vendorId, int productId, String productName) throws RuleException{
+	public static PaAttribute createProductInformation(long vendorId, int productId, String productName) throws ValidationException{
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.attributeType();
 	    
@@ -62,7 +63,7 @@ public class PaAttributeFactoryIetf {
 	    		PaAttributeValueBuilderIetf.createProductInformationValue(vendorId, productId, productName));
 	}
 	
-	public static PaAttribute createStringVersion(String versionNumber, String buildVersion, String configVersion) throws RuleException{
+	public static PaAttribute createStringVersion(String versionNumber, String buildVersion, String configVersion) throws ValidationException{
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType();
 	    
@@ -70,7 +71,7 @@ public class PaAttributeFactoryIetf {
 	    		PaAttributeValueBuilderIetf.createStringVersionValue(versionNumber, buildVersion, configVersion));
 	}
 	
-	public static PaAttribute createNumericVersion(final long majorVersion, final long minorVersion, final long buildVersion, final int servicePackMajor, final int servicePackMinor) throws RuleException {
+	public static PaAttribute createNumericVersion(final long majorVersion, final long minorVersion, final long buildVersion, final int servicePackMajor, final int servicePackMinor) throws ValidationException {
 
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.attributeType();
@@ -80,7 +81,7 @@ public class PaAttributeFactoryIetf {
 
 	}
 	
-	public static PaAttribute createInstalledPackages(List<PackageEntry> packages) throws RuleException{
+	public static PaAttribute createInstalledPackages(List<PackageEntry> packages) throws ValidationException{
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.attributeType();
 	    
@@ -88,7 +89,7 @@ public class PaAttributeFactoryIetf {
 	    		PaAttributeValueBuilderIetf.createInstalledPackagesValue(packages));
 	}
 	
-	public static PaAttribute createOperationalStatus(final PaAttributeOperationStatusEnum status, final PaAttributeOperationLastResultEnum result, final Date lastUse) throws RuleException{
+	public static PaAttribute createOperationalStatus(final PaAttributeOperationStatusEnum status, final PaAttributeOperationLastResultEnum result, final Date lastUse) throws ValidationException{
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_OPERATIONAL_STATUS.attributeType();
 	    
@@ -96,7 +97,7 @@ public class PaAttributeFactoryIetf {
 	    		PaAttributeValueBuilderIetf.createOperationalStatusValue(status, result, lastUse));
 	}
 	
-	public static PaAttribute createPortFiler(PortFilterEntry first, PortFilterEntry... more ) throws RuleException{
+	public static PaAttribute createPortFiler(PortFilterEntry first, PortFilterEntry... more ) throws ValidationException{
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_PORT_FILTER.attributeType();
 	    
@@ -104,7 +105,7 @@ public class PaAttributeFactoryIetf {
 	    		PaAttributeValueBuilderIetf.createPortFilterValue(first, more));
 	}
 	
-	public static PaAttribute createAttributeRequest(AttributeReference first, AttributeReference... more ) throws RuleException{
+	public static PaAttribute createAttributeRequest(AttributeReference first, AttributeReference... more ) throws ValidationException{
 		byte flags = 0;
 	    long type = PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType();
 	    
@@ -112,7 +113,7 @@ public class PaAttributeFactoryIetf {
 	    		PaAttributeValueBuilderIetf.createAttributeRequestValue(first, more));
 	}
 	
-	public static PaAttribute createRemediationParameterString(final String remediationString, final String langCode) throws RuleException {
+	public static PaAttribute createRemediationParameterString(final String remediationString, final String langCode) throws ValidationException {
 
 		long rpVendorId = VENDORID; 
 		long rpType = PaAttributeRemediationParameterTypeEnum.IETF_STRING.type();
@@ -125,7 +126,7 @@ public class PaAttributeFactoryIetf {
 		
 	}
 	
-	public static PaAttribute createRemediationParameterUri(final String uri) throws RuleException {
+	public static PaAttribute createRemediationParameterUri(final String uri) throws ValidationException {
 
 		long rpVendorId = VENDORID; 
 		long rpType = PaAttributeRemediationParameterTypeEnum.IETF_URI.type();
@@ -138,7 +139,7 @@ public class PaAttributeFactoryIetf {
 
 	}
 	
-	public static PaAttribute createErrorInformationInvalidParam(final PaMessageHeader messageHeaderCopy, final long errorOffset ) throws RuleException {
+	public static PaAttribute createErrorInformationInvalidParam(final PaMessageHeader messageHeaderCopy, final long errorOffset ) throws ValidationException {
 
 		long errorVendorId = VENDORID; 
 		long errorCode = PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code();
@@ -151,7 +152,7 @@ public class PaAttributeFactoryIetf {
 		
 	}
 	
-	public static PaAttribute createErrorInformationUnsupportedVersion(final PaMessageHeader messageHeaderCopy, final short maxVersion , final short minVersion) throws RuleException {
+	public static PaAttribute createErrorInformationUnsupportedVersion(final PaMessageHeader messageHeaderCopy, final short maxVersion , final short minVersion) throws ValidationException {
 
 		long errorVendorId = VENDORID; 
 		long errorCode = PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code();
@@ -164,7 +165,7 @@ public class PaAttributeFactoryIetf {
 		
 	}
 	
-	public static PaAttribute createErrorInformationUnsupportedAttribute(final PaMessageHeader messageHeaderCopy, final PaAttributeHeader attributeHeaderCopy) throws RuleException {
+	public static PaAttribute createErrorInformationUnsupportedAttribute(final PaMessageHeader messageHeaderCopy, final PaAttributeHeader attributeHeaderCopy) throws ValidationException {
 
 		long errorVendorId = VENDORID; 
 		long errorCode = PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code();
@@ -176,19 +177,21 @@ public class PaAttributeFactoryIetf {
 			  PaAttributeValueBuilderIetf.createErrorInformationUnsupportedAttribute(errorVendorId, errorCode, messageHeaderCopy, attributeHeaderCopy));
 	    
 	}
-	
-	// TODO what do we do with errors
-	private static PaAttribute createAttribute(final byte flags, final long type, final AbstractPaAttributeValue value) throws RuleException {
+
+	private static PaAttribute createAttribute(final byte flags, final long type, final AbstractPaAttributeValue value) throws ValidationException {
 		if(value == null){
 			throw new NullPointerException("Value cannot be null.");
 		}
 		
 	    PaAttributeHeaderBuilderIetf aBuilder = new PaAttributeHeaderBuilderIetf();
-		aBuilder.setFlags(flags);
-		aBuilder.setVendorId(VENDORID);
-		aBuilder.setType(type);
-		aBuilder.setLength(PaAttributeTlvFixedLength.ATTRIBUTE.length() + value.getLength());
-
+		try{
+		    aBuilder.setFlags(flags);
+			aBuilder.setVendorId(VENDORID);
+			aBuilder.setType(type);
+			aBuilder.setLength(PaAttributeTlvFixedLength.ATTRIBUTE.length() + value.getLength());
+		}catch(RuleException e){
+			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
+		}
 		PaAttribute attribute = new PaAttribute(aBuilder.toAttributeHeader(), value);
 		
 		return attribute;

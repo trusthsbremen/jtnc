@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.log4j.BasicConfigurator;
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
@@ -17,6 +16,7 @@ import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 
 public class TestData {
 
@@ -57,7 +57,7 @@ public class TestData {
 		return mixedMessage;
 	}
 	
-	public PaMessage getMessageWithNumericVersion() throws RuleException{
+	public PaMessage getMessageWithNumericVersion() throws ValidationException{
 		
 		PaAttribute a = PaAttributeFactoryIetf.createNumericVersion(1,7,258,0,1);
 		List<PaAttribute> attributes = new ArrayList<>();
@@ -66,7 +66,7 @@ public class TestData {
 		
 	}
 	
-	public PaMessage getMessageWithAssessmentResult() throws RuleException{
+	public PaMessage getMessageWithAssessmentResult() throws ValidationException{
 		
 		PaAttribute a = PaAttributeFactoryIetf.createAssessmentResult(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES);
 		List<PaAttribute> attributes = new ArrayList<>();
@@ -75,7 +75,7 @@ public class TestData {
 		
 	}
 	
-	public PaMessage getMessageWithInstalledPackages() throws RuleException{
+	public PaMessage getMessageWithInstalledPackages() throws ValidationException{
 		
 		List<PackageEntry> packages = new ArrayList<>();
 		packages.add(new PackageEntry("iptables\0", "1.4.12"));
@@ -88,7 +88,7 @@ public class TestData {
 		
 	}
 	
-	public PaMessage getMessageWithAttributeRequest() throws RuleException{
+	public PaMessage getMessageWithAttributeRequest() throws ValidationException{
 		
 		AttributeReference ref1 = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType());
 		
@@ -99,7 +99,7 @@ public class TestData {
 		
 	}
 	
-	public PaMessage getMessageWithMixedAttributes() throws RuleException{
+	public PaMessage getMessageWithMixedAttributes() throws ValidationException{
 		
 		List<PaAttribute> attributes = new ArrayList<>();
 		

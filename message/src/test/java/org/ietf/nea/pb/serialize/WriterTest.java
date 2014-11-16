@@ -3,7 +3,6 @@ package org.ietf.nea.pb.serialize;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
@@ -15,6 +14,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
@@ -31,7 +31,7 @@ public class WriterTest {
 	}
 	
 	@Test
-	public void serializePbBatchWithIm() throws RuleException{
+	public void serializePbBatchWithIm() throws ValidationException{
 		
 		PbBatch b = batch.getBatchWithImMessage();
 		
@@ -51,7 +51,7 @@ public class WriterTest {
 		Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithAccessRecommendation() throws RuleException{
+	public void serializePbBatchWithAccessRecommendation() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
@@ -71,7 +71,7 @@ public class WriterTest {
 		Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithReasonString() throws RuleException{
+	public void serializePbBatchWithReasonString() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 			
@@ -91,7 +91,7 @@ public class WriterTest {
 		Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithMixedMessageTypes() throws RuleException{
+	public void serializePbBatchWithMixedMessageTypes() throws ValidationException{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 				
