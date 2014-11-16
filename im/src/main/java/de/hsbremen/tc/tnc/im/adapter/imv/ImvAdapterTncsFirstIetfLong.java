@@ -16,7 +16,7 @@ import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
-import de.hsbremen.tc.tnc.m.message.ImMessage;
+import de.hsbremen.tc.tnc.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.m.serialize.ImReader;
 
 public class ImvAdapterTncsFirstIetfLong extends ImvAdapterIetfLong implements IMVTNCSFirst{
@@ -33,7 +33,7 @@ public class ImvAdapterTncsFirstIetfLong extends ImvAdapterIetfLong implements I
 			ImSessionFactory<ImvSession> sessionFactory,
 			ImEvaluatorFactory evaluatorFactory,
 			ImvConnectionAdapterFactory connectionFactory,
-			ImReader<? extends ImMessage> imReader) {
+			ImReader<? extends ImMessageContainer> imReader) {
 		super(parameter, sessionFactory, evaluatorFactory, connectionFactory, imReader);
 		// TODO Auto-generated constructor stub
 	}

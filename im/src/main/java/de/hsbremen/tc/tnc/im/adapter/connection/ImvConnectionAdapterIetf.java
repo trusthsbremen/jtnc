@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
@@ -15,6 +14,7 @@ import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
@@ -45,16 +45,11 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 	 */
 	@Override
 	public void sendMessage( ImObjectComponent component, long identifier)
-			throws TncException {
+			throws TncException, ValidationException {
 		
 		if(component != null && component.getAttributes() != null){
-			ImMessage message = null;
-			try{
-				message = PaMessageFactoryIetf.createMessage(VERSION, identifier, this.filterTypes(component.getAttributes()));
-			}catch(RuleException e){
-				throw new TncException(e.getMessage(), TncExceptionCodeEnum.TNC_RESULT_OTHER);
-			}
-
+			ImMessage message = PaMessageFactoryIetf.createMessage(VERSION, identifier, this.filterTypes(component.getAttributes()));
+			
 			byte [] byteMessage = this.messageToByteArray(message);
 			
 			byte flags = 0;

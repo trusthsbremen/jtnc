@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
@@ -140,7 +141,11 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 			}catch(TncException e){
 				LOGGER.warn("Handshake request for connection " +  this.connection.toString() +" was not executed.", e);
 				for (ImObjectComponent imComponent : componentList) {
-					this.connection.sendMessage(imComponent,this.getNextMessageIdentifier());
+					try{
+						this.connection.sendMessage(imComponent,this.getNextMessageIdentifier());
+					}catch(ValidationException e1){
+						LOGGER.error("Message with " + imComponent.getVendorId() + " and type " + imComponent.getType() + " could not be send, because it contains faulty values. \n ", e1);
+					}
 				}
 				
 			}finally{
@@ -148,7 +153,11 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 			}
 		}else{
 			for (ImObjectComponent imComponent : componentList) {
-				this.connection.sendMessage(imComponent,this.getNextMessageIdentifier());
+				try{
+					this.connection.sendMessage(imComponent,this.getNextMessageIdentifier());
+				}catch(ValidationException e1){
+					LOGGER.error("Message with " + imComponent.getVendorId() + " and type " + imComponent.getType() + " could not be send, because it contains faulty values. \n ", e1);
+				}
 			}
 		}
 	}

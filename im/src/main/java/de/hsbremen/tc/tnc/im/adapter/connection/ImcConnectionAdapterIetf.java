@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
@@ -16,6 +15,7 @@ import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
@@ -27,15 +27,16 @@ import de.hsbremen.tc.tnc.m.serialize.ImWriter;
 class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
 	
 	// TODO these seems to be better somewhere else, ideas?
-	private static final byte VERSION = 1;
+	private final short version;
 	
 	private ImWriter<ImMessage> byteWriter;
 	private IMCConnection connection;
 	
 	
 	@SuppressWarnings("unchecked")
-	ImcConnectionAdapterIetf(ImWriter<? extends ImMessage> byteWriter,
+	ImcConnectionAdapterIetf(short ifMVersion,ImWriter<? extends ImMessage> byteWriter,
 			IMCConnection connection) {
+		this.version = ifMVersion;
 		this.byteWriter = (ImWriter<ImMessage>) byteWriter;
 		this.connection = connection;
 	}
@@ -45,16 +46,11 @@ class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
 	 */
 	@Override
 	public void sendMessage( ImObjectComponent component, long identifier)
-			throws TncException {
+			throws TncException, ValidationException {
 		
 		if(component != null && component.getAttributes() != null){
-			ImMessage message = null;
-			try{
-				message = PaMessageFactoryIetf.createMessage(VERSION, identifier, this.filterTypes(component.getAttributes()));
-			}catch(RuleException e){
-				throw new TncException(e.getMessage(), e, TncExceptionCodeEnum.TNC_RESULT_OTHER);
-			}
-
+			ImMessage message = PaMessageFactoryIetf.createMessage(version, identifier, this.filterTypes(component.getAttributes()));
+			
 			byte [] byteMessage = this.messageToByteArray(message);
 			
 			byte flags = 0;

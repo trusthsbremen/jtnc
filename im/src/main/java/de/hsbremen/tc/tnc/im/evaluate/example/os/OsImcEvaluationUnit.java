@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
@@ -18,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImcEvaluationUnitIetf;
@@ -59,14 +59,14 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 		try{
 			PaAttribute prodInfo = this.getProductInformation(systemDescription);
 			attributes.add(prodInfo);
-		}catch(RuleException e){
+		}catch(ValidationException e){
 			LOGGER.error("Product information clould not be created.",e);
 		}
 		
 		try {
 			PaAttribute numericVers = this.getNumericVersion(systemDescription);
 			attributes.add(numericVers);
-		} catch (NumberFormatException | RuleException
+		} catch (NumberFormatException | ValidationException
 				| PatternNotFoundException e) {
 			LOGGER.error("Numeric version clould not be created.",e);
 		}
@@ -74,7 +74,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 		try{
 			PaAttribute stringVers = this.getStringVersion(systemDescription);
 			attributes.add(stringVers);
-		}catch(RuleException e){
+		}catch(ValidationException e){
 			LOGGER.error("String version clould not be created.",e);
 		}
 		
@@ -113,7 +113,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 						attributeList.add(this.getStringVersion(systemDescription));
 					}
 				}
-			}catch(RuleException | NumberFormatException | PatternNotFoundException e){
+			}catch(ValidationException | NumberFormatException | PatternNotFoundException e){
 				LOGGER.error("Requested attribute could not be created.",e);
 			}
 		}
@@ -145,11 +145,11 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 		return new ArrayList<>(0);
 	}
 
-	private PaAttribute getStringVersion(UTSNAME systemDescription) throws RuleException {
+	private PaAttribute getStringVersion(UTSNAME systemDescription) throws ValidationException {
 		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release).trim(),null,new String(systemDescription.machine).trim());
 	}
 
-	private PaAttribute getNumericVersion(UTSNAME systemDescription) throws NumberFormatException, RuleException, PatternNotFoundException {
+	private PaAttribute getNumericVersion(UTSNAME systemDescription) throws NumberFormatException, ValidationException, PatternNotFoundException {
 		String release = new String(systemDescription.release).trim();
 		Pattern p = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)-(\\d+)");
 		Matcher m = p.matcher(release);
@@ -165,7 +165,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 		}
 	}
 
-	private PaAttribute getProductInformation(UTSNAME systemDescription) throws RuleException {
+	private PaAttribute getProductInformation(UTSNAME systemDescription) throws ValidationException {
 		// RFC 5792 Vendor ID unknown = 0 => Product ID  = 0
 		return PaAttributeFactoryIetf.createProductInformation(0,0, new String(systemDescription.version).trim());
 	}

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.PaAttributeValueError;
@@ -19,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvEvaluationResultEnum;
@@ -71,7 +71,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 		try{
 			PaAttribute attrReq = this.getAttributeRefequest();
 			attributes.add(attrReq);
-		}catch(RuleException e){
+		}catch(ValidationException e){
 			LOGGER.error("Attribute request clould not be created.",e);
 		}
 	
@@ -111,7 +111,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 						(this.recommendation.getResult().equals(ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MAJOR)) ? 
 								PaAttributeAssessmentResultEnum.SIGNIFICANT_DIFFERENCES : 
 								PaAttributeAssessmentResultEnum.COMPLIANT));
-			}catch(RuleException e){
+			}catch(ValidationException e){
 				LOGGER.error("Assessment result clould not be created.",e);
 			}
 		}
@@ -212,7 +212,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 		LOGGER.debug("Terminate called.");
 	}
 
-	private PaAttribute getAttributeRefequest() throws RuleException {
+	private PaAttribute getAttributeRefequest() throws ValidationException {
 		
 		return PaAttributeFactoryIetf.createAttributeRequest(
 				new AttributeReference(IETFConstants.IETF_PEN_VENDORID,PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.attributeType()), 

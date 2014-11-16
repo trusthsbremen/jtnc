@@ -31,7 +31,7 @@ import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImcSession;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
-import de.hsbremen.tc.tnc.m.message.ImMessage;
+import de.hsbremen.tc.tnc.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.m.serialize.ImReader;
 
 public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
@@ -58,7 +58,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 				PaReaderFactory.createProductionDefault());
 	}
 	
-	public ImcAdapterIetf(ImParameter parameter, ImSessionFactory<ImcSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessage> imReader){
+	public ImcAdapterIetf(ImParameter parameter, ImSessionFactory<ImcSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
 		super(imReader);
 		
 		this.parameter = parameter;

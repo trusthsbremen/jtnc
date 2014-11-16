@@ -30,7 +30,7 @@ import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
-import de.hsbremen.tc.tnc.m.message.ImMessage;
+import de.hsbremen.tc.tnc.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.m.serialize.ImReader;
 
 public class ImvAdapterIetf extends ImAdapter implements IMV{
@@ -57,7 +57,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 				PaReaderFactory.createProductionDefault());
 	}
 	
-	public ImvAdapterIetf(ImParameter parameter, ImSessionFactory<ImvSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImvConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessage> imReader){
+	public ImvAdapterIetf(ImParameter parameter, ImSessionFactory<ImvSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImvConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
 		super(imReader);
 		
 		this.parameter = parameter;

@@ -3,7 +3,6 @@ package de.hsbremen.tc.tnc.im.evaluate.example.os;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.PaAttributeValueNumericVersion;
 import org.ietf.nea.pa.attribute.PaAttributeValueProductInformation;
@@ -15,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
@@ -67,7 +67,7 @@ public class ImcEvaluationUnitOsTest {
 		List<ImAttribute> attributes = new ArrayList<>();
 		try{
 			attributes.add(PaAttributeFactoryIetf.createAttributeRequest(reference));
-		}catch(RuleException e){
+		}catch(ValidationException e){
 			e.printStackTrace();
 		}
 

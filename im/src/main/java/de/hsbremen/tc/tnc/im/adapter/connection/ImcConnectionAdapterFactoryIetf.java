@@ -15,6 +15,7 @@ import de.hsbremen.tc.tnc.m.serialize.ImWriter;
 public class ImcConnectionAdapterFactoryIetf implements ImcConnectionAdapterFactory {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImcConnectionAdapterFactory.class);
+	private static final short IF_M_VERSION = 1;
 	private ImWriter<ImMessage> writer;
 	
 	@SuppressWarnings("unchecked")
@@ -36,7 +37,7 @@ public class ImcConnectionAdapterFactoryIetf implements ImcConnectionAdapterFact
 			throw new NullPointerException("Connection cannot be null.");
 		}
 		
-		ImcConnectionAdapter adapter = new ImcConnectionAdapterIetf(writer, connection);
+		ImcConnectionAdapter adapter = new ImcConnectionAdapterIetf(IF_M_VERSION, writer, connection);
 		
 		if(LOGGER.isDebugEnabled()){
 			this.writeConnectionInformationToDebugLog(adapter);

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
@@ -60,7 +60,7 @@ public class ImvEvaluationUnitOsTest {
 			attributes.add(Dummy.getAttributeNumericVersion());
 			attributes.add(Dummy.getAttributeProductInformation());
 			attributes.add(Dummy.getAttributeStringVersion());
-		}catch(RuleException | NumberFormatException | PatternNotFoundException e){
+		}catch(ValidationException | NumberFormatException | PatternNotFoundException e){
 			e.printStackTrace();
 		}
 

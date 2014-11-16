@@ -6,12 +6,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.AbstractDummy;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
@@ -123,13 +123,13 @@ public class Dummy extends AbstractDummy{
 	}
 	
 
-	public static PaAttribute getAttributeStringVersion() throws RuleException {
+	public static PaAttribute getAttributeStringVersion() throws ValidationException {
 		UTSNAME systemDescription = new UTSNAME();
 		CLibrary.INSTANCE.uname(systemDescription);
 		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release).trim(),null,new String(systemDescription.machine).trim());
 	}
 
-	public static PaAttribute getAttributeNumericVersion() throws NumberFormatException, RuleException, PatternNotFoundException {
+	public static PaAttribute getAttributeNumericVersion() throws NumberFormatException, ValidationException, PatternNotFoundException {
 		UTSNAME systemDescription = new UTSNAME();
 		CLibrary.INSTANCE.uname(systemDescription);
 		String release = new String(systemDescription.release).trim();
@@ -147,7 +147,7 @@ public class Dummy extends AbstractDummy{
 		}
 	}
 
-	public static PaAttribute getAttributeProductInformation() throws RuleException {
+	public static PaAttribute getAttributeProductInformation() throws ValidationException {
 		UTSNAME systemDescription = new UTSNAME();
 		CLibrary.INSTANCE.uname(systemDescription);
 		// RFC 5792 Vendor ID unknown = 0 => Product ID  = 0
