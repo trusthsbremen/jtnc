@@ -15,6 +15,7 @@ import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeValue;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
 import org.ietf.nea.pa.message.PaMessage;
+import org.ietf.nea.pa.message.PaMessageContainer;
 import org.ietf.nea.pa.message.PaMessageHeader;
 import org.ietf.nea.pa.validate.rules.MinAttributeLength;
 import org.ietf.nea.pa.validate.rules.NoSkipOnUnknownAttribute;
@@ -27,7 +28,7 @@ import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.m.serialize.ImReader;
 import de.hsbremen.tc.tnc.util.Combined;
 
-class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValue>> {
+class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttributeValue>> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaReader.class);
 	
 	private final ImReader<PaMessageHeader> mHeadReader;
@@ -40,7 +41,6 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 
 	}
 	
-	
 	public PaReader(ImReader<PaMessageHeader> mHeadReader,
 			ImReader<PaAttributeHeader> aHeadReader,
 			Map<Long, Map<Long, ImReader<PaAttributeValue>>> valueReader) {
@@ -50,10 +50,12 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 	}
 
 	@Override
-	public PaMessage read(final InputStream in, final long length)
+	public PaMessageContainer read(final InputStream in, final long length)
 			throws SerializationException, ValidationException {
 		
 		BufferedInputStream bIn = (in instanceof BufferedInputStream)? (BufferedInputStream)in : new BufferedInputStream(in) ;
+		List<ValidationException> minorExceptions = new LinkedList<>();
+		
 		
 		/* message header */
 		PaMessageHeader mHead = null;
@@ -108,7 +110,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 								}
 								
 								attributes.add(new PaAttribute(aHead, aValue));
-							} // if null you can ignore the message
+							} // if null you can ignore the attribute
 							
 						}else{
 							try{
@@ -164,6 +166,7 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 					
 						try{
 							// skip the remaining bytes of the attribute
+							minorExceptions.add(e);
 							cIn.skip(aHead.getLength() - (cIn.getByteCount()));
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
@@ -178,9 +181,9 @@ class PaReader implements ImReader<PaMessage>, Combined<ImReader<PaAttributeValu
 		}
 		
 		
-		PaMessage b = new PaMessage(mHead,attributes);
+		PaMessage m = new PaMessage(mHead,attributes);
 		
-		return b;
+		return new PaMessageContainer(m, minorExceptions);
 	}
 
 	@Override

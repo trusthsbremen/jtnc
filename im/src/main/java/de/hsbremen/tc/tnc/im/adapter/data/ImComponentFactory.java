@@ -1,5 +1,6 @@
 package de.hsbremen.tc.tnc.im.adapter.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hsbremen.tc.tnc.HSBConstants;
@@ -44,4 +45,9 @@ public class ImComponentFactory {
 		
 		return createRawComponent((byte)0, vendorId, type, HSBConstants.HSB_IM_ID_UNKNOWN, HSBConstants.HSB_IM_ID_UNKNOWN, message);
 	}
+	
+	public static ImObjectComponent changeAttributesFromComponent(final ImObjectComponent component, final List<? extends ImAttribute> attributes){
+		return new ImObjectComponent (new ArrayList<ImComponentFlagsEnum>(component.getImFlags()).toArray(new ImComponentFlagsEnum[component.getImFlags().size()]), component.getVendorId(), component.getType(), component.getCollectorId(), component.getValidatorId(), attributes);
+	}
+	
 }

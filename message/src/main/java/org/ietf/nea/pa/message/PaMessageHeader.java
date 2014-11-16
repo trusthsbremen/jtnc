@@ -7,7 +7,7 @@ public class PaMessageHeader implements ImMessageHeader{
 	private final short version;	// 8 bit(s) 
 	private final long identifier;  // 32 bit(s)
 
-	public PaMessageHeader(short version, long identifier) {
+	PaMessageHeader(short version, long identifier) {
 		this.version = version;
 		this.identifier = identifier;
 	}

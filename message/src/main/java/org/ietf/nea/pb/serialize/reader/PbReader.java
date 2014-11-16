@@ -11,7 +11,9 @@ import java.util.Map;
 import org.apache.commons.io.input.CountingInputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatch;
+import org.ietf.nea.pb.batch.PbBatchContainer;
 import org.ietf.nea.pb.batch.PbBatchHeader;
+import org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageValue;
@@ -28,7 +30,7 @@ import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 import de.hsbremen.tc.tnc.util.Combined;
 
-class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageValue>> {
+class PbReader implements TnccsReader<PbBatchContainer>, Combined<TnccsReader<PbMessageValue>> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PbReader.class);
 			
@@ -52,10 +54,11 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 	}
 
 	@Override
-	public PbBatch read(final InputStream in, final long length)
+	public PbBatchContainer read(final InputStream in, final long length)
 			throws SerializationException, ValidationException {
 		
 		BufferedInputStream bIn = (in instanceof BufferedInputStream)? (BufferedInputStream)in : new BufferedInputStream(in) ;
+		List<ValidationException> minorExceptions = new LinkedList<>();
 		
 		/* batch header */
 		PbBatchHeader bHead = null;
@@ -125,6 +128,14 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 							try{
 								// skip the remaining bytes of the message
 								cIn.skip(mHead.getLength() - headerOffset);
+								try{
+									PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+									bHead = changedBHeader;
+								}catch(RuleException e2){
+									// the new header is only a convenient process if the creation fails
+									// leave the old header in place and do nothing.
+									LOGGER.warn("The header update for the current batch failed. The old header is left in use.");
+								}
 							}catch (IOException e1){
 								throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 							}
@@ -142,6 +153,14 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 						try{
 							// skip the remaining bytes of the message
 							cIn.skip(mHead.getLength() - headerOffset);
+							try{
+								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+								bHead = changedBHeader;
+							}catch(RuleException e2){
+								// the new header is only a convenient process if the creation fails
+								// leave the old header in place and do nothing.
+								LOGGER.warn("The header update for the current batch failed. The old header is left in use.");
+							}
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 						}
@@ -165,8 +184,16 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 					
 						try{
 							// skip the remaining bytes of the message
+							minorExceptions.add(e);
 							cIn.skip(mHead.getLength() - cIn.getByteCount());
-							
+							try{
+								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+								bHead = changedBHeader;
+							}catch(RuleException e2){
+								// the new header is only a convenient process if the creation fails
+								// leave the old header in place and do nothing.
+								LOGGER.warn("The header update for the current batch failed. The old header is left in use.");
+							}
 						}catch (IOException e1){
 							throw new SerializationException("Bytes from InputStream could not be skipped, stream seems closed.", true);
 						}
@@ -187,7 +214,7 @@ class PbReader implements TnccsReader<PbBatch>, Combined<TnccsReader<PbMessageVa
 		
 		PbBatch b = new PbBatch(bHead,msgs);
 		
-		return b;
+		return new PbBatchContainer(b, minorExceptions);
 	}
 
 	@Override

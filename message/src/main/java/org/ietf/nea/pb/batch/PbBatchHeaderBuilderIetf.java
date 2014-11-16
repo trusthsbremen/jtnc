@@ -14,7 +14,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 
 	private static final byte SUPPORTED_VERSION = 2;
 	
-	private byte version;
+	private short version;
 	private PbBatchTypeEnum type;
 	private PbBatchDirectionalityEnum direction;
 	private long batchLength;
@@ -27,7 +27,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 	}
 
 	@Override
-	public PbBatchHeaderBuilder setVersion(byte version) throws RuleException {
+	public PbBatchHeaderBuilder setVersion(short version) throws RuleException {
 		BatchVersion.check(version, SUPPORTED_VERSION);
 		
 		this.version = version;

@@ -6,7 +6,7 @@ import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchHeaderBuilder;
 
 public interface PbBatchHeaderBuilder extends TnccsBatchHeaderBuilder {
 
-	public abstract PbBatchHeaderBuilder setVersion(byte version)
+	public abstract PbBatchHeaderBuilder setVersion(short version)
 			throws RuleException;
 
 	public abstract PbBatchHeaderBuilder setDirection(byte direction)
