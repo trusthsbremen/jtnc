@@ -20,7 +20,7 @@ import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupporte
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterStringBuilderIetf;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUriBuilderIetf;
-import org.ietf.nea.pa.message.PaMessage;
+import org.ietf.nea.pa.message.PaMessageContainer;
 import org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -29,7 +29,7 @@ import de.hsbremen.tc.tnc.m.serialize.ImReader;
 public class PaReaderFactory {
 
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static ImReader<PaMessage> createProductionDefault(){
+	public static ImReader<PaMessageContainer> createProductionDefault(){
 
 		/* 
 		 * TODO Remove raw types and unchecked conversion.
@@ -103,7 +103,7 @@ public class PaReaderFactory {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static ImReader<PaMessage> createTestingDefault(){
+	public static ImReader<PaMessageContainer> createTestingDefault(){
 	
 		/* 
 		 * TODO Remove raw types and unchecked conversion.

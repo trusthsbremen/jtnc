@@ -3,6 +3,7 @@ package org.ietf.nea.pb.serialize;
 import java.io.InputStream;
 
 import org.ietf.nea.pb.batch.PbBatch;
+import org.ietf.nea.pb.batch.PbBatchContainer;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
@@ -21,7 +22,7 @@ public class ReaderTest {
 
 
 	TestData batch;
-	TnccsReader<PbBatch> bs;
+	TnccsReader<PbBatchContainer> bs;
 	
 	@Before
 	public void setUp(){
@@ -32,13 +33,19 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithIm(){
 
-		PbBatch b = null;
+		PbBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithImAsStream();
-			b = bs.read(in, -1);
+			bc = bs.read(in, -1);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		if(!bc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PbBatch b = (PbBatch)bc.getResult();
+		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBS,((PbBatchHeader)b.getHeader()).getDirectionality());
 		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_PA.messageType(), b.getMessages().get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueIm)b.getMessages().get(0).getValue()).getSubType(), 1L);
@@ -47,13 +54,18 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithReason(){
 
-		PbBatch b = null;
+		PbBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithReasonAsStream();
-			b = bs.read(in, -1);
+			bc = bs.read(in, -1);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		if(!bc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PbBatch b = (PbBatch)bc.getResult();
+		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBS,((PbBatchHeader)b.getHeader()).getDirectionality());
 		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(), b.getMessages().get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueReasonString)b.getMessages().get(0).getValue()).getReasonString(),"Don't ever take intimate pictures with your mobile phone.");
@@ -62,13 +74,18 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithRecommendation(){
 
-		PbBatch b = null;
+		PbBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithRecommendationAsStream();
-			b = bs.read(in, -1);
+			bc = bs.read(in, -1);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		if(!bc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PbBatch b = (PbBatch)bc.getResult();
+		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBS,((PbBatchHeader)b.getHeader()).getDirectionality());
 		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType(), b.getMessages().get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueAccessRecommendation)b.getMessages().get(0).getValue()).getRecommendation(), PbMessageAccessRecommendationEnum.ALLOWED);
@@ -78,13 +95,18 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithMixedMessageTypes(){
 
-		PbBatch b = null;
+		PbBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithMixedAsStream();
-			b = bs.read(in, -1);
+			bc = bs.read(in, -1);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		if(!bc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PbBatch b = (PbBatch)bc.getResult();
+		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBS,((PbBatchHeader)b.getHeader()).getDirectionality());
 		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_PA.messageType(), b.getMessages().get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueIm)b.getMessages().get(0).getValue()).getSubType(), 1L);

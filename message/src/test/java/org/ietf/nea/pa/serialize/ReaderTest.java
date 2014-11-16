@@ -10,6 +10,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueNumericVersion;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.message.PaMessage;
+import org.ietf.nea.pa.message.PaMessageContainer;
 import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class ReaderTest {
 
 
 	TestData data;
-	ImReader<PaMessage> bs;
+	ImReader<PaMessageContainer> bs;
 	
 	@Before
 	public void setUp(){
@@ -33,14 +34,20 @@ public class ReaderTest {
 	@Test
 	public void deserializePaMessageWithAssessmentResult(){
 
-		PaMessage b = null;
+		PaMessageContainer mc = null;
 		try{
 			byte[] msg = data.getMessageWithAssessmentResultAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
-			b = bs.read(in, msg.length);
+			mc = bs.read(in, msg.length);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		if(!mc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PaMessage b = (PaMessage)mc.getResult();
+		
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES, ((PaAttributeValueAssessmentResult)b.getAttributes().get(0).getValue()).getResult());
@@ -49,14 +56,19 @@ public class ReaderTest {
 	@Test
 	public void deserializePaMessageWithNumericVersion(){
 
-		PaMessage b = null;
+		PaMessageContainer mc = null;
 		try{
 			byte[] msg = data.getMessageWithNumericVersionAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
-			b = bs.read(in, msg.length);
+			mc = bs.read(in, msg.length);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		if(!mc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PaMessage b = (PaMessage)mc.getResult();
+		
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals(7, ((PaAttributeValueNumericVersion)b.getAttributes().get(0).getValue()).getMinorVersion());
@@ -65,14 +77,19 @@ public class ReaderTest {
 	@Test
 	public void deserializePaMessageWithInstalledPackages(){
 
-		PaMessage b = null;
+		PaMessageContainer mc = null;
 		try{
 			byte[] msg = data.getMessageWithInstalledPackagesAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
-			b = bs.read(in, msg.length);
+			mc = bs.read(in, msg.length);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		if(!mc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PaMessage b = (PaMessage)mc.getResult();
+		
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals("1.7.0_40", ((PaAttributeValueInstalledPackages)b.getAttributes().get(0).getValue()).getPackages().get(1).getPackageVersion());
@@ -82,14 +99,19 @@ public class ReaderTest {
 	@Test
 	public void deserializePaMessageWithAttributeRequest(){
 
-		PaMessage b = null;
+		PaMessageContainer mc = null;
 		try{
 			byte[] msg = data.getMessageWithAttributeRequestAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
-			b = bs.read(in, msg.length);
+			mc = bs.read(in, msg.length);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		if(!mc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PaMessage b = (PaMessage)mc.getResult();
+		
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType(), ((PaAttributeValueAttributeRequest)b.getAttributes().get(0).getValue()).getReferences().get(0).getType());
@@ -99,14 +121,20 @@ public class ReaderTest {
 	@Test
 	public void deserializePaMessageWithMixedAttributes(){
 
-		PaMessage b = null;
+		PaMessageContainer mc = null;
 		try{
 			byte[] msg = data.getBatchWithMixedAttributesAsByteArray();
 			InputStream in = new ByteArrayInputStream(msg);
-			b = bs.read(in, msg.length);
+			mc = bs.read(in, msg.length);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		if(!mc.getExceptions().isEmpty()){
+			Assert.fail("Exceptions are present.");
+		}
+		PaMessage b = (PaMessage)mc.getResult();
+		
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES, ((PaAttributeValueAssessmentResult)b.getAttributes().get(0).getValue()).getResult());
