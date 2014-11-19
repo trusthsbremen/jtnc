@@ -12,8 +12,8 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class DefaultImcEvaluatorManager implements ImcEvaluatorManager{
 

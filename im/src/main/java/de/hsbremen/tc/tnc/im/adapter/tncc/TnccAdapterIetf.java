@@ -11,8 +11,8 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageTypeFactory;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 class TnccAdapterIetf implements TnccAdapter, GlobalHandshakeRetryListener {
 	

@@ -17,8 +17,8 @@ import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.util.DefaultRecommendationComparator;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class DefaultImvEvaluatorManager implements ImvEvaluatorManager{
 	

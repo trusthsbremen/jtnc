@@ -3,8 +3,7 @@ package de.hsbremen.tc.tnc.im.adapter;
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public interface TnccsAdapter {
 	

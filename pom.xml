@@ -16,13 +16,11 @@
 	<modules>
 		<module>native</module>
 		<module>im</module>
-		<module>im-handler</module>
 		<module>transport</module>
-		<module>tcg-tncc-if</module>
+		<module>tcg-if</module>
 		<module>message</module>
-		<module>tncc</module>
+		<module>tnccs</module>
 		<module>examples</module>
-		<module>session</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

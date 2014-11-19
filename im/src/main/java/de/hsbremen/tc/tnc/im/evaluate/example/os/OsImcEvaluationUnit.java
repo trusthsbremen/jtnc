@@ -161,7 +161,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 	}
 
 	private PaAttribute getStringVersion(UTSNAME systemDescription) throws ValidationException {
-		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release),null,new String(systemDescription.machine));
+		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release).trim(),null,new String(systemDescription.machine).trim());
 	}
 
 	private PaAttribute getNumericVersion(UTSNAME systemDescription) throws NumberFormatException, ValidationException, PatternNotFoundException {

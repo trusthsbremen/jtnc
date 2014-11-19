@@ -18,7 +18,8 @@ import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImValueExceptionHandler;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImvEvaluatorManager;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 	
@@ -33,7 +34,7 @@ public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 	private static final Set<SupportedMessageType> supportedMessageTypes = new HashSet<>(
 			Arrays.asList(
 					new SupportedMessageType[]{
-							new SupportedMessageType(OsImcEvaluationUnit.VENDOR_ID,OsImcEvaluationUnit.TYPE)
+							SupportedMessageTypeFactory.createSupportedMessageType(OsImcEvaluationUnit.VENDOR_ID,OsImcEvaluationUnit.TYPE)
 	}));
 	
 	@Override

@@ -1,5 +1,6 @@
 package de.hsbremen.tc.tnc.im.adapter.data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -24,7 +25,7 @@ public class ImObjectComponent extends AbstractImComponent{
 			this.imFlags = EnumSet.noneOf(ImComponentFlagsEnum.class);
 		}
     	
-		this.attributes = attributes;
+		this.attributes = (attributes != null) ? attributes : new ArrayList<ImAttribute>(0);
 	}
     
     /**

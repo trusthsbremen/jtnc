@@ -15,7 +15,8 @@ import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 public class DefaultImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 
@@ -29,8 +30,7 @@ public class DefaultImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 	
 	private static final Set<SupportedMessageType> supportedMessageTypes = new HashSet<>(
 			Arrays.asList(
-					new SupportedMessageType[]{
-							new SupportedMessageType(DefaultImcEvaluationUnit.VENDOR_ID,DefaultImcEvaluationUnit.TYPE)
+					new SupportedMessageType[]{ SupportedMessageTypeFactory.createSupportedMessageType(DefaultImcEvaluationUnit.VENDOR_ID, DefaultImcEvaluationUnit.TYPE)
 	}));
 
 	

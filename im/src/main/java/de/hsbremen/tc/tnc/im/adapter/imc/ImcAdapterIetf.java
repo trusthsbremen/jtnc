@@ -26,13 +26,13 @@ import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluatorFactory;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImcSession;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 import de.hsbremen.tc.tnc.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 

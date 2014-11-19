@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.HSBConstants;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 
 public class ImParameter {

@@ -19,10 +19,10 @@ import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
-import de.hsbremen.tc.tnc.im.module.SupportedMessageType;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.natives.CLibrary;
 import de.hsbremen.tc.tnc.natives.CLibrary.UTSNAME;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class Dummy extends AbstractDummy{
 

@@ -75,7 +75,7 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
 		}
 		
 		for (ImObjectComponent component : components) {
-
+			
 			boolean useExcl = false;
 			if(component.getCollectorId() != HSBConstants.HSB_IM_ID_UNKNOWN && 
 					component.getValidatorId() != HSBConstants.HSB_IM_ID_UNKNOWN && 
