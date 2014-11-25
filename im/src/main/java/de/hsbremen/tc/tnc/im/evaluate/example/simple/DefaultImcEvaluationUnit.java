@@ -42,7 +42,7 @@ class DefaultImcEvaluationUnit extends AbstractImcEvaluationUnitIetf implements 
 	}
 
 	@Override
-	public List<ImAttribute> evaluate(ImSessionContext context) {
+	public synchronized List<ImAttribute> evaluate(ImSessionContext context) {
 		
 		LOGGER.debug("evaluate() called, with connection state: " + context.getConnectionState());
 		
@@ -109,7 +109,7 @@ class DefaultImcEvaluationUnit extends AbstractImcEvaluationUnitIetf implements 
 	}
 
 	@Override
-	public List<ImAttribute> lastCall(ImSessionContext context) {
+	public synchronized List<ImAttribute> lastCall(ImSessionContext context) {
 		
 		LOGGER.debug("lastCall() called, with connection state: " + context.getConnectionState());
 		

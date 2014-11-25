@@ -3,9 +3,13 @@ package de.hsbremen.tc.tnc.im.adapter.tncc;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 
-public class TnccAdapterIetfFactory {
+public class TnccAdapterIetfFactory implements TnccAdapterFactory {
 
-	public static TnccAdapter createTnccAdapter(IMC imc,
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactory#createTnccAdapter(org.trustedcomputinggroup.tnc.ifimc.IMC, org.trustedcomputinggroup.tnc.ifimc.TNCC)
+	 */
+	@Override
+	public TnccAdapter createTnccAdapter(IMC imc,
 			TNCC tncc) {
 		if(imc == null){
 			throw new NullPointerException("IMC cannot be null.");

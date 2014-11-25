@@ -12,11 +12,11 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
+import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
-import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;

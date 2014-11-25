@@ -14,7 +14,7 @@ class JarLoader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JarLoader.class);
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	static <T> T loadIm(ImLoadParameter parameter){
+	static <T> T loadIm(ImConfigurationEntry parameter){
 		T im = null;
 
 		URLClassLoader urlLoader = new URLClassLoader(new URL[]{parameter.getPath()});

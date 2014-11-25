@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
-import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.ImTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
 import de.hsbremen.tc.tnc.im.adapter.imv.ImvAdapterIetf;
 import de.hsbremen.tc.tnc.im.adapter.imv.ImvAdapterIetfLong;
@@ -48,7 +48,7 @@ public class ImvTest {
 	public void testNotInitialized() throws TNCException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(), "Test error for missing initialization."));
 		try{
-			this.imv.notifyConnectionChange(Dummy.getIMVConnection(),ImConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
+			this.imv.notifyConnectionChange(Dummy.getIMVConnection(),ImTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
 		}catch(TNCException e){
 			if(e.getResultCode() == TNCException.TNC_RESULT_NOT_INITIALIZED){
 				throw e;
@@ -68,7 +68,7 @@ public class ImvTest {
 			e.printStackTrace();
 		}
 		
-		this.imv.notifyConnectionChange(Dummy.getIMVConnection(), ImConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
+		this.imv.notifyConnectionChange(Dummy.getIMVConnection(), ImTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
 	}
 	
 //	@Test

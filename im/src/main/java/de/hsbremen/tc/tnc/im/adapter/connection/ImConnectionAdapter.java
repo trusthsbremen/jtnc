@@ -1,9 +1,9 @@
 package de.hsbremen.tc.tnc.im.adapter.connection;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
+import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 
 public interface ImConnectionAdapter {

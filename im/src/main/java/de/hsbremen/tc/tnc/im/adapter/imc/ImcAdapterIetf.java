@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
 import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
@@ -13,15 +15,17 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.HSBConstants;
+import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
+import de.hsbremen.tc.tnc.connection.DefaultImConnectionStateFactory;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImAdapter;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
+import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
@@ -36,8 +40,11 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImcAdapterIetf.class);
+	
 	private final ImParameter parameter;
 	
+	private final TnccAdapterFactory tnccFactory;
 	private final ImcConnectionAdapterFactory connectionFactory;
 	
 	private final ImSessionFactory<ImcSession> sessionFactory;
@@ -51,18 +58,19 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 	
 	public ImcAdapterIetf(){
 		// FIXME this is only a default constructor and should only be used for testing purpose.
-		this(new ImParameter(),
+		this(new ImParameter(), new TnccAdapterIetfFactory(),
 				new DefaultImcSessionFactory(),
 				DefaultImcEvaluatorFactory.getInstance(),
 				new ImcConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 				PaReaderFactory.createProductionDefault());
 	}
 	
-	public ImcAdapterIetf(ImParameter parameter, ImSessionFactory<ImcSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
+	public ImcAdapterIetf(ImParameter parameter, TnccAdapterFactory tnccFactory, ImSessionFactory<ImcSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
 		super(imReader);
 		
 		this.parameter = parameter;
 		
+		this.tnccFactory = tnccFactory;
 		this.connectionFactory = connectionFactory;
 		this.evaluatorFactory = evaluatorFactory;
 		this.sessionFactory = sessionFactory;
@@ -73,13 +81,24 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 	@Override
 	public void initialize(TNCC tncc) throws TNCException {
 		if(this.tncc == null){
-			this.tncc = (TnccAdapterIetfFactory.createTnccAdapter(this,tncc));
+			this.tncc = this.tnccFactory.createTnccAdapter(this,tncc);
 			this.evaluatorManager = this.evaluatorFactory.getEvaluators(this.tncc, this.parameter);
 			try{
 				this.tncc.reportMessageTypes(this.evaluatorManager.getSupportedMessageTypes());
 			}catch(TncException e){
 				throw new TNCException(e.getMessage(),e.getResultCode().result());
 			}
+			try{
+				Object o = ((AttributeSupport) tncc).getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE.id());
+				if(o instanceof String){
+					String preferredLanguage = (String)o;
+					this.parameter.setPreferredLanguage(preferredLanguage);
+				}
+			}catch (TNCException | UnsupportedOperationException e){
+				LOGGER.info("Preferred language attribute was not accessible, using default language: " + this.parameter.getPreferredLanguage(),e);
+			}
+			
+			
 		}else{
 			throw new TNCException("IMC already initialized by " + this.tncc.toString() + ".", TNCException.TNC_RESULT_ALREADY_INITIALIZED);
 		}
@@ -107,7 +126,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 			throws TNCException {
 		checkInitialization();
 		try{
-			this.findSessionByConnection(c).setConnectionState(ImConnectionStateEnum.fromState(newState));
+			this.findSessionByConnection(c).setConnectionState(DefaultImConnectionStateFactory.getInstance().fromState(newState));
 		}catch(TncException e){
 			throw new TNCException(e.getMessage(),e.getResultCode().result());
 		}

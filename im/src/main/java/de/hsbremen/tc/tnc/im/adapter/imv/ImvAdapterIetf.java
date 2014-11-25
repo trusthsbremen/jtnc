@@ -6,21 +6,25 @@ import java.util.Map;
 
 import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
 import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 
 import de.hsbremen.tc.tnc.HSBConstants;
+import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
+import de.hsbremen.tc.tnc.connection.DefaultImConnectionStateFactory;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImAdapter;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapter;
+import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
@@ -35,10 +39,12 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class ImvAdapterIetf extends ImAdapter implements IMV{
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImvAdapterIetf.class);
+	
 	private final ImParameter parameter;
 	
+	private final TncsAdapterFactory tncsFactory;
 	private final ImvConnectionAdapterFactory connectionFactory;
-	
 	private final ImSessionFactory<ImvSession> sessionFactory;
 	private final Map<IMVConnection, ImvSession> sessions;
 
@@ -50,18 +56,19 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 	
 	public ImvAdapterIetf(){
 		// FIXME this is only a default constructor and should only be used for testing purpose.
-		this(new ImParameter(),
+		this(new ImParameter(), new TncsAdapterIetfFactory(),
 				new DefaultImvSessionFactory(),
 				DefaultImvEvaluatorFactory.getInstance(),
 				new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 				PaReaderFactory.createProductionDefault());
 	}
 	
-	public ImvAdapterIetf(ImParameter parameter, ImSessionFactory<ImvSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImvConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
+	public ImvAdapterIetf(ImParameter parameter, TncsAdapterFactory tncsFactory, ImSessionFactory<ImvSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImvConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
 		super(imReader);
 		
 		this.parameter = parameter;
 		
+		this.tncsFactory = tncsFactory;
 		this.connectionFactory = connectionFactory;
 		this.evaluatorFactory = evaluatorFactory;
 		this.sessionFactory = sessionFactory;
@@ -72,13 +79,23 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 	@Override
 	public void initialize(TNCS tncs) throws TNCException {
 		if(this.tncs == null){
-			this.tncs = (TncsAdapterIetfFactory.createTncsAdapter(this,tncs));
+			this.tncs = this.tncsFactory.createTncsAdapter(this,tncs);
 			this.evaluatorManager = this.evaluatorFactory.getEvaluators(this.tncs, this.parameter);
 			try{
 				this.tncs.reportMessageTypes(this.evaluatorManager.getSupportedMessageTypes());
 			}catch(TncException e){
 				throw new TNCException(e.getMessage(),e.getResultCode().result());
 			}
+			try{
+				Object o = tncs.getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE.id());
+				if(o instanceof String){
+					String preferredLanguage = (String)o;
+					this.parameter.setPreferredLanguage(preferredLanguage);
+				}
+			}catch (TNCException | UnsupportedOperationException e){
+				LOGGER.info("Preferred language attribute was not accessible, using default language: " + this.parameter.getPreferredLanguage(),e);
+			}
+			
 		}else{
 			throw new TNCException("IMV already initialized by " + this.tncs.toString() + ".", TNCException.TNC_RESULT_ALREADY_INITIALIZED);
 		}
@@ -106,7 +123,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 			throws TNCException {
 		checkInitialization();
 		try{
-			this.findSessionByConnection(c).setConnectionState(ImConnectionStateEnum.fromState(newState));
+			this.findSessionByConnection(c).setConnectionState(DefaultImConnectionStateFactory.getInstance().fromState(newState));
 		}catch(TncException e){
 			throw new TNCException(e.getMessage(),e.getResultCode().result());
 		}

@@ -20,7 +20,7 @@ public abstract class AbstractImcEvaluationUnitIetf extends AbstractImEvaluation
 	}
 	
 	@Override
-	public List<ImAttribute> handle(List<? extends ImAttribute> attribute, ImSessionContext context) {
+	public synchronized List<ImAttribute> handle(List<? extends ImAttribute> attribute, ImSessionContext context) {
 		List<ImAttribute> attributes = new LinkedList<>();
 		for (ImAttribute imAttribute : attribute) {
 			ImAttributeValue value = imAttribute.getValue();

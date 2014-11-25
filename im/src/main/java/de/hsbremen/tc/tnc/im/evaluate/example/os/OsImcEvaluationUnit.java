@@ -19,9 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImcEvaluationUnitIetf;
 import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
@@ -53,7 +53,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 	}
 
 	@Override
-	public List<ImAttribute> evaluate(ImSessionContext context) {
+	public synchronized List<ImAttribute> evaluate(ImSessionContext context) {
 		final UTSNAME systemDescription = new UTSNAME();
 		CLibrary.INSTANCE.uname(systemDescription);
 		
@@ -186,7 +186,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 	}
 
 	@Override
-	public List<ImAttribute> lastCall(ImSessionContext context) {
+	public synchronized List<ImAttribute> lastCall(ImSessionContext context) {
 		
 		LOGGER.info("Last call received.");
 		return new ArrayList<>(0);

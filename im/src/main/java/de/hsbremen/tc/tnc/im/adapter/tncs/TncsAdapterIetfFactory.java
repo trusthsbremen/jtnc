@@ -3,9 +3,13 @@ package de.hsbremen.tc.tnc.im.adapter.tncs;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 
-public class TncsAdapterIetfFactory {
+public class TncsAdapterIetfFactory implements TncsAdapterFactory {
 
-	public static TncsAdapter createTncsAdapter(IMV imv,
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactory#createTncsAdapter(org.trustedcomputinggroup.tnc.ifimv.IMV, org.trustedcomputinggroup.tnc.ifimv.TNCS)
+	 */
+	@Override
+	public TncsAdapter createTncsAdapter(IMV imv,
 			TNCS tncs) {
 		if(imv == null){
 			throw new NullPointerException("IMV cannot be null.");

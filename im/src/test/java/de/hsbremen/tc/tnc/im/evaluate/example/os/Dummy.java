@@ -10,12 +10,12 @@ import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
+import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.connection.ImTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.AbstractDummy;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.im.adapter.connection.enums.ImConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
@@ -37,8 +37,8 @@ public class Dummy extends AbstractDummy{
 			}
 			
 			@Override
-			public ImConnectionStateEnum getConnectionState() {
-				return ImConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN;
+			public ImTncConnectionStateEnum getConnectionState() {
+				return ImTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN;
 			}
 
 			@Override

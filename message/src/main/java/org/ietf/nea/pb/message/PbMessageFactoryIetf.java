@@ -50,7 +50,7 @@ public class PbMessageFactoryIetf {
 	}
 
 	public static PbMessage createIm(final PbMessageImFlagsEnum[] imFlags, final long subVendorId, final long subType,
-			final short collectorId, final short validatorId, final byte[] imMessage) throws ValidationException {
+			final int collectorId, final int validatorId, final byte[] imMessage) throws ValidationException {
 
 		byte flags = PbMessageFlagsEnum.NOSKIP.bit();
 		long type = PbMessageTypeEnum.IETF_PB_PA.messageType();

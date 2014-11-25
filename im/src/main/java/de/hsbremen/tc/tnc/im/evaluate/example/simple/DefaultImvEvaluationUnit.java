@@ -38,7 +38,7 @@ class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements I
 	}
 
 	@Override
-	public List<ImAttribute> evaluate(ImSessionContext context) {
+	public synchronized List<ImAttribute> evaluate(ImSessionContext context) {
 		
 		LOGGER.debug("evaluate() called, with connection state: " + context.getConnectionState());
 		
@@ -52,7 +52,7 @@ class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements I
 	}
 
 	@Override
-	public List<ImAttribute> lastCall(ImSessionContext context) {
+	public synchronized List<ImAttribute> lastCall(ImSessionContext context) {
 		
 		LOGGER.debug("lastCall() called, with connection state: " + context.getConnectionState());
 		
@@ -60,7 +60,7 @@ class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements I
 	}
 
 	@Override
-	public List<ImAttribute> handle(List<? extends ImAttribute> components,
+	public synchronized List<ImAttribute> handle(List<? extends ImAttribute> components,
 			ImSessionContext context) {
 		StringBuilder b = new StringBuilder();
 		b.append("handleCall() called, with connection state: ")
@@ -82,7 +82,7 @@ class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements I
 	}
 
 	@Override
-	public ImvRecommendationObject getRecommendation(ImSessionContext context) {
+	public synchronized ImvRecommendationObject getRecommendation(ImSessionContext context) {
 		ImvRecommendationObject object = new ImvRecommendationObject();
 		LOGGER.debug("getRecommendation() called, with connection state: " + context.getConnectionState() + "\n" + object.toString() );
 		return object;

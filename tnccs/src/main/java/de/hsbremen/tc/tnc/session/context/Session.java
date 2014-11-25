@@ -7,7 +7,7 @@ import de.hsbremen.tc.tnc.session.TncContext;
 import de.hsbremen.tc.tnc.session.context.enums.SessionEventEnum;
 import de.hsbremen.tc.tnc.session.state.SessionState;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
+import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class Session implements SessionContext, TncSession{
@@ -16,10 +16,10 @@ public class Session implements SessionContext, TncSession{
 	private SessionState state;
 	private boolean shutdown;
 	private TncContext context;
-	private IfTConnection connection;
+	private TransportConnection connection;
 	
 	
-	public Session(TncContext context, SessionState startState, IfTConnection connection){
+	public Session(TncContext context, SessionState startState, TransportConnection connection){
 		this.shutdown = false;
 		this.currentBatch = null;
 		
@@ -36,7 +36,7 @@ public class Session implements SessionContext, TncSession{
 			this.state = state.handle(this);
 		}
 		this.connection.close();
-		this.context.notifyClient(connection.getId(), SessionEventEnum.SHUTDOWN, null);
+		this.context.notifyClient(connection, SessionEventEnum.SHUTDOWN, null);
 	}
 
 	

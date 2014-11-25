@@ -13,32 +13,32 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.client.exception.NoImIdsLeftException;
+import de.hsbremen.tc.tnc.im.DefaultImModule;
+import de.hsbremen.tc.tnc.im.Im;
 import de.hsbremen.tc.tnc.im.loader.ImFileLoader;
 import de.hsbremen.tc.tnc.im.manager.ImModuleManager;
-import de.hsbremen.tc.tnc.im.module.DefaultImModule;
-import de.hsbremen.tc.tnc.im.module.ImModule;
 import de.hsbremen.tc.tnc.session.TncContext;
 import de.hsbremen.tc.tnc.session.context.TncSession;
 import de.hsbremen.tc.tnc.session.context.enums.SessionEventEnum;
-import de.hsbremen.tc.tnc.transport.IfTransportFactory;
-import de.hsbremen.tc.tnc.transport.connection.IfTAddress;
-import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
+import de.hsbremen.tc.tnc.transport.TransportFactory;
+import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
+import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
-public class TncClient implements TnccConnector, TncContext{
+public class TncClient implements TnccsConnector, TncContext{
 
 	// this is very simple and should be changed in the future to make IDs reusable if an IMC is terminated.
 	private long imcCounter;
 	
-	private final Map<String,IfTAddress> peers;
+	private final Map<String,TransportAddress> peers;
 	private final Map<String,TncSession> activeSessions;
-	private final List<ImModule<IMC>> imcList;
+	private final List<Im<IMC>> imcList;
 	
 	private final ExecutorService executor;
 	private final ImModuleManager<IMC> imcManager;
-	private final IfTransportFactory transportFactory;
+	private final TransportFactory transportFactory;
 	
-	public TncClient(Map<String, IfTAddress> peers, ImModulManager<IMC> imcManager, IfTransportFactory transportFactory, ExecutorService executor) {
+	public TncClient(Map<String, TransportAddress> peers, ImModulManager<IMC> imcManager, TransportFactory transportFactory, ExecutorService executor) {
 
 		this.imcCounter = 0;
 		
@@ -52,7 +52,7 @@ public class TncClient implements TnccConnector, TncContext{
 	}
 
 	@Override
-	public void startUp() throws NoImIdsLeftException {
+	public void initialize() throws NoImIdsLeftException {
 		
 		imcManager.loadAll(tncConfig);
 		for (IMC im : ims) {
@@ -67,7 +67,7 @@ public class TncClient implements TnccConnector, TncContext{
 	}
 
 	@Override
-	public void shutdown() {
+	public void terminate() {
 		// stop sessions
 		for (Entry<String, TncSession> entry: activeSessions.entrySet()) {
 			// always stop session first to avoid unnecessary read/write errors.
@@ -84,7 +84,7 @@ public class TncClient implements TnccConnector, TncContext{
 			e.printStackTrace();
 		}
 		// terminate IMC
-		for (ImModule<IMC> imc : this.imcList) {
+		for (Im<IMC> imc : this.imcList) {
 			try {
 				imc.getIm().terminate();
 			} catch (TNCException e) {
@@ -98,7 +98,7 @@ public class TncClient implements TnccConnector, TncContext{
 	}
 
 	@Override
-	public void requestHandshakeWith(String peerId) throws ConnectionException {
+	public void requestConnectionHandshake(String peerId) throws ConnectionException {
 		if(this.peers.containsKey(peerId)){
 			if(this.activeSessions.containsKey(peerId)){
 				this.activeSessions.get(peerId).requestHandshake();
@@ -110,16 +110,16 @@ public class TncClient implements TnccConnector, TncContext{
 
 	private void createSession(String peerId) throws ConnectionException {
 		if(this.peers.containsKey(peerId)){
-			IfTConnection connection = this.transportFactory.connectTo(this.peers.get(peerId));
+			TransportConnection connection = this.transportFactory.connectTo(this.peers.get(peerId));
 			
 		}
 		
 	}
 
 	@Override
-	public void requestHandshakeWithAll() throws ConnectionException {
+	public void requestGlobalHandshake() throws ConnectionException {
 		for (String peer: this.peers.keySet()) {
-			this.requestHandshakeWith(peer);
+			this.requestConnectionHandshake(peer);
 		}
 	}
 	
@@ -138,7 +138,7 @@ public class TncClient implements TnccConnector, TncContext{
 	}
 
 	@Override
-	public void addPeer(String peerId, IfTAddress address) {
+	public void addPeer(String peerId, TransportAddress address) {
 		this.peers.put(peerId, address);
 		
 	}

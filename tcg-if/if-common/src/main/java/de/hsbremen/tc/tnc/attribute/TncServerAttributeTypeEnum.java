@@ -44,9 +44,4 @@ public enum TncServerAttributeTypeEnum implements TncAttributeType {
 	public long id(){
 		return this.id;
 	}
-	
-	public static TncAttributeType fromId(long id){
-		
-		return null;
-	}
 }

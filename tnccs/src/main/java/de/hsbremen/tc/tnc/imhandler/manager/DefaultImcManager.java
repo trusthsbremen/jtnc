@@ -18,8 +18,8 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 import de.hsbremen.tc.tnc.imhandler.exception.AllImIdsAssignedException;
 import de.hsbremen.tc.tnc.imhandler.exception.ImModuleNotFoundException;
 import de.hsbremen.tc.tnc.imhandler.exception.ImModulesAlreadyLoadedException;
-import de.hsbremen.tc.tnc.imhandler.loader.ImFileLoader;
-import de.hsbremen.tc.tnc.imhandler.loader.ImLoadParameter;
+import de.hsbremen.tc.tnc.imhandler.loader.ImLoader;
+import de.hsbremen.tc.tnc.imhandler.loader.ImConfigurationEntry;
 import de.hsbremen.tc.tnc.imhandler.module.TnccsImModuleHolder;
 import de.hsbremen.tc.tnc.imhandler.module.TnccsImModuleHolderBuilder;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
@@ -32,12 +32,12 @@ public class DefaultImcManager implements ImModuleManager<IMC> {
 	private long imIds = 0;
 
 	private final TNCC tncc;
-	private final ImFileLoader<IMC> loader;
+	private final ImLoader<IMC> loader;
 	private TnccsImModuleHolderBuilder<IMC> moduleBuilder;
 	
 	private final Map<IMC,TnccsImModuleHolder<IMC>> imcs;
 	
-	public DefaultImcManager(TNCC tncc, ImFileLoader<IMC> loader, TnccsImModuleHolderBuilder<IMC> moduleBuilder){
+	public DefaultImcManager(TNCC tncc, ImLoader<IMC> loader, TnccsImModuleHolderBuilder<IMC> moduleBuilder){
 		this.tncc = tncc;
 		this.loader = loader;
 		this.moduleBuilder = moduleBuilder;
@@ -45,7 +45,7 @@ public class DefaultImcManager implements ImModuleManager<IMC> {
 	}
 	
 	@Override
-	public void loadImModules(List<ImLoadParameter> imParameterSets) throws ImModulesAlreadyLoadedException{
+	public void loadImModules(List<ImConfigurationEntry> imParameterSets) throws ImModulesAlreadyLoadedException{
 		if(this.imcs.size() >= 0){
 			throw new ImModulesAlreadyLoadedException("Modules are already loaded and cannot be loaded twice.");
 		}

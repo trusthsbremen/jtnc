@@ -13,22 +13,22 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
+import de.hsbremen.tc.tnc.im.DefaultImModule;
+import de.hsbremen.tc.tnc.im.Im;
 import de.hsbremen.tc.tnc.im.loader.ImFileLoader;
-import de.hsbremen.tc.tnc.im.module.DefaultImModule;
-import de.hsbremen.tc.tnc.im.module.ImModule;
 import de.hsbremen.tc.tnc.session.context.DefaultPbcSessionBuilder;
 import de.hsbremen.tc.tnc.session.context.TncSession;
 import de.hsbremen.tc.tnc.session.context.TncSessionBuilder;
 import de.hsbremen.tc.tnc.client.exception.NoImIdsLeftException;
-import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
+import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 @Deprecated
-public class TncClientBackUp implements TncContext, TnccConnector {
+public class TncClientBackUp implements TncContext, TnccsConnector {
 
 	
 	private long imcCounter;
     private List<DefaultImModule> imcList;
     private ExecutorService executor;
-    private Map<IfTConnection,TncSession> activeSessions;
+    private Map<TransportConnection,TncSession> activeSessions;
     private TncSessionBuilder sessionBuilder;
     private ImFileLoader imcLoader;
     private Map<Long,Object> attributes;
@@ -58,7 +58,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
     }
 
 	@Override
-	public void requestHandshake(IfTConnection connection) {
+	public void requestHandshake(TransportConnection connection) {
 		if(this.activeSessions.containsKey(connection)){
 			this.activeSessions.get(connection).requestHandshake();
 		}else{
@@ -67,9 +67,9 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 	}
 	
 	@Override
-	public void shutdown() {
+	public void terminate() {
 		// stop sessions and close connections
-		for (Entry<IfTConnection, TncSession> entry: activeSessions.entrySet()) {
+		for (Entry<TransportConnection, TncSession> entry: activeSessions.entrySet()) {
 			// always stop session first to avoid unnecessary read/write errors.
 			entry.getValue().cancel();
 			entry.getKey().close();
@@ -85,7 +85,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 			e.printStackTrace();
 		}
 		// terminate IMC
-		for (ImModule imc : imcList) {
+		for (Im imc : imcList) {
 			try {
 				((IMC)imc.getIm()).terminate();
 			} catch (TNCException e) {
@@ -100,7 +100,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 	}
 
 	@Override
-	public void startUp() throws NoImIdsLeftException {
+	public void initialize() throws NoImIdsLeftException {
 		String path = ""; // TODO where is the path;
 		List<IMC> ims = imcLoader.loadImlist();
 		for (IMC im : ims) {
@@ -116,7 +116,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 		}
 	}
 	
-	private void createSession(IfTConnection connection){
+	private void createSession(TransportConnection connection){
 		this.sessionBuilder.setConnection(connection);
 		this.sessionBuilder.setTncClient(this);
 		// TODO one message handler for all (member variable of this class) or a builder to build a separate message handler 
@@ -128,7 +128,7 @@ public class TncClientBackUp implements TncContext, TnccConnector {
 	}
 		
 	@Override
-	public void notifySessionClosed(IfTConnection connection) {
+	public void notifySessionClosed(TransportConnection connection) {
 		TncSession session = this.activeSessions.get(connection);
 		session.cancel();
 		connection.close();

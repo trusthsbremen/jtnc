@@ -9,7 +9,7 @@ import de.hsbremen.tc.tnc.clients.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.clients.handler.TnccsMessageHandler;
 import de.hsbremen.tc.tnc.clients.message.TnccsMessage;
 import de.hsbremen.tc.tnc.session.state.SessionState;
-import de.hsbremen.tc.tnc.transport.connection.IfTConnection;
+import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 @Deprecated
 public class DefaultTncSessionBackup implements SessionContext{
 
@@ -17,7 +17,7 @@ public class DefaultTncSessionBackup implements SessionContext{
 	
 	private SessionState state;
 
-	private final IfTConnection connection;
+	private final TransportConnection connection;
 	
 	private List<IMCConnection> imcConnections;
 	
@@ -27,7 +27,7 @@ public class DefaultTncSessionBackup implements SessionContext{
 	
 	private boolean shutdown;
 	
-	public DefaultTncSessionBackup(final TncContext client, final IfTConnection connection, final TnccsMessageHandler messageHandler){
+	public DefaultTncSessionBackup(final TncContext client, final TransportConnection connection, final TnccsMessageHandler messageHandler){
 		this.tncc = client;
 		this.connection = connection;
 		this.messageHandler = messageHandler;

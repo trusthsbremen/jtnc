@@ -3,9 +3,9 @@ package de.hsbremen.tc.tnc.im.evaluate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.im.adapter.ImHandshakeRetryReasonEnum;
 
 public abstract class AbstractImEvaluationUnitIetf implements ImEvaluationUnit{
 

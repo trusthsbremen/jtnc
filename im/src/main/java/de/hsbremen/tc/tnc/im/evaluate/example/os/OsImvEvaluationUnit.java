@@ -65,7 +65,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	}
 
 	@Override
-	public List<ImAttribute> evaluate(ImSessionContext context) {
+	public synchronized List<ImAttribute> evaluate(ImSessionContext context) {
 		this.recommendation = null;
 		List<ImAttribute> attributes = new ArrayList<>();
 		try{
@@ -79,7 +79,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	}
 
 	@Override
-	public List<ImAttribute> handle(List<? extends ImAttribute> attribute,
+	public synchronized List<ImAttribute> handle(List<? extends ImAttribute> attribute,
 			ImSessionContext context) {
 		List<ImAttribute> attributes = new ArrayList<>();
 		this.recommendation = null;
@@ -187,7 +187,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	}
 
 	@Override
-	public ImvRecommendationObject getRecommendation(ImSessionContext context) {
+	public synchronized ImvRecommendationObject getRecommendation(ImSessionContext context) {
 		// look if recommendation is present and handle it if possible else return defualt no recommendation
 		return (this.recommendation != null) ? this.recommendation : new ImvRecommendationObject();
 	}
@@ -201,7 +201,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	}
 
 	@Override
-	public List<ImAttribute> lastCall(ImSessionContext context) {
+	public synchronized List<ImAttribute> lastCall(ImSessionContext context) {
 		
 		LOGGER.info("Last call received.");
 		return new ArrayList<>(0);

@@ -10,6 +10,8 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactory;
+import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
@@ -22,7 +24,7 @@ import de.hsbremen.tc.tnc.m.serialize.ImReader;
 public class ImvAdapterTncsFirstIetfLong extends ImvAdapterIetfLong implements IMVTNCSFirst{
 	
 	public ImvAdapterTncsFirstIetfLong() {
-		this(new ImParameter(true),
+		this(new ImParameter(true), new TncsAdapterIetfFactory(),
 				new DefaultImvSessionFactory(),
 				DefaultImcEvaluatorFactory.getInstance(),
 				new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
@@ -30,11 +32,12 @@ public class ImvAdapterTncsFirstIetfLong extends ImvAdapterIetfLong implements I
 	}
 
 	public ImvAdapterTncsFirstIetfLong(ImParameter parameter,
+			TncsAdapterFactory tncsFactory,
 			ImSessionFactory<ImvSession> sessionFactory,
 			ImEvaluatorFactory evaluatorFactory,
 			ImvConnectionAdapterFactory connectionFactory,
 			ImReader<? extends ImMessageContainer> imReader) {
-		super(parameter, sessionFactory, evaluatorFactory, connectionFactory, imReader);
+		super(parameter, tncsFactory, sessionFactory, evaluatorFactory, connectionFactory, imReader);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -14,6 +14,7 @@ import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
+import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImcSession;
@@ -28,8 +29,8 @@ public class ImcAdapterIetfLong extends ImcAdapterIetf implements IMCLong{
 		super();
 	}
 	
-	public ImcAdapterIetfLong(ImParameter parameter, ImSessionFactory<ImcSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
-		super(parameter, sessionFactory, evaluatorFactory, connectionFactory, imReader);
+	public ImcAdapterIetfLong(ImParameter parameter, TnccAdapterFactory tnccFactory, ImSessionFactory<ImcSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
+		super(parameter, tnccFactory ,sessionFactory, evaluatorFactory, connectionFactory, imReader);
 
 	}
 	
