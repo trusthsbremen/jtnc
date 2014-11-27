@@ -154,9 +154,11 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager{
 	@Override
 	public ImvRecommendationObject getRecommendation(ImSessionContext context) {
 		for (ImvEvaluator evaluator : this.evaluators.values()) {
-			if(evaluator.hasRecommendation()){
-				this.evaluatorRecommendations.put(new Long(evaluator.getId()), evaluator.getRecommendation(context));
-			}// else ignore the evaluators opinion
+			if(!this.evaluatorRecommendations.containsKey(evaluator.getId())){
+				if(evaluator.hasRecommendation()){
+					this.evaluatorRecommendations.put(new Long(evaluator.getId()), evaluator.getRecommendation(context));
+				}// else ignore the evaluators opinion
+			}
 		}
 		
 		return this.provideRecommendation(context);

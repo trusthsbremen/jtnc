@@ -28,7 +28,6 @@ public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements ImvE
 	@Override
 	public ImvRecommendationObject getRecommendation(ImSessionContext context) {
 		LOGGER.debug("getRecommendation() called, with connection state: " + context.getConnectionState().toString());
-	
 		List<ImvRecommendationObject> recommendations = new LinkedList<>();
 		// cast save here because it must be initialized with ImvEvaluationUnits
 		for (ImvEvaluationUnit unit : (List<ImvEvaluationUnit>)super.getEvaluationUnits()) {

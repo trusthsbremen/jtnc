@@ -134,7 +134,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	}
 	
 	private final void dispatchMessagesToConnection(final List<ImObjectComponent> componentList) throws TncException{
-		LOGGER.debug("Dispatch messages to connection " + this.connection.toString() + ".");
+		LOGGER.debug("Dispatch messages to connection " + this.connection.toString() + ". Message count: " + ((componentList != null)? componentList.size() : 0));
 		if(this.connectionHandshakeRetryRequested.size() > 0){
 			// use the first reason, because only one can be used. It is anyway usually only after remediation.
 			try{
