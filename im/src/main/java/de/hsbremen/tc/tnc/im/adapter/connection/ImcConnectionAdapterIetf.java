@@ -9,6 +9,7 @@ import org.ietf.nea.pa.message.PaMessageFactoryIetf;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnectionLong;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.HSBConstants;
@@ -103,11 +104,15 @@ class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
 		}
 	}
 
-	private void send(byte flags, long vendorId, long type, long collectorId, long validatorId, byte[] message) throws TNCException{
+	private void send(byte flags, long vendorId, long type, long collectorId, long validatorId, byte[] message) throws TNCException, TncException{
 		
+		// FIXME it maybe better to check the IMC type here too.
 		if(this.connection instanceof IMCConnectionLong && collectorId != HSBConstants.HSB_IM_ID_UNKNOWN){
 			((IMCConnectionLong) this.connection).sendMessageLong(flags, vendorId, type, message, collectorId, validatorId);
 		}else{
+			if(type >= TNCConstants.TNC_SUBTYPE_ANY){
+				throw new TNCException("Connection does not support the message type "+ type +", which is greater than " + TNCConstants.TNC_SUBTYPE_ANY + ".", TNCException.TNC_RESULT_NO_LONG_MESSAGE_TYPES);
+			}
 			long msgType = (long)(vendorId << 8) | (type & 0xFF);
 			this.connection.sendMessage(msgType, message);
 		}

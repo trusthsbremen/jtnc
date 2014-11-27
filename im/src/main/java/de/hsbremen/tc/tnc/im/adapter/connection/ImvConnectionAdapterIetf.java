@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
+import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnectionLong;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
@@ -110,9 +111,13 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 
 	private void send(byte flags, long vendorId, long type, long collectorId, long validatorId, byte[] message) throws TNCException{
 		
+		// FIXME it maybe better to check the IMV type here too.
 		if(this.connection instanceof IMVConnectionLong && validatorId != HSBConstants.HSB_IM_ID_UNKNOWN){
 			((IMVConnectionLong) this.connection).sendMessageLong(flags, vendorId, type, message, collectorId, validatorId);
 		}else{
+			if(type >= TNCConstants.TNC_SUBTYPE_ANY){
+				throw new TNCException("Connection does not support the message type "+ type +", which is greater than " + TNCConstants.TNC_SUBTYPE_ANY + ".", TNCException.TNC_RESULT_NO_LONG_MESSAGE_TYPES);
+			}
 			long msgType = (long)(vendorId << 8) | (type & 0xFF);
 			this.connection.sendMessage(msgType, message);
 		}

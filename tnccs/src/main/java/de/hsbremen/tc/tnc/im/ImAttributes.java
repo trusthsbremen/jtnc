@@ -74,7 +74,7 @@ public class ImAttributes implements Attributed {
 	}
 
 	@Override
-	public Object setAttribute(TncAttributeType type, Object value)
+	public void setAttribute(TncAttributeType type, Object value)
 			throws TncException {
 		throw new UnsupportedOperationException("The operation setAttribute(...) is not supported, because there are no attributes to set.");
 	}

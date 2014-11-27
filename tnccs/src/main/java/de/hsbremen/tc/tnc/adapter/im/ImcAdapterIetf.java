@@ -6,10 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
-import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
+import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.ImConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
@@ -40,7 +41,7 @@ public class ImcAdapterIetf implements ImcAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#notifyConnectionChange(org.trustedcomputinggroup.tnc.ifimc.IMCConnection, de.hsbremen.tc.tnc.connection.ImConnectionState)
 	 */
 	@Override
-	public void notifyConnectionChange(IMCConnection connection, ImConnectionState state) throws TncException, TerminatedException{
+	public void notifyConnectionChange(ImcConnectionAdapter connection, ImConnectionState state) throws TncException, TerminatedException{
 		try {
 			this.imc.notifyConnectionChange(connection, state.state());
 		} catch (TNCException e) {
@@ -54,13 +55,16 @@ public class ImcAdapterIetf implements ImcAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImcAdapter#beginHandshake(org.trustedcomputinggroup.tnc.ifimc.IMCConnection)
 	 */
 	@Override
-	public void beginHandshake (IMCConnection connection) throws TncException, TerminatedException{
+	public void beginHandshake (ImcConnectionAdapter connection) throws TncException, TerminatedException{
 		try {
+			connection.allowMessageReceipt();
 			this.imc.beginHandshake(connection);
 		} catch (TNCException e) {
 			throw new TncException(e);
 		}catch(NullPointerException e){
 			throw new TerminatedException();
+		}finally{
+			connection.denyMessageReceipt();
 		}
 	}
 	
@@ -68,7 +72,7 @@ public class ImcAdapterIetf implements ImcAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#handleMessage(org.trustedcomputinggroup.tnc.ifimc.IMCConnection, de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue)
 	 */
 	@Override
-	public void handleMessage (IMCConnection connection, TnccsMessageValue message) throws TncException, TerminatedException{
+	public void handleMessage (ImcConnectionAdapter connection, TnccsMessageValue message) throws TncException, TerminatedException{
 		try{
 			this.dispatchMessageToImc(connection, message);
 		}catch(NullPointerException e){
@@ -80,14 +84,17 @@ public class ImcAdapterIetf implements ImcAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#batchEnding(org.trustedcomputinggroup.tnc.ifimc.IMCConnection)
 	 */
 	@Override
-	public void batchEnding (IMCConnection connection) throws TncException, TerminatedException{
+	public void batchEnding (ImcConnectionAdapter connection) throws TncException, TerminatedException{
 		
 		try{
+			connection.allowMessageReceipt();
 			this.imc.batchEnding(connection);
 		}catch(TNCException e){
 			throw new TncException(e);
 		}catch(NullPointerException e){
 			throw new TerminatedException();
+		}finally{
+			connection.denyMessageReceipt();
 		}
 	}
 
@@ -148,7 +155,7 @@ public class ImcAdapterIetf implements ImcAdapter{
 		this.imc = null;
 	}
 
-	private void dispatchMessageToImc(IMCConnection connection, TnccsMessageValue value) throws TncException{
+	private void dispatchMessageToImc(ImcConnectionAdapter connection, TnccsMessageValue value) throws TncException{
 		
 		if(value instanceof PbMessageValueIm){
 			PbMessageValueIm pbValue = (PbMessageValueIm) value;
@@ -161,16 +168,27 @@ public class ImcAdapterIetf implements ImcAdapter{
 					bFlags |= pbMessageImFlagsEnum.bit();
 				}
 				try{
+					connection.allowMessageReceipt();
 					((IMCLong) this.imc).receiveMessageLong(connection, bFlags, pbValue.getSubVendorId(), pbValue.getSubType(), pbValue.getMessage(), pbValue.getValidatorId(), pbValue.getCollectorId());
 				}catch(TNCException e){
 					throw new TncException(e);
+				}finally{
+					connection.denyMessageReceipt();
 				}
 			}else{
-				long msgType = (long)(pbValue.getSubVendorId() << 8) | (pbValue.getSubType() & 0xFF);
-				try{
-					this.imc.receiveMessage(connection,msgType,pbValue.getMessage());
-				}catch(TNCException e){
-					throw new TncException(e);
+				if(pbValue.getSubType() <= TNCConstants.TNC_SUBTYPE_ANY){
+				
+					long msgType = (long)(pbValue.getSubVendorId() << 8) | (pbValue.getSubType() & 0xFF);
+					try{
+						connection.allowMessageReceipt();
+						this.imc.receiveMessage(connection,msgType,pbValue.getMessage());
+					}catch(TNCException e){
+						throw new TncException(e);
+					}finally{
+						connection.denyMessageReceipt();
+					}
+				}else{
+					LOGGER.warn("The IMC/V does not support message types greater than " + TNCConstants.TNC_SUBTYPE_ANY + ". The message with type " +pbValue.getSubType()+ " will be ignored.");
 				}
 			}
 		} // else do nothing, because is not deliverable.

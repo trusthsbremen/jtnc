@@ -88,14 +88,16 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 			}catch(TncException e){
 				throw new TNCException(e.getMessage(),e.getResultCode().result());
 			}
-			try{
-				Object o = ((AttributeSupport) tncc).getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE.id());
-				if(o instanceof String){
-					String preferredLanguage = (String)o;
-					this.parameter.setPreferredLanguage(preferredLanguage);
+			if(tncc instanceof AttributeSupport){
+				try{
+					Object o = ((AttributeSupport) tncc).getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE.id());
+					if(o instanceof String){
+						String preferredLanguage = (String)o;
+						this.parameter.setPreferredLanguage(preferredLanguage);
+					}
+				}catch (TNCException | UnsupportedOperationException e){
+					LOGGER.info("Preferred language attribute was not accessible, using default language: " + this.parameter.getPreferredLanguage(),e);
 				}
-			}catch (TNCException | UnsupportedOperationException e){
-				LOGGER.info("Preferred language attribute was not accessible, using default language: " + this.parameter.getPreferredLanguage(),e);
 			}
 			
 			

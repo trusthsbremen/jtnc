@@ -4,6 +4,7 @@ import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import org.trustedcomputinggroup.tnc.ifimv.IMVLong;
@@ -143,11 +144,16 @@ public class ImvAdapterIetf implements ImvAdapter{
 					throw new TncException(e);
 				}
 			}else{
-				long msgType = (long)(pbValue.getSubVendorId() << 8) | (pbValue.getSubType() & 0xFF);
-				try{
-					this.imv.receiveMessage(connection,msgType,pbValue.getMessage());
-				}catch(TNCException e){
-					throw new TncException(e);
+				if(pbValue.getSubType() <= TNCConstants.TNC_SUBTYPE_ANY){
+					
+					long msgType = (long)(pbValue.getSubVendorId() << 8) | (pbValue.getSubType() & 0xFF);
+					try{
+						this.imv.receiveMessage(connection,msgType,pbValue.getMessage());
+					}catch(TNCException e){
+						throw new TncException(e);
+					}
+				}else{
+					LOGGER.warn("The IMC/V does not support message types greater than " + TNCConstants.TNC_SUBTYPE_ANY + ". The message with type " +pbValue.getSubType()+ " will be ignored.");
 				}
 			}
 		} else {

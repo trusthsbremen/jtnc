@@ -23,7 +23,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
-public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager{
+public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAdapter>{
 
 	private long idDispensor;
 	private Deque<Long> reuseable;

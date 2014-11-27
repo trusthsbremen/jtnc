@@ -15,7 +15,5 @@ public interface PaAttributeValueNumericVersionBuilder extends ImAttributeValueB
 	void setServicePackMajor(int servicePackMajor) throws RuleException;
 
 	void setServicePackMinor(int servicePackMinor) throws RuleException;
-	
-	
 
 }

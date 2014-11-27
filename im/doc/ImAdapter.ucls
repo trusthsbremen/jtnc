@@ -63,7 +63,7 @@
   <class id="7" language="java" name="de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetfLong" project="im" 
     file="/im/src/main/java/de/hsbremen/tc/tnc/im/adapter/imc/ImcAdapterIetfLong.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1536" y="1325"/>    
+    <position height="-1" width="-1" x="1510" y="1323"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -88,17 +88,17 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
+  <realization id="10">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
   <generalization id="11">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
   <realization id="12">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
   </realization>  
   <realization id="13">    
     <end type="SOURCE" refId="6"/>    
@@ -108,13 +108,13 @@
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <realization id="15">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
+  <generalization id="15">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <realization id="16">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    

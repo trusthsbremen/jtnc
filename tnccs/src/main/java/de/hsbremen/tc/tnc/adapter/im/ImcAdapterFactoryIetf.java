@@ -9,7 +9,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
 public class ImcAdapterFactoryIetf implements ImcAdapterFactory {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImcAdapterFactoryIetf.class);
-	
+	private static final long DEFAULT_TIMEOUT = 800;
 	@Override
 	public ImcAdapter createImcAdapter(IMC imc, long primaryId) {
 		
@@ -17,7 +17,7 @@ public class ImcAdapterFactoryIetf implements ImcAdapterFactory {
 			throw new NullPointerException("IMC cannot be null.");
 		}
 		
-		ImcAdapter adapter = new ImcAdapterIetf(imc, primaryId);
+		ImcAdapter adapter = new ImcAdapterTimeProxy(new ImcAdapterIetf(imc, primaryId), DEFAULT_TIMEOUT);
 		
 		if(LOGGER.isDebugEnabled()){
 			StringBuilder b = new StringBuilder();
