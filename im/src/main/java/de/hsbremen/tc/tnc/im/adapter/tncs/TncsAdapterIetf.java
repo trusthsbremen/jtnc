@@ -7,12 +7,12 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 import org.trustedcomputinggroup.tnc.ifimv.TNCSLong;
 
-import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 class TncsAdapterIetf implements TncsAdapter, GlobalHandshakeRetryListener {
 	

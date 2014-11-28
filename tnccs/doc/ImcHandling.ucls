@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="2" language="java" name="de.hsbremen.tc.tnc.newp.ImMessageRouter" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImMessageRouter.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="2" language="java" name="de.hsbremen.tc.tnc.newp.route.ImMessageRouter" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/route/ImMessageRouter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="854" y="386"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -65,8 +65,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="de.hsbremen.tc.tnc.newp.ImHandlerFactory" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImHandlerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="8" language="java" name="de.hsbremen.tc.tnc.newp.ImcHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcHandlerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="838" y="1071"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -74,8 +74,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImMessageRouter" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImMessageRouter.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="de.hsbremen.tc.tnc.newp.route.DefaultImMessageRouter" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/route/DefaultImMessageRouter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="848" y="89"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

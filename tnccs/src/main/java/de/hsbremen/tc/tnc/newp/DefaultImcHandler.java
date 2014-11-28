@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
-import de.hsbremen.tc.tnc.adapter.im.TerminatedException;
+import de.hsbremen.tc.tnc.adapter.im.exception.TerminatedException;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
@@ -23,9 +23,10 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateEnum;
 import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateFactory;
 import de.hsbremen.tc.tnc.newp.enums.ImHandlerState;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
-public class DefaultImcHandler implements ImHandler2{
+public class DefaultImcHandler implements ImcHandler{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcHandler.class);
 	private Map<Long,ImcAdapter> imAdapters;

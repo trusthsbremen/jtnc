@@ -26,10 +26,5 @@
 			<artifactId>transport</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>
-			<artifactId>im</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 </project>

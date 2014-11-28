@@ -12,9 +12,10 @@ import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImValueExceptionHandler;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
-import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.util.DefaultRecommendationComparator;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 
 public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements ImvEvaluator {
 
@@ -26,25 +27,25 @@ public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements ImvE
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ImvRecommendationObject getRecommendation(ImSessionContext context) {
+	public ImvRecommendationPair getRecommendation(ImSessionContext context) {
 		LOGGER.debug("getRecommendation() called, with connection state: " + context.getConnectionState().toString());
-		List<ImvRecommendationObject> recommendations = new LinkedList<>();
+		List<ImvRecommendationPair> recommendations = new LinkedList<>();
 		// cast save here because it must be initialized with ImvEvaluationUnits
 		for (ImvEvaluationUnit unit : (List<ImvEvaluationUnit>)super.getEvaluationUnits()) {
-			ImvRecommendationObject recO = ((ImvEvaluationUnit)unit).getRecommendation(context);
+			ImvRecommendationPair recO = ((ImvEvaluationUnit)unit).getRecommendation(context);
 			if(recO != null){
 				recommendations.add(recO);
 			}
 		}
 		
 		if(!recommendations.isEmpty()){
-			Comparator<ImvRecommendationObject> comparator = new DefaultRecommendationComparator();
+			Comparator<ImvRecommendationPair> comparator = new DefaultRecommendationComparator();
 			Collections.sort(recommendations,comparator);		
 			// because of the sort get last from list which should be the most severe
 			return recommendations.get((recommendations.size() -1));
 		}else{
 			// Defaults to don't know.
-			return new ImvRecommendationObject();
+			return ImvRecommendationPairFactory.getDefaultRecommendationPair();
 		}
 	}
 

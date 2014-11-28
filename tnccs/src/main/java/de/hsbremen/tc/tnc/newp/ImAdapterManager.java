@@ -3,6 +3,7 @@ package de.hsbremen.tc.tnc.newp;
 import java.util.Map;
 
 import de.hsbremen.tc.tnc.adapter.im.ImAdapter;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 
 public interface ImAdapterManager<T extends ImAdapter<?>> {
 	public abstract Map<Long,T> getAdapter();

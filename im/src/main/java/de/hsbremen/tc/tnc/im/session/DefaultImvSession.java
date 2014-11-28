@@ -6,8 +6,9 @@ import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
-import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 
 public class DefaultImvSession extends AbstractDefaultImSession<ImvConnectionAdapter> implements ImvSession{
 	
@@ -36,13 +37,13 @@ public class DefaultImvSession extends AbstractDefaultImSession<ImvConnectionAda
 	@Override
 	public void solicitRecommendation() throws TncException {
 		
-		ImvRecommendationObject recommendation = null;
+		ImvRecommendationPair recommendation = null;
 		
 		if(super.getEvaluator() instanceof ImvEvaluator){
 			recommendation = ((ImvEvaluatorManager)super.getEvaluator()).getRecommendation(this);	
 		}
 		
-		super.getConnection().provideRecommendation((recommendation != null) ? new ImvRecommendationObject() : recommendation);
+		super.getConnection().provideRecommendation((recommendation != null) ? ImvRecommendationPairFactory.getDefaultRecommendationPair() : recommendation);
 	}
 	
 	private final void lookForRecommendation() throws TncException{

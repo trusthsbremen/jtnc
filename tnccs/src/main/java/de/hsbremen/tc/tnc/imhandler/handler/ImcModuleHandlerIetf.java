@@ -15,11 +15,11 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.command.FunctionCall;
-import de.hsbremen.tc.tnc.imhandler.adapter.connection.ImcConnectionAdapterBuilder;
 import de.hsbremen.tc.tnc.imhandler.command.ImcFunctionCallBuilder;
 import de.hsbremen.tc.tnc.imhandler.exception.HandshakeAlreadyStartedException;
 import de.hsbremen.tc.tnc.imhandler.module.TnccsImModuleHolder;
-import de.hsbremen.tc.tnc.imhandler.route.ImMessageRouteComponent;
+import de.hsbremen.tc.tnc.newp.adapter.connection.ImcConnectionAdapterBuilder;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouteComponent;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 

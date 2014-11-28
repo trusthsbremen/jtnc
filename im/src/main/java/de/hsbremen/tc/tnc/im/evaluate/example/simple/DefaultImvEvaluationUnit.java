@@ -10,9 +10,10 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluationUnitIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 
 class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements ImvEvaluationUnit{
 
@@ -82,8 +83,8 @@ class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements I
 	}
 
 	@Override
-	public synchronized ImvRecommendationObject getRecommendation(ImSessionContext context) {
-		ImvRecommendationObject object = new ImvRecommendationObject();
+	public synchronized ImvRecommendationPair getRecommendation(ImSessionContext context) {
+		ImvRecommendationPair object = ImvRecommendationPairFactory.getDefaultRecommendationPair();
 		LOGGER.debug("getRecommendation() called, with connection state: " + context.getConnectionState() + "\n" + object.toString() );
 		return object;
 	}

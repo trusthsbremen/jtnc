@@ -10,7 +10,6 @@ import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -23,6 +22,7 @@ import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.natives.CLibrary;
 import de.hsbremen.tc.tnc.natives.CLibrary.UTSNAME;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 public class Dummy extends AbstractDummy{
 

@@ -7,58 +7,21 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
 import de.hsbremen.tc.tnc.attribute.TncClientAttributeTypeEnum;
-import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.session.context.SessionConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
-public class ImcConnectionAdapterIetf implements ImcConnectionAdapter{
+public class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implements ImcConnectionAdapter{
 
-	private boolean receiving;
-	private final int primaryImcId;
 	private final SessionConnectionContext session;
 
 	public ImcConnectionAdapterIetf(int primaryImcId,
 			SessionConnectionContext session) {
-		this.primaryImcId = primaryImcId;
+		super(primaryImcId);
 		this.session = session;
-		this.receiving = false;
-	}
-
-	
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.connection.ImConnectionAdapter#getId()
-	 */
-	@Override
-	public long getImId() {
-		return this.primaryImcId;
-	}
-
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.connection.ImConnectionAdapter#allowSending()
-	 */
-	@Override
-	public void allowMessageReceipt(){
-		this.receiving = true;	
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.connection.ImConnectionAdapter#denySending()
-	 */
-	@Override
-	public void denyMessageReceipt(){
-		this.receiving = false;
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.connection.ImConnectionAdapter#isSending()
-	 */
-	@Override
-	public boolean isReceiving(){
-		return this.receiving;
 	}
 
 	@Override
@@ -74,7 +37,7 @@ public class ImcConnectionAdapterIetf implements ImcConnectionAdapter{
 		
 		TnccsMessage m = null;
 		try {
-			m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0], vendorId, type, this.primaryImcId, (int)TNCConstants.TNC_IMVID_ANY, message);
+			m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0], vendorId, type, (int)super.getImId(), (int)TNCConstants.TNC_IMVID_ANY, message);
 		} catch (ValidationException e) {
 			throw new TNCException(e.getCause().getMessage(), e.getCause().getErrorCode());
 		}
@@ -100,7 +63,7 @@ public class ImcConnectionAdapterIetf implements ImcConnectionAdapter{
 	public Object getAttribute(long attributeID) throws TNCException {
 		
 		if(attributeID == TncClientAttributeTypeEnum.TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id()){
-			return new Long(this.primaryImcId);
+			return new Long(super.getImId());
 		}else{
 			try {
 				return this.session.getAttribute(DefaultTncAttributeTypeFactory.getInstance().fromId(attributeID));

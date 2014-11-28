@@ -15,16 +15,17 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
-import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
 import de.hsbremen.tc.tnc.im.evaluate.example.simple.util.DefaultRecommendationComparator;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class DefaultImvEvaluatorManager implements ImvEvaluatorManager{
 	
 	Map<Long,ImvEvaluator> evaluators;
 	Set<SupportedMessageType> supportedMessageTypes;
-	Map<Long,ImvRecommendationObject> evaluatorRecommendations;
+	Map<Long,ImvRecommendationPair> evaluatorRecommendations;
 	
 	public DefaultImvEvaluatorManager(Map<Long,ImvEvaluator> evaluators) {
 		this(new HashSet<SupportedMessageType>(), evaluators);
@@ -136,23 +137,23 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager{
 		return (this.supportedMessageTypes != null) ? this.supportedMessageTypes : new HashSet<SupportedMessageType>();
 	}
 	
-	protected ImvRecommendationObject provideRecommendation(ImSessionContext context) {
+	protected ImvRecommendationPair provideRecommendation(ImSessionContext context) {
 		if(this.evaluatorRecommendations != null && !this.evaluatorRecommendations.isEmpty()){
-			List<ImvRecommendationObject> recommendations = 
+			List<ImvRecommendationPair> recommendations = 
 					new LinkedList<>(this.evaluatorRecommendations.values());
 			
-			Comparator<ImvRecommendationObject> comparator = new DefaultRecommendationComparator();
+			Comparator<ImvRecommendationPair> comparator = new DefaultRecommendationComparator();
 			Collections.sort(recommendations,comparator);		
 			// because of the sort get last from list which should be the most severe
 			return recommendations.get((recommendations.size() -1));
 		}else{
 			// Defaults to don't know.
-			return new ImvRecommendationObject();
+			return ImvRecommendationPairFactory.getDefaultRecommendationPair();
 		}
 	}
 	
 	@Override
-	public ImvRecommendationObject getRecommendation(ImSessionContext context) {
+	public ImvRecommendationPair getRecommendation(ImSessionContext context) {
 		for (ImvEvaluator evaluator : this.evaluators.values()) {
 			if(!this.evaluatorRecommendations.containsKey(evaluator.getId())){
 				if(evaluator.hasRecommendation()){

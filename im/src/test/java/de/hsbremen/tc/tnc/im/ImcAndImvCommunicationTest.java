@@ -18,14 +18,14 @@ import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetf;
 import de.hsbremen.tc.tnc.im.adapter.imv.ImvAdapterIetf;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvActionRecommendationEnum;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
+import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 
 public class ImcAndImvCommunicationTest {
 

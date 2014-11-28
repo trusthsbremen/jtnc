@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.newp.route.DefaultImMessageRouter;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 

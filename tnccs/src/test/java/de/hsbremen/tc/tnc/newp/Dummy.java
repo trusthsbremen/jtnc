@@ -21,14 +21,13 @@ import de.hsbremen.tc.tnc.AbstractDummy;
 import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateFactory;
-import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.im.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvActionRecommendationEnum;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.session.context.SessionConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 

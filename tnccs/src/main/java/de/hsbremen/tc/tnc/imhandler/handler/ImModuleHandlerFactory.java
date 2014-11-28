@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 
-import de.hsbremen.tc.tnc.imhandler.adapter.connection.ImcConnectionAdapterBuilder;
-import de.hsbremen.tc.tnc.imhandler.adapter.connection.ImcConnectionAdapterBuilderIetf;
 import de.hsbremen.tc.tnc.imhandler.command.ImcFunctionCallBuilder;
 import de.hsbremen.tc.tnc.imhandler.command.ImcFunctionCallBuilderIetf;
 import de.hsbremen.tc.tnc.imhandler.module.TnccsImModuleHolder;
-import de.hsbremen.tc.tnc.imhandler.route.ImMessageRouteComponent;
-import de.hsbremen.tc.tnc.imhandler.route.ImMessageRouteFactory;
+import de.hsbremen.tc.tnc.newp.adapter.connection.ImcConnectionAdapterBuilder;
+import de.hsbremen.tc.tnc.newp.adapter.connection.ImcConnectionAdapterBuilderIetf;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouteComponent;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouterFactory;
 
 public class ImModuleHandlerFactory {
 
@@ -18,7 +18,7 @@ public class ImModuleHandlerFactory {
 	
 	public static ImModuleHandler<IMC> createImcModuleHandlerIetf(List<TnccsImModuleHolder<IMC>> imcs){
 		
-		ImMessageRouteComponent<TnccsImModuleHolder<IMC>> router = new ImMessageRouteFactory().createRoutingTable();
+		ImMessageRouteComponent<TnccsImModuleHolder<IMC>> router = new ImMessageRouterFactory().createRoutingTable();
 		ImConnectionMessageQueue queue 				  = new ImConnectionMessageQueueIetf();
 		ImcConnectionAdapterBuilder connectionBuilder = new ImcConnectionAdapterBuilderIetf(); 
 		ImcFunctionCallBuilder functionBuilder 		  = new ImcFunctionCallBuilderIetf(DEFAULT_TIMEOUT);

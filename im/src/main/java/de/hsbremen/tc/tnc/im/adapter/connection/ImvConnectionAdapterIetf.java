@@ -13,17 +13,17 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
-import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.m.message.ImMessage;
 import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 	
@@ -85,10 +85,10 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 	}
 
 	@Override
-	public void provideRecommendation(ImvRecommendationObject pair) throws TncException {
+	public void provideRecommendation(ImvRecommendationPair pair) throws TncException {
 		
 		try {
-			this.connection.provideRecommendation(pair.getRecommendation().number(), pair.getResult().code());
+			this.connection.provideRecommendation(pair.getRecommendationValue(), pair.getResultValue());
 		} catch (TNCException e) {
 			throw new TncException(e);
 		}

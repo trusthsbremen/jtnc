@@ -11,7 +11,7 @@ import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.adapter.im.TerminatedException;
+import de.hsbremen.tc.tnc.adapter.im.exception.TerminatedException;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;

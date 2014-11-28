@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 
-import de.hsbremen.tc.tnc.im.route.ImMessageRoute;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRoute;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 

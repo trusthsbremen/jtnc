@@ -2,43 +2,41 @@ package de.hsbremen.tc.tnc.im.evaluate.example.simple.util;
 
 import java.util.Comparator;
 
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvActionRecommendationEnum;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvEvaluationResultEnum;
-import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 
-public class DefaultRecommendationComparator implements Comparator<ImvRecommendationObject>{
+public class DefaultRecommendationComparator implements Comparator<ImvRecommendationPair>{
 
-	private int weightImvAction(ImvActionRecommendationEnum action){
+	private int weightImvAction(long number){
 		
-		if(action.number() == 0) return 1;
-		if(action.number() == 1) return 3;
-		if(action.number() == 2) return 2;
+		if(number == 0) return 1;
+		if(number == 1) return 3;
+		if(number == 2) return 2;
 		
 		return 0;
 	}
 	
-	private int weightImvEvaluation(ImvEvaluationResultEnum result){
+	private int weightImvEvaluation(long result){
 		
-		if(result.code() == 0) return 2;
-		if(result.code() == 1) return 3;
-		if(result.code() == 2) return 4;
-		if(result.code() == 3) return 1;
+		if(result == 0) return 2;
+		if(result == 1) return 3;
+		if(result == 2) return 4;
+		if(result == 3) return 1;
 		
 		return 0;
 	}
 	
 	@Override
-	public int compare(ImvRecommendationObject o1,
-			ImvRecommendationObject o2) {
-		ImvActionRecommendationEnum o1a = o1.getRecommendation();
-		ImvActionRecommendationEnum o2a = o2.getRecommendation();
+	public int compare(ImvRecommendationPair o1,
+			ImvRecommendationPair o2) {
+		long o1a = o1.getRecommendationValue();
+		long o2a = o2.getRecommendationValue();
 		
 		int actionWeight = this.weightImvAction(o1a) - this.weightImvAction(o2a); 
 		if(actionWeight != 0) return actionWeight;
 
 				
-		ImvEvaluationResultEnum o1e = o1.getResult();
-		ImvEvaluationResultEnum o2e = o2.getResult();
+		long o1e = o1.getResultValue();
+		long o2e = o2.getResultValue();
 		return this.weightImvEvaluation(o1e) - this.weightImvEvaluation(o2e); 
 		
 	}

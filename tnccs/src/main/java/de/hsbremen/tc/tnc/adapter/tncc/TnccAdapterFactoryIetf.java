@@ -5,7 +5,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
 import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
-import de.hsbremen.tc.tnc.im.GlobalHandshakeRetryListener;
+import de.hsbremen.tc.tnc.newp.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.newp.ImManager;
 
 public class TnccAdapterFactoryIetf implements TnccAdapterFactory {

@@ -3,7 +3,6 @@ package de.hsbremen.tc.tnc.newp;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,19 +17,20 @@ import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.im.ImcHandler;
+import de.hsbremen.tc.tnc.newp.route.DefaultImMessageRouter;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 public class ImHandlerTest {
 
-	private ImHandler2 handler;
+	private TnccsMessageHandler handler;
 	private ImManager<IMC> manager;
 	private ImMessageRouter router;
 	private ImcAdapterFactory imcFactory;
 	private TnccAdapterFactory tnccFactory;
 	private ImcConnectionAdapterFactory connFactory;
-	private ImHandlerFactory handlerFactory;
+	private ImcHandlerFactory handlerFactory;
 	private SupportedMessageType type;
 	
 	@BeforeClass

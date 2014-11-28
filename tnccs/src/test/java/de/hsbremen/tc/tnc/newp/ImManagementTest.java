@@ -14,6 +14,8 @@ import de.hsbremen.tc.tnc.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.newp.route.DefaultImMessageRouter;
+import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
@@ -98,12 +100,12 @@ public class ImManagementTest {
 		
 		this.manager.reserveAdditionalId(imc);
 		
-		Long l = this.router.findExclRecipientId(2, type.getVendorId(), type.getType());
+		Long l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
 		Assert.assertEquals(new Long(id0),l);
 		
 		this.manager.remove(id0);
 		
-		l = this.router.findExclRecipientId(2, type.getVendorId(), type.getType());
+		l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
 		if(l != null){
 			Assert.fail();
 		}

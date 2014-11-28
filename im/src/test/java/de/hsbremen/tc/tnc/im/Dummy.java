@@ -12,14 +12,14 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvActionRecommendationEnum;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 
 public class Dummy extends AbstractDummy{
 	

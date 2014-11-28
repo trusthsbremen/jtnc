@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
-import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -18,6 +17,7 @@ import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> implements ImSession, ImSessionContext{
 	protected static final Logger LOGGER = LoggerFactory.getLogger(ImSession.class);

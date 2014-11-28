@@ -20,16 +20,17 @@ import org.slf4j.LoggerFactory;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvActionRecommendationEnum;
-import de.hsbremen.tc.tnc.im.adapter.imv.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluationUnitIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.ImvRecommendationObject;
 import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.util.ConfigurationParameterParser;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.m.attribute.ImAttributeValue;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
+import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 
 public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements ImvEvaluationUnit{
 
@@ -40,7 +41,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 
 	private Properties properties;
 	
-	private ImvRecommendationObject recommendation;
+	private ImvRecommendationPair recommendation;
 	
 	public OsImvEvaluationUnit(GlobalHandshakeRetryListener globalHandshakeRetryListener){
 		super(globalHandshakeRetryListener);
@@ -101,9 +102,9 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 			LOGGER.debug("Rating: " + rating + " of 10." );
 			
 			if(rating < 8){
-				this.recommendation = new ImvRecommendationObject(ImvActionRecommendationEnum.TNC_IMV_ACTION_RECOMMENDATION_NO_ACCESS, ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MAJOR);
+				this.recommendation = ImvRecommendationPairFactory.createRecommendationPair(ImvActionRecommendationEnum.TNC_IMV_ACTION_RECOMMENDATION_NO_ACCESS, ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MAJOR);
 			}else{
-				this.recommendation = new ImvRecommendationObject(ImvActionRecommendationEnum.TNC_IMV_ACTION_RECOMMENDATION_ALLOW, ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_COMPLIANT);
+				this.recommendation = ImvRecommendationPairFactory.createRecommendationPair(ImvActionRecommendationEnum.TNC_IMV_ACTION_RECOMMENDATION_ALLOW, ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_COMPLIANT);
 			}
 			
 			try{
@@ -187,11 +188,11 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	}
 
 	@Override
-	public synchronized ImvRecommendationObject getRecommendation(ImSessionContext context) {
+	public synchronized ImvRecommendationPair getRecommendation(ImSessionContext context) {
 		// look if recommendation is present and handle it if possible else return default no recommendation
-		ImvRecommendationObject rec = this.recommendation;
+		ImvRecommendationPair rec = this.recommendation;
 		this.recommendation = null; // remove recommendation after it has been ask for, to make room for a new evaluation. 
-		return (rec != null) ? rec : new ImvRecommendationObject();
+		return (rec != null) ? rec : ImvRecommendationPairFactory.getDefaultRecommendationPair();
 	}
 	
 	/* (non-Javadoc)
