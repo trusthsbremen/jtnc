@@ -188,8 +188,10 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 
 	@Override
 	public synchronized ImvRecommendationObject getRecommendation(ImSessionContext context) {
-		// look if recommendation is present and handle it if possible else return defualt no recommendation
-		return (this.recommendation != null) ? this.recommendation : new ImvRecommendationObject();
+		// look if recommendation is present and handle it if possible else return default no recommendation
+		ImvRecommendationObject rec = this.recommendation;
+		this.recommendation = null; // remove recommendation after it has been ask for, to make room for a new evaluation. 
+		return (rec != null) ? rec : new ImvRecommendationObject();
 	}
 	
 	/* (non-Javadoc)

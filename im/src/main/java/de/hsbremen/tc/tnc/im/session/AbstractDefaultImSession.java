@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.connection.ImConnectionState;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.connection.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.connection.ImTncConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
@@ -24,7 +24,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 
 	private long messageIndex; 
 	
-	private ImConnectionState connectionState;
+	private TncConnectionState connectionState;
 	
 	private final T connection;
 	
@@ -32,7 +32,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	
 	private EnumSet<ImHandshakeRetryReasonEnum> connectionHandshakeRetryRequested;
 	
-	AbstractDefaultImSession(final T connection, final ImConnectionState connectionState, final ImEvaluatorManager evaluator){
+	AbstractDefaultImSession(final T connection, final TncConnectionState connectionState, final ImEvaluatorManager evaluator){
 		this.evaluators = evaluator;
 		this.connectionState = connectionState;
 		this.connection = connection;
@@ -59,7 +59,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	 * @see de.hsbremen.tc.tnc.im.session.ImSession#getConnectionState()
 	 */
 	@Override
-	public final ImConnectionState getConnectionState() {
+	public final TncConnectionState getConnectionState() {
 		return connectionState;
 	}
 
@@ -67,7 +67,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	 * @see de.hsbremen.tc.tnc.im.session.ImSession#setConnectionState(long)
 	 */
 	@Override
-	public final void setConnectionState(final ImConnectionState connectionState) {
+	public final void setConnectionState(final TncConnectionState connectionState) {
 		LOGGER.debug("Connection state has changed to: " + connectionState.toString());
 		this.connectionState = connectionState;
 	}
@@ -125,7 +125,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	@Override
 	public void terminate() {
 		LOGGER.debug("Terminate called.");
-		this.connectionState = ImTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE;
+		this.connectionState = DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE;
 		// TODO Auto-generated method stub
 	}
 

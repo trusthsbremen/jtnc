@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
@@ -25,12 +27,14 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAdapter>{
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcManager.class);
+	
 	private long idDispensor;
-	private Deque<Long> reuseable;
+	private Deque<Long> idRecyclingBin;
 	private final long maxImId;
 	
 	private Map<Long,IMC> imcIndex;
-	private Map<IMC, Long> imc;
+	private Map<IMC, Long> imcs;
 	private Map<Long,ImcAdapter> adapterIndex;  
 	
 	private ImcAdapterFactory adapterFactory;
@@ -45,8 +49,8 @@ public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAd
 	public DefaultImcManager(ImMessageRouter router, ImcAdapterFactory adapterFactory, TnccAdapterFactory tnccFactory, long maxImId) {
 		
 		this.idDispensor = 0;
-		this.reuseable = new ConcurrentLinkedDeque<>(); // use this because sessions and IM management may have threads
-		this.imc = new ConcurrentHashMap<>(); // use this because sessions and IM management may have threads
+		this.idRecyclingBin = new ConcurrentLinkedDeque<>(); // use this because sessions and IM management may have threads
+		this.imcs = new ConcurrentHashMap<>(); // use this because sessions and IM management may have threads
 		this.imcIndex = new ConcurrentHashMap<>(); // use this because sessions and IM management may have threads
 		this.adapterIndex = new ConcurrentHashMap<>(); // use this because sessions and IM management may have threads
 		this.router = router;
@@ -65,16 +69,16 @@ public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAd
 		}
 		
 		this.imcIndex.put(primaryId, im);
-		this.imc.put(im, primaryId);
+		this.imcs.put(im, primaryId);
 		
-		TNCC tncc = this.tnccFactory.createTncc(im, this.createPrimaryIdAttribute(primaryId));
+		TNCC tncc = this.tnccFactory.createTncc(im, this.createPrimaryIdAttribute(primaryId), this);
 		
 		try {
 			im.initialize(tncc);
 		} catch (TNCException e) {
 			this.imcIndex.remove(primaryId);
-			this.imc.remove(im);
-			this.reuseable.add(primaryId);
+			this.imcs.remove(im);
+			this.idRecyclingBin.add(primaryId);
 			throw new ImInitializeException("Intialization of IMC failed. IMC will be removed.", new TncException(e)); 
 		}
 		
@@ -88,7 +92,7 @@ public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAd
 		IMC imc  = this.imcIndex.remove(id);
 		this.router.remove(id);
 		if(imc != null){
-			this.imc.remove(imc);
+			this.imcs.remove(imc);
 		}
 		if(this.adapterIndex.containsKey(id)){
 			ImcAdapter adapter = this.adapterIndex.remove(id);
@@ -100,13 +104,20 @@ public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAd
 			
 		}
 		
+		if(!this.imcIndex.containsKey(id) && !this.adapterIndex.containsKey(id)){
+			this.idRecyclingBin.add(id);
+		}else{
+			LOGGER.warn("An ID "+ id +" cannot be reused, because it has remaining dependencies.");
+		}
+		
+		
 	}
 
 	@Override
 	public long reserveAdditionalId(IMC im) throws TncException {
-		if(this.imc.containsKey(imc)){
+		if(this.imcs.containsKey(im)){
 			long additionalId = this.reserveId();
-			this.router.addExclusiveId(this.imc.get(im), additionalId);
+			this.router.addExclusiveId(this.imcs.get(im), additionalId);
 			return additionalId;
 		}
 		
@@ -116,11 +127,11 @@ public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAd
 	@Override
 	public void reportSupportedMessagesTypes(IMC im,
 			Set<SupportedMessageType> types) throws TncException {
-		if(this.imc.containsKey(imc)){
-			this.router.updateMap(this.imc.get(im),types);
+		if(this.imcs.containsKey(im)){
+			this.router.updateMap(this.imcs.get(im),types);
+		}else{
+			throw new TncException("The given IMC/V " +im.getClass().getCanonicalName()+ " is unknown.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
 		}
-		
-		throw new TncException("The given IMC/V " +im.getClass().getCanonicalName()+ " is unknown.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
 	}
 
 	@Override
@@ -134,8 +145,8 @@ public class DefaultImcManager implements ImManager<IMC>, ImAdapterManager<ImcAd
 	}
 
 	private long reserveId() throws TncException {
-		if(!this.reuseable.isEmpty()){
-			return this.reuseable.pop();
+		if(!this.idRecyclingBin.isEmpty()){
+			return this.idRecyclingBin.pop();
 		}else{
 			if(idDispensor < this.maxImId){
 				return ++idDispensor;

@@ -15,7 +15,7 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
-import de.hsbremen.tc.tnc.connection.DefaultImConnectionStateFactory;
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateFactory;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImAdapter;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
@@ -123,7 +123,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 			throws TNCException {
 		checkInitialization();
 		try{
-			this.findSessionByConnection(c).setConnectionState(DefaultImConnectionStateFactory.getInstance().fromState(newState));
+			this.findSessionByConnection(c).setConnectionState(DefaultTncConnectionStateFactory.getInstance().fromState(newState));
 		}catch(TncException e){
 			throw new TNCException(e.getMessage(),e.getResultCode().result());
 		}

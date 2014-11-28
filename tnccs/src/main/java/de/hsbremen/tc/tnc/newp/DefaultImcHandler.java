@@ -16,21 +16,28 @@ import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.adapter.im.TerminatedException;
-import de.hsbremen.tc.tnc.connection.ImConnectionState;
-import de.hsbremen.tc.tnc.connection.ImTncConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
-import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
+import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateEnum;
+import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateFactory;
+import de.hsbremen.tc.tnc.newp.enums.ImHandlerState;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
-public class DefaultImcHandler implements ImHandler{
+public class DefaultImcHandler implements ImHandler2{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcHandler.class);
 	private Map<Long,ImcAdapter> imAdapters;
 	private Map<Long,ImcConnectionAdapter> connections; 
+	
+	private ImHandlerState state;
+	
 	private ImMessageRouter router;
 	private ImAdapterManager<ImcAdapter> manager;
+	
 	private ImcConnectionAdapterFactory connectionFactory;
+	
 
 	public DefaultImcHandler(ImAdapterManager<ImcAdapter> manager, 
 			ImcConnectionAdapterFactory connectionFactory,
@@ -49,12 +56,16 @@ public class DefaultImcHandler implements ImHandler{
 		this.connections = connectionList;
 		this.router = router;
 
+		this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN;
+		
 	}
 
 	@Override
-	public void setConnectionState(ImConnectionState imConnectionState){
+	public void setConnectionState(TncConnectionState imConnectionState){
 		
-		if(imConnectionState.state() == ImTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE.state()){
+		this.state = DefaultImHandlerStateFactory.getInstance().fromConnectionState(imConnectionState);
+		
+		if(imConnectionState.state() == DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE.state()){
 			this.refreshAdapterEntries();
 		}
 		
@@ -80,7 +91,7 @@ public class DefaultImcHandler implements ImHandler{
 			
 		}
 		
-		if(imConnectionState.state() == ImTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE.state()){
+		if(imConnectionState.state() == DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE.state()){
 			this.imAdapters.clear();
 			this.connections.clear();
 		}
@@ -88,17 +99,23 @@ public class DefaultImcHandler implements ImHandler{
 	}
 
 	@Override
-	public void triggerMessage(TnccsSessionContext context,
-			ImMessageTriggerEnum trigger){
+	public void requestMessages(TnccsSessionContext context){
+		this.checkState();
+
 		for (Iterator<Entry<Long, ImcAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
 			Entry<Long, ImcAdapter> entry = iter.next();
 			
 			try {
 
-				if(trigger.equals(ImMessageTriggerEnum.BEGIN_HANDSHAKE)){
+				if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
+					
 					entry.getValue().beginHandshake(this.connections.get(entry.getKey()));
-				}else if(trigger.equals(ImMessageTriggerEnum.BATCH_ENDING)){
+					this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
+					
+				}else if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING)){
+					
 					entry.getValue().batchEnding(this.connections.get(entry.getKey()));
+					
 				}
 
 			} catch (TerminatedException e) {
@@ -116,8 +133,8 @@ public class DefaultImcHandler implements ImHandler{
 	}
 
 	@Override
-	public void handleMessage(TnccsSessionContext context,
-			TnccsMessageValue value) {
+	public void forwardMessage(TnccsSessionContext context, TnccsMessageValue value) {
+		this.checkState();
 		
 		if(value instanceof PbMessageValueIm){
 			
@@ -138,7 +155,9 @@ public class DefaultImcHandler implements ImHandler{
 					try {
 						
 						this.imAdapters.get(recipientId).handleMessage(this.connections.get(recipientId), value);
-					
+						if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
+							this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
+						}
 					} catch (TerminatedException e) {
 						this.imAdapters.remove(recipientId);
 						this.connections.remove(recipientId);
@@ -175,6 +194,12 @@ public class DefaultImcHandler implements ImHandler{
 			ImcAdapter imAdapter = list.get(long1);
 			imAdapters.put(imAdapter.getPrimaryId(), imAdapter);
 			connections.put(imAdapter.getPrimaryId(), this.connectionFactory.createConnection(imAdapter.getPrimaryId()));
+		}
+	}
+	
+	private void checkState(){
+		if(this.state == null || this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN)){
+			throw new IllegalStateException("The handlers state cannot be:" + ((this.state != null)? this.state : DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN).toString());
 		}
 	}
 }

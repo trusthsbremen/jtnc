@@ -1,6 +1,7 @@
 package de.hsbremen.tc.tnc.im.route;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,10 +51,11 @@ public class ImMessageRoute<T> implements ImMessageRouteComponent<T> {
 	@Override
 	public void unSubscribe(T connection){
 		if(connection != null){
-			for (Long vendorId : this.vendorDispatcher.keySet()) {
+			for (Iterator<Long> iter = this.vendorDispatcher.keySet().iterator(); iter.hasNext();) {
+				Long vendorId = iter.next();
 				this.vendorDispatcher.get(vendorId).unSubscribe(connection);
-				if(this.vendorDispatcher.get(vendorId).countChildren() <= 0){
-					this.vendorDispatcher.remove(vendorId);
+				if(this.vendorDispatcher.get(vendorId).countChildren() <= 0 && vendorId != TNCConstants.TNC_VENDORID_ANY){
+					iter.remove();
 				}
 			}
 		}

@@ -9,7 +9,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
-import de.hsbremen.tc.tnc.connection.ImConnectionState;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
@@ -101,7 +101,7 @@ public class ImcHandler {
 	
 	// IMCConnection is the wrong ID handle, because I have an IMCConnection per IMC. In this Setup I should have only one IMCConnection for all
 	 
-	public void setConnectionState(IMCConnection connection, ImConnectionState state) throws TncException{
+	public void setConnectionState(IMCConnection connection, TncConnectionState state) throws TncException{
 		if(!this.hasSubscription(connection)){
 			throw new IllegalAccessError("The connection " + connection.toString() +" has no valid subscription.");
 		}

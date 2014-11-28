@@ -1,20 +1,26 @@
 package de.hsbremen.tc.tnc.adapter.im;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.connection.ImConnectionState;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
 public class ImcAdapterTimeProxy implements ImcAdapter{
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImcAdapterTimeProxy.class);
+	
 	private final ImcAdapter adapter;
 	private final long timeout;
 	
@@ -34,7 +40,7 @@ public class ImcAdapterTimeProxy implements ImcAdapter{
 
 	@Override
 	public void notifyConnectionChange(ImcConnectionAdapter connection,
-			ImConnectionState state) throws TncException, TerminatedException {
+			TncConnectionState state) throws TncException, TerminatedException {
 		this.adapter.notifyConnectionChange(connection, state);
 	}
 
@@ -121,8 +127,10 @@ public class ImcAdapterTimeProxy implements ImcAdapter{
         try {
         	// It has to be something blocking here, because the send method in state cann't send
         	// messages if the IMC has not returned from the message.
+        	LOGGER.debug("Wait on the task " +task.toString()+ " to finish.");
         	task.get();
 		} catch (InterruptedException e) {
+			LOGGER.debug("Thread " + Thread.currentThread().toString() + " interrupted."); 
 			Thread.currentThread().interrupt();
 		} catch (ExecutionException e) {
 			Throwable t = e.getCause();
@@ -132,8 +140,11 @@ public class ImcAdapterTimeProxy implements ImcAdapter{
 			}else if(t instanceof TerminatedException){
 				throw (TerminatedException) t;
 			}
+		} catch (CancellationException e){
+			LOGGER.debug("Task " + task.toString() + " was cancelled, it may have taken more than " + this.timeout + " milliseconds.");
 		}
         exec.shutdown();
+        LOGGER.debug("Task "+task.toString()+" finished and time control resources released."); 
 	}
 	
 	      
@@ -148,7 +159,10 @@ public class ImcAdapterTimeProxy implements ImcAdapter{
 		          
 		@Override
 		public void run() {
-		   this.task.cancel(true);
+		  if(!this.task.isDone()){
+			   LOGGER.debug("WatchDog released to cancel method call.");
+			   this.task.cancel(true);
+		  }
 		}
 	}
 	

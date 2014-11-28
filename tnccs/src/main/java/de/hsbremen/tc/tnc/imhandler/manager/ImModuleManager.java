@@ -8,8 +8,8 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import de.hsbremen.tc.tnc.imhandler.exception.AllImIdsAssignedException;
 import de.hsbremen.tc.tnc.imhandler.exception.ImModuleNotFoundException;
 import de.hsbremen.tc.tnc.imhandler.exception.ImModulesAlreadyLoadedException;
-import de.hsbremen.tc.tnc.imhandler.loader.ImConfigurationEntry;
 import de.hsbremen.tc.tnc.imhandler.module.TnccsImModuleHolder;
+import de.hsbremen.tc.tnc.newp.loader.ImConfigurationEntry;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public interface ImModuleManager<T> {

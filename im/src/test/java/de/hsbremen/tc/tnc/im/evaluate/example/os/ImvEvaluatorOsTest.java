@@ -8,6 +8,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -29,10 +30,13 @@ public class ImvEvaluatorOsTest {
 	private static final long IM_ID = 109;  
 	private ImSessionContext ctx;
 	
+	@BeforeClass
+	public static void logSetUp(){
+		Dummy.setLogSettings();
+	}
+	
 	@Before
 	public void setUp(){
-	
-		Dummy.setLogSettings();
 		
 		this.ctx = Dummy.getSessionContext();
 		TnccAdapter adapter = Dummy.getTnccAdapter();

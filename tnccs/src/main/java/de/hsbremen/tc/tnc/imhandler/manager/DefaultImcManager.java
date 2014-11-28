@@ -18,10 +18,10 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 import de.hsbremen.tc.tnc.imhandler.exception.AllImIdsAssignedException;
 import de.hsbremen.tc.tnc.imhandler.exception.ImModuleNotFoundException;
 import de.hsbremen.tc.tnc.imhandler.exception.ImModulesAlreadyLoadedException;
-import de.hsbremen.tc.tnc.imhandler.loader.ImLoader;
-import de.hsbremen.tc.tnc.imhandler.loader.ImConfigurationEntry;
 import de.hsbremen.tc.tnc.imhandler.module.TnccsImModuleHolder;
 import de.hsbremen.tc.tnc.imhandler.module.TnccsImModuleHolderBuilder;
+import de.hsbremen.tc.tnc.newp.loader.ImConfigurationEntry;
+import de.hsbremen.tc.tnc.newp.loader.ImLoader;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 // TODO make this more dynamic int the future to load and unload IMC/Vs at will

@@ -3,6 +3,7 @@ package de.hsbremen.tc.tnc.im;
 import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
 import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
@@ -33,9 +34,14 @@ public class ImcAndImvCommunicationTest {
 	private IMCConnection imcConnection;
 	private IMVConnection imvConnection;
 
+	@BeforeClass
+	public static void logSetUp(){
+		Dummy.setLogSettings();
+	}
+	
+	
 	@Before
 	public void setUp() throws org.trustedcomputinggroup.tnc.ifimc.TNCException, org.trustedcomputinggroup.tnc.ifimv.TNCException{
-		Dummy.setLogSettings();
 		this.imc = new TestImcOs();
 		this.imv = new TestImvOs();
 		this.imcConnection = new ImcConnection(this.imv);

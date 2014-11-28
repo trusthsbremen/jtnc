@@ -11,7 +11,7 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVLong;
 import org.trustedcomputinggroup.tnc.ifimv.IMVTNCSFirst;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
-import de.hsbremen.tc.tnc.connection.ImConnectionState;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
@@ -41,7 +41,7 @@ public class ImvAdapterIetf implements ImvAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#notifyConnectionChange(org.trustedcomputinggroup.tnc.ifimv.IMVConnection, de.hsbremen.tc.tnc.connection.ImConnectionState)
 	 */
 	@Override
-	public void notifyConnectionChange(IMVConnection connection, ImConnectionState state) throws TncException, TerminatedException{
+	public void notifyConnectionChange(IMVConnection connection, TncConnectionState state) throws TncException, TerminatedException{
 		try {
 			this.imv.notifyConnectionChange(connection, state.state());
 		} catch (TNCException e) {

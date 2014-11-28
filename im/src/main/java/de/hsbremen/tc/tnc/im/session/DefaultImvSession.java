@@ -1,6 +1,6 @@
 package de.hsbremen.tc.tnc.im.session;
 
-import de.hsbremen.tc.tnc.connection.ImConnectionState;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
@@ -11,7 +11,7 @@ import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 
 public class DefaultImvSession extends AbstractDefaultImSession<ImvConnectionAdapter> implements ImvSession{
 	
-	DefaultImvSession(ImvConnectionAdapter connection, ImConnectionState connectionState, ImvEvaluatorManager evaluators){
+	DefaultImvSession(ImvConnectionAdapter connection, TncConnectionState connectionState, ImvEvaluatorManager evaluators){
 		super(connection, connectionState, evaluators);
 	}
 

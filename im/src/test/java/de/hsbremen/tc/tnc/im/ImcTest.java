@@ -1,11 +1,12 @@
 package de.hsbremen.tc.tnc.im;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
-import de.hsbremen.tc.tnc.connection.ImTncConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
 import de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetf;
 import de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetfLong;
@@ -15,9 +16,13 @@ public class ImcTest {
 	IMC imc;
 	IMC imcLong;
 	
+	@BeforeClass
+	public static void logSetUp(){
+		Dummy.setLogSettings();
+	}
+	
 	@Before
 	public void setUp(){
-		Dummy.setLogSettings();
 		this.imc = new ImcAdapterIetf();
 		this.imcLong = new ImcAdapterIetfLong();
 		
@@ -48,7 +53,7 @@ public class ImcTest {
 	public void testNotInitialized() throws TNCException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(), "Test error for missing initialization."));
 		try{
-			this.imc.notifyConnectionChange(Dummy.getIMCConnection(),ImTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
+			this.imc.notifyConnectionChange(Dummy.getIMCConnection(),DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
 		}catch(TNCException e){
 			if(e.getResultCode() == TNCException.TNC_RESULT_NOT_INITIALIZED){
 				throw e;
@@ -68,7 +73,7 @@ public class ImcTest {
 			e.printStackTrace();
 		}
 		
-		this.imc.notifyConnectionChange(Dummy.getIMCConnection(), ImTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
+		this.imc.notifyConnectionChange(Dummy.getIMCConnection(), DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
 	}
 	
 	@Test

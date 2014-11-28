@@ -11,6 +11,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -23,9 +24,15 @@ public class ImcEvaluationUnitOsTest {
 	
 	ImcEvaluationUnit evlUnit;
 	ImSessionContext ctx;
+	
+	@BeforeClass
+	public static void logSetUp(){
+		Dummy.setLogSettings();
+	}
+	
 	@Before
 	public void setUp(){
-		Dummy.setLogSettings();
+		
 		evlUnit = new OsImcEvaluationUnit(Dummy.getHandshakeListener());
 		ctx = Dummy.getSessionContext();
 	}

@@ -1,6 +1,7 @@
 package de.hsbremen.tc.tnc.im.route;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,8 @@ public class ImMessageRouteVendor<T> implements ImMessageRouteComponent<T> {
 			
 		List<T> t = new ArrayList<>();
 		
-		if(this.typeDispatcher.containsKey(vendorId)){
-			 t.addAll(this.typeDispatcher.get(vendorId).findRecipients(vendorId, messageType));
+		if(this.typeDispatcher.containsKey(messageType)){
+			 t.addAll(this.typeDispatcher.get(messageType).findRecipients(vendorId, messageType));
 		}
 		// Dispatch always to the ANY subscribers.
 		t.addAll(this.typeDispatcher.get(TNCConstants.TNC_SUBTYPE_ANY).findRecipients(vendorId, messageType));
@@ -50,10 +51,11 @@ public class ImMessageRouteVendor<T> implements ImMessageRouteComponent<T> {
 	@Override
 	public void unSubscribe(T connection) {
 		if(connection != null){
-			for (Long type : this.typeDispatcher.keySet()) {
+			for (Iterator<Long> iter = this.typeDispatcher.keySet().iterator(); iter.hasNext();) {
+				Long type = iter.next();
 				this.typeDispatcher.get(type).unSubscribe(connection);
-				if(this.typeDispatcher.get(type).countChildren() <= 0){
-					this.typeDispatcher.remove(type);
+				if(this.typeDispatcher.get(type).countChildren() <= 0 && type != TNCConstants.TNC_SUBTYPE_ANY){
+					iter.remove();
 				}
 			}
 		}

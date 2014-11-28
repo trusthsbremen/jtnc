@@ -97,7 +97,7 @@ public class DefaultImMessageRouter implements ImMessageRouter{
 			}else{
 				for (Long long1 : recipients) {
 					if(this.imIds.containsKey(long1)){
-						if(this.imIds.get(long1).contains(recipients)){
+						if(this.imIds.get(long1).contains(address)){
 							result = long1;
 						}
 					}

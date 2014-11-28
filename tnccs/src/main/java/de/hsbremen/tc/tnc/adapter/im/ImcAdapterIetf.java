@@ -12,7 +12,7 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.connection.ImConnectionState;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
@@ -41,7 +41,7 @@ public class ImcAdapterIetf implements ImcAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#notifyConnectionChange(org.trustedcomputinggroup.tnc.ifimc.IMCConnection, de.hsbremen.tc.tnc.connection.ImConnectionState)
 	 */
 	@Override
-	public void notifyConnectionChange(ImcConnectionAdapter connection, ImConnectionState state) throws TncException, TerminatedException{
+	public void notifyConnectionChange(ImcConnectionAdapter connection, TncConnectionState state) throws TncException, TerminatedException{
 		try {
 			this.imc.notifyConnectionChange(connection, state.state());
 		} catch (TNCException e) {

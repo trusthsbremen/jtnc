@@ -11,21 +11,18 @@ import de.hsbremen.tc.tnc.newp.ImManager;
 public class TnccAdapterFactoryIetf implements TnccAdapterFactory {
 
 	private final GlobalHandshakeRetryListener listener;
-	private final ImManager<IMC> manager;
 
-	public TnccAdapterFactoryIetf(GlobalHandshakeRetryListener listener,
-			ImManager<IMC> manager) {
+	public TnccAdapterFactoryIetf(GlobalHandshakeRetryListener listener) {
 		this.listener = listener;
-		this.manager = manager;
 	}
 
 	@Override
-	public TNCC createTncc(IMC imc, Attributed attributes){
+	public TNCC createTncc(IMC imc, Attributed attributes, ImManager<IMC> manager){
 		
 		if(imc instanceof IMCLong){
-			return new TnccAdapterIetfLong(this.manager,attributes,this.listener);
+			return new TnccAdapterIetfLong(manager,attributes,this.listener);
 		}else{
-			return new TnccAdapterIetf(this.manager, attributes, this.listener);
+			return new TnccAdapterIetf(manager, attributes, this.listener);
 		}
 		
 	}

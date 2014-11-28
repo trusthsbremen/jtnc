@@ -12,7 +12,7 @@ public class DefaultImcHandlerFactory implements ImHandlerFactory{
 	}
 
 	@Override
-	public ImHandler getHandler(ImcConnectionAdapterFactory connectionFactory) {
+	public ImHandler2 getHandler(ImcConnectionAdapterFactory connectionFactory) {
 		
 		return new DefaultImcHandler(imAdapter, connectionFactory, this.imAdapter.getRouter());
 		

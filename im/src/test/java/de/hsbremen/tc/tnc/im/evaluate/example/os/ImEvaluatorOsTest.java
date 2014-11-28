@@ -11,6 +11,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -31,10 +32,13 @@ public class ImEvaluatorOsTest {
 	private static final long IM_ID = 109;  
 	private ImSessionContext ctx;
 	
+	@BeforeClass
+	public static void logSetUp(){
+		Dummy.setLogSettings();
+	}
+	
 	@Before
 	public void setUp(){
-	
-		Dummy.setLogSettings();
 		
 		this.ctx = Dummy.getSessionContext();
 		TnccAdapter adapter = Dummy.getTnccAdapter();

@@ -1,6 +1,6 @@
 package de.hsbremen.tc.tnc.im.session;
 
-import de.hsbremen.tc.tnc.connection.ImTncConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
@@ -34,7 +34,7 @@ public class DefaultImcSessionFactory implements ImSessionFactory<ImcSession>{
 			throw new IllegalArgumentException("Evaluator manager must be instance of " + ImEvaluatorManager.class.getCanonicalName() + ".");
 		}
 			
-		ImcSession session = new DefaultImcSession((ImcConnectionAdapter)connection, ImTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN, evaluator);
+		ImcSession session = new DefaultImcSession((ImcConnectionAdapter)connection, DefaultTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN, evaluator);
 			
 		return session;
 	}
