@@ -3,137 +3,240 @@
   associations="true" dependencies="false" nesting-relationships="true">  
   <interface id="1" language="java" name="de.hsbremen.tc.tnc.newp.ImManager" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="341" y="371"/>    
+    <position height="-1" width="-1" x="655" y="323"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="2" language="java" name="de.hsbremen.tc.tnc.newp.route.ImMessageRouter" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/route/ImMessageRouter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="854" y="386"/>    
+  <interface id="2" language="java" name="de.hsbremen.tc.tnc.newp.ImcManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="567" y="527"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="3" language="java" name="de.hsbremen.tc.tnc.newp.ImHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImHandler.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1276" y="370"/>    
+  <interface id="3" language="java" name="de.hsbremen.tc.tnc.newp.ImvManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImvManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="755" y="527"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="4" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1290" y="730"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="357" y="741"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="6" language="java" name="de.hsbremen.tc.tnc.newp.ImAdapterManager" project="tnccs" 
+  <interface id="4" language="java" name="de.hsbremen.tc.tnc.newp.ImAdapterManager" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImAdapterManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="826" y="737"/>    
+    <position height="-1" width="-1" x="658" y="675"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="7" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcHandlerFactory" project="tnccs" 
+  <class id="5" language="java" name="de.hsbremen.tc.tnc.newp.AbstractImManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/AbstractImManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="662" y="-9"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="204" y="385"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImvManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImvManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1136" y="388"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" language="java" name="de.hsbremen.tc.tnc.newp.TnccsMessageHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/TnccsMessageHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="666" y="1094"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="de.hsbremen.tc.tnc.newp.ImvHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImvHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="739" y="838"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" name="de.hsbremen.tc.tnc.newp.ImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="561" y="828"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="11" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="174" y="780"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImvHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImvHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1174" y="769"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="13" language="java" name="de.hsbremen.tc.tnc.newp.ImcHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcHandlerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-253" y="293"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="14" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcHandlerFactory" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcHandlerFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="832" y="934"/>    
+    <position height="-1" width="-1" x="-250" y="470"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="de.hsbremen.tc.tnc.newp.ImcHandlerFactory" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcHandlerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="838" y="1071"/>    
+  <interface id="15" language="java" name="de.hsbremen.tc.tnc.newp.ImvHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImvHandlerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1617" y="303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="de.hsbremen.tc.tnc.newp.route.DefaultImMessageRouter" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/route/DefaultImMessageRouter.java" binary="false" 
+  <class id="16" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImvHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImvHandlerFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="848" y="89"/>    
+    <position height="-1" width="-1" x="1620" y="470"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="10">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="11" name="manager"/>      
-      <multiplicity id="12" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="13">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="14" name="router"/>      
-      <multiplicity id="15" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="16">    
+  <generalization id="17">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="19">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="17">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="8"/>  
+  <generalization id="20">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
   </realization>  
-  <realization id="18">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="23">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
   </realization>  
-  <realization id="19">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="2"/>  
+  <realization id="24">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
   </realization>  
-  <association id="20">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="21" name="imAdapter"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
+  <association id="25">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="26" name="imAdapter"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="23">    
-    <end type="SOURCE" refId="4"/>    
+  <realization id="28">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="15"/>  
+  </realization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="31">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="32" name="manager"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="34">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="36">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="37" name="manager"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="39">    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="3"/>  
   </realization>  
-  <association id="24">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="25" name="router"/>      
-      <multiplicity id="26" minimum="0" maximum="1"/>    
+  <realization id="40">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="41">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="42" name="imAdapter"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

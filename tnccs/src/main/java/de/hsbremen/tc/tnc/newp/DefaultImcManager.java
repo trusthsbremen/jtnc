@@ -19,7 +19,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 
-public class DefaultImcManager extends AbstractImManager<IMC> implements ImAdapterManager<ImcAdapter>{
+public class DefaultImcManager extends AbstractImManager<IMC> implements ImcManager{
 
 //	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcManager2.class);
 	

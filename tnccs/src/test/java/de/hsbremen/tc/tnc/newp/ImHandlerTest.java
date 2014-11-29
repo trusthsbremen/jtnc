@@ -6,11 +6,9 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
 
 import de.hsbremen.tc.tnc.adapter.connection.DefaultImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapterFactory;
-import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactory;
@@ -25,7 +23,7 @@ import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 public class ImHandlerTest {
 
 	private TnccsMessageHandler handler;
-	private ImManager<IMC> manager;
+	private ImcManager manager;
 	private ImMessageRouter router;
 	private ImcAdapterFactory imcFactory;
 	private TnccAdapterFactory tnccFactory;
@@ -52,7 +50,7 @@ public class ImHandlerTest {
 		this.manager.add(Dummy.getIMCwithMessageSupport(types));
 		
 		this.connFactory = new DefaultImcConnectionAdapterFactory(Dummy.getConnectionContext());
-		this.handlerFactory = new DefaultImcHandlerFactory((ImAdapterManager<ImcAdapter>)this.manager);
+		this.handlerFactory = new DefaultImcHandlerFactory(this.manager);
 		this.handler = this.handlerFactory.getHandler(this.connFactory);
 	}
 	
