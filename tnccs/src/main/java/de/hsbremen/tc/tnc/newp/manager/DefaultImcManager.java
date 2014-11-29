@@ -1,46 +1,46 @@
-package de.hsbremen.tc.tnc.newp;
+package de.hsbremen.tc.tnc.newp.manager;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.trustedcomputinggroup.tnc.ifimv.IMV;
-import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
-import org.trustedcomputinggroup.tnc.ifimv.TNCException;
-import org.trustedcomputinggroup.tnc.ifimv.TNCS;
+import org.trustedcomputinggroup.tnc.ifimc.IMC;
+import org.trustedcomputinggroup.tnc.ifimc.TNCC;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
+import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
-import de.hsbremen.tc.tnc.adapter.im.ImvAdapter;
-import de.hsbremen.tc.tnc.adapter.im.ImvAdapterFactory;
-import de.hsbremen.tc.tnc.adapter.tncc.TncsAdapterFactory;
+import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
+import de.hsbremen.tc.tnc.adapter.im.ImcAdapterFactory;
+import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.attribute.TncServerAttributeTypeEnum;
+import de.hsbremen.tc.tnc.attribute.TncClientAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 
-public class DefaultImvManager extends AbstractImManager<IMV> implements ImvManager{
+public class DefaultImcManager extends AbstractImManager<IMC> implements ImcManager{
 
-//	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImvManager.class);
+//	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcManager2.class);
 	
-	private ImvAdapterFactory adapterFactory;
-	private final TncsAdapterFactory tncsFactory;
+	private ImcAdapterFactory adapterFactory;
+	private final TnccAdapterFactory tnccFactory;
 	private final ImMessageRouter router;
 
-	private Map<Long,ImvAdapter> adapterIndex;  
+	private Map<Long,ImcAdapter> adapterIndex;  
 	
-	public DefaultImvManager(ImMessageRouter router, ImvAdapterFactory adapterFactory, TncsAdapterFactory tncsFactory){
-		this(router, adapterFactory, tncsFactory, (TNCConstants.TNC_IMCID_ANY -1));
+	public DefaultImcManager(ImMessageRouter router, ImcAdapterFactory adapterFactory, TnccAdapterFactory tnccFactory){
+		this(router, adapterFactory, tnccFactory, (TNCConstants.TNC_IMCID_ANY -1));
 	}
 	
-	public DefaultImvManager(ImMessageRouter router, ImvAdapterFactory adapterFactory, TncsAdapterFactory tncsFactory, long maxImId) {
+	public DefaultImcManager(ImMessageRouter router, ImcAdapterFactory adapterFactory, TnccAdapterFactory tnccFactory, long maxImId) {
 		
 		super(router, maxImId);
 		
 		this.router = router;
 		
 		this.adapterFactory = adapterFactory;
-		this.tncsFactory = tncsFactory;
+		this.tnccFactory = tnccFactory;
 		
 		this.adapterIndex = new ConcurrentHashMap<>();
 		
@@ -50,8 +50,8 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements ImvMana
 	 * @see de.hsbremen.tc.tnc.newp.AbstractImManager#initialize(long, java.lang.Object)
 	 */
 	@Override
-	protected void initialize(long primaryId, IMV im) throws TncException {
-		TNCS tncc = this.tncsFactory.createTncs(im, this.createPrimaryIdAttribute(primaryId), this);
+	protected void initialize(long primaryId, IMC im) throws TncException {
+		TNCC tncc = this.tnccFactory.createTncc(im, this.createPrimaryIdAttribute(primaryId), this);
 		
 		try {
 			im.initialize(tncc);
@@ -59,13 +59,13 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements ImvMana
 			throw new TncException(e);
 		}
 		
-		ImvAdapter adapter = this.adapterFactory.createImvAdapter(im, primaryId);
+		ImcAdapter adapter = this.adapterFactory.createImcAdapter(im, primaryId);
 		this.adapterIndex.put(primaryId, adapter);
 		
 	}
 
 	@Override
-	public Map<Long,ImvAdapter> getAdapter() {
+	public Map<Long,ImcAdapter> getAdapter() {
 		return new HashMap<>(this.adapterIndex);
 	}
 
@@ -78,7 +78,7 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements ImvMana
 	private Attributed createPrimaryIdAttribute(final long primaryId) {
 		Attributed a = new Attributed(){
 			
-			private long primaryImvId = primaryId;
+			private long primaryImcId = primaryId;
 			
 			@Override
 			public void setAttribute(TncAttributeType type, Object value)
@@ -89,8 +89,8 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements ImvMana
 			
 			@Override
 			public Object getAttribute(TncAttributeType type) throws TncException {
-				if(type.id() == TncServerAttributeTypeEnum.TNC_ATTRIBUTEID_PRIMARY_IMV_ID.id()){
-					return new Long(this.primaryImvId);
+				if(type.id() == TncClientAttributeTypeEnum.TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id()){
+					return new Long(this.primaryImcId);
 				}
 				throw new TncException("The attribute with ID " + type.id() + " is unknown.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
 			}

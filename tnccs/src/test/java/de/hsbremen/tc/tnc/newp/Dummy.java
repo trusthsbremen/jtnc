@@ -21,8 +21,11 @@ import de.hsbremen.tc.tnc.AbstractDummy;
 import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateFactory;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.newp.handler.StateChangePermit;
+import de.hsbremen.tc.tnc.newp.handler.TnccsSessionContext;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
@@ -316,17 +319,28 @@ public class Dummy extends AbstractDummy{
 
 	public static TnccsSessionContext getSessionContext() {
 		return new TnccsSessionContext() {
-			
+
+
 			@Override
-			public void setTnccsAttribute(TncAttributeType type, Object value) {
-				System.out.println("setAttribute() with id " + type.id() +" and object " +value.toString()+ " called.");
-				throw new UnsupportedOperationException("Operation is in dummy not supported.");
-			}
-			
-			@Override
-			public Object getTnccsAttribute(TncAttributeType type) {
+			public Object getAttribute(TncAttributeType type)
+					throws TncException {
 				System.out.println("getAttribute() with id " + type.id() +" called.");
 				throw new UnsupportedOperationException("Operation is in dummy not supported.");
+			}
+
+			@Override
+			public void setAttribute(TncAttributeType type, Object value)
+					throws TncException {
+				System.out.println("setAttribute() with id " + type.id() +" and object " +value.toString()+ " called.");
+				throw new UnsupportedOperationException("Operation is in dummy not supported.");
+				
+			}
+
+			@Override
+			public void setConnectionState(TncConnectionState state,
+					StateChangePermit permit) {
+				System.out.println("setConnectionState() with state " + state.toString() +" and permit object " +permit.toString()+ " called.");
+				
 			}
 			
 		};

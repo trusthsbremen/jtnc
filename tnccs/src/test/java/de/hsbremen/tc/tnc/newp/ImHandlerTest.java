@@ -15,6 +15,12 @@ import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.tncc.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.newp.handler.DefaultImcHandlerFactory;
+import de.hsbremen.tc.tnc.newp.handler.ImcHandler;
+import de.hsbremen.tc.tnc.newp.handler.ImcHandlerFactory;
+import de.hsbremen.tc.tnc.newp.manager.DefaultImcManager;
+import de.hsbremen.tc.tnc.newp.manager.ImcManager;
+import de.hsbremen.tc.tnc.newp.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.newp.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
@@ -22,7 +28,7 @@ import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 public class ImHandlerTest {
 
-	private TnccsMessageHandler handler;
+	private ImcHandler handler;
 	private ImcManager manager;
 	private ImMessageRouter router;
 	private ImcAdapterFactory imcFactory;

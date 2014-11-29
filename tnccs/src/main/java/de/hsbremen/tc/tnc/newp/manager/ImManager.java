@@ -1,8 +1,9 @@
-package de.hsbremen.tc.tnc.newp;
+package de.hsbremen.tc.tnc.newp.manager;
 
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.newp.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public interface ImManager<T>{

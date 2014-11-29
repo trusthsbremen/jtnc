@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.newp;
+package de.hsbremen.tc.tnc.newp.handler;
 
 import de.hsbremen.tc.tnc.adapter.connection.ImvConnectionAdapterFactory;
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <interface id="1" language="java" name="de.hsbremen.tc.tnc.newp.ImManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="1" language="java" name="de.hsbremen.tc.tnc.newp.manager.ImManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/manager/ImManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="655" y="323"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="2" language="java" name="de.hsbremen.tc.tnc.newp.ImcManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="2" language="java" name="de.hsbremen.tc.tnc.newp.manager.ImcManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/manager/ImcManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="567" y="527"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="3" language="java" name="de.hsbremen.tc.tnc.newp.ImvManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImvManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="3" language="java" name="de.hsbremen.tc.tnc.newp.manager.ImvManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/manager/ImvManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="755" y="527"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -28,8 +28,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="4" language="java" name="de.hsbremen.tc.tnc.newp.ImAdapterManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImAdapterManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="4" language="java" name="de.hsbremen.tc.tnc.newp.manager.ImAdapterManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/manager/ImAdapterManager.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="658" y="675"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -37,8 +38,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="de.hsbremen.tc.tnc.newp.AbstractImManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/AbstractImManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="de.hsbremen.tc.tnc.newp.manager.AbstractImManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/manager/AbstractImManager.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="662" y="-9"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -46,8 +48,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="de.hsbremen.tc.tnc.newp.manager.DefaultImcManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/manager/DefaultImcManager.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="204" y="385"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -55,8 +58,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImvManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImvManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="de.hsbremen.tc.tnc.newp.manager.DefaultImvManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/manager/DefaultImvManager.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1136" y="388"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -64,8 +68,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="de.hsbremen.tc.tnc.newp.TnccsMessageHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/TnccsMessageHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="8" language="java" name="de.hsbremen.tc.tnc.newp.handler.TnccsMessageHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/TnccsMessageHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="666" y="1094"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -73,8 +78,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="9" language="java" name="de.hsbremen.tc.tnc.newp.ImvHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImvHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="9" language="java" name="de.hsbremen.tc.tnc.newp.handler.ImvHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/ImvHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="739" y="838"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -82,8 +87,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="10" language="java" name="de.hsbremen.tc.tnc.newp.ImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="10" language="java" name="de.hsbremen.tc.tnc.newp.handler.ImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="561" y="828"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -91,8 +96,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="11" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="de.hsbremen.tc.tnc.newp.handler.DefaultImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/DefaultImcHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="174" y="780"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -100,8 +106,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImvHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImvHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="de.hsbremen.tc.tnc.newp.handler.DefaultImvHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/DefaultImvHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1174" y="769"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -109,8 +116,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="13" language="java" name="de.hsbremen.tc.tnc.newp.ImcHandlerFactory" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImcHandlerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="13" language="java" name="de.hsbremen.tc.tnc.newp.handler.ImcHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/ImcHandlerFactory.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-253" y="293"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -118,8 +126,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="14" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImcHandlerFactory" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImcHandlerFactory.java" binary="false" 
+  <class id="14" language="java" name="de.hsbremen.tc.tnc.newp.handler.DefaultImcHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/DefaultImcHandlerFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-250" y="470"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -128,8 +136,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="15" language="java" name="de.hsbremen.tc.tnc.newp.ImvHandlerFactory" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/ImvHandlerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="15" language="java" name="de.hsbremen.tc.tnc.newp.handler.ImvHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/ImvHandlerFactory.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1617" y="303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -137,8 +146,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="16" language="java" name="de.hsbremen.tc.tnc.newp.DefaultImvHandlerFactory" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/DefaultImvHandlerFactory.java" binary="false" 
+  <class id="16" language="java" name="de.hsbremen.tc.tnc.newp.handler.DefaultImvHandlerFactory" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/DefaultImvHandlerFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1620" y="470"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

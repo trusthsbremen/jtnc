@@ -10,7 +10,7 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.newp.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.newp.ImManager;
+import de.hsbremen.tc.tnc.newp.manager.ImManager;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 

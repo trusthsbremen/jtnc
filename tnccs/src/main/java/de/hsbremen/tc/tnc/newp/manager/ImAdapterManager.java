@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.newp;
+package de.hsbremen.tc.tnc.newp.manager;
 
 import java.util.Map;
 

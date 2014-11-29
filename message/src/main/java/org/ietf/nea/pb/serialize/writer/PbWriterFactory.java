@@ -4,10 +4,20 @@ import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.tnccs.TcgTnccsProtocolEnum;
+import de.hsbremen.tc.tnc.tnccs.TcgTnccsVersionEnum;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 public class PbWriterFactory {
 
+	public static String getTnccsProtocol(){
+		return TcgTnccsProtocolEnum.TNCCS.value();
+	}
+	
+	public static String getTnccsVersion(){
+		return TcgTnccsVersionEnum.V2.value();
+	}
+	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	public static TnccsWriter<PbBatch> createProductionDefault(){
 

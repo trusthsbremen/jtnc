@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.newp;
+package de.hsbremen.tc.tnc.newp.manager;
 
 import java.util.Deque;
 import java.util.Map;
@@ -13,6 +13,7 @@ import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.adapter.im.exception.TerminatedException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
+import de.hsbremen.tc.tnc.newp.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 

@@ -1,7 +1,8 @@
-package de.hsbremen.tc.tnc.newp;
+package de.hsbremen.tc.tnc.newp.handler;
 
 import de.hsbremen.tc.tnc.adapter.connection.ImvConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.adapter.im.ImvAdapter;
+import de.hsbremen.tc.tnc.newp.manager.ImAdapterManager;
 
 public class DefaultImvHandlerFactory implements ImvHandlerFactory{
 

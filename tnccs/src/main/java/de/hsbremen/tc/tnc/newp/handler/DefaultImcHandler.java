@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.newp;
+package de.hsbremen.tc.tnc.newp.handler;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,10 +12,11 @@ import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.adapter.connection.ImvConnectionAdapter;
-import de.hsbremen.tc.tnc.adapter.connection.ImvConnectionAdapterFactory;
-import de.hsbremen.tc.tnc.adapter.im.ImvAdapter;
+import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapter;
+import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapterFactory;
+import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.adapter.im.exception.TerminatedException;
+import de.hsbremen.tc.tnc.attribute.TncClientAttributeTypeEnum;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
@@ -23,32 +24,32 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateEnum;
 import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateFactory;
 import de.hsbremen.tc.tnc.newp.enums.ImHandlerState;
+import de.hsbremen.tc.tnc.newp.manager.ImAdapterManager;
 import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
-public class DefaultImvHandler implements ImvHandler{
+public class DefaultImcHandler implements ImcHandler{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImvHandler.class);
-	
-	private Map<Long,ImvAdapter> imAdapters;
-	private Map<Long,ImvConnectionAdapter> connections; 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcHandler.class);
+	private Map<Long,ImcAdapter> imAdapters;
+	private Map<Long,ImcConnectionAdapter> connections; 
 	
 	private ImHandlerState state;
 	
 	private ImMessageRouter router;
-	private ImAdapterManager<ImvAdapter> manager;
+	private ImAdapterManager<ImcAdapter> manager;
 	
-	private ImvConnectionAdapterFactory connectionFactory;
+	private ImcConnectionAdapterFactory connectionFactory;
 	
 
-	public DefaultImvHandler(ImAdapterManager<ImvAdapter> manager, 
-			ImvConnectionAdapterFactory connectionFactory,
+	public DefaultImcHandler(ImAdapterManager<ImcAdapter> manager, 
+			ImcConnectionAdapterFactory connectionFactory,
 			ImMessageRouter router) {
 		this.connectionFactory = connectionFactory;
 		this.manager = manager;
 		
-		Map<Long,ImvAdapter> adapterList = this.manager.getAdapter();
-		Map<Long,ImvConnectionAdapter> connectionList = new HashMap<>(adapterList.size()); 
+		Map<Long,ImcAdapter> adapterList = this.manager.getAdapter();
+		Map<Long,ImcConnectionAdapter> connectionList = new HashMap<>(adapterList.size()); 
 		
 		for (Long key : adapterList.keySet()) {
 			connectionList.put(adapterList.get(key).getPrimaryId(), this.connectionFactory.createConnection(adapterList.get(key).getPrimaryId()));
@@ -71,8 +72,8 @@ public class DefaultImvHandler implements ImvHandler{
 			this.refreshAdapterEntries();
 		}
 		
-		for (Iterator<Entry<Long, ImvAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
-			Entry<Long, ImvAdapter> entry = iter.next();
+		for (Iterator<Entry<Long, ImcAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
+			Entry<Long, ImcAdapter> entry = iter.next();
 			
 			try {
 				
@@ -104,15 +105,14 @@ public class DefaultImvHandler implements ImvHandler{
 	public void requestMessages(TnccsSessionContext context){
 		this.checkState();
 
-		for (Iterator<Entry<Long, ImvAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
-			Entry<Long, ImvAdapter> entry = iter.next();
+		for (Iterator<Entry<Long, ImcAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
+			Entry<Long, ImcAdapter> entry = iter.next();
 			
 			try {
 
 				if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
 					
 					entry.getValue().beginHandshake(this.connections.get(entry.getKey()));
-					this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
 					
 				}else if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING)){
 					
@@ -131,6 +131,10 @@ public class DefaultImvHandler implements ImvHandler{
 				}
 				LOGGER.error(e.getMessage(),e);
 			}
+		}
+		
+		if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
+			this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
 		}
 	}
 
@@ -154,12 +158,30 @@ public class DefaultImvHandler implements ImvHandler{
 			
 			for (Long recipientId : recipients) {
 				if(this.imAdapters.containsKey(recipientId)){
+					
+					Boolean tncsFirstSupport = Boolean.FALSE;
+					if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
+						
+						try {
+							Object o = this.imAdapters.get(recipientId).getAttribute(TncClientAttributeTypeEnum.TNC_ATTRIBUTEID_IMC_SPTS_TNCS1);
+							if(o instanceof Boolean){
+								tncsFirstSupport = (Boolean) o;
+							}
+						} catch (TncException | UnsupportedOperationException e) {
+							LOGGER.debug("TNCS first support was not identifiable and the feature is not used.", e);
+						}
+						
+					}
+					
+					
 					try {
 						
-						this.imAdapters.get(recipientId).handleMessage(this.connections.get(recipientId), value);
-						if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
-							this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
+						if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START) && !tncsFirstSupport){
+							this.imAdapters.get(recipientId).beginHandshake(this.connections.get(recipientId));
+						}else{
+							this.imAdapters.get(recipientId).handleMessage(this.connections.get(recipientId), value);
 						}
+						
 					} catch (TerminatedException e) {
 						this.imAdapters.remove(recipientId);
 						this.connections.remove(recipientId);
@@ -174,13 +196,18 @@ public class DefaultImvHandler implements ImvHandler{
 					}
 				}
 			}
+			
+			if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
+				this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
+			}
+			
 		}else{
 			LOGGER.debug("Because Message is not of type " + PbMessageValueIm.class.getCanonicalName() + ", it is ignored.");
 		}
 	}
 
 	private void refreshAdapterEntries(){
-		Map<Long,ImvAdapter> list =  this.manager.getAdapter();
+		Map<Long,ImcAdapter> list =  this.manager.getAdapter();
 
 		Set<Long> oldKeys = new HashSet<>(this.imAdapters.keySet());
 		Set<Long> newKeys = new HashSet<>(list.keySet());
@@ -193,7 +220,7 @@ public class DefaultImvHandler implements ImvHandler{
 		}
 		
 		for (Long long1 : newKeys) {
-			ImvAdapter imAdapter = list.get(long1);
+			ImcAdapter imAdapter = list.get(long1);
 			imAdapters.put(imAdapter.getPrimaryId(), imAdapter);
 			connections.put(imAdapter.getPrimaryId(), this.connectionFactory.createConnection(imAdapter.getPrimaryId()));
 		}
@@ -201,33 +228,7 @@ public class DefaultImvHandler implements ImvHandler{
 	
 	private void checkState(){
 		if(this.state == null || this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN)){
-			throw new IllegalStateException("The handler's state cannot be:" + ((this.state != null)? this.state : DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN).toString());
+			throw new IllegalStateException("The handlers state cannot be:" + ((this.state != null)? this.state : DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN).toString());
 		}
-	}
-
-	@Override
-	public void solicitRecommendation() {
-		this.checkState();
-		
-		for (Iterator<Entry<Long, ImvAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
-			Entry<Long, ImvAdapter> entry = iter.next();
-			
-			try {
-
-				entry.getValue().solicitRecommendation(this.connections.get(entry.getKey()));
-
-			} catch (TerminatedException e) {
-				this.connections.remove(entry.getKey());
-				iter.remove();
-			} catch (TncException e){
-				if(e.getResultCode().equals(TncExceptionCodeEnum.TNC_RESULT_FATAL)){
-					this.connections.remove(entry.getKey());
-					this.manager.removeAdapter(entry.getKey());
-					iter.remove();
-				}
-				LOGGER.error(e.getMessage(),e);
-			}
-		}
-		
 	}
 }
