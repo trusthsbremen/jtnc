@@ -45,4 +45,5 @@ public final class IETFConstants {
 	public static final int IETF_MAX_ERROR_CODE = 0xFFFF;
 	public static final short IETF_MAX_LANG_CODE_LENGTH = 0xFF;
 	public static final byte IETF_RFC5793_VERSION_NUMBER = 2;
+	
 }

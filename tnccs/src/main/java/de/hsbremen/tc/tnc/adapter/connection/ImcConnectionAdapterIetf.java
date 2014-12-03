@@ -5,32 +5,47 @@ import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
+import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
 import de.hsbremen.tc.tnc.attribute.TncClientAttributeTypeEnum;
+import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.session.context.SessionConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
 public class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implements ImcConnectionAdapter{
 
-	private final SessionConnectionContext session;
-
+	private final ImConnectionContext session;
+	private long maxMessageSize;
+    
 	public ImcConnectionAdapterIetf(int primaryImcId,
-			SessionConnectionContext session) {
+			ImConnectionContext session) {
 		super(primaryImcId);
 		this.session = session;
+		try{
+			Object o = session.getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_MAX_MESSAGE_SIZE);
+			if(o instanceof Long){
+				this.maxMessageSize = ((Long)o).longValue();
+			}
+		}catch(TncException | UnsupportedOperationException e){
+			this.maxMessageSize = HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNKNOWN;
+		}
 	}
 
 	@Override
 	public void sendMessage(long messageType, byte[] message)
 			throws TNCException {
 	
-		if(!this.isReceiving()){
-			throw new TNCException("Connection is currently not allowed to receive messages.", TncExceptionCodeEnum.TNC_RESULT_ILLEGAL_OPERATION.result());
+		if(messageType == (TNCConstants.TNC_VENDORID_ANY << 8 | TNCConstants.TNC_SUBTYPE_ANY)){
+			throw new TNCException("Message type is set to reserved type.", TNCException.TNC_RESULT_INVALID_PARAMETER);
 		}
+		
+		if(!super.isReceiving()){
+			throw new TNCException("Connection is currently not allowed to receive messages.", TNCException.TNC_RESULT_ILLEGAL_OPERATION);
+		}
+		
+		this.checkMessageSize(message.length);
 		
 		long vendorId = messageType >>> 8;
 		long type = messageType & 0xFF;
@@ -79,9 +94,19 @@ public class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implem
 		throw new UnsupportedOperationException("The operation setAttribute(...) is not supported, because there are no attributes to set.");
 	}
 	
+	protected void checkMessageSize(int length) throws TNCException {
+		if(this.maxMessageSize != HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNKNOWN && this.maxMessageSize != HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNLIMITED){
+			if(length > this.maxMessageSize){
+				throw new TNCException("Maximum message size of "+this.maxMessageSize+" exceeded.", TNCException.TNC_RESULT_EXCEEDED_MAX_MESSAGE_SIZE);
+			}
+		}
+	}
+	
 	protected final void sendMessage(TnccsMessage message) throws TncException{
 		if(message != null){
 			this.session.addMessage(message);
 		}
 	}
+	
+	
 }

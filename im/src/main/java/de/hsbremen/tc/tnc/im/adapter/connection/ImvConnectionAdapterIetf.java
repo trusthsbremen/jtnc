@@ -115,8 +115,10 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 		if(this.connection instanceof IMVConnectionLong && validatorId != HSBConstants.HSB_IM_ID_UNKNOWN){
 			((IMVConnectionLong) this.connection).sendMessageLong(flags, vendorId, type, message, collectorId, validatorId);
 		}else{
-			if(type >= TNCConstants.TNC_SUBTYPE_ANY){
-				throw new TNCException("Connection does not support the message type "+ type +", which is greater than " + TNCConstants.TNC_SUBTYPE_ANY + ".", TNCException.TNC_RESULT_NO_LONG_MESSAGE_TYPES);
+			if(type >= TNCConstants.TNC_SUBTYPE_ANY || vendorId == TNCConstants.TNC_VENDORID_ANY){
+				throw new TNCException("Connection does not support the message type "+ type +" with vendor ID " + vendorId 
+						+ ", type cannot be greater than " + TNCConstants.TNC_SUBTYPE_ANY + " and vendor ID cannot be greater than "
+						+ TNCConstants.TNC_VENDORID_ANY+".", TNCException.TNC_RESULT_NO_LONG_MESSAGE_TYPES);
 			}
 			long msgType = (long)(vendorId << 8) | (type & 0xFF);
 			this.connection.sendMessage(msgType, message);

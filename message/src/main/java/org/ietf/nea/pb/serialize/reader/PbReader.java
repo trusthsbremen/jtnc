@@ -10,8 +10,8 @@ import java.util.Map;
 
 import org.apache.commons.io.input.CountingInputStream;
 import org.ietf.nea.exception.RuleException;
+import org.ietf.nea.pb.batch.DefaultTnccsBatchContainer;
 import org.ietf.nea.pb.batch.PbBatch;
-import org.ietf.nea.pb.batch.PbBatchContainer;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf;
 import org.ietf.nea.pb.message.PbMessage;
@@ -27,10 +27,11 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 import de.hsbremen.tc.tnc.util.Combined;
 
-class PbReader implements TnccsReader<PbBatchContainer>, Combined<TnccsReader<PbMessageValue>> {
+class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader<PbMessageValue>> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PbReader.class);
 			
@@ -54,7 +55,7 @@ class PbReader implements TnccsReader<PbBatchContainer>, Combined<TnccsReader<Pb
 	}
 
 	@Override
-	public PbBatchContainer read(final InputStream in, final long length)
+	public TnccsBatchContainer read(final InputStream in, final long length)
 			throws SerializationException, ValidationException {
 		
 		BufferedInputStream bIn = (in instanceof BufferedInputStream)? (BufferedInputStream)in : new BufferedInputStream(in) ;
@@ -213,7 +214,7 @@ class PbReader implements TnccsReader<PbBatchContainer>, Combined<TnccsReader<Pb
 		
 		PbBatch b = new PbBatch(bHead,msgs);
 		
-		return new PbBatchContainer(b, minorExceptions);
+		return new DefaultTnccsBatchContainer(b, minorExceptions);
 	}
 
 	@Override

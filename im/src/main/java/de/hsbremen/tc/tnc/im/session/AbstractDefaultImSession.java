@@ -28,12 +28,12 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	
 	private final T connection;
 	
-	private final ImEvaluatorManager evaluators;
+	private final ImEvaluatorManager evaluatorManager;
 	
 	private EnumSet<ImHandshakeRetryReasonEnum> connectionHandshakeRetryRequested;
 	
-	AbstractDefaultImSession(final T connection, final TncConnectionState connectionState, final ImEvaluatorManager evaluator){
-		this.evaluators = evaluator;
+	AbstractDefaultImSession(final T connection, final TncConnectionState connectionState, final ImEvaluatorManager evaluatorManager){
+		this.evaluatorManager = evaluatorManager;
 		this.connectionState = connectionState;
 		this.connection = connection;
 		this.connectionHandshakeRetryRequested = EnumSet.noneOf(ImHandshakeRetryReasonEnum.class);
@@ -85,10 +85,10 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 		
 		switch (reason) {
 			case BEGIN_HANDSHAKE:
-				components =  evaluators.evaluate(this);
+				components =  evaluatorManager.evaluate(this);
 				break;
 			case BATCH_ENDING:
-				components = evaluators.lastCall(this);
+				components = evaluatorManager.lastCall(this);
 				break;
 		}
 
@@ -110,7 +110,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 
 		List<ImObjectComponent> parameterList  = new ArrayList<ImObjectComponent>();
 		parameterList.add(component);
-		List<ImObjectComponent> components =  this.evaluators.handle(parameterList, this);
+		List<ImObjectComponent> components =  this.evaluatorManager.handle(parameterList, this);
 		
 		if(components != null && !components.isEmpty()){
 			cmpList.addAll(components);
@@ -164,7 +164,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter> im
 	}
 	
 	protected final ImEvaluatorManager getEvaluator(){
-		return this.evaluators;
+		return this.evaluatorManager;
 	}
 	
 	protected final T getConnection(){

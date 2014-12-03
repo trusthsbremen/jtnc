@@ -19,6 +19,7 @@ import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
 public class TestData {
 
@@ -79,7 +80,7 @@ public class TestData {
 		short collectorId = 1;
 		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
-		List<PbMessage> messages = new ArrayList<>();
+		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
 		return PbBatchFactoryIetf.createClientData(messages);
 	}
@@ -92,7 +93,7 @@ public class TestData {
 		short collectorId = 1;
 		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
-		List<PbMessage> messages = new ArrayList<>();
+		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
 		
 		return PbBatchFactoryIetf.createClientData(messages);
@@ -101,7 +102,7 @@ public class TestData {
 	
 	public PbBatch getBatchWithAccessRecommendation() throws ValidationException{
 		
-		List<PbMessage> messages = new ArrayList<>();
+		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
 		
 		return PbBatchFactoryIetf.createClientData(messages);
@@ -109,7 +110,7 @@ public class TestData {
 	
 	public PbBatch getBatchWithReasonString() throws ValidationException{
 		
-		List<PbMessage> messages = new ArrayList<>();
+		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
 		
 		return PbBatchFactoryIetf.createClientData(messages);
@@ -123,7 +124,7 @@ public class TestData {
 		short collectorId = 1;
 		short validatorId = (short)0xFFFF;
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
-		List<PbMessage> messages = new ArrayList<>();
+		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
 		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
 		messages.add(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
@@ -141,7 +142,7 @@ public class TestData {
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}
 
-		List<PbMessage> messages = new ArrayList<>();
+		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(new PbMessage(builder.toMessageHeader(), PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12})));
 		
 		

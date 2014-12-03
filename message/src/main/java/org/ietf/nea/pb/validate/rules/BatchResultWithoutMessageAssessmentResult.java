@@ -13,13 +13,13 @@ import de.hsbremen.tc.tnc.IETFConstants;
 
 public class BatchResultWithoutMessageAssessmentResult {
 
-	public static void check(final PbBatchTypeEnum type, List<PbMessage> messages) throws RuleException{
+	public static void check(final PbBatchTypeEnum type, List<? super PbMessage> messages) throws RuleException{
 		if(type != PbBatchTypeEnum.RESULT){
 			return;
 		}
 		if(messages != null){
-			for (PbMessage pbMessage : messages) {
-				if(pbMessage.getHeader().getVendorId() == IETFConstants.IETF_PEN_VENDORID && pbMessage.getHeader().getMessageType() ==  PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType()){
+			for (Object pbMessage : messages) {
+				if(((PbMessage)pbMessage).getHeader().getVendorId() == IETFConstants.IETF_PEN_VENDORID && ((PbMessage) pbMessage).getHeader().getMessageType() ==  PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType()){
 					return;
 				}
 			}

@@ -3,7 +3,6 @@ package org.ietf.nea.pb.serialize;
 import java.io.InputStream;
 
 import org.ietf.nea.pb.batch.PbBatch;
-import org.ietf.nea.pb.batch.PbBatchContainer;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
@@ -16,13 +15,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 
 public class ReaderTest {
 
 
 	TestData batch;
-	TnccsReader<PbBatchContainer> bs;
+	TnccsReader<TnccsBatchContainer> bs;
 	
 	@Before
 	public void setUp(){
@@ -33,7 +33,7 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithIm(){
 
-		PbBatchContainer bc = null;
+		TnccsBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithImAsStream();
 			bc = bs.read(in, -1);
@@ -54,7 +54,7 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithReason(){
 
-		PbBatchContainer bc = null;
+		TnccsBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithReasonAsStream();
 			bc = bs.read(in, -1);
@@ -74,7 +74,7 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithRecommendation(){
 
-		PbBatchContainer bc = null;
+		TnccsBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithRecommendationAsStream();
 			bc = bs.read(in, -1);
@@ -95,7 +95,7 @@ public class ReaderTest {
 	@Test
 	public void deserializePbBatchWithMixedMessageTypes(){
 
-		PbBatchContainer bc = null;
+		TnccsBatchContainer bc = null;
 		try{
 			InputStream in = batch.getBatchWithMixedAsStream();
 			bc = bs.read(in, -1);

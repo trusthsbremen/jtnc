@@ -1,11 +1,11 @@
 package org.ietf.nea.pb.serialize.writer;
 
-import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.TcgTnccsProtocolEnum;
 import de.hsbremen.tc.tnc.tnccs.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 
 public class PbWriterFactory {
@@ -19,7 +19,7 @@ public class PbWriterFactory {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static TnccsWriter<PbBatch> createProductionDefault(){
+	public static TnccsWriter<TnccsBatch> createProductionDefault(){
 
 		/* 
 		 * TODO Remove raw types and unchecked conversion.
@@ -71,7 +71,7 @@ public class PbWriterFactory {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static TnccsWriter<PbBatch> createExperimentalDefault(){
+	public static TnccsWriter<TnccsBatch> createExperimentalDefault(){
 		
 		/* 
 		 * TODO Remove raw types and unchecked conversion.

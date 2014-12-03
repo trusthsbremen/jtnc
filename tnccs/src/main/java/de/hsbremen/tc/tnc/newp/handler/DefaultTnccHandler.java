@@ -20,13 +20,12 @@ public class DefaultTnccHandler implements TnccHandler{
 	}
 
 	@Override
-	public void requestMessages(TnccsSessionContext context) {
+	public void requestMessages() {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void forwardMessage(TnccsSessionContext context,
-			TnccsMessageValue value) {
+	public void forwardMessage(TnccsMessageValue value) {
 		// TODO Auto-generated method stub
 	}
 

@@ -3,18 +3,18 @@ package de.hsbremen.tc.tnc.adapter.connection;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnectionLong;
+import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
-import de.hsbremen.tc.tnc.session.context.SessionConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
 public class ImcConnectionAdapterIetfLong extends ImcConnectionAdapterIetf implements IMCConnectionLong {
 	
 	public ImcConnectionAdapterIetfLong(int primaryImcId,
-			SessionConnectionContext session) {
+			ImConnectionContext session) {
 		super(primaryImcId, session);
 	}
 
@@ -23,9 +23,15 @@ public class ImcConnectionAdapterIetfLong extends ImcConnectionAdapterIetf imple
 			long messageSubtype, byte[] message, long sourceIMCID,
 			long destinationIMVID) throws TNCException {
 
+		if(messageVendorID == TNCConstants.TNC_VENDORID_ANY || messageSubtype == TNCConstants.TNC_SUBTYPE_ANY){
+			throw new TNCException("Message type is set to reserved type.", TNCException.TNC_RESULT_INVALID_PARAMETER);
+		}
+		
 		if(!super.isReceiving()){
 			throw new TNCException("Connection is currently not allowed to receive messages.", TncExceptionCodeEnum.TNC_RESULT_ILLEGAL_OPERATION.result());
 		}
+		
+		super.checkMessageSize(message.length);
 		
 		TnccsMessage m = null;
 		try {

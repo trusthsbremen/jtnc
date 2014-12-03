@@ -9,7 +9,7 @@ public class PbMessage implements TnccsMessage{
 
 	public PbMessage(PbMessageHeader header, PbMessageValue value) {
 		if(header == null){
-			throw new NullPointerException("Batch header cannot be null.");
+			throw new NullPointerException("Message header cannot be null.");
 		}
 		if(value == null){
 			throw new NullPointerException("Messages cannot be null.");

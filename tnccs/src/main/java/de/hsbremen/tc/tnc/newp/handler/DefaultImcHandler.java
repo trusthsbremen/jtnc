@@ -102,7 +102,7 @@ public class DefaultImcHandler implements ImcHandler{
 	}
 
 	@Override
-	public void requestMessages(TnccsSessionContext context){
+	public void requestMessages(){
 		this.checkState();
 
 		for (Iterator<Entry<Long, ImcAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
@@ -139,7 +139,7 @@ public class DefaultImcHandler implements ImcHandler{
 	}
 
 	@Override
-	public void forwardMessage(TnccsSessionContext context, TnccsMessageValue value) {
+	public void forwardMessage(TnccsMessageValue value) {
 		this.checkState();
 		
 		if(value instanceof PbMessageValueIm){

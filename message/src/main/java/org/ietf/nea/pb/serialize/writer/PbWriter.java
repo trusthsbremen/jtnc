@@ -15,10 +15,11 @@ import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 
 import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.util.Combined;
 
-class PbWriter implements TnccsWriter<PbBatch>, Combined<TnccsWriter<PbMessageValue>> {
+class PbWriter implements TnccsWriter<TnccsBatch>, Combined<TnccsWriter<PbMessageValue>> {
 
 	private final TnccsWriter<PbBatchHeader> bHeadWriter;
 	private final TnccsWriter<PbMessageHeader> mHeadWriter;
@@ -40,7 +41,7 @@ class PbWriter implements TnccsWriter<PbBatch>, Combined<TnccsWriter<PbMessageVa
 	}
 
 	@Override
-	public void write(final PbBatch batch, final OutputStream out)
+	public void write(final TnccsBatch batch, final OutputStream out)
 			throws SerializationException{
 		if(batch == null){
 			throw new NullPointerException("Batch cannot be null.");
@@ -49,15 +50,21 @@ class PbWriter implements TnccsWriter<PbBatch>, Combined<TnccsWriter<PbMessageVa
 			throw new NullPointerException("OutputStream cannot be null.");
 		}
 		
+		if(!(batch instanceof PbBatch)){
+			throw new IllegalArgumentException("Batch of type " + batch.getClass().getCanonicalName() + " is not supported. Bacth must be of type " +PbBatch.class.getCanonicalName()+ "." );
+		}
+		
+		PbBatch pbBatch = (PbBatch) batch;
+		
 		BufferedOutputStream bOut = (out instanceof BufferedOutputStream)? (BufferedOutputStream)out: new BufferedOutputStream(out);
 
 		/* batch header */
 		
-		PbBatchHeader bHead = batch.getHeader();
+		PbBatchHeader bHead = pbBatch.getHeader();
 		bHeadWriter.write(bHead, bOut);
 		
 		/* messages */
-		List<PbMessage> msgs = batch.getMessages();
+		List<PbMessage> msgs = pbBatch.getMessages();
 		if(msgs != null && bHead.getLength() > PbMessageTlvFixedLength.BATCH.length()){
 			for (PbMessage pbMessage : msgs) {
 				

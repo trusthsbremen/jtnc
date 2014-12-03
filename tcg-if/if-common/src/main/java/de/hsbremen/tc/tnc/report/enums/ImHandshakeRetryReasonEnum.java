@@ -23,7 +23,8 @@ public enum ImHandshakeRetryReasonEnum {
 	
 	TNC_RETRY_REASON_IMV_MINOR_EVENT(IMVConnection.TNC_RETRY_REASON_IMV_MINOR_EVENT), // on all connections
 	
-	TNC_RETRY_REASON_IMV_PERIODIC(IMVConnection.TNC_RETRY_REASON_IMV_PERIODIC); // on all connections
+	TNC_RETRY_REASON_IMV_PERIODIC(IMVConnection.TNC_RETRY_REASON_IMV_PERIODIC); // on all connections	
+	
 	
 	private final long code;
 	

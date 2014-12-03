@@ -6,9 +6,10 @@ import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
 public class BatchVersion {
 
-	public static void check(final short actuallVersion, final short supportedVersion) throws RuleException{
-        if(actuallVersion != supportedVersion){
-            throw new RuleException("The version "+actuallVersion+" is not supported.",true,PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(),PbErrorCauseEnum.BATCH_VERSION_NOT_SUPPORTED.number(),actuallVersion);
+	public static void check(final short actualVersion, final short supportedVersion) throws RuleException{
+        if(actualVersion != supportedVersion){
+        	// the version parameter are added as reasons first actual, than supported. This is only by convention!
+            throw new RuleException("The version "+actualVersion+" is not supported.",true,PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(),PbErrorCauseEnum.BATCH_VERSION_NOT_SUPPORTED.number(),actualVersion, supportedVersion);
         }
     }
 	

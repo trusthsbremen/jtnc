@@ -152,7 +152,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 		
 		if(message != null && message.length > 0){
 			try{
-				ImObjectComponent component = this.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message));
+				ImObjectComponent component = super.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message));
 				this.findSessionByConnection(c).handleMessage(component);
 			}catch(TncException e){
 				throw new TNCException(e.getMessage(),e.getResultCode().result());

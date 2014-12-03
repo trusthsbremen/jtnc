@@ -1,12 +1,10 @@
 package de.hsbremen.tc.tnc.adapter.connection;
 
-import de.hsbremen.tc.tnc.session.context.SessionConnectionContext;
-
 public class DefaultImcConnectionAdapterFactory implements ImcConnectionAdapterFactory{
 
-	private final SessionConnectionContext context;
+	private final ImConnectionContext context;
 	
-	public DefaultImcConnectionAdapterFactory(SessionConnectionContext context) {
+	public DefaultImcConnectionAdapterFactory(ImConnectionContext context) {
 		this.context = context;
 	}
 

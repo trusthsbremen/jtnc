@@ -1,6 +1,5 @@
 package org.ietf.nea.pb.serialize.reader;
 
-import org.ietf.nea.pb.batch.PbBatchContainer;
 import org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageHeaderBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilderIetf;
@@ -20,6 +19,7 @@ import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilder
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.tnccs.TcgTnccsProtocolEnum;
 import de.hsbremen.tc.tnc.tnccs.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
 
 public class PbReaderFactory {
@@ -33,7 +33,7 @@ public class PbReaderFactory {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static TnccsReader<PbBatchContainer> createProductionDefault(){
+	public static TnccsReader<TnccsBatchContainer> createProductionDefault(){
 
 		/* 
 		 * TODO Remove raw types and unchecked conversion.
@@ -88,7 +88,7 @@ public class PbReaderFactory {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static TnccsReader<PbBatchContainer> createExperimentalDefault(){
+	public static TnccsReader<TnccsBatchContainer> createExperimentalDefault(){
 		
 		/* 
 		 * TODO Remove raw types and unchecked conversion.

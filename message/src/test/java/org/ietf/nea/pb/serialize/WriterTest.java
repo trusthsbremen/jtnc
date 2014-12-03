@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.util.ByteArrayHelper;
 
@@ -22,7 +23,7 @@ public class WriterTest {
 
 
 	TestData batch;
-	TnccsWriter<PbBatch> bs;
+	TnccsWriter<TnccsBatch> bs;
 	
 	@Before
 	public void setUp(){

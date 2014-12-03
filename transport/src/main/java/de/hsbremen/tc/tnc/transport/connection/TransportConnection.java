@@ -3,6 +3,7 @@ package de.hsbremen.tc.tnc.transport.connection;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -14,7 +15,7 @@ public interface TransportConnection{
 
      public abstract TransportAddress getId(); 
 
-	 //public abstract boolean isSelfInititated();
+	 public abstract boolean isSelfInititated();
 	 
 	 public abstract boolean isOpen();
 	
@@ -30,5 +31,5 @@ public interface TransportConnection{
 // 
 //	 public abstract TnccsBatch receive() throws SerializationException, ConnectionException, ValidationException;
 	 
-	 public abstract Object getAttribute(TncAttributeType type) throws ConnectionAttributeNotFoundException;
+	 public abstract Attributed getAttributes();
 }
