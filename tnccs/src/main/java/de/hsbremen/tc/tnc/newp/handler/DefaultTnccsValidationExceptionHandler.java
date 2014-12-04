@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
-public class DefaultValueExceptionHandler implements TnccsValueExceptionHandler{
+public class DefaultTnccsValidationExceptionHandler implements TnccsValidationExceptionHandler{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultValueExceptionHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultTnccsValidationExceptionHandler.class);
 	
 	@Override
 	public List<TnccsMessage> handle(List<ValidationException> exceptions) {

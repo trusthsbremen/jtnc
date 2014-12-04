@@ -3,23 +3,31 @@ package de.hsbremen.tc.tnc.session.base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
+import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.session.connection.BatchReceiver;
-import de.hsbremen.tc.tnc.session.connection.BatchSender;
+import de.hsbremen.tc.tnc.session.connection.TnccsInputChannelListener;
 import de.hsbremen.tc.tnc.session.connection.TnccsInputChannel;
+import de.hsbremen.tc.tnc.session.connection.TnccsOutputChannel;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
-public class Session implements BatchReceiver, HandshakeRetryListener, SessionBase {
+public class Session implements TnccsInputChannelListener, HandshakeRetryListener, SessionBase {
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(Session.class);
 	
+	private SessionAttributes attributes;
 	private StateMachine machine;
 	private Thread input;
-	private BatchSender output;
+	private TnccsOutputChannel output;
+	
+	public Session(SessionAttributes attributes){
+		this.attributes = attributes;
+	}
 	
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.session.eventdriven.SessionBase#registerStatemachine(de.hsbremen.tc.tnc.session.eventdriven.StateMachine)
@@ -37,10 +45,10 @@ public class Session implements BatchReceiver, HandshakeRetryListener, SessionBa
 	 * @see de.hsbremen.tc.tnc.session.eventdriven.SessionBase#registerInput(de.hsbremen.tc.tnc.session.connection.TnccsInputChannel)
 	 */
 	@Override
-	public void registerInput(TnccsInputChannel channel){
+	public void registerInput(TnccsInputChannel in){
 		if(this.input == null){
-			channel.register(this);
-			this.input = new Thread(channel);
+			in.register(this);
+			this.input = new Thread(in);
 		}else{
 			throw new IllegalStateException("Input already registered.");
 		}
@@ -50,14 +58,22 @@ public class Session implements BatchReceiver, HandshakeRetryListener, SessionBa
 	 * @see de.hsbremen.tc.tnc.session.eventdriven.SessionBase#registerOutput(de.hsbremen.tc.tnc.session.connection.BatchSender)
 	 */
 	@Override
-	public void registerOutput(BatchSender sender){
+	public void registerOutput(TnccsOutputChannel out){
 		if(this.output == null){
-			this.output = sender;
+			this.output = out;
 		}else{
 			throw new IllegalStateException("Output already registered.");
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.session.base.SessionBase#getAttributes()
+	 */
+	@Override
+	public Attributed getAttributes() {
+		return this.attributes;
+	}
+
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.session.eventdriven.SessionBase#start(boolean)
 	 */
@@ -73,7 +89,7 @@ public class Session implements BatchReceiver, HandshakeRetryListener, SessionBa
 						LOGGER.info("State machine has reached the end state. Session terminates.");
 						this.close();
 					}
-				} catch (ComprehensibleException e) {
+				} catch (SerializationException | ConnectionException e) {
 					LOGGER.error("Fatal error discovered. Session terminates.", e);
 					this.close();
 				}
@@ -94,7 +110,7 @@ public class Session implements BatchReceiver, HandshakeRetryListener, SessionBa
 				LOGGER.info("State machine has reached the end state. Session terminates.");
 				this.close();
 			}
-		} catch (ComprehensibleException e) {
+		} catch (SerializationException | ConnectionException e) {
 			LOGGER.error("Fatal error discovered. Session terminates.", e);
 			this.close();
 		}
@@ -113,7 +129,7 @@ public class Session implements BatchReceiver, HandshakeRetryListener, SessionBa
 					LOGGER.info("State machine has reached the end state. Session terminates.");
 					this.close();
 				}
-			} catch (ComprehensibleException e) {
+			} catch (SerializationException | ConnectionException e) {
 				LOGGER.error("Fatal error discovered. Session terminates.", e);
 				this.close();
 			}
@@ -140,4 +156,6 @@ public class Session implements BatchReceiver, HandshakeRetryListener, SessionBa
 		
 		this.output.close();
 	}
+	
+	
 }

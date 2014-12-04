@@ -8,13 +8,11 @@ import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.newp.handler.DefaultImcHandler;
 import de.hsbremen.tc.tnc.newp.handler.DefaultTnccHandler;
-import de.hsbremen.tc.tnc.newp.handler.DefaultValueExceptionHandler;
+import de.hsbremen.tc.tnc.newp.handler.DefaultTnccsValidationExceptionHandler;
 import de.hsbremen.tc.tnc.newp.handler.ImcHandler;
 import de.hsbremen.tc.tnc.newp.handler.TnccHandler;
-import de.hsbremen.tc.tnc.newp.handler.TnccsValueExceptionHandler;
+import de.hsbremen.tc.tnc.newp.handler.TnccsValidationExceptionHandler;
 import de.hsbremen.tc.tnc.newp.manager.ImAdapterManager;
-import de.hsbremen.tc.tnc.session.connection.BatchSender;
-import de.hsbremen.tc.tnc.session.connection.DefaultBatchSender;
 import de.hsbremen.tc.tnc.session.connection.DefaultTnccsInputChannel;
 import de.hsbremen.tc.tnc.session.connection.DefaultTnccsOutputChannel;
 import de.hsbremen.tc.tnc.session.connection.TnccsInputChannel;
@@ -41,29 +39,25 @@ public class DefaultSessionFactory {
 	
 	public SessionBase createTnccSession(TransportConnection connection){
 		
+		Session s = new Session(new SessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value()));
+		
+		TnccsOutputChannel outChannel = new DefaultTnccsOutputChannel(connection, writer); 
+		TnccsInputChannel inChannel = new DefaultTnccsInputChannel(connection, reader);
+
 		AttributeCollection attributes = new AttributeCollection();
-		attributes.add(new SessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value()));
+		attributes.add(s.getAttributes());
+		
 		Attributed connectionAttributes = connection.getAttributes();
 		if(connectionAttributes != null){
 			attributes.add(connectionAttributes);
 		}
-		
-		TnccsOutputChannel outChannel = new DefaultTnccsOutputChannel(connection, writer); 
-		BatchSender out = new DefaultBatchSender();
-		out.register(outChannel);
-		
-		TnccsInputChannel in = new DefaultTnccsInputChannel(connection, reader);
-
-		
-		Session s = new Session();
-		
 		
 		ImcConnectionContext connectionContext = new DefaultImcConnectionContext(attributes,s);
 		ImcConnectionAdapterFactory connectionFactory = new DefaultImcConnectionAdapterFactory(connectionContext);
 		
 		ImcHandler imcHandler = new DefaultImcHandler(adapterManager,connectionFactory , adapterManager.getRouter());
 		TnccHandler tnccHandler = new DefaultTnccHandler();
-		TnccsValueExceptionHandler exceptionHandler = new DefaultValueExceptionHandler();
+		TnccsValidationExceptionHandler exceptionHandler = new DefaultTnccsValidationExceptionHandler();
 		
 		StateContext stateContext = new DefaultStateContext(imcHandler, tnccHandler, exceptionHandler, connectionContext);
 		
@@ -71,8 +65,8 @@ public class DefaultSessionFactory {
 		
 		// finalize session and run
 		s.registerStatemachine(machine);
-		s.registerInput(in);
-		s.registerOutput(out);
+		s.registerInput(inChannel);
+		s.registerOutput(outChannel);
 		s.start(connection.isSelfInititated());
 
 		

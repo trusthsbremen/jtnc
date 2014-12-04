@@ -14,7 +14,7 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class DefaultTnccsInputChannel implements TnccsInputChannel, Runnable{
 
-	private BatchReceiver listener;
+	private TnccsInputChannelListener listener;
 	private final TransportConnection connection;
 	private final TnccsReader<? extends TnccsBatchContainer> reader;
 	
@@ -27,7 +27,7 @@ public class DefaultTnccsInputChannel implements TnccsInputChannel, Runnable{
 	 * @see de.hsbremen.tc.tnc.session.connection.TnccsInputChannel#register(de.hsbremen.tc.tnc.session.connection.BatchReceiver)
 	 */
 	@Override
-	public void register(BatchReceiver listener){
+	public void register(TnccsInputChannelListener listener){
 		if(this.listener == null){
 			this.listener = listener;
 		}else{

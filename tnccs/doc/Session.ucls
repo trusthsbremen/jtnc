@@ -38,9 +38,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="5" language="java" name="de.hsbremen.tc.tnc.session.connection.BatchReceiver" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/BatchReceiver.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <interface id="5" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsInputChannelListener" 
+    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/TnccsInputChannelListener.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1055" y="231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -48,17 +48,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="6" language="java" name="de.hsbremen.tc.tnc.session.connection.BatchSender" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/BatchSender.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1040" y="549"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="7" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultBatchSender" project="tnccs" 
+  <class id="6" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultBatchSender" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/DefaultBatchSender.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="151" width="192" x="1193" y="464"/>    
@@ -68,7 +58,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultTnccsInputChannel" project="tnccs" 
+  <class id="7" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultTnccsInputChannel" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/DefaultTnccsInputChannel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1433" y="226"/>    
@@ -78,7 +68,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="9" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsInputChannel" project="tnccs" 
+  <interface id="8" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsInputChannel" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/TnccsInputChannel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1424" y="42"/>    
@@ -88,7 +78,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="10" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsOutputChannel" project="tnccs" 
+  <interface id="9" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsOutputChannel" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/TnccsOutputChannel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1545" y="540"/>    
@@ -98,7 +88,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="11" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultTnccsOutputChannel" project="tnccs" 
+  <class id="10" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultTnccsOutputChannel" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/DefaultTnccsOutputChannel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1905" y="536"/>    
@@ -108,7 +98,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="12" language="java" name="de.hsbremen.tc.tnc.session.base.StateContext" project="tnccs" 
+  <interface id="11" language="java" name="de.hsbremen.tc.tnc.session.base.StateContext" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/StateContext.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="141" y="1154"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -117,7 +107,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="13" language="java" name="de.hsbremen.tc.tnc.session.base.TnccsStateMachine" project="tnccs" 
+  <class id="12" language="java" name="de.hsbremen.tc.tnc.session.base.TnccsStateMachine" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/TnccsStateMachine.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="584" y="1137"/>    
@@ -127,7 +117,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="de.hsbremen.tc.tnc.adapter.connection.DefaultImcConnectionContext" 
+  <class id="13" language="java" name="de.hsbremen.tc.tnc.adapter.connection.DefaultImcConnectionContext" 
     project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/DefaultImcConnectionContext.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-23" y="569"/>    
@@ -137,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="15" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImConnectionContext" project="tnccs" 
+  <interface id="14" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImConnectionContext" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/ImConnectionContext.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-354" y="143"/>    
@@ -147,7 +137,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="16" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImcConnectionContext" project="tnccs" 
+  <interface id="15" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImcConnectionContext" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/ImcConnectionContext.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-104" y="346"/>    
@@ -157,7 +147,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="17" language="java" name="de.hsbremen.tc.tnc.session.base.DefaultStateContext" project="tnccs" 
+  <class id="16" language="java" name="de.hsbremen.tc.tnc.session.base.DefaultStateContext" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/DefaultStateContext.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-358" y="1184"/>    
@@ -167,7 +157,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="18" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImvConnectionContext" project="tnccs" 
+  <interface id="17" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImvConnectionContext" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/ImvConnectionContext.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-597" y="339"/>    
@@ -177,7 +167,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="19" language="java" name="de.hsbremen.tc.tnc.newp.handler.ImcHandler" project="tnccs" 
+  <interface id="18" language="java" name="de.hsbremen.tc.tnc.newp.handler.ImcHandler" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-815" y="1084"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -186,7 +176,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="20" language="java" name="de.hsbremen.tc.tnc.newp.handler.TnccHandler" project="tnccs" 
+  <interface id="19" language="java" name="de.hsbremen.tc.tnc.newp.handler.TnccHandler" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/TnccHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="61" width="149" x="-881" y="1179"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -195,7 +185,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="21" language="java" name="de.hsbremen.tc.tnc.session.base.state.SessionState" project="tnccs" 
+  <interface id="20" language="java" name="de.hsbremen.tc.tnc.session.base.state.SessionState" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/SessionState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="580" y="1379"/>    
@@ -205,7 +195,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="22" language="java" name="de.hsbremen.tc.tnc.session.base.state.End" project="tnccs" 
+  <interface id="21" language="java" name="de.hsbremen.tc.tnc.session.base.state.End" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/End.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1062" y="1246"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -214,7 +204,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="23" language="java" name="de.hsbremen.tc.tnc.session.base.state.Decided" project="tnccs" 
+  <interface id="22" language="java" name="de.hsbremen.tc.tnc.session.base.state.Decided" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/Decided.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1076" y="1418"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -223,7 +213,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="24" language="java" name="de.hsbremen.tc.tnc.session.base.state.Init" project="tnccs" 
+  <interface id="23" language="java" name="de.hsbremen.tc.tnc.session.base.state.Init" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/Init.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="214" y="1410"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -232,7 +222,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="25" language="java" name="de.hsbremen.tc.tnc.session.base.state.ServerWorking" project="tnccs" 
+  <interface id="24" language="java" name="de.hsbremen.tc.tnc.session.base.state.ServerWorking" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ServerWorking.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="215" y="1587"/>    
@@ -242,7 +232,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="26" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientWorking" project="tnccs" 
+  <interface id="25" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientWorking" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientWorking.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="550" y="1601"/>    
@@ -252,7 +242,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="27" language="java" name="de.hsbremen.tc.tnc.session.base.state.Retry" project="tnccs" 
+  <interface id="26" language="java" name="de.hsbremen.tc.tnc.session.base.state.Retry" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/Retry.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="870" y="1565"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -261,7 +251,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="28" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientDecidedState" project="tnccs" 
+  <class id="27" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientDecidedState" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientDecidedState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1443" y="1442"/>    
@@ -271,7 +261,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientInitState" project="tnccs" 
+  <class id="28" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientInitState" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientInitState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-187" y="1458"/>    
@@ -281,7 +271,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientServerWorkingState" project="tnccs" 
+  <class id="29" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientServerWorkingState" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientServerWorkingState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-175" y="1768"/>    
@@ -291,7 +281,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientRetryState" project="tnccs" 
+  <class id="30" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientRetryState" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientRetryState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1192" y="1736"/>    
@@ -301,7 +291,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="de.hsbremen.tc.tnc.session.base.state.EndState" project="tnccs" 
+  <class id="31" language="java" name="de.hsbremen.tc.tnc.session.base.state.EndState" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/EndState.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="133" width="291" x="1333" y="1140"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -310,174 +300,162 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="33">    
-    <end type="SOURCE" refId="32"/>    
+  <generalization id="32">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <realization id="34">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <realization id="35">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <realization id="37">    
+    <end type="SOURCE" refId="27"/>    
     <end type="TARGET" refId="22"/>  
   </realization>  
-  <association id="34">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="35" name="listener"/>      
-      <multiplicity id="36" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="37">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
   <realization id="38">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="12"/>  
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="15"/>  
   </realization>  
-  <association id="39">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="40" name="connectionContext"/>      
-      <multiplicity id="41" minimum="0" maximum="1"/>    
+  <realization id="39">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <association id="40">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="41" name="machine"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="42">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
   <realization id="43">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </realization>  
   <association id="44">    
-    <end type="SOURCE" refId="17" navigable="false">      
+    <end type="SOURCE" refId="16" navigable="false">      
       <attribute id="45" name="imHandler"/>      
       <multiplicity id="46" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="47">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="48" name="listener"/>      
-      <multiplicity id="49" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="50">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="25"/>  
+  <realization id="47">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
   </realization>  
-  <association id="51">    
+  <association id="48">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="52" name="context"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
+      <attribute id="49" name="listener"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="54">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="27"/>  
-  </realization>  
-  <generalization id="55">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="21"/>  
+  <generalization id="51">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
   </generalization>  
-  <realization id="56">    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="24"/>  
-  </realization>  
-  <realization id="57">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <association id="58">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="59" name="machine"/>      
-      <multiplicity id="60" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="61">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <generalization id="62">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <realization id="63">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
-  </realization>  
-  <realization id="64">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <generalization id="65">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <realization id="66">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="16"/>  
-  </realization>  
-  <generalization id="67">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <association id="68">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="69" name="tnccHandler"/>      
-      <multiplicity id="70" minimum="0" maximum="1"/>    
+  <association id="52">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="53" name="sessionState"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="20" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="71">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="72" name="sessionState"/>      
-      <multiplicity id="73" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="74">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <association id="75">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="76" name="output"/>      
-      <multiplicity id="77" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="78">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="6"/>  
+  <realization id="55">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="79">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="80">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="81" name="channel"/>      
-      <multiplicity id="82" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="83">    
+  <generalization id="56">    
     <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="21"/>  
+    <end type="TARGET" refId="20"/>  
   </generalization>  
-  <realization id="84">    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="23"/>  
+  <realization id="57">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
   </realization>  
+  <generalization id="58">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <realization id="59">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="21"/>  
+  </realization>  
+  <association id="60">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="61" name="connectionContext"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <realization id="64">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="24"/>  
+  </realization>  
+  <association id="65">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="66" name="listener"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="69" name="context"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="71">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="72">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="26"/>  
+  </realization>  
+  <association id="73">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="74" name="channel"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="77" name="tnccHandler"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="79">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
