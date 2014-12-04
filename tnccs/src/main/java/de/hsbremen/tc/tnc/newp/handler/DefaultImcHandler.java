@@ -31,15 +31,16 @@ import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 public class DefaultImcHandler implements ImcHandler{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImcHandler.class);
+	
 	private Map<Long,ImcAdapter> imAdapters;
 	private Map<Long,ImcConnectionAdapter> connections; 
 	
 	private ImHandlerState state;
 	
-	private ImMessageRouter router;
-	private ImAdapterManager<ImcAdapter> manager;
+	private final ImMessageRouter router;
+	private final ImAdapterManager<ImcAdapter> manager;
 	
-	private ImcConnectionAdapterFactory connectionFactory;
+	private final ImcConnectionAdapterFactory connectionFactory;
 	
 
 	public DefaultImcHandler(ImAdapterManager<ImcAdapter> manager, 
