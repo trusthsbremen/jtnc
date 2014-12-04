@@ -1,9 +1,9 @@
 package de.hsbremen.tc.tnc.session.base.state2;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import de.hsbremen.tc.tnc.adapter.connection.ImConnectionContext;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.ValidationException;
@@ -41,18 +41,38 @@ public class DefaultTnccsContentHandler implements TnccsContentHandler{
 	
 	@Override
 	public List<TnccsMessage> collectMessages() {
-		this.imHandler.requestMessages();
-		this.tnccHandler.requestMessages();
+		List<TnccsMessage> messages = new LinkedList<>();
+		
+		List<TnccsMessage> temp = this.imHandler.requestMessages();
+		if(temp != null){
+			messages.addAll(temp);
+		}
+		
+		temp = this.tnccHandler.requestMessages();
+		if(temp != null){
+			messages.addAll(temp);
+		}
+		
+		return messages;
 	}
 	@Override
 	public List<TnccsMessage> handleMessages(List<? extends TnccsMessage> list) {
+		List<TnccsMessage> messages = new LinkedList<>();
 		if(list != null){
 			for (TnccsMessage tnccsMessage : list) {
 				// TODO make a better filter here, only bring those message to a handler who can handle it.
-				this.imHandler.forwardMessage(tnccsMessage.getValue());
-				this.tnccHandler.forwardMessage(tnccsMessage.getValue());
+				List<TnccsMessage> temp = this.imHandler.forwardMessage(tnccsMessage.getValue());
+				if(temp != null){
+					messages.addAll(temp);
+				}
+				
+				temp = this.tnccHandler.forwardMessage(tnccsMessage.getValue());
+				if(temp != null){
+					messages.addAll(temp);
+				}
 			}
 		}
+		return messages;
 	}
 	
 	@Override

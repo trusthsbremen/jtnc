@@ -1,7 +1,11 @@
 package de.hsbremen.tc.tnc.newp.handler;
 
-public interface ImvHandler extends ImMessageHandler{
+import java.util.List;
 
-	public abstract void solicitRecommendation();
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+
+public interface ImvHandler extends TnccsMessageHandler{
+
+	public abstract List<ImvRecommendationPair> solicitRecommendation();
 	
 }

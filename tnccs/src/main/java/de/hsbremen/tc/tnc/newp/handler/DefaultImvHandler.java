@@ -3,6 +3,7 @@ package de.hsbremen.tc.tnc.newp.handler;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.adapter.connection.ImvConnectionAdapter;
 import de.hsbremen.tc.tnc.adapter.connection.ImvConnectionAdapterFactory;
+import de.hsbremen.tc.tnc.adapter.connection.ImvConnectionContext;
 import de.hsbremen.tc.tnc.adapter.im.ImvAdapter;
 import de.hsbremen.tc.tnc.adapter.im.exception.TerminatedException;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
@@ -25,6 +27,8 @@ import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateFactory;
 import de.hsbremen.tc.tnc.newp.enums.ImHandlerState;
 import de.hsbremen.tc.tnc.newp.manager.ImAdapterManager;
 import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
 public class DefaultImvHandler implements ImvHandler{
@@ -36,17 +40,19 @@ public class DefaultImvHandler implements ImvHandler{
 	
 	private ImHandlerState state;
 	
-	private ImMessageRouter router;
+	private final ImMessageRouter router;
 	private ImAdapterManager<ImvAdapter> manager;
 	
-	private ImvConnectionAdapterFactory connectionFactory;
-	
+	private final ImvConnectionAdapterFactory connectionFactory;
+	private final ImvConnectionContext connectionContext;
 
 	public DefaultImvHandler(ImAdapterManager<ImvAdapter> manager, 
 			ImvConnectionAdapterFactory connectionFactory,
+			ImvConnectionContext connectionContext,
 			ImMessageRouter router) {
 		this.connectionFactory = connectionFactory;
 		this.manager = manager;
+		this.connectionContext = connectionContext;
 		
 		Map<Long,ImvAdapter> adapterList = this.manager.getAdapter();
 		Map<Long,ImvConnectionAdapter> connectionList = new HashMap<>(adapterList.size()); 
@@ -102,7 +108,7 @@ public class DefaultImvHandler implements ImvHandler{
 	}
 
 	@Override
-	public void requestMessages(){
+	public List<TnccsMessage> requestMessages(){
 		this.checkState();
 
 		for (Iterator<Entry<Long, ImvAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
@@ -141,10 +147,11 @@ public class DefaultImvHandler implements ImvHandler{
 			this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
 		}
 		
+		return this.connectionContext.clearMessage();
 	}
 
 	@Override
-	public void forwardMessage(TnccsMessageValue value) {
+	public List<TnccsMessage> forwardMessage(TnccsMessageValue value) {
 		this.checkState();
 		
 		if(value instanceof PbMessageValueIm){
@@ -189,6 +196,8 @@ public class DefaultImvHandler implements ImvHandler{
 		}else{
 			LOGGER.debug("Because Message is not of type " + PbMessageValueIm.class.getCanonicalName() + ", it is ignored.");
 		}
+		
+		return this.connectionContext.clearMessage();
 	}
 
 	private void refreshAdapterEntries(){
@@ -218,7 +227,7 @@ public class DefaultImvHandler implements ImvHandler{
 	}
 
 	@Override
-	public void solicitRecommendation() {
+	public List<ImvRecommendationPair> solicitRecommendation() {
 		this.checkState();
 		
 		for (Iterator<Entry<Long, ImvAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
@@ -241,5 +250,6 @@ public class DefaultImvHandler implements ImvHandler{
 			}
 		}
 		
+		return this.connectionContext.clearRecommendations();
 	}
 }

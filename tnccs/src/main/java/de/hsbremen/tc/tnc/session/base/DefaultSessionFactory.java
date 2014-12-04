@@ -55,7 +55,7 @@ public class DefaultSessionFactory {
 		ImcConnectionContext connectionContext = new DefaultImcConnectionContext(attributes,s);
 		ImcConnectionAdapterFactory connectionFactory = new DefaultImcConnectionAdapterFactory(connectionContext);
 		
-		ImcHandler imcHandler = new DefaultImcHandler(adapterManager,connectionFactory , adapterManager.getRouter());
+		ImcHandler imcHandler = new DefaultImcHandler(adapterManager,connectionFactory, connectionContext,adapterManager.getRouter());
 		TnccHandler tnccHandler = new DefaultTnccHandler();
 		TnccsValidationExceptionHandler exceptionHandler = new DefaultTnccsValidationExceptionHandler();
 		

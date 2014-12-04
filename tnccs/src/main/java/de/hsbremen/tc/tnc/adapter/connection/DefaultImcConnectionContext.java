@@ -5,8 +5,6 @@ import java.util.List;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
-import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
@@ -19,7 +17,6 @@ public class DefaultImcConnectionContext implements ImcConnectionContext{
 
 
 	private final List<TnccsMessage> messageQueue;
-	private TncConnectionState temporaryState;
 	private final Attributed attributes;
 	private final HandshakeRetryListener listener;
 	private boolean valid;
@@ -27,7 +24,6 @@ public class DefaultImcConnectionContext implements ImcConnectionContext{
 	public DefaultImcConnectionContext(Attributed attributes, HandshakeRetryListener listener) {
 		super();
 		this.messageQueue = new LinkedList<>();
-		this.temporaryState = DefaultTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN;
 		this.attributes = attributes;
 		this.listener = listener;
 	}
@@ -47,29 +43,6 @@ public class DefaultImcConnectionContext implements ImcConnectionContext{
 		List<TnccsMessage> messages = new LinkedList<>(this.messageQueue);
 		this.messageQueue.clear();
 		return messages;
-	}
-
-	@Override
-	public void reportConnectionState(TncConnectionState connectionState) {
-		if(this.isValid()){
-			if(connectionState.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_ALLOWED) || 
-					connectionState.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_ISOLATED) ||
-					connectionState.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_NONE)){
-				this.temporaryState = connectionState;
-			}else{
-				throw new IllegalArgumentException("The method is not allowed to set the state value to " + connectionState.toString());
-			}
-		}else{
-			throw new IllegalArgumentException("The connection context is made invalid.");
-		}
-		
-		
-		
-	}
-
-	@Override
-	public TncConnectionState getReportedConnectionState() {
-		return this.temporaryState;
 	}
 
 	@Override

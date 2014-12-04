@@ -3,6 +3,7 @@ package de.hsbremen.tc.tnc.newp.handler;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionAdapterFactory;
+import de.hsbremen.tc.tnc.adapter.connection.ImcConnectionContext;
 import de.hsbremen.tc.tnc.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.adapter.im.exception.TerminatedException;
 import de.hsbremen.tc.tnc.attribute.TncClientAttributeTypeEnum;
@@ -26,6 +28,7 @@ import de.hsbremen.tc.tnc.newp.enums.DefaultImHandlerStateFactory;
 import de.hsbremen.tc.tnc.newp.enums.ImHandlerState;
 import de.hsbremen.tc.tnc.newp.manager.ImAdapterManager;
 import de.hsbremen.tc.tnc.newp.route.ImMessageRouter;
+import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
 
 public class DefaultImcHandler implements ImcHandler{
@@ -41,13 +44,14 @@ public class DefaultImcHandler implements ImcHandler{
 	private final ImAdapterManager<ImcAdapter> manager;
 	
 	private final ImcConnectionAdapterFactory connectionFactory;
-	
+	private final ImcConnectionContext connectionContext;
 
 	public DefaultImcHandler(ImAdapterManager<ImcAdapter> manager, 
 			ImcConnectionAdapterFactory connectionFactory,
-			ImMessageRouter router) {
+			ImcConnectionContext connectionContext, ImMessageRouter router) {
 		this.connectionFactory = connectionFactory;
 		this.manager = manager;
+		this.connectionContext = connectionContext;
 		
 		Map<Long,ImcAdapter> adapterList = this.manager.getAdapter();
 		Map<Long,ImcConnectionAdapter> connectionList = new HashMap<>(adapterList.size()); 
@@ -98,12 +102,13 @@ public class DefaultImcHandler implements ImcHandler{
 		if(imConnectionState.state() == DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE.state()){
 			this.imAdapters.clear();
 			this.connections.clear();
+			this.connectionContext.invalidate();
 		}
 		
 	}
 
 	@Override
-	public void requestMessages(){
+	public List<TnccsMessage> requestMessages(){
 		this.checkState();
 
 		for (Iterator<Entry<Long, ImcAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
@@ -137,10 +142,13 @@ public class DefaultImcHandler implements ImcHandler{
 		if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
 			this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
 		}
+		
+		return this.connectionContext.clearMessage();
+		
 	}
 
 	@Override
-	public void forwardMessage(TnccsMessageValue value) {
+	public List<TnccsMessage> forwardMessage(TnccsMessageValue value) {
 		this.checkState();
 		
 		if(value instanceof PbMessageValueIm){
@@ -205,6 +213,8 @@ public class DefaultImcHandler implements ImcHandler{
 		}else{
 			LOGGER.debug("Because Message is not of type " + PbMessageValueIm.class.getCanonicalName() + ", it is ignored.");
 		}
+		
+		return this.connectionContext.clearMessage();
 	}
 
 	private void refreshAdapterEntries(){
