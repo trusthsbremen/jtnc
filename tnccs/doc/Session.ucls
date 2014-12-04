@@ -29,8 +29,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="4" language="java" name="de.hsbremen.tc.tnc.session.base.StateMachine" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/StateMachine.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="4" language="java" name="de.hsbremen.tc.tnc.session.base.state.StateMachine" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/StateMachine.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="574" y="847"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -107,8 +108,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="12" language="java" name="de.hsbremen.tc.tnc.session.base.TnccsStateMachine" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/TnccsStateMachine.java" binary="false" 
+  <class id="12" language="java" name="de.hsbremen.tc.tnc.session.base.state.TnccsStateMachine" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/TnccsStateMachine.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="584" y="1137"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

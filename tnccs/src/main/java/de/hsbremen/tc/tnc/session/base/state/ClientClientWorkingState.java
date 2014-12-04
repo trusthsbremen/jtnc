@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.session.base.state2;
+package de.hsbremen.tc.tnc.session.base.state;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.session.base.state2.StateContext;
+import de.hsbremen.tc.tnc.session.base.state.StateContext;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;

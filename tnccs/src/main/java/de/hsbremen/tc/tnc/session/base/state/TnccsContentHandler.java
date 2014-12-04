@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.session.base.state2;
+package de.hsbremen.tc.tnc.session.base.state;
 
 import java.util.List;
 

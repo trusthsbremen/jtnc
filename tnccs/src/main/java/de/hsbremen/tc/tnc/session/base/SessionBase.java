@@ -1,6 +1,7 @@
 package de.hsbremen.tc.tnc.session.base;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
+import de.hsbremen.tc.tnc.session.base.state.StateMachine;
 import de.hsbremen.tc.tnc.session.connection.TnccsInputChannel;
 import de.hsbremen.tc.tnc.session.connection.TnccsOutputChannel;
 

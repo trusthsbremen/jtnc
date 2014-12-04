@@ -9,6 +9,7 @@ import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.session.base.state.StateMachine;
 import de.hsbremen.tc.tnc.session.connection.TnccsInputChannelListener;
 import de.hsbremen.tc.tnc.session.connection.TnccsInputChannel;
 import de.hsbremen.tc.tnc.session.connection.TnccsOutputChannel;

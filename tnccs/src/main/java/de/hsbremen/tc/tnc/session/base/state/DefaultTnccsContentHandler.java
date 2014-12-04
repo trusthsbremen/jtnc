@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.session.base.state2;
+package de.hsbremen.tc.tnc.session.base.state;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -81,5 +81,4 @@ public class DefaultTnccsContentHandler implements TnccsContentHandler{
 		List<TnccsMessage> errorMessages = this.exceptionHandler.handle(exceptions);
 		return (errorMessages != null) ? errorMessages : new ArrayList<TnccsMessage>(0);
 	}
-	
 }

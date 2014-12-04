@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.session.base;
+package de.hsbremen.tc.tnc.session.base.state;
 
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;

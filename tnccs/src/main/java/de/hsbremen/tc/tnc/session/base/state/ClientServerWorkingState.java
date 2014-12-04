@@ -1,17 +1,14 @@
 package de.hsbremen.tc.tnc.session.base.state;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.ietf.nea.pb.batch.PbBatch;
-import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.session.base.StateContext;
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
@@ -19,10 +16,14 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
 public class ClientServerWorkingState extends AbstractClientState implements ServerWorking{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientServerWorkingState.class);
+	
+	public ClientServerWorkingState(TnccsContentHandler handler) {
+		super(handler);
+	}
 
+	
 	@Override
-	public StateResult handle(StateContext ctx, TnccsBatchContainer batch) {
-		SessionState successor = new EndState();
+	public TnccsBatch handle(StateContext context, TnccsBatchContainer batch) {
 		
 		TnccsBatchContainer batchContainer = batch;
 		
@@ -32,16 +33,16 @@ public class ClientServerWorkingState extends AbstractClientState implements Ser
 			LOGGER.error("Batch is NULL, transitioning to end state, while trying to handle exceptions." ); 
 			if(batchContainer.getExceptions() != null){
 		
-				List<TnccsMessage> messages = ctx.handleExceptions(batchContainer.getExceptions());
+				List<TnccsMessage> messages = super.getHandler().handleExceptions(batchContainer.getExceptions());
 				b = ClientStateHelper.createCloseBatch(messages.toArray(new TnccsMessage[messages.size()]));
-				successor = new EndState();
-				successor.handle(ctx);
+				context.setState(new EndState(super.getHandler()));
+				context.getState().handle(context);
 				
 			}else{
 				
 				b = ClientStateHelper.createCloseBatch();
-				successor = new EndState();
-				successor.handle(ctx);
+				context.setState(new EndState(super.getHandler()));
+				context.getState().handle(context);
 				
 			}
 		
@@ -50,98 +51,76 @@ public class ClientServerWorkingState extends AbstractClientState implements Ser
 			if(batchContainer.getResult() instanceof PbBatch){
 				PbBatch current = (PbBatch) batchContainer.getResult();
 				if(current.getHeader().getType().equals(PbBatchTypeEnum.SDATA)){	
-					
-					try {
+
 						
-						b = this.handleSdata(ctx, batchContainer);
-						successor = new ClientServerWorkingState();
-						
-					} catch (ValidationException e) {
-						TnccsMessage error = ClientStateHelper.createLocalError();
-						b = ClientStateHelper.createCloseBatch(error);
-						successor = new EndState();
-						successor.handle(ctx);
-					}
-					
-					
+					context.setState(new ClientClientWorkingState(super.getHandler()));
+					b = context.getState().handle(context, batchContainer);
+
 				}else if(current.getHeader().getType().equals(PbBatchTypeEnum.RESULT)){
 					
-					this.handleResult(ctx, batchContainer);
-					successor = new ClientDecidedState();
+					try{
+						
+						this.handleResult(batchContainer);
+						context.setState(new ClientDecidedState(super.getHandler()));
+						
+					}catch(IllegalStateException e){
+						TnccsMessage error = ClientStateHelper.createLocalError();
+						b = ClientStateHelper.createCloseBatch(error);
+						context.setState(new EndState(super.getHandler()));
+						context.getState().handle(context);
+					}
 
 				}else if(current.getHeader().getType().equals(PbBatchTypeEnum.CLOSE)){
 					
-					successor = ClientStateHelper.handleClose(ctx,batchContainer);
+					context.setState(ClientStateHelper.handleClose(super.getHandler(), context, batchContainer));
 				
 				}else if(current.getHeader().getType().equals(PbBatchTypeEnum.SRETRY)){	
 					// this is redundant and can be ignored, wait for next message	
-					successor = new ClientServerWorkingState();	
+					context.setState(new ClientServerWorkingState(super.getHandler()));	
 					
 				}else{
 					
 					TnccsMessage error = ClientStateHelper.createUnexpectedStateError();
 					b = ClientStateHelper.createCloseBatch(error);
-					successor = new EndState();
-					successor.handle(ctx);
+					context.setState(new EndState(super.getHandler()));
+					context.getState().handle(context);
 					
 				}
 			}else{
 				
 				TnccsMessage error = ClientStateHelper.createUnsupportedVersionError(batchContainer.getResult().getHeader().getVersion(), (short)2, (short)2);
 				b = ClientStateHelper.createCloseBatch(error);
-				successor = new EndState();
-				successor.handle(ctx);
+				context.setState(new EndState(super.getHandler()));
+				context.getState().handle(context);
 				
 			}
 		}
 		
-		return new DefaultStateResult(successor, b);
-	}
-	
-	private TnccsBatch handleSdata(StateContext ctx, TnccsBatchContainer batchContainer) throws ValidationException{
-		
-		PbBatch current = (PbBatch) batchContainer.getResult();
-		
-		List<? extends TnccsMessage> request = current.getMessages();
-		List<TnccsMessage> response = new LinkedList<>();
-		
-		if( request != null ){
-			
-			List<TnccsMessage> msgs = ctx.handleMessages(request);
-			if(msgs != null){
-				response.addAll(msgs);
-			}
-			
-		}
-		
-		if(batchContainer.getExceptions() != null){
-			List<TnccsMessage> msgs = ctx.handleExceptions(batchContainer.getExceptions());
-			if(msgs != null){
-				response.addAll(msgs);
-			}
-		}
-		
-
-		TnccsBatch b = this.createServerBatch(response);		
-		
 		return b;
 	}
 	
-	private void handleResult(StateContext ctx, TnccsBatchContainer batchContainer) {
+	private void handleResult(TnccsBatchContainer batchContainer) {
 		PbBatch b = (PbBatch) batchContainer.getResult();
 		if(b.getMessages() != null){
-			ctx.handleMessages(b.getMessages());
+			super.getHandler().handleMessages(b.getMessages());
 		}
 		
 		if(batchContainer.getExceptions() != null){
-			ctx.handleExceptions(batchContainer.getExceptions());
+			super.getHandler().handleExceptions(batchContainer.getExceptions());
 		}
 		
-		// important - hopefully this updates to decided, if not who knows what happens
-		ctx.setConnectionState(ctx.getConnectionStateUpdate());
-	}
-	
-	private TnccsBatch createServerBatch(List<TnccsMessage> messages) throws ValidationException {
-		return PbBatchFactoryIetf.createClientData((messages != null) ? messages : new ArrayList<TnccsMessage>(0));
+		TncConnectionState state = super.getHandler().getAccessDecision();
+		if(state.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_ALLOWED) || 
+				state.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_ISOLATED) ||
+				state.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_NONE)){
+			
+			super.getHandler().setConnectionState(state);
+		
+		}else{
+			
+			throw new IllegalStateException("State " +state.toString()+ " does not reflect access decision");
+		
+		}
+		
 	}
 }

@@ -13,6 +13,10 @@ import de.hsbremen.tc.tnc.newp.handler.ImcHandler;
 import de.hsbremen.tc.tnc.newp.handler.TnccHandler;
 import de.hsbremen.tc.tnc.newp.handler.TnccsValidationExceptionHandler;
 import de.hsbremen.tc.tnc.newp.manager.ImAdapterManager;
+import de.hsbremen.tc.tnc.session.base.state.DefaultTnccsContentHandler;
+import de.hsbremen.tc.tnc.session.base.state.StateMachine;
+import de.hsbremen.tc.tnc.session.base.state.TnccsContentHandler;
+import de.hsbremen.tc.tnc.session.base.state.DefaultStateMachine;
 import de.hsbremen.tc.tnc.session.connection.DefaultTnccsInputChannel;
 import de.hsbremen.tc.tnc.session.connection.DefaultTnccsOutputChannel;
 import de.hsbremen.tc.tnc.session.connection.TnccsInputChannel;
@@ -59,9 +63,9 @@ public class DefaultSessionFactory {
 		TnccHandler tnccHandler = new DefaultTnccHandler();
 		TnccsValidationExceptionHandler exceptionHandler = new DefaultTnccsValidationExceptionHandler();
 		
-		StateContext stateContext = new DefaultStateContext(imcHandler, tnccHandler, exceptionHandler, connectionContext);
+		TnccsContentHandler contentHandler = new DefaultTnccsContentHandler(imcHandler, tnccHandler, exceptionHandler);
 		
-		StateMachine machine = new TnccsStateMachine(stateContext);
+		StateMachine machine = new DefaultStateMachine(contentHandler);
 		
 		// finalize session and run
 		s.registerStatemachine(machine);

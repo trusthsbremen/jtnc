@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
-import de.hsbremen.tc.tnc.session.base.StateContext;
+import de.hsbremen.tc.tnc.session.base.state.StateContext;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
@@ -16,11 +16,14 @@ import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
 public class ClientDecidedState extends AbstractClientState implements Decided{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientDecidedState.class);
+	
+	public ClientDecidedState(TnccsContentHandler handler) {
+		super(handler);
+	}
 
 
 	@Override
-	public StateResult handle(StateContext ctx, TnccsBatchContainer batch) {
-		SessionState successor = new EndState();
+	public TnccsBatch handle(StateContext context, TnccsBatchContainer batch) {
 		
 		TnccsBatchContainer batchContainer = batch;
 		
@@ -30,16 +33,16 @@ public class ClientDecidedState extends AbstractClientState implements Decided{
 			LOGGER.error("Batch is NULL, transitioning to end state, while trying to handle exceptions." ); 
 			if(batchContainer.getExceptions() != null){
 		
-				List<TnccsMessage> messages = ctx.handleExceptions(batchContainer.getExceptions());
+				List<TnccsMessage> messages = super.getHandler().handleExceptions(batchContainer.getExceptions());
 				b = ClientStateHelper.createCloseBatch(messages.toArray(new TnccsMessage[messages.size()]));
-				successor = new EndState();
-				successor.handle(ctx);
+				context.setState(new EndState(super.getHandler()));
+				context.getState().handle(context);
 				
 			}else{
 				
 				b = ClientStateHelper.createCloseBatch();
-				successor = new EndState();
-				successor.handle(ctx);
+				context.setState(new EndState(super.getHandler()));
+				context.getState().handle(context);
 				
 			}
 		
@@ -50,44 +53,44 @@ public class ClientDecidedState extends AbstractClientState implements Decided{
 				
 				if(current.getHeader().getType().equals(PbBatchTypeEnum.CLOSE)){
 					
-					successor = ClientStateHelper.handleClose(ctx,batchContainer);
+					context.setState(ClientStateHelper.handleClose(super.getHandler(), context ,batchContainer));
 				
 				}else if(current.getHeader().getType().equals(PbBatchTypeEnum.SRETRY)){
 					
-					this.handleRetry(ctx, batchContainer);
+					this.handleRetry(batchContainer);
 					// if this notification comes early the other parts would already engage in a new handshake.
-					ctx.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
-					successor = new ClientServerWorkingState();	
+					super.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
+					context.setState(new ClientServerWorkingState(super.getHandler()));	
 					
 				}else{
 					
 					TnccsMessage error = ClientStateHelper.createUnexpectedStateError();
 					b = ClientStateHelper.createCloseBatch(error);
-					successor = new EndState();
-					successor.handle(ctx);
+					context.setState(new EndState(super.getHandler()));
+					context.getState().handle(context);
 					
 				}
 			}else{
 				
 				TnccsMessage error = ClientStateHelper.createUnsupportedVersionError(batchContainer.getResult().getHeader().getVersion(), (short)2, (short)2);
 				b = ClientStateHelper.createCloseBatch(error);
-				successor = new EndState();
-				successor.handle(ctx);
+				context.setState(new EndState(super.getHandler()));
+				context.getState().handle(context);
 				
 			}
 		}
 		
-		return new DefaultStateResult(successor, b);
+		return b;
 	}
 	
-	private void handleRetry(StateContext ctx, TnccsBatchContainer batchContainer) {
+	private void handleRetry(TnccsBatchContainer batchContainer) {
 		PbBatch b = (PbBatch) batchContainer.getResult();
 		if(b.getMessages() != null){
-			ctx.handleMessages(b.getMessages());
+			super.getHandler().handleMessages(b.getMessages());
 		}
 		
 		if(batchContainer.getExceptions() != null){
-			ctx.handleExceptions(batchContainer.getExceptions());
+			super.getHandler().handleExceptions(batchContainer.getExceptions());
 		}
 	}
 	

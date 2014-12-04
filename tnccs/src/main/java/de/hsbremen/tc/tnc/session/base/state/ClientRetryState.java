@@ -5,35 +5,38 @@ import java.util.List;
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.session.base.StateContext;
+import de.hsbremen.tc.tnc.session.base.state.StateContext;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 
 public class ClientRetryState extends AbstractClientState implements Retry {
 	
+	public ClientRetryState(TnccsContentHandler handler) {
+		super(handler);
+	}
+
+	
 	@Override
-	public StateResult handle(StateContext ctx) {
-		
-		SessionState successor = new EndState();
+	public TnccsBatch handle(StateContext context) {
 
 		TnccsBatch b = null;
 		
-		List<TnccsMessage> messages  = ctx.collectMessages();
+		List<TnccsMessage> messages  = super.getHandler().collectMessages();
 		try{
 				
 			b = this.createServerBatch(messages);
-			successor = new ClientServerWorkingState();
+			context.setState(new ClientServerWorkingState(super.getHandler()));
 				
 		}catch(ValidationException e){
 				
 			TnccsMessage error = ClientStateHelper.createLocalError();
 			b = ClientStateHelper.createCloseBatch(error);
-			successor = new EndState();
-			successor.handle(ctx);
+			context.setState(new EndState(super.getHandler()));
+			context.getState().handle(context);
 		}
 			
 		
-		return new DefaultStateResult(successor, b);
+		return b;
 	}
 
 

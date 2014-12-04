@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.session.base.StateContext;
+import de.hsbremen.tc.tnc.session.base.state.StateContext;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
@@ -26,17 +26,17 @@ abstract class ClientStateHelper {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClientStateHelper.class);
 
-	static SessionState handleClose(StateContext ctx, TnccsBatchContainer batchContainer) {
+	static SessionState handleClose(TnccsContentHandler handler, StateContext context ,TnccsBatchContainer batchContainer) {
 		PbBatch b = (PbBatch) batchContainer.getResult();
 		if(b.getMessages() != null){
-			ctx.handleMessages(b.getMessages());
+			handler.handleMessages(b.getMessages());
 		}
 		
 		if(batchContainer.getExceptions() != null){
-			ctx.handleExceptions(batchContainer.getExceptions());
+			handler.handleExceptions(batchContainer.getExceptions());
 		}
-		SessionState successor = new EndState();
-		successor.handle(ctx);
+		SessionState successor = new EndState(handler);
+		successor.handle(context);
 		
 		return successor;
 	}

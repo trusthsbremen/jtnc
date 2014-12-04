@@ -1,23 +1,15 @@
-package de.hsbremen.tc.tnc.session.base;
+package de.hsbremen.tc.tnc.session.base.state;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.session.base.state2.ClientInitState;
-import de.hsbremen.tc.tnc.session.base.state2.ClientRetryState;
-import de.hsbremen.tc.tnc.session.base.state2.ClientServerWorkingState;
-import de.hsbremen.tc.tnc.session.base.state2.Decided;
-import de.hsbremen.tc.tnc.session.base.state2.End;
-import de.hsbremen.tc.tnc.session.base.state2.EndState;
-import de.hsbremen.tc.tnc.session.base.state2.SessionState;
-import de.hsbremen.tc.tnc.session.base.state2.StateContext;
-import de.hsbremen.tc.tnc.session.base.state2.TnccsContentHandler;
+import de.hsbremen.tc.tnc.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
 
 
-public class TnccsStateMachine2 implements StateMachine {
+public class DefaultStateMachine implements StateMachine {
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(Session.class);
 
@@ -28,7 +20,7 @@ public class TnccsStateMachine2 implements StateMachine {
 	private StateContext context;
 	
 	
-	public TnccsStateMachine2(TnccsContentHandler handler){
+	public DefaultStateMachine(TnccsContentHandler handler){
 		this.handler = handler;
 		this.sessionState = new ClientServerWorkingState(this.handler);
 	}
