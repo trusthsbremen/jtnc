@@ -10,10 +10,10 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.data.ImFaultyObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImValueExceptionHandler;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 public class DefaultImValueExceptionHandler implements ImValueExceptionHandler{
 

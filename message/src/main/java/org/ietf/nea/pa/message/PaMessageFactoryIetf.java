@@ -6,7 +6,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.validate.rules.CommonLengthLimits;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 public class PaMessageFactoryIetf {
 	

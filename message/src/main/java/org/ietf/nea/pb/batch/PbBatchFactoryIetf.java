@@ -12,8 +12,8 @@ import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessage;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 
 public class PbBatchFactoryIetf {
 	

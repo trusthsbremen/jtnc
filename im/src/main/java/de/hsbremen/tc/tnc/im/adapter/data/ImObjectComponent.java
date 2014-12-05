@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 public class ImObjectComponent extends AbstractImComponent{
 	

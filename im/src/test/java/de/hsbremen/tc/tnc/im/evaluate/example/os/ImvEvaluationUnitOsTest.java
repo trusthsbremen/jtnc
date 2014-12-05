@@ -11,11 +11,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 public class ImvEvaluationUnitOsTest {
 	

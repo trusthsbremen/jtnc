@@ -5,9 +5,9 @@ import java.util.List;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 public class ImComponentFactory {
 

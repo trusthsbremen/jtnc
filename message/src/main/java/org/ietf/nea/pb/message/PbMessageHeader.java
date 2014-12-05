@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageHeader;
+import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageHeader;
 
 
 

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 
 public class DefaultTnccsBatchContainer implements TnccsBatchContainer {
 

@@ -16,7 +16,7 @@ import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 public class TestData {
 

@@ -16,7 +16,6 @@ import org.junit.Test;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
@@ -24,7 +23,8 @@ import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 public class ImEvaluatorOsTest {
 	

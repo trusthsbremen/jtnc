@@ -3,7 +3,7 @@ package org.ietf.nea.pb.batch;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchHeader;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeader;
 
 public class PbBatchHeader implements TnccsBatchHeader{
 

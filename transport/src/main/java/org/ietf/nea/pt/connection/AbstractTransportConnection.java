@@ -5,11 +5,11 @@ import java.io.OutputStream;
 import java.util.Map;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
 import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionAttributeNotFoundException;

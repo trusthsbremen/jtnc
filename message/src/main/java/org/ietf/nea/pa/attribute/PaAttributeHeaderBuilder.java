@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
 
-import de.hsbremen.tc.tnc.m.attribute.ImAttributeHeaderBuilder;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeHeaderBuilder;
 
 public interface PaAttributeHeaderBuilder extends ImAttributeHeaderBuilder{
 

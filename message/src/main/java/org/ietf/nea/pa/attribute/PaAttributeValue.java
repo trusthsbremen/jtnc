@@ -1,6 +1,6 @@
 package org.ietf.nea.pa.attribute;
 
-import de.hsbremen.tc.tnc.m.attribute.ImAttributeValue;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValue;
 
 public interface PaAttributeValue extends ImAttributeValue{
 

@@ -10,8 +10,8 @@ import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters;
 
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
-import de.hsbremen.tc.tnc.m.attribute.ImAttributeValue;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValue;
 
 public abstract class AbstractImcEvaluationUnitIetf extends AbstractImEvaluationUnitIetf implements ImcEvaluationUnit{
 	

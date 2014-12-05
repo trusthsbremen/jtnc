@@ -10,8 +10,8 @@ import java.util.Set;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
 
 class PbMessageHeaderWriter implements TnccsWriter<PbMessageHeader>{
 

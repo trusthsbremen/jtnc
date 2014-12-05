@@ -16,7 +16,7 @@ import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImcEvaluationUnitIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 class DefaultImcEvaluationUnit extends AbstractImcEvaluationUnitIetf implements ImcEvaluationUnit{
 

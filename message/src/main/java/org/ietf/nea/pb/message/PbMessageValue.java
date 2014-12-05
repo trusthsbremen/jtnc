@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue;
+import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 
 public interface PbMessageValue extends TnccsMessageValue{
 

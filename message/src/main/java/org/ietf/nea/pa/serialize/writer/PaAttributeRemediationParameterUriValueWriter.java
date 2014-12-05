@@ -7,8 +7,8 @@ import java.nio.charset.Charset;
 
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 
 class PaAttributeRemediationParameterUriValueWriter implements ImWriter<PaAttributeValueRemediationParameterUri>{
 

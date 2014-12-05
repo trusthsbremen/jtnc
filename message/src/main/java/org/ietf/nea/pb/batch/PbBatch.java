@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.ietf.nea.pb.message.PbMessage;
 
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 
 public class PbBatch implements TnccsBatch {
 	

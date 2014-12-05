@@ -13,9 +13,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
-import de.hsbremen.tc.tnc.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 public class WriterTest {
 

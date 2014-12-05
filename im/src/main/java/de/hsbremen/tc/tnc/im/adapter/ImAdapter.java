@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
-import de.hsbremen.tc.tnc.m.serialize.ImMessageContainer;
-import de.hsbremen.tc.tnc.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
+import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
 
 public abstract class ImAdapter{
 

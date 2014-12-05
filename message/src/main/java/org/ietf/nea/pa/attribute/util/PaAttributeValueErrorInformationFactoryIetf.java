@@ -8,7 +8,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 public class PaAttributeValueErrorInformationFactoryIetf {
 	

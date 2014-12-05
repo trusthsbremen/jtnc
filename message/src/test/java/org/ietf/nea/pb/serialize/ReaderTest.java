@@ -15,8 +15,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
 
 public class ReaderTest {
 

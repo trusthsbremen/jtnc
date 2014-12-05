@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 import org.ietf.nea.pa.attribute.PaAttributeValueProductInformation;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 
 class PaAttributeProductInformationValueWriter implements ImWriter<PaAttributeValueProductInformation>{
 

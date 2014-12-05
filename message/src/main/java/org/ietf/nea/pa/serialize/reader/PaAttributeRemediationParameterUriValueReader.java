@@ -9,10 +9,10 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUriBuilder;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.m.serialize.ImReader;
-import de.hsbremen.tc.tnc.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeRemediationParameterUriValueReader implements ImReader<PaAttributeValueRemediationParameterUri>{
 

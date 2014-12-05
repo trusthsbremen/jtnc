@@ -18,7 +18,7 @@ import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 public class PaAttributeFactoryIetf {
 

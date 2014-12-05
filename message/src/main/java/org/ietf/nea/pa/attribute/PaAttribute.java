@@ -1,6 +1,6 @@
 package org.ietf.nea.pa.attribute;
 
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 public class PaAttribute implements ImAttribute{
 

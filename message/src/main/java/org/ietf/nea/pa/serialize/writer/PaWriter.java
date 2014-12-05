@@ -13,9 +13,9 @@ import org.ietf.nea.pa.attribute.PaAttributeValue;
 import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageHeader;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
-import de.hsbremen.tc.tnc.util.Combined;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.util.Combined;
 
 class PaWriter implements ImWriter<PaMessage>, Combined<ImWriter<PaAttributeValue>> {
 

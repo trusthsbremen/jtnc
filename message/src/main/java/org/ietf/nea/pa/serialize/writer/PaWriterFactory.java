@@ -4,7 +4,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.message.PaMessage;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 
 public class PaWriterFactory {
 

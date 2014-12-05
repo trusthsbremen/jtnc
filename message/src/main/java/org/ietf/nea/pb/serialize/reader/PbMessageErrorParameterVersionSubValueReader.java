@@ -8,10 +8,10 @@ import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersionBuilder;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
-import de.hsbremen.tc.tnc.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageErrorParameterVersionSubValueReader implements TnccsReader<PbMessageValueErrorParameterVersion>{
 

@@ -14,15 +14,15 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.exception.SerializationException;
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
-import de.hsbremen.tc.tnc.m.message.ImMessage;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.m.message.ImMessage;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 class ImcConnectionAdapterIetf implements ImcConnectionAdapter {

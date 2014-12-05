@@ -23,10 +23,10 @@ import org.ietf.nea.pa.validate.rules.PaAttributeNoSkip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.m.serialize.ImReader;
-import de.hsbremen.tc.tnc.util.Combined;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.util.Combined;
 
 class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttributeValue>> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaReader.class);

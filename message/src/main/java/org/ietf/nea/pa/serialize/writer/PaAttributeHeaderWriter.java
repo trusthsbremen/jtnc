@@ -10,8 +10,8 @@ import java.util.Set;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeFlagsEnum;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 
 class PaAttributeHeaderWriter implements ImWriter<PaAttributeHeader>{
 

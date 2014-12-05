@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.ietf.nea.pa.attribute.enums.PaAttributeFlagsEnum;
 
-import de.hsbremen.tc.tnc.m.attribute.ImAttributeHeader;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeHeader;
 
 public class PaAttributeHeader implements ImAttributeHeader {
 

@@ -14,10 +14,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
-import de.hsbremen.tc.tnc.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 public class WriterTest {
 

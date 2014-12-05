@@ -17,10 +17,10 @@ import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterStringBuil
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilderIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.tnccs.TcgTnccsVersionEnum;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
 
 public class PbReaderFactory {
 

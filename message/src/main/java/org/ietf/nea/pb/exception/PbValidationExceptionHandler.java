@@ -7,7 +7,7 @@ import java.util.List;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
 
 @Deprecated
 public class PbValidationExceptionHandler {

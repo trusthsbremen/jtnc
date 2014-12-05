@@ -10,10 +10,10 @@ import org.ietf.nea.pa.attribute.PaAttributeValueStringVersion;
 import org.ietf.nea.pa.attribute.PaAttributeValueStringVersionBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.m.serialize.ImReader;
-import de.hsbremen.tc.tnc.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeStringVersionValueReader implements ImReader<PaAttributeValueStringVersion>{
 

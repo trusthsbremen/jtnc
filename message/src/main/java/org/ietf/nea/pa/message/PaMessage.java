@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.ietf.nea.pa.attribute.PaAttribute;
 
-import de.hsbremen.tc.tnc.m.message.ImMessage;
+import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 
 public class PaMessage implements ImMessage {
 

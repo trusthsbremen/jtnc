@@ -2,7 +2,7 @@ package org.ietf.nea.pb.batch;
 
 import org.ietf.nea.exception.RuleException;
 
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatchHeaderBuilder;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder;
 
 public interface PbBatchHeaderBuilder extends TnccsBatchHeaderBuilder {
 

@@ -3,10 +3,10 @@ package org.ietf.nea.pb.serialize.writer;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.tnccs.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.tnccs.TcgTnccsVersionEnum;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
 
 public class PbWriterFactory {
 

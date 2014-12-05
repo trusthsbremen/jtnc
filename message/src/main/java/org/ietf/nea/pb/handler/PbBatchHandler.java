@@ -10,9 +10,9 @@ import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 
-import de.hsbremen.tc.tnc.exception.HandlingException;
-import de.hsbremen.tc.tnc.tnccs.handler.TnccsHandler;
-import de.hsbremen.tc.tnc.util.Combined;
+import de.hsbremen.tc.tnc.message.exception.HandlingException;
+import de.hsbremen.tc.tnc.message.tnccs.handler.TnccsHandler;
+import de.hsbremen.tc.tnc.message.util.Combined;
 
 public class PbBatchHandler implements TnccsHandler<PbBatch>, Combined<TnccsHandler<PbMessageValue>> {
 

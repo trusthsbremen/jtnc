@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <interface id="1" language="java" name="de.hsbremen.tc.tnc.session.base.SessionBase" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/SessionBase.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="1" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.SessionBase" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/SessionBase.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="571" y="219"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -10,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="de.hsbremen.tc.tnc.session.base.Session" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/Session.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.Session" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/Session.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="564" y="540"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -19,8 +20,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="3" language="java" name="de.hsbremen.tc.tnc.session.base.HandshakeRetryListener" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/HandshakeRetryListener.java" binary="false" 
+  <interface id="3" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.HandshakeRetryListener" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/HandshakeRetryListener.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="157" y="210"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -29,8 +30,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="4" language="java" name="de.hsbremen.tc.tnc.session.base.state.StateMachine" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/StateMachine.java" binary="false" 
+  <interface id="4" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.StateMachine" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/StateMachine.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="574" y="847"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -39,8 +40,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="5" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsInputChannelListener" 
-    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/TnccsInputChannelListener.java" 
+  <interface id="5" language="java" name="de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener" 
+    project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/connection/TnccsInputChannelListener.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1055" y="231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -59,8 +61,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultTnccsInputChannel" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/DefaultTnccsInputChannel.java" binary="false" 
+  <class id="7" language="java" name="de.hsbremen.tc.tnc.tnccs.session.connection.DefaultTnccsInputChannel" 
+    project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/connection/DefaultTnccsInputChannel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1433" y="226"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -69,8 +72,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsInputChannel" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/TnccsInputChannel.java" binary="false" 
+  <interface id="8" language="java" name="de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/connection/TnccsInputChannel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1424" y="42"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -79,9 +82,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="9" language="java" name="de.hsbremen.tc.tnc.session.connection.TnccsOutputChannel" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/TnccsOutputChannel.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <interface id="9" language="java" name="de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel" 
+    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/connection/TnccsOutputChannel.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1545" y="540"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -89,9 +92,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="10" language="java" name="de.hsbremen.tc.tnc.session.connection.DefaultTnccsOutputChannel" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/connection/DefaultTnccsOutputChannel.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="de.hsbremen.tc.tnc.tnccs.session.connection.DefaultTnccsOutputChannel" 
+    project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/connection/DefaultTnccsOutputChannel.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1905" y="536"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -118,8 +122,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="de.hsbremen.tc.tnc.adapter.connection.DefaultImcConnectionContext" 
-    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/DefaultImcConnectionContext.java" 
+  <class id="13" language="java" name="de.hsbremen.tc.tnc.tnccs.adapter.connection.DefaultImcConnectionContext" 
+    project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/adapter/connection/DefaultImcConnectionContext.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-23" y="569"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -128,9 +133,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="14" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImConnectionContext" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/ImConnectionContext.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <interface id="14" language="java" name="de.hsbremen.tc.tnc.tnccs.adapter.connection.ImConnectionContext" 
+    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/adapter/connection/ImConnectionContext.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-354" y="143"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -138,9 +143,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="15" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImcConnectionContext" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/ImcConnectionContext.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <interface id="15" language="java" name="de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionContext" 
+    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/adapter/connection/ImcConnectionContext.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-104" y="346"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -158,9 +163,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="17" language="java" name="de.hsbremen.tc.tnc.adapter.connection.ImvConnectionContext" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/adapter/connection/ImvConnectionContext.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <interface id="17" language="java" name="de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionContext" 
+    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/adapter/connection/ImvConnectionContext.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-597" y="339"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -168,8 +173,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="18" language="java" name="de.hsbremen.tc.tnc.newp.handler.ImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="18" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.ImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-815" y="1084"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -177,8 +182,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="19" language="java" name="de.hsbremen.tc.tnc.newp.handler.TnccHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/newp/handler/TnccHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="19" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.TnccHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/TnccHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="61" width="149" x="-881" y="1179"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -186,8 +192,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="20" language="java" name="de.hsbremen.tc.tnc.session.base.state.SessionState" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/SessionState.java" binary="false" 
+  <interface id="20" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.SessionState" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/SessionState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="580" y="1379"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -196,8 +202,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="21" language="java" name="de.hsbremen.tc.tnc.session.base.state.End" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/End.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="21" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.End" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/End.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1062" y="1246"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -205,8 +212,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="22" language="java" name="de.hsbremen.tc.tnc.session.base.state.Decided" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/Decided.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="22" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.Decided" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/Decided.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1076" y="1418"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -214,8 +222,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="23" language="java" name="de.hsbremen.tc.tnc.session.base.state.Init" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/Init.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="23" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.Init" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/Init.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="214" y="1410"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -223,8 +232,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="24" language="java" name="de.hsbremen.tc.tnc.session.base.state.ServerWorking" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ServerWorking.java" binary="false" 
+  <interface id="24" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.ServerWorking" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/ServerWorking.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="215" y="1587"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -233,8 +242,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="25" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientWorking" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientWorking.java" binary="false" 
+  <interface id="25" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.ClientWorking" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/ClientWorking.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="550" y="1601"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -243,8 +252,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="26" language="java" name="de.hsbremen.tc.tnc.session.base.state.Retry" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/Retry.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="26" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.Retry" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/Retry.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="870" y="1565"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -252,8 +262,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="27" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientDecidedState" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientDecidedState.java" binary="false" 
+  <class id="27" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.ClientDecidedState" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/ClientDecidedState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1443" y="1442"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -262,8 +272,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientInitState" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientInitState.java" binary="false" 
+  <class id="28" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.ClientInitState" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/ClientInitState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-187" y="1458"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -272,8 +282,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientServerWorkingState" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientServerWorkingState.java" binary="false" 
+  <class id="29" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.ClientServerWorkingState" 
+    project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/ClientServerWorkingState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-175" y="1768"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -282,8 +293,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="de.hsbremen.tc.tnc.session.base.state.ClientRetryState" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/ClientRetryState.java" binary="false" 
+  <class id="30" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.ClientRetryState" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/ClientRetryState.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1192" y="1736"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -292,8 +303,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="de.hsbremen.tc.tnc.session.base.state.EndState" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/session/base/state/EndState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="31" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.state.EndState" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/state/EndState.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="133" width="291" x="1333" y="1140"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

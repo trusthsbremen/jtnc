@@ -16,7 +16,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
 
 public class ReaderTest {
 

@@ -1,6 +1,6 @@
 package org.ietf.nea.pa.message;
 
-import de.hsbremen.tc.tnc.m.message.ImMessageHeader;
+import de.hsbremen.tc.tnc.message.m.message.ImMessageHeader;
 
 public class PaMessageHeader implements ImMessageHeader{
 

@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute.util;
 
 import org.ietf.nea.pa.attribute.RawMessageHeader;
 
-import de.hsbremen.tc.tnc.m.attribute.ImAttributeSubValue;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeSubValue;
 
 
 public abstract class AbstractPaAttributeValueErrorInformation implements ImAttributeSubValue{

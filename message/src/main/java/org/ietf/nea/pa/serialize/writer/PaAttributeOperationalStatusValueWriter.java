@@ -9,8 +9,8 @@ import java.util.TimeZone;
 
 import org.ietf.nea.pa.attribute.PaAttributeValueOperationalStatus;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 
 class PaAttributeOperationalStatusValueWriter implements ImWriter<PaAttributeValueOperationalStatus>{
 

@@ -18,8 +18,8 @@ import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
-import de.hsbremen.tc.tnc.m.serialize.ImMessageContainer;
-import de.hsbremen.tc.tnc.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
+import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
 
 public class ImvAdapterTncsFirstIetfLong extends ImvAdapterIetfLong implements IMVTNCSFirst{
 	

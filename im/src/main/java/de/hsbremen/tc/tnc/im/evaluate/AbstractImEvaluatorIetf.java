@@ -18,7 +18,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.enums.ImComponentFlagsEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluator;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
-import de.hsbremen.tc.tnc.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 public class AbstractImEvaluatorIetf implements ImEvaluator {
 

@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 @Ignore
 public class ValidateTest {

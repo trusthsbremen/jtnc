@@ -4,11 +4,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
-import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.transport.exception.ConnectionAttributeNotFoundException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public interface TransportConnection{

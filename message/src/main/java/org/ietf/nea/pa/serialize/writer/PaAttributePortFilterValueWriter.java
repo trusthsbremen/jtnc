@@ -10,8 +10,8 @@ import java.util.List;
 import org.ietf.nea.pa.attribute.PaAttributeValuePortFilter;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 
 class PaAttributePortFilterValueWriter implements ImWriter<PaAttributeValuePortFilter>{
 

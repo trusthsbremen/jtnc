@@ -25,11 +25,11 @@ import org.ietf.nea.pb.validate.rules.PbMessageNoSkip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
-import de.hsbremen.tc.tnc.util.Combined;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.util.Combined;
 
 class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader<PbMessageValue>> {
 

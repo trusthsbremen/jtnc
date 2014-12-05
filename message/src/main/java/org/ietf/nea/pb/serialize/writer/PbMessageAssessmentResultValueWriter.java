@@ -8,8 +8,8 @@ import java.util.Arrays;
 
 import org.ietf.nea.pb.message.PbMessageValueAssessmentResult;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
 
 class PbMessageAssessmentResultValueWriter implements TnccsWriter<PbMessageValueAssessmentResult>{
 

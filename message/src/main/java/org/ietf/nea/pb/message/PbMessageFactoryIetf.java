@@ -12,7 +12,7 @@ import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 public class PbMessageFactoryIetf {
 

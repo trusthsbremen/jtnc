@@ -8,10 +8,10 @@ import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.batch.PbBatchHeaderBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.serialize.TnccsReader;
-import de.hsbremen.tc.tnc.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbBatchHeaderReader implements TnccsReader<PbBatchHeader>{
 

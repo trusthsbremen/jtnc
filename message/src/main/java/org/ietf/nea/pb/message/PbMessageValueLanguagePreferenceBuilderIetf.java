@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 
-import de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValueBuilder;
+import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
 public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessageValueBuilder, PbMessageValueLanguagePreferenceBuilder{
 

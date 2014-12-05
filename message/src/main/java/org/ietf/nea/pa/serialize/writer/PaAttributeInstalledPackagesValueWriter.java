@@ -11,8 +11,8 @@ import java.util.List;
 import org.ietf.nea.pa.attribute.PaAttributeValueInstalledPackages;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 
-import de.hsbremen.tc.tnc.exception.SerializationException;
-import de.hsbremen.tc.tnc.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
 
 class PaAttributeInstalledPackagesValueWriter implements ImWriter<PaAttributeValueInstalledPackages>{
 
