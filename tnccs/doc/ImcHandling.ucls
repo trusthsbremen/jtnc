@@ -40,8 +40,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="5" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.TnccsMessageHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/TnccsMessageHandler.java" binary="false" 
+  <interface id="5" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.TnccsMessageHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/TnccsMessageHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="666" y="1094"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -50,8 +50,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="6" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.ImvHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/ImvHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="6" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/ImvHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="739" y="838"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -59,8 +60,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="7" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.ImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="7" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/ImcHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="561" y="828"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -68,8 +70,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="8" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.DefaultImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/DefaultImcHandler.java" binary="false" 
+  <class id="8" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.DefaultImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/DefaultImcHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="174" y="780"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -78,8 +80,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.DefaultImvHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/DefaultImvHandler.java" binary="false" 
+  <class id="9" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.DefaultImvHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/DefaultImvHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1174" y="769"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

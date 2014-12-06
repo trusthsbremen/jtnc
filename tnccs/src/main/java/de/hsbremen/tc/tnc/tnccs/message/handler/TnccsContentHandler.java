@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.tnccs.session.base.state;
+package de.hsbremen.tc.tnc.tnccs.message.handler;
 
 import java.util.List;
 

@@ -39,12 +39,12 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
-import de.hsbremen.tc.tnc.tnccs.im.handler.DefaultTnccHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.DefaultTnccsValidationExceptionHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.ImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccsValidationExceptionHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.DefaultTnccsContentHandler;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.connection.DefaultTnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
@@ -257,7 +257,7 @@ public class Dummy extends AbstractDummy{
 			boolean closed = true;
 			
 			@Override
-			public TnccsBatch submitBatch(TnccsBatchContainer newBatch)
+			public TnccsBatch receiveBatch(TnccsBatchContainer newBatch)
 					throws StateMachineAccessException {
 				System.out.println("Batch container received.");
 				if(closed){
@@ -361,11 +361,13 @@ public class Dummy extends AbstractDummy{
 			
 			@Override
 			public List<TnccsMessage> requestMessages() {
+				System.out.println("requestMessages() called.");
 				return this.createMessageList();
 			}
 			
 			@Override
 			public List<TnccsMessage> forwardMessage(TnccsMessage value) {
+				System.out.println("forwardMessages() called.");
 				return this.createMessageList();
 			}
 			
@@ -380,6 +382,12 @@ public class Dummy extends AbstractDummy{
 					e.printStackTrace();
 				}
 				return messages;
+			}
+
+			@Override
+			public List<TnccsMessage> lastCall() {
+				System.out.println("lastCall() called.");
+				return new ArrayList<>();
 			}
 			
 		};

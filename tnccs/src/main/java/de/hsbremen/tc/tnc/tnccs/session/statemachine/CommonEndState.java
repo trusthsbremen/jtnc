@@ -5,7 +5,7 @@ import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
 
 public class CommonEndState extends AbstractState implements End {
 

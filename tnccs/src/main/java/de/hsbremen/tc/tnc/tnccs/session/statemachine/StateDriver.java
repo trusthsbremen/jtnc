@@ -6,7 +6,7 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 
@@ -75,7 +75,7 @@ public class StateDriver implements StateMachine {
 	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#submitBatch(de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer)
 	 */
 	@Override
-	public TnccsBatch submitBatch(TnccsBatchContainer newBatch) throws StateMachineAccessException{
+	public TnccsBatch receiveBatch(TnccsBatchContainer newBatch) throws StateMachineAccessException{
 		synchronized (this) {
 			if(!this.isClosed() && !this.busy){
 				this.busy = Boolean.TRUE;

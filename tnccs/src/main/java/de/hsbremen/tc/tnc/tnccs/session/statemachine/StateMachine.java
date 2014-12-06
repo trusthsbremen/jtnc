@@ -10,7 +10,7 @@ public interface StateMachine {
 
 	public abstract TnccsBatch start(boolean selfInitiated) throws StateMachineAccessException;
 
-	public abstract TnccsBatch submitBatch(TnccsBatchContainer newBatch) throws StateMachineAccessException;
+	public abstract TnccsBatch receiveBatch(TnccsBatchContainer newBatch) throws StateMachineAccessException;
 
 	public abstract TnccsBatch retryHandshake(ImHandshakeRetryReasonEnum reason) throws TncException;
 

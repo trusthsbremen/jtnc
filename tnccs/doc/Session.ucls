@@ -173,8 +173,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="18" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.ImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/ImcHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="18" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/ImcHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-815" y="1084"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -182,8 +183,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="19" language="java" name="de.hsbremen.tc.tnc.tnccs.im.handler.TnccHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/handler/TnccHandler.java" binary="false" 
+  <interface id="19" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.TnccHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/TnccHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="61" width="149" x="-881" y="1179"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

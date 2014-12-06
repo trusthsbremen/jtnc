@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.tnccs.im.handler;
+package de.hsbremen.tc.tnc.tnccs.message.handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ public class DefaultTnccHandler implements TnccHandler{
 	private final Attributed sessionAttributes;
 	private final String tnccLanguagePreference;
 	
+	private String tempTnccsLanguagePrefernce;
 	private TncConnectionState state;
 	private boolean handshakeStartet;
 	
@@ -106,12 +107,7 @@ public class DefaultTnccHandler implements TnccHandler{
 		String lang = value.getPreferedLanguage();
 		
 		if(lang != null && !lang.isEmpty()){
-			lang  = lang.trim();
-			try{
-				this.sessionAttributes.setAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE, lang);
-			}catch(TncException | UnsupportedOperationException e){
-				LOGGER.warn("Language preference could not be set and will be ignored.");
-			}
+			this.tempTnccsLanguagePrefernce  = lang.trim();
 		}
 	}
 
@@ -128,6 +124,19 @@ public class DefaultTnccHandler implements TnccHandler{
 			this.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_ISOLATED);
 			break;
 		}
+	}
+
+	@Override
+	public List<TnccsMessage> lastCall() {
+		if(this.tempTnccsLanguagePrefernce != null){
+			try{
+				this.sessionAttributes.setAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE, this.tempTnccsLanguagePrefernce);
+			}catch(TncException | UnsupportedOperationException e){
+				LOGGER.warn("Language preference could not be set and will be ignored.");
+			}
+			this.tempTnccsLanguagePrefernce = null;
+		}
+		return new ArrayList<>();
 	}
 	
 	

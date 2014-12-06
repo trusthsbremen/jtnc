@@ -12,7 +12,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 
 public class ClientClientWorkingState extends AbstractState implements ClientWorking {
@@ -79,7 +79,7 @@ public class ClientClientWorkingState extends AbstractState implements ClientWor
 		
 		if( request != null ){
 			
-			List<TnccsMessage> msgs =super.getHandler().handleMessages(request);
+			List<TnccsMessage> msgs = super.getHandler().handleMessages(request);
 			if(msgs != null){
 				response.addAll(msgs);
 			}

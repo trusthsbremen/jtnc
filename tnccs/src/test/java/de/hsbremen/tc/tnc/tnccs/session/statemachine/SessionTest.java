@@ -12,9 +12,9 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.session.Session;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 

@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.tnccs.im.handler;
+package de.hsbremen.tc.tnc.tnccs.message.handler;
 
 import java.util.List;
 

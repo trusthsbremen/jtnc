@@ -3,7 +3,7 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 
 public class DefaultClientStateFactory implements StateFactory{

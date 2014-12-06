@@ -6,20 +6,21 @@ import de.hsbremen.tc.tnc.tnccs.adapter.connection.DefaultImcConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter;
-import de.hsbremen.tc.tnc.tnccs.im.handler.DefaultImcHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.DefaultTnccHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.DefaultTnccsValidationExceptionHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.ImcHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.TnccHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.TnccsValidationExceptionHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImAdapterManager;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.DefaultStateMachine;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.DefaultTnccsContentHandler;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.StateMachine;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccsValidationExceptionHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsValidationExceptionHandler;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.DefaultClientStateFactory;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateDriver;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 
 public class DefaultSessionFactory {
@@ -56,7 +57,7 @@ public class DefaultSessionFactory {
 		
 		TnccsContentHandler contentHandler = new DefaultTnccsContentHandler(imcHandler, tnccHandler, exceptionHandler);
 		
-		StateMachine machine = new DefaultStateMachine(contentHandler);
+		StateMachine machine = new StateDriver(contentHandler, DefaultClientStateFactory.getInstance());
 		
 		// finalize session and run
 		s.registerStatemachine(machine);

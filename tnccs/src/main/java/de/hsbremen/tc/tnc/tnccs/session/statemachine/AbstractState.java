@@ -2,7 +2,7 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
 
 public abstract class AbstractState implements State{
 

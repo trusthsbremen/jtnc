@@ -14,10 +14,12 @@ import org.ietf.nea.pb.batch.DefaultTnccsBatchContainer;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf;
+import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
 import org.ietf.nea.pb.validate.rules.MinMessageLength;
 import org.ietf.nea.pb.validate.rules.NoSkipOnUnknownMessage;
@@ -25,6 +27,7 @@ import org.ietf.nea.pb.validate.rules.PbMessageNoSkip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
@@ -112,8 +115,38 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 									headerOffset = 0;
 									throw new ValidationException(e1.getMessage(), e1,0);
 								}
+
+								// filter messages of type access recommendation and assessment result if batch is not of type result. RFC5793
+								if(mHead.getVendorId() == IETFConstants.IETF_PEN_VENDORID && mHead.getMessageType() == PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType()){
+									if(bHead.getType().equals(PbBatchTypeEnum.RESULT)){
+										msgs.add(new PbMessage(mHead, mValue));
+									}else{
+										try{
+											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+											bHead = changedBHeader;
+										}catch(RuleException e2){
+											// the new header is only a convenient process if the creation fails
+											// leave the old header in place and do nothing.
+											LOGGER.warn("The header update for the current batch failed. The old header is left in use.");
+										}	
+									}
+								}else if(mHead.getVendorId() == IETFConstants.IETF_PEN_VENDORID && mHead.getMessageType() == PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType()){
+									if(bHead.getType().equals(PbBatchTypeEnum.RESULT)){
+										msgs.add(new PbMessage(mHead, mValue));
+									}else{
+										try{
+											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+											bHead = changedBHeader;
+										}catch(RuleException e2){
+											// the new header is only a convenient process if the creation fails
+											// leave the old header in place and do nothing.
+											LOGGER.warn("The header update for the current batch failed. The old header is left in use.");
+										}	
+									}
+								}else{
+									msgs.add(new PbMessage(mHead, mValue));
+								}
 								
-								msgs.add(new PbMessage(mHead, mValue));
 							} // if null you can ignore the message
 							
 						}else{

@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.tnccs.session.base.state;
+package de.hsbremen.tc.tnc.tnccs.message.handler;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,9 +8,6 @@ import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
-import de.hsbremen.tc.tnc.tnccs.im.handler.ImcHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.TnccHandler;
-import de.hsbremen.tc.tnc.tnccs.im.handler.TnccsValidationExceptionHandler;
 
 public class DefaultTnccsContentHandler implements TnccsContentHandler{
 
@@ -72,6 +69,17 @@ public class DefaultTnccsContentHandler implements TnccsContentHandler{
 				}
 			}
 		}
+		
+		List<TnccsMessage> temp = this.imHandler.lastCall();
+		if(temp != null){
+			messages.addAll(temp);
+		}
+		
+		temp = this.imHandler.lastCall();
+		if(temp != null){
+			messages.addAll(temp);
+		}
+		
 		return messages;
 	}
 	

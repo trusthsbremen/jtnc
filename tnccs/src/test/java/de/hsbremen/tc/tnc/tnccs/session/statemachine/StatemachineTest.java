@@ -152,7 +152,7 @@ public class StatemachineTest {
 			
 			TnccsBatchContainer container = new DefaultTnccsBatchContainer(Dummy.getServerDataBatch(), null);
 			
-			batch = (PbBatch)this.machine.submitBatch(container);
+			batch = (PbBatch)this.machine.receiveBatch(container);
 
 			Assert.assertFalse(this.machine.isClosed());
 			Assert.assertEquals(batch.getHeader().getType(), PbBatchTypeEnum.CDATA);
@@ -174,7 +174,7 @@ public class StatemachineTest {
 			
 			container = new DefaultTnccsBatchContainer(Dummy.getServerResultBatch(), null);
 			
-			batch = (PbBatch)this.machine.submitBatch(container);
+			batch = (PbBatch)this.machine.receiveBatch(container);
 			
 			if(batch != null){
 				Assert.fail();
@@ -184,7 +184,7 @@ public class StatemachineTest {
 			
 			container = new DefaultTnccsBatchContainer(Dummy.getServerCloseBatch(), null);
 			
-			batch = (PbBatch) this.machine.submitBatch(container);
+			batch = (PbBatch) this.machine.receiveBatch(container);
 			
 			if(batch != null){
 				Assert.fail();
@@ -227,7 +227,7 @@ public class StatemachineTest {
 			
 			TnccsBatchContainer container = new DefaultTnccsBatchContainer(Dummy.getServerResultBatch(), null);
 			
-			batch = (PbBatch)this.machine.submitBatch(container);
+			batch = (PbBatch)this.machine.receiveBatch(container);
 			
 			if(batch != null){
 				Assert.fail();
@@ -237,7 +237,7 @@ public class StatemachineTest {
 			
 			container = new DefaultTnccsBatchContainer(Dummy.getServerCloseBatch(), null);
 			
-			batch = (PbBatch) this.machine.submitBatch(container);
+			batch = (PbBatch) this.machine.receiveBatch(container);
 			
 			if(batch != null){
 				Assert.fail();
@@ -280,7 +280,7 @@ public class StatemachineTest {
 			
 			TnccsBatchContainer container = new DefaultTnccsBatchContainer(Dummy.getServerCloseBatch(), null);
 			
-			batch = (PbBatch) this.machine.submitBatch(container);
+			batch = (PbBatch) this.machine.receiveBatch(container);
 			
 			if(batch != null){
 				Assert.fail();
@@ -324,7 +324,7 @@ public class StatemachineTest {
 			
 			TnccsBatchContainer container = new DefaultTnccsBatchContainer(Dummy.getClientDataBatchWithImMessage(), null);
 			
-			batch = (PbBatch) this.machine.submitBatch(container);
+			batch = (PbBatch) this.machine.receiveBatch(container);
 			
 			if(batch == null){
 				Assert.fail();

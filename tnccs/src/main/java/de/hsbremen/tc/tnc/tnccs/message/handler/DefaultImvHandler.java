@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.tnccs.im.handler;
+package de.hsbremen.tc.tnc.tnccs.message.handler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,9 +26,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
-import de.hsbremen.tc.tnc.tnccs.im.enums.DefaultImHandlerStateEnum;
-import de.hsbremen.tc.tnc.tnccs.im.enums.DefaultImHandlerStateFactory;
-import de.hsbremen.tc.tnc.tnccs.im.enums.ImHandlerState;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImAdapterManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 
@@ -39,7 +36,8 @@ public class DefaultImvHandler implements ImvHandler{
 	private Map<Long,ImvAdapter> imAdapters;
 	private Map<Long,ImvConnectionAdapter> connections; 
 	
-	private ImHandlerState state;
+	private TncConnectionState state;
+	private boolean handshakeBegin;
 	
 	private final ImMessageRouter router;
 	private ImAdapterManager<ImvAdapter> manager;
@@ -66,16 +64,18 @@ public class DefaultImvHandler implements ImvHandler{
 		this.connections = connectionList;
 		this.router = router;
 
-		this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN;
+		this.state = DefaultTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN;
+		this.handshakeBegin = false;
 		
 	}
 
 	@Override
 	public void setConnectionState(TncConnectionState imConnectionState){
 		
-		this.state = DefaultImHandlerStateFactory.getInstance().fromConnectionState(imConnectionState);
+		this.state = imConnectionState;
 		
-		if(imConnectionState.state() == DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE.state()){
+		if(imConnectionState.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE)){
+			this.handshakeBegin = true;
 			this.refreshAdapterEntries();
 		}
 		
@@ -104,6 +104,8 @@ public class DefaultImvHandler implements ImvHandler{
 		if(imConnectionState.state() == DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE.state()){
 			this.imAdapters.clear();
 			this.connections.clear();
+			this.handshakeBegin = false;
+			this.connectionContext.invalidate();
 		}
 		
 	}
@@ -116,22 +118,14 @@ public class DefaultImvHandler implements ImvHandler{
 			Entry<Long, ImvAdapter> entry = iter.next();
 			
 			try {
+				
+				entry.getValue().beginHandshake(this.connections.get(entry.getKey()));
 
-				if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
-					
-					try{
-						entry.getValue().beginHandshake(this.connections.get(entry.getKey()));
-					} catch(UnsupportedOperationException e){
-						LOGGER.debug("TNCS first support was not identifiable and the feature is not used.",e);
-					}
-					
-				}else if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING)){
-					
-					entry.getValue().batchEnding(this.connections.get(entry.getKey()));
-					
-				}
-
-			} catch (TerminatedException e) {
+			} catch(UnsupportedOperationException e){
+				
+				LOGGER.debug("TNCS first support was not identifiable and the feature is not used.",e);
+				
+			}catch (TerminatedException e) {
 				this.connections.remove(entry.getKey());
 				iter.remove();
 			} catch (TncException e){
@@ -144,8 +138,8 @@ public class DefaultImvHandler implements ImvHandler{
 			}
 		}
 		
-		if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
-			this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
+		if(this.handshakeBegin){
+			this.handshakeBegin = false;
 		}
 		
 		return this.connectionContext.clearMessage();
@@ -197,8 +191,8 @@ public class DefaultImvHandler implements ImvHandler{
 				}
 			}
 			
-			if(this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_START)){
-				this.state = DefaultImHandlerStateEnum.HSB_SESSION_STATE_HANDSHAKE_RUNNING;
+			if(this.handshakeBegin){
+				this.handshakeBegin = false;
 			}
 			
 		}else{
@@ -208,6 +202,35 @@ public class DefaultImvHandler implements ImvHandler{
 		return this.connectionContext.clearMessage();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.tnccs.message.handler.TnccsMessageHandler#lastCall()
+	 */
+	@Override
+	public List<TnccsMessage> lastCall() {
+		
+		for (Iterator<Entry<Long, ImvAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
+			Entry<Long, ImvAdapter> entry = iter.next();
+		
+			try{
+
+				entry.getValue().batchEnding(this.connections.get(entry.getKey()));
+
+			} catch (TerminatedException e) {
+				this.connections.remove(entry.getKey());
+				iter.remove();
+			} catch (TncException e){
+				if(e.getResultCode().equals(TncExceptionCodeEnum.TNC_RESULT_FATAL)){
+					this.connections.remove(entry.getKey());
+					this.manager.removeAdapter(entry.getKey());
+					iter.remove();
+				}
+				LOGGER.error(e.getMessage(),e);
+			}
+		}
+		
+		return this.connectionContext.clearMessage();
+	}
+	
 	private void refreshAdapterEntries(){
 		Map<Long,ImvAdapter> list =  this.manager.getAdapter();
 
@@ -229,8 +252,8 @@ public class DefaultImvHandler implements ImvHandler{
 	}
 	
 	private void checkState(){
-		if(this.state == null || this.state.equals(DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN)){
-			throw new IllegalStateException("The handler's state cannot be:" + ((this.state != null)? this.state : DefaultImHandlerStateEnum.HSB_SESSION_STATE_UNKNOWN).toString());
+		if(this.state == null || this.state.equals(DefaultTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN)){
+			throw new IllegalStateException("The handler's state cannot be:" + ((this.state != null)? this.state : DefaultTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN).toString());
 		}
 	}
 

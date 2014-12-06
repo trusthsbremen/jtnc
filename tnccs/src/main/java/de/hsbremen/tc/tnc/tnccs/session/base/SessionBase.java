@@ -1,9 +1,9 @@
 package de.hsbremen.tc.tnc.tnccs.session.base;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 
 public interface SessionBase {
 
@@ -16,6 +16,8 @@ public interface SessionBase {
 	public abstract void start(boolean selfInitiated);
 	
 	public abstract void close();
+	
+	public boolean isClosed();
 	
 	public Attributed getAttributes();
 

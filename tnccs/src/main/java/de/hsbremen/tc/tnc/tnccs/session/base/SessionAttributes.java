@@ -11,18 +11,30 @@ public class SessionAttributes implements Attributed {
 	
 	private final String tnccsProtocol;
 	private final String tnccsVersion;
+	private final long maxRoundTrips;
+	
 	private String preferedLanguage;
 	
+	
 	public SessionAttributes(String tnccsProtocol, String tnccsVersion){
-		this(tnccsProtocol, tnccsVersion, HSBConstants.HSB_DEFAULT_LANGUAGE);
+		this(tnccsProtocol, tnccsVersion, HSBConstants.HSB_DEFAULT_LANGUAGE, HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
 	}
 	
 	
 	public SessionAttributes(String tnccsProtocol, String tnccsVersion,
-			String preferedLanguage) {
+			String preferedLanguage, long maxRoundTrips) {
 		this.tnccsProtocol = tnccsProtocol;
 		this.tnccsVersion = tnccsVersion;
+		this.maxRoundTrips = maxRoundTrips;
 		this.preferedLanguage = preferedLanguage;
+		
+	}
+
+	/**
+	 * @return the maxRoundTrips
+	 */
+	public long getMaxRoundTrips() {
+		return this.maxRoundTrips;
 	}
 
 	/**
