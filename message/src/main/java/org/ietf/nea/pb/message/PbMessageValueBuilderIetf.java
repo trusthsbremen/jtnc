@@ -168,7 +168,7 @@ public class PbMessageValueBuilderIetf {
 			throw new IllegalArgumentException("Code is greater than "+ Long.toString(IETFConstants.IETF_MAX_ERROR_CODE) + ".");
 		}
 
-		long length = PbMessageTlvFixedLength.ERR_VALUE.length() + errorParameter.getLength();
+		long length = PbMessageTlvFixedLength.ERR_VALUE.length() + ((errorParameter != null)?errorParameter.getLength():0);
 		
 		return new PbMessageValueError(flags, errorVendorId, errorCode, length, errorParameter);
 	}

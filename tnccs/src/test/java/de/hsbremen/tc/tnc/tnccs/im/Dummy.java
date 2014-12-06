@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
-import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionContext;
-import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 
 public class Dummy extends AbstractDummy{
 	
@@ -277,9 +276,9 @@ public class Dummy extends AbstractDummy{
 	}
 
 	
-	public static PbMessageValue getPaAssessmentResult() throws ValidationException{
+	public static PbMessage getPaAssessmentResult() throws ValidationException{
 		return PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0], 0, 1, (int)TNCConstants.TNC_IMCID_ANY, 15, new byte[] {1, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 1,
-	            0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 4}).getValue();
+	            0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 4});
 	}
 	
 	public static GlobalHandshakeRetryListener getRetryListener(){

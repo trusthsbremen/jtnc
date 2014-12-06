@@ -6,10 +6,9 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.Decided;
-import de.hsbremen.tc.tnc.tnccs.session.base.state.End;
 import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 
 public class StateDriver implements StateMachine {
 	
@@ -36,7 +35,7 @@ public class StateDriver implements StateMachine {
 	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#start(boolean)
 	 */
 	@Override
-	public TnccsBatch start(boolean selfInitiated){
+	public TnccsBatch start(boolean selfInitiated) throws StateMachineAccessException{
 		synchronized (this) {
 			if(this.isClosed()){
 				synchronized (this.closeLock) {
@@ -65,7 +64,7 @@ public class StateDriver implements StateMachine {
 				}
 				
 			}else{	
-				throw new IllegalStateException("Object cannot be started, because it is already running.");
+				throw new StateMachineAccessException("Object cannot be started, because it is already running.");
 			}
 		}
 		
@@ -76,12 +75,12 @@ public class StateDriver implements StateMachine {
 	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#submitBatch(de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer)
 	 */
 	@Override
-	public TnccsBatch submitBatch(TnccsBatchContainer newBatch){
+	public TnccsBatch submitBatch(TnccsBatchContainer newBatch) throws StateMachineAccessException{
 		synchronized (this) {
 			if(!this.isClosed() && !this.busy){
 				this.busy = Boolean.TRUE;
 			}else{
-				throw new IllegalStateException("While the object is working, no other messages can be received.");
+				throw new StateMachineAccessException("While the object is working, no other messages can be received.");
 			}
 		}
 		
@@ -145,7 +144,7 @@ public class StateDriver implements StateMachine {
 	@Override
 	public void close(){
 		synchronized(this.closeLock){
-			this.state = (this.state instanceof End) ? this.state : this.stateFactory.createState(TnccsStateEnum.END, this.handler);;
+			this.state = (this.state instanceof End) ? this.state : this.stateFactory.createState(TnccsStateEnum.END, this.handler);
 			if(!this.connectionDeleteSet){
 				this.handler.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE);
 				this.connectionDeleteSet = Boolean.TRUE;
@@ -158,7 +157,7 @@ public class StateDriver implements StateMachine {
 	 */
 	@Override
 	public boolean isClosed(){
-		return (this.state == null && this.state instanceof End);
+		return (this.state == null || this.state instanceof End);
 	}
 
 	/* (non-Javadoc)

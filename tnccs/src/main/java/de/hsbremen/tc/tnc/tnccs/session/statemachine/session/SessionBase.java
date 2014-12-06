@@ -17,6 +17,8 @@ public interface SessionBase {
 	
 	public abstract void close();
 	
+	public boolean isClosed();
+	
 	public Attributed getAttributes();
 
 

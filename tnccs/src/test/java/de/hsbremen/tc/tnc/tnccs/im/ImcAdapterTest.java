@@ -53,7 +53,7 @@ public class ImcAdapterTest {
 	@Test
 	public void testSendMessage() throws TncException, ValidationException, TerminatedException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test sendMessage method."));
-		this.adapter.handleMessage(this.connectionAdapter, Dummy.getPaAssessmentResult());
+		this.adapter.handleMessage(this.connectionAdapter, Dummy.getPaAssessmentResult().getValue());
 		Assert.assertFalse(this.connectionAdapter.isReceiving());
 	}
 	

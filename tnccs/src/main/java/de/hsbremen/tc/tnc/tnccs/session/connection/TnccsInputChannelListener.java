@@ -5,7 +5,7 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 
 public interface TnccsInputChannelListener {
 
-	public abstract void receive(TnccsBatchContainer bc);
+	public abstract void receive(TnccsBatchContainer bc) throws ListenerClosedException;
 	
 	public abstract void handle(ComprehensibleException e);
 

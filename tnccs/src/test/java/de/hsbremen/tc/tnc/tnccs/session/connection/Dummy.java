@@ -166,12 +166,12 @@ public class Dummy extends AbstractDummy{
 		};
 	}
 
-	public static TnccsInputChannelListener getInputChannelListener() {
+	protected static TnccsInputChannelListener getInputChannelListener() {
 		
 		return new Dummy.TestTnccsInputChannelListener();
 	}
 	
-	static class TestTnccsInputChannelListener implements TnccsInputChannelListener{
+	protected static class TestTnccsInputChannelListener implements TnccsInputChannelListener{
 		
 		public TnccsBatchContainer bc;
 		public ComprehensibleException e;
@@ -204,7 +204,7 @@ public class Dummy extends AbstractDummy{
 		}
 	}
 	
-	public static PbBatch getBatchWithImMessage() throws ValidationException{
+	protected static PbBatch getBatchWithImMessage() throws ValidationException{
 		
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
@@ -218,15 +218,15 @@ public class Dummy extends AbstractDummy{
 		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
-	public static byte[] getBatchWithImMessageAsByte(){
+	protected static byte[] getBatchWithImMessageAsByte(){
 		return new byte[]{2, -128, 0, 1, 0, 0, 0, 36, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, -1, -1, 80, 87, 78, 68};
 	}
 	
-	public static byte[] getBatchWithImMessageAsByteShortenedFaulty(){
+	protected static byte[] getBatchWithImMessageAsByteShortenedFaulty(){
 		return new byte[]{2, -128, 0, 1, 0, 0, 0, 36, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0};
 	}
 
-	public static TnccsChannelFactory getChannelFactory() {
+	protected static TnccsChannelFactory getChannelFactory() {
 		DefaultTnccsChannelFactory channelFactory = new DefaultTnccsChannelFactory(TcgTnccsProtocolEnum.TNCCS.value(),
 				TcgTnccsVersionEnum.V2.value(),
 				PbReaderFactory.createExperimentalDefault(),

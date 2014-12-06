@@ -1,10 +1,15 @@
 package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 
 public class DefaultClientStateFactory implements StateFactory{
 
+	protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultClientStateFactory.class);
+	
 	private static class Singleton {
 		private static final StateFactory INSTANCE = new DefaultClientStateFactory();
 	}
@@ -21,24 +26,36 @@ public class DefaultClientStateFactory implements StateFactory{
 		if(contentHandler == null){
 			throw new NullPointerException("Content handler cannot be null.");
 		}
-		
+		State t = null;
 		switch(id){
 		case CLIENT_WORKING:
-			return new ClientClientWorkingState(contentHandler);
+			t = new ClientClientWorkingState(contentHandler);
+			break;
 		case DECIDED:
-			return new ClientDecidedState(contentHandler);
+			t = new ClientDecidedState(contentHandler);
+			break;
 		case END:
-			return new CommonEndState(contentHandler);
+			t = new CommonEndState(contentHandler);
+			break;
 		case ERROR:
-			return new CommonErrorState(contentHandler);
+			t = new CommonErrorState(contentHandler);
+			break;
 		case INIT:
-			return new ClientInitState(contentHandler);
+			t = new ClientInitState(contentHandler);
+			break;
 		case RETRY:
-			return new ClientRetryState(contentHandler);
+			t = new ClientRetryState(contentHandler);
+			break;
 		case SERVER_WORKING:
-			return new ClientServerWorkingState(contentHandler);
+			t = new ClientServerWorkingState(contentHandler);
+			break;
 		}
-		throw new IllegalArgumentException("The implementation of the state with id " + id.value() +" is unknown.");
+		if(t != null){
+			LOGGER.debug(t.getClass().getCanonicalName() + " created.");
+			return t;
+		}else{
+			throw new IllegalArgumentException("The implementation of the state with id " + id.value() +" is unknown.");
+		}
 	}
 	
 	

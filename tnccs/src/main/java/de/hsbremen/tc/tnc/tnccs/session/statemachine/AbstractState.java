@@ -10,6 +10,7 @@ public abstract class AbstractState implements State{
 	private State successor;
 	
 	public AbstractState(TnccsContentHandler handler){
+	
 		this.handler = handler;
 		this.successor = null;
 	}

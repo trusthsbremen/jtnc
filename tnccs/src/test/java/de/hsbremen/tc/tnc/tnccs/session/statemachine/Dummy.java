@@ -12,7 +12,10 @@ import java.util.Random;
 
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
+import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
+import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
+import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.serialize.reader.PbReaderFactory;
 import org.ietf.nea.pb.serialize.writer.PbWriterFactory;
@@ -22,20 +25,30 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
+import de.hsbremen.tc.tnc.tnccs.im.handler.DefaultTnccHandler;
+import de.hsbremen.tc.tnc.tnccs.im.handler.DefaultTnccsValidationExceptionHandler;
+import de.hsbremen.tc.tnc.tnccs.im.handler.ImcHandler;
+import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
+import de.hsbremen.tc.tnc.tnccs.session.base.state.DefaultTnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.connection.DefaultTnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
 import de.hsbremen.tc.tnc.transport.connection.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
@@ -43,7 +56,7 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class Dummy extends AbstractDummy{
 
-	public static TransportConnection getSelfInitiatedTransportConnection() {
+	protected static TransportConnection getSelfInitiatedTransportConnection() {
 		return new TransportConnection() {
 			
 			private TransportAttributes attributes;
@@ -169,12 +182,12 @@ public class Dummy extends AbstractDummy{
 		};
 	}
 
-	public static TnccsInputChannelListener getInputChannelListener() {
+	protected static TnccsInputChannelListener getInputChannelListener() {
 		
 		return new Dummy.TestTnccsInputChannelListener();
 	}
 	
-	static class TestTnccsInputChannelListener implements TnccsInputChannelListener{
+	protected static class TestTnccsInputChannelListener implements TnccsInputChannelListener{
 		
 		public TnccsBatchContainer bc;
 		public ComprehensibleException e;
@@ -207,7 +220,7 @@ public class Dummy extends AbstractDummy{
 		}
 	}
 	
-	public static PbBatch getBatchWithImMessage() throws ValidationException{
+	protected static PbBatch getClientDataBatchWithImMessage() throws ValidationException{
 		
 		
 		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
@@ -221,15 +234,15 @@ public class Dummy extends AbstractDummy{
 		return PbBatchFactoryIetf.createClientData(messages);
 	}
 	
-	public static byte[] getBatchWithImMessageAsByte(){
+	protected static byte[] getBatchWithImMessageAsByte(){
 		return new byte[]{2, -128, 0, 1, 0, 0, 0, 36, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, -1, -1, 80, 87, 78, 68};
 	}
 	
-	public static byte[] getBatchWithImMessageAsByteShortenedFaulty(){
+	protected static byte[] getBatchWithImMessageAsByteShortenedFaulty(){
 		return new byte[]{2, -128, 0, 1, 0, 0, 0, 36, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0};
 	}
 
-	public static TnccsChannelFactory getChannelFactory() {
+	protected static TnccsChannelFactory getChannelFactory() {
 		DefaultTnccsChannelFactory channelFactory = new DefaultTnccsChannelFactory(TcgTnccsProtocolEnum.TNCCS.value(),
 				TcgTnccsVersionEnum.V2.value(),
 				PbReaderFactory.createExperimentalDefault(),
@@ -237,5 +250,141 @@ public class Dummy extends AbstractDummy{
 		
 		return channelFactory;
 	}
+	
+	protected static StateMachine getStateMachine(){
+		return new StateMachine() {
+			
+			boolean closed = true;
+			
+			@Override
+			public TnccsBatch submitBatch(TnccsBatchContainer newBatch)
+					throws StateMachineAccessException {
+				System.out.println("Batch container received.");
+				if(closed){
+					throw new StateMachineAccessException("Machine closed.");
+				}
+				return null;
+			}
+			
+			@Override
+			public TnccsBatch start(boolean selfInitiated)
+					throws StateMachineAccessException {
+				System.out.println("Start called with: " + selfInitiated);
+				if(!closed){
+					throw new StateMachineAccessException("Machine  already running.");
+				}
+				this.closed = false;
+				
+				return null;
+			}
+			
+			@Override
+			public TnccsBatch retryHandshake(ImHandshakeRetryReasonEnum reason)
+					throws TncException {
+				System.out.println("Retry handshake called with " + reason.toString() +".");
+				if(closed){
+					throw new TncException("Machine closed.", TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
+				}
+				return null;
+			}
+			
+			@Override
+			public boolean isClosed() {
+				return closed;
+			}
+			
+			@Override
+			public void close() {
+				System.out.println("Close called.");
+				this.closed = true;
+				
+			}
+			
+			@Override
+			public boolean canRetry() {
+				return !this.closed;
+			}
+		};
+	}
 
+	protected static TnccsContentHandler getTnccsContentHandler() {
+		
+		SessionAttributes attributes = new SessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
+		
+		
+		return new DefaultTnccsContentHandler(Dummy.getImcHandler(), new DefaultTnccHandler(attributes), new DefaultTnccsValidationExceptionHandler());
+		
+	}
+
+	protected static TnccsBatch getServerDataBatch() throws ValidationException{
+
+		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
+		long subType = 1L;
+		short collectorId = (short)0xFFFF;
+		short validatorId = 1;
+		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
+		List<TnccsMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
+		messages.add(PbMessageFactoryIetf.createLanguagePreference(HSBConstants.HSB_DEFAULT_LANGUAGE));
+		return PbBatchFactoryIetf.createServerData(messages);
+	}
+	
+	protected static TnccsBatch getServerResultBatch() throws ValidationException{
+
+		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
+		long subType = 1L;
+		short collectorId = (short)0xFFFF;
+		short validatorId = 1;
+		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
+		List<TnccsMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
+		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
+		messages.add(PbMessageFactoryIetf.createAssessmentResult(PbMessageAssessmentResultEnum.COMPLIANT));
+		return PbBatchFactoryIetf.createResult(messages);
+	}
+	
+	protected static TnccsBatch getServerCloseBatch() throws ValidationException{
+
+		List<TnccsMessage> messages = new ArrayList<>();
+		return PbBatchFactoryIetf.createServerClose(messages);
+	}
+	
+	protected static ImcHandler getImcHandler() {
+		return new ImcHandler() {
+			
+			@Override
+			public void setConnectionState(TncConnectionState state) {
+				System.out.println("setConnectionState() called with " + state.toString() +".");
+			}
+			
+			@Override
+			public List<TnccsMessage> requestMessages() {
+				return this.createMessageList();
+			}
+			
+			@Override
+			public List<TnccsMessage> forwardMessage(TnccsMessage value) {
+				return this.createMessageList();
+			}
+			
+			private List<TnccsMessage> createMessageList(){
+				Random r = new Random();
+				List<TnccsMessage> messages = new ArrayList<>();
+				try {
+					PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
+					messages.add(m);
+				} catch (ValidationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return messages;
+			}
+			
+		};
+	}
+	
+	
+	
 }

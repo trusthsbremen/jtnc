@@ -61,12 +61,12 @@ public class DefaultTnccsContentHandler implements TnccsContentHandler{
 		if(list != null){
 			for (TnccsMessage tnccsMessage : list) {
 				// TODO make a better filter here, only bring those message to a handler who can handle it.
-				List<TnccsMessage> temp = this.imHandler.forwardMessage(tnccsMessage.getValue());
+				List<TnccsMessage> temp = this.imHandler.forwardMessage(tnccsMessage);
 				if(temp != null){
 					messages.addAll(temp);
 				}
 				
-				temp = this.tnccHandler.forwardMessage(tnccsMessage.getValue());
+				temp = this.tnccHandler.forwardMessage(tnccsMessage);
 				if(temp != null){
 					messages.addAll(temp);
 				}

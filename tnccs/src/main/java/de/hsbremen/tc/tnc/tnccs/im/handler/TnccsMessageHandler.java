@@ -4,7 +4,6 @@ import java.util.List;
 
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
-import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 
 interface TnccsMessageHandler {
 
@@ -12,5 +11,5 @@ interface TnccsMessageHandler {
 	//public abstract Map<Long,Set<Long>> getForwardableMessageTypes();
 	public abstract void setConnectionState(TncConnectionState state);
 	public abstract List<TnccsMessage> requestMessages();
-	public abstract List<TnccsMessage> forwardMessage(TnccsMessageValue value);
+	public abstract List<TnccsMessage> forwardMessage(TnccsMessage value);
 }

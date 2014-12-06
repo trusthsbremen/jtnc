@@ -1,5 +1,6 @@
 package de.hsbremen.tc.tnc.tnccs.im.handler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -148,8 +149,15 @@ public class DefaultImcHandler implements ImcHandler{
 	}
 
 	@Override
-	public List<TnccsMessage> forwardMessage(TnccsMessageValue value) {
+	public List<TnccsMessage> forwardMessage(TnccsMessage message) {
 		this.checkState();
+		
+		if(message == null || message.getValue() == null){
+			LOGGER.debug("Because Message or message value is null, it is ignored.");
+			return new ArrayList<TnccsMessage>();
+		}
+		
+		TnccsMessageValue value = message.getValue();
 		
 		if(value instanceof PbMessageValueIm){
 			

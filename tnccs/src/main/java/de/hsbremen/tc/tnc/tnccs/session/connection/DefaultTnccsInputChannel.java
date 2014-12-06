@@ -47,10 +47,14 @@ public class DefaultTnccsInputChannel implements TnccsInputChannel, Runnable{
 			}
 		}catch(ConnectionException | SerializationException e){
 			this.listener.handle(e);
+		}catch(ListenerClosedException e){
+			// ignore just close
 		}finally{
 			this.connection.close();
 		}
 	}
+	
+	
 	
 	private TnccsBatchContainer receive() throws ConnectionException, SerializationException{
 		this.checkConnection();
