@@ -2,23 +2,25 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>de.hsbremen.tc.tnc</groupId>
-    <artifactId>examples</artifactId>
+    <artifactId>jtnc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
-  <artifactId>ar-example</artifactId>
-  <packaging>jar</packaging>
-  <name>Access Requestor Example</name>
+  <artifactId>tcg-if</artifactId>
+  <packaging>pom</packaging>
+  <name>Implementation Examples</name>
+   
+  <modules>
+	<module>if-common</module>
+	<module>if-imc</module>
+	<module>if-imv</module>
+  </modules>
   
   <!-- <properties>
-		<main.basedir>${project.parent.parent.basedir}</main.basedir>
+		<main.basedir>${project.parent.basedir}</main.basedir>
   </properties> -->
   
+ 
 	<dependencies>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>
-			<artifactId>nar</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 </project>

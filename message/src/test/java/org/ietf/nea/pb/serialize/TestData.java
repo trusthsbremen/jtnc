@@ -14,6 +14,7 @@ import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.PbMessageHeaderBuilderIetf;
 import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
+import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
@@ -53,7 +54,10 @@ public class TestData {
 			114, 32, 109, 111, 98, 105, 108, 101, 32, 112, 104, 111, 110, 101, 
 			46, 2, 101, 110};
 	
-	byte[] recommendationBatch = new byte[]{2, -128, 0, 1, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1};
+	byte[] recommendationBatchWrongBatchType = new byte[]{2, -128, 0, 1, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1};
+	
+	byte[] recommendationBatch = new byte[] {2, 0, 0, 3, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1, -128, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 16, 0, 0, 0, 0};
+
 	
 	public ByteArrayInputStream getBatchWithImAsStream() throws IOException{
 		return new ByteArrayInputStream(imBatch);
@@ -65,6 +69,10 @@ public class TestData {
 	
 	public ByteArrayInputStream getBatchWithRecommendationAsStream() throws IOException{
 		return new ByteArrayInputStream(recommendationBatch);
+	}
+	
+	public ByteArrayInputStream getBatchWithWrongTypeAndRecommendationAsStream() throws IOException{
+		return new ByteArrayInputStream(recommendationBatchWrongBatchType);
 	}
 	
 	public ByteArrayInputStream getBatchWithMixedAsStream() throws IOException{
@@ -100,12 +108,12 @@ public class TestData {
 	}
 	
 	
-	public PbBatch getBatchWithAccessRecommendation() throws ValidationException{
+	public PbBatch getBatchResult() throws ValidationException{
 		
 		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
-		
-		return PbBatchFactoryIetf.createClientData(messages);
+		messages.add(PbMessageFactoryIetf.createAssessmentResult(PbMessageAssessmentResultEnum.COMPLIANT));
+		return PbBatchFactoryIetf.createResult(messages);
 	}
 	
 	public PbBatch getBatchWithReasonString() throws ValidationException{
@@ -126,7 +134,7 @@ public class TestData {
 		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
 		List<TnccsMessage> messages = new ArrayList<>();
 		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
-		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
+//		messages.add(PbMessageFactoryIetf.createAccessRecommendation(PbMessageAccessRecommendationEnum.ALLOWED));
 		messages.add(PbMessageFactoryIetf.createReasonString("Don't ever take intimate pictures with your mobile phone.", "en"));
 		
 		return PbBatchFactoryIetf.createClientData(messages);

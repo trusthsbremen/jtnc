@@ -8,7 +8,7 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public interface TransportConnection{
 
-     public abstract TransportAddress getId(); 
+     public abstract TransportAddress getAddress(); 
 
 	 public abstract boolean isSelfInititated();
 	 
@@ -18,9 +18,9 @@ public interface TransportConnection{
 	    
 	 public abstract void close();
 	    
-	 public abstract OutputStream getOutputStream();
+	 public abstract OutputStream getOutputStream() throws ConnectionException;
 	 
-	 public abstract InputStream getInputStream();
+	 public abstract InputStream getInputStream() throws ConnectionException;
 	 
 //	 public abstract void send(final TnccsBatch data) throws SerializationException, ConnectionException;
 // 

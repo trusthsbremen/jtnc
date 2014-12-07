@@ -52,7 +52,6 @@ import de.hsbremen.tc.tnc.tnccs.session.connection.simple.DefaultTnccsChannelFac
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
-import de.hsbremen.tc.tnc.transport.connection.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
@@ -61,7 +60,7 @@ public class Dummy extends AbstractDummy{
 	protected static TransportConnection getSelfInitiatedTransportConnection() {
 		return new TransportConnection() {
 			
-			private TransportAttributes attributes;
+			private Attributed attributes;
 			private TransportAddress address;
 			private ByteArrayInputStream in;
 			private ByteArrayOutputStream out;
@@ -100,7 +99,7 @@ public class Dummy extends AbstractDummy{
 			}
 			
 			@Override
-			public TransportAddress getId() {
+			public TransportAddress getAddress() {
 				System.out.println("getId() called. " + this.address.toString());
 				return this.address;
 			}
@@ -127,8 +126,10 @@ public class Dummy extends AbstractDummy{
 		};
 	}
 
-	protected static TransportAttributes getTransportAttributes() {
-		return new TransportAttributes() {
+	protected static Attributed getTransportAttributes() {
+		return new Attributed() {
+			
+			
 			
 			private String tProtocol = TcgTProtocolEnum.TLS.value();
 			private String tVersion = TcgTVersionEnum.V1.value();

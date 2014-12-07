@@ -3,7 +3,10 @@ package de.hsbremen.tc.tnc.message.t.enums;
 public enum TcgTProtocolEnum {
 	TEAP("IF-T for Tunneled EAP"),
 	TLS("IF-T for TLS"),
-	PEAP("PEAP");
+	PEAP("PEAP"),
+	
+	// self added
+	PLAIN("IF-T for Testing");
 	
 	private String value;
 	

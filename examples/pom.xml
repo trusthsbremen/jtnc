@@ -7,13 +7,8 @@
   </parent>
   
   <artifactId>examples</artifactId>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <name>Implementation Examples</name>
-   
-  <modules>
-	<module>ar-example</module>
-	<module>imcs</module>
-  </modules>
   
   <!-- <properties>
 		<main.basedir>${project.parent.basedir}</main.basedir>
