@@ -10,7 +10,7 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
-public class ImMessageRouteVendor<T> implements ImMessageRouteComponent<T> {
+class ImMessageRouteVendor<T> implements ImMessageRouteComponent<T> {
 
 	private final Map<Long,ImMessageRouteComponent<T>> typeDispatcher;
 	

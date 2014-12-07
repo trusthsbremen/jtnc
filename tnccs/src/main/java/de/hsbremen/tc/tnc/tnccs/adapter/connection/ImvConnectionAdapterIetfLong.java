@@ -11,9 +11,9 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 
-public class ImvConnectionAdapterIetfLong extends ImvConnectionAdapterIetf implements IMVConnectionLong {
+class ImvConnectionAdapterIetfLong extends ImvConnectionAdapterIetf implements IMVConnectionLong {
 	
-	public ImvConnectionAdapterIetfLong(int primaryImcId,
+	ImvConnectionAdapterIetfLong(int primaryImcId,
 			ImvConnectionContext session) {
 		super(primaryImcId, session);
 	}

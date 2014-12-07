@@ -14,12 +14,12 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
-public class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implements ImcConnectionAdapter{
+class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implements ImcConnectionAdapter{
 
 	private final ImConnectionContext session;
 	private long maxMessageSize;
     
-	public ImcConnectionAdapterIetf(int primaryImcId,
+	ImcConnectionAdapterIetf(int primaryImcId,
 			ImConnectionContext session) {
 		super(primaryImcId);
 		this.session = session;

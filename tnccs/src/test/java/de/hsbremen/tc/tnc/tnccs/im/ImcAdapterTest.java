@@ -8,7 +8,7 @@ import org.junit.Test;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.tnccs.adapter.connection.DefaultImcConnectionAdapterFactory;
+import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter;
@@ -31,7 +31,7 @@ public class ImcAdapterTest {
 	public void setUp(){
 		ImcAdapterFactory factory = new ImcAdapterFactoryIetf();
 		this.adapter = factory.createImcAdapter(Dummy.getIMC(),this.imId0);
-		ImcConnectionAdapterFactory connfactory = new DefaultImcConnectionAdapterFactory(Dummy.getConnectionContext());
+		ImcConnectionAdapterFactory connfactory = new ImcConnectionAdapterFactoryIetf(Dummy.getConnectionContext());
 		this.connectionAdapter = connfactory.createConnection(this.imId0);
 	}
 	

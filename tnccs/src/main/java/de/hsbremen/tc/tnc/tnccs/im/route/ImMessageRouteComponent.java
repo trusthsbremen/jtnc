@@ -4,7 +4,7 @@ import java.util.List;
 
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
-public interface ImMessageRouteComponent<T> {
+interface ImMessageRouteComponent<T> {
 	
 	// May throw TNCException
 	public List<T> findRecipients(Long vendorId, Long messageType);

@@ -11,20 +11,20 @@ import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
-import de.hsbremen.tc.tnc.tnccs.adapter.connection.DefaultImcConnectionAdapterFactory;
+import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.tnccs.im.manager.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
+import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
-import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultImcHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImcHandler;
 
 public class ImHandlerTest {
 
@@ -54,7 +54,7 @@ public class ImHandlerTest {
 		types.add(SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(0x0003));
 		this.manager.add(Dummy.getIMCwithMessageSupport(types));
 		ImcConnectionContext context = Dummy.getConnectionContext();
-		this.connFactory = new DefaultImcConnectionAdapterFactory(context);
+		this.connFactory = new ImcConnectionAdapterFactoryIetf(context);
 		this.handler = new DefaultImcHandler(manager, connFactory, context, manager.getRouter());
 
 	}

@@ -1,5 +1,7 @@
 package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 
+import java.util.List;
+
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
@@ -12,12 +14,14 @@ public interface StateMachine {
 
 	public abstract TnccsBatch receiveBatch(TnccsBatchContainer newBatch) throws StateMachineAccessException;
 
-	public abstract TnccsBatch retryHandshake(ImHandshakeRetryReasonEnum reason) throws TncException;
+	public abstract List<TnccsBatch> retryHandshake(ImHandshakeRetryReasonEnum reason) throws TncException;
 
+	public abstract TnccsBatch close() throws StateMachineAccessException;
+	
 	public abstract boolean canRetry();
 	
 	public abstract boolean isClosed();
 	
-	public abstract void close();
+	public abstract void stop();
 
 }

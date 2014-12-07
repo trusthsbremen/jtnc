@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.tnccs.im.loader.DefaultFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy;
 import de.hsbremen.tc.tnc.tnccs.im.loader.FileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy.NotifyTestObject;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultFileChangeMonitor;
 
 public class FileMonitorTest {
 

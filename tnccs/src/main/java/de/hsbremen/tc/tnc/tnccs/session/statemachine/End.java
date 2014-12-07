@@ -1,5 +1,5 @@
 package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 
-public interface End extends State {
+public interface End {
 
 }

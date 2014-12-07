@@ -20,8 +20,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="de.hsbremen.tc.tnc.tnccs.im.manager.DefaultImcManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/manager/DefaultImcManager.java" binary="false" 
+  <class id="3" language="java" name="de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/manager/simple/DefaultImcManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="204" y="385"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -30,8 +30,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="de.hsbremen.tc.tnc.tnccs.im.manager.DefaultImvManager" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/manager/DefaultImvManager.java" binary="false" 
+  <class id="4" language="java" name="de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImvManager" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/manager/simple/DefaultImvManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1136" y="388"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -70,8 +70,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="8" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.DefaultImcHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/DefaultImcHandler.java" binary="false" 
+  <class id="8" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImcHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/simple/DefaultImcHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="174" y="780"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -80,8 +80,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.DefaultImvHandler" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/DefaultImvHandler.java" binary="false" 
+  <class id="9" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImvHandler" project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/simple/DefaultImvHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1174" y="769"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

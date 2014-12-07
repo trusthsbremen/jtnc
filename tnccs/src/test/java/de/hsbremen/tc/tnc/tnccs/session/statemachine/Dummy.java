@@ -25,6 +25,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 import de.hsbremen.tc.tnc.exception.TncException;
@@ -37,17 +38,17 @@ import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
+import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
-import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccHandler;
-import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccsContentHandler;
-import de.hsbremen.tc.tnc.tnccs.message.handler.DefaultTnccsValidationExceptionHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
-import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
-import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
-import de.hsbremen.tc.tnc.tnccs.session.connection.DefaultTnccsChannelFactory;
+import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
+import de.hsbremen.tc.tnc.tnccs.session.connection.simple.DefaultTnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
 import de.hsbremen.tc.tnc.transport.connection.TransportAttributes;
@@ -108,7 +109,8 @@ public class Dummy extends AbstractDummy{
 				System.out.println("getAttributes() called.");
 				return this.attributes;
 			}
-			
+
+
 			@Override
 			public void close() {
 				try{
@@ -279,13 +281,13 @@ public class Dummy extends AbstractDummy{
 			}
 			
 			@Override
-			public TnccsBatch retryHandshake(ImHandshakeRetryReasonEnum reason)
+			public List<TnccsBatch> retryHandshake(ImHandshakeRetryReasonEnum reason)
 					throws TncException {
 				System.out.println("Retry handshake called with " + reason.toString() +".");
 				if(closed){
 					throw new TncException("Machine closed.", TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
 				}
-				return null;
+				return new ArrayList<>();
 			}
 			
 			@Override
@@ -294,8 +296,8 @@ public class Dummy extends AbstractDummy{
 			}
 			
 			@Override
-			public void close() {
-				System.out.println("Close called.");
+			public void stop() {
+				System.out.println("Stop called.");
 				this.closed = true;
 				
 			}
@@ -304,16 +306,19 @@ public class Dummy extends AbstractDummy{
 			public boolean canRetry() {
 				return !this.closed;
 			}
-		};
-	}
 
-	protected static TnccsContentHandler getTnccsContentHandler() {
-		
-		SessionAttributes attributes = new SessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
-		
-		
-		return new DefaultTnccsContentHandler(Dummy.getImcHandler(), new DefaultTnccHandler(attributes), new DefaultTnccsValidationExceptionHandler());
-		
+			@Override
+			public TnccsBatch close() throws StateMachineAccessException {
+				System.out.println("Close called.");
+				try {
+					return PbBatchFactoryIetf.createClientClose(new ArrayList<TnccsMessage>());
+				} catch (ValidationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
+			}
+		};
 	}
 
 	protected static TnccsBatch getServerDataBatch() throws ValidationException{
@@ -354,8 +359,16 @@ public class Dummy extends AbstractDummy{
 	protected static ImcHandler getImcHandler() {
 		return new ImcHandler() {
 			
+			boolean handShakeBegin = false;
+			 
 			@Override
 			public void setConnectionState(TncConnectionState state) {
+				if(state.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE)){
+					this.handShakeBegin = true;
+				}
+				if(state.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE)){
+					this.handShakeBegin = false;
+				}
 				System.out.println("setConnectionState() called with " + state.toString() +".");
 			}
 			
@@ -372,14 +385,17 @@ public class Dummy extends AbstractDummy{
 			}
 			
 			private List<TnccsMessage> createMessageList(){
-				Random r = new Random();
 				List<TnccsMessage> messages = new ArrayList<>();
-				try {
-					PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
-					messages.add(m);
-				} catch (ValidationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(handShakeBegin){
+					Random r = new Random();
+					try {
+						PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
+						messages.add(m);
+					} catch (ValidationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					handShakeBegin = false;
 				}
 				return messages;
 			}
@@ -392,7 +408,93 @@ public class Dummy extends AbstractDummy{
 			
 		};
 	}
+
+	public static ImvHandler getImvHandler() {
+		// TODO Auto-generated method stub
+		return new ImvHandler() {
+			
+			boolean handShakeBegin = false;
+			 
+			@Override
+			public void setConnectionState(TncConnectionState state) {
+				if(state.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE)){
+					this.handShakeBegin = true;
+				}
+				if(state.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE)){
+					this.handShakeBegin = false;
+				}
+				System.out.println("setConnectionState() called with " + state.toString() +".");
+			}
+			
+			@Override
+			public List<TnccsMessage> requestMessages() {
+				System.out.println("requestMessages() called.");
+				return this.createMessageList();
+			}
+			
+			@Override
+			public List<TnccsMessage> forwardMessage(TnccsMessage value) {
+				System.out.println("forwardMessages() called.");
+				return this.createMessageList();
+			}
+			
+			private List<TnccsMessage> createMessageList(){
+				List<TnccsMessage> messages = new ArrayList<>();
+				if(handShakeBegin){
+					Random r = new Random();
+					try {
+						PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
+						messages.add(m);
+					} catch (ValidationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					handShakeBegin = false;
+				}
+				return messages;
+			}
+
+			@Override
+			public List<TnccsMessage> lastCall() {
+				System.out.println("lastCall() called.");
+				return new ArrayList<>();
+			}
+			
+			@Override
+			public List<ImvRecommendationPair> solicitRecommendation() {
+				System.out.println("solicitRecommendation() called.");
+				List<ImvRecommendationPair> recommendationPairs = new ArrayList<>();
+				recommendationPairs.add(ImvRecommendationPairFactory.getDefaultRecommendationPair());
+				recommendationPairs.add(ImvRecommendationPairFactory.createRecommendationPair(ImvActionRecommendationEnum.TNC_IMV_ACTION_RECOMMENDATION_ALLOW, ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MINOR));
+				recommendationPairs.add(ImvRecommendationPairFactory.createRecommendationPair(ImvActionRecommendationEnum.TNC_IMV_ACTION_RECOMMENDATION_ISOLATE, ImvEvaluationResultEnum.TNC_IMV_EVALUATION_RESULT_NONCOMPLIANT_MAJOR));
+				return recommendationPairs;
+			}
+		};
+	}
+
+	public static TnccsBatch getClientDataBatch() throws ValidationException{
+		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
+		long subType = 1L;
+		short collectorId = 1;
+		short validatorId = (short)0xFFFF;
+		byte[] message = "PWND".getBytes(Charset.forName("US-ASCII"));
+		List<TnccsMessage> messages = new ArrayList<>();
+		messages.add(PbMessageFactoryIetf.createIm(imFlags, subVendorId, subType, collectorId, validatorId, message));
+		messages.add(PbMessageFactoryIetf.createLanguagePreference(HSBConstants.HSB_DEFAULT_LANGUAGE));
+		return PbBatchFactoryIetf.createClientData(messages);
+	}
 	
+	public static TnccsBatch getEmptyClientDataBatch() throws ValidationException{
+		List<TnccsMessage> messages = new ArrayList<>();
+		return PbBatchFactoryIetf.createClientData(messages);
+	}
+
+	protected static TnccsBatch getClientCloseBatch() throws ValidationException{
+
+		List<TnccsMessage> messages = new ArrayList<>();
+		return PbBatchFactoryIetf.createClientClose(messages);
+	}
 	
 	
 }

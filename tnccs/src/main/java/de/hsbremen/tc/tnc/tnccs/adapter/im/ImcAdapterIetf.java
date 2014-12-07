@@ -17,14 +17,14 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 
-public class ImcAdapterIetf implements ImcAdapter{
+class ImcAdapterIetf implements ImcAdapter{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImcAdapterIetf.class);
 	private IMC imc;
 	private final long primaryId;
 //	private final ImParameter parameter;
 
-	public ImcAdapterIetf(IMC imc, long primaryId /*, ImParameter parameter*/) {
+	ImcAdapterIetf(IMC imc, long primaryId /*, ImParameter parameter*/) {
 		this.imc = imc;
 		this.primaryId = primaryId;
 		/* this.parameter = parameter; */

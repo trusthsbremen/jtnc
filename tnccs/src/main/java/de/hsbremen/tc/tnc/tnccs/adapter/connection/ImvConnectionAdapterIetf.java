@@ -16,12 +16,12 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
-public class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements ImvConnectionAdapter{
+class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements ImvConnectionAdapter{
 
 	private final ImvConnectionContext session;
 	private long maxMessageSize;
 	
-	public ImvConnectionAdapterIetf(int primaryImvId,
+	ImvConnectionAdapterIetf(int primaryImvId,
 			ImvConnectionContext session) {
 		super(primaryImvId);
 		this.session = session;
@@ -119,7 +119,7 @@ public class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implem
 		}
 		
 		try {
-			this.session.addRecommendation(recommendationPair);
+			this.session.addRecommendation(super.getImId(),recommendationPair);
 		} catch (TncException e) {
 			throw new TNCException(e.getMessage(), e.getResultCode().result());
 		}

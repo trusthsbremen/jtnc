@@ -17,14 +17,14 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 
-public class ImvAdapterIetf implements ImvAdapter{
+class ImvAdapterIetf implements ImvAdapter{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImvAdapterIetf.class);
 	private IMV imv;
 	private final long primaryId;
 //	private final ImParameter parameter;
 
-	public ImvAdapterIetf(IMV imv, long primaryId /*, ImParameter parameter*/) {
+	ImvAdapterIetf(IMV imv, long primaryId /*, ImParameter parameter*/) {
 		this.imv = imv;
 		this.primaryId = primaryId;
 		/* this.parameter = parameter; */

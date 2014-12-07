@@ -11,13 +11,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.tnccs.im.loader.DefaultConfigurationEntryManager;
-import de.hsbremen.tc.tnc.tnccs.im.loader.DefaultFileChangeMonitor;
-import de.hsbremen.tc.tnc.tnccs.im.loader.DefaultTncConfigurationFileParser;
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy;
 import de.hsbremen.tc.tnc.tnccs.im.loader.FileChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.FileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy.NotifyTestObject;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationEntryManager;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultTncConfigurationFileParser;
 
 public class ConfigurationEntryManagerTest {
 

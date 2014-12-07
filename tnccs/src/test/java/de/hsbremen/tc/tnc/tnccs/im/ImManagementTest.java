@@ -16,9 +16,9 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.tnccs.im.manager.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
+import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 

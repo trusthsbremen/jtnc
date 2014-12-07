@@ -33,6 +33,7 @@ import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
+import de.hsbremen.tc.tnc.tnccs.session.connection.simple.DefaultTnccsChannelFactory;
 import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
 import de.hsbremen.tc.tnc.transport.connection.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;

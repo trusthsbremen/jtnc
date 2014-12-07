@@ -11,9 +11,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="de.hsbremen.tc.tnc.tnccs.im.loader.DefaultFileChangeMonitor" project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/loader/DefaultFileChangeMonitor.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultFileChangeMonitor" 
+    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/loader/simple/DefaultFileChangeMonitor.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="642" y="548"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -31,8 +31,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="4" language="java" name="de.hsbremen.tc.tnc.tnccs.im.loader.DefaultConfigurationEntryManager" 
-    project="tnccs" file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/loader/DefaultConfigurationEntryManager.java" 
+  <class id="4" language="java" name="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationEntryManager" 
+    project="tnccs" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/loader/simple/DefaultConfigurationEntryManager.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="485" y="1039"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -61,10 +62,10 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="7" language="java" name="de.hsbremen.tc.tnc.tnccs.im.loader.DefaultTncConfigurationFileParser" 
+  <class id="7" language="java" name="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultTncConfigurationFileParser" 
     project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/loader/DefaultTncConfigurationFileParser.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/im/loader/simple/DefaultTncConfigurationFileParser.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-160" y="1262"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
