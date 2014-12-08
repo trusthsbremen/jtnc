@@ -1,11 +1,10 @@
 package de.hsbremen.tc.tnc.tnccs.adapter.im;
 
-import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
-
 import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 
-public interface ImvAdapter extends ImAdapter<IMVConnection> {
+public interface ImvAdapter extends ImAdapter<ImvConnectionAdapter> {
 
-	public void solicitRecommendation(IMVConnection connection) throws TncException, TerminatedException;
+	public void solicitRecommendation(ImvConnectionAdapter connection) throws TncException, TerminatedException;
 }

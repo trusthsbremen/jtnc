@@ -75,7 +75,7 @@ public class SocketTransportConnection implements TransportConnection{
 	public OutputStream getOutputStream() throws ConnectionException{
 		if(isOpen()){
 			try {
-				return new NoCloseOutputStream(socket.getOutputStream());
+				return socket.getOutputStream();
 			} catch (IOException e) {
 				throw new ConnectionException("Socket OutputStream is not accessible.", e);
 			}
@@ -88,7 +88,7 @@ public class SocketTransportConnection implements TransportConnection{
 	public InputStream getInputStream() throws ConnectionException{
 		if(isOpen()){
 			try {
-				return new NoCloseInputStream(socket.getInputStream());
+				return socket.getInputStream();
 			} catch (IOException e) {
 				throw new ConnectionException("Socket InputStream is not accessible.", e);
 			}

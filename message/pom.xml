@@ -8,7 +8,7 @@
   </parent>
 	<artifactId>message</artifactId>
 	<packaging>jar</packaging>
-	<name>TNC Message Handling</name>
+	<name>TNC messages and IM attributes</name>
 	
 	<!-- <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>

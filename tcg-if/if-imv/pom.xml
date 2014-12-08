@@ -8,7 +8,7 @@
   </parent>
 	<artifactId>if-imv</artifactId>
 	<packaging>jar</packaging>
-	<name>TCG IF-IMV Interface Specifications</name>
+	<name>TCG IF-IMV interface specifications</name>
 	
 	<!-- <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>

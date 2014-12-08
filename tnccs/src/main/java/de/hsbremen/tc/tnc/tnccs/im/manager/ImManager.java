@@ -12,5 +12,6 @@ public interface ImManager<T>{
 	public abstract void remove(long id);
 	public abstract long reserveAdditionalId(T im) throws TncException;
 	public abstract void reportSupportedMessagesTypes(T im, Set<SupportedMessageType> types) throws TncException;
+	public abstract void terminate();
 	
 }

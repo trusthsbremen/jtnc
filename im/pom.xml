@@ -9,7 +9,7 @@
 	
 	<artifactId>im</artifactId>
 	<packaging>jar</packaging>
-	<name>Integrity Measurement Module Handling</name>
+	<name>IM collector and verifier</name>
 	
 	<!--  <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>

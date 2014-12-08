@@ -8,7 +8,7 @@
   </parent>
 	<artifactId>tnccs</artifactId>
 	<packaging>jar</packaging>
-	<name>Tnc Client</name>
+	<name>TNC client and server</name>
 
 	<!-- <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>
@@ -18,7 +18,22 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.hsbremen.tc.tnc</groupId>
+			<artifactId>if-imc</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc</groupId>
+			<artifactId>if-imv</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc</groupId>
 			<artifactId>if-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc</groupId>
+			<artifactId>message</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

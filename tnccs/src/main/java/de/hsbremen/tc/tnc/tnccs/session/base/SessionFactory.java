@@ -4,6 +4,6 @@ import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 
 public interface SessionFactory {
 
-	public abstract SessionBase createTnccsSession(TransportConnection connection);
+	public abstract Session createTnccsSession(TransportConnection connection);
 
 }

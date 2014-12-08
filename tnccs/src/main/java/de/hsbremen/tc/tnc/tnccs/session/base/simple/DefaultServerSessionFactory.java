@@ -1,8 +1,8 @@
 package de.hsbremen.tc.tnc.tnccs.session.base.simple;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
-import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionAdapterFactory;
+import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.simple.DefaultImvConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapter;
@@ -16,7 +16,7 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccsValidationExc
 import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTncsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTncsHandler;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
-import de.hsbremen.tc.tnc.tnccs.session.base.SessionBase;
+import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
@@ -37,7 +37,7 @@ public class DefaultServerSessionFactory implements SessionFactory{
 		this.channelFactory = channelFactory;
 	}
 	
-	public SessionBase createTnccsSession(TransportConnection connection){
+	public Session createTnccsSession(TransportConnection connection){
 		
 		DefaultSession s = new DefaultSession(new DefaultSessionAttributes(this.channelFactory.getProtocol(), this.channelFactory.getVersion()));
 		
@@ -67,7 +67,6 @@ public class DefaultServerSessionFactory implements SessionFactory{
 		s.registerStatemachine(machine);
 		s.registerInput(inChannel);
 		s.registerOutput(outChannel);
-		s.start(connection.isSelfInititated());
 
 		
 		return s;

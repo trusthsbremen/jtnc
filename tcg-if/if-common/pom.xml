@@ -8,7 +8,7 @@
   </parent>
 	<artifactId>if-common</artifactId>
 	<packaging>jar</packaging>
-	<name>TCG IF-IMC/V Interface Specifications Common Derivations</name>
+	<name>HSB IF-IMC/V interface specification additions</name>
 	
 	<!-- <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>
@@ -17,12 +17,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>	
+			<groupId>de.hsbremen.tc.tnc</groupId>
 			<artifactId>if-imc</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>	
+			<groupId>de.hsbremen.tc.tnc</groupId>
 			<artifactId>if-imv</artifactId>
 			<version>${project.version}</version>
 		</dependency>

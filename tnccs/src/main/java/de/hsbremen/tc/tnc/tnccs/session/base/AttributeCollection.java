@@ -1,5 +1,6 @@
 package de.hsbremen.tc.tnc.tnccs.session.base;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
@@ -9,7 +10,11 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 
 public class AttributeCollection implements Attributed{
 
-	Set<? super Attributed> attributes;
+	private final Set<? super Attributed> attributes;
+	
+	public AttributeCollection(){
+		this.attributes = new HashSet<>();
+	}
 	
 	public <T extends Attributed> void add(T attributes){
 		this.attributes.add(attributes);

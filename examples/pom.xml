@@ -8,7 +8,7 @@
   
   <artifactId>examples</artifactId>
   <packaging>jar</packaging>
-  <name>Implementation Examples</name>
+  <name>Implementation examples</name>
   
   <!-- <properties>
 		<main.basedir>${project.parent.basedir}</main.basedir>
@@ -16,5 +16,15 @@
   
  
 	<dependencies>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc</groupId>
+			<artifactId>tnccs</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc</groupId>
+			<artifactId>im</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

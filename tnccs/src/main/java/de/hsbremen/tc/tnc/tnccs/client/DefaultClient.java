@@ -10,19 +10,23 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeTypeEnum;
-import de.hsbremen.tc.tnc.tnccs.session.base.SessionBase;
+import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
+import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultSession;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 
-public class DefaultClient implements Client{
+public class DefaultClient implements Client, GlobalHandshakeRetryListener{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSession.class);
 	
 	private static final long DEFAULT_SESSION_CLEANUP_INTERVAL = 5000; 
 	
-	private final Map<TransportConnection,SessionBase> runningSessions;
+	private final Map<TransportConnection,Session> runningSessions;
 	private final SessionFactory sessionFactory;
 	private boolean started;
 	private final long sessionCleanUpInterval;
@@ -69,8 +73,11 @@ public class DefaultClient implements Client{
 		if(this.runningSessions.containsKey(connection)){
 			this.closeSession(connection);
 		}
+	
+		Session s = this.sessionFactory.createTnccsSession(connection);
+		s.start(connection.isSelfInititated());
 		
-		this.runningSessions.put(connection, this.sessionFactory.createTnccsSession(connection));
+		this.runningSessions.put(connection, s);
 		
 	}
 
@@ -110,6 +117,7 @@ public class DefaultClient implements Client{
 		
 	}
 	
+	
 	public void start(){
 		this.started = true;
 		
@@ -118,8 +126,8 @@ public class DefaultClient implements Client{
 			@Override
 			public void run() {
 				while(!Thread.currentThread().isInterrupted()){
-					for(Iterator<Entry<TransportConnection, SessionBase>> iter = runningSessions.entrySet().iterator(); iter.hasNext();){
-						Entry<TransportConnection, SessionBase> e = iter.next();
+					for(Iterator<Entry<TransportConnection, Session>> iter = runningSessions.entrySet().iterator(); iter.hasNext();){
+						Entry<TransportConnection, Session> e = iter.next();
 						if(e.getValue().isClosed() || !e.getKey().isOpen()){
 							iter.remove();
 						}
@@ -139,13 +147,21 @@ public class DefaultClient implements Client{
 
 	
 	@Override
-	public void terminate() {
+	public void stop() {
 		
 		if(!started){
 			throw new IllegalStateException("Client was not started.");
 		}
 		this.notifyGlobalConnectionChange(ConnectionChangeTypeEnum.CLOSED);
 		this.sessionCleaner.interrupt();
+	}
+
+	@Override
+	public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason)
+			throws TncException {
+		// TODO make this possible?
+		throw new TncException("Global handshake retry is not supported.", TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
+		
 	}
 
 }

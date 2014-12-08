@@ -6,20 +6,15 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
-import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter;
-import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 
 public abstract class AbstractImManager<T> implements ImManager<T>{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractImManager.class);
+//	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractImManager.class);
 	
 	private long idDispensor;
 	private Deque<Long> idRecyclingBin;
@@ -27,7 +22,6 @@ public abstract class AbstractImManager<T> implements ImManager<T>{
 	
 	private Map<Long,T> imcIndex;
 	private Map<T, Long> imcs;
-	private Map<Long,ImcAdapter> adapterIndex;  
 	
 	private ImMessageRouter router;
 	
@@ -37,7 +31,6 @@ public abstract class AbstractImManager<T> implements ImManager<T>{
 		this.idRecyclingBin = new ConcurrentLinkedDeque<>(); // use this because sessions and IM management may have threads
 		this.imcs = new ConcurrentHashMap<>(); // use this because sessions and IM management may have threads
 		this.imcIndex = new ConcurrentHashMap<>(); // use this because sessions and IM management may have threads
-		this.adapterIndex = new ConcurrentHashMap<>(); // use this because sessions and IM management may have threads
 		this.router = router;
 		this.maxImId = maxImId;
 	}
@@ -71,23 +64,9 @@ public abstract class AbstractImManager<T> implements ImManager<T>{
 		if(imc != null){
 			this.imcs.remove(imc);
 		}
-		if(this.adapterIndex.containsKey(id)){
-			ImcAdapter adapter = this.adapterIndex.remove(id);
-			try {
-				adapter.terminate();
-			} catch (TerminatedException e) {
-				// ignore
-			}
-			
-		}
-		
-		if(!this.imcIndex.containsKey(id) && !this.adapterIndex.containsKey(id)){
-			this.idRecyclingBin.add(id);
-		}else{
-			LOGGER.warn("An ID "+ id +" cannot be reused, because it has remaining dependencies.");
-		}
-		
-		
+
+		this.idRecyclingBin.add(id);
+
 	}
 
 	@Override
@@ -112,16 +91,6 @@ public abstract class AbstractImManager<T> implements ImManager<T>{
 	}
 
 	protected abstract void initialize(long primaryId, T im) throws TncException;
-	
-//	@Override
-//	public Map<Long,ImcAdapter> getAdapter() {
-//		return new HashMap<>(this.adapterIndex);
-//	}
-//
-//	@Override
-//	public ImMessageRouter getRouter() {
-//		return this.router;
-//	}
 
 	private long reserveId() throws TncException {
 		if(!this.idRecyclingBin.isEmpty()){
@@ -134,10 +103,4 @@ public abstract class AbstractImManager<T> implements ImManager<T>{
 			}
 		}
 	}
-
-//	@Override
-//	public void removeAdapter(long id) {
-//		this.remove(id);
-//		
-//	}
 }

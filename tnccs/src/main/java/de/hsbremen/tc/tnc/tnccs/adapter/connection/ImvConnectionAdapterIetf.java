@@ -113,7 +113,7 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements Im
 		
 		ImvRecommendationPair recommendationPair = null;
 		try{
-			ImvRecommendationPairFactory.createRecommendationPair(recommendation, evaluation);
+			recommendationPair = ImvRecommendationPairFactory.createRecommendationPair(recommendation, evaluation);
 		}catch(IllegalArgumentException e){
 			throw new TNCException(e.getMessage(), TNCException.TNC_RESULT_INVALID_PARAMETER);
 		}

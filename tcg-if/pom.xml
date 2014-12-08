@@ -8,7 +8,7 @@
   
   <artifactId>tcg-if</artifactId>
   <packaging>pom</packaging>
-  <name>Implementation Examples</name>
+  <name>TCG and HSB interface specifications</name>
    
   <modules>
 	<module>if-common</module>

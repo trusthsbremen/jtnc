@@ -1,7 +1,10 @@
 package de.hsbremen.tc.tnc.tnccs.im.manager.simple;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
@@ -16,6 +19,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactory;
+import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.im.manager.AbstractImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
@@ -103,7 +107,26 @@ public class DefaultImcManager extends AbstractImManager<IMC> implements ImcMana
 
 	@Override
 	public void removeAdapter(long id) {
-		this.remove(id);
-		
+		if(this.adapterIndex.containsKey(id)){
+			ImcAdapter adapter = this.adapterIndex.remove(id);
+			try {
+				adapter.terminate();
+			} catch (TerminatedException e) {
+				// ignore
+			}
+			
+		}
+		super.remove(id);
 	}
+
+	@Override
+	public void terminate() {
+		Set<Long> keys = new HashSet<>(this.adapterIndex.keySet());
+		for(Iterator<Long> iter = keys.iterator(); iter.hasNext(); ){
+			Long key = iter.next();
+			this.remove(key);
+		}
+	}
+	
+	
 }

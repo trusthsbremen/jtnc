@@ -8,6 +8,7 @@ public interface Client {
 	public abstract void notifyConnectionChange(TransportConnection connection, ConnectionChangeTypeEnum change);
 	public abstract void notifyGlobalConnectionChange(ConnectionChangeTypeEnum change);
 
-	public void terminate();
+	public void start();
+	public void stop();
 	
 }

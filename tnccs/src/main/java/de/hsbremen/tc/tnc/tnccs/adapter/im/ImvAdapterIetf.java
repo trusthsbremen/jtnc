@@ -4,17 +4,17 @@ import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
-import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import org.trustedcomputinggroup.tnc.ifimv.IMVLong;
 import org.trustedcomputinggroup.tnc.ifimv.IMVTNCSFirst;
+import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
+import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 
 class ImvAdapterIetf implements ImvAdapter{
@@ -42,7 +42,7 @@ class ImvAdapterIetf implements ImvAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#notifyConnectionChange(org.trustedcomputinggroup.tnc.ifimv.IMVConnection, de.hsbremen.tc.tnc.connection.ImConnectionState)
 	 */
 	@Override
-	public void notifyConnectionChange(IMVConnection connection, TncConnectionState state) throws TncException, TerminatedException{
+	public void notifyConnectionChange(ImvConnectionAdapter connection, TncConnectionState state) throws TncException, TerminatedException{
 		try {
 			this.imv.notifyConnectionChange(connection, state.state());
 		} catch (TNCException e) {
@@ -56,9 +56,11 @@ class ImvAdapterIetf implements ImvAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImcAdapter#beginHandshake(org.trustedcomputinggroup.tnc.ifimv.IMVConnection)
 	 */
 	@Override
-	public void beginHandshake (IMVConnection connection) throws TncException, TerminatedException{
+	public void beginHandshake (ImvConnectionAdapter connection) throws TncException, TerminatedException{
+
 		try {
 			if(this.imv instanceof IMVTNCSFirst){
+				connection.allowMessageReceipt();
 				((IMVTNCSFirst)this.imv).beginHandshake(connection);
 			}else{
 				throw new UnsupportedOperationException("The underlying IMV is not of type " + IMVTNCSFirst.class.getCanonicalName() + ".");
@@ -67,6 +69,8 @@ class ImvAdapterIetf implements ImvAdapter{
 			throw new TncException(e);
 		}catch(NullPointerException e){
 			throw new TerminatedException();
+		}finally{
+			connection.denyMessageReceipt();
 		}
 	}
 	
@@ -74,7 +78,7 @@ class ImvAdapterIetf implements ImvAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#handleMessage(org.trustedcomputinggroup.tnc.ifimv.IMVConnection, de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue)
 	 */
 	@Override
-	public void handleMessage (IMVConnection connection, TnccsMessageValue message) throws TncException, TerminatedException{
+	public void handleMessage (ImvConnectionAdapter connection, TnccsMessageValue message) throws TncException, TerminatedException{
 		try{
 			this.dispatchMessageToImc(connection, message);
 		}catch(NullPointerException e){
@@ -86,14 +90,17 @@ class ImvAdapterIetf implements ImvAdapter{
 	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#batchEnding(org.trustedcomputinggroup.tnc.ifimv.IMVConnection)
 	 */
 	@Override
-	public void batchEnding (IMVConnection connection) throws TncException, TerminatedException{
+	public void batchEnding (ImvConnectionAdapter connection) throws TncException, TerminatedException{
 
 		try{
+			connection.allowMessageReceipt();
 			this.imv.batchEnding(connection);
 		}catch(TNCException e){
 			throw new TncException(e);
 		}catch(NullPointerException e){
 			throw new TerminatedException();
+		}finally{
+			connection.denyMessageReceipt();
 		}
 	}
 	
@@ -114,7 +121,7 @@ class ImvAdapterIetf implements ImvAdapter{
 	}
 	
 	@Override
-	public void solicitRecommendation(IMVConnection connection)
+	public void solicitRecommendation(ImvConnectionAdapter connection)
 			throws TncException, TerminatedException {
 
 		try{
@@ -127,7 +134,7 @@ class ImvAdapterIetf implements ImvAdapter{
 		
 	}
 	
-	private void dispatchMessageToImc(IMVConnection connection, TnccsMessageValue value) throws TncException{
+	private void dispatchMessageToImc(ImvConnectionAdapter connection, TnccsMessageValue value) throws TncException{
 		
 		if(value instanceof PbMessageValueIm){
 			PbMessageValueIm pbValue = (PbMessageValueIm) value;
@@ -140,18 +147,24 @@ class ImvAdapterIetf implements ImvAdapter{
 					bFlags |= pbMessageImFlagsEnum.bit();
 				}
 				try{
+					connection.allowMessageReceipt();
 					((IMVLong) this.imv).receiveMessageLong(connection, bFlags, pbValue.getSubVendorId(), pbValue.getSubType(), pbValue.getMessage(), pbValue.getValidatorId(), pbValue.getCollectorId());
 				}catch(TNCException e){
 					throw new TncException(e);
+				}finally{
+					connection.denyMessageReceipt();
 				}
 			}else{
 				if(pbValue.getSubType() <= TNCConstants.TNC_SUBTYPE_ANY){
 					
 					long msgType = (long)(pbValue.getSubVendorId() << 8) | (pbValue.getSubType() & 0xFF);
 					try{
+						connection.allowMessageReceipt();
 						this.imv.receiveMessage(connection,msgType,pbValue.getMessage());
 					}catch(TNCException e){
 						throw new TncException(e);
+					}finally{
+						connection.denyMessageReceipt();
 					}
 				}else{
 					LOGGER.warn("The IMC/V does not support message types greater than " + TNCConstants.TNC_SUBTYPE_ANY + ". The message with type " +pbValue.getSubType()+ " will be ignored.");

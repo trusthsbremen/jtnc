@@ -13,8 +13,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.tnccs.session.base.HandshakeRetryListener;
-import de.hsbremen.tc.tnc.tnccs.session.base.SessionBase;
+import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel;
@@ -23,7 +22,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
-public class DefaultSession implements TnccsInputChannelListener, HandshakeRetryListener, SessionBase {
+public class DefaultSession implements TnccsInputChannelListener, Session {
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSession.class);
 	
@@ -204,12 +203,21 @@ public class DefaultSession implements TnccsInputChannelListener, HandshakeRetry
 	
 	public void close(){
 		if(!this.closed){
-			if(!this.input.isInterrupted()){
-				this.input.interrupt();
-			}
+			if(this.input.isAlive() && !this.input.isInterrupted() ){
+				if(!machine.isClosed()){
+					try {
+						// try to close gracefully
+						TnccsBatch b = this.machine.close();
+						if(b != null){
+							this.output.send(b);
+						}
+					} catch (StateMachineAccessException | ConnectionException | SerializationException e) {
+						LOGGER.error("Fatal error discovered. Session terminates.", e);
+						this.machine.stop();
+					}
+				}
 			
-			if(!machine.isClosed()){
-				this.machine.stop();
+				this.input.interrupt();
 			}
 			
 			this.output.close();

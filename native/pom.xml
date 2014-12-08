@@ -9,7 +9,7 @@
 	
 	<artifactId>native</artifactId>
 	<packaging>jar</packaging>
-	<name>Native measurement code</name>
+	<name>Native measurement helper</name>
 	
 	<!--  <properties>
 		<main.basedir>${project.parent.parent.basedir}</main.basedir>
