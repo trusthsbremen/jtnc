@@ -3,7 +3,7 @@ package org.ietf.nea.pa.attribute.util;
 import java.nio.charset.Charset;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.LangCodeStringLimit;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pa.validate.rules.NoZeroString;
@@ -15,7 +15,7 @@ public class PaAttributeValueRemediationParameterStringBuilderIetf implements Pa
     private String langCode;            // variable length, US-ASCII string composed of a well-formed RFC 4646 [3] language tag
     
     public PaAttributeValueRemediationParameterStringBuilderIetf(){
-    	this.length = PaAttributeTlvFixedLength.REM_PAR_STR.length();
+    	this.length = PaAttributeTlvFixedLengthEnum.REM_PAR_STR.length();
     	this.remediationString = "";
     	this.langCode = "";
     }
@@ -67,7 +67,7 @@ public class PaAttributeValueRemediationParameterStringBuilderIetf implements Pa
 	}
 
 	private void updateLength(){
-		this.length = PaAttributeTlvFixedLength.REM_PAR_STR.length();
+		this.length = PaAttributeTlvFixedLengthEnum.REM_PAR_STR.length();
 		if(remediationString.length() > 0){
 			this.length += remediationString.getBytes(Charset.forName("UTF-8")).length;
 		}

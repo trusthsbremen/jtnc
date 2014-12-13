@@ -9,7 +9,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationLastResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationStatusEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 import org.ietf.nea.pa.validate.rules.LastUseSyntaxCheck;
 
@@ -24,7 +24,7 @@ public class PaAttributeValueOperationalStatusBuilderIetf implements
 	private SimpleDateFormat dateFormater;
 	
 	public PaAttributeValueOperationalStatusBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.OP_STAT.length();
+		this.length = PaAttributeTlvFixedLengthEnum.OP_STAT.length();
 		this.status = PaAttributeOperationStatusEnum.IETF_UNKNOWN;
 		this.result = PaAttributeOperationLastResultEnum.IETF_UNKNOWN;
 		this.lastUse = null;

@@ -7,7 +7,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParameters;
 import org.ietf.nea.pb.message.PbMessageValueRemediationParametersBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
 
@@ -111,7 +111,7 @@ class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessage
 
 	@Override
 	public byte getMinDataLength() {
-		return PbMessageTlvFixedLength.REM_PAR_VALUE.length();
+		return PbMessageTlvFixedLengthEnum.REM_PAR_VALUE.length();
 	}
 
 }

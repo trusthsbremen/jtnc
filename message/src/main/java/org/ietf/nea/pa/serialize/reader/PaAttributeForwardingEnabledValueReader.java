@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueForwardingEnabled;
 import org.ietf.nea.pa.attribute.PaAttributeValueForwardingEnabledBuilder;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -62,7 +62,7 @@ class PaAttributeForwardingEnabledValueReader implements ImReader<PaAttributeVal
 
 	@Override
 	public byte getMinDataLength() {
-		return PaAttributeTlvFixedLength.FWD_EN.length();
+		return PaAttributeTlvFixedLengthEnum.FWD_EN.length();
 	}
 
 }

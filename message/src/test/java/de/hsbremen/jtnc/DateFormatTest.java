@@ -33,5 +33,5 @@ public class DateFormatTest {
 		Assert.assertEquals(14, c.get(Calendar.DAY_OF_MONTH));
 		System.out.println(sd.format(d));
 	}
-	
+
 }

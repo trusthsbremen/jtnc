@@ -2,7 +2,7 @@ package org.ietf.nea.pb.message;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.AssessmentResult;
 
 public class PbMessageValueAssessmentResultBuilderIetf implements
@@ -13,7 +13,7 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 	private PbMessageAssessmentResultEnum result;      
 	
 	public PbMessageValueAssessmentResultBuilderIetf(){
-		this.length = PbMessageTlvFixedLength.ASS_RES_VALUE.length();
+		this.length = PbMessageTlvFixedLengthEnum.ASS_RES_VALUE.length();
 		this.result = PbMessageAssessmentResultEnum.COMPLIANT;
 	}
 

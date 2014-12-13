@@ -25,13 +25,13 @@ public class PtTlsMessageValueVersionRequest extends AbstractPtTlsMessageValue{
 
     private final short minVersion; //8 bit(s)
     private final short maxVersion; //8 bit(s)
-    private final short preferedVersion; //8 bit(s)
+    private final short preferredVersion; //8 bit(s)
 
-	PtTlsMessageValueVersionRequest(final long length,final short minVersion, final short maxVersion, final short preferedVersion) {
+	PtTlsMessageValueVersionRequest(final long length,final short minVersion, final short maxVersion, final short preferredVersion) {
 		super(length);
 		this.minVersion = minVersion;
 		this.maxVersion = maxVersion;
-		this.preferedVersion = preferedVersion;
+		this.preferredVersion = preferredVersion;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class PtTlsMessageValueVersionRequest extends AbstractPtTlsMessageValue{
 	/**
 	 * @return the preferedVersion
 	 */
-	public short getPreferedVersion() {
-		return this.preferedVersion;
+	public short getPreferredVersion() {
+		return this.preferredVersion;
 	}
 }

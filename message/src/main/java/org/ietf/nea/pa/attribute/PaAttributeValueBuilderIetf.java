@@ -14,7 +14,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeForwardingStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationLastResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributePortFilterStatus;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
 import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
@@ -39,7 +39,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new NullPointerException("Result cannot be null.");
 		}
 		
-		return new PaAttributeValueAssessmentResult(PaAttributeTlvFixedLength.ASS_RES.length(),result);
+		return new PaAttributeValueAssessmentResult(PaAttributeTlvFixedLengthEnum.ASS_RES.length(),result);
 	}
 	
 	public static PaAttributeValueFactoryDefaultPasswordEnabled createFactoryDefaultPasswordValue(final PaAttributeFactoryDefaultPasswordStatusEnum status){
@@ -48,7 +48,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new NullPointerException("Status cannot be null.");
 		}
 		
-		return new PaAttributeValueFactoryDefaultPasswordEnabled(PaAttributeTlvFixedLength.FAC_PW.length(),status);
+		return new PaAttributeValueFactoryDefaultPasswordEnabled(PaAttributeTlvFixedLengthEnum.FAC_PW.length(),status);
 	}
 	
 	public static PaAttributeValueForwardingEnabled createForwardingEnabledValue(final PaAttributeForwardingStatusEnum status){
@@ -57,7 +57,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new NullPointerException("Status cannot be null.");
 		}
 		
-		return new PaAttributeValueForwardingEnabled(PaAttributeTlvFixedLength.FWD_EN.length(),status);
+		return new PaAttributeValueForwardingEnabled(PaAttributeTlvFixedLengthEnum.FWD_EN.length(),status);
 	}
 	
 	public static PaAttributeValueAttributeRequest createAttributeRequestValue(final AttributeReference reference, AttributeReference...moreReferences){
@@ -76,7 +76,7 @@ public class PaAttributeValueBuilderIetf {
 			}
 		}
 		
-		long length = PaAttributeTlvFixedLength.ATT_REQ.length() * referenceList.size();
+		long length = PaAttributeTlvFixedLengthEnum.ATT_REQ.length() * referenceList.size();
 		
 		return new PaAttributeValueAttributeRequest(length, referenceList);
 	}
@@ -91,7 +91,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new NullPointerException("Product name cannot be null.");
 		}
 		
-		long length = PaAttributeTlvFixedLength.PRO_INF.length();
+		long length = PaAttributeTlvFixedLengthEnum.PRO_INF.length();
 		if(productName.length() > 0){
 			length += productName.getBytes(Charset.forName("UTF-8")).length;
 		}
@@ -101,7 +101,7 @@ public class PaAttributeValueBuilderIetf {
 		
 	public static PaAttributeValueNumericVersion createNumericVersionValue(long majorVersion, long minorVersion, long buildVersion, int servicePackMajor, int servicePackMinor){
 		// Nothing to check here. Maybe negativ values are bad, but could not fully determine this.
-		return new PaAttributeValueNumericVersion(PaAttributeTlvFixedLength.NUM_VER.length(), majorVersion, minorVersion, buildVersion, servicePackMajor, servicePackMinor);
+		return new PaAttributeValueNumericVersion(PaAttributeTlvFixedLengthEnum.NUM_VER.length(), majorVersion, minorVersion, buildVersion, servicePackMajor, servicePackMinor);
 	}
 	
 	public static PaAttributeValueStringVersion createStringVersionValue(String versionNumber, String buildVersion, String configVersion){
@@ -128,7 +128,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new IllegalArgumentException("Build number length " +configVersion.length()+ "is to long.");
 		}
 		
-		long length = PaAttributeTlvFixedLength.STR_VER.length();
+		long length = PaAttributeTlvFixedLengthEnum.STR_VER.length();
 		if(versionNumber.length() > 0){
 			length += versionNumber.getBytes(Charset.forName("UTF-8")).length;
 		}
@@ -156,7 +156,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new NullPointerException("Date of last use cannot be null, use 0000-00-00T00:00:00Z instead.");
 		}
 		
-		return new PaAttributeValueOperationalStatus(PaAttributeTlvFixedLength.OP_STAT.length(), status, result, lastUse);
+		return new PaAttributeValueOperationalStatus(PaAttributeTlvFixedLengthEnum.OP_STAT.length(), status, result, lastUse);
 	}
 	
 	public static PaAttributeValuePortFilter createPortFilterValue(PortFilterEntry entry, PortFilterEntry... moreEntries){
@@ -199,7 +199,7 @@ public class PaAttributeValueBuilderIetf {
 			entries.addAll(Arrays.asList(moreEntries));
 		}
 
-		long length = PaAttributeTlvFixedLength.PORT_FT.length() * entries.size();
+		long length = PaAttributeTlvFixedLengthEnum.PORT_FT.length() * entries.size();
 		
 		return new PaAttributeValuePortFilter(length, entries);
 	}
@@ -210,7 +210,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new NullPointerException("Packages cannot be null, you may use an empty list instead.");
 		}
 		
-		long length = PaAttributeTlvFixedLength.INS_PKG.length();
+		long length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
 		
 		for (PackageEntry pkgEntry : packages) {
 			length += pkgEntry.getPackageNameLength();
@@ -245,7 +245,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new IllegalArgumentException("Type is greater than "+ Long.toString(IETFConstants.IETF_MAX_TYPE) + ".");
 		}
 
-		long length = PaAttributeTlvFixedLength.REM_PAR.length() + parameter.getLength();
+		long length = PaAttributeTlvFixedLengthEnum.REM_PAR.length() + parameter.getLength();
 		
 		return new PaAttributeValueRemediationParameters(rpVendorId, rpType, length,parameter);
 	}
@@ -280,7 +280,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new IllegalArgumentException("Code is greater than "+ Long.toString(IETFConstants.IETF_MAX_TYPE) + ".");
 		}
 
-		long length = PaAttributeTlvFixedLength.ERR_INF.length() + errorInformation.getLength();
+		long length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + errorInformation.getLength();
 		
 		return new PaAttributeValueError(length, errVendorId, errCode, errorInformation);
 	}

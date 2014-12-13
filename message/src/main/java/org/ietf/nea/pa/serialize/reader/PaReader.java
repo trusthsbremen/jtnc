@@ -13,7 +13,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeValue;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageContainer;
 import org.ietf.nea.pa.message.PaMessageHeader;
@@ -64,7 +64,7 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 		mHead = mHeadReader.read(bIn, -1);
 
 		/* attributes */
-		long contentLength = length - PaAttributeTlvFixedLength.MESSAGE.length();
+		long contentLength = length - PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 		List<PaAttribute> attributes = new LinkedList<>();
 		if(contentLength >= aHeadReader.getMinDataLength()){
 			for(long cl = 0; cl < contentLength;){
@@ -75,7 +75,7 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 				try{
 					// ignore length here because header has a length field
 					aHead = aHeadReader.read(cIn, -1);
-					headerOffset = PaAttributeTlvFixedLength.ATTRIBUTE.length();
+					headerOffset = PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length();
 					
 					long vendor = aHead.getVendorId();
 					long type = aHead.getAttributeType();
@@ -87,7 +87,7 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 							
 							// Do a length check before trying to parse the value.
 							try{
-								long valueLength = aHead.getLength()-PaAttributeTlvFixedLength.ATTRIBUTE.length();
+								long valueLength = aHead.getLength()-PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length();
 								MinAttributeLength.check(valueLength, vr.getMinDataLength());
 							}catch(RuleException e1){
 								// Remove 4 from header offset because this is a late header check. Length is the last field
@@ -96,7 +96,7 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 								throw new ValidationException(e1.getMessage(), e1,0);
 							}
 							
-							aValue = vr.read(cIn, aHead.getLength()-PaAttributeTlvFixedLength.ATTRIBUTE.length());
+							aValue = vr.read(cIn, aHead.getLength()-PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length());
 							
 							if(aValue != null){
 								// Now that the value is known do the no skip check.
@@ -153,7 +153,7 @@ class PaReader implements ImReader<PaMessageContainer>, Combined<ImReader<PaAttr
 					
 					// current attribute position + message header length + the attribute header offset (if already parsed) 
 					// + the offset of the exception data 	
-					long offset = cl + PaAttributeTlvFixedLength.MESSAGE.length() + headerOffset + e.getExceptionOffset();
+					long offset = cl + PaAttributeTlvFixedLengthEnum.MESSAGE.length() + headerOffset + e.getExceptionOffset();
 					ValidationException updatedException = new ValidationException(e.getMessage(), e.getCause(), offset, e.getReasons());
 					
 					RuleException t = updatedException.getCause();

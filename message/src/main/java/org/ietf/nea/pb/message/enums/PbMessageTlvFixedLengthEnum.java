@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message.enums;
 
-public enum PbMessageTlvFixedLength {
+public enum PbMessageTlvFixedLengthEnum {
 
 	BATCH((byte)8),
 	MESSAGE((byte)12),
@@ -16,7 +16,7 @@ public enum PbMessageTlvFixedLength {
 	
 	private byte length;
 	
-	private PbMessageTlvFixedLength(byte length){
+	private PbMessageTlvFixedLengthEnum(byte length){
 		this.length = length;
 	}
 

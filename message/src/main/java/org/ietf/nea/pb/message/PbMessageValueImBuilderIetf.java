@@ -2,7 +2,7 @@ package org.ietf.nea.pb.message;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.ImIdLimits;
 import org.ietf.nea.pb.validate.rules.ImMessageTypeReservedAndLimits;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
@@ -27,7 +27,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
     	this.subType = 0;
     	this.collectorId = TNCConstants.TNC_IMCID_ANY;
     	this.validatorId = TNCConstants.TNC_IMVID_ANY;
-    	this.length = PbMessageTlvFixedLength.IM_VALUE.length();
+    	this.length = PbMessageTlvFixedLengthEnum.IM_VALUE.length();
     	this.message = new byte[0];
     }
     
@@ -82,7 +82,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 		
 		if(message != null){
 			this.message = message;
-			this.length = PbMessageTlvFixedLength.IM_VALUE.length() + message.length;
+			this.length = PbMessageTlvFixedLengthEnum.IM_VALUE.length() + message.length;
 		}
 		
 		return this;

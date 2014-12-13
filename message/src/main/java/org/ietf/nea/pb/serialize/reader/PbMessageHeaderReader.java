@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageHeaderBuilder;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -81,7 +81,7 @@ class PbMessageHeaderReader implements TnccsReader<PbMessageHeader>{
 
 	@Override
 	public byte getMinDataLength() {
-		return PbMessageTlvFixedLength.MESSAGE.length();
+		return PbMessageTlvFixedLengthEnum.MESSAGE.length();
 	}
 
 }

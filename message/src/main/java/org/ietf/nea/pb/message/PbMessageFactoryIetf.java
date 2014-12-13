@@ -8,7 +8,7 @@ import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -149,7 +149,7 @@ public class PbMessageFactoryIetf {
 		    mBuilder.setFlags(flags);
 			mBuilder.setVendorId(VENDORID);
 			mBuilder.setType(type);
-			mBuilder.setLength(PbMessageTlvFixedLength.MESSAGE.length() + value.getLength());
+			mBuilder.setLength(PbMessageTlvFixedLengthEnum.MESSAGE.length() + value.getLength());
 		}catch(RuleException e){
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}

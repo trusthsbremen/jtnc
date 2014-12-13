@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
 import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResultBuilder;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -62,7 +62,7 @@ class PaAttributeAssessmentResultValueReader implements ImReader<PaAttributeValu
 
 	@Override
 	public byte getMinDataLength() {
-		return PaAttributeTlvFixedLength.ASS_RES.length();
+		return PaAttributeTlvFixedLengthEnum.ASS_RES.length();
 	}
 
 }

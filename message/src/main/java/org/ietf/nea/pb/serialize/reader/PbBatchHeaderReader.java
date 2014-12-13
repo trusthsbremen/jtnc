@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.batch.PbBatchHeaderBuilder;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -85,7 +85,7 @@ class PbBatchHeaderReader implements TnccsReader<PbBatchHeader>{
 
 	@Override
 	public byte getMinDataLength() {
-		return PbMessageTlvFixedLength.BATCH.length();
+		return PbMessageTlvFixedLengthEnum.BATCH.length();
 	}
 
 }

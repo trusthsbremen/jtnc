@@ -7,7 +7,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueError;
 import org.ietf.nea.pa.attribute.PaAttributeValueErrorBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttribute;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedVersion;
@@ -122,7 +122,7 @@ class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 
 	@Override
 	public byte getMinDataLength() {
-		return PaAttributeTlvFixedLength.ERR_INF.length();
+		return PaAttributeTlvFixedLengthEnum.ERR_INF.length();
 	}
 
 }

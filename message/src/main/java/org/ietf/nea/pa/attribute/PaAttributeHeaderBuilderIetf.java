@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeFlagsEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.validate.rules.CommonLengthLimits;
 import org.ietf.nea.pa.validate.rules.TypeReservedAndLimits;
@@ -21,7 +21,7 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		this.flags = new PaAttributeFlagsEnum[0];
 		this.vendorId = IETFConstants.IETF_PEN_VENDORID;
 		this.type = PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.attributeType();
-		this.length = PaAttributeTlvFixedLength.MESSAGE.length();
+		this.length = PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 	}
 
 

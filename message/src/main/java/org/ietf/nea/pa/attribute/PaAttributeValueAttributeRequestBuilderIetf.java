@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.ietf.nea.pa.validate.rules.MinEntryCount;
 import org.ietf.nea.pa.validate.rules.RequestingForbiddenAttributes;
@@ -42,7 +42,7 @@ PaAttributeValueAttributeRequestBuilder {
 		RequestingForbiddenAttributes.check(temp);	
 		
 		this.references.addAll(temp);
-		this.length = (PaAttributeTlvFixedLength.ATT_REQ.length() * this.references.size());
+		this.length = (PaAttributeTlvFixedLengthEnum.ATT_REQ.length() * this.references.size());
 
 		MinEntryCount.check((byte)1, this.references);
 		

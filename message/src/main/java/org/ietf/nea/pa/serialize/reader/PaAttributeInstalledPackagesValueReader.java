@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueInstalledPackages;
 import org.ietf.nea.pa.attribute.PaAttributeValueInstalledPackagesBuilder;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -118,6 +118,6 @@ class PaAttributeInstalledPackagesValueReader implements ImReader<PaAttributeVal
 	@Override
 	public byte getMinDataLength() {
 	
-		return PaAttributeTlvFixedLength.PORT_FT.length(); 
+		return PaAttributeTlvFixedLengthEnum.PORT_FT.length(); 
 	}
 }

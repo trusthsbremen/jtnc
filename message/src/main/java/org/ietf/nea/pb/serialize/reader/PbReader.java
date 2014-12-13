@@ -18,7 +18,7 @@ import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageValue;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
 import org.ietf.nea.pb.validate.rules.MinMessageLength;
@@ -72,7 +72,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 
 		/* messages */
 		List<PbMessage> msgs = new LinkedList<>();
-		long contentLength = bHead.getLength() - PbMessageTlvFixedLength.BATCH.length();
+		long contentLength = bHead.getLength() - PbMessageTlvFixedLengthEnum.BATCH.length();
 		if(contentLength >= mHeadReader.getMinDataLength()){
 			for(long cl = 0; cl < contentLength;){
 				PbMessageHeader mHead = null;
@@ -82,7 +82,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 				try{
 					// ignore length here because header has a length field
 					mHead = mHeadReader.read(cIn, -1);
-					headerOffset = PbMessageTlvFixedLength.MESSAGE.length();
+					headerOffset = PbMessageTlvFixedLengthEnum.MESSAGE.length();
 					
 					long vendor = mHead.getVendorId();
 					long type = mHead.getMessageType();
@@ -94,7 +94,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 							
 							// Do a length check before trying to parse the value.
 							try{
-								long valueLength = mHead.getLength()-PbMessageTlvFixedLength.MESSAGE.length();
+								long valueLength = mHead.getLength()-PbMessageTlvFixedLengthEnum.MESSAGE.length();
 								MinMessageLength.check(valueLength, vr.getMinDataLength());
 							}catch(RuleException e1){
 								// Remove 4 from header offset because this is a late header check. Length is the last field
@@ -103,7 +103,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 								throw new ValidationException(e1.getMessage(), e1,0);
 							}
 							
-							mValue = vr.read(cIn, mHead.getLength()-PbMessageTlvFixedLength.MESSAGE.length());
+							mValue = vr.read(cIn, mHead.getLength()-PbMessageTlvFixedLengthEnum.MESSAGE.length());
 							
 							if(mValue != null){
 								// Now that the value is known do the no skip check.
@@ -204,7 +204,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 					
 					// current message position + batch header length + the message header offset (if already parsed) 
 					// + the offset of the exception data 	
-					long offset = cl + PbMessageTlvFixedLength.BATCH.length() + headerOffset + e.getExceptionOffset();
+					long offset = cl + PbMessageTlvFixedLengthEnum.BATCH.length() + headerOffset + e.getExceptionOffset();
 					ValidationException updatedException = new ValidationException(e.getMessage(), e.getCause(), offset, e.getReasons());
 					
 					RuleException t = updatedException.getCause();

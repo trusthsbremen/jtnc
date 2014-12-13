@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeFactoryDefaultPasswordStatusEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.FactoryDefaultPasswordStatus;
 
 public class PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf implements
@@ -13,7 +13,7 @@ public class PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf implements
 	private PaAttributeFactoryDefaultPasswordStatusEnum status;      
 	
 	public PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.FAC_PW.length();
+		this.length = PaAttributeTlvFixedLengthEnum.FAC_PW.length();
 		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.IETF_NOT_SET;
 	}
 

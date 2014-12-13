@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterStringBuilder;
 
@@ -97,6 +97,6 @@ class PbMessageRemediationParameterStringSubValueReader implements TnccsReader<P
 	@Override
 	public byte getMinDataLength() {
 	
-		return PbMessageTlvFixedLength.REA_STR_VALUE.length(); 
+		return PbMessageTlvFixedLengthEnum.REA_STR_VALUE.length(); 
 	}
 }

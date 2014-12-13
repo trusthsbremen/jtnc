@@ -4,7 +4,7 @@ import java.net.URI;
 import java.nio.charset.Charset;
 
 import org.ietf.nea.pa.attribute.enums.PaAttributeRemediationParameterTypeEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 
@@ -26,7 +26,7 @@ public class PaAttributeValueRemediationParameterFactoryIetf {
 			throw new IllegalArgumentException("Requested remediation value is not supported in attribute with remediation vendor ID "+ rpVendorId +" and of remediation type "+ rpType +".");
 		}
 		
-		long length = PaAttributeTlvFixedLength.REM_PAR_STR.length();
+		long length = PaAttributeTlvFixedLengthEnum.REM_PAR_STR.length();
 		if(remediationString.length() > 0){
 			length += remediationString.getBytes(Charset.forName("UTF-8")).length;
 		}

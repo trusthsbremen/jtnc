@@ -1,7 +1,7 @@
 package org.ietf.nea.pb.message.util;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 public class PbMessageValueErrorParameterVersionBuilderIetf implements PbMessageValueErrorParameterVersionBuilder{
 
@@ -11,7 +11,7 @@ public class PbMessageValueErrorParameterVersionBuilderIetf implements PbMessage
     private short minVersion;
     
     public PbMessageValueErrorParameterVersionBuilderIetf(){
-    	this.length = PbMessageTlvFixedLength.ERR_SUB_VALUE.length();
+    	this.length = PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
     	this.badVersion = 0;
     	this.maxVersion = 0;
     	this.minVersion = 0;

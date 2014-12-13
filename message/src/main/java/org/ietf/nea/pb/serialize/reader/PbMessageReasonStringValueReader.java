@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
 import org.ietf.nea.pb.message.PbMessageValueReasonStringBuilder;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -97,6 +97,6 @@ class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReas
 	@Override
 	public byte getMinDataLength() {
 	
-		return PbMessageTlvFixedLength.REA_STR_VALUE.length(); 
+		return PbMessageTlvFixedLengthEnum.REA_STR_VALUE.length(); 
 	}
 }

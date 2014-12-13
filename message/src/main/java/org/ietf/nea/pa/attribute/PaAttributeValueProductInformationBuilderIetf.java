@@ -1,7 +1,7 @@
 package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.ProductInformationZeroConstraint;
 
 public class PaAttributeValueProductInformationBuilderIetf implements
@@ -14,7 +14,7 @@ public class PaAttributeValueProductInformationBuilderIetf implements
 	private String name;
 	
 	public PaAttributeValueProductInformationBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.PRO_INF.length();
+		this.length = PaAttributeTlvFixedLengthEnum.PRO_INF.length();
 		this.vendorId = 0L;
 		this.productId = 0;
 		this.name = "";

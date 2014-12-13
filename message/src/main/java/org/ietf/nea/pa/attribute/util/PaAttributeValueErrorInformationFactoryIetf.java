@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
@@ -28,7 +28,7 @@ public class PaAttributeValueErrorInformationFactoryIetf {
 		
 		RawMessageHeader header = parseHeader(messageHeader);
 		
-		long length = PaAttributeTlvFixedLength.MESSAGE.length() + 4; // 4 = offset length
+		long length = PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 4; // 4 = offset length
 		
 		return new PaAttributeValueErrorInformationInvalidParam(length, header, offset);
 	}
@@ -49,7 +49,7 @@ public class PaAttributeValueErrorInformationFactoryIetf {
 		
 		RawMessageHeader header = parseHeader(messageHeader);
 		
-		long length = PaAttributeTlvFixedLength.MESSAGE.length() + PaAttributeTlvFixedLength.ATTRIBUTE.length() - 4; // - 4 = attribute length is ignored
+		long length = PaAttributeTlvFixedLengthEnum.MESSAGE.length() + PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length() - 4; // - 4 = attribute length is ignored
 		
 		return new PaAttributeValueErrorInformationUnsupportedAttribute(length, header, attributeHeader);
 	}
@@ -66,14 +66,14 @@ public class PaAttributeValueErrorInformationFactoryIetf {
 		
 		RawMessageHeader header = parseHeader(messageHeader);
 		
-		long length = PaAttributeTlvFixedLength.MESSAGE.length() + 4; // 4 = min+max version length
+		long length = PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 4; // 4 = min+max version length
 		
 		return new PaAttributeValueErrorInformationUnsupportedVersion(length, header, maxVersion, minVersion);
 	}
 	
 	private static RawMessageHeader parseHeader(byte[] messageHeader) {
 		
-		byte[] sizedMessageHeader = Arrays.copyOf(messageHeader, PaAttributeTlvFixedLength.MESSAGE.length());
+		byte[] sizedMessageHeader = Arrays.copyOf(messageHeader, PaAttributeTlvFixedLengthEnum.MESSAGE.length());
 		
 		short version = sizedMessageHeader[0];
 		byte[] reserved = Arrays.copyOfRange(sizedMessageHeader, 1,4);

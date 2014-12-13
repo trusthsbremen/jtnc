@@ -3,7 +3,7 @@ package org.ietf.nea.pb.message;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.AbstractPbMessageValueErrorParameter;
 import org.ietf.nea.pb.validate.rules.ErrorCodeLimits;
 import org.ietf.nea.pb.validate.rules.ErrorVendorIdLimits;
@@ -22,7 +22,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
     	this.errorFlags = new PbMessageErrorFlagsEnum[0];
     	this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
     	this.errorCode = PbMessageErrorCodeEnum.IETF_LOCAL.code();
-    	this.length = PbMessageTlvFixedLength.ERR_VALUE.length();
+    	this.length = PbMessageTlvFixedLengthEnum.ERR_VALUE.length();
     	this.errorParameter = null;
     }
 
@@ -59,7 +59,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 		
 		if( errorParameter != null){
 			this.errorParameter = errorParameter;
-			this.length = PbMessageTlvFixedLength.ERR_VALUE.length() + errorParameter.getLength();
+			this.length = PbMessageTlvFixedLengthEnum.ERR_VALUE.length() + errorParameter.getLength();
 		}
 		
 		return this;

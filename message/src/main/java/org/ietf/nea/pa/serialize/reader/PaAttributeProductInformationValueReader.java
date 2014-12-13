@@ -8,7 +8,7 @@ import java.util.Arrays;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueProductInformation;
 import org.ietf.nea.pa.attribute.PaAttributeValueProductInformationBuilder;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -54,7 +54,7 @@ class PaAttributeProductInformationValueReader implements ImReader<PaAttributeVa
 				errorOffset += byteSize;
 				
 				/* product name */
-				long nameLength = messageLength - PaAttributeTlvFixedLength.PRO_INF.length();
+				long nameLength = messageLength - PaAttributeTlvFixedLengthEnum.PRO_INF.length();
 				String productName = this.readString(nameLength, in, Charset.forName("UTF-8"));
 				this.builder.setName(productName);
 				errorOffset += nameLength;
@@ -96,7 +96,7 @@ class PaAttributeProductInformationValueReader implements ImReader<PaAttributeVa
 	
 	@Override
 	public byte getMinDataLength() {
-		return PaAttributeTlvFixedLength.PRO_INF.length();
+		return PaAttributeTlvFixedLengthEnum.PRO_INF.length();
 	}
 
 }

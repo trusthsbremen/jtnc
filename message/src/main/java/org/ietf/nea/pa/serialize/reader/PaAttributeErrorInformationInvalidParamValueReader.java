@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.RawMessageHeader;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParamBuilder;
 
@@ -54,7 +54,7 @@ class PaAttributeErrorInformationInvalidParamValueReader implements ImReader<PaA
 				long identifier = ByteArrayHelper.toLong(buffer);
 	
 				this.builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
-				errorOffset += PaAttributeTlvFixedLength.MESSAGE.length();
+				errorOffset += PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 				
 				/* offset */
 				byteSize = 4;
@@ -79,6 +79,6 @@ class PaAttributeErrorInformationInvalidParamValueReader implements ImReader<PaA
 	@Override
 	public byte getMinDataLength() {
 	
-		return (byte)(PaAttributeTlvFixedLength.ERR_INF.length() + 4); // 4 = offset 
+		return (byte)(PaAttributeTlvFixedLengthEnum.ERR_INF.length() + 4); // 4 = offset 
 	}
 }

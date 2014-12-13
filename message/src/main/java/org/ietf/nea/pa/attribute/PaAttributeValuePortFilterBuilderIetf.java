@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 import org.ietf.nea.pa.validate.rules.MinEntryCount;
 import org.ietf.nea.pa.validate.rules.OpposingPortFilterEntries;
@@ -42,7 +42,7 @@ public class PaAttributeValuePortFilterBuilderIetf implements
 		OpposingPortFilterEntries.check(temp);
 		
 		this.filterEntries.addAll(temp);
-		this.length = (PaAttributeTlvFixedLength.PORT_FT.length() * this.filterEntries.size());
+		this.length = (PaAttributeTlvFixedLengthEnum.PORT_FT.length() * this.filterEntries.size());
 
 		MinEntryCount.check((byte)1, this.filterEntries);
 		

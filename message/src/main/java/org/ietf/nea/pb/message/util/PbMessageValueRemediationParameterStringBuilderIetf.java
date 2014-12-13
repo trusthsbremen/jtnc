@@ -3,7 +3,7 @@ package org.ietf.nea.pb.message.util;
 import java.nio.charset.Charset;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.LangCodeStringLimit;
 import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pb.validate.rules.NoZeroString;
@@ -15,7 +15,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
     private String langCode;            // variable length, US-ASCII string composed of a well-formed RFC 4646 [3] language tag
     
     public PbMessageValueRemediationParameterStringBuilderIetf(){
-    	this.length = PbMessageTlvFixedLength.REM_STR_SUB_VALUE.length();
+    	this.length = PbMessageTlvFixedLengthEnum.REM_STR_SUB_VALUE.length();
     	this.remediationString = "";
     	this.langCode = "";
     }
@@ -61,7 +61,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	}
 
 	private void updateLength(){
-		this.length = PbMessageTlvFixedLength.REM_STR_SUB_VALUE.length();
+		this.length = PbMessageTlvFixedLengthEnum.REM_STR_SUB_VALUE.length();
 		if(remediationString.length() > 0){
 			this.length += remediationString.getBytes(Charset.forName("UTF-8")).length;
 		}

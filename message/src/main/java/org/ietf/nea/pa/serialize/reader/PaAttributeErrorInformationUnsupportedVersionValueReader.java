@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.RawMessageHeader;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedVersion;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedVersionBuilder;
 
@@ -54,7 +54,7 @@ class PaAttributeErrorInformationUnsupportedVersionValueReader implements ImRead
 				long identifier = ByteArrayHelper.toLong(buffer);
 	
 				this.builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
-				errorOffset += PaAttributeTlvFixedLength.MESSAGE.length();
+				errorOffset += PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 				
 				/* max version */
 				byteSize = 1;
@@ -91,6 +91,6 @@ class PaAttributeErrorInformationUnsupportedVersionValueReader implements ImRead
 	@Override
 	public byte getMinDataLength() {
 	
-		return (byte)(PaAttributeTlvFixedLength.ERR_INF.length() + 4); // 4 = min + max and reserved
+		return (byte)(PaAttributeTlvFixedLengthEnum.ERR_INF.length() + 4); // 4 = min + max and reserved
 	}
 }

@@ -2,6 +2,8 @@ package de.hsbremen.tc.tnc.message.util;
 
 public interface ByteBuffer {
 
+	public abstract void write(ByteBuffer buffer);
+	
 	public abstract void write(byte[] array);
 
 	public abstract void writeByte(byte b);
@@ -20,8 +22,10 @@ public interface ByteBuffer {
 
 	public abstract void writeDigits(long number, byte length);
 
+	public abstract ByteBuffer read(long length);
+	
 	public abstract byte[] read(int length);
-
+	
 	public abstract byte readByte();
 
 	public abstract short readShort();
@@ -38,8 +42,10 @@ public interface ByteBuffer {
 
 	public abstract void clear();
 
-	public abstract long writePos();
+	public abstract long bytesWritten();
 
-	public abstract long readPos();
+	public abstract long bytesRead();
+	
+	public abstract long capacity();
 
 }

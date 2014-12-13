@@ -1,7 +1,7 @@
 package org.ietf.nea.pb.message.util;
 
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 
@@ -15,7 +15,7 @@ public class PbMessageValueErrorParameterFactoryIetf {
 		}
 		
 		if(errorVendorId == IETFConstants.IETF_PEN_VENDORID && (errorType == PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code() || errorType == PbMessageErrorCodeEnum.IETF_UNSUPPORTED_MANDATORY_MESSAGE.code())){
-			PbMessageValueErrorParameterOffset parameter = new PbMessageValueErrorParameterOffset(PbMessageTlvFixedLength.ERR_SUB_VALUE.length(),offset);
+			PbMessageValueErrorParameterOffset parameter = new PbMessageValueErrorParameterOffset(PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length(),offset);
 			return parameter;
 		}
 		
@@ -30,7 +30,7 @@ public class PbMessageValueErrorParameterFactoryIetf {
 		}
 		
 		if(errorVendorId == IETFConstants.IETF_PEN_VENDORID && errorType == PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code()){
-			PbMessageValueErrorParameterVersion parameter = new PbMessageValueErrorParameterVersion(PbMessageTlvFixedLength.ERR_SUB_VALUE.length(), badVersion, maxVersion, minVersion);
+			PbMessageValueErrorParameterVersion parameter = new PbMessageValueErrorParameterVersion(PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length(), badVersion, maxVersion, minVersion);
 			return parameter;
 		}
 		

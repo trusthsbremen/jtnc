@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.AssessmentResult;
 
 public class PaAttributeValueAssessmentResultBuilderIetf implements
@@ -13,7 +13,7 @@ public class PaAttributeValueAssessmentResultBuilderIetf implements
 	private PaAttributeAssessmentResultEnum result;      
 	
 	public PaAttributeValueAssessmentResultBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.ASS_RES.length();
+		this.length = PaAttributeTlvFixedLengthEnum.ASS_RES.length();
 		this.result = PaAttributeAssessmentResultEnum.COMPLIANT;
 	}
 

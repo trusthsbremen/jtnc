@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
 import org.ietf.nea.pa.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pa.validate.rules.VendorIdReservedAndLimits;
@@ -21,7 +21,7 @@ public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBu
     public PaAttributeValueErrorBuilderIetf(){
     	this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
     	this.errorCode = PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code();
-    	this.length = PaAttributeTlvFixedLength.ERR_INF.length();
+    	this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length();
     	this.errorInformation = null;
     }
 
@@ -49,7 +49,7 @@ public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBu
 		
 		if(parameter != null){
 			this.errorInformation = parameter;
-			this.length = PaAttributeTlvFixedLength.ERR_INF.length() + parameter.getLength();
+			this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + parameter.getLength();
 		}
 		
 		return this;

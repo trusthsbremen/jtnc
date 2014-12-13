@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterString;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterStringBuilder;
 
@@ -97,6 +97,6 @@ class PaAttributeRemediationParameterStringValueReader implements ImReader<PaAtt
 	@Override
 	public byte getMinDataLength() {
 	
-		return PaAttributeTlvFixedLength.REM_PAR_STR.length(); 
+		return PaAttributeTlvFixedLengthEnum.REM_PAR_STR.length(); 
 	}
 }

@@ -2,7 +2,7 @@ package org.ietf.nea.pb.message;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import org.ietf.nea.pb.validate.rules.CommonLengthLimits;
 import org.ietf.nea.pb.validate.rules.TypeReservedAndLimits;
@@ -21,7 +21,7 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 		this.flags = new PbMessageFlagsEnum[0];
 		this.vendorId = IETFConstants.IETF_PEN_VENDORID;
 		this.type = PbMessageTypeEnum.IETF_PB_PA.messageType();
-		this.length = PbMessageTlvFixedLength.MESSAGE.length();
+		this.length = PbMessageTlvFixedLengthEnum.MESSAGE.length();
 	}
 
 	@Override

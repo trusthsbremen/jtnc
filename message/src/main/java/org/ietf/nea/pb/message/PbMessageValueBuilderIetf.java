@@ -7,7 +7,7 @@ import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.AbstractPbMessageValueErrorParameter;
 import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterFactoryIetf;
@@ -34,7 +34,7 @@ public class PbMessageValueBuilderIetf {
 			throw new IllegalArgumentException("Type is greater than "+ Long.toString(IETFConstants.IETF_MAX_TYPE) + ".");
 		}
 
-		long length = PbMessageTlvFixedLength.IM_VALUE.length() + message.length;
+		long length = PbMessageTlvFixedLengthEnum.IM_VALUE.length() + message.length;
 		
 		return new PbMessageValueIm(imFlags, subVendorId, subType, collectorId, validatorId, length, message);
 	}
@@ -45,7 +45,7 @@ public class PbMessageValueBuilderIetf {
 			throw new NullPointerException("Recommendation cannot be null.");
 		}
 		
-		return new PbMessageValueAccessRecommendation(PbMessageTlvFixedLength.ACC_REC_VALUE.length(),recommendation);
+		return new PbMessageValueAccessRecommendation(PbMessageTlvFixedLengthEnum.ACC_REC_VALUE.length(),recommendation);
 	}
 	
 	public static PbMessageValueAssessmentResult createAssessmentResultValue(final PbMessageAssessmentResultEnum result){
@@ -54,7 +54,7 @@ public class PbMessageValueBuilderIetf {
 			throw new NullPointerException("Result cannot be null.");
 		}
 		
-		return new PbMessageValueAssessmentResult(PbMessageTlvFixedLength.ASS_RES_VALUE.length(),result);
+		return new PbMessageValueAssessmentResult(PbMessageTlvFixedLengthEnum.ASS_RES_VALUE.length(),result);
 	}
 	
 	public static PbMessageValueError createErrorValueWithOffset(final PbMessageErrorFlagsEnum[] errorFlags, final long errorVendorId, final int errorCode, final long offset){
@@ -115,7 +115,7 @@ public class PbMessageValueBuilderIetf {
 			throw new IllegalArgumentException("Language code length " +langCode.length()+ "is to long.");
 		}
 
-		long length = PbMessageTlvFixedLength.REA_STR_VALUE.length();
+		long length = PbMessageTlvFixedLengthEnum.REA_STR_VALUE.length();
 		if(reasonString.length() > 0){
 			length += reasonString.getBytes(Charset.forName("UTF-8")).length;
 		}
@@ -150,7 +150,7 @@ public class PbMessageValueBuilderIetf {
 			throw new IllegalArgumentException("Type is greater than "+ Long.toString(IETFConstants.IETF_MAX_TYPE) + ".");
 		}
 
-		long length = PbMessageTlvFixedLength.REM_PAR_VALUE.length() + parameter.getLength();
+		long length = PbMessageTlvFixedLengthEnum.REM_PAR_VALUE.length() + parameter.getLength();
 		
 		return new PbMessageValueRemediationParameters(rpVendorId, rpType, length,parameter);
 	}
@@ -168,7 +168,7 @@ public class PbMessageValueBuilderIetf {
 			throw new IllegalArgumentException("Code is greater than "+ Long.toString(IETFConstants.IETF_MAX_ERROR_CODE) + ".");
 		}
 
-		long length = PbMessageTlvFixedLength.ERR_VALUE.length() + ((errorParameter != null)?errorParameter.getLength():0);
+		long length = PbMessageTlvFixedLengthEnum.ERR_VALUE.length() + ((errorParameter != null)?errorParameter.getLength():0);
 		
 		return new PbMessageValueError(flags, errorVendorId, errorCode, length, errorParameter);
 	}

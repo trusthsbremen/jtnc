@@ -1,7 +1,7 @@
 package org.ietf.nea.pa.attribute.util;
 
 import org.ietf.nea.pa.attribute.RawMessageHeader;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf implements
 		PaAttributeValueErrorInformationUnsupportedVersionBuilder {
@@ -13,7 +13,7 @@ public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf imple
 	private short minVersion;
 	
 	public PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.ERR_INF.length() + PaAttributeTlvFixedLength.MESSAGE.length() + 4; // 4 = min + max version
+		this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 4; // 4 = min + max version
 		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
 		this.minVersion = 0;
 		this.maxVersion = 0;

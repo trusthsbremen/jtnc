@@ -7,7 +7,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValuePortFilter;
 import org.ietf.nea.pa.attribute.PaAttributeValuePortFilterBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributePortFilterStatus;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -87,6 +87,6 @@ class PaAttributePortFilterValueReader implements ImReader<PaAttributeValuePortF
 	@Override
 	public byte getMinDataLength() {
 	
-		return PaAttributeTlvFixedLength.PORT_FT.length(); 
+		return PaAttributeTlvFixedLengthEnum.PORT_FT.length(); 
 	}
 }

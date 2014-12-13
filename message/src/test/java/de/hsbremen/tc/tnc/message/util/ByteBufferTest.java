@@ -17,13 +17,13 @@ public class ByteBufferTest {
 			buf.writeByte((byte)i);
 		}
 		
-		Assert.assertEquals(2, buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals(2, buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 		
 		buf.clear();
 		
-		Assert.assertEquals(0, buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals(0, buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 		
 		int val = 10;
 		
@@ -33,20 +33,20 @@ public class ByteBufferTest {
 			buf.writeByte((byte)(i%128));
 		}
 		
-		Assert.assertEquals(val, buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals(val, buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 	
 		for(int i = 0; i < 6; i++){
 			Assert.assertEquals(i, buf.readByte());
 		}
 		
-		Assert.assertEquals(val, buf.writePos());
-		Assert.assertEquals(6, buf.readPos());
+		Assert.assertEquals(val, buf.bytesWritten());
+		Assert.assertEquals(6, buf.bytesRead());
 		
 		buf.clear();
 		
-		Assert.assertEquals(0, buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals(0, buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 		
 	}
 	
@@ -61,8 +61,8 @@ public class ByteBufferTest {
 			buf.write(b);
 		}
 		
-		Assert.assertEquals(6*b.length, buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals(6*b.length, buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 		
 		int val = 25;
 		
@@ -74,27 +74,27 @@ public class ByteBufferTest {
 			buf.write(b1);
 		}
 		
-		Assert.assertEquals(2*b1.length, buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals(2*b1.length, buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 		
 		for(int i = 0; i < 2; i++){
 			Assert.assertArrayEquals(b1, buf.read(b1.length));
 		}
 		
-		Assert.assertEquals((2*b1.length), buf.writePos());
-		Assert.assertEquals((2*b1.length), buf.readPos());
+		Assert.assertEquals((2*b1.length), buf.bytesWritten());
+		Assert.assertEquals((2*b1.length), buf.bytesRead());
 		
 		for(int i = 0; i <=1; i++){
 			buf.writeByte((byte)i);
 		}
 		
-		Assert.assertEquals((2*b1.length)+2, buf.writePos());
-		Assert.assertEquals((2*b1.length), buf.readPos());
+		Assert.assertEquals((2*b1.length)+2, buf.bytesWritten());
+		Assert.assertEquals((2*b1.length), buf.bytesRead());
 		
 		buf.clear();
 		
-		Assert.assertEquals(0, buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals(0, buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 		
 	}
 	
@@ -136,8 +136,8 @@ public class ByteBufferTest {
 			buf.write(b1);
 		}
 		
-		Assert.assertEquals((2*b1.length), buf.writePos());
-		Assert.assertEquals(0, buf.readPos());
+		Assert.assertEquals((2*b1.length), buf.bytesWritten());
+		Assert.assertEquals(0, buf.bytesRead());
 	}
 	
 	@Test(expected=BufferOverflowException.class)
@@ -199,5 +199,19 @@ public class ByteBufferTest {
 
 	}
 	
+	
+	@Test 
+	public void testReadBufferToBuffer(){
+		// TODO not done yet has to be done.
+		// this is a reminder
+		Assert.fail();	
+	}
+	
+	@Test 
+	public void testWriterBufferToBuffer(){
+		// TODO not done yet has to be done.
+		// this is a reminder
+		Assert.fail();	
+	}
 	
 }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
 
@@ -18,7 +18,7 @@ PaAttributeValueInstalledPackagesBuilder {
 	private List<PackageEntry> packages;
 	
 	public PaAttributeValueInstalledPackagesBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.INS_PKG.length();
+		this.length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
 		this.packages = new LinkedList<>();
 	}
 
@@ -50,7 +50,7 @@ PaAttributeValueInstalledPackagesBuilder {
 	}
 
 	private void updateLength() {
-		this.length = PaAttributeTlvFixedLength.INS_PKG.length();
+		this.length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
 		for (PackageEntry pkg : this.packages) {
 			this.length += (pkg.getPackageNameLength() + pkg.getPackageVersionLength() + LENGTH_FIELDS_LENGTH) ; // 2 bytes for length values
 		}

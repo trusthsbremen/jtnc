@@ -2,7 +2,7 @@ package org.ietf.nea.pb.message;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
 import org.ietf.nea.pb.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pb.validate.rules.VendorIdReservedAndLimits;
@@ -21,7 +21,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
     public PbMessageValueRemediationParametersBuilderIetf(){
     	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
     	this.rpType = PbMessageRemediationParameterTypeEnum.IETF_STRING.type();
-    	this.length = PbMessageTlvFixedLength.REM_PAR_VALUE.length();
+    	this.length = PbMessageTlvFixedLengthEnum.REM_PAR_VALUE.length();
     	this.parameter = null;
     }
 
@@ -49,7 +49,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 		
 		if(parameter != null){
 			this.parameter = parameter;
-			this.length = PbMessageTlvFixedLength.REM_PAR_VALUE.length() + parameter.getLength();
+			this.length = PbMessageTlvFixedLengthEnum.REM_PAR_VALUE.length() + parameter.getLength();
 		}
 		
 		return this;

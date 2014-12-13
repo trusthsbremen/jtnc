@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffset;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffsetBuilder;
 
@@ -58,6 +58,6 @@ class PbMessageErrorParameterOffsetSubValueReader implements TnccsReader<PbMessa
 	@Override
 	public byte getMinDataLength() {
 
-		return PbMessageTlvFixedLength.ERR_SUB_VALUE.length(); 
+		return PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length(); 
 	}
 }

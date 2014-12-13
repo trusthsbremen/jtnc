@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeRemediationParameterTypeEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter;
 import org.ietf.nea.pa.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pa.validate.rules.VendorIdReservedAndLimits;
@@ -21,7 +21,7 @@ public class PaAttributeValueRemediationParametersBuilderIetf implements PaAttri
     public PaAttributeValueRemediationParametersBuilderIetf(){
     	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
     	this.rpType = PaAttributeRemediationParameterTypeEnum.IETF_STRING.type();
-    	this.length = PaAttributeTlvFixedLength.REM_PAR.length();
+    	this.length = PaAttributeTlvFixedLengthEnum.REM_PAR.length();
     	this.parameter = null;
     }
 
@@ -49,7 +49,7 @@ public class PaAttributeValueRemediationParametersBuilderIetf implements PaAttri
 		
 		if(parameter != null){
 			this.parameter = parameter;
-			this.length = PaAttributeTlvFixedLength.REM_PAR.length() + parameter.getLength();
+			this.length = PaAttributeTlvFixedLengthEnum.REM_PAR.length() + parameter.getLength();
 		}
 		
 		return this;

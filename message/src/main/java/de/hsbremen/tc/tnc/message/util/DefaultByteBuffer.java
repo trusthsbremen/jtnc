@@ -17,7 +17,6 @@ public class DefaultByteBuffer implements ByteBuffer {
 	private int readRowPointer;
 	private int writeColPointer;
 	private int writeRowPointer;
-	
 
 	public DefaultByteBuffer(long capacity){
 		this(capacity, Integer.MAX_VALUE);
@@ -101,6 +100,26 @@ public class DefaultByteBuffer implements ByteBuffer {
 		}
 	}
 	
+	
+	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.message.util.ByteBuffer#write(de.hsbremen.tc.tnc.message.util.ByteBuffer)
+	 */
+	@Override
+	public void write(ByteBuffer buffer) {
+		
+		this.checkWriteBufferOverflow(buffer.bytesWritten());
+		
+		while(buffer.bytesWritten() > buffer.bytesRead()){
+			if((buffer.bytesWritten() - buffer.bytesRead()) > this.chunkSize){
+				buffer.write(buffer.read(this.chunkSize));
+			}else{
+				buffer.write(buffer.read(buffer.bytesWritten() - buffer.bytesRead()));
+			}
+		}
+		
+	}
+
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.ByteBuffer#writeByte(byte)
 	 */
@@ -264,6 +283,34 @@ public class DefaultByteBuffer implements ByteBuffer {
 		return array;
 	}
 	
+	
+	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.message.util.ByteBuffer#read(long)
+	 */
+	@Override
+	public ByteBuffer read(long length) {
+		
+		if(length <= 0){
+			throw new NullPointerException("Length must be a positive integer.");
+		}
+		
+		this.checkReadBufferUnderflow(length);
+		
+		ByteBuffer b = new DefaultByteBuffer(length);
+		
+		while(b.bytesWritten() < length){
+			if(length - b.bytesWritten() > this.chunkSize){
+				b.write(this.read(this.chunkSize));
+			}else{
+				b.write(this.read(length-b.bytesWritten()));
+			}
+		}
+		
+		return b;
+		
+	}
+
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.ByteBuffer#readByte()
 	 */
@@ -299,7 +346,7 @@ public class DefaultByteBuffer implements ByteBuffer {
 			throw new IllegalArgumentException("Supplied length is to large.");
 		}
 		
-		byte[] b = this.read(2);
+		byte[] b = this.read(length);
 		
 		short value = 0;
 		for(int i = 0; i < b.length; i++){
@@ -400,7 +447,7 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 * @see de.hsbremen.tc.tnc.ByteBuffer#writePos()
 	 */
 	@Override
-	public long writePos(){
+	public long bytesWritten(){
 		return (this.writeColPointer * this.chunkSize) + this.writeRowPointer + 1;
 	}
 		
@@ -408,30 +455,40 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 * @see de.hsbremen.tc.tnc.ByteBuffer#readPos()
 	 */
 	@Override
-	public long readPos(){
+	public long bytesRead(){
 		return (this.readColPointer * this.chunkSize) + this.readRowPointer + 1 ;
 	}
 	
-	private void checkWriteBufferOverflow(int lookAhead) {
+	
+	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.message.util.ByteBuffer#capacity()
+	 */
+	@Override
+	public long capacity() {
+		return this.capacity;
+	}
+
+	private void checkWriteBufferOverflow(long lookAhead) {
 		if(lookAhead <= 0){
 			throw new IllegalArgumentException("Parameter must be a positiv integer.");
 		}
 		
-		int currentFullPos = (this.writeColPointer * this.chunkSize) + this.writeRowPointer + 1;
+		long currentFullPos = (this.writeColPointer * this.chunkSize) + this.writeRowPointer + 1;
 		
 		if(currentFullPos > (this.capacity - lookAhead)){
 			throw new BufferOverflowException();
 		}
 	}
 	
-	private void checkReadBufferUnderflow(int lookAhead) {
+	private void checkReadBufferUnderflow(long lookAhead) {
 		
 		if(lookAhead <= 0){
 			throw new IllegalArgumentException("Parameter must be a positiv integer.");
 		}
 		
-		int currentFullPosWrite = (this.writeColPointer * this.chunkSize) + this.writeRowPointer + 1;
-		int currentFullPosRead = (this.readColPointer * this.chunkSize) + this.readRowPointer + 1;
+		long currentFullPosWrite = (this.writeColPointer * this.chunkSize) + this.writeRowPointer + 1;
+		long currentFullPosRead = (this.readColPointer * this.chunkSize) + this.readRowPointer + 1;
 		
 		if(currentFullPosRead > (currentFullPosWrite - lookAhead)){	
 			throw new BufferUnderflowException();

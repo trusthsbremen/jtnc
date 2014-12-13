@@ -7,7 +7,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueError;
 import org.ietf.nea.pb.message.PbMessageValueErrorBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffset;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
 
@@ -123,7 +123,7 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 
 	@Override
 	public byte getMinDataLength() {
-		return PbMessageTlvFixedLength.ERR_VALUE.length();
+		return PbMessageTlvFixedLengthEnum.ERR_VALUE.length();
 	}
 
 }

@@ -7,7 +7,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeHeaderBuilder;
 import org.ietf.nea.pa.attribute.RawMessageHeader;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttribute;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttributeBuilder;
 
@@ -58,7 +58,7 @@ class PaAttributeErrorInformationUnsupportedAttributeValueReader implements ImRe
 				long identifier = ByteArrayHelper.toLong(buffer);
 	
 				this.builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
-				errorOffset += PaAttributeTlvFixedLength.MESSAGE.length();
+				errorOffset += PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 
 				/* max version */
 				byteSize = 1;
@@ -102,6 +102,6 @@ class PaAttributeErrorInformationUnsupportedAttributeValueReader implements ImRe
 	@Override
 	public byte getMinDataLength() {
 	
-		return (byte)(PaAttributeTlvFixedLength.ERR_INF.length() + PaAttributeTlvFixedLength.ATTRIBUTE.length() - 4); // -4 = ignore length
+		return (byte)(PaAttributeTlvFixedLengthEnum.ERR_INF.length() + PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length() - 4); // -4 = ignore length
 	}
 }

@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeForwardingStatusEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.ForwardingStatus;
 
 public class PaAttributeValueForwardingEnabledBuilderIetf implements
@@ -13,7 +13,7 @@ public class PaAttributeValueForwardingEnabledBuilderIetf implements
 	private PaAttributeForwardingStatusEnum status;      
 	
 	public PaAttributeValueForwardingEnabledBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.FWD_EN.length();
+		this.length = PaAttributeTlvFixedLengthEnum.FWD_EN.length();
 		this.status = PaAttributeForwardingStatusEnum.IETF_UNKNWON;
 	}
 

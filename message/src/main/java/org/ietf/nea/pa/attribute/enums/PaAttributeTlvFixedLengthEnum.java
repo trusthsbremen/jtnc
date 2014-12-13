@@ -1,6 +1,6 @@
 package org.ietf.nea.pa.attribute.enums;
 
-public enum PaAttributeTlvFixedLength {
+public enum PaAttributeTlvFixedLengthEnum {
 
 	MESSAGE((byte) 8),
 	ATTRIBUTE((byte) 12),
@@ -20,7 +20,7 @@ public enum PaAttributeTlvFixedLength {
 	
 	private byte length;
 	
-	private PaAttributeTlvFixedLength(byte length){
+	private PaAttributeTlvFixedLengthEnum(byte length){
 		this.length = length;
 	}
 

@@ -7,7 +7,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +67,7 @@ public class PbBatchFactoryIetf {
 				}
 			}
 			
-			builder.setLength(l + PbMessageTlvFixedLength.BATCH.length());
+			builder.setLength(l + PbMessageTlvFixedLengthEnum.BATCH.length());
 			
 			BatchResultWithoutMessageAssessmentResult.check(type, messages);
 		}catch(RuleException e){

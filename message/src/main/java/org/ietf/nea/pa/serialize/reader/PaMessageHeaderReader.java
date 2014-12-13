@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.message.PaMessageHeader;
 import org.ietf.nea.pa.message.PaMessageHeaderBuilder;
 
@@ -71,6 +71,6 @@ public class PaMessageHeaderReader implements ImReader<PaMessageHeader> {
 
 	@Override
 	public byte getMinDataLength() {
-		return PaAttributeTlvFixedLength.MESSAGE.length();
+		return PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 	}
 }

@@ -1,6 +1,6 @@
 package org.ietf.nea.pa.attribute;
 
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 public class PaAttributeValueNumericVersionBuilderIetf implements
 	PaAttributeValueNumericVersionBuilder {
@@ -13,7 +13,7 @@ public class PaAttributeValueNumericVersionBuilderIetf implements
 	private int servicePackMinor;
 	
 	public PaAttributeValueNumericVersionBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.NUM_VER.length();
+		this.length = PaAttributeTlvFixedLengthEnum.NUM_VER.length();
 		this.majorVersion = 0L;
 		this.minorVersion = 0L;
 		this.buildVersion = 0L;

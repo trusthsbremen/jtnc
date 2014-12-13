@@ -1,7 +1,7 @@
 package org.ietf.nea.pb.message.util;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 public class PbMessageValueErrorParameterOffsetBuilderIetf implements PbMessageValueErrorParameterOffsetBuilder{
 
@@ -9,7 +9,7 @@ public class PbMessageValueErrorParameterOffsetBuilderIetf implements PbMessageV
     private long offset;
     
     public PbMessageValueErrorParameterOffsetBuilderIetf(){
-    	this.length = PbMessageTlvFixedLength.ERR_SUB_VALUE.length();
+    	this.length = PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
     	this.offset = 0;
     }
 

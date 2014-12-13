@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendationBuilder;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -67,7 +67,7 @@ class PbMessageAccessRecommendationValueReader implements TnccsReader<PbMessageV
 
 	@Override
 	public byte getMinDataLength() {
-		return PbMessageTlvFixedLength.ACC_REC_VALUE.length();
+		return PbMessageTlvFixedLengthEnum.ACC_REC_VALUE.length();
 	}
 
 }

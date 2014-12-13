@@ -22,11 +22,11 @@ import java.util.Arrays;
 public class PtTlsMessageValueError extends AbstractPtTlsMessageValue{
     
     private final long errorVendorId;                           // 24 bit(s)
-    private final int errorCode;                                // 32 bit(s)
+    private final long errorCode;                               // 32 bit(s)
     private final byte[] partialMessageCopy; 					// max 1024 byte(s)
 
 	PtTlsMessageValueError( final long errorVendorId,
-			final int errorCode, final long length,
+			final long errorCode, final long length,
 			final byte[] partialMessageCopy) {
 		super(length);
 		
@@ -46,7 +46,7 @@ public class PtTlsMessageValueError extends AbstractPtTlsMessageValue{
 	/**
 	 * @return the errCode
 	 */
-	public int getErrorCode() {
+	public long getErrorCode() {
 		return this.errorCode;
 	}
 

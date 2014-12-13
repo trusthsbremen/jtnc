@@ -9,7 +9,7 @@ public class AssessmentResult {
 
 	public static void check(final long result) throws RuleException{
 		if(PbMessageAssessmentResultEnum.fromNumber(result) == null){
-        	throw new RuleException("The type value " + result + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.ASSESSMENT_RESULT_NOT_SUPPORTED.number(),result);
+        	throw new RuleException("The result value " + result + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.ASSESSMENT_RESULT_NOT_SUPPORTED.number(),result);
         }
     }
 	

@@ -3,7 +3,7 @@ package org.ietf.nea.pa.attribute;
 import java.nio.charset.Charset;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
 
 public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValueStringVersionBuilder{
@@ -14,7 +14,7 @@ public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValu
 	private String configVersion;
 	
 	public PaAttributeValueStringVersionBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.STR_VER.length();
+		this.length = PaAttributeTlvFixedLengthEnum.STR_VER.length();
 		this.productVersion = "";
 		this.buildVersion = "";
 		this.configVersion = "";
@@ -62,7 +62,7 @@ public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValu
 	}
 	
 	private void updateLength(){
-		this.length = PaAttributeTlvFixedLength.STR_VER.length();
+		this.length = PaAttributeTlvFixedLengthEnum.STR_VER.length();
 		if(productVersion.length() > 0){
 			this.length += productVersion.getBytes(Charset.forName("UTF-8")).length;
 		}

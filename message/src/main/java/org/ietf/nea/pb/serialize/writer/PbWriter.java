@@ -12,7 +12,7 @@ import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageValue;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
@@ -65,7 +65,7 @@ class PbWriter implements TnccsWriter<TnccsBatch>, Combined<TnccsWriter<PbMessag
 		
 		/* messages */
 		List<PbMessage> msgs = pbBatch.getMessages();
-		if(msgs != null && bHead.getLength() > PbMessageTlvFixedLength.BATCH.length()){
+		if(msgs != null && bHead.getLength() > PbMessageTlvFixedLengthEnum.BATCH.length()){
 			for (PbMessage pbMessage : msgs) {
 				
 				PbMessageHeader mHead = pbMessage.getHeader();

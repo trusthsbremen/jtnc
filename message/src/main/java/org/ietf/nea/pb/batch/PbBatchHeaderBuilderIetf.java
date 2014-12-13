@@ -3,7 +3,7 @@ package org.ietf.nea.pb.batch;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.BatchDirectionAndType;
 import org.ietf.nea.pb.validate.rules.BatchDirectionality;
 import org.ietf.nea.pb.validate.rules.BatchType;
@@ -23,7 +23,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 		this.version = SUPPORTED_VERSION;
 		this.type = null;
 		this.direction =  null;
-		this.batchLength = PbMessageTlvFixedLength.BATCH.length();
+		this.batchLength = PbMessageTlvFixedLengthEnum.BATCH.length();
 	}
 
 	@Override

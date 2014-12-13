@@ -3,7 +3,7 @@ package org.ietf.nea.pb.message;
 import java.nio.charset.Charset;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLength;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.LangCodeStringLimit;
 import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pb.validate.rules.NoZeroString;
@@ -15,7 +15,7 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
     private String langCode;            // variable length, US-ASCII string composed of a well-formed RFC 4646 [3] language tag
     
     public PbMessageValueReasonStringBuilderIetf(){
-    	this.length = PbMessageTlvFixedLength.REA_STR_VALUE.length();
+    	this.length = PbMessageTlvFixedLengthEnum.REA_STR_VALUE.length();
     	this.reasonString = null;
     	this.langCode = "";
     }
@@ -62,7 +62,7 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 	}
 
 	private void updateLength(){
-		this.length = PbMessageTlvFixedLength.REA_STR_VALUE.length();
+		this.length = PbMessageTlvFixedLengthEnum.REA_STR_VALUE.length();
 		if(reasonString.length() > 0){
 			this.length += reasonString.getBytes(Charset.forName("UTF-8")).length;
 		}

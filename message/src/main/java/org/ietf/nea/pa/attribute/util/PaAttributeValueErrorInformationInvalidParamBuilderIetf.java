@@ -1,7 +1,7 @@
 package org.ietf.nea.pa.attribute.util;
 
 import org.ietf.nea.pa.attribute.RawMessageHeader;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 public class PaAttributeValueErrorInformationInvalidParamBuilderIetf implements
 		PaAttributeValueErrorInformationInvalidParamBuilder {
@@ -12,7 +12,7 @@ public class PaAttributeValueErrorInformationInvalidParamBuilderIetf implements
 	private long offset;
 	
 	public PaAttributeValueErrorInformationInvalidParamBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.ERR_INF.length() + PaAttributeTlvFixedLength.MESSAGE.length() + 4; // 4 = offset
+		this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 4; // 4 = offset
 		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
 		this.offset = 0;
 	}

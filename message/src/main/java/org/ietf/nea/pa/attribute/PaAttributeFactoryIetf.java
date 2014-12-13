@@ -11,7 +11,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeForwardingStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationLastResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeRemediationParameterTypeEnum;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
@@ -187,7 +187,7 @@ public class PaAttributeFactoryIetf {
 		    aBuilder.setFlags(flags);
 			aBuilder.setVendorId(VENDORID);
 			aBuilder.setType(type);
-			aBuilder.setLength(PaAttributeTlvFixedLength.ATTRIBUTE.length() + value.getLength());
+			aBuilder.setLength(PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length() + value.getLength());
 		}catch(RuleException e){
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}

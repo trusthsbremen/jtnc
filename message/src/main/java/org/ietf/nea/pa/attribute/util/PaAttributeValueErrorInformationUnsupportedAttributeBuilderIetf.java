@@ -3,7 +3,7 @@ package org.ietf.nea.pa.attribute.util;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeHeaderBuilderIetf;
 import org.ietf.nea.pa.attribute.RawMessageHeader;
-import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLength;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf implements
 	PaAttributeValueErrorInformationUnsupportedAttributeBuilder {
@@ -15,9 +15,9 @@ public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf imp
 
 	
 	public PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf(){
-		this.length = PaAttributeTlvFixedLength.ERR_INF.length() + 
-				PaAttributeTlvFixedLength.MESSAGE.length() + 
-				PaAttributeTlvFixedLength.ATTRIBUTE.length() - 4; // -4 = attribute length is ignored
+		this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + 
+				PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 
+				PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length() - 4; // -4 = attribute length is ignored
 		
 		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
 		this.attributeHeader = new PaAttributeHeaderBuilderIetf().toAttributeHeader();
