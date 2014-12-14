@@ -3,6 +3,7 @@ package de.hsbremen.tc.tnc.message.util;
 import java.nio.BufferOverflowException;
 import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DefaultByteBuffer implements ByteBuffer {
@@ -106,15 +107,15 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 * @see de.hsbremen.tc.tnc.message.util.ByteBuffer#write(de.hsbremen.tc.tnc.message.util.ByteBuffer)
 	 */
 	@Override
-	public void write(ByteBuffer buffer) {
+	public void write(ByteBuffer byteBuffer) {
 		
-		this.checkWriteBufferOverflow(buffer.bytesWritten());
+		this.checkWriteBufferOverflow(byteBuffer.bytesWritten());
 		
-		while(buffer.bytesWritten() > buffer.bytesRead()){
-			if((buffer.bytesWritten() - buffer.bytesRead()) > this.chunkSize){
-				buffer.write(buffer.read(this.chunkSize));
+		while(byteBuffer.bytesWritten() > byteBuffer.bytesRead()){
+			if((byteBuffer.bytesWritten() - byteBuffer.bytesRead()) > this.chunkSize){
+				this.write(byteBuffer.read(this.chunkSize));
 			}else{
-				buffer.write(buffer.read(buffer.bytesWritten() - buffer.bytesRead()));
+				this.write(byteBuffer.read((int)(byteBuffer.bytesWritten() - byteBuffer.bytesRead())));
 			}
 		}
 		
@@ -277,7 +278,7 @@ public class DefaultByteBuffer implements ByteBuffer {
 		}else{
 			this.readRowPointer++;
 			System.arraycopy(this.buffer.get(this.readColPointer), this.readRowPointer, array,index, length2);
-			this.writeRowPointer += (length2 -1);
+			this.readRowPointer += (length2 -1);
 		}
 		
 		return array;
@@ -303,7 +304,7 @@ public class DefaultByteBuffer implements ByteBuffer {
 			if(length - b.bytesWritten() > this.chunkSize){
 				b.write(this.read(this.chunkSize));
 			}else{
-				b.write(this.read(length-b.bytesWritten()));
+				b.write(this.read((int)(length-b.bytesWritten())));
 			}
 		}
 		
@@ -494,5 +495,83 @@ public class DefaultByteBuffer implements ByteBuffer {
 			throw new BufferUnderflowException();
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.buffer == null) ? 0 : this.buffer.hashCode());
+		result = prime * result
+				+ (int) (this.capacity ^ (this.capacity >>> 32));
+		result = prime * result + this.chunkSize;
+		result = prime * result + this.lastRowSize;
+		result = prime * result + this.readColPointer;
+		result = prime * result + this.readRowPointer;
+		result = prime * result + this.writeColPointer;
+		result = prime * result + this.writeRowPointer;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		DefaultByteBuffer other = (DefaultByteBuffer) obj;
+		if (this.buffer == null) {
+			if (other.buffer != null) {
+				return false;
+			}
+		} else {	
+			for (int i = 0; i < this.buffer.size(); i++) {
+				if(this.buffer.get(i) == null){
+					if(other.buffer.get(i) != null){
+						return false;
+					}	
+				}else{
+					if(!(Arrays.equals(this.buffer.get(i), other.buffer.get(i)))){
+						return false;
+					}
+				}
+			}
+		}
+		if (this.capacity != other.capacity) {
+			return false;
+		}
+		if (this.chunkSize != other.chunkSize) {
+			return false;
+		}
+		if (this.lastRowSize != other.lastRowSize) {
+			return false;
+		}
+		if (this.readColPointer != other.readColPointer) {
+			return false;
+		}
+		if (this.readRowPointer != other.readRowPointer) {
+			return false;
+		}
+		if (this.writeColPointer != other.writeColPointer) {
+			return false;
+		}
+		if (this.writeRowPointer != other.writeRowPointer) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 	
 }

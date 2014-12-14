@@ -8,7 +8,7 @@ public class IdentifierLimits {
 
 	 public static void check(final long identifier) throws RuleException {
 	      
-	        if(identifier > 0xFFFFFFFF){
+	        if(identifier > 0xFFFFFFFFL){
 	        	throw new RuleException("Identifier is to large.",true,PtTlsMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PtTlsErrorCauseEnum.VALUE_TO_LARGE.number(),identifier);
 	        }
 	        if(identifier < 0){
