@@ -18,7 +18,9 @@ public enum PtTlsErrorCauseEnum {
 	VALUE_TO_LARGE(9),
 	NEGATIV_UNSIGNED(10), 
 	SASL_NAMING_MISMATCH(11), 
-	SASL_RESULT_NOT_SUPPORTED(12);
+	SASL_RESULT_NOT_SUPPORTED(12), 
+	UNSUPPORTED_VERSION(13), 
+	ADDITIONAL_SASL_NOT_SUPPORTED(14);
 	
     private int number;
     
@@ -57,6 +59,10 @@ public enum PtTlsErrorCauseEnum {
     			return SASL_NAMING_MISMATCH;
     		case 12:
     			return SASL_RESULT_NOT_SUPPORTED;
+    		case 13:
+    			return UNSUPPORTED_VERSION;	
+    		case 14:
+    			return ADDITIONAL_SASL_NOT_SUPPORTED;
     		default:
     			return NOT_SPECIFIED;
     	}

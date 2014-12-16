@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
-import de.hsbremen.tc.tnc.transport.connection.util.NoCloseInputStream;
-import de.hsbremen.tc.tnc.transport.connection.util.NoCloseOutputStream;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class SocketTransportConnection implements TransportConnection{

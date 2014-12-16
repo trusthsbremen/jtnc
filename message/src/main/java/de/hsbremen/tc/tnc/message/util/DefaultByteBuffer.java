@@ -66,11 +66,10 @@ public class DefaultByteBuffer implements ByteBuffer {
 		if(array == null){
 			throw new NullPointerException("Array cannot be null.");
 		}
+		
 		int length = array.length;
 		
 		this.checkWriteBufferOverflow(length);
-		
-		
 		
 		int index = 0;
 		
@@ -95,9 +94,11 @@ public class DefaultByteBuffer implements ByteBuffer {
 				this.writeRowPointer += cpLength -1;
 			}
 		}else{
-			this.writeRowPointer++;
-			System.arraycopy(array,index,this.buffer.get(this.writeColPointer), this.writeRowPointer, length);
-			this.writeRowPointer += (length -1);
+			if(length > 0){
+				this.writeRowPointer++;
+				System.arraycopy(array,index,this.buffer.get(this.writeColPointer), this.writeRowPointer, length);
+				this.writeRowPointer += (length -1);
+			}
 		}
 	}
 	
@@ -249,7 +250,7 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public byte[] read(int length){
-		if(length <= 0){
+		if(length < 0){
 			throw new NullPointerException("Length must be a positive integer.");
 		}
 		
@@ -291,10 +292,6 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public ByteBuffer read(long length) {
-		
-		if(length <= 0){
-			throw new NullPointerException("Length must be a positive integer.");
-		}
 		
 		this.checkReadBufferUnderflow(length);
 		
@@ -460,8 +457,6 @@ public class DefaultByteBuffer implements ByteBuffer {
 		return (this.readColPointer * this.chunkSize) + this.readRowPointer + 1 ;
 	}
 	
-	
-	
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.message.util.ByteBuffer#capacity()
 	 */
@@ -469,9 +464,28 @@ public class DefaultByteBuffer implements ByteBuffer {
 	public long capacity() {
 		return this.capacity;
 	}
+	
+	
+	
+
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.message.util.ByteBuffer#isReadable()
+	 */
+	@Override
+	public boolean isReadable() {
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.message.util.ByteBuffer#isWriteable()
+	 */
+	@Override
+	public boolean isWriteable() {
+		return true;
+	}
 
 	private void checkWriteBufferOverflow(long lookAhead) {
-		if(lookAhead <= 0){
+		if(lookAhead < 0){
 			throw new IllegalArgumentException("Parameter must be a positiv integer.");
 		}
 		
@@ -484,7 +498,7 @@ public class DefaultByteBuffer implements ByteBuffer {
 	
 	private void checkReadBufferUnderflow(long lookAhead) {
 		
-		if(lookAhead <= 0){
+		if(lookAhead < 0){
 			throw new IllegalArgumentException("Parameter must be a positiv integer.");
 		}
 		

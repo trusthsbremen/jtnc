@@ -42,6 +42,10 @@ class PtTlsWriter implements TransportWriter<TransportMessage>, Combined<Transpo
 			throw new NullPointerException("Buffer cannot be null.");
 		}
 		
+		if(!buffer.isWriteable()){
+			throw new IllegalArgumentException("Buffer must be writeable.");
+		}
+		
 		if(!(m instanceof PtTlsMessage)){
 			throw new IllegalArgumentException("Message of type " + m.getClass().getCanonicalName() + " is not supported. Message must be of type " +PtTlsMessage.class.getCanonicalName()+ "." );
 		}

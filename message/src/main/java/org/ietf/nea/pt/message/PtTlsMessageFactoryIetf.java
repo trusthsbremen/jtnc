@@ -11,6 +11,7 @@ import org.ietf.nea.pt.value.util.SaslMechanism;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 
 public class PtTlsMessageFactoryIetf {
 
@@ -66,6 +67,28 @@ public class PtTlsMessageFactoryIetf {
 		long type = PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_RESULT.messageType();
 		
 		return createMessage(identifier, type, PtTlsMessageValueBuilderIetf.createSaslResultValue(result, resultData));
+		
+	}
+	
+	public static PtTlsMessage createError(final long identifier,final long errorVendorId, final long errorCode, final PtTlsMessageHeader messageHeader) throws ValidationException{
+		long type = PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.messageType();
+		
+		ByteBuffer buffer =  new DefaultByteBuffer(PtTlsMessageTlvFixedLengthEnum.MESSAGE.length());
+		
+		/* reserved 8 bit(s) */
+		buffer.writeByte((byte)0);
+		/* vendor ID 24 bit(s) */
+		buffer.writeDigits(messageHeader.getVendorId(), (byte)3);
+		/* message Type 32 bit(s) */
+		buffer.writeUnsignedInt(messageHeader.getMessageType());
+		/* message length 32 bit(s) */
+		buffer.writeUnsignedInt(messageHeader.getLength());
+		/* message identifier 32 bit(s) */
+		buffer.writeUnsignedInt(messageHeader.getIdentifier());
+		
+		byte[] messageCopy = buffer.read(PtTlsMessageTlvFixedLengthEnum.MESSAGE.length());
+		
+		return createMessage(identifier, type, PtTlsMessageValueBuilderIetf.createErrorValue(errorVendorId, errorCode, messageCopy));
 		
 	}
 	

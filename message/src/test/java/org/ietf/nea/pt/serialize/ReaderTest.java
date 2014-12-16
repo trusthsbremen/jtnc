@@ -1,5 +1,7 @@
 package org.ietf.nea.pt.serialize;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Arrays;
 
 import org.ietf.nea.pt.message.PtTlsMessage;
@@ -25,6 +27,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
+import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;
 
 public class ReaderTest {
 
@@ -203,4 +206,21 @@ public class ReaderTest {
 			throw e;
 		}
 	}
+	
+	@Test
+	public void deserializeTransportMessageWithErrorUsingStream() throws SerializationException, ValidationException{
+		byte[] data  = transport.getErrorAsByte();
+		InputStream in = new ByteArrayInputStream(data);
+		ByteBuffer b = new StreamedReadOnlyBuffer(in);
+
+		TransportMessageContainer tc = bs.read(b, -1);
+		
+		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		
+		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.messageType(), m.getHeader().getMessageType());
+		Assert.assertEquals(PtTlsMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(), ((PtTlsMessageValueError)m.getValue()).getErrorCode());
+		Assert.assertArrayEquals(transport.getVersionResponseAsByte(), ((PtTlsMessageValueError)m.getValue()).getPartialMessageCopy());
+		Assert.assertEquals(data.length, m.getHeader().getLength());
+	}
+	
 }
