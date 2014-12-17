@@ -1,14 +1,13 @@
 package de.hsbremen.tc.tnc.im.adapter.connection;
 
-import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
-import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnectionLong;
+import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
 import de.hsbremen.tc.tnc.HSBConstants;
@@ -21,7 +20,9 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
-import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
+import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
@@ -138,14 +139,14 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 	
 	private byte[] messageToByteArray(ImMessage message) throws TncException{
 		
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ByteBuffer buf = new DefaultByteBuffer(message.getHeader().getLength());
 		try {
-			this.byteWriter.write(message, out);
+			this.byteWriter.write(message, buf);
 		} catch (SerializationException e) {
 			throw new TncException(e.getMessage(), TncExceptionCodeEnum.TNC_RESULT_OTHER);
 		}
 	
-		return out.toByteArray();
+		return buf.read((int)(buf.bytesWritten()-buf.bytesRead()));
 	
 	}
 

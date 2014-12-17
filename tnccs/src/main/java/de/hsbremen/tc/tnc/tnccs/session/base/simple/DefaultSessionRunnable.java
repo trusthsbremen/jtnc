@@ -1,11 +1,14 @@
 package de.hsbremen.tc.tnc.tnccs.session.base.simple;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-import org.ietf.nea.pb.batch.PbBatch;
+import org.ietf.nea.pb.batch.DefaultTnccsBatchContainer;
 import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,23 +18,20 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
-import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.tnccs.session.base.Session;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
+import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
+import de.hsbremen.tc.tnc.transport.newp.connection.ListenerClosedException;
 import de.hsbremen.tc.tnc.transport.newp.connection.TnccsValueListener;
 import de.hsbremen.tc.tnc.transport.newp.connection.TransportConnection;
-import de.hsbremen.tc.tnc.transport.newp.connection.ListenerClosedException;
-import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class DefaultSessionRunnable  implements TnccsValueListener{
 	
@@ -39,7 +39,7 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 	
 	private final DefaultSessionAttributes attributes;
 	private final ExecutorService runner;
-	private final TnccsWriter<? extends TnccsBatch> writer;
+	private final TnccsWriter<TnccsBatch> writer;
 	private final TnccsReader<TnccsBatchContainer> reader;
 	
 	private TransportConnection connection;
@@ -123,7 +123,18 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 		}
 	
 		if(this.machine.canRetry()){
-			this.runner.execute(new Retry(reason));
+			Future<Boolean> future = this.runner.submit(new Retry(reason));
+			// this is a blocking call
+			try{
+				future.get();
+			}catch(ExecutionException e){
+				if(e.getCause() instanceof TncException){
+					throw (TncException)e.getCause();
+				}
+			} catch (InterruptedException e) {
+				throw new TncException("Retry cancled, because the thread was interrupted.",e,TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
+			}
+			
 		}else{
 			throw new TncException("Retry not allowed.", TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
 		}
@@ -148,7 +159,7 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 						TnccsBatch b = this.machine.close();
 						if(b != null){
 							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)b.getHeader()).getLength());
-							this.writer.write(buf,b);
+							this.writer.write(b, buf);
 							this.connection.send(buf);
 						}
 					} catch (StateMachineAccessException | ConnectionException | SerializationException e) {
@@ -184,18 +195,19 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 			closed = false;
 			try{
 				TnccsBatch batch = machine.start(selfInitiated);
-				connection.open(listener);
-			
 				try {
+					connection.open(listener);
+				
 					if(batch != null){
 						ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
-						writer.write(buf,batch);
+						writer.write(batch, buf);
 						connection.send(buf);
 					}
 					if(machine.isClosed()){
 						LOGGER.info("State machine has reached the end state. Session terminates.");
 						close();
 					}
+					
 				} catch (SerializationException | ConnectionException e) {
 					LOGGER.error("Fatal error discovered. Session terminates.", e);
 					close();
@@ -223,14 +235,25 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 		@Override
 		public void run() {
 			try{
-				TnccsBatchContainer container = reader.read(buffer);
+				
+				TnccsBatchContainer container = null;
+				
+				try{
+					container = reader.read(buffer, -1);
+				}catch(ValidationException e){
+					
+					List<ValidationException> exceptions = new ArrayList<>();
+					exceptions.add(e);
+					container = new DefaultTnccsBatchContainer(null,exceptions);	
+				}
+				
 				TnccsBatch batch = machine.receiveBatch(container);
 				roundTripCounter++;
 				if(batch != null){
 					try {
 						if(batch != null){
 							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
-							writer.write(buf,batch);
+							writer.write(batch, buf);
 							connection.send(buf);
 						}
 						if(machine.isClosed()){
@@ -245,13 +268,16 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 			}catch(StateMachineAccessException e){
 				LOGGER.error("Peer has surprisingly send a message. Session terminates.", e);
 				close();
+			}catch(SerializationException e){
+				LOGGER.error("Fatal error discovered. Session terminates.", e);
+				close();
 			}
 			
 		}
 	}
 	
 	
-	private class Retry implements Runnable{
+	private class Retry implements Callable<Boolean>{
 		
 		private ImHandshakeRetryReasonEnum reason;
 		
@@ -259,20 +285,27 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 			this.reason = reason;
 		}
 		
-		public void run() {
-		
+		@Override
+		public Boolean call() throws Exception {
+
+			Boolean success = Boolean.FALSE;
+			
 			List<TnccsBatch> batches = machine.retryHandshake(reason);
+			
 			try {
 				if(batches != null){
 					for (TnccsBatch batch : batches) {
 						if(batch != null){
 							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
-							writer.write(buf,batch);
+							writer.write(batch, buf);
 							connection.send(buf);
 						}
 					}
 					
 				}
+				
+				success = Boolean.TRUE;
+				
 				if(machine.isClosed()){
 					LOGGER.info("State machine has reached the end state. Session terminates.");
 					close();
@@ -282,7 +315,7 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 				close();
 			}
 			
-				
+			return success;
 		}
 		
 	}

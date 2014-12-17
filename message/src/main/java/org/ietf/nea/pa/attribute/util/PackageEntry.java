@@ -5,9 +5,9 @@ import java.nio.charset.Charset;
 
 public class PackageEntry {
 
-    private final byte packageNameLength;          // 8 bit(s) length of the string in octets
+    private final short packageNameLength;          // 8 bit(s) length of the string in octets
     private final String packageName;              // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
-    private final byte packageVersionLength;       // 8 bit(s) length of language code in octets
+    private final short packageVersionLength;       // 8 bit(s) length of language code in octets
     private final String packageVersion;           // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
 	
     public PackageEntry(String packageName, String packageVersion) {
@@ -21,7 +21,7 @@ public class PackageEntry {
 	/**
 	 * @return the packageNameLength
 	 */
-	public byte getPackageNameLength() {
+	public short getPackageNameLength() {
 		return this.packageNameLength;
 	}
 
@@ -35,7 +35,7 @@ public class PackageEntry {
 	/**
 	 * @return the packageVersionLength
 	 */
-	public byte getPackageVersionLength() {
+	public short getPackageVersionLength() {
 		return this.packageVersionLength;
 	}
 

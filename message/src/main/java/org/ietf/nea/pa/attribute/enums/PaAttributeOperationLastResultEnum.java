@@ -16,19 +16,19 @@ package org.ietf.nea.pa.attribute.enums;
 public enum PaAttributeOperationLastResultEnum{
 
     // IETF
-    IETF_UNKNOWN            ((byte)0),
-    IETF_SUCCESSFUL         ((byte)1),
-    IETF_SUCCESSFUL_W_ERROR ((byte)2),
-    IETF_UNSUCCESSFUL   	((byte)3);
+    IETF_UNKNOWN            ((short)0),
+    IETF_SUCCESSFUL         ((short)1),
+    IETF_SUCCESSFUL_W_ERROR ((short)2),
+    IETF_UNSUCCESSFUL   	((short)3);
  
     
-    private byte result;
+    private short result;
     
-    private PaAttributeOperationLastResultEnum(byte result){
+    private PaAttributeOperationLastResultEnum(short result){
         this.result = result;
     }
 
-    public byte result(){
+    public short result(){
         return this.result;
     }
     

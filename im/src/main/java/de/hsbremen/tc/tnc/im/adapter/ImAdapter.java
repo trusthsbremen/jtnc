@@ -1,6 +1,5 @@
 package de.hsbremen.tc.tnc.im.adapter;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +13,9 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
-import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
+import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 
 public abstract class ImAdapter{
 
@@ -67,7 +68,9 @@ public abstract class ImAdapter{
 	private ImMessageContainer byteArrayToMessage(byte[] message) throws TncException, ValidationException{
 		ImMessageContainer imMessage = null;
 		try {
-			imMessage = this.byteReader.read(new ByteArrayInputStream(message), message.length);
+			ByteBuffer buf = new DefaultByteBuffer(message.length);
+			buf.write(message);
+			imMessage = this.byteReader.read(buf, message.length);
 		} catch (SerializationException e) {
 			throw new TncException(e.getMessage(),TncExceptionCodeEnum.TNC_RESULT_OTHER);
 		}

@@ -17,8 +17,8 @@ import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
-import org.ietf.nea.pb.serialize.reader.PbReaderFactory;
-import org.ietf.nea.pb.serialize.writer.PbWriterFactory;
+import org.ietf.nea.pb.serialize.reader.stream.PbReaderFactory;
+import org.ietf.nea.pb.serialize.writer.stream.PbWriterFactory;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -38,6 +38,7 @@ import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
@@ -54,6 +55,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAcces
 import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
+import de.hsbremen.tc.tnc.transport.newp.connection.TnccsValueListener;
 
 public class Dummy extends AbstractDummy{
 
@@ -171,6 +173,23 @@ public class Dummy extends AbstractDummy{
 
 	protected static TransportAddress getTransportAddress() {
 		return new TransportAddress() {
+			
+			private int i = new Random().nextInt(100);
+
+			/* (non-Javadoc)
+			 * @see java.lang.Object#toString()
+			 */
+			@Override
+			public String toString() {
+				return super.toString() + "[id: "+i+"]";
+			}
+			
+			
+		};
+	}
+	
+	protected static de.hsbremen.tc.tnc.transport.newp.connection.TransportAddress getTransportAddressNewp() {
+		return new de.hsbremen.tc.tnc.transport.newp.connection.TransportAddress() {
 			
 			private int i = new Random().nextInt(100);
 
@@ -496,6 +515,73 @@ public class Dummy extends AbstractDummy{
 
 		List<TnccsMessage> messages = new ArrayList<>();
 		return PbBatchFactoryIetf.createClientClose(messages);
+	}
+
+	public static de.hsbremen.tc.tnc.transport.newp.connection.TransportConnection getTransportConnection() {
+		
+		return new de.hsbremen.tc.tnc.transport.newp.connection.TransportConnection(){
+
+			private Attributed attributes;
+			private de.hsbremen.tc.tnc.transport.newp.connection.TransportAddress address;
+			private ByteArrayInputStream in;
+			private ByteArrayOutputStream out;
+			private boolean open;
+			
+			@Override
+			public void open(TnccsValueListener listener) throws ConnectionException {
+				 in = new ByteArrayInputStream(Dummy.getBatchWithImMessageAsByte());
+				 out = new ByteArrayOutputStream();
+				 open = true;
+				 address = Dummy.getTransportAddressNewp();
+				 attributes = Dummy.getTransportAttributes();
+			}
+			
+			@Override
+			public boolean isSelfInititated() {
+				System.out.println("isSelfInitiated() called. TRUE");
+				return true;
+			}
+			
+			@Override
+			public boolean isOpen() {
+				System.out.println("isOpen() called. " + (open && in != null && out != null));
+				return (open && in != null && out != null);
+			}
+			
+			
+			@Override
+			public de.hsbremen.tc.tnc.transport.newp.connection.TransportAddress getAddress() {
+				System.out.println("getId() called. " + this.address.toString());
+				return this.address;
+			}
+			
+			@Override
+			public Attributed getAttributes() {
+				System.out.println("getAttributes() called.");
+				return this.attributes;
+			}
+
+
+			@Override
+			public void close() {
+				try{
+					in.close();
+					out.close();
+				}catch(IOException e){
+					System.out.println("Exception occured while shutting down the streams.");
+				}finally{
+					this.open = false;
+				}
+				
+			}
+
+
+			@Override
+			public void send(ByteBuffer buffer) throws ConnectionException {
+				System.out.println("Send() called.");
+				
+			}
+		};
 	}
 	
 	

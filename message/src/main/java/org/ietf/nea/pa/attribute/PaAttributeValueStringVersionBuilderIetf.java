@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
+import org.ietf.nea.pa.validate.rules.StringLengthLimit;
 
 public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValueStringVersionBuilder{
 
@@ -24,6 +25,7 @@ public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValu
 	public void setProductVersion(String productVersion) throws RuleException {
 		if(productVersion != null){
 			NoNullTerminatedString.check(productVersion);
+			StringLengthLimit.check(productVersion, 0xFF);
 			this.productVersion = productVersion;
 			this.updateLength();
 		}
@@ -34,6 +36,7 @@ public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValu
 	public void setBuildNumber(String buildNumber) throws RuleException {
 		if(buildNumber != null){
 			NoNullTerminatedString.check(buildNumber);
+			StringLengthLimit.check(buildNumber, 0xFF);
 			this.buildVersion = buildNumber;
 			this.updateLength();
 		}
@@ -45,6 +48,7 @@ public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValu
 			throws RuleException {
 		if(configVersion != null){
 			NoNullTerminatedString.check(configVersion);
+			StringLengthLimit.check(configVersion, 0xFF);
 			this.configVersion = configVersion;
 			this.updateLength();
 		}

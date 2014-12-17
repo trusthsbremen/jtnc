@@ -21,7 +21,7 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 		this.flags = new PaAttributeFlagsEnum[0];
 		this.vendorId = IETFConstants.IETF_PEN_VENDORID;
 		this.type = PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.attributeType();
-		this.length = PaAttributeTlvFixedLengthEnum.MESSAGE.length();
+		this.length = PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length();
 	}
 
 

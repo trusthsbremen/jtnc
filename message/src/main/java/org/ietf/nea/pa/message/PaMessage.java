@@ -11,7 +11,7 @@ public class PaMessage implements ImMessage {
 
 	 private final PaMessageHeader header;                        
 	 private final List<PaAttribute> attributes;
-
+	 
 	 public PaMessage(final PaMessageHeader header, List<PaAttribute> attributes) {
 			if(header == null){
 				throw new NullPointerException("Message header cannot be null.");

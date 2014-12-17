@@ -1,6 +1,5 @@
 package de.hsbremen.tc.tnc.im.adapter.connection;
 
-import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +21,9 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
-import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
+import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
@@ -133,14 +134,14 @@ class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
 	
 	private byte[] messageToByteArray(ImMessage message) throws TncException{
 		
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ByteBuffer buf = new DefaultByteBuffer(message.getHeader().getLength());
 		try {
-			this.byteWriter.write(message, out);
+			this.byteWriter.write(message, buf);
 		} catch (SerializationException e) {
 			throw new TncException(e.getMessage(), TncExceptionCodeEnum.TNC_RESULT_OTHER);
 		}
 	
-		return out.toByteArray();
+		return buf.read((int)(buf.bytesWritten()-buf.bytesRead()));
 	
 	}
 

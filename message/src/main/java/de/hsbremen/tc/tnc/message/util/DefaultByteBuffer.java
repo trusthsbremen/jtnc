@@ -24,11 +24,22 @@ public class DefaultByteBuffer implements ByteBuffer {
 	}
 	
 	protected DefaultByteBuffer(long capacity,int chunkSize){
-		this.chunkSize = chunkSize;
-		if(capacity <= this.chunkSize){
+		if(chunkSize < 0){
+			this.chunkSize = 0;
+		}else{
+			this.chunkSize = chunkSize;
+		}
+		
+		if(capacity < 0){
+			this.capacity = 0;
+		}else{
+			this.capacity = capacity;
+		}
+		
+		if(this.capacity <= this.chunkSize){
 			this.buffer = new ArrayList<>(1);
-			this.buffer.add(new byte[(int)capacity]);
-			this.lastRowSize = (int)capacity;
+			this.buffer.add(new byte[(int)this.capacity]);
+			this.lastRowSize = (int)this.capacity;
 		}else{
 			
 			// count last row size
@@ -51,7 +62,7 @@ public class DefaultByteBuffer implements ByteBuffer {
 			}
 		}
 		
-		this.capacity = capacity;
+		
 		this.readColPointer  = 0;
 		this.readRowPointer  = -1;
 		this.writeColPointer = 0;
@@ -109,6 +120,10 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public void write(ByteBuffer byteBuffer) {
+		
+		if(byteBuffer == null){
+			throw new NullPointerException("Buffer cannot be null.");
+		}
 		
 		this.checkWriteBufferOverflow(byteBuffer.bytesWritten());
 		
@@ -230,9 +245,14 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public void writeDigits(long number, byte length){
-		if( length == 0 || length > 8 ){
-			throw new IllegalArgumentException("Supplied length is to large.");
+		if( length <= 0 ){
+			return;
 		}
+		
+		if(	length > 8 ){
+			throw new IllegalArgumentException("Supplied length "+length+" is to long.");
+		}
+		
 		byte[] b = new byte[length];
 		
 		byte l = (byte)(length - 1) ;
@@ -250,8 +270,9 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public byte[] read(int length){
-		if(length < 0){
-			throw new NullPointerException("Length must be a positive integer.");
+		if(length <= 0){
+			//obviously we cannot read anything so retrun 0 length;
+			return new byte[0];
 		}
 		
 		int length2 = length;
@@ -292,6 +313,11 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public ByteBuffer read(long length) {
+		
+		if(length <= 0){
+			//obviously we cannot read anything so retrun 0 length;
+			return new DefaultByteBuffer(0);
+		}
 		
 		this.checkReadBufferUnderflow(length);
 		
@@ -340,7 +366,11 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public short readShort(byte length){
-		if( length == 0 || length > 2 ){
+		if( length <= 0 ){
+			return 0;
+		}	
+		
+		if( length > 2 ){
 			throw new IllegalArgumentException("Supplied length is to large.");
 		}
 		
@@ -367,7 +397,11 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public int readInt(byte length){
-		if( length == 0 || length > 4 ){
+		if( length <= 0 ){
+			return 0;
+		}	
+		
+		if( length > 4 ){
 			throw new IllegalArgumentException("Supplied length is to large.");
 		}
 		
@@ -393,7 +427,11 @@ public class DefaultByteBuffer implements ByteBuffer {
 	 */
 	@Override
 	public long readLong(byte length){
-		if( length == 0 || length > 8 ){
+		if( length <= 0 ){
+			return 0;
+		}	
+		
+		if( length > 8 ){
 			throw new IllegalArgumentException("Supplied length is to large.");
 		}
 		

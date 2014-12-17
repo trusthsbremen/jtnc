@@ -9,14 +9,14 @@ import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import org.ietf.nea.pb.message.PbMessageValueIm;
 import org.ietf.nea.pb.message.PbMessageValueReasonString;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
-import org.ietf.nea.pb.serialize.writer.PbWriterFactory;
+import org.ietf.nea.pb.serialize.writer.stream.PbWriterFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 public class WriterTest {

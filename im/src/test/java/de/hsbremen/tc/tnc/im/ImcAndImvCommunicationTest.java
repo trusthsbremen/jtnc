@@ -1,7 +1,7 @@
 package de.hsbremen.tc.tnc.im;
 
-import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
-import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
+import org.ietf.nea.pa.serialize.reader.bytebuffer.PaReaderFactory;
+import org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriterFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

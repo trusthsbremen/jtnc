@@ -8,6 +8,7 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
+import org.ietf.nea.pa.validate.rules.StringLengthLimit;
 
 public class PaAttributeValueInstalledPackagesBuilderIetf implements
 PaAttributeValueInstalledPackagesBuilder {
@@ -29,7 +30,9 @@ PaAttributeValueInstalledPackagesBuilder {
 		
 		if(pkg != null){
 			NoNullTerminatedString.check(pkg.getPackageName());
+			StringLengthLimit.check(pkg.getPackageName(), 0xFF);
 			NoNullTerminatedString.check(pkg.getPackageVersion());
+			StringLengthLimit.check(pkg.getPackageVersion(), 0xFF);
 			temp.add(pkg);
 		}
 		
@@ -37,7 +40,9 @@ PaAttributeValueInstalledPackagesBuilder {
 			for (PackageEntry pkgEntry : pkgs) {
 				if(pkgEntry != null){
 					NoNullTerminatedString.check(pkgEntry.getPackageName());
+					StringLengthLimit.check(pkgEntry.getPackageName(), 0xFF);
 					NoNullTerminatedString.check(pkgEntry.getPackageVersion());
+					StringLengthLimit.check(pkgEntry.getPackageVersion(), 0xFF);
 					temp.add(pkgEntry);
 				}
 			}

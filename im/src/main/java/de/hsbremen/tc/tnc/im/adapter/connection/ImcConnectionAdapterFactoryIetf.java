@@ -10,7 +10,7 @@ import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
-import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 
 public class ImcConnectionAdapterFactoryIetf implements ImcConnectionAdapterFactory {
 

@@ -8,20 +8,21 @@ import org.ietf.nea.pa.attribute.PaAttributeValueInstalledPackages;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.message.PaMessage;
-import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
+import org.ietf.nea.pa.serialize.writer.stream.PaWriterFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.m.serialize.ImWriter;
+import de.hsbremen.tc.tnc.message.m.message.ImMessage;
+import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
 import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 public class WriterTest {
 
 
 	TestData message;
-	ImWriter<PaMessage> bs;
+	ImWriter<ImMessage> bs;
 	
 	@Before
 	public void setUp(){

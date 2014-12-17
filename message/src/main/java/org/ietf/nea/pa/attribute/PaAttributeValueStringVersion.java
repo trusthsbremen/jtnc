@@ -5,11 +5,11 @@ import java.nio.charset.Charset;
 
 public class PaAttributeValueStringVersion extends AbstractPaAttributeValue {
 
-    private final byte versionLength;           // 8 bit(s) length of the string in octets
+    private final short versionLength;           // 8 bit(s) length of the string in octets
     private final String versionNumber;         // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
-    private final byte buildLength;        		// 8 bit(s) length of language code in octets
+    private final short buildLength;        		// 8 bit(s) length of language code in octets
     private final String buildVersion;          // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
-    private final byte configLength;        	// 8 bit(s) length of language code in octets
+    private final short configLength;        	// 8 bit(s) length of language code in octets
     private final String configurationVersion;  // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
 	
     PaAttributeValueStringVersion(long length, String versionNumber,
@@ -26,7 +26,7 @@ public class PaAttributeValueStringVersion extends AbstractPaAttributeValue {
 	/**
 	 * @return the versionLength
 	 */
-	public byte getVersionNumberLength() {
+	public short getVersionNumberLength() {
 		return this.versionLength;
 	}
 
@@ -40,7 +40,7 @@ public class PaAttributeValueStringVersion extends AbstractPaAttributeValue {
 	/**
 	 * @return the buildLength
 	 */
-	public byte getBuildVersionLength() {
+	public short getBuildVersionLength() {
 		return this.buildLength;
 	}
 
@@ -54,7 +54,7 @@ public class PaAttributeValueStringVersion extends AbstractPaAttributeValue {
 	/**
 	 * @return the configLength
 	 */
-	public byte getConfigurationVersionLength() {
+	public short getConfigurationVersionLength() {
 		return this.configLength;
 	}
 

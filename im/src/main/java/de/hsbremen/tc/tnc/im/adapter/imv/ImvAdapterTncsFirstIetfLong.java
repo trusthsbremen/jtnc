@@ -1,7 +1,7 @@
 package de.hsbremen.tc.tnc.im.adapter.imv;
 
-import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
-import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
+import org.ietf.nea.pa.serialize.reader.bytebuffer.PaReaderFactory;
+import org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriterFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import org.trustedcomputinggroup.tnc.ifimv.IMVTNCSFirst;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
@@ -19,7 +19,7 @@ import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
-import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
 public class ImvAdapterTncsFirstIetfLong extends ImvAdapterIetfLong implements IMVTNCSFirst{
 	

@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
-import org.ietf.nea.pa.validate.rules.LangCodeStringLimit;
+import org.ietf.nea.pa.validate.rules.StringLengthLimit;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pa.validate.rules.NoZeroString;
 
@@ -43,7 +43,7 @@ public class PaAttributeValueRemediationParameterStringBuilderIetf implements Pa
 		// Zero length string for language code allowed.
         if(langCode != null){
         	NoNullTerminatedString.check(langCode);
-        	LangCodeStringLimit.check(langCode);
+        	StringLengthLimit.check(langCode, 0xFF);
         	this.langCode = langCode;
         	this.updateLength();
         }

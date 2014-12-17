@@ -28,6 +28,43 @@ public class TestData {
 
 	byte[] numericVersionMessage = new byte[]{1, 0, 0, 0, 0, 0, 0, 38, 0, 0, 0, 0, 
 			0, 0, 0, 3, 0, 0, 0, 28, 0, 0, 0, 1, 0, 0, 0, 7, 0, 0, 1, 2, 0, 0, 0, 1};
+	
+	byte[] faultyNumericVersionMessage = new byte[]{1, 0, 0, 0,
+													0, 0, 0, 38,
+													0, 0, 0, 0, 
+													0, 0, 0, 3, 
+													0, 0, 0, 11, 
+													(byte)0x80, 0, 0, 1, 
+													0, 0, 0, 7, 
+													0, 0, 1, 2, 
+													0, 0, 0, 1};
+	
+	byte[] faultymixedMessage = new byte[]{1, 0, 0, 0,
+											0, 0, 0, 45,
+											0, 0, 0, 0,
+											0, 0, 0, 9,
+											0, 0, 0, 16,
+											0, 0, 0, 1,
+											// next msg
+											0, 0, 0, 0,
+											0, 0, 0, 3,
+											0, 0, 0, 28,
+											0, 0, 0, 1,
+											0, 0, 0, 7,
+											0, 0, 1, 2,
+											0, 0, 0, 1,
+											// next msg
+											0, 0, 0, 0,
+											0, 0, 0, 7, 
+											0, 0, 0, 47,
+											0, 0, 0, 2,
+											9,105, 112, 116,
+											97, 98, 108, 101,0x00,
+											115, 6, 49, 46, 52,
+											46, 49,	50,	4,
+											106, 97, 118, 97,
+											8, 49, 46, 55,
+											46, 48, 95,52, 48};
 
 	byte[] installedPackageMessage = new byte[]{1, 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 46, 0, 0, 0, 2, 8, 105, 112, 116, 97, 98, 108, 101, 115, 6, 49, 46, 52, 46, 49, 50, 4, 106, 97, 118, 97, 8, 49, 46, 55, 46, 48, 95, 52, 48};
 	byte[] installedPackageMessag2 = new byte[]{1, 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 47, 0, 0, 0, 2, 9, 105, 112, 116, 97, 98, 108, 101, 115, 0, 6, 49, 46, 52, 46, 49, 50, 4, 106, 97, 118, 97, 8, 49, 46, 55, 46, 48, 95, 52, 48};
@@ -39,6 +76,10 @@ public class TestData {
 	
 	public byte[] getMessageWithNumericVersionAsByteArray() throws IOException{
 		return numericVersionMessage;
+	}
+	
+	public byte[] getMessageWithFaultyNumericVersionAsByteArray() throws IOException{
+		return faultyNumericVersionMessage;
 	}
 	
 	public byte[] getMessageWithAssessmentResultAsByteArray() throws IOException{
@@ -53,8 +94,12 @@ public class TestData {
 		return attributeRequestStringVersion;
 	}
 	
-	public byte[] getBatchWithMixedAttributesAsByteArray() throws IOException{
+	public byte[] getMessageWithMixedAttributesAsByteArray() throws IOException{
 		return mixedMessage;
+	}
+	
+	public byte[] getMessageWithFaultyMixedAttributesAsByteArray() throws IOException{
+		return faultymixedMessage;
 	}
 	
 	public PaMessage getMessageWithNumericVersion() throws ValidationException{

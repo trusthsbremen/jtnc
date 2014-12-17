@@ -20,4 +20,9 @@ public interface ImMessageHeader extends ImData{
 	 */
 	public long getIdentifier();
 	
+	/*
+	 * Additional value not mandatory in the standards but it MUST be set to aid serialization
+	 */
+	public long getLength();
+	
 }

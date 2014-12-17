@@ -18,7 +18,7 @@ import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
-import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
 public class ImvAdapterIetfLong extends ImvAdapterIetf implements IMVLong{
 	

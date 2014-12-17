@@ -14,8 +14,8 @@ import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
-import org.ietf.nea.pb.serialize.reader.PbReaderFactory;
-import org.ietf.nea.pb.serialize.writer.PbWriterFactory;
+import org.ietf.nea.pb.serialize.reader.stream.PbReaderFactory;
+import org.ietf.nea.pb.serialize.writer.stream.PbWriterFactory;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;

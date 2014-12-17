@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsWriter;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsWriter;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel;
 import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;

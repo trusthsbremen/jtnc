@@ -21,6 +21,8 @@ import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
+import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 
 public class TestData {
 
@@ -58,6 +60,26 @@ public class TestData {
 	
 	byte[] recommendationBatch = new byte[] {2, 0, 0, 3, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1, -128, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 16, 0, 0, 0, 0};
 
+	byte[] faultyRecommendationBatch = new byte[] {2, 0, 0, 3, 
+													0, 0, 0, 40,
+													0, 0, 0, 0,
+													0, 0, 0, 3, 
+													0, 0, 0, 16,
+													0, 0, 0, 100,
+													-128, 0, 0, 0,
+													0, 0, 0, 2,
+													0, 0, 0, 16,
+													0, 0, 0, 0};
+	byte[] faultyRecommendationBatchFatal = new byte[] {2, 0, 0, 3, 
+			0, 0, 0, 40,
+			0, 0, 0, 0,
+			0, 0, 0, 3, 
+			0, 0, 0, 16,
+			0, 0, 0, 1,
+			0, 0, 0, 0,
+			0, 0, 0, 2,
+			0, 0, 0, 16,
+			0, 0, 0, 0};
 	
 	public ByteArrayInputStream getBatchWithImAsStream() throws IOException{
 		return new ByteArrayInputStream(imBatch);
@@ -77,6 +99,48 @@ public class TestData {
 	
 	public ByteArrayInputStream getBatchWithMixedAsStream() throws IOException{
 		return new ByteArrayInputStream(mixedBatch);
+	}
+	
+	public ByteBuffer getBatchWithImAsBuffer() throws IOException{
+		ByteBuffer b = new DefaultByteBuffer(imBatch.length);
+		b.write(imBatch);
+		return b;
+	}
+	
+	public ByteBuffer getBatchWithReasonAsBuffer() throws IOException{
+		ByteBuffer b = new DefaultByteBuffer(reasonBatch.length);
+		b.write(reasonBatch);
+		return b;
+	}
+	
+	public ByteBuffer getBatchWithRecommendationAsBuffer() throws IOException{
+		ByteBuffer b = new DefaultByteBuffer(recommendationBatch.length);
+		b.write(recommendationBatch);
+		return b;
+	}
+	
+	public ByteBuffer getBatchWithWrongTypeAndRecommendationAsBuffer() throws IOException{
+		ByteBuffer b = new DefaultByteBuffer(recommendationBatchWrongBatchType.length);
+		b.write(recommendationBatchWrongBatchType);
+		return b;
+	}
+	
+	public ByteBuffer getBatchWithMixedAsBuffer() throws IOException{
+		ByteBuffer b = new DefaultByteBuffer(mixedBatch.length);
+		b.write(mixedBatch);
+		return b;
+	}
+	
+	public ByteBuffer getBatchWithFaultyRecommendationAsBuffer() throws IOException{
+		ByteBuffer b = new DefaultByteBuffer(faultyRecommendationBatch.length);
+		b.write(faultyRecommendationBatch);
+		return b;
+	}
+	
+	public ByteBuffer getBatchWithFatalyFaultyRecommendationAsBuffer() throws IOException{
+		ByteBuffer b = new DefaultByteBuffer(faultyRecommendationBatchFatal.length);
+		b.write(faultyRecommendationBatchFatal);
+		return b;
 	}
 	
 	public PbBatch getBatchWithImMessage() throws ValidationException{

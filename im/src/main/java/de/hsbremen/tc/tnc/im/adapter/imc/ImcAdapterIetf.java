@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
-import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
+import org.ietf.nea.pa.serialize.reader.bytebuffer.PaReaderFactory;
+import org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
@@ -35,7 +35,7 @@ import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImcSession;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
-import de.hsbremen.tc.tnc.message.m.serialize.ImReader;
+import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.apache.log4j.BasicConfigurator;
-import org.ietf.nea.pa.serialize.reader.PaReaderFactory;
-import org.ietf.nea.pa.serialize.writer.PaWriterFactory;
+import org.ietf.nea.pa.serialize.reader.bytebuffer.PaReaderFactory;
+import org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriterFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;

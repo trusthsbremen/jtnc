@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.ietf.nea.pt.message.PtTlsMessage;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum;
-import org.ietf.nea.pt.serialize.reader.PtTlsReaderFactory;
+import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.value.PtTlsMessageValueError;
 import org.ietf.nea.pt.value.PtTlsMessageValuePbBatch;
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslAuthenticationData;
@@ -24,7 +24,7 @@ import org.junit.Test;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportReader;
+import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;

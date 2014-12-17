@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttribute;
-import org.ietf.nea.pa.validate.rules.CommonLengthLimits;
+import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
@@ -25,8 +25,9 @@ public class PaMessageFactoryIetf {
 			for (PaAttribute attr : attributes) {
 				l += attr.getHeader().getLength();
 			}
-	
-			CommonLengthLimits.check(l);
+
+			builder.setLength(l+PaAttributeTlvFixedLengthEnum.MESSAGE.length());
+			
 		}catch(RuleException e){
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}

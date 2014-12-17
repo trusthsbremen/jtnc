@@ -8,7 +8,7 @@ import org.ietf.nea.pb.batch.DefaultTnccsBatchContainer;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsReader;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
 import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
 import de.hsbremen.tc.tnc.tnccs.session.connection.exception.ListenerClosedException;

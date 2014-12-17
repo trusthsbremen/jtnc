@@ -11,4 +11,6 @@ public interface PaMessageHeaderBuilder extends ImMessageHeaderBuilder {
 
 	public abstract PaMessageHeaderBuilder setIdentifier(long identifier)
 			throws RuleException;
+
+	public abstract PaMessageHeaderBuilder setLength(long length) throws RuleException;
 }

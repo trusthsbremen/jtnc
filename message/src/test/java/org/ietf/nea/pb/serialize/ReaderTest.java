@@ -17,13 +17,13 @@ import org.ietf.nea.pb.message.PbMessageValueReasonString;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
-import org.ietf.nea.pb.serialize.reader.PbReaderFactory;
+import org.ietf.nea.pb.serialize.reader.stream.PbReaderFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsReader;
 
 public class ReaderTest {
 

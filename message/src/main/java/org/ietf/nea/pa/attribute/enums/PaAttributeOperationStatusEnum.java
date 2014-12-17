@@ -18,7 +18,7 @@ public enum PaAttributeOperationStatusEnum{
     IETF_UNKNOWN            		((short)0),
     IETF_NOT_INSTALLED              ((short)1),
     IETF_INSTALLED_NOT_OPERATIONAL  ((short)2),
-    IETF_OPERATIONAL   				((byte)3);
+    IETF_OPERATIONAL   				((short)3);
  
     
     private short status;

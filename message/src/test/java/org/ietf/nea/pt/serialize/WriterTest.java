@@ -3,7 +3,7 @@ package org.ietf.nea.pt.serialize;
 import java.io.UnsupportedEncodingException;
 
 import org.ietf.nea.pt.message.PtTlsMessage;
-import org.ietf.nea.pt.serialize.writer.PtTlsWriterFactory;
+import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportWriter;
+import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 

@@ -5,8 +5,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import org.ietf.nea.pb.serialize.reader.PbReaderFactory;
-import org.ietf.nea.pb.serialize.writer.PbWriterFactory;
+import org.ietf.nea.pb.serialize.reader.stream.PbReaderFactory;
+import org.ietf.nea.pb.serialize.writer.stream.PbWriterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;

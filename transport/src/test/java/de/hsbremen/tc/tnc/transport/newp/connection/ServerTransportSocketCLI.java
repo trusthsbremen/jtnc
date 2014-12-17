@@ -11,8 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.BasicConfigurator;
-import org.ietf.nea.pt.serialize.reader.PtTlsReaderFactory;
-import org.ietf.nea.pt.serialize.writer.PtTlsWriterFactory;
+import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
+import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
 
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
