@@ -18,10 +18,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeInstalledPackagesValueReader implements ImReader<PaAttributeValueInstalledPackages>{
 
-	private PaAttributeValueInstalledPackagesBuilder builder;
+	private PaAttributeValueInstalledPackagesBuilder baseBuilder;
 	
 	PaAttributeInstalledPackagesValueReader(PaAttributeValueInstalledPackagesBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ class PaAttributeInstalledPackagesValueReader implements ImReader<PaAttributeVal
 		long errorOffset = 0;
 		
 		PaAttributeValueInstalledPackages value = null;
-		builder = (PaAttributeValueInstalledPackagesBuilder)builder.clear();
+		PaAttributeValueInstalledPackagesBuilder builder = (PaAttributeValueInstalledPackagesBuilder)baseBuilder.newInstance();
 
 		try{
 			
@@ -72,7 +72,7 @@ class PaAttributeInstalledPackagesValueReader implements ImReader<PaAttributeVal
 					String packageVersion = this.readString(versionLength, in, Charset.forName("UTF-8"));
 					count += versionLength;
 					
-					this.builder.addPackages(new PackageEntry(packageName, packageVersion));
+					builder.addPackages(new PackageEntry(packageName, packageVersion));
 					errorOffset += count;
 					
 					// TODO error offset is vague because it cannot be calculated to the exact offset.  
@@ -85,7 +85,7 @@ class PaAttributeInstalledPackagesValueReader implements ImReader<PaAttributeVal
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueInstalledPackages)builder.toValue();
+			value = (PaAttributeValueInstalledPackages)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

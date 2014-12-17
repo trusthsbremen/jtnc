@@ -47,13 +47,13 @@ public class PaAttributeValueNumericVersionBuilderIetf implements
 	}
 
 	@Override
-	public PaAttributeValueNumericVersion toValue(){
+	public PaAttributeValueNumericVersion toObject(){
 		
 		return new PaAttributeValueNumericVersion(this.length, this.majorVersion, this.minorVersion, this.buildVersion, this.servicePackMajor, this.servicePackMinor);
 	}
 
 	@Override
-	public PaAttributeValueNumericVersionBuilder clear() {
+	public PaAttributeValueNumericVersionBuilder newInstance() {
 		return new PaAttributeValueNumericVersionBuilderIetf();
 	}
 

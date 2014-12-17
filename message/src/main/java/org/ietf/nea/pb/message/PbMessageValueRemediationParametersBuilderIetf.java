@@ -56,7 +56,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	}
 
 	@Override
-	public PbMessageValueRemediationParameters toValue(){
+	public PbMessageValueRemediationParameters toObject(){
 		if(parameter == null){
 			throw new IllegalStateException("A remediation value has to be set.");
 		}
@@ -65,7 +65,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
 	}
 
 	@Override
-	public PbMessageValueRemediationParametersBuilder clear() {
+	public PbMessageValueRemediationParametersBuilder newInstance() {
 
 		return new PbMessageValueRemediationParametersBuilderIetf();
 	}

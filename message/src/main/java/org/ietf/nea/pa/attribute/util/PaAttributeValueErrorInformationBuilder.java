@@ -4,7 +4,7 @@ import org.ietf.nea.exception.RuleException;
 
 public interface PaAttributeValueErrorInformationBuilder {
 
-	public abstract AbstractPaAttributeValueErrorInformation toValue() throws RuleException;
+	public abstract AbstractPaAttributeValueErrorInformation toObject() throws RuleException;
 	
-	public abstract PaAttributeValueErrorInformationBuilder clear();
+	public abstract PaAttributeValueErrorInformationBuilder newInstance();
 }

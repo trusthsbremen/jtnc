@@ -17,10 +17,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageRemediationParameterStringSubValueReader implements TnccsReader<PbMessageValueRemediationParameterString>{
 
-	private PbMessageValueRemediationParameterStringBuilder builder;
+	private PbMessageValueRemediationParameterStringBuilder baseBuilder;
 	
 	PbMessageRemediationParameterStringSubValueReader(PbMessageValueRemediationParameterStringBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PbMessageRemediationParameterStringSubValueReader implements TnccsReader<P
 		long errorOffset = 0;
 		
 		PbMessageValueRemediationParameterString value = null;
-		builder = (PbMessageValueRemediationParameterStringBuilder)builder.clear();
+		PbMessageValueRemediationParameterStringBuilder builder = (PbMessageValueRemediationParameterStringBuilder)baseBuilder.newInstance();
 
 		try{
 			
@@ -46,7 +46,7 @@ class PbMessageRemediationParameterStringSubValueReader implements TnccsReader<P
 				errorOffset += byteSize;
 				
 				String reasonString = readString(reasonLength, in, Charset.forName("UTF-8"));
-				this.builder.setRemediationString(reasonString);
+				builder.setRemediationString(reasonString);
 				errorOffset += reasonLength;
 				
 				// Last byte is the language code length;
@@ -56,14 +56,14 @@ class PbMessageRemediationParameterStringSubValueReader implements TnccsReader<P
 				errorOffset += byteSize;
 				
 				String langCode = readString(langLength, in, Charset.forName("US-ASCII"));
-				this.builder.setLangCode(langCode);
+				builder.setLangCode(langCode);
 				errorOffset += langLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for message value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PbMessageValueRemediationParameterString)builder.toValue();
+			value = (PbMessageValueRemediationParameterString)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

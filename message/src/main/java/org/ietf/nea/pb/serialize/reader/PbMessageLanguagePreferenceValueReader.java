@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageLanguagePreferenceValueReader implements TnccsReader<PbMessageValueLanguagePreference>{
 
-	private PbMessageValueLanguagePreferenceBuilder builder;
+	private PbMessageValueLanguagePreferenceBuilder baseBuilder;
 	
 	PbMessageLanguagePreferenceValueReader(PbMessageValueLanguagePreferenceBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PbMessageLanguagePreferenceValueReader implements TnccsReader<PbMessageVal
 		long errorOffset = 0;
 		
 		PbMessageValueLanguagePreference value = null;
-		builder = (PbMessageValueLanguagePreferenceBuilder)builder.clear();
+		PbMessageValueLanguagePreferenceBuilder builder = (PbMessageValueLanguagePreferenceBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -40,14 +40,14 @@ class PbMessageLanguagePreferenceValueReader implements TnccsReader<PbMessageVal
 				
 				/* message */
 				String languagePreference = readString(messageLength, in, Charset.forName("US-ASCII"));
-				this.builder.setLanguagePreference(languagePreference);
+				builder.setLanguagePreference(languagePreference);
 				errorOffset += messageLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for message value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PbMessageValueLanguagePreference)builder.toValue();
+			value = (PbMessageValueLanguagePreference)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

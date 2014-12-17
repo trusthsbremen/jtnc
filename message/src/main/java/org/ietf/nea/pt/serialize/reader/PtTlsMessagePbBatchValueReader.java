@@ -13,10 +13,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessagePbBatchValueReader implements TransportReader<PtTlsMessageValuePbBatch>{
 
-	private PtTlsMessageValuePbBatchBuilder builder;
+	private PtTlsMessageValuePbBatchBuilder baseBuilder;
 	
 	PtTlsMessagePbBatchValueReader(PtTlsMessageValuePbBatchBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ class PtTlsMessagePbBatchValueReader implements TransportReader<PtTlsMessageValu
 				long errorOffset = 0;
 				
 				PtTlsMessageValuePbBatch mValue = null;
-				PtTlsMessageValuePbBatchBuilder valueBuilder = (PtTlsMessageValuePbBatchBuilder)builder.clear();
+				PtTlsMessageValuePbBatchBuilder builder = (PtTlsMessageValuePbBatchBuilder)baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -36,13 +36,13 @@ class PtTlsMessagePbBatchValueReader implements TransportReader<PtTlsMessageValu
 						/* PB TNC batch */
 						errorOffset = buffer.bytesRead();
 						ByteBuffer data = buffer.read(length);
-						valueBuilder.setTnccsData(data);
+						builder.setTnccsData(data);
 
 					}catch (BufferUnderflowException e){
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValuePbBatch)valueBuilder.toValue();
+					mValue = (PtTlsMessageValuePbBatch)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

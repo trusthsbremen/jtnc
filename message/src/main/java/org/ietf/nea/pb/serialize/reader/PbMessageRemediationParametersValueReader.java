@@ -18,14 +18,14 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessageValueRemediationParameters>{
 
-	private PbMessageValueRemediationParametersBuilder builder;
+	private PbMessageValueRemediationParametersBuilder baseBuilder;
 	
 	// TODO should be a map to make the remediation parameters more customizable
 	private final PbMessageRemediationParameterStringSubValueReader stringReader;
 	private final PbMessageRemediationParameterUriSubValueReader uriReader;
 	
 	public PbMessageRemediationParametersValueReader(PbMessageValueRemediationParametersBuilder builder, PbMessageRemediationParameterStringSubValueReader stringReader, PbMessageRemediationParameterUriSubValueReader uriReader ){
-		this.builder = builder;
+		this.baseBuilder = builder;
 		this.stringReader = stringReader;
 		this.uriReader = uriReader;
 	}
@@ -37,7 +37,7 @@ class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessage
 		long errorOffset = 0;
 		
 		PbMessageValueRemediationParameters value = null;
-		builder = (PbMessageValueRemediationParametersBuilder)builder.clear();
+		PbMessageValueRemediationParametersBuilder builder = (PbMessageValueRemediationParametersBuilder)this.baseBuilder.newInstance();
 
 		long rpVendorId = 0L;
 		long rpType = 0L;
@@ -58,14 +58,14 @@ class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessage
 				byteSize = 3;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				rpVendorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setRpVendorId(rpVendorId);
+				builder.setRpVendorId(rpVendorId);
 				errorOffset += byteSize;
 				
 				/* remediation type */
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				rpType = ByteArrayHelper.toLong(buffer);
-				this.builder.setRpType(rpType);
+				builder.setRpType(rpType);
 				errorOffset += byteSize;
 			
 			}catch (IOException e){
@@ -81,11 +81,11 @@ class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessage
 			try{
 				if(rpType == PbMessageRemediationParameterTypeEnum.IETF_URI.type()){
 					PbMessageValueRemediationParameterUri paramUri = this.uriReader.read(in, valueLength);
-					this.builder.setParameter(paramUri);
+					builder.setParameter(paramUri);
 					
 				}else if(rpType == PbMessageRemediationParameterTypeEnum.IETF_STRING.type()){
 					PbMessageValueRemediationParameterString paramString = this.stringReader.read(in, valueLength);
-			       this.builder.setParameter(paramString);
+			        builder.setParameter(paramString);
 				}else{
 					try{
 						// skip the remaining bytes of the message
@@ -100,7 +100,7 @@ class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessage
 				throw new ValidationException(e.getMessage(), e.getCause(),e.getExceptionOffset() + errorOffset);
 			}
 
-			value = (PbMessageValueRemediationParameters)builder.toValue();
+			value = (PbMessageValueRemediationParameters)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

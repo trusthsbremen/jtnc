@@ -25,13 +25,13 @@ public class PtTlsMessageValueExperimentalBuilderIetf implements
 	}
 	
 	@Override
-	public PtTlsMessageValueExperimental toValue(){
+	public PtTlsMessageValueExperimental toObject(){
 
 		return new PtTlsMessageValueExperimental(this.length,this.message);
 	}
 
 	@Override
-	public PtTlsMessageValueExperimentalBuilder clear() {
+	public PtTlsMessageValueExperimentalBuilder newInstance() {
 		
 		return new PtTlsMessageValueExperimentalBuilderIetf();
 	}

@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeFactoryDefaultPasswordEnabledValueReader implements ImReader<PaAttributeValueFactoryDefaultPasswordEnabled>{
 
-	private PaAttributeValueFactoryDefaultPasswordEnabledBuilder builder;
+	private PaAttributeValueFactoryDefaultPasswordEnabledBuilder baseBuilder;
 	
 	PaAttributeFactoryDefaultPasswordEnabledValueReader(PaAttributeValueFactoryDefaultPasswordEnabledBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,8 @@ class PaAttributeFactoryDefaultPasswordEnabledValueReader implements ImReader<Pa
 		long errorOffset = 0;
 		
 		PaAttributeValueFactoryDefaultPasswordEnabled value = null;
-		builder = (PaAttributeValueFactoryDefaultPasswordEnabledBuilder)builder.clear();
+		PaAttributeValueFactoryDefaultPasswordEnabledBuilder builder = 
+				(PaAttributeValueFactoryDefaultPasswordEnabledBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -43,7 +44,7 @@ class PaAttributeFactoryDefaultPasswordEnabledValueReader implements ImReader<Pa
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long status = ByteArrayHelper.toLong(buffer);
-				this.builder.setStatus(status);
+				builder.setStatus(status);
 				errorOffset += byteSize;
 				
 			}catch (IOException e){
@@ -51,7 +52,7 @@ class PaAttributeFactoryDefaultPasswordEnabledValueReader implements ImReader<Pa
 						"Returned data for attribute value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PaAttributeValueFactoryDefaultPasswordEnabled)builder.toValue();
+			value = (PaAttributeValueFactoryDefaultPasswordEnabled)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

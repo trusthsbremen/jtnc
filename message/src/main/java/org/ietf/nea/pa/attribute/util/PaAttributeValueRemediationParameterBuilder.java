@@ -4,7 +4,7 @@ import org.ietf.nea.exception.RuleException;
 
 public interface PaAttributeValueRemediationParameterBuilder {
 
-	public abstract AbstractPaAttributeValueRemediationParameter toValue() throws RuleException;
+	public abstract AbstractPaAttributeValueRemediationParameter toObject() throws RuleException;
 	
-	public abstract PaAttributeValueRemediationParameterBuilder clear();
+	public abstract PaAttributeValueRemediationParameterBuilder newInstance();
 }

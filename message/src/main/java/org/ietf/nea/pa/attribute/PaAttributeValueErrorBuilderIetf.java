@@ -56,7 +56,7 @@ public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBu
 	}
 
 	@Override
-	public PaAttributeValueError toValue(){
+	public PaAttributeValueError toObject(){
 		if(errorInformation == null){
 			throw new IllegalStateException("An error information has to be set.");
 		}
@@ -65,7 +65,7 @@ public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBu
 	}
 
 	@Override
-	public PaAttributeValueErrorBuilder clear() {
+	public PaAttributeValueErrorBuilder newInstance() {
 
 		return new PaAttributeValueErrorBuilderIetf();
 	}

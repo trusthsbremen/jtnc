@@ -25,13 +25,13 @@ public class PbMessageValueExperimentalBuilderIetf implements
 	}
 	
 	@Override
-	public PbMessageValueExperimental toValue(){
+	public PbMessageValueExperimental toObject(){
 
 		return new PbMessageValueExperimental(this.length,this.message);
 	}
 
 	@Override
-	public PbMessageValueExperimentalBuilder clear() {
+	public PbMessageValueExperimentalBuilder newInstance() {
 		
 		return new PbMessageValueExperimentalBuilderIetf();
 	}

@@ -25,7 +25,7 @@ public class PtTlsMessageValueSaslAuthenticationDataBuilderIetf implements
 	}
 	
 	@Override
-	public PtTlsMessageValueSaslAuthenticationData toValue(){
+	public PtTlsMessageValueSaslAuthenticationData toObject(){
 
 		if(this.authenticationData == null){
 			throw new IllegalStateException("The SASL authentication data has to be set.");
@@ -35,7 +35,7 @@ public class PtTlsMessageValueSaslAuthenticationDataBuilderIetf implements
 	}
 
 	@Override
-	public PtTlsMessageValueSaslAuthenticationDataBuilder clear() {
+	public PtTlsMessageValueSaslAuthenticationDataBuilder newInstance() {
 		
 		return new PtTlsMessageValueSaslAuthenticationDataBuilderIetf();
 	}

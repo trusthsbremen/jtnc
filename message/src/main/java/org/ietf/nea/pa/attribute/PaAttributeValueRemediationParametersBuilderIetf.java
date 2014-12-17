@@ -56,7 +56,7 @@ public class PaAttributeValueRemediationParametersBuilderIetf implements PaAttri
 	}
 
 	@Override
-	public PaAttributeValueRemediationParameters toValue(){
+	public PaAttributeValueRemediationParameters toObject(){
 		if(parameter == null){
 			throw new IllegalStateException("A message value has to be set.");
 		}
@@ -65,7 +65,7 @@ public class PaAttributeValueRemediationParametersBuilderIetf implements PaAttri
 	}
 
 	@Override
-	public PaAttributeValueRemediationParametersBuilder clear() {
+	public PaAttributeValueRemediationParametersBuilder newInstance() {
 
 		return new PaAttributeValueRemediationParametersBuilderIetf();
 	}

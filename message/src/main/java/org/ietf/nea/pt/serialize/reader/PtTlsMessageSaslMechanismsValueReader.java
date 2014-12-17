@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageSaslMechanismsValueReader implements TransportReader<PtTlsMessageValueSaslMechanisms>{
 
-	private PtTlsMessageValueSaslMechanismsBuilder builder;
+	private PtTlsMessageValueSaslMechanismsBuilder baseBuilder;
 	
 	PtTlsMessageSaslMechanismsValueReader(PtTlsMessageValueSaslMechanismsBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PtTlsMessageSaslMechanismsValueReader implements TransportReader<PtTlsMess
 				long errorOffset = 0;
 				
 				PtTlsMessageValueSaslMechanisms mValue = null;
-				PtTlsMessageValueSaslMechanismsBuilder valueBuilder = (PtTlsMessageValueSaslMechanismsBuilder)builder.clear();
+				PtTlsMessageValueSaslMechanismsBuilder builder = (PtTlsMessageValueSaslMechanismsBuilder)this.baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -52,7 +52,7 @@ class PtTlsMessageSaslMechanismsValueReader implements TransportReader<PtTlsMess
 							SaslMechanism mech = new SaslMechanism(name);
 							counter += sData.length;
 							
-							valueBuilder.addMechanism(mech);
+							builder.addMechanism(mech);
 						};
 
 
@@ -60,7 +60,7 @@ class PtTlsMessageSaslMechanismsValueReader implements TransportReader<PtTlsMess
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValueSaslMechanisms)valueBuilder.toValue();
+					mValue = (PtTlsMessageValueSaslMechanisms)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

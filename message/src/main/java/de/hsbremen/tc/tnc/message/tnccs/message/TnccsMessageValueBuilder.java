@@ -1,9 +1,8 @@
 package de.hsbremen.tc.tnc.message.tnccs.message;
 
+import de.hsbremen.tc.tnc.message.util.TransmissionObjectBuilder;
 
-public interface TnccsMessageValueBuilder {
 
-	public abstract TnccsMessageValue toValue();
+public interface TnccsMessageValueBuilder extends TransmissionObjectBuilder<TnccsMessageValue>{
 
-	public abstract TnccsMessageValueBuilder clear();
 }

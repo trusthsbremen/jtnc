@@ -50,13 +50,13 @@ PaAttributeValueAttributeRequestBuilder {
 	}
 
 	@Override
-	public PaAttributeValueAttributeRequest toValue(){
+	public PaAttributeValueAttributeRequest toObject(){
 		
 		return new PaAttributeValueAttributeRequest(length, references);
 	}
 
 	@Override
-	public PaAttributeValueAttributeRequestBuilder clear() {
+	public PaAttributeValueAttributeRequestBuilder newInstance() {
 
 		return new PaAttributeValueAttributeRequestBuilderIetf();
 	}

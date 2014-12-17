@@ -77,7 +77,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 	}
 	
 	@Override
-	public  PbBatchHeader toBatchHeader(){
+	public  PbBatchHeader toObject(){
 		if(direction == null){
 			throw new IllegalStateException("Direction must be set first.");
 		}
@@ -91,7 +91,7 @@ public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 	}
 	
 	@Override
-	public PbBatchHeaderBuilder clear() {
+	public PbBatchHeaderBuilder newInstance() {
 		return new PbBatchHeaderBuilderIetf();
 	}
 

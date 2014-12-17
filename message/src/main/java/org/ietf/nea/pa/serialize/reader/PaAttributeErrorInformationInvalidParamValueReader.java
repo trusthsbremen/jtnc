@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeErrorInformationInvalidParamValueReader implements ImReader<PaAttributeValueErrorInformationInvalidParam>{
 
-	private PaAttributeValueErrorInformationInvalidParamBuilder builder;
+	private PaAttributeValueErrorInformationInvalidParamBuilder baseBuilder;
 	
 	PaAttributeErrorInformationInvalidParamValueReader(PaAttributeValueErrorInformationInvalidParamBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PaAttributeErrorInformationInvalidParamValueReader implements ImReader<PaA
 		long errorOffset = 0;
 		
 		PaAttributeValueErrorInformationInvalidParam value = null;
-		builder = (PaAttributeValueErrorInformationInvalidParamBuilder)builder.clear();
+		PaAttributeValueErrorInformationInvalidParamBuilder builder = (PaAttributeValueErrorInformationInvalidParamBuilder)this.baseBuilder.newInstance();
 		
 		try{
 			
@@ -53,21 +53,21 @@ class PaAttributeErrorInformationInvalidParamValueReader implements ImReader<PaA
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long identifier = ByteArrayHelper.toLong(buffer);
 	
-				this.builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
+				builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
 				errorOffset += PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 				
 				/* offset */
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long offset =  ByteArrayHelper.toLong(buffer);
-				this.builder.setOffset(offset);
+				builder.setOffset(offset);
 				errorOffset += byteSize;
 				
 			}catch (IOException e){
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueErrorInformationInvalidParam)builder.toValue();
+			value = (PaAttributeValueErrorInformationInvalidParam)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

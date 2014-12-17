@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeAttributeRequestValueReader implements ImReader<PaAttributeValueAttributeRequest>{
 
-	private PaAttributeValueAttributeRequestBuilder builder;
+	private PaAttributeValueAttributeRequestBuilder baseBuilder;
 	
 	PaAttributeAttributeRequestValueReader(PaAttributeValueAttributeRequestBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PaAttributeAttributeRequestValueReader implements ImReader<PaAttributeValu
 		long errorOffset = 0;
 		
 		PaAttributeValueAttributeRequest value = null;
-		builder = (PaAttributeValueAttributeRequestBuilder)builder.clear();
+		PaAttributeValueAttributeRequestBuilder builder = (PaAttributeValueAttributeRequestBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -60,7 +60,7 @@ class PaAttributeAttributeRequestValueReader implements ImReader<PaAttributeValu
 					attributeId = ByteArrayHelper.toLong(buffer);
 					count += byteSize;
 
-					this.builder.addReferences(new AttributeReference(vendorId, attributeId));
+					builder.addReferences(new AttributeReference(vendorId, attributeId));
 					
 					// TODO error offset is vague because it cannot be calculated to the exact offset. 
 					
@@ -72,7 +72,7 @@ class PaAttributeAttributeRequestValueReader implements ImReader<PaAttributeValu
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueAttributeRequest)builder.toValue();
+			value = (PaAttributeValueAttributeRequest)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

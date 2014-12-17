@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeNumericVersionValueReader implements ImReader<PaAttributeValueNumericVersion>{
 
-	private PaAttributeValueNumericVersionBuilder builder;
+	private PaAttributeValueNumericVersionBuilder baseBuilder;
 	
 	PaAttributeNumericVersionValueReader(PaAttributeValueNumericVersionBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributeNumericVersionValueReader implements ImReader<PaAttributeValueN
 		long errorOffset = 0;
 		
 		PaAttributeValueNumericVersion value = null;
-		builder = (PaAttributeValueNumericVersionBuilder)builder.clear();
+		PaAttributeValueNumericVersionBuilder builder = (PaAttributeValueNumericVersionBuilder)baseBuilder.newInstance();
 
 		try{
 			try{
@@ -77,7 +77,7 @@ class PaAttributeNumericVersionValueReader implements ImReader<PaAttributeValueN
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueNumericVersion)builder.toValue();
+			value = (PaAttributeValueNumericVersion)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

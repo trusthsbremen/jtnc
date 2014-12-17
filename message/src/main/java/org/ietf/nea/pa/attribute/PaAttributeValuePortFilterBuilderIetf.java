@@ -50,13 +50,13 @@ public class PaAttributeValuePortFilterBuilderIetf implements
 	}
 
 	@Override
-	public PaAttributeValuePortFilter toValue(){
+	public PaAttributeValuePortFilter toObject(){
 		
 		return new PaAttributeValuePortFilter(this.length, this.filterEntries);
 	}
 
 	@Override
-	public PaAttributeValuePortFilterBuilder clear() {
+	public PaAttributeValuePortFilterBuilder newInstance() {
 		return new PaAttributeValuePortFilterBuilderIetf();
 	}
 

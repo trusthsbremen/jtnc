@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeErrorInformationUnsupportedVersionValueReader implements ImReader<PaAttributeValueErrorInformationUnsupportedVersion>{
 
-	private PaAttributeValueErrorInformationUnsupportedVersionBuilder builder;
+	private PaAttributeValueErrorInformationUnsupportedVersionBuilder baseBuilder;
 	
 	PaAttributeErrorInformationUnsupportedVersionValueReader(PaAttributeValueErrorInformationUnsupportedVersionBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PaAttributeErrorInformationUnsupportedVersionValueReader implements ImRead
 		long errorOffset = 0;
 		
 		PaAttributeValueErrorInformationUnsupportedVersion value = null;
-		builder = (PaAttributeValueErrorInformationUnsupportedVersionBuilder)builder.clear();
+		PaAttributeValueErrorInformationUnsupportedVersionBuilder builder = (PaAttributeValueErrorInformationUnsupportedVersionBuilder) this.baseBuilder.newInstance();
 		
 		try{
 			
@@ -53,21 +53,21 @@ class PaAttributeErrorInformationUnsupportedVersionValueReader implements ImRead
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long identifier = ByteArrayHelper.toLong(buffer);
 	
-				this.builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
+				builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
 				errorOffset += PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 				
 				/* max version */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				short maxVersion =  ByteArrayHelper.toShort(buffer);
-				this.builder.setMaxVersion(maxVersion);
+				builder.setMaxVersion(maxVersion);
 				errorOffset += byteSize;
 				
 				/* min version */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				short minVersion =  ByteArrayHelper.toShort(buffer);
-				this.builder.setMinVersion(minVersion);
+				builder.setMinVersion(minVersion);
 				errorOffset += byteSize;
 				
 				/* ignore reserved */
@@ -79,7 +79,7 @@ class PaAttributeErrorInformationUnsupportedVersionValueReader implements ImRead
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueErrorInformationUnsupportedVersion)builder.toValue();
+			value = (PaAttributeValueErrorInformationUnsupportedVersion)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

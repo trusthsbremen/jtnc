@@ -57,13 +57,13 @@ PaAttributeValueInstalledPackagesBuilder {
 	}
 
 	@Override
-	public PaAttributeValueInstalledPackages toValue(){
+	public PaAttributeValueInstalledPackages toObject(){
 		
 		return new PaAttributeValueInstalledPackages(this.length, this.packages);
 	}
 
 	@Override
-	public PaAttributeValueInstalledPackagesBuilder clear() {
+	public PaAttributeValueInstalledPackagesBuilder newInstance() {
 		return new PaAttributeValueInstalledPackagesBuilderIetf();
 	}
 

@@ -52,12 +52,12 @@ public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValu
 	}
 	
 	@Override
-	public PaAttributeValueStringVersion toValue() {
+	public PaAttributeValueStringVersion toObject() {
 		return new PaAttributeValueStringVersion(this.length, this.productVersion, this.buildVersion, this.configVersion);
 	}
 
 	@Override
-	public PaAttributeValueStringVersionBuilder clear() {
+	public PaAttributeValueStringVersionBuilder newInstance() {
 		return new PaAttributeValueStringVersionBuilderIetf();
 	}
 	

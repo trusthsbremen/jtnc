@@ -27,13 +27,13 @@ public class PaAttributeValueForwardingEnabledBuilderIetf implements
 	}
 
 	@Override
-	public PaAttributeValueForwardingEnabled toValue(){
+	public PaAttributeValueForwardingEnabled toObject(){
 		
 		return new PaAttributeValueForwardingEnabled(this.length, this.status);
 	}
 
 	@Override
-	public PaAttributeValueForwardingEnabledBuilder clear() {
+	public PaAttributeValueForwardingEnabledBuilder newInstance() {
 		// TODO Auto-generated method stub
 		return new PaAttributeValueForwardingEnabledBuilderIetf();
 	}

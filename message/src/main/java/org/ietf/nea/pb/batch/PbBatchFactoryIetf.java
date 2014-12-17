@@ -73,7 +73,7 @@ public class PbBatchFactoryIetf {
 		}catch(RuleException e){
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}
-		PbBatch batch = new PbBatch(builder.toBatchHeader(), filteredMsgs);
+		PbBatch batch = new PbBatch(builder.toObject(), filteredMsgs);
 
 		
 		return batch; 

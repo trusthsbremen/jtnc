@@ -27,13 +27,13 @@ public class PaAttributeValueAssessmentResultBuilderIetf implements
 	}
 
 	@Override
-	public PaAttributeValueAssessmentResult toValue(){
+	public PaAttributeValueAssessmentResult toObject(){
 		
 		return new PaAttributeValueAssessmentResult(this.length, this.result);
 	}
 
 	@Override
-	public PaAttributeValueAssessmentResultBuilder clear() {
+	public PaAttributeValueAssessmentResultBuilder newInstance() {
 
 		return new PaAttributeValueAssessmentResultBuilderIetf();
 	}

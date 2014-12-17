@@ -1,9 +1,11 @@
 package de.hsbremen.tc.tnc.message.m.attribute;
 
+import de.hsbremen.tc.tnc.message.util.TransmissionObjectBuilder;
 
-public interface ImAttributeValueBuilder {
 
-	public abstract ImAttributeValue toValue();
+public interface ImAttributeValueBuilder extends TransmissionObjectBuilder<ImAttributeValue>{
 
-	public abstract ImAttributeValueBuilder clear();
+	public abstract ImAttributeValue toObject();
+
+	public abstract ImAttributeValueBuilder newInstance();
 }

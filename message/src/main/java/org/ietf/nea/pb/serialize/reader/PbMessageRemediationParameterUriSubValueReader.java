@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageRemediationParameterUriSubValueReader implements TnccsReader<PbMessageValueRemediationParameterUri>{
 
-	private  PbMessageValueRemediationParameterUriBuilder builder;
+	private  PbMessageValueRemediationParameterUriBuilder baseBuilder;
 	
 	PbMessageRemediationParameterUriSubValueReader( PbMessageValueRemediationParameterUriBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -28,8 +28,8 @@ class PbMessageRemediationParameterUriSubValueReader implements TnccsReader<PbMe
 		
 		long errorOffset = 0;
 		
-		 PbMessageValueRemediationParameterUri value = null;
-		builder = ( PbMessageValueRemediationParameterUriBuilder)builder.clear();
+		PbMessageValueRemediationParameterUri value = null;
+		PbMessageValueRemediationParameterUriBuilder builder = (PbMessageValueRemediationParameterUriBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -40,14 +40,14 @@ class PbMessageRemediationParameterUriSubValueReader implements TnccsReader<PbMe
 				
 				/* message */
 				String uriString = readString(messageLength, in, Charset.forName("US-ASCII"));
-				this.builder.setUri(uriString);
+				builder.setUri(uriString);
 				errorOffset += messageLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for message value is to short or stream may be closed.",e,true);
 			}
 
-			value = ( PbMessageValueRemediationParameterUri)builder.toValue();
+			value = ( PbMessageValueRemediationParameterUri)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

@@ -19,7 +19,7 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 
-	private PaAttributeValueErrorBuilder builder;
+	private PaAttributeValueErrorBuilder baseBuilder;
 	
 	// TODO should be a map to make the error parameters more customizable
 	private final PaAttributeErrorInformationInvalidParamValueReader invalidParamReader;
@@ -27,7 +27,7 @@ class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 	private final PaAttributeErrorInformationUnsupportedAttributeValueReader unsupportedAttributeReader;
 	
 	public PaAttributeErrorValueReader(PaAttributeValueErrorBuilder builder, PaAttributeErrorInformationInvalidParamValueReader invalidParamReader, PaAttributeErrorInformationUnsupportedVersionValueReader unsupportedVersionReader, PaAttributeErrorInformationUnsupportedAttributeValueReader unsupportedAttributeReader){
-		this.builder = builder;
+		this.baseBuilder = builder;
 		this.invalidParamReader = invalidParamReader;
 		this.unsupportedAttributeReader = unsupportedAttributeReader;
 		this.unsupportedVersionReader = unsupportedVersionReader;
@@ -40,7 +40,7 @@ class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 		long errorOffset = 0;
 		
 		PaAttributeValueError value = null;
-		builder = (PaAttributeValueErrorBuilder)builder.clear();
+		PaAttributeValueErrorBuilder builder = (PaAttributeValueErrorBuilder)this.baseBuilder.newInstance();
 
 		long errorVendorId = 0L;
 		long errorCode = 0L;
@@ -61,14 +61,14 @@ class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 				byteSize = 3;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				errorVendorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setErrorVendorId(errorVendorId);
+				builder.setErrorVendorId(errorVendorId);
 				errorOffset += byteSize;
 				
 				/* code */
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				errorCode = ByteArrayHelper.toLong(buffer);
-				this.builder.setErrorCode(errorCode);
+				builder.setErrorCode(errorCode);
 				errorOffset += byteSize;
 			
 			}catch (IOException e){
@@ -85,17 +85,17 @@ class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 				if(errorCode == PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code()){ 
 					
 					PaAttributeValueErrorInformationInvalidParam errorInformation = this.invalidParamReader.read(in, valueLength);
-					this.builder.setErrorInformation(errorInformation);
+					builder.setErrorInformation(errorInformation);
 					
 				}else if(errorCode == PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code()){
 					
 					PaAttributeValueErrorInformationUnsupportedVersion errorInformation = this.unsupportedVersionReader.read(in, valueLength);
-					this.builder.setErrorInformation(errorInformation);
+					builder.setErrorInformation(errorInformation);
 					
 				}else if(errorCode == PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_MANDATORY_ATTRIBUTE.code()){
 				
 					PaAttributeValueErrorInformationUnsupportedAttribute errorInformation = this.unsupportedAttributeReader.read(in, valueLength);
-					this.builder.setErrorInformation(errorInformation);
+					builder.setErrorInformation(errorInformation);
 				
 				}else{
 					try{
@@ -111,7 +111,7 @@ class PaAttributeErrorValueReader implements ImReader<PaAttributeValueError>{
 				throw new ValidationException(e.getMessage(), e.getCause(), e.getExceptionOffset() + errorOffset);
 			}
 
-			value = (PaAttributeValueError)builder.toValue();
+			value = (PaAttributeValueError)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

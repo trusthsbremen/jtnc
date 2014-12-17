@@ -154,7 +154,7 @@ public class PbMessageFactoryIetf {
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}
 
-		PbMessage message = new PbMessage(mBuilder.toMessageHeader(), value);
+		PbMessage message = new PbMessage(mBuilder.toObject(), value);
 		
 		return message;
 

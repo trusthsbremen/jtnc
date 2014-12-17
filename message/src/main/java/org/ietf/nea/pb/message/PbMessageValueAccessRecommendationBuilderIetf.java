@@ -26,13 +26,13 @@ public class PbMessageValueAccessRecommendationBuilderIetf implements
 	}
 
 	@Override
-	public PbMessageValueAccessRecommendation toValue(){
+	public PbMessageValueAccessRecommendation toObject(){
 		
 		return new PbMessageValueAccessRecommendation(this.length, this.recommendation);
 	}
 
 	@Override
-	public PbMessageValueAccessRecommendationBuilder clear() {
+	public PbMessageValueAccessRecommendationBuilder newInstance() {
 
 		return new PbMessageValueAccessRecommendationBuilderIetf();
 	}

@@ -1,8 +1,7 @@
 package de.hsbremen.tc.tnc.message.m.attribute;
 
-public interface ImAttributeHeaderBuilder {
-	
-	public abstract ImAttributeHeader toAttributeHeader();
+import de.hsbremen.tc.tnc.message.util.TransmissionObjectBuilder;
 
-	public abstract ImAttributeHeaderBuilder clear();
+public interface ImAttributeHeaderBuilder extends TransmissionObjectBuilder<ImAttributeHeader> {
+	
 }

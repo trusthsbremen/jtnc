@@ -50,13 +50,13 @@ public class PtTlsMessageValueVersionRequestBuilderIetf implements PtTlsMessageV
 	}
 
 	@Override
-	public PtTlsMessageValueVersionRequest toValue() {
+	public PtTlsMessageValueVersionRequest toObject() {
 
 		return new PtTlsMessageValueVersionRequest(length, preferredVersion, maxVersion, minVersion);
 	}
 
 	@Override
-	public PtTlsMessageValueVersionRequestBuilder clear() {
+	public PtTlsMessageValueVersionRequestBuilder newInstance() {
 
 		return new PtTlsMessageValueVersionRequestBuilderIetf();
 	}

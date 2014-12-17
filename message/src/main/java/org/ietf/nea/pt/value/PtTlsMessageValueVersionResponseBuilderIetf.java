@@ -31,13 +31,13 @@ public class PtTlsMessageValueVersionResponseBuilderIetf implements PtTlsMessage
 	}
 
 	@Override
-	public PtTlsMessageValueVersionResponse toValue() {
+	public PtTlsMessageValueVersionResponse toObject() {
 
 		return new PtTlsMessageValueVersionResponse(length, version);
 	}
 
 	@Override
-	public PtTlsMessageValueVersionResponseBuilder clear() {
+	public PtTlsMessageValueVersionResponseBuilder newInstance() {
 
 		return new PtTlsMessageValueVersionResponseBuilderIetf();
 	}

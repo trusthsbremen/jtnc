@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeForwardingEnabledValueReader implements ImReader<PaAttributeValueForwardingEnabled>{
 
-	private PaAttributeValueForwardingEnabledBuilder builder;
+	private PaAttributeValueForwardingEnabledBuilder baseBuilder;
 	
 	PaAttributeForwardingEnabledValueReader(PaAttributeValueForwardingEnabledBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributeForwardingEnabledValueReader implements ImReader<PaAttributeVal
 		long errorOffset = 0;
 		
 		PaAttributeValueForwardingEnabled value = null;
-		builder = (PaAttributeValueForwardingEnabledBuilder)builder.clear();
+		PaAttributeValueForwardingEnabledBuilder builder = (PaAttributeValueForwardingEnabledBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -43,7 +43,7 @@ class PaAttributeForwardingEnabledValueReader implements ImReader<PaAttributeVal
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long status = ByteArrayHelper.toLong(buffer);
-				this.builder.setStatus(status);
+				builder.setStatus(status);
 				errorOffset += byteSize;
 				
 			}catch (IOException e){
@@ -51,7 +51,7 @@ class PaAttributeForwardingEnabledValueReader implements ImReader<PaAttributeVal
 						"Returned data for attribute value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PaAttributeValueForwardingEnabled)builder.toValue();
+			value = (PaAttributeValueForwardingEnabled)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

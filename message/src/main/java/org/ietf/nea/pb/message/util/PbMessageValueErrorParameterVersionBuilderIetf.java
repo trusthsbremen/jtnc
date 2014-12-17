@@ -39,13 +39,13 @@ public class PbMessageValueErrorParameterVersionBuilderIetf implements PbMessage
 	}
 
 	@Override
-	public PbMessageValueErrorParameterVersion toValue() throws RuleException {
+	public PbMessageValueErrorParameterVersion toObject() throws RuleException {
 
 		return new PbMessageValueErrorParameterVersion(length, badVersion, maxVersion, minVersion);
 	}
 
 	@Override
-	public PbMessageValueErrorParameterVersionBuilder clear() {
+	public PbMessageValueErrorParameterVersionBuilder newInstance() {
 
 		return new PbMessageValueErrorParameterVersionBuilderIetf();
 	}

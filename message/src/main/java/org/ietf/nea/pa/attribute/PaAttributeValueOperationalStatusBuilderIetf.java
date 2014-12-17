@@ -61,13 +61,13 @@ public class PaAttributeValueOperationalStatusBuilderIetf implements
 	}		
 
 	@Override
-	public PaAttributeValueOperationalStatus toValue(){
+	public PaAttributeValueOperationalStatus toObject(){
 		
 		return new PaAttributeValueOperationalStatus(this.length, this.status, this.result, this.lastUse);
 	}
 
 	@Override
-	public PaAttributeValueOperationalStatusBuilder clear() {
+	public PaAttributeValueOperationalStatusBuilder newInstance() {
 
 		return new PaAttributeValueOperationalStatusBuilderIetf();
 	}

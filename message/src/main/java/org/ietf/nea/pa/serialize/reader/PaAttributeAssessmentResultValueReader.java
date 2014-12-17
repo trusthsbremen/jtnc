@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeAssessmentResultValueReader implements ImReader<PaAttributeValueAssessmentResult>{
 
-	private PaAttributeValueAssessmentResultBuilder builder;
+	private PaAttributeValueAssessmentResultBuilder baseBuilder;
 	
 	PaAttributeAssessmentResultValueReader(PaAttributeValueAssessmentResultBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributeAssessmentResultValueReader implements ImReader<PaAttributeValu
 		long errorOffset = 0;
 		
 		PaAttributeValueAssessmentResult value = null;
-		builder = (PaAttributeValueAssessmentResultBuilder)builder.clear();
+		PaAttributeValueAssessmentResultBuilder builder = (PaAttributeValueAssessmentResultBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -43,7 +43,7 @@ class PaAttributeAssessmentResultValueReader implements ImReader<PaAttributeValu
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long code = ByteArrayHelper.toLong(buffer);
-				this.builder.setResult(code);
+				builder.setResult(code);
 				errorOffset += byteSize;
 				
 			}catch (IOException e){
@@ -51,7 +51,7 @@ class PaAttributeAssessmentResultValueReader implements ImReader<PaAttributeValu
 						"Returned data for attribute value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PaAttributeValueAssessmentResult)builder.toValue();
+			value = (PaAttributeValueAssessmentResult)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

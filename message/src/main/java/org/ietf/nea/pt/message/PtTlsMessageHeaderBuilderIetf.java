@@ -60,7 +60,7 @@ public class PtTlsMessageHeaderBuilderIetf implements PtTlsMessageHeaderBuilder{
 	}
 	
 	@Override
-	public PtTlsMessageHeader toMessageHeader(){
+	public PtTlsMessageHeader toObject(){
 		
 		PtTlsMessageHeader mHead = new PtTlsMessageHeader(this.vendorId, this.type, this.length, this.identifier);
 		
@@ -68,7 +68,7 @@ public class PtTlsMessageHeaderBuilderIetf implements PtTlsMessageHeaderBuilder{
 	}
 
 	@Override
-	public PtTlsMessageHeaderBuilder clear() {
+	public PtTlsMessageHeaderBuilder newInstance() {
 		return new PtTlsMessageHeaderBuilderIetf();
 	}
 

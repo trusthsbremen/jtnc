@@ -27,13 +27,13 @@ public class PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf implements
 	}
 
 	@Override
-	public PaAttributeValueFactoryDefaultPasswordEnabled toValue(){
+	public PaAttributeValueFactoryDefaultPasswordEnabled toObject(){
 		
 		return new PaAttributeValueFactoryDefaultPasswordEnabled(this.length, this.status);
 	}
 
 	@Override
-	public PaAttributeValueFactoryDefaultPasswordEnabledBuilder clear() {
+	public PaAttributeValueFactoryDefaultPasswordEnabledBuilder newInstance() {
 		// TODO Auto-generated method stub
 		return new PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf();
 	}

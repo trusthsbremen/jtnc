@@ -52,7 +52,7 @@ public class PtTlsMessageValueErrorBuilderIetf implements PtTlsMessageValueError
 	}
 
 	@Override
-	public PtTlsMessageValueError toValue(){
+	public PtTlsMessageValueError toObject(){
 		if(this.message == null){
 			throw new IllegalStateException("The faulty message has to be copied and set.");
 		}
@@ -61,7 +61,7 @@ public class PtTlsMessageValueErrorBuilderIetf implements PtTlsMessageValueError
 	}
 
 	@Override
-	public PtTlsMessageValueErrorBuilder clear() {
+	public PtTlsMessageValueErrorBuilder newInstance() {
 
 		return new PtTlsMessageValueErrorBuilderIetf();
 	}

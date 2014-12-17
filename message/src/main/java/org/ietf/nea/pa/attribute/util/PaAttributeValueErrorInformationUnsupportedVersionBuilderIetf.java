@@ -38,13 +38,13 @@ public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf imple
 	}
 	
 	@Override
-	public PaAttributeValueErrorInformationUnsupportedVersion toValue(){
+	public PaAttributeValueErrorInformationUnsupportedVersion toObject(){
 		
 		return new PaAttributeValueErrorInformationUnsupportedVersion(this.length, this.messageHeader, this.maxVersion, this.minVersion);
 	}
 
 	@Override
-	public PaAttributeValueErrorInformationUnsupportedVersionBuilder clear() {
+	public PaAttributeValueErrorInformationUnsupportedVersionBuilder newInstance() {
 		// TODO Auto-generated method stub
 		return new PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf();
 	}

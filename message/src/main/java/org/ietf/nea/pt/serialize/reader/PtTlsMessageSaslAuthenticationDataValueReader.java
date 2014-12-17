@@ -13,10 +13,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageSaslAuthenticationDataValueReader implements TransportReader<PtTlsMessageValueSaslAuthenticationData>{
 
-	private PtTlsMessageValueSaslAuthenticationDataBuilder builder;
+	private PtTlsMessageValueSaslAuthenticationDataBuilder baseBuilder;
 	
 	PtTlsMessageSaslAuthenticationDataValueReader(PtTlsMessageValueSaslAuthenticationDataBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ class PtTlsMessageSaslAuthenticationDataValueReader implements TransportReader<P
 				long errorOffset = 0;
 				
 				PtTlsMessageValueSaslAuthenticationData mValue = null;
-				PtTlsMessageValueSaslAuthenticationDataBuilder valueBuilder = (PtTlsMessageValueSaslAuthenticationDataBuilder)builder.clear();
+				PtTlsMessageValueSaslAuthenticationDataBuilder builder = (PtTlsMessageValueSaslAuthenticationDataBuilder)this.baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -36,14 +36,14 @@ class PtTlsMessageSaslAuthenticationDataValueReader implements TransportReader<P
 						/* authentication data */
 						errorOffset = buffer.bytesRead();
 						byte[] data = buffer.read((int)length); 
-						valueBuilder.setAuthenticationData(data);
+						builder.setAuthenticationData(data);
 
 
 					}catch (BufferUnderflowException e){
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValueSaslAuthenticationData)valueBuilder.toValue();
+					mValue = (PtTlsMessageValueSaslAuthenticationData)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

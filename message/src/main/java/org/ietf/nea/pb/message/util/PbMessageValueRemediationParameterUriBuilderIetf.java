@@ -32,7 +32,7 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterUri toValue() throws RuleException {
+	public PbMessageValueRemediationParameterUri toObject() throws RuleException {
 		
 		if( uri == null){
 				throw new IllegalStateException("An uri value has to be set.");
@@ -42,7 +42,7 @@ public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessa
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterUriBuilder clear() {
+	public PbMessageValueRemediationParameterUriBuilder newInstance() {
 
 		return new PbMessageValueRemediationParameterUriBuilderIetf();
 	}

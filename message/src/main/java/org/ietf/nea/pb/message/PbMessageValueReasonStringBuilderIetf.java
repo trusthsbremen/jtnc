@@ -46,7 +46,7 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 	}
 
 	@Override
-	public PbMessageValueReasonString toValue() {
+	public PbMessageValueReasonString toObject() {
 		
 		if(reasonString == null){
 			throw new IllegalStateException("A reason string has to be set.");
@@ -56,7 +56,7 @@ public class PbMessageValueReasonStringBuilderIetf implements PbMessageValueReas
 	}
 
 	@Override
-	public PbMessageValueReasonStringBuilder clear() {
+	public PbMessageValueReasonStringBuilder newInstance() {
 
 		return new PbMessageValueReasonStringBuilderIetf();
 	}

@@ -61,7 +61,7 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 	}
 
 	@Override
-	public PbMessageHeader toMessageHeader(){
+	public PbMessageHeader toObject(){
 		
 		PbMessageHeader mHead = new PbMessageHeader(this.flags, this.vendorId, this.type, this.length);
 		
@@ -69,7 +69,7 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder{
 	}
 
 	@Override
-	public PbMessageHeaderBuilder clear() {
+	public PbMessageHeaderBuilder newInstance() {
 		return new PbMessageHeaderBuilderIetf();
 	}
 }

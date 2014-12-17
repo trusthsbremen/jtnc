@@ -66,7 +66,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	}
 
 	@Override
-	public PbMessageValueError toValue(){
+	public PbMessageValueError toObject(){
 		if(this.errorParameter == null){
 			throw new IllegalStateException("A error value has to be set.");
 		}
@@ -75,7 +75,7 @@ public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilde
 	}
 
 	@Override
-	public PbMessageValueErrorBuilder clear() {
+	public PbMessageValueErrorBuilder newInstance() {
 
 		return new PbMessageValueErrorBuilderIetf();
 	}

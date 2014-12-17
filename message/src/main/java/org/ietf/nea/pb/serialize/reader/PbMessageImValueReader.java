@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 
-	private PbMessageValueImBuilder builder;
+	private PbMessageValueImBuilder baseBuilder;
 	
 	PbMessageImValueReader(PbMessageValueImBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 		long errorOffset = 0;
 		
 		PbMessageValueIm value = null;
-		builder = (PbMessageValueImBuilder)builder.clear();
+		PbMessageValueImBuilder builder = (PbMessageValueImBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -41,35 +41,35 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 				/* flags */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				this.builder.setImFlags(buffer[0]);
+				builder.setImFlags(buffer[0]);
 				errorOffset += byteSize;
 			
 				/* sub vendor ID */ 
 				byteSize = 3;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long subVendorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setSubVendorId(subVendorId);
+				builder.setSubVendorId(subVendorId);
 				errorOffset += byteSize;
 				
 				/* sub message type */
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long subType = ByteArrayHelper.toLong(buffer);
-				this.builder.setSubType(subType);
+				builder.setSubType(subType);
 				errorOffset += byteSize;
 				
 				/* collector ID */
 				byteSize = 2;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long collectorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setCollectorId(collectorId);
+				builder.setCollectorId(collectorId);
 				errorOffset += byteSize;
 				
 				/* validator ID */
 				byteSize = 2;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long validatorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setValidatorId(validatorId);	
+				builder.setValidatorId(validatorId);	
 				errorOffset += byteSize;
 			
 				/* PA message */
@@ -83,7 +83,7 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 				}
 				
 				byteSize = imMessage.length;
-				this.builder.setMessage(imMessage);
+				builder.setMessage(imMessage);
 				errorOffset += byteSize;
 			
 			}catch (IOException e){
@@ -91,7 +91,7 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 						"Returned data for message value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PbMessageValueIm)builder.toValue();
+			value = (PbMessageValueIm)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

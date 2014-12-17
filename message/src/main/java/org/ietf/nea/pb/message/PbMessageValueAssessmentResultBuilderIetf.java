@@ -27,13 +27,13 @@ public class PbMessageValueAssessmentResultBuilderIetf implements
 	}
 
 	@Override
-	public PbMessageValueAssessmentResult toValue(){
+	public PbMessageValueAssessmentResult toObject(){
 		
 		return new PbMessageValueAssessmentResult(this.length, this.result);
 	}
 
 	@Override
-	public PbMessageValueAssessmentResultBuilder clear() {
+	public PbMessageValueAssessmentResultBuilder newInstance() {
 		return new PbMessageValueAssessmentResultBuilderIetf();
 	}
 

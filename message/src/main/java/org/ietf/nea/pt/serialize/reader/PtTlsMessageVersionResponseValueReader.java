@@ -14,10 +14,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageVersionResponseValueReader implements TransportReader<PtTlsMessageValueVersionResponse>{
 
-	private PtTlsMessageValueVersionResponseBuilder builder;
+	private PtTlsMessageValueVersionResponseBuilder baseBuilder;
 	
 	PtTlsMessageVersionResponseValueReader(PtTlsMessageValueVersionResponseBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PtTlsMessageVersionResponseValueReader implements TransportReader<PtTlsMes
 				long errorOffset = 0;
 				
 				PtTlsMessageValueVersionResponse mValue = null;
-				PtTlsMessageValueVersionResponseBuilder valueBuilder = (PtTlsMessageValueVersionResponseBuilder)builder.clear();
+				PtTlsMessageValueVersionResponseBuilder builder = (PtTlsMessageValueVersionResponseBuilder)this.baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -41,13 +41,13 @@ class PtTlsMessageVersionResponseValueReader implements TransportReader<PtTlsMes
 						/* selected version */
 						errorOffset = buffer.bytesRead();
 						short version = buffer.readShort((byte)1);
-						valueBuilder.setVersion(version);
+						builder.setVersion(version);
 
 					}catch (BufferUnderflowException e){
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValueVersionResponse)valueBuilder.toValue();
+					mValue = (PtTlsMessageValueVersionResponse)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

@@ -18,7 +18,7 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 
-	private PbMessageValueErrorBuilder builder;
+	private PbMessageValueErrorBuilder baseBuilder;
 	
 	// TODO should be a map to make the error parameters more customizable
 	private final PbMessageErrorParameterOffsetSubValueReader offsetReader;
@@ -29,7 +29,7 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 	PbMessageErrorValueReader(PbMessageValueErrorBuilder builder,
 			PbMessageErrorParameterOffsetSubValueReader offsetReader,
 			PbMessageErrorParameterVersionSubValueReader versionReader) {
-		this.builder = builder;
+		this.baseBuilder = builder;
 		this.offsetReader = offsetReader;
 		this.versionReader = versionReader;
 	}
@@ -41,7 +41,7 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 		long errorOffset = 0;
 		
 		PbMessageValueError value = null;
-		builder = (PbMessageValueErrorBuilder)builder.clear();
+		PbMessageValueErrorBuilder builder = (PbMessageValueErrorBuilder)this.baseBuilder.newInstance();
 
 		long errorVendorId = 0L;
 		int errorCode = 0;
@@ -56,21 +56,21 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 				/* flags */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				this.builder.setErrorFlags(buffer[0]);
+				builder.setErrorFlags(buffer[0]);
 				errorOffset += byteSize;
 				
 				/* vendor ID */
 				byteSize = 3;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				errorVendorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setErrorVendorId(errorVendorId);
+				builder.setErrorVendorId(errorVendorId);
 				errorOffset += byteSize;
 				
 				/* error Code */
 				byteSize = 2;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				errorCode = ByteArrayHelper.toInt(buffer);
-				this.builder.setErrorCode(errorCode);
+				builder.setErrorCode(errorCode);
 				errorOffset += byteSize;
 				
 				/* ignore Reserved */
@@ -91,12 +91,12 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 				if(errorCode == PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code() || errorCode == PbMessageErrorCodeEnum.IETF_UNSUPPORTED_MANDATORY_MESSAGE.code()){
 					
 					PbMessageValueErrorParameterOffset param = this.offsetReader.read(in, valueLength);
-					this.builder.setErrorParameter(param);
+					builder.setErrorParameter(param);
 					
 				}else if(errorCode == PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code()){
 					
 					PbMessageValueErrorParameterVersion param = this.versionReader.read(in, valueLength);
-					this.builder.setErrorParameter(param);
+					builder.setErrorParameter(param);
 				
 				}else if (errorCode != PbMessageErrorCodeEnum.IETF_LOCAL.code() && errorCode != PbMessageErrorCodeEnum.IETF_UNEXPECTED_BATCH_TYPE.code()){
 					try{
@@ -112,7 +112,7 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError>{
 				throw new ValidationException(e.getMessage(), e.getCause(),e.getExceptionOffset() + errorOffset);
 			}
 			
-			value = (PbMessageValueError)builder.toValue();
+			value = (PbMessageValueError)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

@@ -18,11 +18,12 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeErrorInformationUnsupportedAttributeValueReader implements ImReader<PaAttributeValueErrorInformationUnsupportedAttribute>{
 
-	private PaAttributeValueErrorInformationUnsupportedAttributeBuilder builder;
-	private PaAttributeHeaderBuilder attributeHeaderBuilder;
+	private PaAttributeValueErrorInformationUnsupportedAttributeBuilder baseBuilder;
+	private PaAttributeHeaderBuilder baseAttributeHeaderBuilder;
 	
 	PaAttributeErrorInformationUnsupportedAttributeValueReader(PaAttributeValueErrorInformationUnsupportedAttributeBuilder builder, PaAttributeHeaderBuilder attributeHeaderBuilder){
-		this.builder = builder;
+		this.baseBuilder = builder;
+		this.baseAttributeHeaderBuilder = attributeHeaderBuilder;
 	}
 	
 	@Override
@@ -32,8 +33,8 @@ class PaAttributeErrorInformationUnsupportedAttributeValueReader implements ImRe
 		long errorOffset = 0;
 		
 		PaAttributeValueErrorInformationUnsupportedAttribute value = null;
-		builder = (PaAttributeValueErrorInformationUnsupportedAttributeBuilder)builder.clear();
-		attributeHeaderBuilder = (PaAttributeHeaderBuilder) attributeHeaderBuilder.clear();
+		PaAttributeValueErrorInformationUnsupportedAttributeBuilder builder = (PaAttributeValueErrorInformationUnsupportedAttributeBuilder)this.baseBuilder.newInstance();
+		PaAttributeHeaderBuilder attributeHeaderBuilder = (PaAttributeHeaderBuilder) this.baseAttributeHeaderBuilder.newInstance();
 		
 		try{
 			
@@ -57,40 +58,40 @@ class PaAttributeErrorInformationUnsupportedAttributeValueReader implements ImRe
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long identifier = ByteArrayHelper.toLong(buffer);
 	
-				this.builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
+				builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
 				errorOffset += PaAttributeTlvFixedLengthEnum.MESSAGE.length();
 
 				/* max version */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
-				this.attributeHeaderBuilder.setFlags(buffer[1]);
+				attributeHeaderBuilder.setFlags(buffer[1]);
 				errorOffset += byteSize;
 				
 				/* attribute vendor ID */
 				byteSize = 3;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long vendorId =  ByteArrayHelper.toLong(buffer);
-				this.attributeHeaderBuilder.setVendorId(vendorId);
+				attributeHeaderBuilder.setVendorId(vendorId);
 				errorOffset += byteSize;
 				
 				/* attribute type */
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long type =  ByteArrayHelper.toLong(buffer);
-				this.attributeHeaderBuilder.setType(type);
+				attributeHeaderBuilder.setType(type);
 				errorOffset += byteSize;
 				
 				// set dummy length = 0 
-				this.attributeHeaderBuilder.setLength(0);
+				attributeHeaderBuilder.setLength(0);
 				
-				PaAttributeHeader attributeHeader = (PaAttributeHeader)attributeHeaderBuilder.toAttributeHeader();
-				this.builder.setAttributeHeader(attributeHeader);
+				PaAttributeHeader attributeHeader = (PaAttributeHeader)attributeHeaderBuilder.toObject();
+				builder.setAttributeHeader(attributeHeader);
 				
 			}catch (IOException e){
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueErrorInformationUnsupportedAttribute)builder.toValue();
+			value = (PaAttributeValueErrorInformationUnsupportedAttribute)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

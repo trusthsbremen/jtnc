@@ -14,10 +14,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageHeaderReader implements TransportReader<PtTlsMessageHeader>{
 
-	private PtTlsMessageHeaderBuilder builder;
+	private PtTlsMessageHeaderBuilder baseBuilder;
 	
 	PtTlsMessageHeaderReader(PtTlsMessageHeaderBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PtTlsMessageHeaderReader implements TransportReader<PtTlsMessageHeader>{
 				long errorOffset = 0;
 				
 				PtTlsMessageHeader mHeader = null;
-				PtTlsMessageHeaderBuilder headerBuilder = (PtTlsMessageHeaderBuilder)builder.clear();
+				PtTlsMessageHeaderBuilder builder = (PtTlsMessageHeaderBuilder)this.baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -41,28 +41,28 @@ class PtTlsMessageHeaderReader implements TransportReader<PtTlsMessageHeader>{
 						/* vendor ID */
 						errorOffset = buffer.bytesRead();
 						long vendorId = buffer.readLong((byte)3);
-						headerBuilder.setVendorId(vendorId);
+						builder.setVendorId(vendorId);
 	
 						/* message type */
 						errorOffset = buffer.bytesRead();
 						long messageType = buffer.readLong((byte)4);
-						headerBuilder.setType(messageType);
+						builder.setType(messageType);
 
 						/* message length */
 						errorOffset = buffer.bytesRead();
 						long mLength = buffer.readLong((byte)4);
-						headerBuilder.setLength(mLength);
+						builder.setLength(mLength);
 						
 						/* message identifier */
 						errorOffset = buffer.bytesRead();
 						long identifier = buffer.readLong((byte)4);
-						headerBuilder.setIdentifier(identifier);
+						builder.setIdentifier(identifier);
 
 					}catch (BufferUnderflowException e){
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mHeader = (PtTlsMessageHeader)headerBuilder.toMessageHeader();
+					mHeader = (PtTlsMessageHeader)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

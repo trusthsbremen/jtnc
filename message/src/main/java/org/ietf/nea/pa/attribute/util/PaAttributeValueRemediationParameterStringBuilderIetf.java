@@ -52,7 +52,7 @@ public class PaAttributeValueRemediationParameterStringBuilderIetf implements Pa
 	}
 
 	@Override
-	public PaAttributeValueRemediationParameterString toValue() throws RuleException {
+	public PaAttributeValueRemediationParameterString toObject() throws RuleException {
 
 		// check again because it has to set properly
 		NoZeroString.check(this.remediationString);
@@ -61,7 +61,7 @@ public class PaAttributeValueRemediationParameterStringBuilderIetf implements Pa
 	}
 
 	@Override
-	public PaAttributeValueRemediationParameterStringBuilder clear() {
+	public PaAttributeValueRemediationParameterStringBuilder newInstance() {
 
 		return new PaAttributeValueRemediationParameterStringBuilderIetf();
 	}

@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageErrorParameterOffsetSubValueReader implements TnccsReader<PbMessageValueErrorParameterOffset>{
 
-	private  PbMessageValueErrorParameterOffsetBuilder builder;
+	private  PbMessageValueErrorParameterOffsetBuilder baseBuilder;
 	
 	PbMessageErrorParameterOffsetSubValueReader(PbMessageValueErrorParameterOffsetBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ class PbMessageErrorParameterOffsetSubValueReader implements TnccsReader<PbMessa
 		long errorOffset = 0;
 		
 		PbMessageValueErrorParameterOffset value = null;
-		builder = (PbMessageValueErrorParameterOffsetBuilder)builder.clear();
+		PbMessageValueErrorParameterOffsetBuilder builder = (PbMessageValueErrorParameterOffsetBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -39,14 +39,14 @@ class PbMessageErrorParameterOffsetSubValueReader implements TnccsReader<PbMessa
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long offset = ByteArrayHelper.toLong(buffer);
-				this.builder.setOffset(offset);
+				builder.setOffset(offset);
 				errorOffset += byteSize;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for message value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PbMessageValueErrorParameterOffset)builder.toValue();
+			value = (PbMessageValueErrorParameterOffset)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

@@ -21,13 +21,13 @@ public class PbMessageValueErrorParameterOffsetBuilderIetf implements PbMessageV
 	}
 
 	@Override
-	public PbMessageValueErrorParameterOffset toValue() throws RuleException {
+	public PbMessageValueErrorParameterOffset toObject() throws RuleException {
 
 		return new PbMessageValueErrorParameterOffset(length, offset);
 	}
 
 	@Override
-	public PbMessageValueErrorParameterOffsetBuilder clear() {
+	public PbMessageValueErrorParameterOffsetBuilder newInstance() {
 
 		return new PbMessageValueErrorParameterOffsetBuilderIetf();
 	}

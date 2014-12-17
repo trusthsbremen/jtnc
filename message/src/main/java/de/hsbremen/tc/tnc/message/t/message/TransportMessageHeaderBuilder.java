@@ -1,8 +1,8 @@
 package de.hsbremen.tc.tnc.message.t.message;
 
+import de.hsbremen.tc.tnc.message.util.TransmissionObjectBuilder;
 
-public interface TransportMessageHeaderBuilder {
-	public abstract TransportMessageHeader toMessageHeader();
 
-	public abstract TransportMessageHeaderBuilder clear();
+public interface TransportMessageHeaderBuilder extends TransmissionObjectBuilder<TransportMessageHeader> {
+	
 }

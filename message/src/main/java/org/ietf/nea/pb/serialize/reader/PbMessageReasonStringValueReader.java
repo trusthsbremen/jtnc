@@ -17,10 +17,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReasonString>{
 
-	private PbMessageValueReasonStringBuilder builder;
+	private PbMessageValueReasonStringBuilder baseBuilder;
 	
 	PbMessageReasonStringValueReader(PbMessageValueReasonStringBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReas
 		long errorOffset = 0;
 		
 		PbMessageValueReasonString value = null;
-		builder = (PbMessageValueReasonStringBuilder)builder.clear();
+		PbMessageValueReasonStringBuilder builder = (PbMessageValueReasonStringBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -46,7 +46,7 @@ class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReas
 				errorOffset += byteSize;
 				
 				String reasonString = readString(reasonLength, in, Charset.forName("UTF-8"));
-				this.builder.setReasonString(reasonString);
+				builder.setReasonString(reasonString);
 				errorOffset += reasonLength;
 				
 				// Last byte is the language code length;
@@ -56,14 +56,14 @@ class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReas
 				errorOffset += byteSize;
 				
 				String langCode = readString(langLength, in, Charset.forName("US-ASCII"));
-				this.builder.setLangCode(langCode);
+				builder.setLangCode(langCode);
 				errorOffset += langLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for message value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PbMessageValueReasonString)builder.toValue();
+			value = (PbMessageValueReasonString)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

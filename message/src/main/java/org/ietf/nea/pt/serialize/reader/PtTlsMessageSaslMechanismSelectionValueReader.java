@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageSaslMechanismSelectionValueReader implements TransportReader<PtTlsMessageValueSaslMechanismSelection>{
 
-	private PtTlsMessageValueSaslMechanismSelectionBuilder builder;
+	private PtTlsMessageValueSaslMechanismSelectionBuilder baseBuilder;
 	
 	PtTlsMessageSaslMechanismSelectionValueReader(PtTlsMessageValueSaslMechanismSelectionBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ class PtTlsMessageSaslMechanismSelectionValueReader implements TransportReader<P
 				long errorOffset = 0;
 				
 				PtTlsMessageValueSaslMechanismSelection mValue = null;
-				PtTlsMessageValueSaslMechanismSelectionBuilder valueBuilder = (PtTlsMessageValueSaslMechanismSelectionBuilder)builder.clear();
+				PtTlsMessageValueSaslMechanismSelectionBuilder builder = (PtTlsMessageValueSaslMechanismSelectionBuilder)this.baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -45,14 +45,14 @@ class PtTlsMessageSaslMechanismSelectionValueReader implements TransportReader<P
 						byte[] sData = buffer.read(nameLength);
 						String name = new String(sData, Charset.forName("US-ASCII")); 
 						SaslMechanism mech = new SaslMechanism(name);
-						valueBuilder.setMechanism(mech);
+						builder.setMechanism(mech);
 						
 						/* optional initial SASL data */
 						int counter = (int)(length - 1) - sData.length;
 						if(counter > 0){
 							errorOffset = buffer.bytesRead();
 							byte[] initialSaslMsg = buffer.read(counter);
-							valueBuilder.setInitialSaslMessage(initialSaslMsg);
+							builder.setInitialSaslMessage(initialSaslMsg);
 						}
 
 
@@ -60,7 +60,7 @@ class PtTlsMessageSaslMechanismSelectionValueReader implements TransportReader<P
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValueSaslMechanismSelection)valueBuilder.toValue();
+					mValue = (PtTlsMessageValueSaslMechanismSelection)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

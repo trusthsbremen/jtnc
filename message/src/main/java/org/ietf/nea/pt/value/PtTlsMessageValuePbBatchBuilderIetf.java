@@ -27,7 +27,7 @@ public class PtTlsMessageValuePbBatchBuilderIetf implements
 	}
 	
 	@Override
-	public PtTlsMessageValuePbBatch toValue(){
+	public PtTlsMessageValuePbBatch toObject(){
 		if(this.tnccsData == null){
 			throw new IllegalStateException("The batch data has to be set.");
 		}
@@ -35,7 +35,7 @@ public class PtTlsMessageValuePbBatchBuilderIetf implements
 	}
 
 	@Override
-	public PtTlsMessageValuePbBatchBuilder clear() {
+	public PtTlsMessageValuePbBatchBuilder newInstance() {
 		
 		return new PtTlsMessageValuePbBatchBuilderIetf();
 	}

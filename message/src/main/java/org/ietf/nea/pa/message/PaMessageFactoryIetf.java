@@ -31,7 +31,7 @@ public class PaMessageFactoryIetf {
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}
 		
-		PaMessage msg = new PaMessage(builder.toMessageHeader(), attributes);
+		PaMessage msg = new PaMessage(builder.toObject(), attributes);
 
 		return msg; 
 	}

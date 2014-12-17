@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageExperimentalValueReader implements TnccsReader<PbMessageValueExperimental>{
 
-	private PbMessageValueExperimentalBuilder builder;
+	private PbMessageValueExperimentalBuilder baseBuilder;
 	
 	PbMessageExperimentalValueReader(PbMessageValueExperimentalBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PbMessageExperimentalValueReader implements TnccsReader<PbMessageValueExpe
 		long errorOffset = 0;
 		
 		PbMessageValueExperimental value = null;
-		builder = (PbMessageValueExperimentalBuilder)builder.clear();
+		PbMessageValueExperimentalBuilder builder = (PbMessageValueExperimentalBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -40,14 +40,14 @@ class PbMessageExperimentalValueReader implements TnccsReader<PbMessageValueExpe
 				
 				/* message */
 				String message = readString(messageLength, in, Charset.forName("US-ASCII"));
-				this.builder.setMessage(message);
+				builder.setMessage(message);
 				errorOffset += messageLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for message value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PbMessageValueExperimental)builder.toValue();
+			value = (PbMessageValueExperimental)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

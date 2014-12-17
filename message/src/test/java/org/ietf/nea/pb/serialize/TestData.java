@@ -151,7 +151,7 @@ public class TestData {
 		}
 
 		List<TnccsMessage> messages = new ArrayList<>();
-		messages.add(new PbMessage(builder.toMessageHeader(), PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12})));
+		messages.add(new PbMessage(builder.toObject(), PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12})));
 		
 		
 		return PbBatchFactoryIetf.createClientData(messages);

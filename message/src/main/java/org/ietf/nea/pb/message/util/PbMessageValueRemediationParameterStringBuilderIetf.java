@@ -46,7 +46,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterString toValue() throws RuleException {
+	public PbMessageValueRemediationParameterString toObject() throws RuleException {
 
 		// check again because it has to set properly
 		NoZeroString.check(this.remediationString);
@@ -55,7 +55,7 @@ public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMe
 	}
 
 	@Override
-	public PbMessageValueRemediationParameterStringBuilder clear() {
+	public PbMessageValueRemediationParameterStringBuilder newInstance() {
 
 		return new PbMessageValueRemediationParameterStringBuilderIetf();
 	}

@@ -17,10 +17,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeRemediationParameterStringValueReader implements ImReader<PaAttributeValueRemediationParameterString>{
 
-	private PaAttributeValueRemediationParameterStringBuilder builder;
+	private PaAttributeValueRemediationParameterStringBuilder baseBuilder;
 	
 	PaAttributeRemediationParameterStringValueReader(PaAttributeValueRemediationParameterStringBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributeRemediationParameterStringValueReader implements ImReader<PaAtt
 		long errorOffset = 0;
 		
 		PaAttributeValueRemediationParameterString value = null;
-		builder = (PaAttributeValueRemediationParameterStringBuilder)builder.clear();
+		PaAttributeValueRemediationParameterStringBuilder builder = (PaAttributeValueRemediationParameterStringBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -46,7 +46,7 @@ class PaAttributeRemediationParameterStringValueReader implements ImReader<PaAtt
 				errorOffset += byteSize;
 				
 				String reasonString = readString(reasonLength, in, Charset.forName("UTF-8"));
-				this.builder.setRemediationString(reasonString);
+				builder.setRemediationString(reasonString);
 				errorOffset += reasonLength;
 				
 				// Last byte is the language code length;
@@ -56,14 +56,14 @@ class PaAttributeRemediationParameterStringValueReader implements ImReader<PaAtt
 				errorOffset += byteSize;
 				
 				String langCode = readString(langLength, in, Charset.forName("US-ASCII"));
-				this.builder.setLangCode(langCode);
+				builder.setLangCode(langCode);
 				errorOffset += langLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueRemediationParameterString)builder.toValue();
+			value = (PaAttributeValueRemediationParameterString)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

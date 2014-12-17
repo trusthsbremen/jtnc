@@ -37,13 +37,13 @@ public class PaMessageHeaderBuilderIetf implements PaMessageHeaderBuilder{
 	}
 	
 	@Override
-	public PaMessageHeader toMessageHeader() {
+	public PaMessageHeader toObject() {
 		
 		return new PaMessageHeader(this.version, this.identifier);
 	}
 	
 	@Override
-	public PaMessageHeaderBuilder clear() {
+	public PaMessageHeaderBuilder newInstance() {
 		return new PaMessageHeaderBuilderIetf();
 	}
 

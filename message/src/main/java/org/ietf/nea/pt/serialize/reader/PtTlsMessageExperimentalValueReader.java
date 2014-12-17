@@ -14,10 +14,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageExperimentalValueReader implements TransportReader<PtTlsMessageValueExperimental>{
 
-	private PtTlsMessageValueExperimentalBuilder builder;
+	private PtTlsMessageValueExperimentalBuilder baseBuilder;
 	
 	PtTlsMessageExperimentalValueReader(PtTlsMessageValueExperimentalBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PtTlsMessageExperimentalValueReader implements TransportReader<PtTlsMessag
 				long errorOffset = 0;
 				
 				PtTlsMessageValueExperimental mValue = null;
-				PtTlsMessageValueExperimentalBuilder valueBuilder = (PtTlsMessageValueExperimentalBuilder)builder.clear();
+				PtTlsMessageValueExperimentalBuilder builder = (PtTlsMessageValueExperimentalBuilder)baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -38,14 +38,14 @@ class PtTlsMessageExperimentalValueReader implements TransportReader<PtTlsMessag
 						errorOffset = buffer.bytesRead();
 						byte[] sData = buffer.read((int)length); 
 						String message = new String(sData, Charset.forName("US-ASCII"));
-						valueBuilder.setMessage(message);
+						builder.setMessage(message);
 
 
 					}catch (BufferUnderflowException e){
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValueExperimental)valueBuilder.toValue();
+					mValue = (PtTlsMessageValueExperimental)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

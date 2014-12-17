@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageHeaderReader implements TnccsReader<PbMessageHeader>{
 
-	private PbMessageHeaderBuilder builder;
+	private PbMessageHeaderBuilder baseBuilder;
 	
 	PbMessageHeaderReader(PbMessageHeaderBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PbMessageHeaderReader implements TnccsReader<PbMessageHeader>{
 		long errorOffset = 0;
 		
 		PbMessageHeader messageHeader = null;
-		builder = (PbMessageHeaderBuilder)builder.clear();
+		PbMessageHeaderBuilder builder = (PbMessageHeaderBuilder)this.baseBuilder.newInstance();
 
 		try{
 			try{
@@ -70,7 +70,7 @@ class PbMessageHeaderReader implements TnccsReader<PbMessageHeader>{
 				throw new SerializationException("Returned data for message header is to short or stream may be closed.",e,true);
 			}
 
-			messageHeader = (PbMessageHeader)builder.toMessageHeader();
+			messageHeader = (PbMessageHeader)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

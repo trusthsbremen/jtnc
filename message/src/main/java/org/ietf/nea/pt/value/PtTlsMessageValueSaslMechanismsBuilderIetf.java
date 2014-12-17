@@ -54,13 +54,13 @@ PtTlsMessageValueSaslMechanismsBuilder {
 	}
 
 	@Override
-	public PtTlsMessageValueSaslMechanisms toValue(){
+	public PtTlsMessageValueSaslMechanisms toObject(){
 		
 		return new PtTlsMessageValueSaslMechanisms(this.length, this.mechanisms);
 	}
 
 	@Override
-	public PtTlsMessageValueSaslMechanismsBuilder clear() {
+	public PtTlsMessageValueSaslMechanismsBuilder newInstance() {
 		return new PtTlsMessageValueSaslMechanismsBuilderIetf();
 	}
 

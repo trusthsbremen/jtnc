@@ -30,13 +30,13 @@ public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessage
 	}
 
 	@Override
-	public PbMessageValueLanguagePreference toValue(){
+	public PbMessageValueLanguagePreference toObject(){
 
 		return new PbMessageValueLanguagePreference(this.length,this.languagePreference);
 	}
 
 	@Override
-	public PbMessageValueLanguagePreferenceBuilder clear() {
+	public PbMessageValueLanguagePreferenceBuilder newInstance() {
 
 		return new PbMessageValueLanguagePreferenceBuilderIetf();
 	}

@@ -122,7 +122,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 										msgs.add(new PbMessage(mHead, mValue));
 									}else{
 										try{
-											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 											bHead = changedBHeader;
 										}catch(RuleException e2){
 											// the new header is only a convenient process if the creation fails
@@ -135,7 +135,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 										msgs.add(new PbMessage(mHead, mValue));
 									}else{
 										try{
-											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 											bHead = changedBHeader;
 										}catch(RuleException e2){
 											// the new header is only a convenient process if the creation fails
@@ -163,7 +163,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 								// skip the remaining bytes of the message
 								cIn.skip(mHead.getLength() - headerOffset);
 								try{
-									PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+									PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 									bHead = changedBHeader;
 								}catch(RuleException e2){
 									// the new header is only a convenient process if the creation fails
@@ -188,7 +188,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 							// skip the remaining bytes of the message
 							cIn.skip(mHead.getLength() - headerOffset);
 							try{
-								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 								bHead = changedBHeader;
 							}catch(RuleException e2){
 								// the new header is only a convenient process if the creation fails
@@ -220,7 +220,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 							minorExceptions.add(updatedException);
 							cIn.skip(mHead.getLength() - cIn.getByteCount());
 							try{
-								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toBatchHeader();
+								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 								bHead = changedBHeader;
 							}catch(RuleException e2){
 								// the new header is only a convenient process if the creation fails

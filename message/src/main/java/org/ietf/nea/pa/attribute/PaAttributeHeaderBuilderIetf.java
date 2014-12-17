@@ -62,7 +62,7 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 	}
 	
 	@Override
-	public PaAttributeHeader toAttributeHeader(){
+	public PaAttributeHeader toObject(){
 		
 		PaAttributeHeader mHead = new PaAttributeHeader(this.flags, this.vendorId, this.type, this.length);
 		
@@ -70,7 +70,7 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder{
 	}
 
 	@Override
-	public PaAttributeHeaderBuilder clear() {
+	public PaAttributeHeaderBuilder newInstance() {
 
 		return new PaAttributeHeaderBuilderIetf();
 	}

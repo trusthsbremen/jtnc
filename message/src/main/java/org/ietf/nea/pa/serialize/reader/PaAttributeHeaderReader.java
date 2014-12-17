@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeHeaderReader implements ImReader<PaAttributeHeader>{
 
-	private PaAttributeHeaderBuilder builder;
+	private PaAttributeHeaderBuilder baseBuilder;
 	
 	PaAttributeHeaderReader(PaAttributeHeaderBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributeHeaderReader implements ImReader<PaAttributeHeader>{
 		long errorOffset = 0;
 		
 		PaAttributeHeader messageHeader = null;
-		builder = (PaAttributeHeaderBuilder)builder.clear();
+		PaAttributeHeaderBuilder builder = (PaAttributeHeaderBuilder)this.baseBuilder.newInstance();
 
 		try{
 			try{
@@ -70,7 +70,7 @@ class PaAttributeHeaderReader implements ImReader<PaAttributeHeader>{
 				throw new SerializationException("Returned data for attribute header is to short or stream may be closed.",e,true);
 			}
 
-			messageHeader = (PaAttributeHeader)builder.toAttributeHeader();
+			messageHeader = (PaAttributeHeader)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

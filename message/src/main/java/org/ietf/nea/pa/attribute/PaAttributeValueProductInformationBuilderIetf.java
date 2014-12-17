@@ -41,12 +41,12 @@ public class PaAttributeValueProductInformationBuilderIetf implements
 	}
 
 	@Override
-	public PaAttributeValueProductInformation toValue(){
+	public PaAttributeValueProductInformation toObject(){
 		return new PaAttributeValueProductInformation(this.length, this.vendorId, this.productId, this.name);
 	}
 
 	@Override
-	public PaAttributeValueProductInformationBuilder clear() {
+	public PaAttributeValueProductInformationBuilder newInstance() {
 
 		return new PaAttributeValueProductInformationBuilderIetf();
 	}

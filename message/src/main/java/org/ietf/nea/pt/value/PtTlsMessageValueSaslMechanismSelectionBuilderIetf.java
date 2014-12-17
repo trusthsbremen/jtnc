@@ -44,7 +44,7 @@ PtTlsMessageValueSaslMechanismSelectionBuilder {
 	
 	
 	@Override
-	public PtTlsMessageValueSaslMechanismSelection toValue(){
+	public PtTlsMessageValueSaslMechanismSelection toObject(){
 		
 		if(this.mechanism == null){
 			throw new IllegalStateException("The SASL mechanism has to be set.");
@@ -61,7 +61,7 @@ PtTlsMessageValueSaslMechanismSelectionBuilder {
 	}
 
 	@Override
-	public PtTlsMessageValueSaslMechanismSelectionBuilder clear() {
+	public PtTlsMessageValueSaslMechanismSelectionBuilder newInstance() {
 		return new PtTlsMessageValueSaslMechanismSelectionBuilderIetf();
 	}
 

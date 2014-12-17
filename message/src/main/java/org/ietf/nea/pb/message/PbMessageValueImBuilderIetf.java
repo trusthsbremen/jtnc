@@ -89,13 +89,13 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	}
 
 	@Override
-	public PbMessageValueIm toValue(){
+	public PbMessageValueIm toObject(){
 
 		return new PbMessageValueIm(this.imFlags, this.subVendorId, this.subType, this.collectorId, this.validatorId, this.length, this.message);
 	}
 
 	@Override
-	public PbMessageValueImBuilder clear() {
+	public PbMessageValueImBuilder newInstance() {
 
 		return new PbMessageValueImBuilderIetf();
 	}

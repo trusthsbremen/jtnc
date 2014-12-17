@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeRemediationParameterUriValueReader implements ImReader<PaAttributeValueRemediationParameterUri>{
 
-	private  PaAttributeValueRemediationParameterUriBuilder builder;
+	private  PaAttributeValueRemediationParameterUriBuilder baseBuilder;
 	
 	PaAttributeRemediationParameterUriValueReader( PaAttributeValueRemediationParameterUriBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PaAttributeRemediationParameterUriValueReader implements ImReader<PaAttrib
 		long errorOffset = 0;
 		
 		 PaAttributeValueRemediationParameterUri value = null;
-		builder = ( PaAttributeValueRemediationParameterUriBuilder)builder.clear();
+		 PaAttributeValueRemediationParameterUriBuilder builder = (PaAttributeValueRemediationParameterUriBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -40,14 +40,14 @@ class PaAttributeRemediationParameterUriValueReader implements ImReader<PaAttrib
 				
 				/* uri */
 				String uriString = readString(messageLength, in, Charset.forName("US-ASCII"));
-				this.builder.setUri(uriString);
+				builder.setUri(uriString);
 				errorOffset += messageLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for batch header is to short or stream may be closed.",e,true);
 			}
 
-			value = ( PaAttributeValueRemediationParameterUri)builder.toValue();
+			value = ( PaAttributeValueRemediationParameterUri)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

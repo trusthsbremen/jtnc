@@ -26,12 +26,12 @@ public class PaAttributeValueTestingBuilderIetf implements PaAttributeValueTesti
 	}
 	
 	@Override
-	public PaAttributeValueTesting toValue() {
+	public PaAttributeValueTesting toObject() {
 		return new PaAttributeValueTesting(this.length, this.content);
 	}
 
 	@Override
-	public PaAttributeValueTestingBuilder clear() {
+	public PaAttributeValueTestingBuilder newInstance() {
 		return new PaAttributeValueTestingBuilderIetf();
 	}
 	

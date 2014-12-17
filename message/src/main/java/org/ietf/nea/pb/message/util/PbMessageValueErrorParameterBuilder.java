@@ -4,7 +4,7 @@ import org.ietf.nea.exception.RuleException;
 
 public interface PbMessageValueErrorParameterBuilder {
 
-	public abstract AbstractPbMessageValueErrorParameter toValue() throws RuleException;
+	public abstract AbstractPbMessageValueErrorParameter toObject() throws RuleException;
 	
-	public abstract PbMessageValueErrorParameterBuilder clear();
+	public abstract PbMessageValueErrorParameterBuilder newInstance();
 }

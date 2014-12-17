@@ -14,10 +14,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageSaslResultValueReader implements TransportReader<PtTlsMessageValueSaslResult>{
 
-	private PtTlsMessageValueSaslResultBuilder builder;
+	private PtTlsMessageValueSaslResultBuilder baseBuilder;
 	
 	PtTlsMessageSaslResultValueReader(PtTlsMessageValueSaslResultBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PtTlsMessageSaslResultValueReader implements TransportReader<PtTlsMessageV
 				long errorOffset = 0;
 				
 				PtTlsMessageValueSaslResult mValue = null;
-				PtTlsMessageValueSaslResultBuilder valueBuilder = (PtTlsMessageValueSaslResultBuilder)builder.clear();
+				PtTlsMessageValueSaslResultBuilder builder = (PtTlsMessageValueSaslResultBuilder)baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -37,14 +37,14 @@ class PtTlsMessageSaslResultValueReader implements TransportReader<PtTlsMessageV
 						/* result */
 						errorOffset = buffer.bytesRead();
 						int result = buffer.readInt((byte)2);
-						valueBuilder.setResult(result);
+						builder.setResult(result);
 						
 						/* optional result data */
 						int counter = (int)(length - 2);
 						if(counter > 0){
 							errorOffset = buffer.bytesRead();
 							byte[] resultData = buffer.read(counter);
-							valueBuilder.setOptionalResultData(resultData);
+							builder.setOptionalResultData(resultData);
 						}
 						
 
@@ -52,7 +52,7 @@ class PtTlsMessageSaslResultValueReader implements TransportReader<PtTlsMessageV
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValueSaslResult)valueBuilder.toValue();
+					mValue = (PtTlsMessageValueSaslResult)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

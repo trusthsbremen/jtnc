@@ -20,7 +20,7 @@ public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf imp
 				PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length() - 4; // -4 = attribute length is ignored
 		
 		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
-		this.attributeHeader = new PaAttributeHeaderBuilderIetf().toAttributeHeader();
+		this.attributeHeader = new PaAttributeHeaderBuilderIetf().toObject();
 	}
 
 	@Override
@@ -38,13 +38,13 @@ public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf imp
 	}
 
 	@Override
-	public PaAttributeValueErrorInformationUnsupportedAttribute toValue(){
+	public PaAttributeValueErrorInformationUnsupportedAttribute toObject(){
 		
 		return new PaAttributeValueErrorInformationUnsupportedAttribute(this.length, this.messageHeader, this.attributeHeader);
 	}
 
 	@Override
-	public PaAttributeValueErrorInformationUnsupportedAttributeBuilder clear() {
+	public PaAttributeValueErrorInformationUnsupportedAttributeBuilder newInstance() {
 		// TODO Auto-generated method stub
 		return new PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf();
 	}

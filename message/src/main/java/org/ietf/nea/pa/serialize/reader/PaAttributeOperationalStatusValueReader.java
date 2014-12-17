@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeOperationalStatusValueReader implements ImReader<PaAttributeValueOperationalStatus>{
 
-	private PaAttributeValueOperationalStatusBuilder builder;
+	private PaAttributeValueOperationalStatusBuilder baseBuilder;
 	
 	PaAttributeOperationalStatusValueReader(PaAttributeValueOperationalStatusBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ class PaAttributeOperationalStatusValueReader implements ImReader<PaAttributeVal
 		long errorOffset = 0;
 		
 		PaAttributeValueOperationalStatus value = null;
-		builder = (PaAttributeValueOperationalStatusBuilder)builder.clear();
+		PaAttributeValueOperationalStatusBuilder builder = (PaAttributeValueOperationalStatusBuilder)baseBuilder.newInstance();
 
 		try{
 			try{
@@ -70,7 +70,7 @@ class PaAttributeOperationalStatusValueReader implements ImReader<PaAttributeVal
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueOperationalStatus)builder.toValue();
+			value = (PaAttributeValueOperationalStatus)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

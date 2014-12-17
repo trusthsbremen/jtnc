@@ -191,7 +191,7 @@ public class PaAttributeFactoryIetf {
 		}catch(RuleException e){
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}
-		PaAttribute attribute = new PaAttribute(aBuilder.toAttributeHeader(), value);
+		PaAttribute attribute = new PaAttribute(aBuilder.toObject(), value);
 		
 		return attribute;
 

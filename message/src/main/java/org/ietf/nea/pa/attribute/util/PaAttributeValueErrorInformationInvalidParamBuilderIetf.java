@@ -30,13 +30,13 @@ public class PaAttributeValueErrorInformationInvalidParamBuilderIetf implements
 	}
 
 	@Override
-	public PaAttributeValueErrorInformationInvalidParam toValue(){
+	public PaAttributeValueErrorInformationInvalidParam toObject(){
 		
 		return new PaAttributeValueErrorInformationInvalidParam(length, messageHeader, offset);
 	}
 
 	@Override
-	public PaAttributeValueErrorInformationInvalidParamBuilder clear() {
+	public PaAttributeValueErrorInformationInvalidParamBuilder newInstance() {
 		// TODO Auto-generated method stub
 		return new PaAttributeValueErrorInformationInvalidParamBuilderIetf();
 	}

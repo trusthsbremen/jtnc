@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageAssessmentResultValueReader implements TnccsReader<PbMessageValueAssessmentResult>{
 
-	private PbMessageValueAssessmentResultBuilder builder;
+	private PbMessageValueAssessmentResultBuilder baseBuilder;
 	
 	PbMessageAssessmentResultValueReader(PbMessageValueAssessmentResultBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PbMessageAssessmentResultValueReader implements TnccsReader<PbMessageValue
 		long errorOffset = 0;
 		
 		PbMessageValueAssessmentResult value = null;
-		builder = (PbMessageValueAssessmentResultBuilder)builder.clear();
+		PbMessageValueAssessmentResultBuilder builder = (PbMessageValueAssessmentResultBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -43,7 +43,7 @@ class PbMessageAssessmentResultValueReader implements TnccsReader<PbMessageValue
 				byteSize = 4;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long code = ByteArrayHelper.toLong(buffer);
-				this.builder.setResult(code);
+				builder.setResult(code);
 				errorOffset += byteSize;
 				
 			}catch (IOException e){
@@ -51,7 +51,7 @@ class PbMessageAssessmentResultValueReader implements TnccsReader<PbMessageValue
 						"Returned data for message value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PbMessageValueAssessmentResult)builder.toValue();
+			value = (PbMessageValueAssessmentResult)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageAccessRecommendationValueReader implements TnccsReader<PbMessageValueAccessRecommendation>{
 
-	private PbMessageValueAccessRecommendationBuilder builder;
+	private PbMessageValueAccessRecommendationBuilder baseBuilder;
 	
 	PbMessageAccessRecommendationValueReader(PbMessageValueAccessRecommendationBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PbMessageAccessRecommendationValueReader implements TnccsReader<PbMessageV
 		long errorOffset = 0;
 		
 		PbMessageValueAccessRecommendation value = null;
-		builder = (PbMessageValueAccessRecommendationBuilder)builder.clear();
+		PbMessageValueAccessRecommendationBuilder builder = (PbMessageValueAccessRecommendationBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -56,7 +56,7 @@ class PbMessageAccessRecommendationValueReader implements TnccsReader<PbMessageV
 						"Returned data for message value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PbMessageValueAccessRecommendation)builder.toValue();
+			value = (PbMessageValueAccessRecommendation)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

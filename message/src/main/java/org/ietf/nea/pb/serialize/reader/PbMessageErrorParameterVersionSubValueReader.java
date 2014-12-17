@@ -15,10 +15,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PbMessageErrorParameterVersionSubValueReader implements TnccsReader<PbMessageValueErrorParameterVersion>{
 
-	private  PbMessageValueErrorParameterVersionBuilder builder;
+	private  PbMessageValueErrorParameterVersionBuilder baseBuilder;
 	
 	PbMessageErrorParameterVersionSubValueReader(PbMessageValueErrorParameterVersionBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ class PbMessageErrorParameterVersionSubValueReader implements TnccsReader<PbMess
 		long errorOffset = 0;
 		
 		PbMessageValueErrorParameterVersion value = null;
-		builder = (PbMessageValueErrorParameterVersionBuilder)builder.clear();
+		PbMessageValueErrorParameterVersionBuilder builder = (PbMessageValueErrorParameterVersionBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -40,21 +40,21 @@ class PbMessageErrorParameterVersionSubValueReader implements TnccsReader<PbMess
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				short badVersion = ByteArrayHelper.toShort(buffer);
-				this.builder.setBadVersion(badVersion);
+				builder.setBadVersion(badVersion);
 				errorOffset += byteSize;
 				
 				/* max version */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				short maxVersion = ByteArrayHelper.toShort(buffer);
-				this.builder.setMaxVersion(maxVersion);
+				builder.setMaxVersion(maxVersion);
 				errorOffset += byteSize;
 				
 				/* min version */
 				byteSize = 1;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				short minVersion = ByteArrayHelper.toShort(buffer);
-				this.builder.setMinVersion(minVersion);
+				builder.setMinVersion(minVersion);
 				errorOffset += byteSize;
 				
 				/* ignore reserved */
@@ -66,7 +66,7 @@ class PbMessageErrorParameterVersionSubValueReader implements TnccsReader<PbMess
 				throw new SerializationException("Returned data for message header is to short or stream may be closed.",e,true);
 			}
 
-			value = (PbMessageValueErrorParameterVersion)builder.toValue();
+			value = (PbMessageValueErrorParameterVersion)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

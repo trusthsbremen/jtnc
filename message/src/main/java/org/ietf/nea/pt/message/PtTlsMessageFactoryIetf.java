@@ -127,7 +127,7 @@ public class PtTlsMessageFactoryIetf {
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}
 
-		PtTlsMessage message = new PtTlsMessage(mBuilder.toMessageHeader(), value);
+		PtTlsMessage message = new PtTlsMessage(mBuilder.toObject(), value);
 		
 		return message;
 

@@ -16,10 +16,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeTestingValueReader implements ImReader<PaAttributeValueTesting>{
 
-	private PaAttributeValueTestingBuilder builder;
+	private PaAttributeValueTestingBuilder baseBuilder;
 	
 	PaAttributeTestingValueReader(PaAttributeValueTestingBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PaAttributeTestingValueReader implements ImReader<PaAttributeValueTesting>
 		long errorOffset = 0;
 		
 		PaAttributeValueTesting value = null;
-		builder = (PaAttributeValueTestingBuilder)builder.clear();
+		PaAttributeValueTestingBuilder builder = (PaAttributeValueTestingBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -37,14 +37,14 @@ class PaAttributeTestingValueReader implements ImReader<PaAttributeValueTesting>
 				
 				/* content */
 				String content = readString(messageLength, in, Charset.forName("UTF-8"));
-				this.builder.setContent(content);
+				builder.setContent(content);
 				errorOffset += messageLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueTesting)builder.toValue();
+			value = (PaAttributeValueTesting)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

@@ -17,10 +17,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeProductInformationValueReader implements ImReader<PaAttributeValueProductInformation>{
 
-	private PaAttributeValueProductInformationBuilder builder;
+	private PaAttributeValueProductInformationBuilder baseBuilder;
 	
 	PaAttributeProductInformationValueReader(PaAttributeValueProductInformationBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributeProductInformationValueReader implements ImReader<PaAttributeVa
 		long errorOffset = 0;
 		
 		PaAttributeValueProductInformation value = null;
-		builder = (PaAttributeValueProductInformationBuilder)builder.clear();
+		PaAttributeValueProductInformationBuilder builder = (PaAttributeValueProductInformationBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -43,20 +43,20 @@ class PaAttributeProductInformationValueReader implements ImReader<PaAttributeVa
 				byteSize = 3;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				long vendorId = ByteArrayHelper.toLong(buffer);
-				this.builder.setVendorId(vendorId);
+				builder.setVendorId(vendorId);
 				errorOffset += byteSize;
 			
 				/* product id */ 
 				byteSize = 2;
 				buffer = ByteArrayHelper.arrayFromStream(in, byteSize);
 				int productId = ByteArrayHelper.toInt(buffer);
-				this.builder.setProductId(productId);
+				builder.setProductId(productId);
 				errorOffset += byteSize;
 				
 				/* product name */
 				long nameLength = messageLength - PaAttributeTlvFixedLengthEnum.PRO_INF.length();
 				String productName = this.readString(nameLength, in, Charset.forName("UTF-8"));
-				this.builder.setName(productName);
+				builder.setName(productName);
 				errorOffset += nameLength;
 
 			}catch (IOException e){
@@ -64,7 +64,7 @@ class PaAttributeProductInformationValueReader implements ImReader<PaAttributeVa
 						"Returned data for attribute value is to short or stream may be closed.", e, true);
 			}
 
-			value = (PaAttributeValueProductInformation)builder.toValue();
+			value = (PaAttributeValueProductInformation)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

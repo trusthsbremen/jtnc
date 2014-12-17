@@ -17,10 +17,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributeStringVersionValueReader implements ImReader<PaAttributeValueStringVersion>{
 
-	private PaAttributeValueStringVersionBuilder builder;
+	private PaAttributeValueStringVersionBuilder baseBuilder;
 	
 	PaAttributeStringVersionValueReader(PaAttributeValueStringVersionBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributeStringVersionValueReader implements ImReader<PaAttributeValueSt
 		long errorOffset = 0;
 		
 		PaAttributeValueStringVersion value = null;
-		builder = (PaAttributeValueStringVersionBuilder)builder.clear();
+		PaAttributeValueStringVersionBuilder builder = (PaAttributeValueStringVersionBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -47,7 +47,7 @@ class PaAttributeStringVersionValueReader implements ImReader<PaAttributeValueSt
 				
 				/* product version number */
 				String productVersion = readString(productLength, in, Charset.forName("UTF-8"));
-				this.builder.setProductVersion(productVersion);
+				builder.setProductVersion(productVersion);
 				errorOffset += productLength;
 				
 				// First 4 bytes are the string length.
@@ -58,7 +58,7 @@ class PaAttributeStringVersionValueReader implements ImReader<PaAttributeValueSt
 				
 				/* product version number */
 				String buildNumber = readString(buildLength, in, Charset.forName("UTF-8"));
-				this.builder.setBuildNumber(buildNumber);
+				builder.setBuildNumber(buildNumber);
 				errorOffset += buildLength;
 				
 				// First 4 bytes are the string length.
@@ -69,14 +69,14 @@ class PaAttributeStringVersionValueReader implements ImReader<PaAttributeValueSt
 				
 				/* product version number */
 				String configVersion = readString(configLength, in, Charset.forName("UTF-8"));
-				this.builder.setConfigurationVersion(configVersion);
+				builder.setConfigurationVersion(configVersion);
 				errorOffset += configLength;
 			
 			}catch (IOException e){
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValueStringVersion)builder.toValue();
+			value = (PaAttributeValueStringVersion)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

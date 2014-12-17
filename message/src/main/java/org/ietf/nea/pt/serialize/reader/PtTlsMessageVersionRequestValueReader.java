@@ -14,10 +14,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 class PtTlsMessageVersionRequestValueReader implements TransportReader<PtTlsMessageValueVersionRequest>{
 
-	private PtTlsMessageValueVersionRequestBuilder builder;
+	private PtTlsMessageValueVersionRequestBuilder baseBuilder;
 	
 	PtTlsMessageVersionRequestValueReader(PtTlsMessageValueVersionRequestBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ class PtTlsMessageVersionRequestValueReader implements TransportReader<PtTlsMess
 				long errorOffset = 0;
 				
 				PtTlsMessageValueVersionRequest mValue = null;
-				PtTlsMessageValueVersionRequestBuilder valueBuilder = (PtTlsMessageValueVersionRequestBuilder)builder.clear();
+				PtTlsMessageValueVersionRequestBuilder builder = (PtTlsMessageValueVersionRequestBuilder)this.baseBuilder.newInstance();
 				
 				try{
 					try{
@@ -41,23 +41,23 @@ class PtTlsMessageVersionRequestValueReader implements TransportReader<PtTlsMess
 						/* min version */
 						errorOffset = buffer.bytesRead();
 						short minVersion = buffer.readShort((byte)1);
-						valueBuilder.setMinVersion(minVersion);
+						builder.setMinVersion(minVersion);
 						
 						/* max Version */
 						errorOffset = buffer.bytesRead();
 						short maxVersion = buffer.readShort((byte)1);
-						valueBuilder.setMaxVersion(maxVersion);
+						builder.setMaxVersion(maxVersion);
 
 						/* preferred Version */
 						errorOffset = buffer.bytesRead();
 						short preferredVersion = buffer.readShort((byte)1);
-						valueBuilder.setPreferredVersion(preferredVersion);
+						builder.setPreferredVersion(preferredVersion);
 
 					}catch (BufferUnderflowException e){
 						throw new SerializationException("Data length " +buffer.bytesWritten()+ " in buffer to short.",e,true, Long.toString(buffer.bytesWritten()));
 					}
 
-					mValue = (PtTlsMessageValueVersionRequest)valueBuilder.toValue();
+					mValue = (PtTlsMessageValueVersionRequest)builder.toObject();
 					
 				}catch (RuleException e){
 					throw new ValidationException(e.getMessage(), e, errorOffset);

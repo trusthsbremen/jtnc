@@ -41,7 +41,7 @@ PtTlsMessageValueSaslResultBuilder {
 	
 	
 	@Override
-	public PtTlsMessageValueSaslResult toValue(){
+	public PtTlsMessageValueSaslResult toObject(){
 		
 		
 		if(this.resultData != null){
@@ -53,7 +53,7 @@ PtTlsMessageValueSaslResultBuilder {
 	}
 
 	@Override
-	public PtTlsMessageValueSaslResultBuilder clear() {
+	public PtTlsMessageValueSaslResultBuilder newInstance() {
 		return new PtTlsMessageValueSaslResultBuilderIetf();
 	}
 

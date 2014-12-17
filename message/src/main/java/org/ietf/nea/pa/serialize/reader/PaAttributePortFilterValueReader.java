@@ -17,10 +17,10 @@ import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 
 class PaAttributePortFilterValueReader implements ImReader<PaAttributeValuePortFilter>{
 
-	private PaAttributeValuePortFilterBuilder builder;
+	private PaAttributeValuePortFilterBuilder baseBuilder;
 	
 	PaAttributePortFilterValueReader(PaAttributeValuePortFilterBuilder builder){
-		this.builder = builder;
+		this.baseBuilder = builder;
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ class PaAttributePortFilterValueReader implements ImReader<PaAttributeValuePortF
 		long errorOffset = 0;
 		
 		PaAttributeValuePortFilter value = null;
-		builder = (PaAttributeValuePortFilterBuilder)builder.clear();
+		PaAttributeValuePortFilterBuilder builder = (PaAttributeValuePortFilterBuilder)this.baseBuilder.newInstance();
 
 		try{
 			
@@ -63,7 +63,7 @@ class PaAttributePortFilterValueReader implements ImReader<PaAttributeValuePortF
 					port = ByteArrayHelper.toInt(buffer);
 					count += byteSize;
 					
-					this.builder.addEntries(new PortFilterEntry(blocked, protocol, port));
+					builder.addEntries(new PortFilterEntry(blocked, protocol, port));
 					
 					// TODO error offset is vague because it cannot be calculated to the exact offset. 
 					
@@ -75,7 +75,7 @@ class PaAttributePortFilterValueReader implements ImReader<PaAttributeValuePortF
 				throw new SerializationException("Returned data for attribute value is to short or stream may be closed.",e,true);
 			}
 
-			value = (PaAttributeValuePortFilter)builder.toValue();
+			value = (PaAttributeValuePortFilter)builder.toObject();
 			
 		}catch (RuleException e){
 			throw new ValidationException(e.getMessage(), e, errorOffset);

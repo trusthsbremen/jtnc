@@ -35,7 +35,7 @@ public class PaAttributeValueRemediationParameterUriBuilderIetf implements PaAtt
 	}
 
 	@Override
-	public PaAttributeValueRemediationParameterUri toValue() throws RuleException {
+	public PaAttributeValueRemediationParameterUri toObject() throws RuleException {
 		
 		if( uri == null){
 				throw new IllegalStateException("A message value has to be set.");
@@ -45,7 +45,7 @@ public class PaAttributeValueRemediationParameterUriBuilderIetf implements PaAtt
 	}
 
 	@Override
-	public PaAttributeValueRemediationParameterUriBuilder clear() {
+	public PaAttributeValueRemediationParameterUriBuilder newInstance() {
 
 		return new PaAttributeValueRemediationParameterUriBuilderIetf();
 	}
