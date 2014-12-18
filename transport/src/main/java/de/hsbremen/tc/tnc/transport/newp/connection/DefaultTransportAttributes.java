@@ -9,34 +9,36 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 
 public class DefaultTransportAttributes implements Attributed{
 
-	private String tVersion;
-	private String tProtocol;
-	private long maxMessageLength;
-	private long maxRoundTrips;
+	private final String tVersion;
+	private final String tProtocol;
+	private final long maxMessageLength;
+	private final long maxMessageLengthPerIm;
+	private final long maxRoundTrips;
 	
 	public DefaultTransportAttributes(String tProtocol, String tVersion){
-		this(tProtocol, tVersion, HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNKNOWN, HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
+		this(tProtocol, tVersion, HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNKNOWN, HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN, HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
 	}
 	
 	public DefaultTransportAttributes(String tProtocol, String tVersion, 
-			long maxMessageLength, long maxRoundTrips) {
+			long maxMessageLength, long maxMessageLengthPerIm, long maxRoundTrips) {
 		this.tProtocol = tProtocol;
 		this.tVersion = tVersion;
 		this.maxMessageLength = maxMessageLength;
+		this.maxMessageLengthPerIm = maxMessageLengthPerIm;
 		this.maxRoundTrips = maxRoundTrips;
 	}
 
 	/**
 	 * @return the tVersion
 	 */
-	public String geTransportVersion() {
+	public String getTransportVersion() {
 		return this.tVersion;
 	}
 
 	/**
 	 * @return the tProtocol
 	 */
-	public String geTransportProtocol() {
+	public String getTransportProtocol() {
 		return this.tProtocol;
 	}
 
@@ -45,6 +47,13 @@ public class DefaultTransportAttributes implements Attributed{
 	 */
 	public long getMaxMessageLength() {
 		return this.maxMessageLength;
+	}
+
+	/**
+	 * @return the maxMessageLengthPerIm
+	 */
+	public long getMaxMessageLengthPerIm() {
+		return this.maxMessageLengthPerIm;
 	}
 
 	/**
@@ -66,7 +75,7 @@ public class DefaultTransportAttributes implements Attributed{
 		}
 		
 		if(type.equals(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_MAX_MESSAGE_SIZE)){
-			return this.maxMessageLength;
+			return this.maxMessageLengthPerIm;
 		}
 		
 		if(type.equals(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_MAX_ROUND_TRIPS)){

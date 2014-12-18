@@ -44,7 +44,7 @@ public class ClientTransportSocketCLI {
 							new DefaultTransportAttributes(TcgTProtocolEnum.PLAIN.value(),TcgTVersionEnum.V1.value()), 
 							new SocketTransportAddress("localhost", 50251), 
 							PtTlsWriterFactory.createProductionDefault(), 
-							PtTlsReaderFactory.createProductionDefault(), 
+							PtTlsReaderFactory.createProductionDefault(131072), 
 							Executors.newSingleThreadExecutor());
 					
 					try {
@@ -80,7 +80,7 @@ public class ClientTransportSocketCLI {
 				
 				if(input.contains("stop")){
 					System.out.println("Connection will be closed.");
-					connection.close();
+					if(connection.isOpen())connection.close();
 				}
 			}
 			

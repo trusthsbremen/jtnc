@@ -47,8 +47,26 @@ public class SessionRunnableTest {
 		this.session.registerStatemachine(Dummy.getStateMachine());
 		Assert.assertTrue(this.session.isClosed());
 		this.session.start(true);
+		this.waitShortly(10);
 		Assert.assertFalse(this.session.isClosed());
+		
+		Thread[] runningThreads = new Thread[5];
+		Thread.enumerate(runningThreads);
+		for(int i = 0; i < runningThreads.length; i++){
+			
+			if(runningThreads[i] != null){
+				System.out.println(i + "--" + runningThreads[i].getName() + " : alive - " + runningThreads[i].isAlive());
+			}
+		}
 		this.session.close();
+		this.waitShortly(100);
+		for(int i = 0; i < runningThreads.length; i++){
+			
+			if(runningThreads[i] != null){
+				System.out.println(i + "--" + runningThreads[i].getName() + " : alive - " + runningThreads[i].isAlive());
+			}
+		}
+		
 		Assert.assertTrue(this.session.isClosed());
 	}
 	
@@ -58,6 +76,7 @@ public class SessionRunnableTest {
 		this.session.registerStatemachine(Dummy.getStateMachine());
 		Assert.assertTrue(this.session.isClosed());
 		this.session.start(true);
+		this.waitShortly(10);
 		Assert.assertFalse(this.session.isClosed());
 		
 		Thread[] runningThreads = new Thread[5];
@@ -66,16 +85,6 @@ public class SessionRunnableTest {
 		for(int i = 0; i < runningThreads.length; i++){
 			
 			if(runningThreads[i] != null){
-				System.out.println(i + "--" + runningThreads[i].getName() + " : alive - " + runningThreads[i].isAlive());
-				if(runningThreads[i].getName().contains("InputChannelThread")){
-					try {
-						runningThreads[i].join();
-						
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
 				System.out.println(i + "--" + runningThreads[i].getName() + " : alive - " + runningThreads[i].isAlive());
 			}
 		}
@@ -87,8 +96,10 @@ public class SessionRunnableTest {
 		this.session.registerStatemachine(Dummy.getStateMachine());
 		Assert.assertTrue(this.session.isClosed());
 		this.session.start(true);
+		this.waitShortly(10);
 		Assert.assertFalse(this.session.isClosed());
 		this.session.handle(new SerializationException("Something happend", true));
+		this.waitShortly(10);
 		Assert.assertTrue(this.session.isClosed());
 		Thread[] runningThreads = new Thread[5];
 		Thread.enumerate(runningThreads);
@@ -96,16 +107,6 @@ public class SessionRunnableTest {
 		for(int i = 0; i < runningThreads.length; i++){
 			
 			if(runningThreads[i] != null){
-				System.out.println(i + "--" + runningThreads[i].getName() + " : alive - " + runningThreads[i].isAlive());
-				if(runningThreads[i].getName().contains("InputChannelThread")){
-					try {
-						runningThreads[i].join();
-						
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
 				System.out.println(i + "--" + runningThreads[i].getName() + " : alive - " + runningThreads[i].isAlive());
 			}
 		}
@@ -117,6 +118,7 @@ public class SessionRunnableTest {
 		this.session.registerStatemachine(Dummy.getStateMachine());
 		Assert.assertTrue(this.session.isClosed());
 		this.session.start(true);
+		this.waitShortly(10);
 		Assert.assertFalse(this.session.isClosed());
 		try {
 			this.session.retryHandshake(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_SERIOUS_EVENT);
@@ -132,9 +134,20 @@ public class SessionRunnableTest {
 		this.session.registerStatemachine(Dummy.getStateMachine());
 		Assert.assertTrue(this.session.isClosed());
 		this.session.start(true);
+		this.waitShortly(10);
 		Assert.assertFalse(this.session.isClosed());
 		this.session.close();
+		this.waitShortly(10);
 		this.session.retryHandshake(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_SERIOUS_EVENT);
 
+	}
+	
+	private void waitShortly(long millis){
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

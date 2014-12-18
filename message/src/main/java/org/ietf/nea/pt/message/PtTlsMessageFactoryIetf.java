@@ -8,6 +8,7 @@ import org.ietf.nea.pt.value.PtTlsMessageValueBuilderIetf;
 import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
 import org.ietf.nea.pt.value.util.SaslMechanism;
 
+import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
@@ -115,7 +116,8 @@ public class PtTlsMessageFactoryIetf {
 			throw new IllegalArgumentException("Identifier to large. Identifier must be in range from 0 to " + 0xFFFFFFFFL );
 		}
 		
-	    PtTlsMessageHeaderBuilderIetf mBuilder = new PtTlsMessageHeaderBuilderIetf();
+		// FIXME this is just a workaround.
+	    PtTlsMessageHeaderBuilderIetf mBuilder = new PtTlsMessageHeaderBuilderIetf(HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN);
 		try{
 			
 			mBuilder.setVendorId(VENDORID);

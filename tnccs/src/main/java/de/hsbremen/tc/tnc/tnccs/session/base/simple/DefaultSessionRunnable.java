@@ -26,6 +26,7 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.tnccs.session.base.NewSession;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
@@ -33,7 +34,7 @@ import de.hsbremen.tc.tnc.transport.newp.connection.ListenerClosedException;
 import de.hsbremen.tc.tnc.transport.newp.connection.TnccsValueListener;
 import de.hsbremen.tc.tnc.transport.newp.connection.TransportConnection;
 
-public class DefaultSessionRunnable  implements TnccsValueListener{
+public class DefaultSessionRunnable implements NewSession{
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSessionRunnable.class);
 	
@@ -87,11 +88,13 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 		}
 	}
 
+	@Override
 	public Attributed getAttributes() {
 		return this.attributes;
 	}
 
 
+	@Override
 	public void start(boolean selfInitiated){
 		if(this.machine != null &&
 				this.machine.isClosed() && this.connection != null){
@@ -116,6 +119,7 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 		
 	}
 
+	@Override
 	public void retryHandshake(ImHandshakeRetryReasonEnum reason) throws TncException {
 		
 		if(this.isClosed()){
@@ -140,16 +144,18 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 		}
 	}
 
+	@Override
 	public void handle(ComprehensibleException e) {
 		LOGGER.error("Fatal error discovered. Session terminates.", e);
 		this.close();
 		
 	}
 	
+	@Override
 	public void close(){
 		if(!this.closed){
 			this.closed = true;
-			
+			LOGGER.debug("Session close() called. Closing session...");
 			this.runner.shutdown();
 			
 			if(this.connection.isOpen()){
@@ -170,11 +176,11 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 				
 				this.connection.close();
 			}
-			
 			this.runner.shutdownNow();
 		}
 	}
 
+	@Override
 	public boolean isClosed() {
 		return closed;
 	}
@@ -235,7 +241,6 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 		@Override
 		public void run() {
 			try{
-				
 				TnccsBatchContainer container = null;
 				
 				try{
@@ -248,31 +253,28 @@ public class DefaultSessionRunnable  implements TnccsValueListener{
 				}
 				
 				TnccsBatch batch = machine.receiveBatch(container);
+				
 				roundTripCounter++;
 				if(batch != null){
-					try {
-						if(batch != null){
-							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
-							writer.write(batch, buf);
-							connection.send(buf);
-						}
-						if(machine.isClosed()){
-							LOGGER.info("State machine has reached the end state. Session terminates.");
-							close();
-						}
-					} catch (SerializationException | ConnectionException e) {
-						LOGGER.error("Fatal error discovered. Session terminates.", e);
-						close();
-					}
+	
+					ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
+					writer.write(batch, buf);
+					connection.send(buf);
 				}
+							
+				if(machine.isClosed()){
+					LOGGER.info("State machine has reached the end state. Session terminates.");
+					close();
+				}
+					
+			} catch (SerializationException | ConnectionException e) {
+				LOGGER.error("Fatal error discovered. Session terminates.", e);
+				close();
+					
 			}catch(StateMachineAccessException e){
 				LOGGER.error("Peer has surprisingly send a message. Session terminates.", e);
 				close();
-			}catch(SerializationException e){
-				LOGGER.error("Fatal error discovered. Session terminates.", e);
-				close();
 			}
-			
 		}
 	}
 	

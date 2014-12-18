@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.examples.first;
+package de.hsbremen.tc.tnc.examples.naa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class NaaCLI {
 					naa.start();
 				}
 				
-				if(input.contains("quit")){
+				if(input.contains("stop")){
 					naa.stop();
 				}
 			}

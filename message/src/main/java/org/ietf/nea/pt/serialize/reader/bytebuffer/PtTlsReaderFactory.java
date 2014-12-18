@@ -30,7 +30,7 @@ public class PtTlsReaderFactory {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static TransportReader<TransportMessageContainer> createProductionDefault(){
+	public static TransportReader<TransportMessageContainer> createProductionDefault(long maxMessageSize){
 
 		/* 
 		 * TODO Remove raw types and unchecked conversion.
@@ -40,7 +40,7 @@ public class PtTlsReaderFactory {
 		 */
 	
 		
-		PtTlsMessageHeaderReader mReader = new PtTlsMessageHeaderReader(new PtTlsMessageHeaderBuilderIetf());
+		PtTlsMessageHeaderReader mReader = new PtTlsMessageHeaderReader(new PtTlsMessageHeaderBuilderIetf(maxMessageSize));
 		
 		
 		PtTlsReader reader = new PtTlsReader(mReader);
@@ -67,7 +67,7 @@ public class PtTlsReaderFactory {
 	}
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static TransportReader<TransportMessageContainer> createExperimentalDefault(){
+	public static TransportReader<TransportMessageContainer> createExperimentalDefault(long maxMessageSize){
 		
 		/* 
 		 * TODO Remove raw types and unchecked conversion.
@@ -76,7 +76,7 @@ public class PtTlsReaderFactory {
 		 * else can.
 		 */
 		
-		PtTlsReader reader = (PtTlsReader) createProductionDefault();
+		PtTlsReader reader = (PtTlsReader) createProductionDefault(maxMessageSize);
 		
 		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_EXERIMENTAL.messageType(),
 				(TransportReader)new PtTlsMessageExperimentalValueReader( new PtTlsMessageValueExperimentalBuilderIetf()));

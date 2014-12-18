@@ -99,7 +99,7 @@ public class ServerTransportSocketCLI {
 							new DefaultTransportAttributes(TcgTProtocolEnum.PLAIN.value(),TcgTVersionEnum.V1.value()), 
 							new SocketTransportAddress("localhost", 50251), 
 							PtTlsWriterFactory.createProductionDefault(), 
-							PtTlsReaderFactory.createProductionDefault(), 
+							PtTlsReaderFactory.createProductionDefault(131072), 
 							Executors.newSingleThreadExecutor());
 					try {
 						System.out.println("Try to open connection.");

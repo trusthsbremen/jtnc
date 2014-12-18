@@ -21,6 +21,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
@@ -37,7 +38,7 @@ public class ReaderTest {
 	@Before
 	public void setUp(){
 		transport = new TestData();
-		bs = PtTlsReaderFactory.createProductionDefault();
+		bs = PtTlsReaderFactory.createProductionDefault(HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN);
 	}
 	
 	@Test

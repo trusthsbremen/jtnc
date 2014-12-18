@@ -9,7 +9,6 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
 import org.ietf.nea.exception.RuleException;
-import org.ietf.nea.pt.message.PtTlsMessage;
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
@@ -21,6 +20,7 @@ import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -46,17 +46,22 @@ public class SocketTransportConnection implements TransportConnection{
 	private final TransportAddress address;
 	private final boolean selfInitiated;
 	private final boolean server;
-	private final Attributed attributes;
+	private final DefaultTransportAttributes attributes;
+	
+	private final ExecutorService runner;
+	
 	private final TransportWriter<TransportMessage> writer;
 	private final TransportReader<TransportMessageContainer> reader;
-	private final ExecutorService runner;
+	
 	private OutputStream out;
 	private InputStream in;
+	
 	private TnccsValueListener listener;
+	
 	private long messageIdentifier;
 	
 	public SocketTransportConnection(boolean selfInitiated, boolean server, Socket socket, 
-			Attributed attributes, TransportAddress address, 
+			DefaultTransportAttributes attributes, TransportAddress address, 
 			TransportWriter<TransportMessage> writer,
 			TransportReader<TransportMessageContainer> reader,
 			ExecutorService runner){
@@ -276,7 +281,7 @@ public class SocketTransportConnection implements TransportConnection{
 		}
 	}
 	
-	private PtTlsMessage createValidationErrorMessage(ValidationException e) throws ValidationException {
+	private TransportMessage createValidationErrorMessage(ValidationException e) throws ValidationException {
 		
 		if(e.getReasons() != null || e.getReasons().size() >= 0){
 		
@@ -337,7 +342,10 @@ public class SocketTransportConnection implements TransportConnection{
 	}
 
 	private void writeToStream(TransportMessage m) throws ConnectionException, SerializationException{
-		ByteBuffer buf = new DefaultByteBuffer(((PtTlsMessage)m).getHeader().getLength());
+		
+		this.checkMessageLength(m.getHeader().getLength());
+		
+		ByteBuffer buf = new DefaultByteBuffer(m.getHeader().getLength());
 		this.writer.write(m, buf);
 		
 		if(buf != null && buf.bytesWritten() > buf.bytesRead()){
@@ -367,7 +375,7 @@ public class SocketTransportConnection implements TransportConnection{
 		buf.clear();
 		
 	}
-	
+
 	private TransportMessageContainer readFromStream() throws SerializationException, ValidationException, ConnectionException{
 		if(isOpen()){
 			try{
@@ -391,7 +399,7 @@ public class SocketTransportConnection implements TransportConnection{
 			TransportMessageContainer ct = null;
 			
 			try{
-				while(true){
+				while(!Thread.currentThread().isInterrupted()){
 					try{
 						ct = readFromStream();
 						LOGGER.debug("Message received.");
@@ -442,6 +450,18 @@ public class SocketTransportConnection implements TransportConnection{
 			
 			}
 				
+		}
+		
+	}
+	
+	private void checkMessageLength(long length) throws SerializationException {
+		if(this.attributes.getMaxMessageLength() != HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN 
+				&& this.attributes.getMaxMessageLength() != HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNLIMITED){
+			if(length > this.attributes.getMaxMessageLength()){
+				throw new SerializationException("Message is to large.", true, 
+						length, 
+						this.attributes.getMaxMessageLength() );
+			}
 		}
 		
 	}

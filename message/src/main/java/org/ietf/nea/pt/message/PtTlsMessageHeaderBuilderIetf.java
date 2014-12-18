@@ -2,6 +2,7 @@ package org.ietf.nea.pt.message;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.validate.rules.CommonLengthLimits;
+import org.ietf.nea.pt.validate.rules.ConfiguredLengthLimit;
 import org.ietf.nea.pt.validate.rules.IdentifierLimits;
 import org.ietf.nea.pt.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pt.validate.rules.VendorIdReservedAndLimits;
@@ -16,11 +17,14 @@ public class PtTlsMessageHeaderBuilderIetf implements PtTlsMessageHeaderBuilder{
 	private long type;
 	private long length;
 	private long identifier;
+	
+	private final long maxMessageSize;
 
-	public PtTlsMessageHeaderBuilderIetf(){
+	public PtTlsMessageHeaderBuilderIetf(final long maxMessageSize){
 		this.vendorId = IETFConstants.IETF_PEN_VENDORID;
 		this.type = PtTlsMessageTypeEnum.IETF_PT_TLS_PB_BATCH.messageType();
 		this.length = PtTlsMessageTlvFixedLengthEnum.MESSAGE.length();
+		this.maxMessageSize = maxMessageSize;
 	}
 
 	@Override
@@ -45,6 +49,7 @@ public class PtTlsMessageHeaderBuilderIetf implements PtTlsMessageHeaderBuilder{
 	public PtTlsMessageHeaderBuilder setLength(final long length) throws RuleException{
 		
 		CommonLengthLimits.check(length);
+		ConfiguredLengthLimit.check(length, maxMessageSize);
 		this.length = length;
 		
 		return this;
@@ -69,7 +74,7 @@ public class PtTlsMessageHeaderBuilderIetf implements PtTlsMessageHeaderBuilder{
 
 	@Override
 	public PtTlsMessageHeaderBuilder newInstance() {
-		return new PtTlsMessageHeaderBuilderIetf();
+		return new PtTlsMessageHeaderBuilderIetf(this.maxMessageSize);
 	}
 
 }
