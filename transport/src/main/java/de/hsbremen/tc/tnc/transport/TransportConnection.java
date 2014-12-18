@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.transport.newp.connection;
+package de.hsbremen.tc.tnc.transport;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;

@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +19,13 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
-import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultSession;
-import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
+import de.hsbremen.tc.tnc.tnccs.session.base.Session;
+import de.hsbremen.tc.tnc.transport.TransportConnection;
 
-public class DefaultClient implements Client, GlobalHandshakeRetryListener{
+public class DefaultClientFacade implements ClientFacade, GlobalHandshakeRetryListener{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSession.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultClientFacade.class);
 	
 	private static final long DEFAULT_SESSION_CLEANUP_INTERVAL = 5000; 
 	
@@ -31,9 +34,9 @@ public class DefaultClient implements Client, GlobalHandshakeRetryListener{
 	private boolean started;
 	private final long sessionCleanUpInterval;
 	
-	private Thread sessionCleaner;
+	private ExecutorService sessionCleaner;
 	
-	public DefaultClient(SessionFactory factory, long sessionCleanUpInterval){
+	public DefaultClientFacade(SessionFactory factory, long sessionCleanUpInterval){
 
 		if(factory != null){
 			this.sessionFactory = factory;
@@ -117,11 +120,13 @@ public class DefaultClient implements Client, GlobalHandshakeRetryListener{
 		
 	}
 	
-	
+	@Override
 	public void start(){
 		this.started = true;
 		
-		this.sessionCleaner = new Thread(new Runnable() {
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+		this.sessionCleaner = service;
+		service.scheduleWithFixedDelay(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -140,20 +145,21 @@ public class DefaultClient implements Client, GlobalHandshakeRetryListener{
 				}
 				
 			}
-		});
-		
-		this.sessionCleaner.start();
+		}, this.sessionCleanUpInterval, this.sessionCleanUpInterval, TimeUnit.MILLISECONDS);
+
 	}
 
 	
 	@Override
 	public void stop() {
+		this.sessionCleaner.shutdownNow();
 		
 		if(!started){
 			throw new IllegalStateException("Client was not started.");
 		}
+		
 		this.notifyGlobalConnectionChange(ConnectionChangeTypeEnum.CLOSED);
-		this.sessionCleaner.interrupt();
+		
 	}
 
 	@Override

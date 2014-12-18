@@ -222,7 +222,6 @@ public class ReaderByteBufferTest {
 			in.write(msg);
 			mc = bs.read(in, msg.length);
 		}catch(Exception e){
-			e.printStackTrace();
 			throw e;
 		}
 		if(!mc.getExceptions().isEmpty()){

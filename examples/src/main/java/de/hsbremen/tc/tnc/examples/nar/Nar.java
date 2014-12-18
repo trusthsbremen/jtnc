@@ -9,6 +9,7 @@ import org.ietf.nea.pb.serialize.reader.bytebuffer.PbReaderFactory;
 import org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriterFactory;
 import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
+import org.ietf.nea.pt.socket.SocketTransportConnectionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
@@ -18,25 +19,24 @@ import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
-import de.hsbremen.tc.tnc.tnccs.client.NewClient;
-import de.hsbremen.tc.tnc.tnccs.client.NewDefaultClient;
+import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
+import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
-import de.hsbremen.tc.tnc.tnccs.session.base.NewSessionFactory;
-import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultClientSessionRunnableFactory;
-import de.hsbremen.tc.tnc.transport.newp.connection.SocketTransportConnectionBuilder;
-import de.hsbremen.tc.tnc.transport.newp.connection.TransportConnection;
+import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
+import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultClientSessionFactory;
+import de.hsbremen.tc.tnc.transport.TransportConnection;
 
 public class Nar {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Nar.class);
 	private static final long MAX_MSG_SIZE = 131072;
 	
-	private NewClient client;
+	private ClientFacade client;
 	private ImcManager manager;
 	private Socket socket;
 	private TransportConnection connection;
@@ -51,7 +51,7 @@ public class Nar {
 				new TnccAdapterFactoryIetf(retryProxy)
 				);
 		
-		NewSessionFactory factory = new DefaultClientSessionRunnableFactory(
+		SessionFactory factory = new DefaultClientSessionFactory(
 				PbReaderFactory.getTnccsProtocol(),
 				PbReaderFactory.getTnccsVersion(),
 				this.manager,
@@ -59,7 +59,7 @@ public class Nar {
 				PbReaderFactory.createProductionDefault()
 		);
 		
-		this.client = new NewDefaultClient(factory, 3000);
+		this.client = new DefaultClientFacade(factory, 3000);
 		
 		if(this.client instanceof GlobalHandshakeRetryListener){
 			retryProxy.register((GlobalHandshakeRetryListener)this.client);

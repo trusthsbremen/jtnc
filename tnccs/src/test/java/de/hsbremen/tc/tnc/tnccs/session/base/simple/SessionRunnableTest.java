@@ -18,7 +18,7 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 public class SessionRunnableTest {
 
-	private DefaultSessionRunnable session;
+	private DefaultSession session;
 	
 	@BeforeClass
 	public static void logSetup(){
@@ -27,7 +27,7 @@ public class SessionRunnableTest {
 	
 	@Before
 	public void setUp(){
-		this.session = new DefaultSessionRunnable(
+		this.session = new DefaultSession(
 				new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.toString(), TcgTnccsVersionEnum.V2.value()),
 				PbWriterFactory.createProductionDefault(),
 				PbReaderFactory.createProductionDefault(),

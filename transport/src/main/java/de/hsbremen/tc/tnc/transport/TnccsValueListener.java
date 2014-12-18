@@ -1,6 +1,7 @@
-package de.hsbremen.tc.tnc.transport.newp.connection;
+package de.hsbremen.tc.tnc.transport;
 
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 
 public interface TnccsValueListener {
 	

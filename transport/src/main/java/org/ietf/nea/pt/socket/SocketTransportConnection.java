@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.transport.newp.connection;
+package org.ietf.nea.pt.socket;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -32,7 +32,12 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;
+import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TransportAddress;
+import de.hsbremen.tc.tnc.transport.TransportAttributes;
+import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
+import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 
 public class SocketTransportConnection implements TransportConnection{
 	private static final Logger LOGGER = LoggerFactory.getLogger(SocketTransportConnection.class);
@@ -46,7 +51,7 @@ public class SocketTransportConnection implements TransportConnection{
 	private final TransportAddress address;
 	private final boolean selfInitiated;
 	private final boolean server;
-	private final DefaultTransportAttributes attributes;
+	private final TransportAttributes attributes;
 	
 	private final ExecutorService runner;
 	
@@ -61,7 +66,7 @@ public class SocketTransportConnection implements TransportConnection{
 	private long messageIdentifier;
 	
 	public SocketTransportConnection(boolean selfInitiated, boolean server, Socket socket, 
-			DefaultTransportAttributes attributes, TransportAddress address, 
+			TransportAttributes attributes, TransportAddress address, 
 			TransportWriter<TransportMessage> writer,
 			TransportReader<TransportMessageContainer> reader,
 			ExecutorService runner){
@@ -393,6 +398,18 @@ public class SocketTransportConnection implements TransportConnection{
 		throw new ConnectionException("The socket seems not open.");
 	}
 	
+	private void checkMessageLength(long length) throws SerializationException {
+		if(this.attributes.getMaxMessageLength() != HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN 
+				&& this.attributes.getMaxMessageLength() != HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNLIMITED){
+			if(length > this.attributes.getMaxMessageLength()){
+				throw new SerializationException("Message is to large.", true, 
+						length, 
+						this.attributes.getMaxMessageLength() );
+			}
+		}
+		
+	}
+	
 	private class TransportPhase implements Runnable {
 		@Override
 		public void run() {
@@ -450,18 +467,6 @@ public class SocketTransportConnection implements TransportConnection{
 			
 			}
 				
-		}
-		
-	}
-	
-	private void checkMessageLength(long length) throws SerializationException {
-		if(this.attributes.getMaxMessageLength() != HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN 
-				&& this.attributes.getMaxMessageLength() != HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNLIMITED){
-			if(length > this.attributes.getMaxMessageLength()){
-				throw new SerializationException("Message is to large.", true, 
-						length, 
-						this.attributes.getMaxMessageLength() );
-			}
 		}
 		
 	}

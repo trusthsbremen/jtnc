@@ -1,6 +1,7 @@
-package de.hsbremen.tc.tnc.transport.example;
+package org.ietf.nea.pt.socket;
 
-import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
+import de.hsbremen.tc.tnc.transport.TransportAddress;
+
 
 public class SocketTransportAddress implements TransportAddress{
 

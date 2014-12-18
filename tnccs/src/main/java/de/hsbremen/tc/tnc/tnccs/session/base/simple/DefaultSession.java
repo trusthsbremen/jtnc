@@ -1,7 +1,15 @@
 package de.hsbremen.tc.tnc.tnccs.session.base.simple;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
+import org.ietf.nea.pb.batch.DefaultTnccsBatchContainer;
+import org.ietf.nea.pb.batch.PbBatchHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,45 +18,57 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
+import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel;
-import de.hsbremen.tc.tnc.tnccs.session.connection.exception.ListenerClosedException;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
+import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
+import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 
-public class DefaultSession implements TnccsInputChannelListener, Session {
+public class DefaultSession implements Session{
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSession.class);
 	
-	private DefaultSessionAttributes attributes;
+	private final DefaultSessionAttributes attributes;
+	private final ExecutorService runner;
+	private final TnccsWriter<TnccsBatch> writer;
+	private final TnccsReader<TnccsBatchContainer> reader;
+	
+	private TransportConnection connection;
 	private StateMachine machine;
-	private Thread input;
-	private TnccsOutputChannel output;
 	private boolean closed;
 	private long roundTripCounter; // TODO implement roundtrip handling
 	
 	
-	public DefaultSession(DefaultSessionAttributes attributes){
+	public DefaultSession(DefaultSessionAttributes attributes, TnccsWriter<TnccsBatch> writer, TnccsReader<TnccsBatchContainer> reader,ExecutorService runner){
+		if(attributes == null){
+			throw new NullPointerException("Constructor arguments cannot be null.");
+		}
 		this.attributes = attributes;
+		this.writer = writer;
+		this.reader = reader;
 		this.closed = true;
+		this.runner = (runner != null) ? runner : Executors.newSingleThreadExecutor();
 		this.roundTripCounter = 0;
 	}
 	
+
 	@Override
 	public void registerStatemachine(StateMachine m){
 		if(this.machine == null){
 			this.machine = m;
 			if(LOGGER.isDebugEnabled()){
 				StringBuilder b = new StringBuilder();
-				b.append("Machine was set to " +  m.toString() + ". \n");
-				b.append("InputChannel " + ((this.input != null) ? " already set to " + this.input.toString() +"." : "still missing. \n"));
-				b.append("OutputChannel " + ((this.output != null) ? " already set to " + this.output.toString() +"." : "still missing. \n"));
+				b.append("Machine set to " +  m.toString() + ". \n");
 				LOGGER.debug(b.toString());
 			}
 		}else{
@@ -57,73 +77,33 @@ public class DefaultSession implements TnccsInputChannelListener, Session {
 	}
 	
 	@Override
-	public void registerInput(TnccsInputChannel in){
-		if(this.input == null){
-			this.input = new Thread(in);
-			this.input.setName("InputChannelThread" + System.currentTimeMillis());
+	public void registerConnection(TransportConnection c){
+		if(this.connection == null){
+			this.connection = c;
 			if(LOGGER.isDebugEnabled()){
 				StringBuilder b = new StringBuilder();
-				b.append("InputChannel was set to " +  in.toString() + ". \n");
-				b.append("OutputChannel " + ((this.output != null) ? " already set to " + this.output.toString() +"." : "still missing. \n"));
-				b.append("Machine " + ((this.machine != null) ? " already set to " + this.machine.toString() +"." : "still missing. \n"));
+				b.append("Connection set to " +  c.toString() + ". \n");
 				LOGGER.debug(b.toString());
 			}
 		}else{
-			throw new IllegalStateException("Input already registered.");
+			throw new IllegalStateException("State machine already registered.");
 		}
 	}
-	
-	@Override
-	public void registerOutput(TnccsOutputChannel out){
-		if(this.output == null){
-			this.output = out;
-			if(LOGGER.isDebugEnabled()){
-				StringBuilder b = new StringBuilder();
-				b.append("OutputChannel was set to " +  out.toString() + ". \n");
-				b.append("InputChannel " + ((this.input != null) ? " already set to " + this.input.toString() +"." : "still missing. \n"));
-				b.append("Machine " + ((this.machine != null) ? " already set to " + this.machine.toString() +"." : "still missing. \n"));
-				LOGGER.debug(b.toString());
-			}
-		}else{
-			throw new IllegalStateException("Output already registered.");
-		}
-	}
-	
+
 	@Override
 	public Attributed getAttributes() {
 		return this.attributes;
 	}
 
+
 	@Override
 	public void start(boolean selfInitiated){
 		if(this.machine != null &&
-				this.machine.isClosed() &&
-				this.input != null && 
-				this.output != null){
+				this.machine.isClosed() && this.connection != null){
 			LOGGER.info("All session fields are set and in the correct state. Session starts.");
-			this.closed = false;
 			
-			try{
-				
-				TnccsBatch batch = this.machine.start(selfInitiated);
-				this.input.start();
-				
-				try {
-					if(batch != null){
-						this.output.send(batch);
-					}
-					if(this.machine.isClosed()){
-						LOGGER.info("State machine has reached the end state. Session terminates.");
-						this.close();
-					}
-				} catch (SerializationException | ConnectionException e) {
-					LOGGER.error("Fatal error discovered. Session terminates.", e);
-					this.close();
-				}
-			}catch(StateMachineAccessException e){
-				LOGGER.error("Peer has surprisingly send a message. Session terminates.", e);
-				this.close();
-			}
+			this.runner.execute(new Start(selfInitiated, this));
+			
 		}else{
 			throw new IllegalStateException("Not all necessary objects are registered and in the correct state.");
 		}
@@ -132,35 +112,13 @@ public class DefaultSession implements TnccsInputChannelListener, Session {
 	
 
 	@Override
-	public void receive(TnccsBatchContainer batchContainer) throws ListenerClosedException {
+	public void receive(ByteBuffer batchContainer) throws ListenerClosedException {
 		if(this.isClosed()){
 			throw new ListenerClosedException("Session is closed and cannot receive objects.");
 		}
 		
-		try{
-			TnccsBatch batch = this.machine.receiveBatch(batchContainer);
-			this.roundTripCounter++;
-			if(batch != null){
-				try {
-					if(batch != null){
-						this.output.send(batch);
-					}
-					if(this.machine.isClosed()){
-						LOGGER.info("State machine has reached the end state. Session terminates.");
-						this.close();
-					}
-				} catch (SerializationException | ConnectionException e) {
-					LOGGER.error("Fatal error discovered. Session terminates.", e);
-					this.close();
-				}
-			}
-		}catch(StateMachineAccessException e){
-			LOGGER.error("Peer has surprisingly send a message. Session terminates.", e);
-			this.close();
-		}
+		this.runner.execute(new Receive(batchContainer));
 		
-		
-
 	}
 
 	@Override
@@ -169,26 +127,20 @@ public class DefaultSession implements TnccsInputChannelListener, Session {
 		if(this.isClosed()){
 			throw new TncException("Retry not allowed.", TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
 		}
-		
+	
 		if(this.machine.canRetry()){
-			List<TnccsBatch> batches = this.machine.retryHandshake(reason);
-			try {
-				if(batches != null){
-					for (TnccsBatch batch : batches) {
-						if(batch != null){
-							this.output.send(batch);
-						}
-					}
-					
+			Future<Boolean> future = this.runner.submit(new Retry(reason));
+			// this is a blocking call
+			try{
+				future.get();
+			}catch(ExecutionException e){
+				if(e.getCause() instanceof TncException){
+					throw (TncException)e.getCause();
 				}
-				if(this.machine.isClosed()){
-					LOGGER.info("State machine has reached the end state. Session terminates.");
-					this.close();
-				}
-			} catch (SerializationException | ConnectionException e) {
-				LOGGER.error("Fatal error discovered. Session terminates.", e);
-				this.close();
+			} catch (InterruptedException e) {
+				throw new TncException("Retry cancled, because the thread was interrupted.",e,TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
 			}
+			
 		}else{
 			throw new TncException("Retry not allowed.", TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
 		}
@@ -201,33 +153,175 @@ public class DefaultSession implements TnccsInputChannelListener, Session {
 		
 	}
 	
+	@Override
 	public void close(){
 		if(!this.closed){
-			if(this.input.isAlive() && !this.input.isInterrupted() ){
-				if(!machine.isClosed()){
+			this.closed = true;
+			LOGGER.debug("Session close() called. Closing session...");
+			this.runner.shutdown();
+			
+			if(this.connection.isOpen()){
+				if(!this.machine.isClosed()){
 					try {
 						// try to close gracefully
 						TnccsBatch b = this.machine.close();
 						if(b != null){
-							this.output.send(b);
+							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)b.getHeader()).getLength());
+							this.writer.write(b, buf);
+							this.connection.send(buf);
 						}
 					} catch (StateMachineAccessException | ConnectionException | SerializationException e) {
 						LOGGER.error("Fatal error discovered. Session terminates.", e);
 						this.machine.stop();
 					}
 				}
-			
-				this.input.interrupt();
+				
+				this.connection.close();
 			}
-			
-			this.output.close();
-			this.closed = true;
+			this.runner.shutdownNow();
 		}
 	}
 
 	@Override
 	public boolean isClosed() {
 		return closed;
+	}
+	
+	
+	private class Start implements Runnable{
+
+		private boolean selfInitiated;
+		private TnccsValueListener listener;
+		
+		protected Start(boolean selfInitiated, TnccsValueListener listener){
+			this.selfInitiated = selfInitiated;
+			this.listener = listener;
+		}
+		
+		@Override
+		public void run() {
+			closed = false;
+			try{
+				TnccsBatch batch = machine.start(selfInitiated);
+				try {
+					connection.open(listener);
+				
+					if(batch != null){
+						ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
+						writer.write(batch, buf);
+						connection.send(buf);
+					}
+					if(machine.isClosed()){
+						LOGGER.info("State machine has reached the end state. Session terminates.");
+						close();
+					}
+					
+				} catch (SerializationException | ConnectionException e) {
+					LOGGER.error("Fatal error discovered. Session terminates.", e);
+					close();
+				}
+			}catch(StateMachineAccessException e){
+				LOGGER.error("Peer has surprisingly send a message. Session terminates.", e);
+				close();
+			}
+			
+			
+		}
+		
+	}
+	
+	private class Receive implements Runnable{
+
+		ByteBuffer buffer;
+		protected Receive(ByteBuffer buffer){
+			this.buffer = buffer;
+		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Runnable#run()
+		 */
+		@Override
+		public void run() {
+			try{
+				TnccsBatchContainer container = null;
+				
+				try{
+					container = reader.read(buffer, -1);
+				}catch(ValidationException e){
+					
+					List<ValidationException> exceptions = new ArrayList<>();
+					exceptions.add(e);
+					container = new DefaultTnccsBatchContainer(null,exceptions);	
+				}
+				
+				TnccsBatch batch = machine.receiveBatch(container);
+				
+				roundTripCounter++;
+				if(batch != null){
+	
+					ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
+					writer.write(batch, buf);
+					connection.send(buf);
+				}
+							
+				if(machine.isClosed()){
+					LOGGER.info("State machine has reached the end state. Session terminates.");
+					close();
+				}
+					
+			} catch (SerializationException | ConnectionException e) {
+				LOGGER.error("Fatal error discovered. Session terminates.", e);
+				close();
+					
+			}catch(StateMachineAccessException e){
+				LOGGER.error("Peer has surprisingly send a message. Session terminates.", e);
+				close();
+			}
+		}
+	}
+	
+	
+	private class Retry implements Callable<Boolean>{
+		
+		private ImHandshakeRetryReasonEnum reason;
+		
+		protected Retry(ImHandshakeRetryReasonEnum reason){
+			this.reason = reason;
+		}
+		
+		@Override
+		public Boolean call() throws Exception {
+
+			Boolean success = Boolean.FALSE;
+			
+			List<TnccsBatch> batches = machine.retryHandshake(reason);
+			
+			try {
+				if(batches != null){
+					for (TnccsBatch batch : batches) {
+						if(batch != null){
+							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
+							writer.write(batch, buf);
+							connection.send(buf);
+						}
+					}
+					
+				}
+				
+				success = Boolean.TRUE;
+				
+				if(machine.isClosed()){
+					LOGGER.info("State machine has reached the end state. Session terminates.");
+					close();
+				}
+			} catch (SerializationException | ConnectionException e) {
+				LOGGER.error("Fatal error discovered. Session terminates.", e);
+				close();
+			}
+			
+			return success;
+		}
+		
 	}
 	
 	

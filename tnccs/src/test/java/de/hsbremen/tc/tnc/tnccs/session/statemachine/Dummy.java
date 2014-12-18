@@ -1,10 +1,5 @@
 package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +12,6 @@ import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
-import org.ietf.nea.pb.serialize.reader.stream.PbReaderFactory;
-import org.ietf.nea.pb.serialize.writer.stream.PbWriterFactory;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -27,15 +20,12 @@ import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
-import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
@@ -46,84 +36,10 @@ import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannelListener;
-import de.hsbremen.tc.tnc.tnccs.session.connection.simple.DefaultTnccsChannelFactory;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.transport.connection.TransportAddress;
-import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
-import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
+import de.hsbremen.tc.tnc.transport.TransportAddress;
 
 public class Dummy extends AbstractDummy{
-
-	protected static TransportConnection getSelfInitiatedTransportConnection() {
-		return new TransportConnection() {
-			
-			private Attributed attributes;
-			private TransportAddress address;
-			private ByteArrayInputStream in;
-			private ByteArrayOutputStream out;
-			private boolean open;
-			@Override
-			public void open() throws ConnectionException {
-				 in = new ByteArrayInputStream(Dummy.getBatchWithImMessageAsByte());
-				 out = new ByteArrayOutputStream();
-				 open = true;
-				 address = Dummy.getTransportAddress();
-				 attributes = Dummy.getTransportAttributes();
-			}
-			
-			@Override
-			public boolean isSelfInititated() {
-				System.out.println("isSelfInitiated() called. TRUE");
-				return true;
-			}
-			
-			@Override
-			public boolean isOpen() {
-				System.out.println("isOpen() called. " + (open && in != null && out != null));
-				return (open && in != null && out != null);
-			}
-			
-			@Override
-			public OutputStream getOutputStream() {
-				System.out.println("getOutputStream() called.");
-				return out;
-			}
-			
-			@Override
-			public InputStream getInputStream() {
-				System.out.println("getInputStream() called.");
-				return in;
-			}
-			
-			@Override
-			public TransportAddress getAddress() {
-				System.out.println("getId() called. " + this.address.toString());
-				return this.address;
-			}
-			
-			@Override
-			public Attributed getAttributes() {
-				System.out.println("getAttributes() called.");
-				return this.attributes;
-			}
-
-
-			@Override
-			public void close() {
-				try{
-					in.close();
-					out.close();
-				}catch(IOException e){
-					System.out.println("Exception occured while shutting down the streams.");
-				}finally{
-					this.open = false;
-				}
-				
-			}
-		};
-	}
 
 	protected static Attributed getTransportAttributes() {
 		return new Attributed() {
@@ -183,43 +99,6 @@ public class Dummy extends AbstractDummy{
 		};
 	}
 
-	protected static TnccsInputChannelListener getInputChannelListener() {
-		
-		return new Dummy.TestTnccsInputChannelListener();
-	}
-	
-	protected static class TestTnccsInputChannelListener implements TnccsInputChannelListener{
-		
-		public TnccsBatchContainer bc;
-		public ComprehensibleException e;
-
-		/**
-		 * @return the bc
-		 */
-		public TnccsBatchContainer getBatch() {
-			return this.bc;
-		}
-
-		/**
-		 * @return the e
-		 */
-		public ComprehensibleException getException() {
-			return this.e;
-		}
-
-		@Override
-		public void receive(TnccsBatchContainer bc) {
-			System.out.println("Batch container received: " + bc.toString() );
-			this.bc = bc;
-		}
-		
-		@Override
-		public void handle(ComprehensibleException e) {
-			System.out.println("Exception received: " + e.getMessage() );
-			this.e = e;
-			
-		}
-	}
 	
 	protected static PbBatch getClientDataBatchWithImMessage() throws ValidationException{
 		
@@ -243,15 +122,6 @@ public class Dummy extends AbstractDummy{
 		return new byte[]{2, -128, 0, 1, 0, 0, 0, 36, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0};
 	}
 
-	protected static TnccsChannelFactory getChannelFactory() {
-		DefaultTnccsChannelFactory channelFactory = new DefaultTnccsChannelFactory(TcgTnccsProtocolEnum.TNCCS.value(),
-				TcgTnccsVersionEnum.V2.value(),
-				PbReaderFactory.createExperimentalDefault(),
-				PbWriterFactory.createExperimentalDefault());
-		
-		return channelFactory;
-	}
-	
 	protected static StateMachine getStateMachine(){
 		return new StateMachine() {
 			

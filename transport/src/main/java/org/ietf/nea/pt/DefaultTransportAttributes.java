@@ -1,13 +1,13 @@
-package de.hsbremen.tc.tnc.transport.newp.connection;
+package org.ietf.nea.pt;
 
 import de.hsbremen.tc.tnc.HSBConstants;
-import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
+import de.hsbremen.tc.tnc.transport.TransportAttributes;
 
-public class DefaultTransportAttributes implements Attributed{
+public class DefaultTransportAttributes implements TransportAttributes{
 
 	private final String tVersion;
 	private final String tProtocol;
@@ -28,41 +28,49 @@ public class DefaultTransportAttributes implements Attributed{
 		this.maxRoundTrips = maxRoundTrips;
 	}
 
-	/**
-	 * @return the tVersion
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#getTransportVersion()
 	 */
+	@Override
 	public String getTransportVersion() {
 		return this.tVersion;
 	}
 
-	/**
-	 * @return the tProtocol
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#getTransportProtocol()
 	 */
+	@Override
 	public String getTransportProtocol() {
 		return this.tProtocol;
 	}
 
-	/**
-	 * @return the maxMessageLength
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#getMaxMessageLength()
 	 */
+	@Override
 	public long getMaxMessageLength() {
 		return this.maxMessageLength;
 	}
 
-	/**
-	 * @return the maxMessageLengthPerIm
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#getMaxMessageLengthPerIm()
 	 */
+	@Override
 	public long getMaxMessageLengthPerIm() {
 		return this.maxMessageLengthPerIm;
 	}
 
-	/**
-	 * @return the maxRoundTrips
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#getMaxRoundTrips()
 	 */
+	@Override
 	public long getMaxRoundTrips() {
 		return this.maxRoundTrips;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#getAttribute(de.hsbremen.tc.tnc.attribute.TncAttributeType)
+	 */
 	@Override
 	public Object getAttribute(TncAttributeType type) throws TncException {
 		
@@ -85,6 +93,9 @@ public class DefaultTransportAttributes implements Attributed{
 		throw new TncException("The attribute with ID " + type.id() + " is unknown.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#setAttribute(de.hsbremen.tc.tnc.attribute.TncAttributeType, java.lang.Object)
+	 */
 	@Override
 	public void setAttribute(TncAttributeType type, Object value)
 			throws TncException {

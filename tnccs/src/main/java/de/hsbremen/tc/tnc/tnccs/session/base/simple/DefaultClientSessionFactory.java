@@ -1,6 +1,12 @@
 package de.hsbremen.tc.tnc.tnccs.session.base.simple;
 
+import java.util.concurrent.Executors;
+
 import de.hsbremen.tc.tnc.attribute.Attributed;
+import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionContext;
@@ -18,23 +24,35 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccsValidationExc
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsChannelFactory;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsInputChannel;
-import de.hsbremen.tc.tnc.tnccs.session.connection.TnccsOutputChannel;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateFactory;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachine;
-import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
+import de.hsbremen.tc.tnc.transport.TransportConnection;
 
 public class DefaultClientSessionFactory implements SessionFactory {
 
 	private final ImAdapterManager<ImcAdapter> adapterManager;
-	private final TnccsChannelFactory channelFactory;
+
+	private final String tnccsProtocolId;
+	private final String tnccsProtocolVersion;
 	
-	public DefaultClientSessionFactory(ImAdapterManager<ImcAdapter> adapterManager, TnccsChannelFactory channelFactory){
+	private final TnccsWriter<TnccsBatch> writer;
+	private final TnccsReader<TnccsBatchContainer> reader;
+	
+	public DefaultClientSessionFactory(
+			String tnccsProtocolId, 
+			String tnccsProtocolVersion, 
+			ImAdapterManager<ImcAdapter> adapterManager, 
+			TnccsWriter<TnccsBatch> writer, 
+			TnccsReader<TnccsBatchContainer> reader){
+		
+		this.tnccsProtocolId = tnccsProtocolId;
+		this.tnccsProtocolVersion = tnccsProtocolVersion;
+		
 		this.adapterManager = adapterManager;
-		this.channelFactory = channelFactory;
+		this.reader = reader;
+		this.writer = writer;
 	}
 	
 	/* (non-Javadoc)
@@ -43,10 +61,7 @@ public class DefaultClientSessionFactory implements SessionFactory {
 	@Override
 	public Session createTnccsSession(TransportConnection connection){
 		
-		DefaultSession s = new DefaultSession(new DefaultSessionAttributes(this.channelFactory.getProtocol(), this.channelFactory.getVersion()));
-		
-		TnccsOutputChannel outChannel = this.channelFactory.createOutputChannel(connection); 
-		TnccsInputChannel inChannel = this.channelFactory.createInputChannel(connection, s);
+		DefaultSession s = new DefaultSession(new DefaultSessionAttributes(this.tnccsProtocolId, this.tnccsProtocolVersion), this.writer, this.reader, Executors.newSingleThreadExecutor());
 		
 		AttributeCollection attributes = new AttributeCollection();
 		attributes.add(s.getAttributes());
@@ -69,14 +84,10 @@ public class DefaultClientSessionFactory implements SessionFactory {
 		
 		// finalize session and run
 		s.registerStatemachine(machine);
-		s.registerInput(inChannel);
-		s.registerOutput(outChannel);
-
+		s.registerConnection(connection);
 		
 		return s;
 		
 	}
-	
-	
-	
+
 }

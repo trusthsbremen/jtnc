@@ -235,9 +235,14 @@ public class ByteBufferTest {
 	
 	@Test 
 	public void testWriterBufferToBuffer(){
-		// TODO not done yet has to be done.
-		// this is a reminder
-		Assert.fail();	
+		byte[] array = {1,23,2,43,56,6,67,6,67,67,89,3,3,23,2};
+		ByteBuffer b = new DefaultByteBuffer(100);
+		b.write(array);
+		
+		ByteBuffer b1 = new DefaultByteBuffer(b.bytesWritten());
+		
+		b1.write(b);
+		Assert.assertEquals(b.bytesRead(), b1.bytesWritten());
 	}
 	
 }

@@ -1,6 +1,6 @@
 package de.hsbremen.tc.tnc.tnccs.session.base;
 
-import de.hsbremen.tc.tnc.transport.connection.TransportConnection;
+import de.hsbremen.tc.tnc.transport.TransportConnection;
 
 public interface SessionFactory {
 
