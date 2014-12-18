@@ -5,6 +5,7 @@
 # Ignore build dir
 build/
 **/releasePackages
+releasePackages/
 **/target
 
 
