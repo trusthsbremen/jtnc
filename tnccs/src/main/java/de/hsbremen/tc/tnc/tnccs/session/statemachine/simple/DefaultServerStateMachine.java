@@ -131,8 +131,8 @@ public class DefaultServerStateMachine implements StateMachine {
 
 		List<TnccsBatch> batches = new ArrayList<>(2);
 		synchronized(this.closeLock){
+			// send empty retry batch
 			if(!this.isClosed()){
-				this.handler.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
 				this.state = this.stateFactory.createState(TnccsStateEnum.RETRY);
 				TnccsBatch b = this.state.collect();
 				if(b != null){
@@ -143,6 +143,7 @@ public class DefaultServerStateMachine implements StateMachine {
 					this.stop();
 				}
 			}
+			// send first server data batch
 			if(!this.isClosed()){
 				TnccsBatch b = this.state.collect();
 				if(b != null){

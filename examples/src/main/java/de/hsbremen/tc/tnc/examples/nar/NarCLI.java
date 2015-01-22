@@ -10,6 +10,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.ietf.nea.pa.serialize.reader.bytebuffer.PaReaderFactory;
 import org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriterFactory;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
+import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
@@ -17,6 +18,8 @@ import de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetf;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;
+import de.hsbremen.tc.tnc.im.session.ImcSession;
+import de.hsbremen.tc.tnc.im.session.DefaultImSessionManager;
 
 public class NarCLI {
 	
@@ -63,6 +66,7 @@ public class NarCLI {
 		public TestImcOs(){
 			super(new ImParameter(), new TnccAdapterIetfFactory(),
 					new DefaultImcSessionFactory(),
+					new DefaultImSessionManager<IMCConnection, ImcSession>(3000),
 					OsImcEvaluatorFactory.getInstance(),
 					new ImcConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());

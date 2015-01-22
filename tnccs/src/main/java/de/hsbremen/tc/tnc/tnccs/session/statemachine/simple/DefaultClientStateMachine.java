@@ -133,9 +133,10 @@ public class DefaultClientStateMachine implements StateMachine {
 		TnccsBatch b = null;
 		synchronized(this.closeLock){
 			if(!this.isClosed()){
-				this.handler.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
 				this.state = this.stateFactory.createState(TnccsStateEnum.RETRY);
+				
 				b = this.state.collect();
+				
 				this.state = this.state.getConclusiveState();
 				if(this.state instanceof End){
 					this.stop();

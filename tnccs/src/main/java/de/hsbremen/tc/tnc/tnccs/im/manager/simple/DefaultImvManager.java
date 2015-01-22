@@ -124,7 +124,7 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements ImvMana
 		Set<Long> keys = new HashSet<>(this.adapterIndex.keySet());
 		for(Iterator<Long> iter = keys.iterator(); iter.hasNext(); ){
 			Long key = iter.next();
-			this.remove(key);
+			this.removeAdapter(key);
 		}
 	}
 }

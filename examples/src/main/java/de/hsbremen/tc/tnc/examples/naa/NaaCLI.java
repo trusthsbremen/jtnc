@@ -8,6 +8,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.ietf.nea.pa.serialize.reader.bytebuffer.PaReaderFactory;
 import org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriterFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
+import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
@@ -15,6 +16,8 @@ import de.hsbremen.tc.tnc.im.adapter.imv.ImvAdapterIetf;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
+import de.hsbremen.tc.tnc.im.session.ImvSession;
+import de.hsbremen.tc.tnc.im.session.DefaultImSessionManager;
 
 public class NaaCLI {
 	
@@ -55,6 +58,7 @@ public class NaaCLI {
 		public TestImvOs(){
 			super(new ImParameter(), new TncsAdapterIetfFactory(),
 					new DefaultImvSessionFactory(),
+					new DefaultImSessionManager<IMVConnection, ImvSession> (3000),
 					OsImvEvaluatorFactory.getInstance(),
 					new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());

@@ -24,6 +24,9 @@ import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
+import de.hsbremen.tc.tnc.im.session.ImcSession;
+import de.hsbremen.tc.tnc.im.session.ImvSession;
+import de.hsbremen.tc.tnc.im.session.DefaultImSessionManager;
 import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 
@@ -67,6 +70,7 @@ public class ImcAndImvCommunicationTest {
 		public TestImcOs(){
 			super(new ImParameter(), new TnccAdapterIetfFactory(),
 					new DefaultImcSessionFactory(),
+					new DefaultImSessionManager<IMCConnection, ImcSession>(3000),
 					OsImcEvaluatorFactory.getInstance(),
 					new ImcConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());
@@ -79,6 +83,7 @@ public class ImcAndImvCommunicationTest {
 		public TestImvOs(){
 			super(new ImParameter(), new TncsAdapterIetfFactory(),
 					new DefaultImvSessionFactory(),
+					new DefaultImSessionManager<IMVConnection, ImvSession>(3000),
 					OsImvEvaluatorFactory.getInstance(),
 					new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());

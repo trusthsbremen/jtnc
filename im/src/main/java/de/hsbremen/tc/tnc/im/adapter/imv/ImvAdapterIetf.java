@@ -1,8 +1,6 @@
 package de.hsbremen.tc.tnc.im.adapter.imv;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 import org.ietf.nea.pa.serialize.reader.bytebuffer.PaReaderFactory;
 import org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriterFactory;
@@ -32,6 +30,8 @@ import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;
+import de.hsbremen.tc.tnc.im.session.DefaultImSessionManager;
+import de.hsbremen.tc.tnc.im.session.ImSessionManager;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
@@ -46,7 +46,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 	private final TncsAdapterFactory tncsFactory;
 	private final ImvConnectionAdapterFactory connectionFactory;
 	private final ImSessionFactory<ImvSession> sessionFactory;
-	private final Map<IMVConnection, ImvSession> sessions;
+	private final ImSessionManager<IMVConnection, ImvSession> sessions;
 
 	private final ImEvaluatorFactory evaluatorFactory;
 	private ImEvaluatorManager evaluatorManager;
@@ -58,12 +58,13 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 		// FIXME this is only a default constructor and should only be used for testing purpose.
 		this(new ImParameter(), new TncsAdapterIetfFactory(),
 				new DefaultImvSessionFactory(),
+				new DefaultImSessionManager<IMVConnection, ImvSession>(),
 				DefaultImvEvaluatorFactory.getInstance(),
 				new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 				PaReaderFactory.createProductionDefault());
 	}
 	
-	public ImvAdapterIetf(ImParameter parameter, TncsAdapterFactory tncsFactory, ImSessionFactory<ImvSession> sessionFactory, ImEvaluatorFactory evaluatorFactory, ImvConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
+	public ImvAdapterIetf(ImParameter parameter, TncsAdapterFactory tncsFactory, ImSessionFactory<ImvSession> sessionFactory, ImSessionManager<IMVConnection, ImvSession> sessionsManager, ImEvaluatorFactory evaluatorFactory, ImvConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
 		super(imReader);
 		
 		this.parameter = parameter;
@@ -73,7 +74,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 		this.evaluatorFactory = evaluatorFactory;
 		this.sessionFactory = sessionFactory;
 		
-		this.sessions = new HashMap<IMVConnection, ImvSession>();
+		this.sessions = sessionsManager;
 	}
 	
 	@Override
@@ -96,6 +97,8 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 				LOGGER.info("Preferred language attribute was not accessible, using default language: " + this.parameter.getPreferredLanguage(),e);
 			}
 			
+			this.sessions.initialize();
+			
 		}else{
 			throw new TNCException("IMV already initialized by " + this.tncs.toString() + ".", TNCException.TNC_RESULT_ALREADY_INITIALIZED);
 		}
@@ -104,11 +107,8 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 	@Override
 	public void terminate() throws TNCException {
 		checkInitialization();
-		
-		for (ImvSession session : this.sessions.values()) {
-			session.terminate();
-		}
-		this.sessions.clear();
+	
+		this.sessions.terminate();
 		
 		this.evaluatorManager.terminate();
 		
@@ -199,14 +199,14 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 //	}
 	
 	protected ImvSession findSessionByConnection(IMVConnection connection){
-		if(this.sessions.containsKey(connection)){
-			return this.sessions.get(connection);
+		ImvSession s = this.sessions.getSession(connection);
+		
+		if(s == null){
+			s = this.sessionFactory.createSession(this.connectionFactory.createConnectionAdapter(connection),evaluatorManager);
+			this.sessions.putSession(connection, s);
 		}
 		
-		ImvSession newSession = this.sessionFactory.createSession(this.connectionFactory.createConnectionAdapter(connection),evaluatorManager);
-		this.sessions.put(connection, newSession);
-		
-		return newSession;
+		return s;
 	}
 	
 	protected void checkInitialization() throws TNCException{
