@@ -44,7 +44,7 @@ public class ServerStatemachineTest {
 		TncsContentHandler handler = new DefaultTncsContentHandler(Dummy.getImvHandler(), 
 				new DefaultTncsHandler(attributes), 
 				new DefaultTnccsValidationExceptionHandler());
-		this.machine = new DefaultServerStateMachine(new DefaultServerStateFactory(handler));
+		this.machine = new DefaultServerStateMachine(new DefaultServerStateFactory(attributes,handler));
 	}
 	
 	@Test

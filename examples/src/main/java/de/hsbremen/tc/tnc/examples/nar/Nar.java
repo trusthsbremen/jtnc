@@ -87,6 +87,7 @@ public class Nar {
 				TcgTVersionEnum.V1.value(),
 				PtTlsWriterFactory.createProductionDefault(), 
 				PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
+		builder.setMaxRoundTrips(1);
 		
 		this.connection = builder.toConnection(true, false, socket);
 		this.client.notifyConnectionChange(connection, ConnectionChangeTypeEnum.NEW);

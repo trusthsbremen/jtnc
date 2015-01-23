@@ -5,23 +5,23 @@ public enum ImvActionRecommendationEnum {
 	/**
     * IMV recommends allowing access.
     */
-    TNC_IMV_ACTION_RECOMMENDATION_ALLOW (0),
+    TNC_IMV_ACTION_RECOMMENDATION_ALLOW (0L),
     
     /**
      * IMV recommends no access.
      */
-    TNC_IMV_ACTION_RECOMMENDATION_NO_ACCESS (1),
+    TNC_IMV_ACTION_RECOMMENDATION_NO_ACCESS (1L),
     
     /**
      * IMV recommends limited access. This access may be
      * expanded after remediation.
      */
-    TNC_IMV_ACTION_RECOMMENDATION_ISOLATE (2),
+    TNC_IMV_ACTION_RECOMMENDATION_ISOLATE (2L),
     
     /**
      * IMV does not have a recommendation.
      */
-    TNC_IMV_ACTION_RECOMMENDATION_NO_RECOMMENDATION (3);
+    TNC_IMV_ACTION_RECOMMENDATION_NO_RECOMMENDATION (3L);
 	
     private final long number;
     

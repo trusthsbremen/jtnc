@@ -59,6 +59,7 @@ public class Naa {
 				TcgTVersionEnum.V1.value(),
 				PtTlsWriterFactory.createProductionDefault(), 
 				PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
+		this.connectionBuilder.setMaxRoundTrips(1);
 		
 		this.connectionBuilder.setMessageLength(MAX_MSG_SIZE).setImMessageLength(MAX_MSG_SIZE/10);
 		

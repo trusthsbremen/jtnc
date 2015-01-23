@@ -97,7 +97,7 @@ class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implements Im
 	protected void checkMessageSize(int length) throws TNCException {
 		if(this.maxMessageSize != HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNKNOWN && this.maxMessageSize != HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNLIMITED){
 			if(length > this.maxMessageSize){
-				throw new TNCException("Maximum message size of "+this.maxMessageSize+" exceeded.", TNCException.TNC_RESULT_EXCEEDED_MAX_MESSAGE_SIZE);
+				throw new TNCException("Maximum message size of "+ this.maxMessageSize + " exceeded.", TNCException.TNC_RESULT_EXCEEDED_MAX_MESSAGE_SIZE);
 			}
 		}
 	}

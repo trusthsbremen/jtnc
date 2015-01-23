@@ -9,13 +9,14 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.AbstractState;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.End;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 
 class DefaultCommonEndState extends AbstractState implements End {
 
 	private boolean server;
 	
-	DefaultCommonEndState(boolean server, TnccsContentHandler handler){
-		super(handler);
+	DefaultCommonEndState(boolean server, StateHelper<? extends TnccsContentHandler> factory){
+		super(factory.getHandler());
 		this.server = server;
 	}
 	
@@ -84,11 +85,11 @@ class DefaultCommonEndState extends AbstractState implements End {
 	private void handleClose(TnccsBatchContainer batchContainer) {
 		PbBatch b = (PbBatch) batchContainer.getResult();
 		if(b.getMessages() != null){
-			super.getHandler().handleMessages(b.getMessages());
+			super.getHandler().dumpMessages(b.getMessages());
 		}
 		
 		if(batchContainer.getExceptions() != null){
-			super.getHandler().handleExceptions(batchContainer.getExceptions());
+			super.getHandler().dumpExceptions(batchContainer.getExceptions());
 		}
 	}
 

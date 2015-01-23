@@ -73,7 +73,7 @@
   <class id="8" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImcHandler" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/simple/DefaultImcHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="174" y="780"/>    
+    <position height="-1" width="-1" x="129" y="780"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -83,40 +83,40 @@
   <class id="9" language="java" name="de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImvHandler" project="tnccs" 
     file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/message/handler/simple/DefaultImvHandler.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1174" y="769"/>    
+    <position height="-1" width="-1" x="1240" y="773"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="12">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <realization id="13">    
+  <realization id="10">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <realization id="11">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
+  <generalization id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <generalization id="14">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
-  <realization id="15">    
+  <generalization id="15">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <realization id="16">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="7"/>  
-  </realization>  
-  <realization id="16">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="6"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    

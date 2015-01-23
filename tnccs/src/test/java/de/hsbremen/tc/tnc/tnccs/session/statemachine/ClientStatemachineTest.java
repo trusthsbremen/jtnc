@@ -44,7 +44,7 @@ public class ClientStatemachineTest {
 		TnccContentHandler handler = new DefaultTnccContentHandler(Dummy.getImcHandler(), 
 				new DefaultTnccHandler(attributes), 
 				new DefaultTnccsValidationExceptionHandler());
-		this.machine = new DefaultClientStateMachine(new DefaultClientStateFactory(handler));
+		this.machine = new DefaultClientStateMachine(new DefaultClientStateFactory(attributes, handler));
 	}
 	
 	@Test

@@ -3,34 +3,19 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine.simple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccContentHandler;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.AbstractStateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 
-public class DefaultClientStateFactory implements StateHelper<TnccContentHandler>{
+public class DefaultClientStateFactory extends AbstractStateHelper<TnccContentHandler>{
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultClientStateFactory.class);
-	private final TnccContentHandler contentHandler;
 	
-	public DefaultClientStateFactory(TnccContentHandler contentHandler){
-		if(contentHandler == null){
-			throw new NullPointerException("Content handler cannot be null.");
-		}
-		this.contentHandler = contentHandler;
+	public DefaultClientStateFactory(Attributed attributes, TnccContentHandler contentHandler){
+		super(attributes,contentHandler);
 	}
-
-	
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper#getHander()
-	 */
-	@Override
-	public TnccContentHandler getHandler() {
-		return this.contentHandler;
-	}
-
-
 
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.tnccs.session.statemachine.StateFactory#createState(de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum, de.hsbremen.tc.tnc.tnccs.session.base.state.TnccsContentHandler)
@@ -47,7 +32,7 @@ public class DefaultClientStateFactory implements StateHelper<TnccContentHandler
 			t = new DefaultClientDecidedState(this);
 			break;
 		case END:
-			t = new DefaultCommonEndState(false, this.contentHandler);
+			t = new DefaultCommonEndState(false, this);
 			break;
 		case ERROR:
 			t = new DefaultCommonErrorState(false, this);

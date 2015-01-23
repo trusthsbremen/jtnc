@@ -84,11 +84,11 @@ class DefaultClientDecidedState extends AbstractState implements Decided {
 	private void handleResult(TnccsBatchContainer batchContainer) {
 		PbBatch b = (PbBatch) batchContainer.getResult();
 		if(b.getMessages() != null){
-			super.getHandler().handleMessages(b.getMessages());
+			super.getHandler().dumpMessages(b.getMessages());
 		}
 		
 		if(batchContainer.getExceptions() != null){
-			super.getHandler().handleExceptions(batchContainer.getExceptions());
+			super.getHandler().dumpExceptions(batchContainer.getExceptions());
 		}
 		
 		TncConnectionState state = super.getHandler().getAccessDecision();

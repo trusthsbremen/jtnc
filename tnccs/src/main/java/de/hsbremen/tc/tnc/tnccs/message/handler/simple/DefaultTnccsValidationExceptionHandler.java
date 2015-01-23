@@ -34,6 +34,16 @@ public class DefaultTnccsValidationExceptionHandler implements TnccsValidationEx
 		return errorMessages;
 	}
 
+	@Override
+	public void dump(List<ValidationException> exceptions) {
+		if(exceptions != null){
+			
+			for (ValidationException validationException : exceptions) {
+				LOGGER.warn("An exception was discovered but no error message will be created, because exception was dumped. ", validationException);
+			}
+		}
+	}
+	
 	private TnccsMessage createPbError(ValidationException exception) {
 		
 		long i = exception.getCause().getErrorCode();

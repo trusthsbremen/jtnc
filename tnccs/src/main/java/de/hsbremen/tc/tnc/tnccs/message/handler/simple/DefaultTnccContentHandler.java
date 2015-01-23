@@ -32,7 +32,6 @@ public class DefaultTnccContentHandler implements TnccContentHandler{
 		this.connectionState = connectionState;
 		this.imHandler.setConnectionState(this.connectionState);
 		this.tnccHandler.setConnectionState(this.connectionState);
-		
 	}
 	
 	@Override
@@ -93,4 +92,22 @@ public class DefaultTnccContentHandler implements TnccContentHandler{
 		List<TnccsMessage> errorMessages = this.exceptionHandler.handle(exceptions);
 		return (errorMessages != null) ? errorMessages : new ArrayList<TnccsMessage>(0);
 	}
+	
+	@Override
+	public void dumpExceptions(
+			List<ValidationException> exceptions) {
+		this.exceptionHandler.dump(exceptions);
+	}
+	
+	@Override
+	public void dumpMessages(List<? extends TnccsMessage> list) {
+		if(list != null){
+			for (TnccsMessage tnccsMessage : list) {
+				// TODO make a better filter here, only bring those message to a handler who can handle it.
+				this.imHandler.dumpMessage(tnccsMessage);
+				this.tnccHandler.dumpMessage(tnccsMessage);
+			}
+		}
+	}
+	
 }

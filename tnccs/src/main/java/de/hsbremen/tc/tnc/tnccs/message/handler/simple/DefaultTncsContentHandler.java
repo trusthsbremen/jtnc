@@ -88,6 +88,17 @@ public class DefaultTncsContentHandler implements TncsContentHandler{
 		return messages;
 	}
 	
+	@Override
+	public void dumpMessages(List<? extends TnccsMessage> list) {
+		if(list != null){
+			for (TnccsMessage tnccsMessage : list) {
+				// TODO make a better filter here, only bring those message to a handler who can handle it.
+				this.imHandler.dumpMessage(tnccsMessage);
+				this.tncsHandler.dumpMessage(tnccsMessage);
+			}
+		}
+	}
+	
 	@Override 
 	public List<TnccsMessage> solicitRecommendation(){
 		List<TnccsMessage> messages = new LinkedList<>();
@@ -108,5 +119,11 @@ public class DefaultTncsContentHandler implements TncsContentHandler{
 			List<ValidationException> exceptions) {
 		List<TnccsMessage> errorMessages = this.exceptionHandler.handle(exceptions);
 		return (errorMessages != null) ? errorMessages : new ArrayList<TnccsMessage>(0);
+	}
+	
+	@Override
+	public void dumpExceptions(
+			List<ValidationException> exceptions) {
+		this.exceptionHandler.dump(exceptions);
 	}
 }

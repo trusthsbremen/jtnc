@@ -29,7 +29,7 @@ public class DefaultImvConnectionContext extends AbstractImConnectionContext imp
 		if(super.isValid()){
 			this.recommendations.put(new Long(id), recommendationPair);
 		}else{
-			throw new TncException("Session and connection closed, cannot add message.", TncExceptionCodeEnum.TNC_RESULT_ILLEGAL_OPERATION);
+			throw new TncException("Cannot add message. Session and connection may be closed.", TncExceptionCodeEnum.TNC_RESULT_ILLEGAL_OPERATION);
 		}
 		
 	}

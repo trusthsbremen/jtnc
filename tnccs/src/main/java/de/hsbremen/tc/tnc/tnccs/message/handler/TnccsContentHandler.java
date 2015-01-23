@@ -14,7 +14,11 @@ public interface TnccsContentHandler {
 
 	public abstract List<TnccsMessage> handleMessages(List<? extends TnccsMessage> list);
 	
+	public abstract void dumpMessages(List<? extends TnccsMessage> list);
+	
 	public abstract List<TnccsMessage> handleExceptions(List<ValidationException> exceptions);
+	
+	public abstract void dumpExceptions(List<ValidationException> exceptions);
 
 	public abstract TncConnectionState getAccessDecision();
 }

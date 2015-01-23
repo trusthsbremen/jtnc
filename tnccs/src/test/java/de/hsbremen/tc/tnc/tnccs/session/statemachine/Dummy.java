@@ -274,6 +274,11 @@ public class Dummy extends AbstractDummy{
 				System.out.println("lastCall() called.");
 				return new ArrayList<>();
 			}
+
+			@Override
+			public void dumpMessage(TnccsMessage message) {
+				System.out.println("dumpMessages() called.");
+			}
 			
 		};
 	}
@@ -327,6 +332,11 @@ public class Dummy extends AbstractDummy{
 			public List<TnccsMessage> lastCall() {
 				System.out.println("lastCall() called.");
 				return new ArrayList<>();
+			}
+			
+			@Override
+			public void dumpMessage(TnccsMessage message) {
+				System.out.println("dumpMessages() called.");
 			}
 			
 			@Override

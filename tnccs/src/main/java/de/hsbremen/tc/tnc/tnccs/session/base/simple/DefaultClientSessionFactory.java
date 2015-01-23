@@ -64,7 +64,10 @@ public class DefaultClientSessionFactory implements SessionFactory {
 		DefaultSession s = new DefaultSession(new DefaultSessionAttributes(this.tnccsProtocolId, this.tnccsProtocolVersion), this.writer, this.reader, Executors.newSingleThreadExecutor());
 		
 		AttributeCollection attributes = new AttributeCollection();
-		attributes.add(s.getAttributes());
+		Attributed sessionAttributes = s.getAttributes();
+		if(sessionAttributes != null){
+			attributes.add(s.getAttributes());
+		}
 		
 		Attributed connectionAttributes = connection.getAttributes();
 		if(connectionAttributes != null){
@@ -79,7 +82,7 @@ public class DefaultClientSessionFactory implements SessionFactory {
 		TnccsValidationExceptionHandler exceptionHandler = new DefaultTnccsValidationExceptionHandler();
 		
 		TnccContentHandler contentHandler = new DefaultTnccContentHandler(imcHandler, tnccHandler, exceptionHandler);
-		StateHelper<TnccContentHandler> clientStateFactory = new DefaultClientStateFactory(contentHandler);
+		StateHelper<TnccContentHandler> clientStateFactory = new DefaultClientStateFactory(attributes,contentHandler);
 		StateMachine machine = new DefaultClientStateMachine(clientStateFactory);
 		
 		// finalize session and run

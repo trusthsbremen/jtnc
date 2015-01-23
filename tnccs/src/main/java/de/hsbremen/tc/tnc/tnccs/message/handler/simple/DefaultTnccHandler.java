@@ -28,7 +28,7 @@ public class DefaultTnccHandler implements TnccHandler{
 	private final Attributed sessionAttributes;
 	private final String tnccLanguagePreference;
 	
-	private String tempTnccsLanguagePrefernce;
+	private String tempTnccsLanguagePreference;
 	private TncConnectionState state;
 	private boolean handshakeStartet;
 	
@@ -103,12 +103,31 @@ public class DefaultTnccHandler implements TnccHandler{
 		return messages;
 	}
 
+	@Override
+	public void dumpMessage(TnccsMessage message) {
+		
+		if(message == null || message.getValue() == null){
+			LOGGER.debug("Because Message or message value is null, it is ignored.");
+			return;
+		}
+		
+		TnccsMessageValue value = message.getValue();
+		
+		LOGGER.debug("Message value received: " + value.toString());
+		
+		if(value instanceof PbMessageValueAccessRecommendation){
+			this.handleRecommendation((PbMessageValueAccessRecommendation) value);
+		}else if(value instanceof PbMessageValueLanguagePreference){
+			this.handleLanguagePreference((PbMessageValueLanguagePreference) value);
+		}
+	}
+
 	private void handleLanguagePreference(PbMessageValueLanguagePreference value) {
 		
 		String lang = value.getPreferedLanguage();
 		
 		if(lang != null && !lang.isEmpty()){
-			this.tempTnccsLanguagePrefernce  = lang.trim();
+			this.tempTnccsLanguagePreference  = lang.trim();
 		}
 	}
 
@@ -129,13 +148,13 @@ public class DefaultTnccHandler implements TnccHandler{
 
 	@Override
 	public List<TnccsMessage> lastCall() {
-		if(this.tempTnccsLanguagePrefernce != null){
+		if(this.tempTnccsLanguagePreference != null){
 			try{
-				this.sessionAttributes.setAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE, this.tempTnccsLanguagePrefernce);
+				this.sessionAttributes.setAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE, this.tempTnccsLanguagePreference);
 			}catch(TncException | UnsupportedOperationException e){
 				LOGGER.warn("Language preference could not be set and will be ignored.");
 			}
-			this.tempTnccsLanguagePrefernce = null;
+			this.tempTnccsLanguagePreference = null;
 		}
 		return new ArrayList<>();
 	}
