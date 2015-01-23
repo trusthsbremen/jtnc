@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.tnccs.adapter.tncc;
+package de.hsbremen.tc.tnc.tnccs.adapter.tnccs;
 
 import java.util.HashSet;
 import java.util.Set;

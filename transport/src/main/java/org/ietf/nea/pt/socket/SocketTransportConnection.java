@@ -32,7 +32,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportAddress;
 import de.hsbremen.tc.tnc.transport.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
@@ -61,7 +61,7 @@ public class SocketTransportConnection implements TransportConnection{
 	private OutputStream out;
 	private InputStream in;
 	
-	private TnccsValueListener listener;
+	private TnccsListener listener;
 	
 	private long messageIdentifier;
 	
@@ -105,7 +105,7 @@ public class SocketTransportConnection implements TransportConnection{
 	}
 
 	@Override
-	public void open(TnccsValueListener listener) throws ConnectionException {
+	public void open(TnccsListener listener) throws ConnectionException {
 		LOGGER.debug("Open transport connection.");
 		
 		try{

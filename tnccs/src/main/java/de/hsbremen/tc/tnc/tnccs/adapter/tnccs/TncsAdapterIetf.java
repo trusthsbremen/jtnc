@@ -1,12 +1,11 @@
-package de.hsbremen.tc.tnc.tnccs.adapter.tncc;
+package de.hsbremen.tc.tnc.tnccs.adapter.tnccs;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
-import org.trustedcomputinggroup.tnc.ifimc.TNCC;
-import org.trustedcomputinggroup.tnc.ifimc.TNCException;
+import org.trustedcomputinggroup.tnc.ifimv.IMV;
+import org.trustedcomputinggroup.tnc.ifimv.TNCS;
+import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
@@ -17,24 +16,24 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 
-class TnccAdapterIetf implements TNCC, AttributeSupport{
+class TncsAdapterIetf implements TNCS{
 
-	private final ImManager<IMC> moduleManager;
+	private final ImManager<IMV> moduleManager;
 	private final GlobalHandshakeRetryListener listener;
 	private final Attributed attributes;
 	
-	TnccAdapterIetf(final ImManager<IMC> moduleManager, final Attributed attributes, final GlobalHandshakeRetryListener listener) {
+	TncsAdapterIetf(final ImManager<IMV> moduleManager, final Attributed attributes, final GlobalHandshakeRetryListener listener) {
 		this.moduleManager = moduleManager;
 		this.attributes = attributes;
 		this.listener = listener;
 	}
 
-	protected ImManager<IMC> getManager(){
+	protected ImManager<IMV> getManager(){
 		return this.moduleManager;
 	}
 	
 	@Override
-	public void reportMessageTypes(final IMC imc, final long[] supportedTypes)
+	public void reportMessageTypes(final IMV imv, final long[] supportedTypes)
 			throws TNCException {
 
 		Set<SupportedMessageType> sTypes = new HashSet<>();
@@ -51,14 +50,14 @@ class TnccAdapterIetf implements TNCC, AttributeSupport{
 		}
 		
 		try {
-			this.moduleManager.reportSupportedMessagesTypes(imc, sTypes);
+			this.moduleManager.reportSupportedMessagesTypes(imv, sTypes);
 		} catch (TncException e) {
 			throw new TNCException(e.getMessage(), e.getResultCode().result());
 		}
 	}
 
 	@Override
-	public void requestHandshakeRetry(final IMC imc, final long reason) throws TNCException {
+	public void requestHandshakeRetry(final IMV imv, final long reason) throws TNCException {
 		// TODO is the IMC needed as parameter?
 		try {
 			this.listener.requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum.fromCode(reason));

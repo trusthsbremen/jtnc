@@ -17,7 +17,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;

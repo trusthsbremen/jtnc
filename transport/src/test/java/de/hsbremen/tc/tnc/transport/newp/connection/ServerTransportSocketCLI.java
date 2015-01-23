@@ -20,7 +20,7 @@ import org.ietf.nea.pt.socket.SocketTransportConnection;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
@@ -109,7 +109,7 @@ public class ServerTransportSocketCLI {
 							Executors.newSingleThreadExecutor());
 					try {
 						System.out.println("Try to open connection.");
-						con.open(new TnccsValueListener() {
+						con.open(new TnccsListener() {
 							@Override
 							public void receive(ByteBuffer b) throws ListenerClosedException {
 								System.out.println("BufferReceived b");

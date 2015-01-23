@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportAddress;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
@@ -412,7 +412,7 @@ public class Dummy extends AbstractDummy{
 			private boolean open;
 			
 			@Override
-			public void open(TnccsValueListener listener) throws ConnectionException {
+			public void open(TnccsListener listener) throws ConnectionException {
 				 in = new ByteArrayInputStream(Dummy.getBatchWithImMessageAsByte());
 				 out = new ByteArrayOutputStream();
 				 open = true;

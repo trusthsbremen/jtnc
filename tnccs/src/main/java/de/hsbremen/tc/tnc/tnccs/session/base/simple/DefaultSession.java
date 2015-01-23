@@ -30,7 +30,7 @@ import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
@@ -210,9 +210,9 @@ public class DefaultSession implements Session{
 	private class Start implements Runnable{
 
 		private boolean selfInitiated;
-		private TnccsValueListener listener;
+		private TnccsListener listener;
 		
-		protected Start(boolean selfInitiated, TnccsValueListener listener){
+		protected Start(boolean selfInitiated, TnccsListener listener){
 			this.selfInitiated = selfInitiated;
 			this.listener = listener;
 		}

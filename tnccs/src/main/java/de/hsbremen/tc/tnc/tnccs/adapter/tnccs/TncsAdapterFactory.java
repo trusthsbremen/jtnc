@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.tnccs.adapter.tncc;
+package de.hsbremen.tc.tnc.tnccs.adapter.tnccs;
 
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import org.trustedcomputinggroup.tnc.ifimv.TNCS;
