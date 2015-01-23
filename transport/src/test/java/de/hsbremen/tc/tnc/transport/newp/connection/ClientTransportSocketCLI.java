@@ -60,6 +60,14 @@ public class ClientTransportSocketCLI {
 							public void receive(ByteBuffer b) throws ListenerClosedException {
 								System.out.println("BufferReceived b");
 							}
+
+							@Override
+							public void notifyClose() {
+								System.out.println("Underlying transport closed.");
+								
+							}
+							
+							
 						});
 					} catch (ConnectionException e) {
 						System.err.println(e.getMessage());

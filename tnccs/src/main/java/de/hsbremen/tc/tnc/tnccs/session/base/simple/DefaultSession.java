@@ -108,7 +108,6 @@ public class DefaultSession implements Session{
 		
 	}
 	
-
 	@Override
 	public void receive(ByteBuffer batchContainer) throws ListenerClosedException {
 		if(this.isClosed()){
@@ -118,6 +117,20 @@ public class DefaultSession implements Session{
 		this.runner.execute(new Receive(batchContainer));
 		
 	}
+
+	
+	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TnccsValueListener#notifyClose()
+	 */
+	@Override
+	public void notifyClose() {
+		if(!this.closed){
+			LOGGER.info("Underlying transport was closed. Closing session.");
+			this.close();
+		}
+	}
+
 
 	@Override
 	public void retryHandshake(ImHandshakeRetryReasonEnum reason) throws TncException {
@@ -176,6 +189,11 @@ public class DefaultSession implements Session{
 				}
 				this.connection.close();
 			}
+			
+			if(!this.machine.isClosed()){
+				this.machine.stop();
+			}
+			
 			this.runner.shutdownNow();
 		}
 	}
@@ -213,6 +231,7 @@ public class DefaultSession implements Session{
 						connection.send(buf);
 						incrementRoundTrips();
 					}
+					
 					if(machine.isClosed()){
 						LOGGER.info("State machine has reached the end state. Session terminates.");
 						close();
@@ -266,7 +285,7 @@ public class DefaultSession implements Session{
 					connection.send(buf);
 					incrementRoundTrips();
 				}
-							
+				
 				if(machine.isClosed()){
 					LOGGER.info("State machine has reached the end state. Session terminates.");
 					close();

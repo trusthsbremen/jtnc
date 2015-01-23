@@ -114,6 +114,13 @@ public class ServerTransportSocketCLI {
 							public void receive(ByteBuffer b) throws ListenerClosedException {
 								System.out.println("BufferReceived b");
 							}
+							
+
+							@Override
+							public void notifyClose() {
+								System.out.println("Underlying transport closed.");
+								
+							}
 						});
 						this.connection.add(con);
 					} catch (ConnectionException e) {
