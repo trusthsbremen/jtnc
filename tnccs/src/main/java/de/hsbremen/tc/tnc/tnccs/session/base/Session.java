@@ -1,7 +1,7 @@
 package de.hsbremen.tc.tnc.tnccs.session.base;
 
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 
-public interface Session extends SessionBase, TnccsValueListener, HandshakeRetryListener{
+public interface Session extends SessionBase, TnccsListener, HandshakeRetryListener{
 
 }

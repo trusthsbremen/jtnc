@@ -26,14 +26,15 @@ public class DefaultServerStateMachine implements StateMachine {
 	private Object closeLock;
 	private Boolean connectionDeleteSet;
 	
-	private final TnccsContentHandler handler;
-	private final StateHelper<? extends TnccsContentHandler> stateFactory;
+	private final StateHelper<? extends TnccsContentHandler> stateHelper;
 	
-	public DefaultServerStateMachine(StateHelper<? extends TnccsContentHandler> stateFactory){
+	public DefaultServerStateMachine(StateHelper<? extends TnccsContentHandler> stateHelper){
+
+		if(stateHelper == null){
+			throw new NullPointerException("StateHelper cannot be null.");
+		}
 		
-		this.handler = stateFactory.getHandler();
-		this.stateFactory = stateFactory;
-		
+		this.stateHelper = stateHelper;
 		
 		this.state = null;
 		this.busy = Boolean.FALSE;
@@ -52,18 +53,18 @@ public class DefaultServerStateMachine implements StateMachine {
 
 					this.busy = Boolean.TRUE;
 					
-					this.handler.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE);
+					this.stateHelper.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE);
 					this.connectionDeleteSet = Boolean.FALSE;
 					
-					this.handler.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);					
+					this.stateHelper.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);					
 					TnccsBatch b = null;
 					
 					if(selfInitiated){
-						this.state = this.stateFactory.createState(TnccsStateEnum.INIT);
+						this.state = this.stateHelper.createState(TnccsStateEnum.INIT);
 						b = this.state.collect();
-						this.state = this.state.getConclusiveState();			
+						this.state = this.state.getConclusiveState();		
 					}else{
-						this.state = this.stateFactory.createState(TnccsStateEnum.CLIENT_WORKING);
+						this.state = this.stateHelper.createState(TnccsStateEnum.CLIENT_WORKING);
 					}
 					if(this.state instanceof End){
 						this.stop();
@@ -131,9 +132,9 @@ public class DefaultServerStateMachine implements StateMachine {
 
 		List<TnccsBatch> batches = new ArrayList<>(2);
 		synchronized(this.closeLock){
+			// send empty retry batch
 			if(!this.isClosed()){
-				this.handler.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
-				this.state = this.stateFactory.createState(TnccsStateEnum.RETRY);
+				this.state = this.stateHelper.createState(TnccsStateEnum.RETRY);
 				TnccsBatch b = this.state.collect();
 				if(b != null){
 					batches.add(b);
@@ -143,6 +144,7 @@ public class DefaultServerStateMachine implements StateMachine {
 					this.stop();
 				}
 			}
+			// send first server data batch
 			if(!this.isClosed()){
 				TnccsBatch b = this.state.collect();
 				if(b != null){
@@ -163,7 +165,6 @@ public class DefaultServerStateMachine implements StateMachine {
 		this.busy = Boolean.FALSE;
 		
 		return batches;
-		
 	}
 	
 	/*
@@ -183,7 +184,7 @@ public class DefaultServerStateMachine implements StateMachine {
 		TnccsBatch b = null;
 		synchronized(this.closeLock){
 			if(!this.isClosed()){
-				this.state = this.stateFactory.createState(TnccsStateEnum.END);
+				this.state = this.stateHelper.createState(TnccsStateEnum.END);
 				b = this.state.collect();
 				this.state = this.state.getConclusiveState();
 				if(this.state instanceof End){
@@ -204,9 +205,9 @@ public class DefaultServerStateMachine implements StateMachine {
 	@Override
 	public void stop(){
 		synchronized(this.closeLock){
-			this.state = (this.state instanceof End) ? this.state : this.stateFactory.createState(TnccsStateEnum.END);
+			this.state = (this.state instanceof End) ? this.state : this.stateHelper.createState(TnccsStateEnum.END);
 			if(!this.connectionDeleteSet){
-				this.handler.setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE);
+				this.stateHelper.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE);
 				this.connectionDeleteSet = Boolean.TRUE;
 			}
 		}

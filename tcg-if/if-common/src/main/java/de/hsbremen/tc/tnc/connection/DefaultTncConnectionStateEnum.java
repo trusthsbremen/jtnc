@@ -8,20 +8,20 @@ public enum DefaultTncConnectionStateEnum implements TncConnectionState{
 	 * Network connection created.
 	 */
 
-	TNC_CONNECTION_STATE_CREATE(0),
+	TNC_CONNECTION_STATE_CREATE(0L),
 
 	/**
 	 * Handshake about to start.
 	 */
 
-	TNC_CONNECTION_STATE_HANDSHAKE(1),
+	TNC_CONNECTION_STATE_HANDSHAKE(1L),
 
 	/**
 	 * Handshake completed. TNC Server recommended that requested access be
 	 * allowed.
 	 */
 
-	TNC_CONNECTION_STATE_ACCESS_ALLOWED(2),
+	TNC_CONNECTION_STATE_ACCESS_ALLOWED(2L),
 
 	/**
 	 * 
@@ -29,20 +29,20 @@ public enum DefaultTncConnectionStateEnum implements TncConnectionState{
 	 * allowed.
 	 */
 
-	TNC_CONNECTION_STATE_ACCESS_ISOLATED(3),
+	TNC_CONNECTION_STATE_ACCESS_ISOLATED(3L),
 
 	/**
 	 * Handshake completed. TNCS Server recommended that no network access be
 	 * allowed.
 	 */
 
-	TNC_CONNECTION_STATE_ACCESS_NONE(4),
+	TNC_CONNECTION_STATE_ACCESS_NONE(4L),
 
 	/**
 	 * About to delete network connection. Remove all associated state.
 	 */
 
-	TNC_CONNECTION_STATE_DELETE(5),
+	TNC_CONNECTION_STATE_DELETE(5L),
 
 	// HSB (not specified in RFC)
 	/**

@@ -27,9 +27,10 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
+import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
@@ -38,7 +39,7 @@ public class DefaultSession implements Session{
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSession.class);
 	
-	private final DefaultSessionAttributes attributes;
+	private final SessionAttributes attributes;
 	private final ExecutorService runner;
 	private final TnccsWriter<TnccsBatch> writer;
 	private final TnccsReader<TnccsBatchContainer> reader;
@@ -46,10 +47,8 @@ public class DefaultSession implements Session{
 	private TransportConnection connection;
 	private StateMachine machine;
 	private boolean closed;
-	private long roundTripCounter; // TODO implement roundtrip handling
 	
-	
-	public DefaultSession(DefaultSessionAttributes attributes, TnccsWriter<TnccsBatch> writer, TnccsReader<TnccsBatchContainer> reader,ExecutorService runner){
+	public DefaultSession(SessionAttributes attributes, TnccsWriter<TnccsBatch> writer, TnccsReader<TnccsBatchContainer> reader,ExecutorService runner){
 		if(attributes == null){
 			throw new NullPointerException("Constructor arguments cannot be null.");
 		}
@@ -58,7 +57,6 @@ public class DefaultSession implements Session{
 		this.reader = reader;
 		this.closed = true;
 		this.runner = (runner != null) ? runner : Executors.newSingleThreadExecutor();
-		this.roundTripCounter = 0;
 	}
 	
 
@@ -110,7 +108,6 @@ public class DefaultSession implements Session{
 		
 	}
 	
-
 	@Override
 	public void receive(ByteBuffer batchContainer) throws ListenerClosedException {
 		if(this.isClosed()){
@@ -120,6 +117,20 @@ public class DefaultSession implements Session{
 		this.runner.execute(new Receive(batchContainer));
 		
 	}
+
+	
+	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TnccsValueListener#notifyClose()
+	 */
+	@Override
+	public void notifyClose() {
+		if(!this.closed){
+			LOGGER.info("Underlying transport was closed. Closing session.");
+			this.close();
+		}
+	}
+
 
 	@Override
 	public void retryHandshake(ImHandshakeRetryReasonEnum reason) throws TncException {
@@ -169,15 +180,20 @@ public class DefaultSession implements Session{
 							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)b.getHeader()).getLength());
 							this.writer.write(b, buf);
 							this.connection.send(buf);
+							this.incrementRoundTrips();
 						}
 					} catch (StateMachineAccessException | ConnectionException | SerializationException e) {
 						LOGGER.error("Fatal error discovered. Session terminates.", e);
 						this.machine.stop();
 					}
 				}
-				
 				this.connection.close();
 			}
+			
+			if(!this.machine.isClosed()){
+				this.machine.stop();
+			}
+			
 			this.runner.shutdownNow();
 		}
 	}
@@ -187,13 +203,16 @@ public class DefaultSession implements Session{
 		return closed;
 	}
 	
+	private void incrementRoundTrips(){
+		this.attributes.setCurrentRoundTrips(this.attributes.getCurrentRoundTrips()+1);
+	}
 	
 	private class Start implements Runnable{
 
 		private boolean selfInitiated;
-		private TnccsValueListener listener;
+		private TnccsListener listener;
 		
-		protected Start(boolean selfInitiated, TnccsValueListener listener){
+		protected Start(boolean selfInitiated, TnccsListener listener){
 			this.selfInitiated = selfInitiated;
 			this.listener = listener;
 		}
@@ -210,7 +229,9 @@ public class DefaultSession implements Session{
 						ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
 						writer.write(batch, buf);
 						connection.send(buf);
+						incrementRoundTrips();
 					}
+					
 					if(machine.isClosed()){
 						LOGGER.info("State machine has reached the end state. Session terminates.");
 						close();
@@ -256,14 +277,15 @@ public class DefaultSession implements Session{
 				
 				TnccsBatch batch = machine.receiveBatch(container);
 				
-				roundTripCounter++;
+				
 				if(batch != null){
 	
 					ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
 					writer.write(batch, buf);
 					connection.send(buf);
+					incrementRoundTrips();
 				}
-							
+				
 				if(machine.isClosed()){
 					LOGGER.info("State machine has reached the end state. Session terminates.");
 					close();
@@ -303,6 +325,7 @@ public class DefaultSession implements Session{
 							ByteBuffer buf = new DefaultByteBuffer(((PbBatchHeader)batch.getHeader()).getLength());
 							writer.write(batch, buf);
 							connection.send(buf);
+							incrementRoundTrips();
 						}
 					}
 					
@@ -322,7 +345,6 @@ public class DefaultSession implements Session{
 			return success;
 		}
 		
-	}
-	
+	}	
 	
 }

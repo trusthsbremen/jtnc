@@ -9,7 +9,7 @@ interface ImSession {
 	
 	// TODO use costume exceptions where possible.
 
-//	public abstract ImConnectionStateEnum getConnectionState();
+	public abstract TncConnectionState getConnectionState();
 	
 	public abstract void setConnectionState(TncConnectionState imConnectionState) throws TncException;
 

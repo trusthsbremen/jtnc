@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
@@ -27,6 +28,8 @@ class DefaultClientRetryState extends AbstractState implements Retry {
 	@Override
 	public TnccsBatch collect() {
 		TnccsBatch b = null;
+		
+		super.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
 		
 		List<TnccsMessage> messages  = super.getHandler().collectMessages();
 		try{

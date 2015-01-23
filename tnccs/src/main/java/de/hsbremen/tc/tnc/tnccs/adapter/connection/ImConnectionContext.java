@@ -19,6 +19,10 @@ public interface ImConnectionContext{
 	
 	public void setAttribute(TncAttributeType type, Object value) throws TncException;
 
+	public void validate();
+	
 	public void invalidate();
+
+	public boolean isValid();
 	
 }

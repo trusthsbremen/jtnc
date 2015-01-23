@@ -32,7 +32,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportAddress;
 import de.hsbremen.tc.tnc.transport.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
@@ -61,9 +61,12 @@ public class SocketTransportConnection implements TransportConnection{
 	private OutputStream out;
 	private InputStream in;
 	
-	private TnccsValueListener listener;
+	private TnccsListener listener;
 	
 	private long messageIdentifier;
+	
+	private long rxCounter;
+	private long txCounter;
 	
 	public SocketTransportConnection(boolean selfInitiated, boolean server, Socket socket, 
 			TransportAttributes attributes, TransportAddress address, 
@@ -102,7 +105,7 @@ public class SocketTransportConnection implements TransportConnection{
 	}
 
 	@Override
-	public void open(TnccsValueListener listener) throws ConnectionException {
+	public void open(TnccsListener listener) throws ConnectionException {
 		LOGGER.debug("Open transport connection.");
 		
 		try{
@@ -158,6 +161,7 @@ public class SocketTransportConnection implements TransportConnection{
 			}
 		}
 		runner.shutdownNow();
+		this.listener.notifyClose();
 	}
 	
 	@Override
@@ -168,7 +172,7 @@ public class SocketTransportConnection implements TransportConnection{
 					
 					TransportMessage m = PtTlsMessageFactoryIetf.createPbBatch(this.getIdentifier(), buf);
 					this.writeToStream(m);
-
+					this.checkRoundTrips();
 				} catch (SerializationException | ValidationException e) {
 					throw new ConnectionException("Data could not be written to stream.", e);
 				}
@@ -196,6 +200,14 @@ public class SocketTransportConnection implements TransportConnection{
 	private void initialize() throws SerializationException, ValidationException, ConnectionException {
 		this.negotiateVersion();
 		this.makeAuthentication();
+		
+		// reset rx/tx counter to measure only the integrity transports
+		long roundTrips = Math.max(this.rxCounter,this.txCounter); 
+		LOGGER.debug("Negotiation phase completed ( Messages received:" + rxCounter +", Messages send:"+txCounter+", Rounds:"+roundTrips+")");
+		this.rxCounter = 0;
+		this.txCounter = 0;
+		
+		// start transport phase
 		this.runner.execute(new TransportPhase());
 		
 	}
@@ -366,7 +378,7 @@ public class SocketTransportConnection implements TransportConnection{
 					}
 					
 					this.out.flush();
-
+					this.txCounter++;
 				} catch (IOException e) {
 					throw new ConnectionException("Data could not be written to stream.", e);
 				}finally{
@@ -388,6 +400,7 @@ public class SocketTransportConnection implements TransportConnection{
 				ByteBuffer b = new StreamedReadOnlyBuffer(socket.getInputStream());
 				TransportMessageContainer ct = this.reader.read(b, -1);
 				b.clear();
+				this.rxCounter++;
 				return ct;
 				
 			} catch (IOException e) {
@@ -408,6 +421,17 @@ public class SocketTransportConnection implements TransportConnection{
 			}
 		}
 		
+	}
+	
+	private void checkRoundTrips(){
+		long maxRoundTrips = this.attributes.getMaxRoundTrips();
+		if(HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN < maxRoundTrips && maxRoundTrips < HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNLIMITED){
+			long roundTrips = Math.min(this.rxCounter,this.txCounter); 
+			if(roundTrips >= maxRoundTrips){
+				LOGGER.debug("Round trip limit exceeded: ( Messages received:" + rxCounter +", Messages send:"+txCounter+", Rounds:"+roundTrips+")");
+				this.close();
+			}
+		}
 	}
 	
 	private class TransportPhase implements Runnable {

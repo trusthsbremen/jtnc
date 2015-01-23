@@ -34,7 +34,7 @@ class DefaultCommonErrorState extends AbstractState implements Error{
 		
 			if(batchContainer.getExceptions() != null){
 		
-				List<TnccsMessage> messages =super.getHandler().handleExceptions(batchContainer.getExceptions());
+				List<TnccsMessage> messages = super.getHandler().handleExceptions(batchContainer.getExceptions());
 				b = StateUtil.createCloseBatch(server,messages.toArray(new TnccsMessage[messages.size()]));
 				super.setSuccessor(this.factory.createState(TnccsStateEnum.END));
 				

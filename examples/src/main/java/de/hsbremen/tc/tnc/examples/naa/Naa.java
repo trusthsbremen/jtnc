@@ -19,7 +19,7 @@ import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TncsAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TncsAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;
@@ -59,6 +59,7 @@ public class Naa {
 				TcgTVersionEnum.V1.value(),
 				PtTlsWriterFactory.createProductionDefault(), 
 				PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
+		this.connectionBuilder.setMaxRoundTrips(1);
 		
 		this.connectionBuilder.setMessageLength(MAX_MSG_SIZE).setImMessageLength(MAX_MSG_SIZE/10);
 		

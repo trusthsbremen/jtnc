@@ -79,6 +79,7 @@ public class DefaultImvHandler implements ImvHandler{
 		if(imConnectionState.equals(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE)){
 			this.handshakeBegin = true;
 			this.refreshAdapterEntries();
+			this.connectionContext.validate();
 		}
 		
 		for (Iterator<Entry<Long, ImvAdapter>> iter = this.imAdapters.entrySet().iterator(); iter.hasNext(); ) {
@@ -232,7 +233,64 @@ public class DefaultImvHandler implements ImvHandler{
 		
 		return this.connectionContext.clearMessage();
 	}
+
+	public void dumpMessage(TnccsMessage message) {
+		this.checkState();
+		
+		// dumping means, no messages should be send in response
+		if(this.connectionContext.isValid()){
+			this.connectionContext.invalidate();
+		}
+		
+		if(message == null || message.getValue() == null){
+			LOGGER.debug("Because Message or message value is null, it is ignored.");
+			return;
+		}
+		
+		TnccsMessageValue value = message.getValue();
+		
+		if(value instanceof PbMessageValueIm){
+			
+			PbMessageValueIm valueCast = (PbMessageValueIm)value;
+			
+			Set<Long> recipients = new HashSet<>();
+			if(valueCast.getImFlags().contains(PbMessageImFlagsEnum.EXCL)){
+				Long recipient = this.router.findExclRecipientId(valueCast.getCollectorId(),valueCast.getSubVendorId(), valueCast.getSubType());
+				if(recipient != null){
+					recipients.add(recipient);
+				}
+			}else{
+				recipients = this.router.findRecipientIds(valueCast.getSubVendorId(), valueCast.getSubType());
+			}
+			
+			for (Long recipientId : recipients) {
+				
+				if(this.imAdapters.containsKey(recipientId)){
+					try{	
+						
+						this.imAdapters.get(recipientId).handleMessage(this.connections.get(recipientId), value);
 	
+					} catch (TerminatedException e) {
+						this.imAdapters.remove(recipientId);
+						this.connections.remove(recipientId);
+					} catch (TncException e){
+						if(e.getResultCode().equals(TncExceptionCodeEnum.TNC_RESULT_FATAL)){
+							this.connections.remove(recipientId);
+							this.manager.removeAdapter(recipientId);
+							this.imAdapters.remove(recipientId);	
+						}
+						LOGGER.error(e.getMessage(),e);
+					}
+				}
+			}
+		}else{
+			LOGGER.debug("Because Message is not of type " + PbMessageValueIm.class.getCanonicalName() + ", it is ignored.");
+		}
+		
+		// we do not want any messages, so just to be secure discard them all
+		this.connectionContext.clearMessage();
+	}
+
 	private void refreshAdapterEntries(){
 		Map<Long,ImvAdapter> list =  this.manager.getAdapter();
 

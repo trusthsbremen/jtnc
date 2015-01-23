@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
@@ -26,6 +27,8 @@ class DefaultServerRetryState extends AbstractState implements Init {
 	@Override
 	public TnccsBatch collect() {
 		TnccsBatch b = null;
+		
+		super.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
 		
 		try{
 				

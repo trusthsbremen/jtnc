@@ -13,4 +13,6 @@ interface TnccsMessageHandler {
 	public abstract List<TnccsMessage> requestMessages();
 	public abstract List<TnccsMessage> forwardMessage(TnccsMessage message);
 	public abstract List<TnccsMessage> lastCall();
+	
+	public abstract void dumpMessage(TnccsMessage message);
 }

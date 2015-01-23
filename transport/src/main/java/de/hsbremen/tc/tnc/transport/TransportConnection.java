@@ -12,7 +12,7 @@ public interface TransportConnection{
 	 
 	 public abstract boolean isOpen();
 	
-	 public abstract void open(TnccsValueListener listener) throws ConnectionException;
+	 public abstract void open(TnccsListener listener) throws ConnectionException;
 	 
 	 public abstract void send(ByteBuffer buffer) throws ConnectionException;
 	    

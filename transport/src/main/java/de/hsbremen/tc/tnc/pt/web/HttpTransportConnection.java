@@ -2,7 +2,7 @@ package de.hsbremen.tc.tnc.pt.web;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.transport.TnccsValueListener;
+import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportAddress;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
@@ -28,7 +28,7 @@ public class HttpTransportConnection implements TransportConnection {
 	}
 
 	@Override
-	public void open(TnccsValueListener listener) throws ConnectionException {
+	public void open(TnccsListener listener) throws ConnectionException {
 		// TODO Auto-generated method stub
 
 	}

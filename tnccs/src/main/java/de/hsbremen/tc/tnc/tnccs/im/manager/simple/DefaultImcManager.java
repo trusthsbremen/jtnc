@@ -20,7 +20,7 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
-import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TnccAdapterFactory;
+import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.im.manager.AbstractImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
@@ -124,7 +124,7 @@ public class DefaultImcManager extends AbstractImManager<IMC> implements ImcMana
 		Set<Long> keys = new HashSet<>(this.adapterIndex.keySet());
 		for(Iterator<Long> iter = keys.iterator(); iter.hasNext(); ){
 			Long key = iter.next();
-			this.remove(key);
+			this.removeAdapter(key);
 		}
 	}
 	

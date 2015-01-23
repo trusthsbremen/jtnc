@@ -49,13 +49,13 @@ public class TnccAndTncsCommunicationTest {
 		TncsContentHandler tncsHandler = new DefaultTncsContentHandler(Dummy.getImvHandler(), 
 				new DefaultTncsHandler(serverAttributes), 
 				new DefaultTnccsValidationExceptionHandler());
-		this.server = new DefaultServerStateMachine(new DefaultServerStateFactory(tncsHandler));
+		this.server = new DefaultServerStateMachine(new DefaultServerStateFactory(serverAttributes,tncsHandler));
 		
 		DefaultSessionAttributes clientAttributes = new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
 		TnccContentHandler tnccHandler = new DefaultTnccContentHandler(Dummy.getImcHandler(), 
 				new DefaultTnccHandler(clientAttributes), 
 				new DefaultTnccsValidationExceptionHandler());
-		this.client = new DefaultClientStateMachine(new DefaultClientStateFactory(tnccHandler));
+		this.client = new DefaultClientStateMachine(new DefaultClientStateFactory(clientAttributes,tnccHandler));
 	
 	}
 	

@@ -20,7 +20,7 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
-import de.hsbremen.tc.tnc.tnccs.adapter.tncc.TncsAdapterFactory;
+import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TncsAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.im.manager.AbstractImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImvManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
@@ -124,7 +124,7 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements ImvMana
 		Set<Long> keys = new HashSet<>(this.adapterIndex.keySet());
 		for(Iterator<Long> iter = keys.iterator(); iter.hasNext(); ){
 			Long key = iter.next();
-			this.remove(key);
+			this.removeAdapter(key);
 		}
 	}
 }

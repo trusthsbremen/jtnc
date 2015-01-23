@@ -106,7 +106,7 @@ public class SocketTransportConnectionBuilder implements TransportConnectionBuil
 	 * @param maxRoundTrips the maxRoundTrips to set
 	 */
 	public SocketTransportConnectionBuilder setMaxRoundTrips(long maxRoundTrips) {
-		if(this.maxRoundTrips <= 0){
+		if(maxRoundTrips <= 0){
 			throw new IllegalArgumentException("Round trips cannot be null.");
 		}
 		this.maxRoundTrips = maxRoundTrips;

@@ -349,6 +349,17 @@ public class Dummy extends AbstractDummy{
 				}
 				
 			}
+
+			@Override
+			public void validate() {
+				System.out.println("validate() called.");
+				this.valid = true;
+			}
+
+			@Override
+			public boolean isValid() {
+				return this.valid;
+			}
 		};
 	}
 

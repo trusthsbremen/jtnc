@@ -77,6 +77,7 @@ public class DefaultTncsHandler implements TncsHandler{
 		return messages;
 				
 	}
+	
 	@Override
 	public List<TnccsMessage> forwardMessage(TnccsMessage message) {
 		
@@ -105,6 +106,23 @@ public class DefaultTncsHandler implements TncsHandler{
 			this.handshakeStartet = false;
 		}
 		return messages;
+	}
+	
+	@Override
+	public void dumpMessage(TnccsMessage message) {
+		
+		if(message == null || message.getValue() == null){
+			LOGGER.debug("Because Message or message value is null, it is ignored.");
+			return;
+		}
+		
+		TnccsMessageValue value = message.getValue();
+		
+		LOGGER.debug("Message value received: " + value.toString());
+		
+		if(value instanceof PbMessageValueLanguagePreference){
+			this.handleLanguagePreference((PbMessageValueLanguagePreference) value);
+		}
 	}
 
 	private void handleLanguagePreference(PbMessageValueLanguagePreference value) {

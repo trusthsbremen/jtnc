@@ -26,17 +26,22 @@ public class AttributeCollection implements Attributed{
 	
 	@Override
 	public Object getAttribute(TncAttributeType type) throws TncException {
+		Object o = null;
 		for (Object attribut : attributes) {
 			if(attribut instanceof Attributed){
 				try{
-					return ((Attributed) attribut).getAttribute(type);
+					o = ((Attributed) attribut).getAttribute(type);
 				}catch(TncException e){
 					// ignore
 				}
 			}
 		}
 		
-		throw new TncException("The attribute with ID " + type.id() + " is unknown.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+		if(o != null){
+			return o;
+		}else{
+			throw new TncException("The attribute with ID " + type.id() + " is unknown.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+		}
 	}
 
 	@Override

@@ -9,5 +9,7 @@ public interface TnccsValidationExceptionHandler {
 
 
 	public abstract List<TnccsMessage> handle(List<ValidationException> exceptions);
+
+	public abstract void dump(List<ValidationException> exceptions);
 	
 }
