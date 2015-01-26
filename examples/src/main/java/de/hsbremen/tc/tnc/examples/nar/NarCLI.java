@@ -49,7 +49,6 @@ public class NarCLI {
 					if(input.contains("stop")){
 						nar.stopHandshake();
 					}
-				
 				}
 			} catch (IOException e) {
 				System.err.println("Handshake could not be stopped: " + e.getMessage());
