@@ -15,6 +15,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 import de.hsbremen.tc.tnc.tnccs.session.base.HandshakeRetryListener;
 
 //FIXME This is a tradeoff, because I could not figure out a way to fix the 
@@ -31,7 +32,11 @@ public abstract class AbstractImConnectionContext implements ImConnectionContext
 
 	public AbstractImConnectionContext(Attributed attributes, HandshakeRetryListener listener) {
 		this.messageQueue = new LinkedList<>();
-		this.attributes = attributes;
+		if(attributes != null){
+			this.attributes = attributes;
+		}else{
+			this.attributes = new AttributeCollection();
+		}
 		
 		try{
 			Object o = attributes.getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_MAX_ROUND_TRIPS);
@@ -66,7 +71,9 @@ public abstract class AbstractImConnectionContext implements ImConnectionContext
 	@Override
 	public void requestHandshakeRetry(ImHandshakeRetryReasonEnum reason) throws TncException {
 		this.checkRoundTrips();
-		this.listener.retryHandshake(reason);
+		if(this.listener != null){
+			this.listener.retryHandshake(reason);
+		}
 	}
 
 	@Override

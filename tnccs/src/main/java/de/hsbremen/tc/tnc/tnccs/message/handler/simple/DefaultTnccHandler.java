@@ -40,10 +40,25 @@ public class DefaultTnccHandler implements TnccHandler{
 		this.handshakeStartet = false;
 	}
 	
+	/**
+	 * @return the sessionAttributes
+	 */
+	public Attributed getAttributes() {
+		return this.sessionAttributes;
+	}
+
+	/**
+	 * @return the tnccLanguagePreference
+	 */
+	public String getTnccLanguagePreference() {
+		return this.tnccLanguagePreference;
+	}
+
 	@Override
 	public TncConnectionState getAccessDecision() {
 		return this.state;
 	}
+	
 	@Override
 	public void setConnectionState(TncConnectionState state) {
 		LOGGER.debug("Connection state has changed to " + state.toString() + ".");

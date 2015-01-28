@@ -3,29 +3,41 @@ package org.ietf.nea.pt;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
+import de.hsbremen.tc.tnc.attribute.TncHsbAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.transport.TransportAttributes;
 
 public class DefaultTransportAttributes implements TransportAttributes{
 
+	private final String tId;
 	private final String tVersion;
 	private final String tProtocol;
 	private final long maxMessageLength;
 	private final long maxMessageLengthPerIm;
 	private final long maxRoundTrips;
 	
-	public DefaultTransportAttributes(String tProtocol, String tVersion){
-		this(tProtocol, tVersion, HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNKNOWN, HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN, HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
+	public DefaultTransportAttributes(String tId, String tProtocol, String tVersion){
+		this(tId, tProtocol, tVersion, HSBConstants.TCG_IM_MAX_MESSAGE_SIZE_UNKNOWN, HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN, HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
 	}
 	
-	public DefaultTransportAttributes(String tProtocol, String tVersion, 
+	public DefaultTransportAttributes(String tId, String tProtocol, String tVersion, 
 			long maxMessageLength, long maxMessageLengthPerIm, long maxRoundTrips) {
+		this.tId = tId;
 		this.tProtocol = tProtocol;
 		this.tVersion = tVersion;
 		this.maxMessageLength = maxMessageLength;
 		this.maxMessageLengthPerIm = maxMessageLengthPerIm;
 		this.maxRoundTrips = maxRoundTrips;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportAttributes#getTransportId()
+	 */
+	@Override
+	public String getTransportId() {
+		return this.tId;
 	}
 
 	/* (non-Javadoc)
@@ -73,6 +85,10 @@ public class DefaultTransportAttributes implements TransportAttributes{
 	 */
 	@Override
 	public Object getAttribute(TncAttributeType type) throws TncException {
+		
+		if(type.equals(TncHsbAttributeTypeEnum.HSB_ATTRIBUTEID_IFT_ID)){
+			return this.tId;
+		}
 		
 		if(type.equals(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_IFT_PROTOCOL)){
 			return this.tProtocol;

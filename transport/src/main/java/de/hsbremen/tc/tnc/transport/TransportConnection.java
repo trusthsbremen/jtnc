@@ -6,8 +6,6 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public interface TransportConnection{
 
-     public abstract TransportAddress getAddress(); 
-
 	 public abstract boolean isSelfInititated();
 	 
 	 public abstract boolean isOpen();

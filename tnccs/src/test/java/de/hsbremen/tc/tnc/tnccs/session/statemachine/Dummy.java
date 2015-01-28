@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.transport.TransportAddress;
 
 public class Dummy extends AbstractDummy{
 
@@ -76,23 +75,6 @@ public class Dummy extends AbstractDummy{
 					throws TncException {
 				System.out.println("setAttribute() called with type " + type.toString() +" and value "+ value.toString()+".");
 				throw new UnsupportedOperationException("Operation not supported because there is no attribute to set.");
-			}
-			
-			
-		};
-	}
-
-	protected static TransportAddress getTransportAddress() {
-		return new TransportAddress() {
-			
-			private int i = new Random().nextInt(100);
-
-			/* (non-Javadoc)
-			 * @see java.lang.Object#toString()
-			 */
-			@Override
-			public String toString() {
-				return super.toString() + "[id: "+i+"]";
 			}
 			
 			

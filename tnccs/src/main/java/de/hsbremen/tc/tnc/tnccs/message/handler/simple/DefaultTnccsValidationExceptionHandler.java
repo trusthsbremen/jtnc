@@ -10,6 +10,7 @@ import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsValidationExceptionHandler;
@@ -17,6 +18,17 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsValidationExceptionHandler;
 public class DefaultTnccsValidationExceptionHandler implements TnccsValidationExceptionHandler{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultTnccsValidationExceptionHandler.class);
+	
+	// This is not used yet, but may be good for other versions.
+	@SuppressWarnings("unused")
+	private final Attributed attributes;
+	
+	public DefaultTnccsValidationExceptionHandler(Attributed attributes){
+		if(attributes == null){
+			throw new NullPointerException("Attributes cannot be null. Use empty attributes instead.");
+		}
+		this.attributes = attributes;
+	}
 	
 	@Override
 	public List<TnccsMessage> handle(List<ValidationException> exceptions) {

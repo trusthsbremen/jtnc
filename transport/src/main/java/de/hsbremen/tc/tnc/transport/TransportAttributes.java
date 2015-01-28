@@ -5,6 +5,11 @@ import de.hsbremen.tc.tnc.attribute.Attributed;
 public interface TransportAttributes extends Attributed {
 
 	/**
+	 * @return the tId
+	 */
+	public abstract String getTransportId();
+	
+	/**
 	 * @return the tVersion
 	 */
 	public abstract String getTransportVersion();

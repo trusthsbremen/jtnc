@@ -63,6 +63,8 @@ public class DefaultTncsContentHandler implements TncsContentHandler{
 		if(list != null){
 			for (TnccsMessage tnccsMessage : list) {
 				// TODO make a better filter here, only bring those message to a handler who can handle it.
+				// e.g. VendorID = IETF_PEN && MessageType = PB_PA
+				// Currently the handler decides which message it accepts.
 				List<TnccsMessage> temp = this.imHandler.forwardMessage(tnccsMessage);
 				if(temp != null){
 					messages.addAll(temp);
@@ -93,6 +95,8 @@ public class DefaultTncsContentHandler implements TncsContentHandler{
 		if(list != null){
 			for (TnccsMessage tnccsMessage : list) {
 				// TODO make a better filter here, only bring those message to a handler who can handle it.
+				// e.g. VendorID = IETF_PEN && MessageType = PB_PA
+				// Currently the handler decides which message it accepts.
 				this.imHandler.dumpMessage(tnccsMessage);
 				this.tncsHandler.dumpMessage(tnccsMessage);
 			}

@@ -9,7 +9,7 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TncsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.Decided;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.End;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
@@ -26,9 +26,9 @@ public class DefaultServerStateMachine implements StateMachine {
 	private Object closeLock;
 	private Boolean connectionDeleteSet;
 	
-	private final StateHelper<? extends TnccsContentHandler> stateHelper;
+	private final StateHelper<? extends TncsContentHandler> stateHelper;
 	
-	public DefaultServerStateMachine(StateHelper<? extends TnccsContentHandler> stateHelper){
+	public DefaultServerStateMachine(StateHelper<? extends TncsContentHandler> stateHelper){
 
 		if(stateHelper == null){
 			throw new NullPointerException("StateHelper cannot be null.");

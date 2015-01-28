@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;
 import de.hsbremen.tc.tnc.transport.TnccsListener;
-import de.hsbremen.tc.tnc.transport.TransportAddress;
 import de.hsbremen.tc.tnc.transport.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
@@ -48,7 +47,6 @@ public class SocketTransportConnection implements TransportConnection{
 	private static final short PREF_VERSION = 1;
 	
 	private final Socket socket;
-	private final TransportAddress address;
 	private final boolean selfInitiated;
 	private final boolean server;
 	private final TransportAttributes attributes;
@@ -69,7 +67,7 @@ public class SocketTransportConnection implements TransportConnection{
 	private long txCounter;
 	
 	public SocketTransportConnection(boolean selfInitiated, boolean server, Socket socket, 
-			TransportAttributes attributes, TransportAddress address, 
+			TransportAttributes attributes, 
 			TransportWriter<TransportMessage> writer,
 			TransportReader<TransportMessageContainer> reader,
 			ExecutorService runner){
@@ -77,18 +75,12 @@ public class SocketTransportConnection implements TransportConnection{
 		this.selfInitiated = selfInitiated;
 		this.server = server;
 		this.attributes = attributes;
-		this.address = address;
 		this.reader = reader;
 		this.writer = writer;
 		this.runner = runner;
 		this.messageIdentifier = 0;
 	}
 	
-	@Override
-	public TransportAddress getAddress() {
-		return this.address;
-	}
-
 	@Override
 	public boolean isSelfInititated() {
 		return selfInitiated;

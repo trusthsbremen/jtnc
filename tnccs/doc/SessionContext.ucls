@@ -40,9 +40,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultClientSessionFactory" 
+  <class id="5" language="java" name="de.hsbremen.tc.tnc.tnccs.session.base.simple.OldDefaultClientSessionFactory" 
     project="tnccs" 
-    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/simple/DefaultClientSessionFactory.java" 
+    file="/tnccs/src/main/java/de/hsbremen/tc/tnc/tnccs/session/base/simple/OldDefaultClientSessionFactory.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1404" y="520"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 

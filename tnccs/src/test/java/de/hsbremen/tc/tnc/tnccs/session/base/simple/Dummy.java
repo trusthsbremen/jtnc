@@ -43,7 +43,6 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.transport.TnccsListener;
-import de.hsbremen.tc.tnc.transport.TransportAddress;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class Dummy extends AbstractDummy{
@@ -92,39 +91,7 @@ public class Dummy extends AbstractDummy{
 		};
 	}
 
-	protected static TransportAddress getTransportAddress() {
-		return new TransportAddress() {
-			
-			private int i = new Random().nextInt(100);
 
-			/* (non-Javadoc)
-			 * @see java.lang.Object#toString()
-			 */
-			@Override
-			public String toString() {
-				return super.toString() + "[id: "+i+"]";
-			}
-			
-			
-		};
-	}
-	
-	protected static de.hsbremen.tc.tnc.transport.TransportAddress getTransportAddressNewp() {
-		return new de.hsbremen.tc.tnc.transport.TransportAddress() {
-			
-			private int i = new Random().nextInt(100);
-
-			/* (non-Javadoc)
-			 * @see java.lang.Object#toString()
-			 */
-			@Override
-			public String toString() {
-				return super.toString() + "[id: "+i+"]";
-			}
-			
-			
-		};
-	}
 
 	protected static PbBatch getClientDataBatchWithImMessage() throws ValidationException{
 		
@@ -406,7 +373,6 @@ public class Dummy extends AbstractDummy{
 		return new de.hsbremen.tc.tnc.transport.TransportConnection(){
 
 			private Attributed attributes;
-			private de.hsbremen.tc.tnc.transport.TransportAddress address;
 			private ByteArrayInputStream in;
 			private ByteArrayOutputStream out;
 			private boolean open;
@@ -416,7 +382,6 @@ public class Dummy extends AbstractDummy{
 				 in = new ByteArrayInputStream(Dummy.getBatchWithImMessageAsByte());
 				 out = new ByteArrayOutputStream();
 				 open = true;
-				 address = Dummy.getTransportAddressNewp();
 				 attributes = Dummy.getTransportAttributes();
 			}
 			
@@ -432,12 +397,6 @@ public class Dummy extends AbstractDummy{
 				return (open && in != null && out != null);
 			}
 			
-			
-			@Override
-			public de.hsbremen.tc.tnc.transport.TransportAddress getAddress() {
-				System.out.println("getId() called. " + this.address.toString());
-				return this.address;
-			}
 			
 			@Override
 			public Attributed getAttributes() {

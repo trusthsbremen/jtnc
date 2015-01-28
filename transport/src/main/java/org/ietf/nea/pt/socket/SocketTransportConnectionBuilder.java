@@ -10,7 +10,6 @@ import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
-import de.hsbremen.tc.tnc.transport.TransportAddress;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.TransportConnectionBuilder;
 
@@ -50,6 +49,44 @@ public class SocketTransportConnectionBuilder implements TransportConnectionBuil
 		
 	}
 
+	
+	
+	/**
+	 * @return the transportProtocolId
+	 */
+	public String getTransportProtocolId() {
+		return this.transportProtocolId;
+	}
+
+
+
+	/**
+	 * @return the transportProtocolVersion
+	 */
+	public String getTransportProtocolVersion() {
+		return this.transportProtocolVersion;
+	}
+
+
+
+	/**
+	 * @return the writer
+	 */
+	public TransportWriter<TransportMessage> getWriter() {
+		return this.writer;
+	}
+
+
+
+	/**
+	 * @return the reader
+	 */
+	public TransportReader<TransportMessageContainer> getReader() {
+		return this.reader;
+	}
+
+
+
 	/**
 	 * @return the messageLength
 	 */
@@ -69,13 +106,6 @@ public class SocketTransportConnectionBuilder implements TransportConnectionBuil
 	 */
 	public long getMaxRoundTrips() {
 		return this.maxRoundTrips;
-	}
-
-	/**
-	 * @return the memoryBoarder
-	 */
-	public long getMemoryBoarder() {
-		return this.memoryBoarder;
 	}
 
 	/**
@@ -114,6 +144,34 @@ public class SocketTransportConnectionBuilder implements TransportConnectionBuil
 		return this;
 	}
 
+	
+	
+	/* (non-Javadoc)
+	 * @see de.hsbremen.tc.tnc.transport.TransportConnectionBuilder#toConnection(java.lang.String, boolean, boolean, java.lang.Object)
+	 */
+	@Override
+	public TransportConnection toConnection(String id, boolean selfInitiated,
+			boolean server, Object underlying) {
+		
+		if(underlying == null){
+			throw new NullPointerException("Underlying cannot be NULL.");
+		}
+		
+		if(!(underlying instanceof Socket)){
+			throw new IllegalArgumentException("Underlying must be of type " + Socket.class.getCanonicalName() +".");
+		}
+
+		Socket socket = (Socket)underlying;
+		
+		DefaultTransportAttributes attributes = new DefaultTransportAttributes(id,this.transportProtocolId, this.transportProtocolVersion,this.messageLength,this.imMessageLength,this.maxRoundTrips);
+		
+		SocketTransportConnection t = new SocketTransportConnection(selfInitiated,server,socket,attributes, writer,reader, Executors.newSingleThreadExecutor());
+		
+		return t;
+	}
+
+
+
 	@Override
 	public TransportConnection toConnection(boolean selfInitiated, boolean server, Object underlying) {
 		
@@ -122,18 +180,15 @@ public class SocketTransportConnectionBuilder implements TransportConnectionBuil
 		}
 		
 		if(!(underlying instanceof Socket)){
-			throw new IllegalArgumentException("Underlying must bve of type " + Socket.class.getCanonicalName() +".");
+			throw new IllegalArgumentException("Underlying must be of type " + Socket.class.getCanonicalName() +".");
 		}
 
 		Socket socket = (Socket)underlying;
 		
-		TransportAddress address = new SocketTransportAddress(socket.getInetAddress().getHostName(), socket.getPort());
+		String id = socket.getInetAddress().getHostAddress();
 		
-		DefaultTransportAttributes attributes = new DefaultTransportAttributes(transportProtocolId, transportProtocolVersion,this.messageLength,this.imMessageLength,this.maxRoundTrips);
-		
-		SocketTransportConnection t = new SocketTransportConnection(selfInitiated,server,socket,attributes, address,writer,reader, Executors.newSingleThreadExecutor());
-		
-		return t;
+		return this.toConnection(id,selfInitiated, server, underlying);
+				
 	}
 	
 	

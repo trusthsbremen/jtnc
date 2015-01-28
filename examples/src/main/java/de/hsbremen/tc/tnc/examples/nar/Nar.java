@@ -18,9 +18,9 @@ import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;
+import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
 import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
@@ -54,9 +54,9 @@ public class Nar {
 		SessionFactory factory = new DefaultClientSessionFactory(
 				PbReaderFactory.getTnccsProtocol(),
 				PbReaderFactory.getTnccsVersion(),
-				this.manager,
 				PbWriterFactory.createProductionDefault(), 
-				PbReaderFactory.createProductionDefault()
+				PbReaderFactory.createProductionDefault(),
+				this.manager
 		);
 		
 		this.client = new DefaultClientFacade(factory, 3000);

@@ -7,32 +7,32 @@ import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
-import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactory;
-import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.simple.DefaultImcConnectionContext;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImAdapterManager;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandlerBuilder;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccContentHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccContentHandlerFactory;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsHandlerBuilder;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsValidationExceptionHandler;
-import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImcHandler;
-import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccContentHandler;
-import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccHandler;
-import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccsValidationExceptionHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImcHandlerBuilder;
+import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccContentHandlerFactory;
+import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccHandlerBuilder;
+import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccsValidationExceptionHandlerBuilder;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachineBuilder;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateFactory;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachine;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachineBuilder;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 
 public class DefaultClientSessionFactory implements SessionFactory {
-
-	private final ImAdapterManager<ImcAdapter> adapterManager;
 
 	private final String tnccsProtocolId;
 	private final String tnccsProtocolVersion;
@@ -40,21 +40,88 @@ public class DefaultClientSessionFactory implements SessionFactory {
 	private final TnccsWriter<TnccsBatch> writer;
 	private final TnccsReader<TnccsBatchContainer> reader;
 	
+	private final ImcHandlerBuilder imcHandlerBuilder;
+	private final TnccsHandlerBuilder<TnccHandler> tnccHandlerBuilder;
+	private final TnccsHandlerBuilder<TnccsValidationExceptionHandler> tnccsValExBuilder;
+	private final TnccContentHandlerFactory tnccContentHandlerFactory;
+	private final StateMachineBuilder<TnccContentHandler> stateMachineBuilder;
+	
 	public DefaultClientSessionFactory(
 			String tnccsProtocolId, 
 			String tnccsProtocolVersion, 
-			ImAdapterManager<ImcAdapter> adapterManager, 
 			TnccsWriter<TnccsBatch> writer, 
-			TnccsReader<TnccsBatchContainer> reader){
+			TnccsReader<TnccsBatchContainer> reader, ImAdapterManager<ImcAdapter> adapterManager){
+		this(tnccsProtocolId, tnccsProtocolVersion, writer, reader,
+				new DefaultImcHandlerBuilder(adapterManager), 
+				new DefaultTnccHandlerBuilder(), 
+				new DefaultTnccsValidationExceptionHandlerBuilder(), 
+				new DefaultTnccContentHandlerFactory(), 
+				new DefaultClientStateMachineBuilder());
+	}
+	
+	public DefaultClientSessionFactory(
+			String tnccsProtocolId, 
+			String tnccsProtocolVersion, 
+			TnccsWriter<TnccsBatch> writer, 
+			TnccsReader<TnccsBatchContainer> reader,
+			ImcHandlerBuilder imcHandlerBuilder,
+			TnccsHandlerBuilder<TnccHandler> tnccHandlerBuilder,
+			TnccsHandlerBuilder<TnccsValidationExceptionHandler> tnccsValExBuilder,
+			TnccContentHandlerFactory tnccContentHandlerFactory,
+			StateMachineBuilder<TnccContentHandler> stateMachineBuilder){
 		
 		this.tnccsProtocolId = tnccsProtocolId;
 		this.tnccsProtocolVersion = tnccsProtocolVersion;
 		
-		this.adapterManager = adapterManager;
 		this.reader = reader;
 		this.writer = writer;
+		
+		this.imcHandlerBuilder = imcHandlerBuilder;
+		this.tnccHandlerBuilder = tnccHandlerBuilder;
+		this.tnccsValExBuilder = tnccsValExBuilder;
+		this.tnccContentHandlerFactory = tnccContentHandlerFactory;
+		this.stateMachineBuilder = stateMachineBuilder;
 	}
 	
+	
+	
+
+	/**
+	 * @return the tnccsProtocolId
+	 */
+	public String getTnccsProtocolId() {
+		return this.tnccsProtocolId;
+	}
+
+
+
+	/**
+	 * @return the tnccsProtocolVersion
+	 */
+	public String getTnccsProtocolVersion() {
+		return this.tnccsProtocolVersion;
+	}
+
+
+
+	/**
+	 * @return the writer
+	 */
+	public TnccsWriter<TnccsBatch> getWriter() {
+		return this.writer;
+	}
+
+
+
+	/**
+	 * @return the reader
+	 */
+	public TnccsReader<TnccsBatchContainer> getReader() {
+		return this.reader;
+	}
+
+
+
 	/* (non-Javadoc)
 	 * @see de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory#createTnccSession(de.hsbremen.tc.tnc.transport.connection.TransportConnection)
 	 */
@@ -75,15 +142,20 @@ public class DefaultClientSessionFactory implements SessionFactory {
 		}
 		
 		ImcConnectionContext connectionContext = new DefaultImcConnectionContext(attributes,s);
-		ImcConnectionAdapterFactory connectionFactory = new ImcConnectionAdapterFactoryIetf(connectionContext);
+		this.imcHandlerBuilder.setConnectionContext(connectionContext);
+		ImcHandler imcHandler = this.imcHandlerBuilder.toHandler();
 		
-		ImcHandler imcHandler = new DefaultImcHandler(adapterManager,connectionFactory, connectionContext,adapterManager.getRouter());
-		TnccHandler tnccHandler = new DefaultTnccHandler(attributes);
-		TnccsValidationExceptionHandler exceptionHandler = new DefaultTnccsValidationExceptionHandler();
+		this.tnccHandlerBuilder.setAttributes(attributes);
+		TnccHandler tnccHandler = this.tnccHandlerBuilder.toHandler();
 		
-		TnccContentHandler contentHandler = new DefaultTnccContentHandler(imcHandler, tnccHandler, exceptionHandler);
+		this.tnccsValExBuilder.setAttributes(attributes);
+		TnccsValidationExceptionHandler exceptionHandler = this.tnccsValExBuilder.toHandler();
+		
+		TnccContentHandler contentHandler = this.tnccContentHandlerFactory.createHandler(imcHandler, tnccHandler, exceptionHandler);
+		
 		StateHelper<TnccContentHandler> clientStateFactory = new DefaultClientStateFactory(attributes,contentHandler);
-		StateMachine machine = new DefaultClientStateMachine(clientStateFactory);
+		this.stateMachineBuilder.setStateHelper(clientStateFactory);
+		StateMachine machine = this.stateMachineBuilder.toStateMachine();
 		
 		// finalize session and run
 		s.registerStatemachine(machine);

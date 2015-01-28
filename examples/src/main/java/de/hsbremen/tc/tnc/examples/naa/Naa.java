@@ -20,9 +20,9 @@ import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TncsAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;
+import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
 import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImvManager;
@@ -66,9 +66,9 @@ public class Naa {
 		SessionFactory factory = new DefaultServerSessionFactory(
 				PbReaderFactory.getTnccsProtocol(), 
 				PbReaderFactory.getTnccsVersion(),
-				this.manager,
 				PbWriterFactory.createProductionDefault(), 
-				PbReaderFactory.createProductionDefault()
+				PbReaderFactory.createProductionDefault(),
+				this.manager
 		);
 		
 		this.client = new DefaultClientFacade(factory, 3000);

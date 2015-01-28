@@ -4,6 +4,12 @@ package de.hsbremen.tc.tnc.attribute;
 
 public enum TncHsbAttributeTypeEnum implements TncAttributeType {
 
+	/**
+     * Transport connection ID provided by the underlying connection.
+     * (type String, may get from a IM(C/V)Connection)
+     * Has the value 254 because the lower numbers may be used by more important attributes. 
+     */
+	HSB_ATTRIBUTEID_IFT_ID(0x0025B1FEL),
     /**
      * Current round trips provided by the TNCC/S session for other components and IMC/V  
      * (type long, may get from a IM(C/V)Connection)

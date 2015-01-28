@@ -14,7 +14,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.ietf.nea.pt.DefaultTransportAttributes;
 import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
-import org.ietf.nea.pt.socket.SocketTransportAddress;
 import org.ietf.nea.pt.socket.SocketTransportConnection;
 
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
@@ -102,8 +101,7 @@ public class ServerTransportSocketCLI {
 					Socket socket = sSocket.accept();
 					System.out.println("Socket accepted.");
 					TransportConnection con = new SocketTransportConnection(false, true, socket, 
-							new DefaultTransportAttributes(TcgTProtocolEnum.PLAIN.value(),TcgTVersionEnum.V1.value()), 
-							new SocketTransportAddress("localhost", 50251), 
+							new DefaultTransportAttributes(socket.getInetAddress().getHostAddress(),TcgTProtocolEnum.PLAIN.value(),TcgTVersionEnum.V1.value()), 
 							PtTlsWriterFactory.createProductionDefault(), 
 							PtTlsReaderFactory.createProductionDefault(131072), 
 							Executors.newSingleThreadExecutor());
