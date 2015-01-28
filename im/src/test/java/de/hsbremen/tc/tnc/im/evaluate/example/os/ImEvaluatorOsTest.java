@@ -49,7 +49,7 @@ public class ImEvaluatorOsTest {
 			// will never happen with dummy
 		}
 		
-		evaluator = OsImcEvaluatorFactory.getInstance().getEvaluators(adapter,params);
+		evaluator = new OsImcEvaluatorFactory().getEvaluators(adapter,params);
 	}
 
 	@Test

@@ -71,7 +71,7 @@ public class ImcAndImvCommunicationTest {
 			super(new ImParameter(), new TnccAdapterIetfFactory(),
 					new DefaultImcSessionFactory(),
 					new DefaultImSessionManager<IMCConnection, ImcSession>(3000),
-					OsImcEvaluatorFactory.getInstance(),
+					new OsImcEvaluatorFactory(),
 					new ImcConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());
 		}
@@ -84,7 +84,7 @@ public class ImcAndImvCommunicationTest {
 			super(new ImParameter(), new TncsAdapterIetfFactory(),
 					new DefaultImvSessionFactory(),
 					new DefaultImSessionManager<IMVConnection, ImvSession>(3000),
-					OsImvEvaluatorFactory.getInstance(),
+					new OsImvEvaluatorFactory("/os_imv.properties"),
 					new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());
 		}

@@ -11,7 +11,6 @@ import java.util.Set;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorFactoryIetf;
-import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
@@ -23,12 +22,11 @@ import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 	
-	private static class Singleton {
-		private static final ImEvaluatorFactory INSTANCE = new OsImvEvaluatorFactory();
-	}
 	
-	public static ImEvaluatorFactory getInstance(){
-		return Singleton.INSTANCE;
+	private String evaluationValuesPath;
+	
+	public OsImvEvaluatorFactory(String evaluationValuesPath){
+		this.evaluationValuesPath = evaluationValuesPath;
 	}
 	
 	private static final Set<SupportedMessageType> supportedMessageTypes = new HashSet<>(
@@ -41,7 +39,7 @@ public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 	protected ImvEvaluatorManager createEvaluatorManager(TnccsAdapter tncc, ImParameter imParams) {
 		
 		List<ImvEvaluationUnit> units = new ArrayList<>();
-		units.add(new OsImvEvaluationUnit(tncc.getHandshakeRetryListener()));
+		units.add(new OsImvEvaluationUnit(this.evaluationValuesPath, tncc.getHandshakeRetryListener()));
 		
 		ImvEvaluator evaluator = new DefaultImvEvaluator(imParams.getPrimaryId(), units, new DefaultImValueExceptionHandler());
 		

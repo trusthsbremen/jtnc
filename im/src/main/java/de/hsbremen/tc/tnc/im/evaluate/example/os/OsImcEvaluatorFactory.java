@@ -11,7 +11,6 @@ import java.util.Set;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorFactoryIetf;
-import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager;
@@ -22,14 +21,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 public class OsImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
-	
-	private static class Singleton {
-		private static final ImEvaluatorFactory INSTANCE = new OsImcEvaluatorFactory();
-	}
-	
-	public static ImEvaluatorFactory getInstance(){
-		return Singleton.INSTANCE;
-	}
 	
 	private static final Set<SupportedMessageType> supportedMessageTypes = new HashSet<>(
 			Arrays.asList(

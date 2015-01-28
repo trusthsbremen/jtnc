@@ -43,11 +43,11 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 	
 	private ImvRecommendationPair recommendation;
 	
-	public OsImvEvaluationUnit(GlobalHandshakeRetryListener globalHandshakeRetryListener){
+	public OsImvEvaluationUnit(String evaluationValuesFile, GlobalHandshakeRetryListener globalHandshakeRetryListener){
 		super(globalHandshakeRetryListener);
 		
 		try{
-			properties = ConfigurationParameterParser.loadProperties();
+			properties = ConfigurationParameterParser.loadProperties(evaluationValuesFile);
 		}catch(IOException e){
 			LOGGER.error(e.getMessage(),e);
 			properties = null;

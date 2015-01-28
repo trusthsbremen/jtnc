@@ -143,7 +143,7 @@ public class SocketTransportConnection implements TransportConnection{
 		runner.shutdown();
 		try {
 			this.socket.shutdownInput();
-		} catch (IOException e) {
+		} catch (IOException | UnsupportedOperationException e) {
 			LOGGER.warn("Socket InputStream could not be closed.", e);
 		}finally{
 			try {

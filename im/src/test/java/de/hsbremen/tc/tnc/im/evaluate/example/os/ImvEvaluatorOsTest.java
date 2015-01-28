@@ -47,7 +47,7 @@ public class ImvEvaluatorOsTest {
 			// will never happen with dummy
 		}
 		
-		evaluator = OsImvEvaluatorFactory.getInstance().getEvaluators(adapter,params);
+		evaluator = new OsImvEvaluatorFactory("/os_imv.properties").getEvaluators(adapter,params);
 	}
 
 	@Test

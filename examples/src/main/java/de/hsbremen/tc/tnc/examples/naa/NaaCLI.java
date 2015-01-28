@@ -59,7 +59,7 @@ public class NaaCLI {
 			super(new ImParameter(), new TncsAdapterIetfFactory(),
 					new DefaultImvSessionFactory(),
 					new DefaultImSessionManager<IMVConnection, ImvSession> (3000),
-					OsImvEvaluatorFactory.getInstance(),
+					new OsImvEvaluatorFactory("/os_imv.properties"),
 					new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());
 		}

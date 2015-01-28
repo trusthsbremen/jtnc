@@ -66,7 +66,7 @@ public class NarCLI {
 			super(new ImParameter(), new TnccAdapterIetfFactory(),
 					new DefaultImcSessionFactory(),
 					new DefaultImSessionManager<IMCConnection, ImcSession>(3000),
-					OsImcEvaluatorFactory.getInstance(),
+					new OsImcEvaluatorFactory(),
 					new ImcConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
 					PaReaderFactory.createProductionDefault());
 		}
