@@ -23,7 +23,7 @@ import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 	
 	
-	private String evaluationValuesPath;
+	private final String evaluationValuesPath;
 	
 	public OsImvEvaluatorFactory(String evaluationValuesPath){
 		this.evaluationValuesPath = evaluationValuesPath;
@@ -36,10 +36,10 @@ public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 	}));
 	
 	@Override
-	protected ImvEvaluatorManager createEvaluatorManager(TnccsAdapter tncc, ImParameter imParams) {
+	protected ImvEvaluatorManager createEvaluatorManager(TnccsAdapter tncs, ImParameter imParams) {
 		
 		List<ImvEvaluationUnit> units = new ArrayList<>();
-		units.add(new OsImvEvaluationUnit(this.evaluationValuesPath, tncc.getHandshakeRetryListener()));
+		units.add(new OsImvEvaluationUnit(this.evaluationValuesPath, tncs.getHandshakeRetryListener()));
 		
 		ImvEvaluator evaluator = new DefaultImvEvaluator(imParams.getPrimaryId(), units, new DefaultImValueExceptionHandler());
 		

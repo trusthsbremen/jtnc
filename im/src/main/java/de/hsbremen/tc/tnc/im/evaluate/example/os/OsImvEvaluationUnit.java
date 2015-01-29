@@ -70,7 +70,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 		this.recommendation = null;
 		List<ImAttribute> attributes = new ArrayList<>();
 		try{
-			PaAttribute attrReq = this.getAttributeRefequest();
+			PaAttribute attrReq = this.getAttributeRequest();
 			attributes.add(attrReq);
 		}catch(ValidationException e){
 			LOGGER.error("Attribute request clould not be created.",e);
@@ -215,7 +215,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 		LOGGER.debug("Terminate called.");
 	}
 
-	private PaAttribute getAttributeRefequest() throws ValidationException {
+	private PaAttribute getAttributeRequest() throws ValidationException {
 		
 		return PaAttributeFactoryIetf.createAttributeRequest(
 				new AttributeReference(IETFConstants.IETF_PEN_VENDORID,PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.attributeType()), 

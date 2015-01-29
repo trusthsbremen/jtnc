@@ -16,13 +16,14 @@ public class PaAttributeValueTestingBuilderIetf implements PaAttributeValueTesti
 	}
 	
 	@Override
-	public void setContent(String content) throws RuleException {
+	public PaAttributeValueTestingBuilder setContent(String content) throws RuleException {
 
 		if(content != null){
 			this.content = content;
 			this.updateLength();
 		}
 		
+		return this;
 	}
 	
 	@Override

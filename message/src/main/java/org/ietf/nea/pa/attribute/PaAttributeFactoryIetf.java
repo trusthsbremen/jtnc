@@ -23,6 +23,16 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 public class PaAttributeFactoryIetf {
 
 	private static final long VENDORID = IETFConstants.IETF_PEN_VENDORID;
+	
+	public static PaAttribute createTestValue(final String content) throws ValidationException{
+
+		byte flags = 0;
+	    long type = PaAttributeTypeEnum.IETF_PA_TESTING.attributeType();
+	    
+	    return createAttribute(flags, type, 
+	    		PaAttributeValueBuilderIetf.createTestValue(content));
+
+	}
 
 	public static PaAttribute createAssessmentResult(final PaAttributeAssessmentResultEnum result) throws ValidationException{
 

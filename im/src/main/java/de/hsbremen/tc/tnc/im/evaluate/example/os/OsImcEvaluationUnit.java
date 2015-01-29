@@ -28,7 +28,6 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.natives.CLibrary;
 import de.hsbremen.tc.tnc.natives.CLibrary.UTSNAME;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 
@@ -148,7 +147,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf{
 		// TODO implement remediation handling.
 		LOGGER.info("Remediation instructions were received.");
 
-		context.requestConnectionHandshakeRetry(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_REMEDIATION_COMPLETE);
+		//context.requestConnectionHandshakeRetry(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_REMEDIATION_COMPLETE);
 		
 		return new ArrayList<>(0);
 	}

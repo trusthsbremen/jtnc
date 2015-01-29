@@ -6,6 +6,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
 public interface PaAttributeValueTestingBuilder extends ImAttributeValueBuilder{
 
-	void setContent(String Content) throws RuleException;
+	public abstract PaAttributeValueTestingBuilder setContent(String Content) throws RuleException;
 
 }

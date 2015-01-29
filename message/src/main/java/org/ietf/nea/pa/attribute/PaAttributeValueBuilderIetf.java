@@ -33,6 +33,14 @@ import de.hsbremen.tc.tnc.IETFConstants;
 public class PaAttributeValueBuilderIetf {
 	
 	
+	public static AbstractPaAttributeValue createTestValue(String content) {
+		if(content == null){
+			throw new NullPointerException("Content cannot be null.");
+		}
+
+		return new PaAttributeValueTesting(content.getBytes(Charset.forName("UTF-8")).length, content);
+	}
+	
 	public static PaAttributeValueAssessmentResult createAssessmentResultValue(final PaAttributeAssessmentResultEnum result){
 		
 		if(result == null){
