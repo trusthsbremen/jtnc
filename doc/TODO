@@ -1,0 +1,11 @@
+TODOs
+------
+
+Functionality:
+- Make a TncsHandler which can read an evaluation policy from a file.
+- Make a IMV example which can read an evaluation policy from a file.
+- Implement the IMC/V loader with the provided interfaces.
+
+Code cleanup:
+- Comment all files and remove wrong comments. Add license to all files. 
+- Format the code (e.g. format (whitespace, indentation)  

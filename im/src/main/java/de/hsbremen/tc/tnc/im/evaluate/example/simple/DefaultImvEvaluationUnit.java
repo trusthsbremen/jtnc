@@ -15,7 +15,7 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 
-class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements ImvEvaluationUnit{
+public class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements ImvEvaluationUnit{
 
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultImvEvaluationUnit.class);
@@ -23,7 +23,7 @@ class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements I
 	public final static long VENDOR_ID = TNCConstants.TNC_VENDORID_ANY;
 	public final static long TYPE = TNCConstants.TNC_SUBTYPE_ANY;
 	
-	DefaultImvEvaluationUnit(
+	public DefaultImvEvaluationUnit(
 			GlobalHandshakeRetryListener globalHandshakeRetryListener) {
 		super(globalHandshakeRetryListener);
 	}
