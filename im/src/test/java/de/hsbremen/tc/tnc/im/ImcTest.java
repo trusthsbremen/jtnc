@@ -53,7 +53,7 @@ public class ImcTest {
 	public void testNotInitialized() throws TNCException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(), "Test error for missing initialization."));
 		try{
-			this.imc.notifyConnectionChange(Dummy.getIMCConnection(),DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
+			this.imc.notifyConnectionChange(Dummy.getIMCConnection(),DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.id());
 		}catch(TNCException e){
 			if(e.getResultCode() == TNCException.TNC_RESULT_NOT_INITIALIZED){
 				throw e;
@@ -73,7 +73,7 @@ public class ImcTest {
 			e.printStackTrace();
 		}
 		
-		this.imc.notifyConnectionChange(Dummy.getIMCConnection(), DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.state());
+		this.imc.notifyConnectionChange(Dummy.getIMCConnection(), DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.id());
 	}
 	
 	@Test

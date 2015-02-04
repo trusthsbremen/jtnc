@@ -87,7 +87,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 			try{
 				this.tncc.reportMessageTypes(this.evaluatorManager.getSupportedMessageTypes());
 			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().result());
+				throw new TNCException(e.getMessage(),e.getResultCode().id());
 			}
 			if(tncc instanceof AttributeSupport){
 				try{
@@ -127,9 +127,9 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 			throws TNCException {
 		checkInitialization();
 		try{
-			this.findSessionByConnection(c).setConnectionState(DefaultTncConnectionStateFactory.getInstance().fromState(newState));
+			this.findSessionByConnection(c).setConnectionState(DefaultTncConnectionStateFactory.getInstance().fromId(newState));
 		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().result());
+			throw new TNCException(e.getMessage(),e.getResultCode().id());
 		}
 	}
 
@@ -139,7 +139,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 		try{
 			this.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BEGIN_HANDSHAKE);
 		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().result());
+			throw new TNCException(e.getMessage(),e.getResultCode().id());
 		}
 		
 	}
@@ -154,7 +154,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 				ImObjectComponent component = super.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message));
 				this.findSessionByConnection(c).handleMessage(component);
 			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().result());
+				throw new TNCException(e.getMessage(),e.getResultCode().id());
 			}
 		}
 		
@@ -166,7 +166,7 @@ public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
 		try{
 			this.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BATCH_ENDING);
 		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().result());
+			throw new TNCException(e.getMessage(),e.getResultCode().id());
 		}
 	}
 

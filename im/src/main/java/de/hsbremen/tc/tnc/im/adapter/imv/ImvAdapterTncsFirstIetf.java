@@ -53,7 +53,7 @@ public class ImvAdapterTncsFirstIetf extends ImvAdapterIetf implements IMVTNCSFi
 			try{
 				super.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BEGIN_HANDSHAKE);
 			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().result());
+				throw new TNCException(e.getMessage(),e.getResultCode().id());
 			
 			}
 		

@@ -45,7 +45,7 @@ class TnccAdapterIetfLong extends TnccAdapterIetf implements TNCCLong{
 		try {
 			super.getManager().reportSupportedMessagesTypes(imc, sTypes);
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 		
 	}
@@ -55,7 +55,7 @@ class TnccAdapterIetfLong extends TnccAdapterIetf implements TNCCLong{
 		try {
 			return super.getManager().reserveAdditionalId(imc);
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 	}
 

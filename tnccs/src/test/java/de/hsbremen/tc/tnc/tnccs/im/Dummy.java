@@ -73,11 +73,11 @@ public class Dummy extends AbstractDummy{
 			
 			@Override
 			public void requestHandshakeRetry(long reason) throws org.trustedcomputinggroup.tnc.ifimc.TNCException {
-				ImHandshakeRetryReasonEnum reasonE = ImHandshakeRetryReasonEnum.fromCode(reason);
+				ImHandshakeRetryReasonEnum reasonE = ImHandshakeRetryReasonEnum.fromId(reason);
 				if(reasonE == null || reasonE.toString().contains("IMV")){
 				 throw new org.trustedcomputinggroup.tnc.ifimc.TNCException("Invalid reason code for IMCConnection and IMC: " + ((reasonE == null)? "null" : reasonE.toString()), org.trustedcomputinggroup.tnc.ifimc.TNCException.TNC_RESULT_INVALID_PARAMETER);
 				}
-				System.out.println("Handshake retry requested:" + ImHandshakeRetryReasonEnum.fromCode(reason).toString().toString());
+				System.out.println("Handshake retry requested:" + ImHandshakeRetryReasonEnum.fromId(reason).toString().toString());
 			}
 		};
 	}
@@ -139,17 +139,17 @@ public class Dummy extends AbstractDummy{
 			
 			@Override
 			public void requestHandshakeRetry(long reason) throws org.trustedcomputinggroup.tnc.ifimv.TNCException {
-				ImHandshakeRetryReasonEnum reasonE = ImHandshakeRetryReasonEnum.fromCode(reason);
+				ImHandshakeRetryReasonEnum reasonE = ImHandshakeRetryReasonEnum.fromId(reason);
 				if(reasonE == null || reasonE.toString().contains("IMC")){
 				 throw new org.trustedcomputinggroup.tnc.ifimv.TNCException("Invalid reason code for IMVConnection and IMV: " + ((reasonE == null)? "null" : reasonE.toString()), org.trustedcomputinggroup.tnc.ifimv.TNCException.TNC_RESULT_INVALID_PARAMETER);
 				}
-				System.out.println("Handshake retry requested:" + ImHandshakeRetryReasonEnum.fromCode(reason).toString().toString());
+				System.out.println("Handshake retry requested:" + ImHandshakeRetryReasonEnum.fromId(reason).toString().toString());
 			}
 			
 			@Override
 			public void provideRecommendation(long recommendation, long evaluation)
 					throws org.trustedcomputinggroup.tnc.ifimv.TNCException {
-				System.out.println("Recommendation provided: " + ImvActionRecommendationEnum.fromNumber(recommendation).toString() + ImvEvaluationResultEnum.fromResult(evaluation).toString());
+				System.out.println("Recommendation provided: " + ImvActionRecommendationEnum.fromId(recommendation).toString() + ImvEvaluationResultEnum.fromId(evaluation).toString());
 				
 			}
 			
@@ -186,7 +186,7 @@ public class Dummy extends AbstractDummy{
 			@Override
 			public void notifyConnectionChange(IMCConnection c, long newState)
 					throws TNCException {
-				System.out.println("notifyConnectionChange() called with state: " + DefaultTncConnectionStateFactory.getInstance().fromState(newState).toString());
+				System.out.println("notifyConnectionChange() called with state: " + DefaultTncConnectionStateFactory.getInstance().fromId(newState).toString());
 				
 			}
 
@@ -244,7 +244,7 @@ public class Dummy extends AbstractDummy{
 			@Override
 			public void notifyConnectionChange(IMCConnection c, long newState)
 					throws TNCException {
-				System.out.println("notifyConnectionChange() called with state: " + DefaultTncConnectionStateFactory.getInstance().fromState(newState).toString());
+				System.out.println("notifyConnectionChange() called with state: " + DefaultTncConnectionStateFactory.getInstance().fromId(newState).toString());
 				
 			}
 

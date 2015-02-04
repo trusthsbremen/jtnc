@@ -52,7 +52,7 @@ class TncsAdapterIetf implements TNCS{
 		try {
 			this.moduleManager.reportSupportedMessagesTypes(imv, sTypes);
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 	}
 
@@ -60,9 +60,9 @@ class TncsAdapterIetf implements TNCS{
 	public void requestHandshakeRetry(final IMV imv, final long reason) throws TNCException {
 		// TODO is the IMC needed as parameter?
 		try {
-			this.listener.requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum.fromCode(reason));
+			this.listener.requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum.fromId(reason));
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(),e.getResultCode().result());
+			throw new TNCException(e.getMessage(),e.getResultCode().id());
 		}
 	
 	}
@@ -72,7 +72,7 @@ class TncsAdapterIetf implements TNCS{
 		try {
 			return this.attributes.getAttribute(DefaultTncAttributeTypeFactory.getInstance().fromId(attributeID));
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 	}
 
@@ -82,7 +82,7 @@ class TncsAdapterIetf implements TNCS{
 		try {
 			this.attributes.setAttribute(DefaultTncAttributeTypeFactory.getInstance().fromId(attributeID), attributeValue);
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 	}
 	

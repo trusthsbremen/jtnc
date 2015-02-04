@@ -130,7 +130,7 @@ public class ImcAndImvCommunicationTest {
 		@Override
 		public void provideRecommendation(long recommendation, long evaluation)
 				throws org.trustedcomputinggroup.tnc.ifimv.TNCException {
-			System.err.println("Recommendation provided at IMVConnection:\n" + ImvActionRecommendationEnum.fromNumber(recommendation) +", "+  ImvEvaluationResultEnum.fromResult(evaluation) );
+			System.err.println("Recommendation provided at IMVConnection:\n" + ImvActionRecommendationEnum.fromId(recommendation) +", "+  ImvEvaluationResultEnum.fromId(evaluation) );
 		}
 
 		@Override

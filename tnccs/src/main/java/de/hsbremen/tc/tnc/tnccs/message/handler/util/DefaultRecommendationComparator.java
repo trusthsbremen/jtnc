@@ -28,15 +28,15 @@ public class DefaultRecommendationComparator implements Comparator<ImvRecommenda
 	@Override
 	public int compare(ImvRecommendationPair o1,
 			ImvRecommendationPair o2) {
-		long o1a = o1.getRecommendationValue();
-		long o2a = o2.getRecommendationValue();
+		long o1a = o1.getRecommendationId();
+		long o2a = o2.getRecommendationId();
 		
 		int actionWeight = this.weightImvAction(o1a) - this.weightImvAction(o2a); 
 		if(actionWeight != 0) return actionWeight;
 
 				
-		long o1e = o1.getResultValue();
-		long o2e = o2.getResultValue();
+		long o1e = o1.getResultId();
+		long o2e = o2.getResultId();
 		return this.weightImvEvaluation(o1e) - this.weightImvEvaluation(o2e); 
 		
 	}

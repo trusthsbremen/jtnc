@@ -85,7 +85,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 			try{
 				this.tncs.reportMessageTypes(this.evaluatorManager.getSupportedMessageTypes());
 			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().result());
+				throw new TNCException(e.getMessage(),e.getResultCode().id());
 			}
 			try{
 				Object o = tncs.getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE.id());
@@ -123,9 +123,9 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 			throws TNCException {
 		checkInitialization();
 		try{
-			this.findSessionByConnection(c).setConnectionState(DefaultTncConnectionStateFactory.getInstance().fromState(newState));
+			this.findSessionByConnection(c).setConnectionState(DefaultTncConnectionStateFactory.getInstance().fromId(newState));
 		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().result());
+			throw new TNCException(e.getMessage(),e.getResultCode().id());
 		}
 	}
 
@@ -139,7 +139,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 				ImObjectComponent component = this.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message));
 				this.findSessionByConnection(c).handleMessage(component);
 			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().result());
+				throw new TNCException(e.getMessage(),e.getResultCode().id());
 			}
 		}
 	}
@@ -150,7 +150,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 		try{
 			this.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BATCH_ENDING);
 		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().result());
+			throw new TNCException(e.getMessage(),e.getResultCode().id());
 		}
 	}
 
@@ -160,7 +160,7 @@ public class ImvAdapterIetf extends ImAdapter implements IMV{
 		try{
 			this.findSessionByConnection(c).solicitRecommendation();
 		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().result());
+			throw new TNCException(e.getMessage(),e.getResultCode().id());
 		}
 		
 	}

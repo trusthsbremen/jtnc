@@ -44,7 +44,7 @@ class ImvAdapterIetf implements ImvAdapter{
 	@Override
 	public void notifyConnectionChange(ImvConnectionAdapter connection, TncConnectionState state) throws TncException, TerminatedException{
 		try {
-			this.imv.notifyConnectionChange(connection, state.state());
+			this.imv.notifyConnectionChange(connection, state.id());
 		} catch (TNCException e) {
 			throw new TncException(e);
 		}catch(NullPointerException e){

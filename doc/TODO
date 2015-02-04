@@ -9,3 +9,4 @@ Functionality:
 Code cleanup:
 - Comment all files and remove wrong comments. Add license to all files. 
 - Format the code (e.g. format (whitespace, indentation)  
+- Finished: (if-imc/imv (ignored), if-common, transport)

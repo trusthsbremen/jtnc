@@ -28,7 +28,7 @@ class ImcConnectionAdapterIetfLong extends ImcConnectionAdapterIetf implements I
 		}
 		
 		if(!super.isReceiving()){
-			throw new TNCException("Connection is currently not allowed to receive messages.", TncExceptionCodeEnum.TNC_RESULT_ILLEGAL_OPERATION.result());
+			throw new TNCException("Connection is currently not allowed to receive messages.", TncExceptionCodeEnum.TNC_RESULT_ILLEGAL_OPERATION.id());
 		}
 		
 		super.checkMessageSize(message.length);
@@ -43,7 +43,7 @@ class ImcConnectionAdapterIetfLong extends ImcConnectionAdapterIetf implements I
 		try{
 			super.sendMessage(m);
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 		
 	}

@@ -76,7 +76,7 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 	public void requestHandshakeRetry(ImHandshakeRetryReasonEnum reason) throws TncException {
 		if(reason.toString().contains("IMV")){
 			try {
-				this.connection.requestHandshakeRetry(reason.code());
+				this.connection.requestHandshakeRetry(reason.id());
 			} catch (TNCException e) {
 				throw new TncException(e);
 			}
@@ -89,7 +89,7 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 	public void provideRecommendation(ImvRecommendationPair pair) throws TncException {
 		
 		try {
-			this.connection.provideRecommendation(pair.getRecommendationValue(), pair.getResultValue());
+			this.connection.provideRecommendation(pair.getRecommendationId(), pair.getResultId());
 		} catch (TNCException e) {
 			throw new TncException(e);
 		}

@@ -1,3 +1,27 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pt.socket;
 
 import java.net.Socket;
@@ -13,185 +37,218 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.TransportConnectionBuilder;
 
-public class SocketTransportConnectionBuilder implements TransportConnectionBuilder{
+/**
+ * Builder to create a TransportConnection based on an underlying socket.
+ *
+ * @author Carl-Heinz Genzel
+ */
+public class SocketTransportConnectionBuilder implements
+        TransportConnectionBuilder<Socket> {
 
-	private final String transportProtocolId;
-	private final String transportProtocolVersion;
-	
-	private final TransportWriter<TransportMessage> writer;
-	private final TransportReader<TransportMessageContainer> reader;
-	
-	private final long memoryBoarder;
+    private static final int DEFAULT_IM_COUNT = 10;
 
-	private long messageLength;
-	private long imMessageLength;
-	private long maxRoundTrips;
-	
-	
-	
-	public SocketTransportConnectionBuilder(
-			String transportProtocolId, 
-			String transportProtocolVersion, 
-			TransportWriter<TransportMessage> writer, 
-			TransportReader<TransportMessageContainer> reader){
-		
-		this.transportProtocolId = transportProtocolId;
-		this.transportProtocolVersion = transportProtocolVersion;
-		
-		this.writer = writer;
-		this.reader = reader;
-		
-		this.memoryBoarder = Runtime.getRuntime().totalMemory();
-		
-		this.messageLength = (memoryBoarder/2);
-		this.imMessageLength = (memoryBoarder/10);
-		this.maxRoundTrips = HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN;
-		
-	}
+    private final String tProtocol;
+    private final String tVersion;
 
-	
-	
-	/**
-	 * @return the transportProtocolId
-	 */
-	public String getTransportProtocolId() {
-		return this.transportProtocolId;
-	}
+    private final TransportWriter<TransportMessage> writer;
+    private final TransportReader<TransportMessageContainer> reader;
 
+    private final long memoryBoarder;
 
+    private long messageLength;
+    private long imMessageLength;
+    private long maxRoundTrips;
 
-	/**
-	 * @return the transportProtocolVersion
-	 */
-	public String getTransportProtocolVersion() {
-		return this.transportProtocolVersion;
-	}
+    /**
+     * Creates a builder for a TransportConnection objekt using the specified
+     * reader and writer for serialization.
+     *
+     * @param tProtocol the transport protocol type
+     * @param tVersion the transport protocol version
+     * @param writer the transport protocol serializer
+     * @param reader the transport protocol parser
+     */
+    public SocketTransportConnectionBuilder(final String tProtocol,
+            final String tVersion,
+            final TransportWriter<TransportMessage> writer,
+            final TransportReader<TransportMessageContainer> reader) {
 
+        this.tProtocol = tProtocol;
+        this.tVersion = tVersion;
 
+        this.writer = writer;
+        this.reader = reader;
 
-	/**
-	 * @return the writer
-	 */
-	public TransportWriter<TransportMessage> getWriter() {
-		return this.writer;
-	}
+        this.memoryBoarder = Runtime.getRuntime().totalMemory();
 
+        this.messageLength = (memoryBoarder / 2);
+        this.imMessageLength = (memoryBoarder / DEFAULT_IM_COUNT);
+        this.maxRoundTrips = HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN;
+    }
 
+    /**
+     * Returns the transport protocol type.
+     *
+     * @return the transport protocol type
+     */
+    public String getTransportProtocol() {
+        return this.tProtocol;
+    }
 
-	/**
-	 * @return the reader
-	 */
-	public TransportReader<TransportMessageContainer> getReader() {
-		return this.reader;
-	}
+    /**
+     * Returns the transport protocol version.
+     *
+     * @return the transport protocol version
+     */
+    public String getTransportProtocolVersion() {
+        return this.tVersion;
+    }
 
+    /**
+     * Returns the transport protocol writer.
+     *
+     * @return the protocol writer
+     */
+    public TransportWriter<TransportMessage> getWriter() {
+        return this.writer;
+    }
 
+    /**
+     * Returns the transport protocol reader.
+     *
+     * @return the protocol reader
+     */
+    public TransportReader<TransportMessageContainer> getReader() {
+        return this.reader;
+    }
 
-	/**
-	 * @return the messageLength
-	 */
-	public long getMessageLength() {
-		return this.messageLength;
-	}
+    /**
+     * Returns the maximum full message length.
+     *
+     * @return the maximum full message length
+     */
+    public long getMessageLength() {
+        return this.messageLength;
+    }
 
-	/**
-	 * @return the imMessageLength
-	 */
-	public long getImMessageLength() {
-		return this.imMessageLength;
-	}
+    /**
+     * Returns the maximum IF-M message length.
+     *
+     * @return the maximum IF-M message length
+     */
+    public long getImMessageLength() {
+        return this.imMessageLength;
+    }
 
-	/**
-	 * @return the maxRoundTrips
-	 */
-	public long getMaxRoundTrips() {
-		return this.maxRoundTrips;
-	}
+    /**
+     * Returns the maximum round trips.
+     *
+     * @return the maximum round trips
+     */
+    public long getMaxRoundTrips() {
+        return this.maxRoundTrips;
+    }
 
-	/**
-	 * @param messageLength the messageLength to set
-	 */
-	public SocketTransportConnectionBuilder setMessageLength(long messageLength) {
-		if(messageLength <= 0 || messageLength > this.memoryBoarder){
-			throw new IllegalArgumentException("Message length is not acceptable, it must be between 1 and " + this.memoryBoarder + " bytes.");
-		}
-		this.messageLength = messageLength;
-		
-		return this;
-	}
+    /**
+     * Sets the maximum full message length.
+     *
+     * @param messageLength the maximum message length
+     * @throws IllegalArgumentException if message length <= 0
+     * or length > available heap space
+     * @return the SocketTransportConnectionBuilder for fluent use
+     */
+    public SocketTransportConnectionBuilder setMessageLength(
+            final long messageLength) {
+        if (messageLength <= 0 || messageLength > this.memoryBoarder) {
+            throw new IllegalArgumentException(
+                    "Message length is not acceptable, "
+                            + "it must be between 1 and " + this.memoryBoarder
+                            + " bytes.");
+        }
+        this.messageLength = messageLength;
 
-	/**
-	 * @param imMessageLength the imMessageLength to set
-	 */
-	public SocketTransportConnectionBuilder setImMessageLength(long imMessageLength) {
-		if(imMessageLength <= 0 || imMessageLength > this.memoryBoarder){
-			throw new IllegalArgumentException("Message length is not acceptable, it must be between 1 and " + this.memoryBoarder + " bytes.");
-		}
-		this.imMessageLength = imMessageLength;
-		
-		return this;
-	}
+        return this;
+    }
 
-	/**
-	 * @param maxRoundTrips the maxRoundTrips to set
-	 */
-	public SocketTransportConnectionBuilder setMaxRoundTrips(long maxRoundTrips) {
-		if(maxRoundTrips <= 0){
-			throw new IllegalArgumentException("Round trips cannot be null.");
-		}
-		this.maxRoundTrips = maxRoundTrips;
-		
-		return this;
-	}
+    /**
+     * Sets the maximum IF-M message length.
+     *
+     * @param imMessageLength the maximum IF-M message length
+     * @throws IllegalArgumentException if message length <= 0 
+     * or length > available heap space
+     * @return the SocketTransportConnectionBuilder for fluent use
+     */
+    public SocketTransportConnectionBuilder setImMessageLength(
+            final long imMessageLength) {
+        if (imMessageLength <= 0 || imMessageLength > this.memoryBoarder) {
+            throw new IllegalArgumentException(
+                    "Message length is not acceptable, "
+                            + "it must be between 1 and " + this.memoryBoarder
+                            + " bytes.");
+        }
+        this.imMessageLength = imMessageLength;
 
-	
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.transport.TransportConnectionBuilder#toConnection(java.lang.String, boolean, boolean, java.lang.Object)
-	 */
-	@Override
-	public TransportConnection toConnection(String id, boolean selfInitiated,
-			boolean server, Object underlying) {
-		
-		if(underlying == null){
-			throw new NullPointerException("Underlying cannot be NULL.");
-		}
-		
-		if(!(underlying instanceof Socket)){
-			throw new IllegalArgumentException("Underlying must be of type " + Socket.class.getCanonicalName() +".");
-		}
+        return this;
+    }
 
-		Socket socket = (Socket)underlying;
-		
-		DefaultTransportAttributes attributes = new DefaultTransportAttributes(id,this.transportProtocolId, this.transportProtocolVersion,this.messageLength,this.imMessageLength,this.maxRoundTrips);
-		
-		SocketTransportConnection t = new SocketTransportConnection(selfInitiated,server,socket,attributes, writer,reader, Executors.newSingleThreadExecutor());
-		
-		return t;
-	}
+    /**
+     * Sets the maximum round trips.
+     *
+     * @param maxRoundTrips the maximum round trips
+     * @throws IllegalArgumentException if maximum round trips <= 0
+     * @return the SocketTransportConnectionBuilder for fluent use
+     */
+    public SocketTransportConnectionBuilder setMaxRoundTrips(
+            final long maxRoundTrips) {
+        if (maxRoundTrips <= 0) {
+            throw new IllegalArgumentException("Round trips cannot be null.");
+        }
+        this.maxRoundTrips = maxRoundTrips;
 
+        return this;
+    }
 
+    @Override
+    public TransportConnection toConnection(final String id,
+            final boolean selfInitiated, final boolean server,
+            final Socket underlying) {
 
-	@Override
-	public TransportConnection toConnection(boolean selfInitiated, boolean server, Object underlying) {
-		
-		if(underlying == null){
-			throw new NullPointerException("Underlying cannot be NULL.");
-		}
-		
-		if(!(underlying instanceof Socket)){
-			throw new IllegalArgumentException("Underlying must be of type " + Socket.class.getCanonicalName() +".");
-		}
+        if (underlying == null) {
+            throw new NullPointerException("Underlying cannot be NULL.");
+        }
 
-		Socket socket = (Socket)underlying;
-		
-		String id = socket.getInetAddress().getHostAddress();
-		
-		return this.toConnection(id,selfInitiated, server, underlying);
-				
-	}
-	
-	
-	
+        Socket socket = underlying;
+
+        DefaultTransportAttributes attributes = new DefaultTransportAttributes(
+                id, this.tProtocol, this.tVersion, this.messageLength,
+                this.imMessageLength, this.maxRoundTrips);
+
+        SocketTransportConnection t = new SocketTransportConnection(
+                selfInitiated, server, socket, attributes, writer, reader,
+                Executors.newSingleThreadExecutor());
+
+        return t;
+    }
+
+    @Override
+    public TransportConnection toConnection(final boolean selfInitiated,
+            final boolean server, final Socket underlying) {
+
+        if (underlying == null) {
+            throw new NullPointerException("Underlying cannot be NULL.");
+        }
+
+        if (!(underlying instanceof Socket)) {
+            throw new IllegalArgumentException("Underlying must be of type "
+                    + Socket.class.getCanonicalName() + ".");
+        }
+
+        Socket socket = underlying;
+
+        String id = socket.getInetAddress().getHostAddress();
+
+        return this.toConnection(id, selfInitiated, server, underlying);
+
+    }
 
 }

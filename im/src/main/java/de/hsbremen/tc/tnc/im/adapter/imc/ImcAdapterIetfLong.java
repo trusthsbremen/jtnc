@@ -61,7 +61,7 @@ public class ImcAdapterIetfLong extends ImcAdapterIetf implements IMCLong{
 			ImObjectComponent component = super.receiveMessage(ImComponentFactory.createRawComponent((byte)(messageFlags & 0xFF), messageVendorID, messageSubtype, destinationIMCID, sourceIMVID, message));
 			super.findSessionByConnection(c).handleMessage(component);
 		}catch(TncException e){
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 	}
 }

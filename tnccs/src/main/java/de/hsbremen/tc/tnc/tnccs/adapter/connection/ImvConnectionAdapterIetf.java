@@ -64,16 +64,16 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements Im
 		try{
 			this.sendMessage(m);
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 	}
 
 	@Override
 	public void requestHandshakeRetry(long reason) throws TNCException {
 		try {
-			this.session.requestHandshakeRetry(ImHandshakeRetryReasonEnum.fromCode(reason));
+			this.session.requestHandshakeRetry(ImHandshakeRetryReasonEnum.fromId(reason));
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 		
 	}
@@ -87,7 +87,7 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements Im
 			try {
 				return this.session.getAttribute(DefaultTncAttributeTypeFactory.getInstance().fromId(attributeID));
 			} catch (TncException e) {
-				throw new TNCException(e.getMessage(), e.getResultCode().result());
+				throw new TNCException(e.getMessage(), e.getResultCode().id());
 			}
 		}
 	}
@@ -121,7 +121,7 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements Im
 		try {
 			this.session.addRecommendation(super.getImId(),recommendationPair);
 		} catch (TncException e) {
-			throw new TNCException(e.getMessage(), e.getResultCode().result());
+			throw new TNCException(e.getMessage(), e.getResultCode().id());
 		}
 	}
 	

@@ -104,7 +104,7 @@ public class DefaultImvHandler implements ImvHandler{
 			
 		}
 		
-		if(imConnectionState.state() == DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE.state()){
+		if(imConnectionState.id() == DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE.id()){
 			this.imAdapters.clear();
 			this.connections.clear();
 			this.handshakeBegin = false;

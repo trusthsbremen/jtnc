@@ -51,7 +51,7 @@ public class ImvAdapterTncsFirstIetfLong extends ImvAdapterIetfLong implements I
 			try{
 				super.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BEGIN_HANDSHAKE);
 			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().result());
+				throw new TNCException(e.getMessage(),e.getResultCode().id());
 			
 			}
 		

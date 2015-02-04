@@ -77,7 +77,7 @@ class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
 	public void requestHandshakeRetry(ImHandshakeRetryReasonEnum reason) throws TncException {
 		if(reason.toString().contains("IMC")){
 			try {
-				this.connection.requestHandshakeRetry(reason.code());
+				this.connection.requestHandshakeRetry(reason.id());
 			} catch (TNCException e) {
 				throw new TncException(e);
 			}

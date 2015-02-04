@@ -44,7 +44,7 @@ class ImcAdapterIetf implements ImcAdapter{
 	@Override
 	public void notifyConnectionChange(ImcConnectionAdapter connection, TncConnectionState state) throws TncException, TerminatedException{
 		try {
-			this.imc.notifyConnectionChange(connection, state.state());
+			this.imc.notifyConnectionChange(connection, state.id());
 		} catch (TNCException e) {
 			throw new TncException(e);
 		}catch(NullPointerException e){

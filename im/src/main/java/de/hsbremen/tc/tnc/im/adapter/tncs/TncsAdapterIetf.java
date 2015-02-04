@@ -52,7 +52,7 @@ class TncsAdapterIetf implements TncsAdapter, GlobalHandshakeRetryListener {
 	public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason) throws TncException {
 		if(reason.toString().contains("IMC")){
 			try{
-				this.tncs.requestHandshakeRetry(this.imv, reason.code());
+				this.tncs.requestHandshakeRetry(this.imv, reason.id());
 			}catch(TNCException e){
 				throw new TncException(e);
 			}
