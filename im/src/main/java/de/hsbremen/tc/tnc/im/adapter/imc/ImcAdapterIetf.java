@@ -15,8 +15,9 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateFactory;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.im.adapter.ImAdapter;
+import de.hsbremen.tc.tnc.im.adapter.AbstractImAdapter;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
@@ -38,193 +39,277 @@ import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
-public class ImcAdapterIetf extends ImAdapter implements IMC, AttributeSupport{
+/**
+ * IMC adapter according to IETF/TCG specifications.
+ * Implementing a simple IF-IMC interface.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class ImcAdapterIetf extends AbstractImAdapter
+    implements IMC, AttributeSupport {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ImcAdapterIetf.class);
-	
-	private final ImParameter parameter;
-	
-	private final TnccAdapterFactory tnccFactory;
-	private final ImcConnectionAdapterFactory connectionFactory;
-	
-	private final ImSessionFactory<ImcSession> sessionFactory;
-	private final ImSessionManager<IMCConnection, ImcSession> sessions;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ImcAdapterIetf.class);
 
-	private final ImEvaluatorFactory evaluatorFactory;
-	private ImEvaluatorManager evaluatorManager;
-	
-	private TnccAdapter tncc;
-	
-	
-	public ImcAdapterIetf(){
-		// FIXME this is only a default constructor and should only be used for testing purpose.
-		this(new ImParameter(), new TnccAdapterIetfFactory(),
-				new DefaultImcSessionFactory(),
-				new DefaultImSessionManager<IMCConnection, ImcSession>(),
-				DefaultImcEvaluatorFactory.getInstance(),
-				new ImcConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
-				PaReaderFactory.createProductionDefault());
-	}
-	
-	public ImcAdapterIetf(ImParameter parameter, TnccAdapterFactory tnccFactory, ImSessionFactory<ImcSession> sessionFactory, ImSessionManager<IMCConnection, ImcSession> sessionManager, ImEvaluatorFactory evaluatorFactory, ImcConnectionAdapterFactory connectionFactory, ImReader<? extends ImMessageContainer> imReader){
-		super(imReader);
-		
-		this.parameter = parameter;
-		
-		this.tnccFactory = tnccFactory;
-		this.connectionFactory = connectionFactory;
-		this.evaluatorFactory = evaluatorFactory;
-		this.sessionFactory = sessionFactory;
-		
-		this.sessions = sessionManager;
-	}
-	
-	@Override
-	public void initialize(TNCC tncc) throws TNCException {
-		if(this.tncc == null){
-			this.tncc = this.tnccFactory.createTnccAdapter(this,tncc);
-			this.evaluatorManager = this.evaluatorFactory.getEvaluators(this.tncc, this.parameter);
-			try{
-				this.tncc.reportMessageTypes(this.evaluatorManager.getSupportedMessageTypes());
-			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().id());
-			}
-			if(tncc instanceof AttributeSupport){
-				try{
-					Object o = ((AttributeSupport) tncc).getAttribute(TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_PREFERRED_LANGUAGE.id());
-					if(o instanceof String){
-						String preferredLanguage = (String)o;
-						this.parameter.setPreferredLanguage(preferredLanguage);
-					}
-				}catch (TNCException | UnsupportedOperationException e){
-					LOGGER.info("Preferred language attribute was not accessible, using default language: " + this.parameter.getPreferredLanguage(),e);
-				}
-			}
-			
-			this.sessions.initialize();
-			
-		}else{
-			throw new TNCException("IMC already initialized by " + this.tncc.toString() + ".", TNCException.TNC_RESULT_ALREADY_INITIALIZED);
-		}
-	}
+    private final ImParameter parameter;
 
-	@Override
-	public void terminate() throws TNCException {
-		checkInitialization();
-		
-		this.sessions.terminate();
-		
-		this.evaluatorManager.terminate();
-		
-		this.parameter.setPrimaryId(HSBConstants.HSB_IM_ID_UNKNOWN);
-		this.parameter.setSupportedMessageTypes(new HashSet<SupportedMessageType>());
-		
-		this.tncc = null;
-	}
+    private final TnccAdapterFactory tnccFactory;
+    private final ImcConnectionAdapterFactory connectionFactory;
 
-	@Override
-	public void notifyConnectionChange(IMCConnection c, long newState)
-			throws TNCException {
-		checkInitialization();
-		try{
-			this.findSessionByConnection(c).setConnectionState(DefaultTncConnectionStateFactory.getInstance().fromId(newState));
-		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().id());
-		}
-	}
+    private final ImSessionFactory<ImcSession> sessionFactory;
+    private final ImSessionManager<IMCConnection, ImcSession> sessions;
 
-	@Override
-	public void beginHandshake(IMCConnection c) throws TNCException {
-		checkInitialization();
-		try{
-			this.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BEGIN_HANDSHAKE);
-		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().id());
-		}
-		
-	}
+    private final ImEvaluatorFactory evaluatorFactory;
+    private ImEvaluatorManager evaluatorManager;
 
-	@Override
-	public void receiveMessage(IMCConnection c, long messageType, byte[] message)
-			throws TNCException {
-		checkInitialization();
-		
-		if(message != null && message.length > 0){
-			try{
-				ImObjectComponent component = super.receiveMessage(ImComponentFactory.createLegacyRawComponent(messageType, message));
-				this.findSessionByConnection(c).handleMessage(component);
-			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().id());
-			}
-		}
-		
-	}
+    private TnccAdapter tncc;
 
-	@Override
-	public void batchEnding(IMCConnection c) throws TNCException {
-		checkInitialization();
-		try{
-			this.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BATCH_ENDING);
-		}catch(TncException e){
-			throw new TNCException(e.getMessage(),e.getResultCode().id());
-		}
-	}
+    /**
+     * Creates an IMC adapter with default arguments. This constructor
+     * is specified to be called to load an IMC from a source.
+     *
+     * A specific IMC must override this constructor and add its custom
+     * arguments. This implementation of the constructor should only be
+     * used for testing purpose.
+     */
+    public ImcAdapterIetf() {
+        this(new ImParameter(), new TnccAdapterIetfFactory(),
+                new DefaultImcSessionFactory(),
+                new DefaultImSessionManager<IMCConnection, ImcSession>(),
+                new DefaultImcEvaluatorFactory(),
+                new ImcConnectionAdapterFactoryIetf(
+                        PaWriterFactory.createProductionDefault()),
+                PaReaderFactory.createProductionDefault());
+    }
 
-	@Override
-	public Object getAttribute(long attributeID) throws TNCException {
+    /**
+     * Creates an IMC adapter with the specified arguments. This constructor
+     * is especially for inheritance.
+     *
+     * @param parameter the generic IMC parameter
+     * @param tnccFactory the TNCC adapter factory
+     * @param sessionFactory the factory for a connection session
+     * @param sessionManager the session manager
+     * @param evaluatorFactory the factory to instantiate the evaluation system
+     * @param connectionFactory the connection adapter factory
+     * @param imReader the integrity message reader
+     */
+    public ImcAdapterIetf(final ImParameter parameter,
+            final TnccAdapterFactory tnccFactory,
+            final ImSessionFactory<ImcSession> sessionFactory,
+            final ImSessionManager<IMCConnection, ImcSession> sessionManager,
+            final ImEvaluatorFactory evaluatorFactory,
+            final ImcConnectionAdapterFactory connectionFactory,
+            final ImReader<? extends ImMessageContainer> imReader) {
+        super(imReader);
 
-		if(attributeID == AttributeSupport.TNC_ATTRIBUTEID_IMC_SPTS_TNCS1){
-			return (this.parameter.hasTncsFirstSupport()) ? Boolean.TRUE : Boolean.FALSE;
-		}
-		
-		throw new TNCException("The attribute with ID " + attributeID + " is unknown.", TNCException.TNC_RESULT_INVALID_PARAMETER);
-		
-	}
+        this.parameter = parameter;
 
-	@Override
-	public void setAttribute(long attributeID, Object attributeValue)
-			throws TNCException {
-		
-		throw new UnsupportedOperationException("The operation setAttribute(...) is not supported, because there are no attributes to set.");
-//		if(attributeID == AttributeSupport.TNC_ATTRIBUTEID_PRIMARY_IMC_ID){
-//			
-//			if(attributeValue instanceof Long){
-//				if(this.parameter.getPrimaryId() <= 0){
-//					this.parameter.setPrimaryId((Long)attributeValue);
-//					this.initializeEvaluators(this.parameter.getPrimaryId());
-//				}else{
-//					throw new TNCException("Primary ID already set.", TNCException.TNC_RESULT_OTHER);
-//				}
-//			}else{
-//				throw new TNCException("Unexpected attribute type. Attribute with attribute ID " + attributeID + " cannot be of type " + attributeValue.getClass().getSimpleName() + ".", TNCException.TNC_RESULT_INVALID_PARAMETER);
-//			}
-//			
-//		}else{
-//			throw new TNCException("The attribute with ID " + attributeID + " is unknown.", TNCException.TNC_RESULT_INVALID_PARAMETER);
-//		}
-		
-	}
-	
-	protected ImcSession findSessionByConnection(IMCConnection connection){
-		
-		ImcSession s = this.sessions.getSession(connection);
-		
-		if(s == null){
-			
-			s = this.sessionFactory.createSession(this.connectionFactory.createConnectionAdapter(connection),evaluatorManager);
-			this.sessions.putSession(connection, s);
-		}
-		
-		return s;
-	}
-	
-	protected void checkInitialization() throws TNCException{
-		if (this.tncc == null){
-			throw new TNCException("IMC is not initialized.",TNCException.TNC_RESULT_NOT_INITIALIZED);
-		}
-	}
-	
-	protected void setPrimaryId(long id){
-		this.parameter.setPrimaryId(id);
-	}
+        this.tnccFactory = tnccFactory;
+        this.connectionFactory = connectionFactory;
+        this.evaluatorFactory = evaluatorFactory;
+        this.sessionFactory = sessionFactory;
+
+        this.sessions = sessionManager;
+    }
+
+    @Override
+    public void initialize(final TNCC tncc) throws TNCException {
+        if (this.tncc == null) {
+            this.tncc = this.tnccFactory.createTnccAdapter(this, tncc);
+            this.evaluatorManager = this.evaluatorFactory.getEvaluators(
+                    this.tncc, this.parameter);
+            try {
+
+                this.tncc.reportMessageTypes(this.evaluatorManager
+                        .getSupportedMessageTypes());
+
+            } catch (TncException e) {
+                throw new TNCException(e.getMessage(), e.getResultCode().id());
+            }
+
+            if (tncc instanceof AttributeSupport) {
+                try {
+                    Object o = ((AttributeSupport) tncc)
+                            .getAttribute(TncCommonAttributeTypeEnum
+                                    .TNC_ATTRIBUTEID_PREFERRED_LANGUAGE.id());
+
+                    if (o instanceof String) {
+                        String preferredLanguage = (String) o;
+                        this.parameter.setPreferredLanguage(preferredLanguage);
+                    }
+
+                } catch (TNCException | UnsupportedOperationException e) {
+                    LOGGER.info(
+                            "Preferred language attribute was not accessible, "
+                            + "using default language: "
+                            + this.parameter.getPreferredLanguage(), e);
+                }
+            }
+
+            this.sessions.initialize();
+
+        } else {
+            throw new TNCException("IMC already initialized by "
+                    + this.tncc.toString() + ".",
+                    TNCException.TNC_RESULT_ALREADY_INITIALIZED);
+        }
+    }
+
+    @Override
+    public void terminate() throws TNCException {
+        checkInitialization();
+
+        this.sessions.terminate();
+
+        this.evaluatorManager.terminate();
+
+        this.parameter.setPrimaryId(HSBConstants.HSB_IM_ID_UNKNOWN);
+        this.parameter
+                .setSupportedMessageTypes(new HashSet<SupportedMessageType>());
+
+        this.tncc = null;
+    }
+
+    @Override
+    public void notifyConnectionChange(final IMCConnection c,
+            final long newState)
+            throws TNCException {
+        checkInitialization();
+
+        TncConnectionState state =
+                DefaultTncConnectionStateFactory.getInstance()
+                .fromId(newState);
+
+        if (state != null) {
+            this.findSessionByConnection(c).setConnectionState(state);
+        } else {
+            throw new TNCException("Connection state "
+                            + newState
+                            + " is not a valid state.",
+                    TNCException.TNC_RESULT_INVALID_PARAMETER);
+        }
+
+    }
+
+    @Override
+    public void beginHandshake(final IMCConnection c) throws TNCException {
+        checkInitialization();
+        try {
+
+            this.findSessionByConnection(c).triggerMessage(
+                    ImMessageTriggerEnum.BEGIN_HANDSHAKE);
+
+        } catch (TncException e) {
+            throw new TNCException(e.getMessage(), e.getResultCode().id());
+        }
+
+    }
+
+    @Override
+    public void receiveMessage(final IMCConnection c,
+            final long messageType, final byte[] message)
+            throws TNCException {
+        checkInitialization();
+
+        if (message != null && message.length > 0) {
+            try {
+
+                ImObjectComponent component = super
+                        .receiveMessage(ImComponentFactory
+                                .createLegacyRawComponent(
+                                        messageType, message));
+
+                this.findSessionByConnection(c).handleMessage(component);
+
+            } catch (TncException e) {
+                throw new TNCException(e.getMessage(), e.getResultCode().id());
+            }
+        }
+
+    }
+
+    @Override
+    public void batchEnding(final IMCConnection c) throws TNCException {
+        checkInitialization();
+        try {
+
+            this.findSessionByConnection(c).triggerMessage(
+                    ImMessageTriggerEnum.BATCH_ENDING);
+
+        } catch (TncException e) {
+            throw new TNCException(e.getMessage(), e.getResultCode().id());
+        }
+    }
+
+    @Override
+    public Object getAttribute(final long attributeID) throws TNCException {
+
+        if (attributeID == AttributeSupport.TNC_ATTRIBUTEID_IMC_SPTS_TNCS1) {
+            return (this.parameter.hasTncsFirstSupport()) ? Boolean.TRUE
+                    : Boolean.FALSE;
+        }
+
+        throw new TNCException("The attribute with ID " + attributeID
+                + " is unknown.", TNCException.TNC_RESULT_INVALID_PARAMETER);
+
+    }
+
+    @Override
+    public void setAttribute(final long attributeID,
+            final Object attributeValue)
+            throws TNCException {
+
+        throw new UnsupportedOperationException(
+                "The operation setAttribute(...) is not supported, "
+                + "because there are no attributes to set.");
+
+    }
+
+    /**
+     * Finds a session to the given connection, if one exists. If not
+     * it creates a new session. Especially important for inheritance.
+     *
+     * @param connection the connection
+     * @return the session for the connection
+     */
+    protected ImcSession findSessionByConnection(
+            final IMCConnection connection) {
+
+        ImcSession s = this.sessions.getSession(connection);
+
+        if (s == null) {
+
+            s = this.sessionFactory.createSession(
+                    this.connectionFactory.createConnectionAdapter(connection),
+                    evaluatorManager);
+            this.sessions.putSession(connection, s);
+        }
+
+        return s;
+    }
+
+    /**
+     * Checks if the IMC is initialized properly.
+     * Especially important for inheritance.
+     *
+     * @throws TNCException if not initialized
+     */
+    protected void checkInitialization() throws TNCException {
+        if (this.tncc == null) {
+            throw new TNCException("IMC is not initialized.",
+                    TNCException.TNC_RESULT_NOT_INITIALIZED);
+        }
+    }
+
+    /**
+     * Sets the primary ID parameter after initialization.
+     * Especially important for inheritance.
+     *
+     * @param id the primary ID.
+     */
+    protected void setPrimaryId(final long id) {
+        this.parameter.setPrimaryId(id);
+    }
 }

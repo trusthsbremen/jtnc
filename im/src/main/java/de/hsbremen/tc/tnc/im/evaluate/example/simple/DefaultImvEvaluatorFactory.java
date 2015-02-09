@@ -1,3 +1,27 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package de.hsbremen.tc.tnc.im.evaluate.example.simple;
 
 import java.util.ArrayList;
@@ -11,41 +35,45 @@ import java.util.Set;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorFactoryIetf;
-import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
+/**
+ * Default IMV evaluator factory to compose the integrity measurement
+ * components.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class DefaultImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 
-	private static class Singleton {
-		private static final ImEvaluatorFactory INSTANCE = new DefaultImvEvaluatorFactory();
-	}
-	
-	public static ImEvaluatorFactory getInstance(){
-		return Singleton.INSTANCE;
-	}
-	
-	private static final Set<SupportedMessageType> supportedMessageTypes = new HashSet<>(
-			Arrays.asList(
-					new SupportedMessageType[]{
-							SupportedMessageTypeFactory.createSupportedMessageType(DefaultImvEvaluationUnit.VENDOR_ID,DefaultImvEvaluationUnit.TYPE)
-	}));
+    private static final Set<SupportedMessageType> SUPPORTED_MESSAGE_TYPES =
+            new HashSet<>(
+            Arrays.asList(new SupportedMessageType[] {
+                    SupportedMessageTypeFactory
+                    .createSupportedMessageType(
+                            DefaultImvEvaluationUnit.VENDOR_ID,
+                            DefaultImvEvaluationUnit.TYPE) }));
 
-	
-	@Override
-	protected ImvEvaluatorManager createEvaluatorManager(final TnccsAdapter tncc, final ImParameter imParams) {
-		
-		List<ImvEvaluationUnit> units = new ArrayList<>();
-		units.add(new DefaultImvEvaluationUnit(tncc.getHandshakeRetryListener()));
-		
-		ImvEvaluator evaluator = new DefaultImvEvaluator(imParams.getPrimaryId(), units, new DefaultImValueExceptionHandler());
-		
-		Map<Long,ImvEvaluator> evaluators = new HashMap<>();
-		evaluators.put(evaluator.getId(), evaluator);
-		
-		return new DefaultImvEvaluatorManager(supportedMessageTypes, evaluators);
-	}
+    @Override
+    protected ImvEvaluatorManager createEvaluatorManager(
+            final TnccsAdapter tncc, final ImParameter imParams) {
+
+        List<ImvEvaluationUnit> units = new ArrayList<>();
+        units.add(new DefaultImvEvaluationUnit(
+                tncc.getHandshakeRetryListener()));
+
+        ImvEvaluator evaluator = new DefaultImvEvaluator(
+                imParams.getPrimaryId(), units,
+                new DefaultImValueExceptionHandler());
+
+        Map<Long, ImvEvaluator> evaluators = new HashMap<>();
+        evaluators.put(evaluator.getId(), evaluator);
+
+        return new DefaultImvEvaluatorManager(
+                SUPPORTED_MESSAGE_TYPES, evaluators);
+    }
 }

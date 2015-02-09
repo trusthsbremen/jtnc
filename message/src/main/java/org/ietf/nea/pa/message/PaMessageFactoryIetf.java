@@ -9,8 +9,8 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 public class PaMessageFactoryIetf {
-	
-	public static PaMessage createMessage(short version, long identifier, List<PaAttribute> attributes) throws ValidationException{
+    
+	public static PaMessage createMessage(long identifier, List<PaAttribute> attributes) throws ValidationException{
 		if(attributes == null){
 			throw new NullPointerException("Attributes cannot be null.");
 		}
@@ -18,7 +18,6 @@ public class PaMessageFactoryIetf {
 		PaMessageHeaderBuilderIetf builder = new PaMessageHeaderBuilderIetf();
 		
 		try{
-			builder.setVersion(version);
 			builder.setIdentifier(identifier);
 			
 			long l = 0;

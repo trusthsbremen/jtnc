@@ -3,11 +3,21 @@ package org.ietf.nea.pa.serialize.writer.bytebuffer;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.m.enums.TcgMProtocolEnum;
+import de.hsbremen.tc.tnc.message.m.enums.TcgMVersionEnum;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 
 public class PaWriterFactory {
 
+    public static String getMProtocol(){
+        return TcgMProtocolEnum.M.value();
+    }
+    
+    public static String getMVersion(){
+        return TcgMVersionEnum.V1.value();
+    }
+    
 	@SuppressWarnings({"unchecked","rawtypes"})
 	public static ImWriter<ImMessage> createProductionDefault(){
 

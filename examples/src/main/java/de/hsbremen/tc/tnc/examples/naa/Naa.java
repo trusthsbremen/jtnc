@@ -1,3 +1,27 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package de.hsbremen.tc.tnc.examples.naa;
 
 import java.io.IOException;
@@ -33,118 +57,145 @@ import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultServerSessionFactory;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 
+/**
+ * An example Network Access Authority.
+ * Listens for handshakes at localhost:10229.
+ * 
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class Naa {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Naa.class);
-	private static final long MAX_MSG_SIZE = 131072;
-	
-	private ClientFacade client;
-	private ImvManager manager;
-	private ServerSocket serverSocket;
-	private SocketTransportConnectionBuilder connectionBuilder;
-	private ExecutorService runner;
-	private boolean stopped;
-	
-	public Naa(){
-		
-		GlobalHandshakeRetryProxy retryProxy = new GlobalHandshakeRetryProxy();
-		
-		this.manager = new DefaultImvManager(
-				new DefaultImMessageRouter(),
-				new ImvAdapterFactoryIetf(), 
-				new TncsAdapterFactoryIetf(retryProxy)
-				);
-		
-		this.connectionBuilder = new SocketTransportConnectionBuilder(
-				TcgTProtocolEnum.PLAIN.value(), 
-				TcgTVersionEnum.V1.value(),
-				PtTlsWriterFactory.createProductionDefault(), 
-				PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
-		this.connectionBuilder.setMaxRoundTrips(1);
-		
-		this.connectionBuilder.setMessageLength(MAX_MSG_SIZE).setImMessageLength(MAX_MSG_SIZE/10);
-		
-		SessionFactory factory = new DefaultServerSessionFactory(
-				PbReaderFactory.getTnccsProtocol(), 
-				PbReaderFactory.getTnccsVersion(),
-				PbWriterFactory.createProductionDefault(), 
-				PbReaderFactory.createProductionDefault(),
-				this.manager
-		);
-		
-		this.client = new DefaultClientFacade(factory, 3000);
-		
-		if(this.client instanceof GlobalHandshakeRetryListener){
-			retryProxy.register((GlobalHandshakeRetryListener)this.client);
-		}
-		
-		this.stopped = true;
-		
-		this.runner = Executors.newSingleThreadExecutor();
-		this.client.start();
-	}
-	
-	public void loadImv(List<IMV> imvs){
-		// only for testing, later IMC/V are loaded and managed via configuration file.
-		for (IMV imv : imvs) {
-			
-			try {
-				this.manager.add(imv);
-			} catch (ImInitializeException e) {
-				LOGGER.error(e.getMessage(),e);
-			}
-		}
-	}
-	
-	public void start(){
-		this.stopped = false;
-		this.runner.execute(new ServerRunner());
-	}
-	
-	public synchronized void stop(){
-		
-		if(!stopped){
-		
-			this.stopped = true;
-			
-			this.client.notifyGlobalConnectionChange(ConnectionChangeTypeEnum.CLOSED);
-			
-			this.runner.shutdownNow();
-			
-			try {
-				this.serverSocket.close();
-			} catch (IOException e) {
-				LOGGER.error(e.getMessage(),e);
-			}
-			
-			this.client.stop();
-			this.manager.terminate();
-		}
-	}
-	
-	private class ServerRunner implements Runnable{
-	
+    private static final Logger LOGGER = LoggerFactory.getLogger(Naa.class);
+    private static final long MAX_MSG_SIZE = 131072;
 
-		@Override
-		public void run() {
-			try{
-				serverSocket = new ServerSocket(10229);
-				while(!Thread.currentThread().isInterrupted()){
-					LOGGER.info("Listening...");
-					Socket socket = serverSocket.accept();
-					
-					LOGGER.info("Socket accepted " + socket.toString());
-					if(socket != null){
-						TransportConnection connection = connectionBuilder.toConnection(false, true, socket);
-						client.notifyConnectionChange(connection, ConnectionChangeTypeEnum.NEW);
-					}
-				}
-			}catch(IOException e){
-				LOGGER.error(e.getMessage(),e);
-				stop();
-			}
-			
-		}
-		
-	}
-	
+    private ClientFacade client;
+    private ImvManager manager;
+    private ServerSocket serverSocket;
+    private SocketTransportConnectionBuilder connectionBuilder;
+    private ExecutorService runner;
+    private boolean stopped;
+
+    /**
+     * Creates the NAA using default values.
+     */
+    public Naa() {
+
+        GlobalHandshakeRetryProxy retryProxy = new GlobalHandshakeRetryProxy();
+
+        this.manager = new DefaultImvManager(new DefaultImMessageRouter(),
+                new ImvAdapterFactoryIetf(), new TncsAdapterFactoryIetf(
+                        retryProxy));
+
+        this.connectionBuilder = new SocketTransportConnectionBuilder(
+                TcgTProtocolEnum.PLAIN.value(), TcgTVersionEnum.V1.value(),
+                PtTlsWriterFactory.createProductionDefault(),
+                PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
+        this.connectionBuilder.setMaxRoundTrips(1);
+
+        this.connectionBuilder.setMessageLength(MAX_MSG_SIZE)
+                .setImMessageLength(MAX_MSG_SIZE / 10);
+
+        SessionFactory factory = new DefaultServerSessionFactory(
+                PbReaderFactory.getTnccsProtocol(),
+                PbReaderFactory.getTnccsVersion(),
+                PbWriterFactory.createProductionDefault(),
+                PbReaderFactory.createProductionDefault(), this.manager);
+
+        this.client = new DefaultClientFacade(factory, 3000);
+
+        if (this.client instanceof GlobalHandshakeRetryListener) {
+            retryProxy.register((GlobalHandshakeRetryListener) this.client);
+        }
+
+        this.stopped = true;
+
+        this.runner = Executors.newSingleThreadExecutor();
+        this.client.start();
+    }
+
+    /**
+     * Imports a list of IMV to the manager and
+     * initializes them.
+     * @param imvs the list of IMV
+     */
+    public void loadImv(List<IMV> imvs) {
+        // only for testing, later IMC/V are loaded and managed via
+        // configuration file.
+        for (IMV imv : imvs) {
+
+            try {
+                this.manager.add(imv);
+            } catch (ImInitializeException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    /**
+     * Starts the NAA.
+     */
+    public void start() {
+        this.stopped = false;
+        this.runner.execute(new ServerRunner());
+    }
+
+    /**
+     * Stops the NAA.
+     */
+    public synchronized void stop() {
+
+        if (!stopped) {
+
+            this.stopped = true;
+
+            this.client
+                    .notifyGlobalConnectionChange(ConnectionChangeTypeEnum.CLOSED);
+
+            this.runner.shutdownNow();
+
+            try {
+                this.serverSocket.close();
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+
+            this.client.stop();
+            this.manager.terminate();
+        }
+    }
+
+    /**
+     * Runnable which manages the server socket to accept connections
+     * and dispatch them to the TNCS.
+     * 
+     * @author Carl-Heinz Genzel
+     *
+     */
+    private class ServerRunner implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                serverSocket = new ServerSocket(10229);
+                while (!Thread.currentThread().isInterrupted()) {
+                    LOGGER.info("Listening...");
+                    Socket socket = serverSocket.accept();
+
+                    LOGGER.info("Socket accepted " + socket.toString());
+                    if (socket != null) {
+                        TransportConnection connection = connectionBuilder
+                                .toConnection(false, true, socket);
+                        client.notifyConnectionChange(connection,
+                                ConnectionChangeTypeEnum.NEW);
+                    }
+                }
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e);
+                stop();
+            }
+
+        }
+
+    }
+
 }

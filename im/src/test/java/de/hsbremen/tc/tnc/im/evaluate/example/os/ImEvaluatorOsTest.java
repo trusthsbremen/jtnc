@@ -21,7 +21,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
-import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
+import de.hsbremen.tc.tnc.im.evaluate.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
@@ -99,7 +99,7 @@ public class ImEvaluatorOsTest {
 			e.printStackTrace();
 		}
 
-		ImObjectComponent component = ImComponentFactory.createObjectComponent((byte)0, IETFConstants.IETF_PEN_VENDORID,ImTypeEnum.IETF_PA_OPERATING_SYSTEM.type(), IM_ID, 0, attributes);
+		ImObjectComponent component = ImComponentFactory.createObjectComponent((byte)0, IETFConstants.IETF_PEN_VENDORID,PaComponentTypeEnum.IETF_PA_OPERATING_SYSTEM.id(), IM_ID, 0, attributes);
 		
 		
 			List<ImObjectComponent> params = new ArrayList<>();

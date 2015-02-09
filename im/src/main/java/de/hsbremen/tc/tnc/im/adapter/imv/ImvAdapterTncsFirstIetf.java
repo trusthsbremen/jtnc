@@ -23,39 +23,68 @@ import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
-public class ImvAdapterTncsFirstIetf extends ImvAdapterIetf implements IMVTNCSFirst{
+/**
+ * IMV adapter according to IETF/TCG specifications. Implementing a simple
+ * IF-IMV interface with TNCS first support.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class ImvAdapterTncsFirstIetf extends ImvAdapterIetf implements
+        IMVTNCSFirst {
 
-	
-	
-	public ImvAdapterTncsFirstIetf() {
-		this(new ImParameter(true), new TncsAdapterIetfFactory(),
-				new DefaultImvSessionFactory(),
-				new DefaultImSessionManager<IMVConnection, ImvSession>(),
-				DefaultImcEvaluatorFactory.getInstance(),
-				new ImvConnectionAdapterFactoryIetf(PaWriterFactory.createProductionDefault()),
-				PaReaderFactory.createProductionDefault());
-	}
+    /**
+     * Creates an IMV adapter with default arguments. This constructor is
+     * specified to be called to load an IMV from a source.
+     *
+     * A specific IMV must override this constructor and add its custom
+     * arguments. This implementation of the constructor should only be used for
+     * testing purpose.
+     */
+    public ImvAdapterTncsFirstIetf() {
+        this(new ImParameter(true), new TncsAdapterIetfFactory(),
+                new DefaultImvSessionFactory(),
+                new DefaultImSessionManager<IMVConnection, ImvSession>(),
+                new DefaultImcEvaluatorFactory(),
+                new ImvConnectionAdapterFactoryIetf(
+                        PaWriterFactory.createProductionDefault()),
+                PaReaderFactory.createProductionDefault());
+    }
 
-	public ImvAdapterTncsFirstIetf(ImParameter parameter,
-			TncsAdapterFactory tncsFactory,
-			ImSessionFactory<ImvSession> sessionFactory,
-			ImSessionManager<IMVConnection, ImvSession> sessionsManager,
-			ImEvaluatorFactory evaluatorFactory,
-			ImvConnectionAdapterFactory connectionFactory,
-			ImReader<? extends ImMessageContainer> imReader) {
-		super(parameter, tncsFactory, sessionFactory, sessionsManager, evaluatorFactory, connectionFactory, imReader);
-	}
+    /**
+     * Creates an IMV adapter with the specified arguments. This constructor
+     * is especially for inheritance.
+     *
+     * @param parameter the generic IMV parameter
+     * @param tncsFactory the TNCS adapter factory
+     * @param sessionFactory the factory for a connection session
+     * @param sessionManager the session manager
+     * @param evaluatorFactory the factory to instantiate the evaluation system
+     * @param connectionFactory the connection adapter factory
+     * @param imReader the integrity message reader
+     */
+    public ImvAdapterTncsFirstIetf(final ImParameter parameter,
+            final TncsAdapterFactory tncsFactory,
+            final ImSessionFactory<ImvSession> sessionFactory,
+            final ImSessionManager<IMVConnection, ImvSession> sessionManager,
+            final ImEvaluatorFactory evaluatorFactory,
+            final ImvConnectionAdapterFactory connectionFactory,
+            final ImReader<? extends ImMessageContainer> imReader) {
+        super(parameter, tncsFactory, sessionFactory, sessionManager,
+                evaluatorFactory, connectionFactory, imReader);
+    }
 
-	@Override
-	public void beginHandshake(IMVConnection c) throws TNCException {
-		
-			super.checkInitialization();
-			try{
-				super.findSessionByConnection(c).triggerMessage(ImMessageTriggerEnum.BEGIN_HANDSHAKE);
-			}catch(TncException e){
-				throw new TNCException(e.getMessage(),e.getResultCode().id());
-			
-			}
-		
-	}
+    @Override
+    public void beginHandshake(final IMVConnection c) throws TNCException {
+
+        super.checkInitialization();
+        try {
+            super.findSessionByConnection(c).triggerMessage(
+                    ImMessageTriggerEnum.BEGIN_HANDSHAKE);
+        } catch (TncException e) {
+            throw new TNCException(e.getMessage(), e.getResultCode().id());
+
+        }
+
+    }
 }

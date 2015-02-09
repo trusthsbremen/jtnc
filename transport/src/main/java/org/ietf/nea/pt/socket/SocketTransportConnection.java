@@ -260,7 +260,7 @@ public class SocketTransportConnection implements TransportConnection {
      */
     private long getIdentifier() {
         if (this.messageIdentifier
-                < HSBConstants.TCG_TRSPT_MAX_MESSAGE_IDENTIFIER) {
+                < HSBConstants.TCG_MAX_MESSAGE_IDENTIFIER) {
             return messageIdentifier++;
         } else {
             this.messageIdentifier = 0;

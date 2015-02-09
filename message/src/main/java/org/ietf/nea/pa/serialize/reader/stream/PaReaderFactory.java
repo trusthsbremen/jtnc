@@ -23,11 +23,21 @@ import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUriBui
 import org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.m.enums.TcgMProtocolEnum;
+import de.hsbremen.tc.tnc.message.m.enums.TcgMVersionEnum;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImReader;
 
 public class PaReaderFactory {
 
+    public static String getMProtocol(){
+        return TcgMProtocolEnum.M.value();
+    }
+    
+    public static String getMVersion(){
+        return TcgMVersionEnum.V1.value();
+    }
+    
 	@SuppressWarnings({"unchecked","rawtypes"})
 	public static ImReader<ImMessageContainer> createProductionDefault(){
 

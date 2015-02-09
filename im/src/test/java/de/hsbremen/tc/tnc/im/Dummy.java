@@ -14,7 +14,7 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
-import de.hsbremen.tc.tnc.im.evaluate.enums.ImTypeEnum;
+import de.hsbremen.tc.tnc.im.evaluate.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
@@ -78,7 +78,7 @@ public class Dummy extends AbstractDummy{
 				49, 55, 58, 50, 54, 58, 51, 52, 32, 85, 84, 67, 32, 50, 48, 49, 51, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 28, 0, 0, 0, 3, 0, 0, 0, 8, 0, 0, 0, 0, 0, 33, 0, 0};
 
 		
-		return ImComponentFactory.createRawComponent((byte)0, IETFConstants.IETF_PEN_VENDORID, ImTypeEnum.IETF_PA_OPERATING_SYSTEM.type(),collectorId, TNCConstants.TNC_IMVID_ANY, message);
+		return ImComponentFactory.createRawComponent((byte)0, IETFConstants.IETF_PEN_VENDORID, PaComponentTypeEnum.IETF_PA_OPERATING_SYSTEM.id(),collectorId, TNCConstants.TNC_IMVID_ANY, message);
 		
 	}
 	
@@ -88,7 +88,7 @@ public class Dummy extends AbstractDummy{
 		byte[] message = new byte[] {1, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 1,
                 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 4};
 		
-		return ImComponentFactory.createRawComponent((byte)0, IETFConstants.IETF_PEN_VENDORID, ImTypeEnum.IETF_PA_OPERATING_SYSTEM.type(), TNCConstants.TNC_IMCID_ANY, validatorId, message);
+		return ImComponentFactory.createRawComponent((byte)0, IETFConstants.IETF_PEN_VENDORID, PaComponentTypeEnum.IETF_PA_OPERATING_SYSTEM.id(), TNCConstants.TNC_IMCID_ANY, validatorId, message);
 		
 	}
 	

@@ -107,7 +107,7 @@ public class TestData {
 		PaAttribute a = PaAttributeFactoryIetf.createNumericVersion(1,7,258,0,1);
 		List<PaAttribute> attributes = new ArrayList<>();
 		attributes.add(a);
-		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);
+		return PaMessageFactoryIetf.createMessage((long)new Random().nextInt(100) , attributes);
 		
 	}
 	
@@ -116,7 +116,7 @@ public class TestData {
 		PaAttribute a = PaAttributeFactoryIetf.createAssessmentResult(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES);
 		List<PaAttribute> attributes = new ArrayList<>();
 		attributes.add(a);
-		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);
+		return PaMessageFactoryIetf.createMessage((long)new Random().nextInt(100) , attributes);
 		
 	}
 	
@@ -129,7 +129,7 @@ public class TestData {
 		PaAttribute a = PaAttributeFactoryIetf.createInstalledPackages(packages);
 		List<PaAttribute> attributes = new ArrayList<>();
 		attributes.add(a);
-		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);
+		return PaMessageFactoryIetf.createMessage((long)new Random().nextInt(100) , attributes);
 		
 	}
 	
@@ -140,7 +140,7 @@ public class TestData {
 		PaAttribute a = PaAttributeFactoryIetf.createAttributeRequest(ref1);
 		List<PaAttribute> attributes = new ArrayList<>();
 		attributes.add(a);
-		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);
+		return PaMessageFactoryIetf.createMessage((long)new Random().nextInt(100) , attributes);
 		
 	}
 	
@@ -162,7 +162,7 @@ public class TestData {
 		
 		
 		
-		return PaMessageFactoryIetf.createMessage((short)1, (long)new Random().nextInt(100) , attributes);
+		return PaMessageFactoryIetf.createMessage((long)new Random().nextInt(100) , attributes);
 		
 	}
 	

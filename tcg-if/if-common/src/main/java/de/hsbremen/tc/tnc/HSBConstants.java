@@ -91,7 +91,7 @@ public abstract class HSBConstants {
     public static final long TCG_IM_MAX_ROUND_TRIPS_UNLIMITED = 0xFFFFFFFFL;
 
     /**
-     * Maximum value for the identifier in a transport message.
+     * Maximum value for the identifier in a message with identifier.
      */
-    public static final long TCG_TRSPT_MAX_MESSAGE_IDENTIFIER = 0xFFFFFFFFL;
+    public static final long TCG_MAX_MESSAGE_IDENTIFIER = 0xFFFFFFFFL;
 }

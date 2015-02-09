@@ -21,49 +21,101 @@ import de.hsbremen.tc.tnc.im.session.ImSessionManager;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
-public class ImvAdapterIetfLong extends ImvAdapterIetf implements IMVLong{
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(ImvAdapterIetfLong.class);
-	
-	public ImvAdapterIetfLong() {
-		super();
-	}
+/**
+ * IMV adapter according to IETF/TCG specifications.
+ * Implementing a IF-IMV interface with long addressing
+ * support.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class ImvAdapterIetfLong extends ImvAdapterIetf implements IMVLong {
 
-	public ImvAdapterIetfLong(ImParameter parameter, TncsAdapterFactory tncsFactory,
-			ImSessionFactory<ImvSession> sessionFactory,
-			ImSessionManager<IMVConnection, ImvSession> sessionsManager,
-			ImEvaluatorFactory evaluatorFactory,
-			ImvConnectionAdapterFactory connectionFactory,
-			ImReader<? extends ImMessageContainer> imReader) {
-		super(parameter, tncsFactory, sessionFactory, sessionsManager, evaluatorFactory, connectionFactory, imReader);
-	}
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ImvAdapterIetfLong.class);
 
-	@Override
-	public void initialize(TNCS tncs) throws TNCException {
-		
-			try{
-				Object o = tncs.getAttribute(TncClientAttributeTypeEnum.TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id());
-				if(o instanceof Long){
-					long id = ((Long)o).longValue();
-					super.setPrimaryId(id);
-				}
-			}catch (TNCException | UnsupportedOperationException e){
-				LOGGER.warn("Primary ID initalization failed, this IMV will work with reduced functionality.",e);
-			}
+    /**
+     * Creates an IMV adapter with default arguments. This constructor
+     * is specified to be called to load an IMV from a source.
+     *
+     * A specific IMV must override this constructor and add its custom
+     * arguments. This implementation of the constructor should only be
+     * used for testing purpose.
+     */
+    public ImvAdapterIetfLong() {
+        super();
+    }
 
-		super.initialize(tncs);
-	}
-	
-	@Override
-	public void receiveMessageLong(IMVConnection c, long messageFlags,
-			long messageVendorID, long messageSubtype, byte[] message,
-			long sourceIMVID, long destinationIMCID) throws TNCException {
-		super.checkInitialization();
-		try{
-			ImObjectComponent component = super.receiveMessage(ImComponentFactory.createRawComponent((byte)(messageFlags & 0xFF), messageVendorID, messageSubtype, destinationIMCID, sourceIMVID, message));
-			super.findSessionByConnection(c).handleMessage(component);
-		}catch(TncException e){
-			throw new TNCException(e.getMessage(), e.getResultCode().id());
-		}
-	}
+    /**
+     * Creates an IMV adapter with the specified arguments. This constructor
+     * is especially for inheritance.
+     *
+     * @param parameter the generic IMV parameter
+     * @param tncsFactory the TNCS adapter factory
+     * @param sessionFactory the factory for a connection session
+     * @param sessionManager the session manager
+     * @param evaluatorFactory the factory to instantiate the evaluation system
+     * @param connectionFactory the connection adapter factory
+     * @param imReader the integrity message reader
+     */
+    public ImvAdapterIetfLong(final ImParameter parameter,
+            final TncsAdapterFactory tncsFactory,
+            final ImSessionFactory<ImvSession> sessionFactory,
+            final ImSessionManager<IMVConnection, ImvSession> sessionManager,
+            final ImEvaluatorFactory evaluatorFactory,
+            final ImvConnectionAdapterFactory connectionFactory,
+            final ImReader<? extends ImMessageContainer> imReader) {
+        super(parameter, tncsFactory, sessionFactory, sessionManager,
+                evaluatorFactory, connectionFactory, imReader);
+    }
+
+    @Override
+    public void initialize(final TNCS tncs) throws TNCException {
+
+        try {
+
+            Object o = tncs.getAttribute(
+                    TncClientAttributeTypeEnum.
+                    TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id());
+
+            if (o instanceof Long) {
+
+                long id = ((Long) o).longValue();
+                super.setPrimaryId(id);
+            }
+
+        } catch (TNCException | UnsupportedOperationException e) {
+            LOGGER.warn(
+                    "Primary ID initalization failed, "
+                    + "this IMV will work with reduced functionality.",
+                    e);
+        }
+
+        super.initialize(tncs);
+    }
+
+    @Override
+    public void receiveMessageLong(final IMVConnection c,
+            final long messageFlags,
+            final long messageVendorID, final long messageSubtype,
+            final byte[] message,
+            final long sourceIMVID, final long destinationIMCID)
+                    throws TNCException {
+        super.checkInitialization();
+
+        try {
+            final int messageFlagsMask = 0xFF;
+
+            ImObjectComponent component = super
+                    .receiveMessage(ImComponentFactory.createRawComponent(
+                            (byte) (messageFlags & messageFlagsMask),
+                            messageVendorID, messageSubtype,
+                            destinationIMCID, sourceIMVID,
+                            message));
+
+            super.findSessionByConnection(c).handleMessage(component);
+        } catch (TncException e) {
+            throw new TNCException(e.getMessage(), e.getResultCode().id());
+        }
+    }
 }
