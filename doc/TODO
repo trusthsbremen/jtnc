@@ -2,6 +2,7 @@ TODOs
 ------
 
 Functionality:
+- Check if factory constructors do proper if null checking
 - Make a TncsHandler which can read an evaluation policy from a file.
 - Make a IMV example which can read an evaluation policy from a file.
 - Implement the IMC/V loader with the provided interfaces.

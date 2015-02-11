@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.simple;
+package de.hsbremen.tc.tnc.im.evaluate.simple;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,8 +39,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentFlagsEnum;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple.util
-.DefaultRecommendationComparator;
+import de.hsbremen.tc.tnc.im.evaluate.simple.util.DefaultRecommendationComparator;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;

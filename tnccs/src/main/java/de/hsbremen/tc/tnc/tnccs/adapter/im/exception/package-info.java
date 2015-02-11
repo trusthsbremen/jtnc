@@ -22,4 +22,4 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.simple.util;
+package de.hsbremen.tc.tnc.tnccs.adapter.im.exception;

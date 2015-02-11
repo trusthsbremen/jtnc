@@ -8,8 +8,8 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.AbstractImConnectionContext;
+import de.hsbremen.tc.tnc.tnccs.adapter.connection.ConnectionHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionContext;
-import de.hsbremen.tc.tnc.tnccs.session.base.HandshakeRetryListener;
 
 //FIXME This is a tradeoff, because I could not figure out a way to fix the 
 //circular dependency between session and IMC/VConnection.
@@ -18,7 +18,7 @@ public class DefaultImvConnectionContext extends AbstractImConnectionContext imp
 	private final Map<Long,ImvRecommendationPair> recommendations;
 
 	
-	public DefaultImvConnectionContext(Attributed attributes, HandshakeRetryListener listener) {
+	public DefaultImvConnectionContext(Attributed attributes, ConnectionHandshakeRetryListener listener) {
 		super(attributes,listener);
 		this.recommendations = new HashMap<>();
 	}

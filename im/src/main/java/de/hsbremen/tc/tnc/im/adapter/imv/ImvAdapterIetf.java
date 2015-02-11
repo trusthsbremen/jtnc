@@ -27,7 +27,7 @@ import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImvEvaluatorFactory;
+import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;

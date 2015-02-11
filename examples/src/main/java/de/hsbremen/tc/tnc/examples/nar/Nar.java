@@ -45,7 +45,7 @@ import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
-import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeTypeEnum;
+import de.hsbremen.tc.tnc.tnccs.client.enums.CommonConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
@@ -131,7 +131,7 @@ public class Nar {
 
         this.connection = builder.toConnection(true, false, socket);
         this.client.notifyConnectionChange(connection,
-                ConnectionChangeTypeEnum.NEW);
+                CommonConnectionChangeTypeEnum.NEW);
     }
 
     /**
@@ -140,7 +140,7 @@ public class Nar {
      */
     public void stopHandshake() throws IOException {
         this.client.notifyConnectionChange(this.connection,
-                ConnectionChangeTypeEnum.CLOSED);
+                CommonConnectionChangeTypeEnum.CLOSED);
         this.socket.close();
     }
 

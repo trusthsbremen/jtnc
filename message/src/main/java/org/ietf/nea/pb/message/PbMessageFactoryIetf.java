@@ -59,14 +59,14 @@ public class PbMessageFactoryIetf {
 				PbMessageValueBuilderIetf.createImValue(imFlags, subVendorId, subType, collectorId, validatorId, imMessage));
 
 	}
-
-	public static PbMessage createLanguagePreference(final String preferedLanguage) throws ValidationException {
+	
+	public static PbMessage createLanguagePreference(final String preferredLanguage) throws ValidationException {
 		
 		byte flags = 0;
 	    long type = PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType();
 	    
 	    return createMessage(flags, type, 
-	    		PbMessageValueBuilderIetf.createLanguagePreferenceValue(preferedLanguage));
+	    		PbMessageValueBuilderIetf.createLanguagePreferenceValue(preferredLanguage));
 
 	}
 

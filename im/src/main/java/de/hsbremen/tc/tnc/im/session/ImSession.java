@@ -30,7 +30,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 
 /**
- * Generic session base. The session manages a IM(C/V) connection and is used to
+ * Generic session base. The session manages an IM(C/V) connection and is used to
  * communicate thru the underlying connection.
  *
  * @author Carl-Heinz Genzel

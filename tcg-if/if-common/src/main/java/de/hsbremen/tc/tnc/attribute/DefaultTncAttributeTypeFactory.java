@@ -62,7 +62,7 @@ public final class DefaultTncAttributeTypeFactory implements
     }
 
     /**
-     * Creates the factory an sorts the attributes into lists.
+     * Creates the factory and sorts the attributes into lists.
      */
     private DefaultTncAttributeTypeFactory() {
         Comparator<TncAttributeType> comparator = new IdComparator();

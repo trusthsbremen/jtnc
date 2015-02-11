@@ -22,4 +22,4 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.simple;
+package de.hsbremen.tc.tnc.tnccs.session.statemachine.exception;

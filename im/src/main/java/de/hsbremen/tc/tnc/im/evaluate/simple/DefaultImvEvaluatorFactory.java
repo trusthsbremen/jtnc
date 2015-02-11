@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.simple;
+package de.hsbremen.tc.tnc.im.evaluate.simple;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,45 +35,45 @@ import java.util.Set;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorFactoryIetf;
-import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
-import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager;
+import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
+import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
+import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
 /**
- * Default IMC evaluator factory to compose the integrity measurement
+ * Default IMV evaluator factory to compose the integrity measurement
  * components.
  *
  * @author Carl-Heinz Genzel
  *
  */
-public class DefaultImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
+public class DefaultImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 
     private static final Set<SupportedMessageType> SUPPORTED_MESSAGE_TYPES =
             new HashSet<>(
             Arrays.asList(new SupportedMessageType[] {
                     SupportedMessageTypeFactory
                     .createSupportedMessageType(
-                            DefaultImcEvaluationUnit.VENDOR_ID,
-                            DefaultImcEvaluationUnit.TYPE) }));
+                            DefaultImvEvaluationUnit.VENDOR_ID,
+                            DefaultImvEvaluationUnit.TYPE) }));
 
     @Override
-    protected ImcEvaluatorManager createEvaluatorManager(
+    protected ImvEvaluatorManager createEvaluatorManager(
             final TnccsAdapter tncc, final ImParameter imParams) {
 
-        List<ImcEvaluationUnit> units = new ArrayList<>();
-        units.add(new DefaultImcEvaluationUnit(
+        List<ImvEvaluationUnit> units = new ArrayList<>();
+        units.add(new DefaultImvEvaluationUnit(
                 tncc.getHandshakeRetryListener()));
 
-        ImcEvaluator evaluator = new DefaultImcEvaluator(
+        ImvEvaluator evaluator = new DefaultImvEvaluator(
                 imParams.getPrimaryId(), units,
                 new DefaultImValueExceptionHandler());
 
-        Map<Long, ImcEvaluator> evaluators = new HashMap<>();
+        Map<Long, ImvEvaluator> evaluators = new HashMap<>();
         evaluators.put(evaluator.getId(), evaluator);
 
-        return new DefaultImcEvaluatorManager(
+        return new DefaultImvEvaluatorManager(
                 SUPPORTED_MESSAGE_TYPES, evaluators);
     }
 }

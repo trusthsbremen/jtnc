@@ -28,7 +28,7 @@ import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 
 /**
- * Generic factory to create a session for an IMC or IMV.
+ * Generic factory to create a session for an IM(C/V).
  *
  * @author Carl-Heinz Genzel
  *

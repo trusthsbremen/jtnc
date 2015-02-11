@@ -47,7 +47,7 @@ import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TncsAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
-import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeTypeEnum;
+import de.hsbremen.tc.tnc.tnccs.client.enums.CommonConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImvManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
@@ -149,7 +149,7 @@ public class Naa {
             this.stopped = true;
 
             this.client
-                    .notifyGlobalConnectionChange(ConnectionChangeTypeEnum.CLOSED);
+                    .notifyGlobalConnectionChange(CommonConnectionChangeTypeEnum.CLOSED);
 
             this.runner.shutdownNow();
 
@@ -186,7 +186,7 @@ public class Naa {
                         TransportConnection connection = connectionBuilder
                                 .toConnection(false, true, socket);
                         client.notifyConnectionChange(connection,
-                                ConnectionChangeTypeEnum.NEW);
+                                CommonConnectionChangeTypeEnum.NEW);
                     }
                 }
             } catch (IOException e) {

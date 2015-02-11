@@ -28,7 +28,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 /**
- * Generic listener for handshake retry requests from evaluation units.
+ * Generic listener for global handshake retry requests from evaluation units.
  *
  * @author Carl-Heinz Genzel
  *

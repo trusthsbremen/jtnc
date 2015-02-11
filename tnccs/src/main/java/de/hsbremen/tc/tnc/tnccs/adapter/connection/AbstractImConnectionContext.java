@@ -16,7 +16,6 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
-import de.hsbremen.tc.tnc.tnccs.session.base.HandshakeRetryListener;
 
 //FIXME This is a tradeoff, because I could not figure out a way to fix the 
 //circular dependency between session and IMC/VConnection.
@@ -26,11 +25,11 @@ public abstract class AbstractImConnectionContext implements ImConnectionContext
 	
 	protected final List<TnccsMessage> messageQueue;
 	protected final Attributed attributes;
-	protected final HandshakeRetryListener listener;
+	protected final ConnectionHandshakeRetryListener listener;
 	private boolean valid;
 	private long maxRoundTrips;
 
-	public AbstractImConnectionContext(Attributed attributes, HandshakeRetryListener listener) {
+	public AbstractImConnectionContext(Attributed attributes, ConnectionHandshakeRetryListener listener) {
 		this.messageQueue = new LinkedList<>();
 		if(attributes != null){
 			this.attributes = attributes;

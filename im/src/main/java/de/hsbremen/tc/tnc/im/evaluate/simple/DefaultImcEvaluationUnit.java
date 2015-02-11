@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.simple;
+package de.hsbremen.tc.tnc.im.evaluate.simple;
 
 import java.util.ArrayList;
 import java.util.List;

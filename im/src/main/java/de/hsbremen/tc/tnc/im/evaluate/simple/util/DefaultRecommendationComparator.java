@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.simple.util;
+package de.hsbremen.tc.tnc.im.evaluate.simple.util;
 
 import java.util.Comparator;
 

@@ -22,36 +22,4 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.simple;
-
-import java.util.List;
-
-import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorIetf;
-import de.hsbremen.tc.tnc.im.evaluate.ImValueExceptionHandler;
-import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
-
-/**
- * Default IMC evaluator.
- *
- * @author Carl-Heinz Genzel
- *
- */
-public class DefaultImcEvaluator extends AbstractImEvaluatorIetf implements
-        ImcEvaluator {
-
-    /**
-     * Creates the default evaluator using the given evaluation units and the
-     * exception handler.
-     *
-     * @param id the evaluator ID identifying the component instance.
-     * @param evaluationUnits the list of evaluations units
-     * @param exceptionHandler the exception handler
-     */
-    public DefaultImcEvaluator(final long id,
-            final List<ImcEvaluationUnit> evaluationUnits,
-            final ImValueExceptionHandler exceptionHandler) {
-        super(id, evaluationUnits, exceptionHandler);
-    }
-
-}
+package de.hsbremen.tc.tnc.tnccs;

@@ -39,6 +39,7 @@ public interface Attributed {
      * @param type the attribute type
      * @return the attribute of the given type
      * @throws TncException if attribute does not exist or is not readable
+     * @throws UnsupportedOperationException if method is not supported
      */
     Object getAttribute(TncAttributeType type) throws TncException;
 
@@ -47,6 +48,7 @@ public interface Attributed {
      * @param type the attribute type
      * @param value the attribute value
      * @throws TncException if attribute does not exist or is not writable
+     * @throws UnsupportedOperationException if method is not supported
      */
     void setAttribute(TncAttributeType type, Object value) throws TncException;
 

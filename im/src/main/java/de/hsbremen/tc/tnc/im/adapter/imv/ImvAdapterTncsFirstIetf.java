@@ -13,7 +13,7 @@ import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluatorFactory;
+import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;

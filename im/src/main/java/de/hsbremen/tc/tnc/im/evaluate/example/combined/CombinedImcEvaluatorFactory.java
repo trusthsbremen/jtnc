@@ -40,11 +40,10 @@ import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.example.file.FileImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImcEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple
-.DefaultImValueExceptionHandler;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluator;
-import de.hsbremen.tc.tnc.im.evaluate.example.simple.DefaultImcEvaluatorManager;
+import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImValueExceptionHandler;
+import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImcEvaluationUnit;
+import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImcEvaluator;
+import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImcEvaluatorManager;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 
