@@ -33,6 +33,8 @@ import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Generic base for a TNC(C/S) session factory.
+ * Especially important for inheritance.
+ *
  * @author Carl-Heinz Genzel
  *
  */

@@ -13,6 +13,7 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
+import de.hsbremen.tc.tnc.tnccs.im.route.exception.NoRecipientFoundException;
 
 public class RouterTest {
 
@@ -55,7 +56,7 @@ public class RouterTest {
 	}
 	
 	@Test
-	public void simpleRoutingTest(){
+	public void simpleRoutingTest() throws NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test simple routing."));
 		this.router = new DefaultImMessageRouter();
 		this.router.updateMap(imId0, types0);
@@ -72,7 +73,7 @@ public class RouterTest {
 	}
 	
 	@Test
-	public void twoImRoutingTest(){
+	public void twoImRoutingTest() throws NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test routing with to IMC/V."));
 		this.router = new DefaultImMessageRouter();
 		this.router.updateMap(imId0, types0);
@@ -102,7 +103,7 @@ public class RouterTest {
 	}
 	
 	@Test
-	public void routeRemoveTest(){
+	public void routeRemoveTest() throws NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test remove IMC/V from map."));
 	
 		this.router = new DefaultImMessageRouter();
@@ -139,7 +140,7 @@ public class RouterTest {
 	}
 	
 	@Test 
-	public void exclRouteTest(){
+	public void exclRouteTest() throws NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test exclusive routing."));
 		
 		this.router = new DefaultImMessageRouter();
@@ -154,7 +155,7 @@ public class RouterTest {
 	}
 	
 	@Test
-	public void additionalIdExclRouteTest(){
+	public void additionalIdExclRouteTest() throws NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test exclusive routing with additional ID."));
 		
 		this.router = new DefaultImMessageRouter();

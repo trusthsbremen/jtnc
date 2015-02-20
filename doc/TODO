@@ -2,6 +2,7 @@ TODOs
 ------
 
 Functionality:
+- Check if abstract TNC(C/S) session factory methods should be added to the session factory interface
 - Check if factory constructors do proper if null checking
 - Make a TncsHandler which can read an evaluation policy from a file.
 - Make a IMV example which can read an evaluation policy from a file.
@@ -11,3 +12,5 @@ Code cleanup:
 - Comment all files and remove wrong comments. Add license to all files. 
 - Format the code (e.g. format (whitespace, indentation)  
 - Finished: (if-imc/imv (ignored), if-common, transport, im, native, examples)
+- Look for protected loggers and non static LOGGERs
+- Look for comments about null and change to NULL

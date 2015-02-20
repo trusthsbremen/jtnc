@@ -45,13 +45,13 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 /**
- * Generic base for an IM(C/V) session.
+ * Generic base for an IM(C/V) session. Especially important for inheritance.
  *
  * @author Carl-Heinz Genzel
  *
  * @param <T> the related connection type
  */
-public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
+abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
         implements ImSession, ImSessionContext {
 
     private static final Logger LOGGER = LoggerFactory
@@ -75,7 +75,7 @@ public abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
      * @param connectionState the initial connection state
      * @param evaluatorManager the evaluation composition for the session
      */
-    AbstractDefaultImSession(final T connection,
+    protected AbstractDefaultImSession(final T connection,
             final TncConnectionState connectionState,
             final ImEvaluatorManager evaluatorManager) {
         this.evaluatorManager = evaluatorManager;

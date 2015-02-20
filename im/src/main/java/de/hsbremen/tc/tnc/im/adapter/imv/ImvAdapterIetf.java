@@ -24,7 +24,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapter;
 import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactory;
-import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
+import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImvEvaluatorFactory;
@@ -40,7 +40,7 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 /**
  * IMV adapter according to IETF/TCG specifications.
- * Implementing a simple IF-IMV interface.
+ * Implementing a simple IF-IMV IMV interface.
  *
  * @author Carl-Heinz Genzel
  *
@@ -71,7 +71,7 @@ public class ImvAdapterIetf extends AbstractImAdapter implements IMV {
      * used for testing purpose.
      */
     public ImvAdapterIetf() {
-        this(new ImParameter(), new TncsAdapterIetfFactory(),
+        this(new ImParameter(), new TncsAdapterFactoryIetf(),
                 new DefaultImvSessionFactory(),
                 new DefaultImSessionManager<IMVConnection, ImvSession>(),
                 new DefaultImvEvaluatorFactory(),

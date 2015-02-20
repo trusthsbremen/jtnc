@@ -44,6 +44,7 @@ import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 /**
  * Generic IM(C/V) adapter base,
  * providing common functions for derived adapters.
+ * Especially important for inheritance.
  *
  * @author Carl-Heinz Genzel
  *

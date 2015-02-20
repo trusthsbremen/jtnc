@@ -22,31 +22,4 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.adapter.tncc;
-
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
-import org.trustedcomputinggroup.tnc.ifimc.TNCC;
-
-/**
- * TNCC adapter factory, that creates TNCC adapter
- * according to the IETF/TCG specifications.
- *
- * @author Carl-Heinz Genzel
- *
- */
-public class TnccAdapterIetfFactory implements TnccAdapterFactory {
-
-    @Override
-    public TnccAdapter createTnccAdapter(final IMC imc, final TNCC tncc) {
-        if (imc == null) {
-            throw new NullPointerException("IMC cannot be null.");
-        }
-
-        if (tncc == null) {
-            throw new NullPointerException("TNCC cannot be null.");
-        }
-
-        return new TnccAdapterIetf(imc, tncc);
-    }
-
-}
+package de.hsbremen.tc.tnc.tnccs.im.route.exception;

@@ -1,3 +1,27 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.simple;
 
 import java.util.ArrayList;
@@ -17,204 +41,222 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception
+.StateMachineAccessException;
 
+/**
+ * Default TNCC session state machine.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class DefaultClientStateMachine implements StateMachine {
-	
-	private State state;
-	private Boolean busy;
-	
-	private Object closeLock;
-	private Boolean connectionDeleteSet;
-	
-	private final StateHelper<? extends TnccContentHandler> stateHelper;
-	
-	public DefaultClientStateMachine(StateHelper<? extends TnccContentHandler> stateHelper){
-		
-		if(stateHelper == null){
-			throw new NullPointerException("StateHelper cannot be null.");
-		}
-		this.stateHelper = stateHelper;
-		
-		
-		this.state = null;
-		this.busy = Boolean.FALSE;
-		this.closeLock = new Object();
-		this.connectionDeleteSet = Boolean.TRUE;
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#start(boolean)
-	 */
-	@Override
-	public TnccsBatch start(boolean selfInitiated) throws StateMachineAccessException{
-		synchronized (this) {
-			if(this.isClosed()){
-				synchronized (this.closeLock) {
 
-					this.busy = Boolean.TRUE;
-					
-					this.stateHelper.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE);
-					this.connectionDeleteSet = Boolean.FALSE;
-					
-					this.stateHelper.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);					
-					TnccsBatch b = null;
-					
-					if(selfInitiated){
-						this.state = this.stateHelper.createState(TnccsStateEnum.INIT);
-						b = this.state.collect();
-						this.state = this.state.getConclusiveState();			
-					}else{
-						this.state = this.stateHelper.createState(TnccsStateEnum.SERVER_WORKING);
-					}
-					if(this.state instanceof End){
-						this.stop();
-					}
-					this.busy = Boolean.FALSE;
-					
-					return b;
-				}
-				
-			}else{	
-				throw new StateMachineAccessException("Object cannot be started, because it is already running.");
-			}
-		}
-		
-		
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#submitBatch(de.hsbremen.tc.tnc.tnccs.serialize.TnccsBatchContainer)
-	 */
-	@Override
-	public TnccsBatch receiveBatch(TnccsBatchContainer newBatch) throws StateMachineAccessException{
-		synchronized (this) {
-			if(!this.isClosed() && !this.busy){
-				this.busy = Boolean.TRUE;
-			}else{
-				throw new StateMachineAccessException("While the object is working, no other messages can be received.");
-			}
-		}
-		
-		TnccsBatch b = null;
-		synchronized(this.closeLock){
-			if(!this.isClosed()){
-				this.state = this.state.getProcessorState(newBatch.getResult());
-				b = this.state.handle(newBatch);
-				this.state = this.state.getConclusiveState();
-				if(this.state instanceof End){
-					this.stop();
-				}
-			}
-		}
+    private State state;
+    private Boolean busy;
 
-		this.busy = Boolean.FALSE;
-		
-		return b;
-		
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#retryHandshake()
-	 */
-	@Override
-	public List<TnccsBatch> retryHandshake(ImHandshakeRetryReasonEnum reason) throws TncException{
-		synchronized (this) {
-			if(!this.isClosed() && !this.busy){
-				if(this.state instanceof Decided){
-					this.busy = Boolean.TRUE;
-				}else{
-					throw new TncException("Current state " +this.state.toString()+  " does not allow retry.",TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY, this.state.toString());
-				}
-			}else{
-				throw new TncException("Retry not possible, because object ist busy.",TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
-			}
-		}
+    private Object closeLock;
+    private Boolean connectionDeleteSet;
 
-		TnccsBatch b = null;
-		synchronized(this.closeLock){
-			if(!this.isClosed()){
-				this.state = this.stateHelper.createState(TnccsStateEnum.RETRY);
-				
-				b = this.state.collect();
-				
-				this.state = this.state.getConclusiveState();
-				if(this.state instanceof End){
-					this.stop();
-				}
-			}
-		}
-		
-		this.busy = Boolean.FALSE;
-		
-		return (b != null) ? Arrays.asList(new TnccsBatch[]{b}) : new ArrayList<TnccsBatch>(0);
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine#close()
-	 */
-	@Override
-	public TnccsBatch close() throws StateMachineAccessException{
-		synchronized (this) {
-			if(!this.isClosed() && !this.busy){
-				this.busy = Boolean.TRUE;
-			}else{
-				throw new StateMachineAccessException("While the object is working, no other messages can be received.");
-			}
-		}
-		
-		TnccsBatch b = null;
-		synchronized(this.closeLock){
-			if(!this.isClosed()){
-				this.state = this.stateHelper.createState(TnccsStateEnum.END);
-				b = this.state.collect();
-				this.state = this.state.getConclusiveState();
-				if(this.state instanceof End){
-					this.stop();
-				}
-			}
-		}
+    private final StateHelper<? extends TnccContentHandler> stateHelper;
 
-		this.busy = Boolean.FALSE;
-		
-		return b;
-		
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#close()
-	 */
-	@Override
-	public void stop(){
-		synchronized(this.closeLock){
-			this.state = (this.state instanceof End) ? this.state : this.stateHelper.createState(TnccsStateEnum.END);
-			if(!this.connectionDeleteSet){
-				this.stateHelper.getHandler().setConnectionState(DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE);
-				this.connectionDeleteSet = Boolean.TRUE;
-			}
-		}
-	}
+    /**
+     * Creates a default TNCC session state machine with
+     * the given state helper containing TNCC message handlers.
+     *
+     * @param stateHelper the TNCC state helper
+     */
+    public DefaultClientStateMachine(
+            final StateHelper<? extends TnccContentHandler> stateHelper) {
 
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#isClosed()
-	 */
-	@Override
-	public boolean isClosed(){
-		return (this.state == null || this.state instanceof End);
-	}
+        if (stateHelper == null) {
+            throw new NullPointerException("StateHelper cannot be null.");
+        }
+        this.stateHelper = stateHelper;
 
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.session.statemachine.StateMachine#canRetry()
-	 */
-	@Override
-	public boolean canRetry() {
-		return ((!this.isClosed() && !this.busy) && (this.state instanceof Decided));
-	}
-	
-	
-	
-	
-	
+        this.state = null;
+        this.busy = Boolean.FALSE;
+        this.closeLock = new Object();
+        this.connectionDeleteSet = Boolean.TRUE;
+    }
+
+    @Override
+    public TnccsBatch start(final boolean selfInitiated)
+            throws StateMachineAccessException {
+        synchronized (this) {
+            if (this.isClosed()) {
+                synchronized (this.closeLock) {
+
+                    this.busy = Boolean.TRUE;
+
+                    this.stateHelper
+                            .getHandler()
+                            .setConnectionState(
+                                    DefaultTncConnectionStateEnum
+                                    .TNC_CONNECTION_STATE_CREATE);
+                    this.connectionDeleteSet = Boolean.FALSE;
+
+                    this.stateHelper
+                            .getHandler()
+                            .setConnectionState(
+                                    DefaultTncConnectionStateEnum
+                                    .TNC_CONNECTION_STATE_HANDSHAKE);
+                    TnccsBatch b = null;
+
+                    if (selfInitiated) {
+                        this.state = this.stateHelper
+                                .getState(TnccsStateEnum.INIT);
+                        b = this.state.collect();
+                        this.state = this.state.getConclusiveState();
+                    } else {
+                        this.state = this.stateHelper
+                                .getState(TnccsStateEnum.SERVER_WORKING);
+                    }
+                    if (this.state instanceof End) {
+                        this.stop();
+                    }
+                    this.busy = Boolean.FALSE;
+
+                    return b;
+                }
+
+            } else {
+                throw new StateMachineAccessException(
+                        "Object cannot be started, "
+                        + "because it is already running.");
+            }
+        }
+
+    }
+
+    @Override
+    public TnccsBatch receiveBatch(final TnccsBatchContainer newBatch)
+            throws StateMachineAccessException {
+        synchronized (this) {
+            if (!this.isClosed() && !this.busy) {
+                this.busy = Boolean.TRUE;
+            } else {
+                throw new StateMachineAccessException(
+                        "While the object is working, "
+                        + "no other messages can be received.");
+            }
+        }
+
+        TnccsBatch b = null;
+        synchronized (this.closeLock) {
+            if (!this.isClosed()) {
+                this.state = this.state.getProcessorState(newBatch.getResult());
+                b = this.state.handle(newBatch);
+                this.state = this.state.getConclusiveState();
+                if (this.state instanceof End) {
+                    this.stop();
+                }
+            }
+        }
+
+        this.busy = Boolean.FALSE;
+
+        return b;
+
+    }
+
+    @Override
+    public List<TnccsBatch> retryHandshake(
+            final ImHandshakeRetryReasonEnum reason)
+            throws TncException {
+        synchronized (this) {
+            if (!this.isClosed() && !this.busy) {
+                if (this.state instanceof Decided) {
+                    this.busy = Boolean.TRUE;
+                } else {
+                    throw new TncException("Current state "
+                            + this.state.toString() + " does not allow retry.",
+                            TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY,
+                            this.state.toString());
+                }
+            } else {
+                throw new TncException(
+                        "Retry not possible, because object ist busy.",
+                        TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
+            }
+        }
+
+        TnccsBatch batch = null;
+        synchronized (this.closeLock) {
+            if (!this.isClosed()) {
+                this.state = this.stateHelper.getState(TnccsStateEnum.RETRY);
+
+                batch = this.state.collect();
+
+                this.state = this.state.getConclusiveState();
+                if (this.state instanceof End) {
+                    this.stop();
+                }
+            }
+        }
+
+        this.busy = Boolean.FALSE;
+
+        return (batch != null) ? Arrays.asList(new TnccsBatch[] {batch})
+                : new ArrayList<TnccsBatch>(0);
+
+    }
+
+    @Override
+    public TnccsBatch close() throws StateMachineAccessException {
+        synchronized (this) {
+            if (!this.isClosed() && !this.busy) {
+                this.busy = Boolean.TRUE;
+            } else {
+                throw new StateMachineAccessException(
+                        "While the object is working, "
+                        + "no other messages can be received.");
+            }
+        }
+
+        TnccsBatch b = null;
+        synchronized (this.closeLock) {
+            if (!this.isClosed()) {
+                this.state = this.stateHelper.getState(TnccsStateEnum.END);
+                b = this.state.collect();
+                this.state = this.state.getConclusiveState();
+                if (this.state instanceof End) {
+                    this.stop();
+                }
+            }
+        }
+
+        this.busy = Boolean.FALSE;
+
+        return b;
+
+    }
+
+    @Override
+    public void stop() {
+        synchronized (this.closeLock) {
+            this.state = (this.state instanceof End) ? this.state
+                    : this.stateHelper.getState(TnccsStateEnum.END);
+            if (!this.connectionDeleteSet) {
+                this.stateHelper
+                        .getHandler()
+                        .setConnectionState(
+                                DefaultTncConnectionStateEnum
+                                .TNC_CONNECTION_STATE_DELETE);
+                this.connectionDeleteSet = Boolean.TRUE;
+            }
+        }
+    }
+
+    @Override
+    public boolean isClosed() {
+        return (this.state == null || this.state instanceof End);
+    }
+
+    @Override
+    public boolean canRetry() {
+        return ((!this.isClosed() && !this.busy)
+                && (this.state instanceof Decided));
+    }
+
 }

@@ -45,8 +45,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
-import org.ietf.nea.pa.attribute.util
-.PaAttributeValueErrorInformationInvalidParam;
+import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,8 +56,6 @@ import de.hsbremen.tc.tnc.im.evaluate.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
-import de.hsbremen.tc.tnc.natives.CLibrary;
-import de.hsbremen.tc.tnc.natives.CLibrary.UTSNAME;
 
 /**
  * Example file IMC evaluation unit, which uses
@@ -130,9 +127,6 @@ public class FileImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
             final ImSessionContext context) {
 
         List<PaAttribute> attributeList = new ArrayList<>();
-
-        final UTSNAME systemDescription = new UTSNAME();
-        CLibrary.INSTANCE.uname(systemDescription);
 
         List<AttributeReference> references = value.getReferences();
         for (AttributeReference attributeReference : references) {

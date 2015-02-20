@@ -25,7 +25,6 @@
 package de.hsbremen.tc.tnc.im.evaluate.simple;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,10 +35,10 @@ import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImValueExceptionHandler;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
-import de.hsbremen.tc.tnc.im.evaluate.simple.util.DefaultRecommendationComparator;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
+import de.hsbremen.tc.tnc.report.LeastPrivilegeRecommendationComparator;
 
 /**
  * Default IMV evaluator.
@@ -85,9 +84,9 @@ public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements
         }
 
         if (!recommendations.isEmpty()) {
-            Comparator<ImvRecommendationPair> comparator =
-                    new DefaultRecommendationComparator();
-            Collections.sort(recommendations, comparator);
+
+            Collections.sort(recommendations,
+                    LeastPrivilegeRecommendationComparator.getInstance());
             // because of the sort get last from list which should be the most
             // severe
             return recommendations.get((recommendations.size() - 1));

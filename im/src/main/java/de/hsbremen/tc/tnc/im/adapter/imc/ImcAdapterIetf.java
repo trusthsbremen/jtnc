@@ -25,7 +25,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactory;
-import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
+import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.simple.DefaultImcEvaluatorFactory;
@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 /**
  * IMC adapter according to IETF/TCG specifications.
- * Implementing a simple IF-IMC interface.
+ * Implementing a simple IF-IMC IMC interface.
  *
  * @author Carl-Heinz Genzel
  *
@@ -74,7 +74,7 @@ public class ImcAdapterIetf extends AbstractImAdapter
      * used for testing purpose.
      */
     public ImcAdapterIetf() {
-        this(new ImParameter(), new TnccAdapterIetfFactory(),
+        this(new ImParameter(), new TnccAdapterFactoryIetf(),
                 new DefaultImcSessionFactory(),
                 new DefaultImSessionManager<IMCConnection, ImcSession>(),
                 new DefaultImcEvaluatorFactory(),

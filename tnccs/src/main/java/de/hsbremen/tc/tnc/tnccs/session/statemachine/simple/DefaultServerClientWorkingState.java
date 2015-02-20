@@ -11,40 +11,55 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 
-class DefaultServerClientWorkingState extends AbstractState implements ServerWorking {
+/**
+ * Default TNCS client working state. The TNCS listens
+ * for further messages in the client working state and changes
+ * the state according to a newly received message.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+class DefaultServerClientWorkingState extends AbstractState implements
+        ServerWorking {
 
-	private StateHelper<TncsContentHandler> factory;
-	
-	DefaultServerClientWorkingState(StateHelper<TncsContentHandler> factory){
-		super(factory.getHandler());
-		this.factory = factory;
-	}
-	
-	@Override
-	public State getProcessorState(TnccsBatch result) {
+    private final StateHelper<TncsContentHandler> helper;
 
-		if(result != null && result instanceof PbBatch){
-			PbBatch b = (PbBatch) result;
-			
-			if(b.getHeader().getType().equals(PbBatchTypeEnum.CDATA)){	
+    /**
+     * Creates the state with the given state helper.
+     *
+     * @param helper the state helper
+     */
+    DefaultServerClientWorkingState(
+            final StateHelper<TncsContentHandler> helper) {
 
-				return this.factory.createState(TnccsStateEnum.SERVER_WORKING);
-			}
+        this.helper = helper;
+    }
 
-			if(b.getHeader().getType().equals(PbBatchTypeEnum.CLOSE)){
-			
-				return this.factory.createState(TnccsStateEnum.END);
-			}
-			
-			if(b.getHeader().getType().equals(PbBatchTypeEnum.CRETRY)){
-				
-				return this.factory.createState(TnccsStateEnum.SERVER_WORKING);
-			}
-			
-		}
-			
-		return this.factory.createState(TnccsStateEnum.ERROR);
+    @Override
+    public State getProcessorState(final TnccsBatch result) {
 
-	}
+        if (result != null && result instanceof PbBatch) {
+            PbBatch b = (PbBatch) result;
+
+            if (b.getHeader().getType().equals(PbBatchTypeEnum.CDATA)) {
+
+                return this.helper.getState(TnccsStateEnum.SERVER_WORKING);
+            }
+
+            if (b.getHeader().getType().equals(PbBatchTypeEnum.CLOSE)) {
+
+                return this.helper.getState(TnccsStateEnum.END);
+            }
+
+            if (b.getHeader().getType().equals(PbBatchTypeEnum.CRETRY)) {
+
+                return this.helper.getState(TnccsStateEnum.SERVER_WORKING);
+            }
+
+        }
+
+        return this.helper.getState(TnccsStateEnum.ERROR);
+
+    }
 
 }

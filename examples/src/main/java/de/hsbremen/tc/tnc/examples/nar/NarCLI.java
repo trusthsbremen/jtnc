@@ -38,7 +38,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetf;
-import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
+import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImcSession;
@@ -110,7 +110,7 @@ public class NarCLI {
         public TestImcOs() {
             super(
                     new ImParameter(),
-                    new TnccAdapterIetfFactory(),
+                    new TnccAdapterFactoryIetf(),
                     new DefaultImcSessionFactory(),
                     new DefaultImSessionManager<IMCConnection, ImcSession>(3000),
                     new OsImcEvaluatorFactory(),

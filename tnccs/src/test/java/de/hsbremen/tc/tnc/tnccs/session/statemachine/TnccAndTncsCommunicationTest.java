@@ -24,8 +24,8 @@ import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultSessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachine;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateFactory;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateFactory;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateHelper;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateMachine;
 
 public class TnccAndTncsCommunicationTest {
@@ -50,13 +50,13 @@ public class TnccAndTncsCommunicationTest {
 		TncsContentHandler tncsHandler = new DefaultTncsContentHandler(Dummy.getImvHandler(), 
 				new DefaultTncsHandler(serverAttributes), 
 				new DefaultTnccsValidationExceptionHandler(new AttributeCollection()));
-		this.server = new DefaultServerStateMachine(new DefaultServerStateFactory(serverAttributes,tncsHandler));
+		this.server = new DefaultServerStateMachine(new DefaultServerStateHelper(serverAttributes,tncsHandler));
 		
 		DefaultSessionAttributes clientAttributes = new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
 		TnccContentHandler tnccHandler = new DefaultTnccContentHandler(Dummy.getImcHandler(), 
 				new DefaultTnccHandler(clientAttributes), 
 				new DefaultTnccsValidationExceptionHandler(new AttributeCollection()));
-		this.client = new DefaultClientStateMachine(new DefaultClientStateFactory(clientAttributes,tnccHandler));
+		this.client = new DefaultClientStateMachine(new DefaultClientStateHelper(clientAttributes,tnccHandler));
 	
 	}
 	

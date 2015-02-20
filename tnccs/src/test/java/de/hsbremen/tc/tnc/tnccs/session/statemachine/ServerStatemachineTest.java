@@ -27,7 +27,7 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTncsHandler;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultSessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateFactory;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateMachine;
 
 public class ServerStatemachineTest {
@@ -45,7 +45,7 @@ public class ServerStatemachineTest {
 		TncsContentHandler handler = new DefaultTncsContentHandler(Dummy.getImvHandler(), 
 				new DefaultTncsHandler(attributes), 
 				new DefaultTnccsValidationExceptionHandler(new AttributeCollection()));
-		this.machine = new DefaultServerStateMachine(new DefaultServerStateFactory(attributes,handler));
+		this.machine = new DefaultServerStateMachine(new DefaultServerStateHelper(attributes,handler));
 	}
 	
 	@Test

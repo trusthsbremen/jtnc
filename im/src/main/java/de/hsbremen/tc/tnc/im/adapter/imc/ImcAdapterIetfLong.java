@@ -24,7 +24,7 @@ import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
 /**
  * IMC adapter according to IETF/TCG specifications.
- * Implementing a IF-IMC interface with long addressing
+ * Implementing an IF-IMC IMC interface with long addressing
  * support.
  *
  * @author Carl-Heinz Genzel

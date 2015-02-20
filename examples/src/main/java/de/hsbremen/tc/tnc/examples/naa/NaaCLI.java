@@ -37,7 +37,7 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.imv.ImvAdapterIetf;
-import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
+import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImvSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;
@@ -103,7 +103,7 @@ public abstract class NaaCLI {
         public TestImvOs() {
             super(
                     new ImParameter(),
-                    new TncsAdapterIetfFactory(),
+                    new TncsAdapterFactoryIetf(),
                     new DefaultImvSessionFactory(),
                     new DefaultImSessionManager<IMVConnection, ImvSession>(3000),
                     new OsImvEvaluatorFactory("/os_imv.properties"),

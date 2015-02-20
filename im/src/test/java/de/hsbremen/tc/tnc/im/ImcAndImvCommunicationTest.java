@@ -18,8 +18,8 @@ import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetf;
 import de.hsbremen.tc.tnc.im.adapter.imv.ImvAdapterIetf;
-import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterIetfFactory;
-import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterIetfFactory;
+import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.OsImvEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;
@@ -68,7 +68,7 @@ public class ImcAndImvCommunicationTest {
 	private class TestImcOs extends ImcAdapterIetf{
 		
 		public TestImcOs(){
-			super(new ImParameter(), new TnccAdapterIetfFactory(),
+			super(new ImParameter(), new TnccAdapterFactoryIetf(),
 					new DefaultImcSessionFactory(),
 					new DefaultImSessionManager<IMCConnection, ImcSession>(3000),
 					new OsImcEvaluatorFactory(),
@@ -81,7 +81,7 @@ public class ImcAndImvCommunicationTest {
 	private class TestImvOs extends ImvAdapterIetf{
 		
 		public TestImvOs(){
-			super(new ImParameter(), new TncsAdapterIetfFactory(),
+			super(new ImParameter(), new TncsAdapterFactoryIetf(),
 					new DefaultImvSessionFactory(),
 					new DefaultImSessionManager<IMVConnection, ImvSession>(3000),
 					new OsImvEvaluatorFactory("/os_imv.properties"),

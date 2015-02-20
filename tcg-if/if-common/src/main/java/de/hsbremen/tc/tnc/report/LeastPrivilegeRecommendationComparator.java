@@ -22,11 +22,9 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.simple.util;
+package de.hsbremen.tc.tnc.report;
 
 import java.util.Comparator;
-
-import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 
 /**
  * Simple recommendation comparator comparing recommendations based on the least
@@ -35,9 +33,35 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
  * @author Carl-Heinz Genzel
  *
  */
-public class DefaultRecommendationComparator implements
+public class LeastPrivilegeRecommendationComparator implements
         Comparator<ImvRecommendationPair> {
 
+    /**
+     * Singleton to instantiate the factory only on first access.
+     *
+     * @author Carl-Heinz Genzel
+     *
+     */
+    private static class Singleton {
+        private static final Comparator<ImvRecommendationPair> INSTANCE =
+                new LeastPrivilegeRecommendationComparator();
+    }
+
+    /**
+     * Returns the singleton instance of this factory.
+     * @return the factory
+     */
+    public static Comparator<ImvRecommendationPair> getInstance() {
+        return Singleton.INSTANCE;
+    }
+    
+    /**
+     * Creates the least privilege comparator.
+     */
+    private LeastPrivilegeRecommendationComparator() {
+        // Singleton
+    }
+    
     /**
      * Returns a weight for a action recommendation ID where the most negative
      * action has the highest weight.

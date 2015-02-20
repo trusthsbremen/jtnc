@@ -65,7 +65,7 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
      * @param evaluationUnits the list of evaluations units
      * @param valueExceptionHandler the exception handler
      */
-    public AbstractImEvaluatorIetf(final long id,
+    protected AbstractImEvaluatorIetf(final long id,
             final List<? extends ImEvaluationUnit> evaluationUnits,
             final ImValueExceptionHandler valueExceptionHandler) {
         this.id = id;

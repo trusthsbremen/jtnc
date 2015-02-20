@@ -274,7 +274,7 @@ public class DefaultSession implements Session {
      * Runnable which starts the session and initializes the state machine.
      * It registers this session as listener for messages to the underlying
      * connection. If the underlying connection was initiated at this side,
-     * the first batch will be send too.
+     * the first message batch will be send too.
      *
      * @author Carl-Heinz Genzel
      *
@@ -337,7 +337,7 @@ public class DefaultSession implements Session {
     }
 
     /**
-     * Runnable which receives and parses a message
+     * Runnable which receives and parses a message batch
      * from the underlying connection.
      *
      * @author Carl-Heinz Genzel

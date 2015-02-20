@@ -46,7 +46,7 @@ public class ImvConnectionAdapterFactoryIetf implements
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ImvConnectionAdapterFactory.class);
-    private ImWriter<ImMessage> writer;
+    private final ImWriter<ImMessage> writer;
 
     /**
      * Creates a connection factory with the specified message writer.

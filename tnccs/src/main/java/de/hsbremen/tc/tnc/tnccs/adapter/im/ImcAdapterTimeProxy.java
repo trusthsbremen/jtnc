@@ -1,15 +1,30 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package de.hsbremen.tc.tnc.tnccs.adapter.im;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
@@ -18,154 +33,115 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 
-public class ImcAdapterTimeProxy implements ImcAdapter{
+/**
+ * IMC adapter time controlling proxy. Controls the runtime of an IMC function
+ * call and cancels a function call if necessary.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class ImcAdapterTimeProxy extends AbstractTimeProxy implements
+        ImcAdapter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ImcAdapterTimeProxy.class);
-	
-	private final ImcAdapter adapter;
-	private final long timeout;
-	
-	public ImcAdapterTimeProxy(ImcAdapter adapter, long timeout) {
-		this.adapter = adapter;
-		if(timeout < 1000){
-	       	this.timeout = timeout;
-		}else{
-			throw new IllegalArgumentException("Timeout of "+ timeout + " milliseconds is to large, timeout must be less than one second ( < 1000 milliseconds).");
-		}
-	}
+    private final ImcAdapter adapter;
 
-	@Override
-	public long getPrimaryId() {
-		return this.adapter.getPrimaryId();
-	}
+    /**
+     * Creates the adapter proxy for a given IMC adapter.
+     *
+     * @param adapter the adapter to control
+     * @param timeout the maximum function call runtime
+     * must be > 0
+     */
+    public ImcAdapterTimeProxy(final ImcAdapter adapter, final long timeout) {
+        super(timeout);
+        this.adapter = adapter;
+    }
 
-	@Override
-	public void notifyConnectionChange(ImcConnectionAdapter connection,
-			TncConnectionState state) throws TncException, TerminatedException {
-		this.adapter.notifyConnectionChange(connection, state);
-	}
+    @Override
+    public long getPrimaryId() {
+        return this.adapter.getPrimaryId();
+    }
 
-	@Override
-	public void beginHandshake(final ImcConnectionAdapter connection)
-			throws TncException, TerminatedException {
-		try{
-			this.execute(new Callable<Boolean>(){
-	
-	        	@Override
-				public Boolean call() throws TncException, TerminatedException {
-					adapter.beginHandshake(connection);
-					return Boolean.TRUE;
-				}	
-	
-	        });
-		}finally{
-			connection.denyMessageReceipt();
-		}
-		
-	}
+    @Override
+    public void notifyConnectionChange(final ImcConnectionAdapter connection,
+            final TncConnectionState state)
+            throws TncException, TerminatedException {
+        this.adapter.notifyConnectionChange(connection, state);
+    }
 
-	@Override
-	public void handleMessage(final ImcConnectionAdapter connection,
-			final TnccsMessageValue message) throws TncException, TerminatedException {
-		try{
-			this.execute(new Callable<Boolean>(){
-	
-	        	@Override
-				public Boolean call() throws TncException, TerminatedException {
-					adapter.handleMessage(connection, message);
-					return Boolean.TRUE;
-				}	
-	
-	        });
-		}finally{
-			connection.denyMessageReceipt();
-		}
-		
-	}
-
-	@Override
-	public void batchEnding(final ImcConnectionAdapter connection)
-			throws TncException, TerminatedException {
-		try{
-			this.execute(new Callable<Boolean>(){
-	
-	        	@Override
-				public Boolean call() throws TncException, TerminatedException {
-					adapter.batchEnding(connection);
-					return Boolean.TRUE;
-				}	
-	
-	        });
-		}finally{
-			connection.denyMessageReceipt();
-		}
-	}
-
-	@Override
-	public void terminate() throws TerminatedException {
-		this.adapter.terminate();
-	}
-
-	@Override
-	public Object getAttribute(TncAttributeType type) throws TncException {
-		return this.adapter.getAttribute(type);
-	}
-
-	@Override
-	public void setAttribute(TncAttributeType type, Object value)
-			throws TncException {
-		this.adapter.setAttribute(type, value);
-		
-	}
-
-	public void execute(Callable<Boolean> function) throws TncException, TerminatedException{
-		ScheduledExecutorService exec = Executors.newScheduledThreadPool(2);
-		//Use executor to execute a command and stop it after a fixed time length.
-        final Future<?> task = exec.submit(function);
-        exec.schedule(new WatchDog(task), this.timeout, TimeUnit.MILLISECONDS);
-        // shutdown the executor after finished, timeout is 3 times the command timeout should not 
-        // ever be used.
+    @Override
+    public void beginHandshake(final ImcConnectionAdapter connection)
+            throws TncException, TerminatedException {
         try {
-        	// It has to be something blocking here, because the send method in state cann't send
-        	// messages if the IMC has not returned from the message.
-        	LOGGER.debug("Wait on the task " +task.toString()+ " to finish.");
-        	task.get();
-		} catch (InterruptedException e) {
-			LOGGER.debug("Thread " + Thread.currentThread().toString() + " interrupted."); 
-			Thread.currentThread().interrupt();
-		} catch (ExecutionException e) {
-			Throwable t = e.getCause();
-			// Cast to TNCException and throw further;
-			if(t instanceof TncException){
-				throw (TncException)t;
-			}else if(t instanceof TerminatedException){
-				throw (TerminatedException) t;
-			}
-		} catch (CancellationException e){
-			LOGGER.debug("Task " + task.toString() + " was cancelled, it may have taken more than " + this.timeout + " milliseconds.");
-		}
-        exec.shutdown();
-        LOGGER.debug("Task "+task.toString()+" finished and time control resources released."); 
-	}
-	
-	      
-	@SuppressWarnings("rawtypes")
-	private class WatchDog implements Runnable{
+            super.execute(new Callable<Boolean>() {
 
-		private Future task;
-		          
-		public WatchDog(Future task){
-		   this.task = task;
-		}
-		          
-		@Override
-		public void run() {
-		  if(!this.task.isDone()){
-			   LOGGER.debug("WatchDog released to cancel method call.");
-			   this.task.cancel(true);
-		  }
-		}
-	}
-	
-	
+                @Override
+                public Boolean call() throws TncException, TerminatedException {
+                    adapter.beginHandshake(connection);
+                    return Boolean.TRUE;
+                }
+
+            });
+        } finally {
+            connection.denyMessageReceipt();
+        }
+
+    }
+
+    @Override
+    public void handleMessage(final ImcConnectionAdapter connection,
+            final TnccsMessageValue message) throws TncException,
+            TerminatedException {
+        try {
+            super.execute(new Callable<Boolean>() {
+
+                @Override
+                public Boolean call() throws TncException, TerminatedException {
+                    adapter.handleMessage(connection, message);
+                    return Boolean.TRUE;
+                }
+
+            });
+        } finally {
+            connection.denyMessageReceipt();
+        }
+
+    }
+
+    @Override
+    public void batchEnding(final ImcConnectionAdapter connection)
+            throws TncException, TerminatedException {
+        try {
+            super.execute(new Callable<Boolean>() {
+
+                @Override
+                public Boolean call() throws TncException, TerminatedException {
+                    adapter.batchEnding(connection);
+                    return Boolean.TRUE;
+                }
+
+            });
+        } finally {
+            connection.denyMessageReceipt();
+        }
+    }
+
+    @Override
+    public void terminate() throws TerminatedException {
+        this.adapter.terminate();
+    }
+
+    @Override
+    public Object getAttribute(final TncAttributeType type)
+            throws TncException {
+        return this.adapter.getAttribute(type);
+    }
+
+    @Override
+    public void setAttribute(final TncAttributeType type, final Object value)
+            throws TncException {
+        this.adapter.setAttribute(type, value);
+
+    }
+
 }

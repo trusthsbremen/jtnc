@@ -1,3 +1,27 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package de.hsbremen.tc.tnc.tnccs.adapter.im;
 
 import org.ietf.nea.pb.message.PbMessageValueIm;
@@ -17,161 +41,207 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionAdapter;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 
-class ImvAdapterIetf implements ImvAdapter{
+/**
+ * IMV adapter adapting an IMV according to IETF/TCG specifications.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+class ImvAdapterIetf implements ImvAdapter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ImvAdapterIetf.class);
-	private IMV imv;
-	private final long primaryId;
-//	private final ImParameter parameter;
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ImvAdapterIetf.class);
+    private IMV imv;
+    private final long primaryId;
 
-	ImvAdapterIetf(IMV imv, long primaryId /*, ImParameter parameter*/) {
-		this.imv = imv;
-		this.primaryId = primaryId;
-		/* this.parameter = parameter; */
-	}
+    /**
+     * Creates an IMV adapter for the given IMV
+     * with the given primary ID.
+     *
+     * @param imv the IMV to adapt
+     * @param primaryId the primary ID
+     */
+    ImvAdapterIetf(final IMV imv, final long primaryId) {
+        this.imv = imv;
+        this.primaryId = primaryId;
+    }
 
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#getPrimaryId()
-	 */
-	@Override
-	public long getPrimaryId() {
-		return this.primaryId;
-	}
+    @Override
+    public long getPrimaryId() {
+        return this.primaryId;
+    }
 
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#notifyConnectionChange(org.trustedcomputinggroup.tnc.ifimv.IMVConnection, de.hsbremen.tc.tnc.connection.ImConnectionState)
-	 */
-	@Override
-	public void notifyConnectionChange(ImvConnectionAdapter connection, TncConnectionState state) throws TncException, TerminatedException{
-		try {
-			this.imv.notifyConnectionChange(connection, state.id());
-		} catch (TNCException e) {
-			throw new TncException(e);
-		}catch(NullPointerException e){
-			throw new TerminatedException();
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.im.ImcAdapter#beginHandshake(org.trustedcomputinggroup.tnc.ifimv.IMVConnection)
-	 */
-	@Override
-	public void beginHandshake (ImvConnectionAdapter connection) throws TncException, TerminatedException{
+    @Override
+    public void notifyConnectionChange(final ImvConnectionAdapter connection,
+            final TncConnectionState state)
+            throws TncException, TerminatedException {
+        try {
+            this.imv.notifyConnectionChange(connection, state.id());
+        } catch (TNCException e) {
+            throw new TncException(e);
+        } catch (NullPointerException e) {
+            throw new TerminatedException("The IMV with ID " + this.primaryId
+                    + " is terminated and should be removed.", e, new Long(
+                    this.primaryId));
+        }
+    }
 
-		try {
-			if(this.imv instanceof IMVTNCSFirst){
-				connection.allowMessageReceipt();
-				((IMVTNCSFirst)this.imv).beginHandshake(connection);
-			}else{
-				throw new UnsupportedOperationException("The underlying IMV is not of type " + IMVTNCSFirst.class.getCanonicalName() + ".");
-			}
-		} catch (TNCException e) {
-			throw new TncException(e);
-		}catch(NullPointerException e){
-			throw new TerminatedException();
-		}finally{
-			connection.denyMessageReceipt();
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#handleMessage(org.trustedcomputinggroup.tnc.ifimv.IMVConnection, de.hsbremen.tc.tnc.tnccs.message.TnccsMessageValue)
-	 */
-	@Override
-	public void handleMessage (ImvConnectionAdapter connection, TnccsMessageValue message) throws TncException, TerminatedException{
-		try{
-			this.dispatchMessageToImc(connection, message);
-		}catch(NullPointerException e){
-			throw new TerminatedException();
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#batchEnding(org.trustedcomputinggroup.tnc.ifimv.IMVConnection)
-	 */
-	@Override
-	public void batchEnding (ImvConnectionAdapter connection) throws TncException, TerminatedException{
+    @Override
+    public void beginHandshake(final ImvConnectionAdapter connection)
+            throws TncException, TerminatedException {
 
-		try{
-			connection.allowMessageReceipt();
-			this.imv.batchEnding(connection);
-		}catch(TNCException e){
-			throw new TncException(e);
-		}catch(NullPointerException e){
-			throw new TerminatedException();
-		}finally{
-			connection.denyMessageReceipt();
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.hsbremen.tc.tnc.adapter.im.ImAdapter#terminate()
-	 */
-	@Override
-	public void terminate() throws TerminatedException{
+        try {
+            if (this.imv instanceof IMVTNCSFirst) {
+                connection.allowMessageReceipt();
+                ((IMVTNCSFirst) this.imv).beginHandshake(connection);
+            } else {
+                throw new UnsupportedOperationException(
+                        "The underlying IMV is not of type "
+                                + IMVTNCSFirst.class.getCanonicalName() + ".");
+            }
+        } catch (TNCException e) {
+            throw new TncException(e);
+        } catch (NullPointerException e) {
+            throw new TerminatedException("The IMV with ID " + this.primaryId
+                    + " is terminated and should be removed.", e, new Long(
+                    this.primaryId));
+        } finally {
+            connection.denyMessageReceipt();
+        }
+    }
 
-		try {
-			this.imv.terminate();
-		} catch (TNCException e) {
-			LOGGER.warn("An error occured, while terminating IMC/V " + this.imv + ". IMC/V will be removed anyway.",e);
-		}catch(NullPointerException e){
-			throw new TerminatedException();
-		}
-		this.imv = null;
-	}
-	
-	@Override
-	public void solicitRecommendation(ImvConnectionAdapter connection)
-			throws TncException, TerminatedException {
+    @Override
+    public void handleMessage(final ImvConnectionAdapter connection,
+            final TnccsMessageValue message)
+            throws TncException, TerminatedException {
+        try {
+            this.dispatchMessageToImc(connection, message);
+        } catch (NullPointerException e) {
+            throw new TerminatedException("The IMV with ID " + this.primaryId
+                    + " is terminated and should be removed.", e, new Long(
+                    this.primaryId));
+        }
+    }
 
-		try{
-			this.imv.solicitRecommendation(connection);
-		}catch(TNCException e){
-			throw new TncException(e);
-		}catch(NullPointerException e){
-			throw new TerminatedException();
-		}
-		
-	}
-	
-	private void dispatchMessageToImc(ImvConnectionAdapter connection, TnccsMessageValue value) throws TncException{
-		
-		if(value instanceof PbMessageValueIm){
-			PbMessageValueIm pbValue = (PbMessageValueIm) value;
-			
-			if(this.imv instanceof IMVLong){
-				pbValue.getImFlags();
-				
-				byte bFlags = 0;
-				for (PbMessageImFlagsEnum pbMessageImFlagsEnum : pbValue.getImFlags()) {
-					bFlags |= pbMessageImFlagsEnum.bit();
-				}
-				try{
-					connection.allowMessageReceipt();
-					((IMVLong) this.imv).receiveMessageLong(connection, bFlags, pbValue.getSubVendorId(), pbValue.getSubType(), pbValue.getMessage(), pbValue.getValidatorId(), pbValue.getCollectorId());
-				}catch(TNCException e){
-					throw new TncException(e);
-				}finally{
-					connection.denyMessageReceipt();
-				}
-			}else{
-				if(pbValue.getSubType() <= TNCConstants.TNC_SUBTYPE_ANY){
-					
-					long msgType = (long)(pbValue.getSubVendorId() << 8) | (pbValue.getSubType() & 0xFF);
-					try{
-						connection.allowMessageReceipt();
-						this.imv.receiveMessage(connection,msgType,pbValue.getMessage());
-					}catch(TNCException e){
-						throw new TncException(e);
-					}finally{
-						connection.denyMessageReceipt();
-					}
-				}else{
-					LOGGER.warn("The IMC/V does not support message types greater than " + TNCConstants.TNC_SUBTYPE_ANY + ". The message with type " +pbValue.getSubType()+ " will be ignored.");
-				}
-			}
-		} else {
-			throw new TncException("Message values of type other than " + PbMessageValueIm.class.getCanonicalName() + " are not supported.", TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER, PbMessageValueIm.class.getCanonicalName());
-		}
-	}
+    @Override
+    public void batchEnding(final ImvConnectionAdapter connection)
+            throws TncException, TerminatedException {
+
+        try {
+            connection.allowMessageReceipt();
+            this.imv.batchEnding(connection);
+
+        } catch (TNCException e) {
+            throw new TncException(e);
+        } catch (NullPointerException e) {
+            throw new TerminatedException("The IMV with ID " + this.primaryId
+                    + " is terminated and should be removed.", e, new Long(
+                    this.primaryId));
+        } finally {
+            connection.denyMessageReceipt();
+        }
+    }
+
+    @Override
+    public void terminate() throws TerminatedException {
+
+        try {
+            this.imv.terminate();
+        } catch (TNCException e) {
+            LOGGER.warn("An error occured, while terminating IMC/V " + this.imv
+                    + ". IMC/V will be removed anyway.", e);
+        } catch (NullPointerException e) {
+            throw new TerminatedException("The IMV with ID " + this.primaryId
+                    + " is terminated and should be removed.", e, new Long(
+                    this.primaryId));
+        }
+        this.imv = null;
+    }
+
+    @Override
+    public void solicitRecommendation(final ImvConnectionAdapter connection)
+            throws TncException, TerminatedException {
+
+        try {
+            this.imv.solicitRecommendation(connection);
+        } catch (TNCException e) {
+            throw new TncException(e);
+        } catch (NullPointerException e) {
+            throw new TerminatedException("The IMV with ID " + this.primaryId
+                    + " is terminated and should be removed.", e, new Long(
+                    this.primaryId));
+        }
+
+    }
+
+    /**
+     * Dispatches a message from a given connection to an IMV according
+     * to its message reception abilities.
+     *
+     * @param connection the connection
+     * @param value the message
+     * @throws TncException if message dispatch fails
+     */
+    private void dispatchMessageToImc(final ImvConnectionAdapter connection,
+            final TnccsMessageValue value) throws TncException {
+
+        if (value instanceof PbMessageValueIm) {
+            PbMessageValueIm pbValue = (PbMessageValueIm) value;
+
+            if (this.imv instanceof IMVLong) {
+                pbValue.getImFlags();
+
+                byte bFlags = 0;
+                for (PbMessageImFlagsEnum pbMessageImFlagsEnum : pbValue
+                        .getImFlags()) {
+                    bFlags |= pbMessageImFlagsEnum.bit();
+                }
+                try {
+                    connection.allowMessageReceipt();
+                    ((IMVLong) this.imv).receiveMessageLong(connection, bFlags,
+                            pbValue.getSubVendorId(), pbValue.getSubType(),
+                            pbValue.getMessage(), pbValue.getValidatorId(),
+                            pbValue.getCollectorId());
+                } catch (TNCException e) {
+                    throw new TncException(e);
+                } finally {
+                    connection.denyMessageReceipt();
+                }
+            } else {
+                if (pbValue.getSubType() <= TNCConstants.TNC_SUBTYPE_ANY) {
+
+                    final int vendorIdShift = 8;
+                    final int messageTypeMask = 0xFF;
+
+                    long msgType =
+                            (long) (pbValue.getSubVendorId() << vendorIdShift)
+                            | (pbValue.getSubType() & messageTypeMask);
+                    try {
+                        connection.allowMessageReceipt();
+                        this.imv.receiveMessage(connection, msgType,
+                                pbValue.getMessage());
+                    } catch (TNCException e) {
+                        throw new TncException(e);
+                    } finally {
+                        connection.denyMessageReceipt();
+                    }
+
+                } else {
+                    LOGGER.warn(new StringBuilder()
+                        .append("The IMV does not support message types ")
+                        .append("greater than ")
+                        .append(TNCConstants.TNC_SUBTYPE_ANY)
+                        .append(". The message with type ")
+                        .append(pbValue.getSubType())
+                        .append(" will be ignored.").toString());
+                }
+            }
+        } else {
+            throw new TncException("Message values of type other than "
+                    + PbMessageValueIm.class.getCanonicalName()
+                    + " are not supported.",
+                    TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER,
+                    PbMessageValueIm.class.getCanonicalName());
+        }
+    }
 }

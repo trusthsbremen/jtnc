@@ -1,5 +1,11 @@
 package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 
-public interface Init{
+/**
+ * Marker to characterize a state as initial state.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface Init {
 
 }

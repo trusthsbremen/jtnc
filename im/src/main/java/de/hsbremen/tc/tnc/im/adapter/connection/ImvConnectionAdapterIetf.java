@@ -58,8 +58,8 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
  */
 class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 
-    private ImWriter<ImMessage> byteWriter;
-    private IMVConnection connection;
+    private final ImWriter<ImMessage> byteWriter;
+    private final IMVConnection connection;
 
     /**
      * Creates a connection adapter with the given message writer for the

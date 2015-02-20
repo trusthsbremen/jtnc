@@ -56,7 +56,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachineBuilder;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple
-.DefaultClientStateFactory;
+.DefaultClientStateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple
 .DefaultClientStateMachineBuilder;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
@@ -176,7 +176,7 @@ public class DefaultClientSessionFactory extends AbstractSessionFactory {
                 .createHandler(imcHandler, tnccHandler, exceptionHandler);
 
         StateHelper<TnccContentHandler> clientStateFactory =
-                new DefaultClientStateFactory(attributes, contentHandler);
+                new DefaultClientStateHelper(attributes, contentHandler);
         this.stateMachineBuilder.setStateHelper(clientStateFactory);
         StateMachine machine = this.stateMachineBuilder.toStateMachine();
 

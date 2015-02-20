@@ -23,7 +23,7 @@ import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
 /**
  * IMV adapter according to IETF/TCG specifications.
- * Implementing a IF-IMV interface with long addressing
+ * Implementing an IF-IMV IMV interface with long addressing
  * support.
  *
  * @author Carl-Heinz Genzel

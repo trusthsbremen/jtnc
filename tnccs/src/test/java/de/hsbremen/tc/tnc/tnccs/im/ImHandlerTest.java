@@ -24,7 +24,11 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandlerBuilder;
+import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandlerBuilder;
 import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImcHandler;
+import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImcHandlerBuilder;
+import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultImvHandlerBuilder;
 
 public class ImHandlerTest {
 

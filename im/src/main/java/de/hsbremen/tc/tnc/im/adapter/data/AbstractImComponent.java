@@ -27,7 +27,8 @@ package de.hsbremen.tc.tnc.im.adapter.data;
 /**
  * Generic base that holds a message concerning an integrity measurement
  * component. It defines the minimum attributes needed for the
- * addressing of the component to/from an IM(C/V).
+ * addressing of the component to/from an IM(C/V). Especially important
+ * for inheritance.
  *
  * @author Carl-Heinz Genzel
  *
@@ -46,7 +47,7 @@ public abstract class AbstractImComponent {
      * @param collectorId the referred IMC
      * @param validatorId the referred IMV
      */
-    AbstractImComponent(final long vendorId, final long type,
+    protected AbstractImComponent(final long vendorId, final long type,
             final long collectorId, final long validatorId) {
 
         this.vendorId = vendorId;

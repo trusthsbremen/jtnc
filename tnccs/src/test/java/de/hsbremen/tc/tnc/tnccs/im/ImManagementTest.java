@@ -21,6 +21,7 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
+import de.hsbremen.tc.tnc.tnccs.im.route.exception.NoRecipientFoundException;
 
 public class ImManagementTest {
 
@@ -62,7 +63,7 @@ public class ImManagementTest {
 	}
 	
 	@Test
-	public void testRouting() throws ImInitializeException{
+	public void testRouting() throws ImInitializeException, NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test routing."));
 		Set<SupportedMessageType> types = new HashSet<>();
 		SupportedMessageType type = SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(0x0001);
@@ -87,7 +88,7 @@ public class ImManagementTest {
 	}
 	
 	@Test
-	public void testReservAdditinalIdAndExclRouting() throws ImInitializeException, TncException{
+	public void testReservAdditinalIdAndExclRouting() throws ImInitializeException, TncException, NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test routing and exclusive delivery."));
 		Set<SupportedMessageType> types = new HashSet<>();
 		SupportedMessageType type = SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(0x0001);
