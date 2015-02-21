@@ -1,0 +1,4 @@
+# Drop all library binaries
+Thumbs.db
+git_statistics.sh
+git_statistics.info
