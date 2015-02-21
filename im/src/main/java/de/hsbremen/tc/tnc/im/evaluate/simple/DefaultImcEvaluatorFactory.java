@@ -40,6 +40,7 @@ import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default IMC evaluator factory to compose the integrity measurement
@@ -61,6 +62,9 @@ public class DefaultImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
     @Override
     protected ImcEvaluatorManager createEvaluatorManager(
             final TnccsAdapter tncc, final ImParameter imParams) {
+
+        NotNull.check("TNCC adapter cannot be null.",tncc);
+        NotNull.check("Parameter cannot be null.", imParams);
 
         List<ImcEvaluationUnit> units = new ArrayList<>();
         units.add(new DefaultImcEvaluationUnit(

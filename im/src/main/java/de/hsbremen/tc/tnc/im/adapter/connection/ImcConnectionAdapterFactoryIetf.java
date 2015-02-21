@@ -35,6 +35,7 @@ import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Adapter factory for an IMC connection according to IETF/TCG specifications.
@@ -55,9 +56,7 @@ public class ImcConnectionAdapterFactoryIetf implements
     @SuppressWarnings("unchecked")
     public ImcConnectionAdapterFactoryIetf(
             final ImWriter<? extends ImMessage> writer) {
-        if (writer == null) {
-            throw new NullPointerException("Writer cannot be null.");
-        }
+        NotNull.check("Writer cannot be null.", writer);
 
         this.writer = (ImWriter<ImMessage>) writer;
     }
@@ -66,9 +65,7 @@ public class ImcConnectionAdapterFactoryIetf implements
     public ImcConnectionAdapter createConnectionAdapter(
             final IMCConnection connection) {
 
-        if (connection == null) {
-            throw new NullPointerException("Connection cannot be null.");
-        }
+        NotNull.check("Connection cannot be null.", connection);
 
         ImcConnectionAdapter adapter =
                 new ImcConnectionAdapterIetf(writer, connection);

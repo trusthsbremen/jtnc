@@ -149,7 +149,7 @@ public class DefaultImcHandler implements ImcHandler {
                 if (e.getResultCode().equals(
                         TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                     this.connections.remove(entry.getKey());
-                    this.manager.removeAdapter(entry.getKey());
+                    this.manager.notifyFatalError(entry.getKey(), e);
                     iter.remove();
 
                 }
@@ -190,7 +190,7 @@ public class DefaultImcHandler implements ImcHandler {
                 if (e.getResultCode().equals(
                         TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                     this.connections.remove(entry.getKey());
-                    this.manager.removeAdapter(entry.getKey());
+                    this.manager.notifyFatalError(entry.getKey(), e);
                     iter.remove();
                 }
                 LOGGER.error(e.getMessage(), e);
@@ -210,7 +210,7 @@ public class DefaultImcHandler implements ImcHandler {
         this.checkState();
 
         if (message == null || message.getValue() == null) {
-            LOGGER.debug("Because Message or message value is NULL,"
+            LOGGER.debug("Because Message or message value is null,"
                     + " it is ignored.");
             return new ArrayList<TnccsMessage>();
         }
@@ -283,7 +283,7 @@ public class DefaultImcHandler implements ImcHandler {
                         if (e.getResultCode().equals(
                                 TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                             this.connections.remove(recipientId);
-                            this.manager.removeAdapter(recipientId);
+                            this.manager.notifyFatalError(recipientId, e);
                             this.imAdapters.remove(recipientId);
 
                         }
@@ -363,7 +363,7 @@ public class DefaultImcHandler implements ImcHandler {
                         if (e.getResultCode().equals(
                                 TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                             this.connections.remove(recipientId);
-                            this.manager.removeAdapter(recipientId);
+                            this.manager.notifyFatalError(recipientId, e);
                             this.imAdapters.remove(recipientId);
                         }
                         LOGGER.error(e.getMessage(), e);
@@ -399,7 +399,7 @@ public class DefaultImcHandler implements ImcHandler {
                 if (e.getResultCode().equals(
                         TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                     this.connections.remove(entry.getKey());
-                    this.manager.removeAdapter(entry.getKey());
+                    this.manager.notifyFatalError(entry.getKey(), e);
                     iter.remove();
                 }
                 LOGGER.error(e.getMessage(), e);

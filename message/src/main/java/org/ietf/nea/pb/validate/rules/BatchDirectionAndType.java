@@ -6,15 +6,13 @@ import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 public class BatchDirectionAndType {
 
 	public static void check(final PbBatchDirectionalityEnum direction, final PbBatchTypeEnum type) throws RuleException{
-		if(direction == null){
-			throw new NullPointerException("Direction cannot be null.");
-		}
-		if(type == null){
-			throw new NullPointerException("Type cannot be null.");
-		}
+		NotNull.check("Direction cannot be null.", direction);
+		NotNull.check("Type cannot be null.", type);
 		
 		if(direction == PbBatchDirectionalityEnum.TO_PBS){
 			if(type == PbBatchTypeEnum.RESULT || type == PbBatchTypeEnum.SDATA || type == PbBatchTypeEnum.SRETRY){

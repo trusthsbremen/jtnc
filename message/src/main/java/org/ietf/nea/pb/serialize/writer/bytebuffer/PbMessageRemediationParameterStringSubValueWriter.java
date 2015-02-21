@@ -8,15 +8,14 @@ import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageRemediationParameterStringSubValueWriter implements TnccsWriter<PbMessageValueRemediationParameterString>{
 
 	@Override
 	public void write(final PbMessageValueRemediationParameterString data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message value cannot be NULL.");
-		}
+		NotNull.check("Message value cannot be null.", data);
 		
 		PbMessageValueRemediationParameterString mValue = data;
 		

@@ -10,13 +10,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy;
-import de.hsbremen.tc.tnc.tnccs.im.loader.FileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy.NotifyTestObject;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor;
 
 public class FileMonitorTest {
 
-	private FileChangeMonitor monitor;
+	private ConfigurationFileChangeMonitor monitor;
 	private File file = new File("src/test/resources/tnc_config.test");
 	private NotifyTestObject o;
 	
@@ -27,7 +27,7 @@ public class FileMonitorTest {
 	
 	@Before
 	public void setUp() throws IOException{
-		this.monitor = new DefaultFileChangeMonitor(file);
+		this.monitor = new DefaultConfigurationFileChangeMonitor(file, 200, false);
 		o = new Dummy.NotifyTestObject();
 		this.monitor.add(Dummy.getFileChangeListener(o));
 		this.file.createNewFile();
@@ -36,8 +36,7 @@ public class FileMonitorTest {
 	@Test
 	public void testChange() throws IOException{
 		
-		Thread t = new Thread(this.monitor);
-		t.start();
+		this.monitor.start();
 		
 		
 		FileWriter w = new FileWriter(this.file);
@@ -53,7 +52,7 @@ public class FileMonitorTest {
 			e.printStackTrace();
 		}
 		
-		t.interrupt();
+		this.monitor.stop();
 		
 		Assert.assertTrue(o.changeNotified);
 		
@@ -61,13 +60,11 @@ public class FileMonitorTest {
 	
 	@Test
 	public void testDelete() throws IOException{
-		
-		Thread t = new Thread(this.monitor);
-		t.start();
+		this.monitor.start();
 		
 		this.file.delete();
 		
-		// make a short break because the file monitor has a intervall
+		// make a short break because the file monitor has a interval
 		try {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
@@ -75,7 +72,7 @@ public class FileMonitorTest {
 			e.printStackTrace();
 		}
 		
-		t.interrupt();
+		this.monitor.stop();
 
 		Assert.assertTrue(o.deleteNotified);
 		

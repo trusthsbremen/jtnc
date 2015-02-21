@@ -10,6 +10,7 @@ import org.ietf.nea.pa.message.PaMessageHeader;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaMessageHeaderWriter implements ImWriter<PaMessageHeader>{
 
@@ -18,9 +19,7 @@ class PaMessageHeaderWriter implements ImWriter<PaMessageHeader>{
 	@Override
 	public void write(final PaMessageHeader data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
-		}
+		NotNull.check("Message header cannot be null.", data);
 
 		PaMessageHeader mHead = data;
 		

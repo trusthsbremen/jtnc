@@ -11,8 +11,8 @@ import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeValue;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
-import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.DefaultMessageContainer;
+import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageHeader;
 import org.ietf.nea.pa.validate.rules.MinAttributeLength;
 import org.ietf.nea.pa.validate.rules.NoSkipOnUnknownAttribute;
@@ -27,6 +27,7 @@ import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.Combined;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaReader implements ImReader<ImMessageContainer>, Combined<ImReader<PaAttributeValue>> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PaReader.class);
@@ -53,9 +54,7 @@ class PaReader implements ImReader<ImMessageContainer>, Combined<ImReader<PaAttr
 	public ImMessageContainer read(final ByteBuffer buffer, final long length)
 			throws SerializationException, ValidationException {
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be null.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		if(!buffer.isReadable()){
 			throw new IllegalArgumentException("Buffer must be readable.");

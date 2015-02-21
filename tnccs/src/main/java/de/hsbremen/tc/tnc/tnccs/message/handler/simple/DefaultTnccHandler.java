@@ -44,6 +44,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccHandler;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default handler to handle messages destined to/from a TNCC.
@@ -53,7 +54,7 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.TnccHandler;
  */
 public class DefaultTnccHandler implements TnccHandler {
 
-    protected static final Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultTnccHandler.class);
 
     private final Attributed sessionAttributes;
@@ -70,10 +71,9 @@ public class DefaultTnccHandler implements TnccHandler {
      * @param sessionAttributes the session/connection attributes
      */
     public DefaultTnccHandler(final Attributed sessionAttributes) {
-        if (sessionAttributes == null) {
-            throw new NullPointerException(
-                    "Attributes cannot be null. Use empty attributes instead.");
-        }
+        NotNull.check("Attributes cannot be null. Use empty attributes instead."
+                , sessionAttributes);
+
         this.sessionAttributes = sessionAttributes;
         this.state = DefaultTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN;
         this.tnccLanguagePreference = HSBConstants.HSB_DEFAULT_LANGUAGE;

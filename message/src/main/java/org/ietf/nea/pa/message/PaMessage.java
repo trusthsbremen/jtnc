@@ -6,6 +6,7 @@ import java.util.List;
 import org.ietf.nea.pa.attribute.PaAttribute;
 
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaMessage implements ImMessage {
 
@@ -13,12 +14,9 @@ public class PaMessage implements ImMessage {
 	 private final List<PaAttribute> attributes;
 	 
 	 public PaMessage(final PaMessageHeader header, List<PaAttribute> attributes) {
-			if(header == null){
-				throw new NullPointerException("Message header cannot be null.");
-			}
-			if(attributes == null){
-				throw new NullPointerException("Attributes cannot be null.");
-			}
+			NotNull.check("Message header cannot be null.", header);
+			NotNull.check("Attributes cannot be null.", attributes);
+
 			this.header = header;
 			this.attributes = attributes;
 		}

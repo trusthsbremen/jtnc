@@ -10,15 +10,14 @@ import org.ietf.nea.pa.attribute.PaAttributeValueFactoryDefaultPasswordEnabled;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeFactoryDefaultPasswordEnabledValueWriter implements ImWriter<PaAttributeValueFactoryDefaultPasswordEnabled>{
 
 	@Override
 	public void write(final PaAttributeValueFactoryDefaultPasswordEnabled data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValueFactoryDefaultPasswordEnabled aValue = data;
 		

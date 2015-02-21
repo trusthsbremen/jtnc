@@ -151,7 +151,7 @@ public class DefaultImvHandler implements ImvHandler {
                 if (e.getResultCode().equals(
                         TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                     this.connections.remove(entry.getKey());
-                    this.manager.removeAdapter(entry.getKey());
+                    this.manager.notifyFatalError(entry.getKey(), e);
                     iter.remove();
 
                 }
@@ -200,7 +200,7 @@ public class DefaultImvHandler implements ImvHandler {
                 if (e.getResultCode().equals(
                         TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                     this.connections.remove(entry.getKey());
-                    this.manager.removeAdapter(entry.getKey());
+                    this.manager.notifyFatalError(entry.getKey(), e);
                     iter.remove();
                 }
                 LOGGER.error(e.getMessage(), e);
@@ -219,7 +219,7 @@ public class DefaultImvHandler implements ImvHandler {
         this.checkState();
 
         if (message == null || message.getValue() == null) {
-            LOGGER.debug("Because Message or message value is NULL,"
+            LOGGER.debug("Because Message or message value is null,"
                     + " it is ignored.");
             return new ArrayList<TnccsMessage>();
         }
@@ -266,7 +266,7 @@ public class DefaultImvHandler implements ImvHandler {
                         if (e.getResultCode().equals(
                                 TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                             this.connections.remove(recipientId);
-                            this.manager.removeAdapter(recipientId);
+                            this.manager.notifyFatalError(recipientId, e);
                             this.imAdapters.remove(recipientId);
 
                         }
@@ -308,7 +308,7 @@ public class DefaultImvHandler implements ImvHandler {
                 if (e.getResultCode().equals(
                         TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                     this.connections.remove(entry.getKey());
-                    this.manager.removeAdapter(entry.getKey());
+                    this.manager.notifyFatalError(entry.getKey(), e);
                     iter.remove();
                 }
                 LOGGER.error(e.getMessage(), e);
@@ -328,7 +328,7 @@ public class DefaultImvHandler implements ImvHandler {
         }
 
         if (message == null || message.getValue() == null) {
-            LOGGER.debug("Because Message or message value is NULL,"
+            LOGGER.debug("Because Message or message value is null,"
                     + " it is ignored.");
             return;
         }
@@ -376,7 +376,7 @@ public class DefaultImvHandler implements ImvHandler {
                         if (e.getResultCode().equals(
                                 TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                             this.connections.remove(recipientId);
-                            this.manager.removeAdapter(recipientId);
+                            this.manager.notifyFatalError(recipientId, e);
                             this.imAdapters.remove(recipientId);
                         }
                         LOGGER.error(e.getMessage(), e);
@@ -461,7 +461,7 @@ public class DefaultImvHandler implements ImvHandler {
                 if (e.getResultCode().equals(
                         TncExceptionCodeEnum.TNC_RESULT_FATAL)) {
                     this.connections.remove(entry.getKey());
-                    this.manager.removeAdapter(entry.getKey());
+                    this.manager.notifyFatalError(entry.getKey(), e);
                     iter.remove();
                 }
                 LOGGER.error(e.getMessage(), e);

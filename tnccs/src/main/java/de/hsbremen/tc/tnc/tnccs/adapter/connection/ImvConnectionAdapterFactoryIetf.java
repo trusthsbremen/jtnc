@@ -48,6 +48,8 @@
  */
 package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 /**
  * The factory creates an IMV connection adapter according to IETF/TCG
  * specifications.
@@ -66,10 +68,8 @@ public class ImvConnectionAdapterFactoryIetf implements
      * @param context the IMV connection context
      */
     public ImvConnectionAdapterFactoryIetf(final ImvConnectionContext context) {
-        if (context == null) {
-            throw new NullPointerException(
-                    "Connection context cannot be NULL.");
-        }
+        NotNull.check("Connection context cannot be null.", context);
+
         this.context = context;
     }
 

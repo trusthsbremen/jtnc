@@ -1,6 +1,7 @@
 package org.ietf.nea.pa.attribute;
 
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaAttribute implements ImAttribute{
 
@@ -9,12 +10,10 @@ public class PaAttribute implements ImAttribute{
 	private final PaAttributeValue value;
 
 	public PaAttribute(PaAttributeHeader header, PaAttributeValue value) {
-		if(header == null){
-			throw new NullPointerException("Attribute header cannot be null.");
-		}
-		if(value == null){
-			throw new NullPointerException("Attribute value cannot be null.");
-		}
+		NotNull.check("Attribute header cannot be null.", header);
+		
+		NotNull.check("Attribute value cannot be null.", value);
+		
 		this.header = header;
 		this.value = value;
 	}

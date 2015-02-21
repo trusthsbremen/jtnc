@@ -9,15 +9,12 @@ import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.BatchResultWithoutMessageAssessmentResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PbBatchFactoryIetf {
-	
-	protected static final Logger LOGGER = LoggerFactory.getLogger(PbBatchFactoryIetf.class);
 	
 	public static PbBatch createServerData(final List<TnccsMessage> messages) throws ValidationException{
 		return createBatch(PbBatchDirectionalityEnum.TO_PBC, PbBatchTypeEnum.SDATA, messages);
@@ -46,9 +43,7 @@ public class PbBatchFactoryIetf {
 	}
 
 	private static PbBatch createBatch(PbBatchDirectionalityEnum direction, PbBatchTypeEnum type, List<TnccsMessage> messages) throws ValidationException{
-		if(messages == null){
-			throw new NullPointerException("Messages cannot be null.");
-		}
+		NotNull.check("Messages cannot be null.", messages);
 		
 		PbBatchHeaderBuilderIetf builder = new PbBatchHeaderBuilderIetf();
 		List<PbMessage> filteredMsgs = new LinkedList<>();

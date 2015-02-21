@@ -4,9 +4,9 @@ import java.nio.charset.Charset;
 
 import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
-import org.ietf.nea.pa.validate.rules.StringLengthLimit;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pa.validate.rules.NoZeroString;
+import org.ietf.nea.pa.validate.rules.StringLengthLimit;
 
 public class PaAttributeValueRemediationParameterStringBuilderIetf implements PaAttributeValueRemediationParameterStringBuilder{
 

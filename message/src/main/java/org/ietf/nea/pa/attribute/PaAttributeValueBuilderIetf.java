@@ -29,50 +29,41 @@ import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaAttributeValueBuilderIetf {
 	
 	
 	public static AbstractPaAttributeValue createTestValue(String content) {
-		if(content == null){
-			throw new NullPointerException("Content cannot be null.");
-		}
+		NotNull.check("Content cannot be null.", content);
 
 		return new PaAttributeValueTesting(content.getBytes(Charset.forName("UTF-8")).length, content);
 	}
 	
 	public static PaAttributeValueAssessmentResult createAssessmentResultValue(final PaAttributeAssessmentResultEnum result){
 		
-		if(result == null){
-			throw new NullPointerException("Result cannot be null.");
-		}
+		NotNull.check("Result cannot be null.", result);
 		
 		return new PaAttributeValueAssessmentResult(PaAttributeTlvFixedLengthEnum.ASS_RES.length(),result);
 	}
 	
 	public static PaAttributeValueFactoryDefaultPasswordEnabled createFactoryDefaultPasswordValue(final PaAttributeFactoryDefaultPasswordStatusEnum status){
 		
-		if(status == null){
-			throw new NullPointerException("Status cannot be null.");
-		}
+		NotNull.check("Status cannot be null.", status);
 		
 		return new PaAttributeValueFactoryDefaultPasswordEnabled(PaAttributeTlvFixedLengthEnum.FAC_PW.length(),status);
 	}
 	
 	public static PaAttributeValueForwardingEnabled createForwardingEnabledValue(final PaAttributeForwardingStatusEnum status){
 		
-		if(status == null){
-			throw new NullPointerException("Status cannot be null.");
-		}
+		NotNull.check("Status cannot be null.", status);
 		
 		return new PaAttributeValueForwardingEnabled(PaAttributeTlvFixedLengthEnum.FWD_EN.length(),status);
 	}
 	
 	public static PaAttributeValueAttributeRequest createAttributeRequestValue(final AttributeReference reference, AttributeReference...moreReferences){
 		
-		if(reference == null ){
-			throw new NullPointerException("Reference cannot be null, there must be at least one reference.");
-		}
+		NotNull.check("Reference cannot be null, there must be at least one reference.", reference);
 		
 		List<AttributeReference> referenceList = new LinkedList<>();
 		referenceList.add(reference);
@@ -95,9 +86,7 @@ public class PaAttributeValueBuilderIetf {
 			throw new IllegalArgumentException("Because vendor ID is zero product ID must be zero.");
 		}
 		
-		if(productName == null){
-			throw new NullPointerException("Product name cannot be null.");
-		}
+		NotNull.check("Product name cannot be null.", productName);
 		
 		long length = PaAttributeTlvFixedLengthEnum.PRO_INF.length();
 		if(productName.length() > 0){
@@ -152,26 +141,18 @@ public class PaAttributeValueBuilderIetf {
 	
 	public static PaAttributeValueOperationalStatus createOperationalStatusValue(PaAttributeOperationStatusEnum status, PaAttributeOperationLastResultEnum result, Date lastUse){
 		
-		if(status == null){
-			throw new NullPointerException("Operational status cannot be null.");
-		}
+		NotNull.check("Operational status cannot be null.", status);
 		
-		if(result == null){
-			throw new NullPointerException("Operational result cannot be null.");
-		}
+		NotNull.check("Operational result cannot be null.", result);
 		
-		if(lastUse == null){
-			throw new NullPointerException("Date of last use cannot be null, use 0000-00-00T00:00:00Z instead.");
-		}
+		NotNull.check("Date of last use cannot be null, use 0000-00-00T00:00:00Z instead.", lastUse);
 		
 		return new PaAttributeValueOperationalStatus(PaAttributeTlvFixedLengthEnum.OP_STAT.length(), status, result, lastUse);
 	}
 	
 	public static PaAttributeValuePortFilter createPortFilterValue(PortFilterEntry entry, PortFilterEntry... moreEntries){
 		
-		if(entry == null){
-			throw new NullPointerException("Entry cannot be null, there must be at least one entry.");
-		}
+		NotNull.check("Entry cannot be null, there must be at least one entry.", entry);
 		
 		List<PortFilterEntry> entries = new LinkedList<>();
 		entries.add(entry);
@@ -214,9 +195,7 @@ public class PaAttributeValueBuilderIetf {
 	
 	public static PaAttributeValueInstalledPackages createInstalledPackagesValue(List<PackageEntry> packages){
 		
-		if(packages == null){
-			throw new NullPointerException("Packages cannot be null, you may use an empty list instead.");
-		}
+		NotNull.check("Packages cannot be null, you may use an empty list instead.", packages);
 		
 		long length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
 		

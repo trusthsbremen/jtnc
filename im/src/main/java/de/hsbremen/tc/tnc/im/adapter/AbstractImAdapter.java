@@ -119,7 +119,7 @@ public abstract class AbstractImAdapter {
             }
         } else {
             throw new TncException(
-                    "Message was NULL after parsing, this should never happen.",
+                    "Message was null after parsing, this should never happen.",
                     TncExceptionCodeEnum.TNC_RESULT_FATAL);
         }
 

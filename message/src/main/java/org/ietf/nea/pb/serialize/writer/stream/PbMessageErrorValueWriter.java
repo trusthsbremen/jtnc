@@ -16,6 +16,7 @@ import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 
@@ -35,9 +36,7 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 	@Override
 	public void write(final PbMessageValueError data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message value cannot be NULL.");
-		}
+		NotNull.check("Message value cannot be null.", data);
 		
 		PbMessageValueError mValue = data;
 		

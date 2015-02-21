@@ -7,19 +7,16 @@ import org.ietf.nea.pt.value.PtTlsMessageValueError;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PtTlsMessageErrorValueWriter implements TransportWriter<PtTlsMessageValueError>{
 
 	@Override
 	public void write(final PtTlsMessageValueError data, ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
-		}
+		NotNull.check("Message header cannot be null.", data);
 
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be NULL.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		PtTlsMessageValueError mValue = data;
 

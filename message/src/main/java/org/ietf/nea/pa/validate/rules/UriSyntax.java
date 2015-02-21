@@ -7,12 +7,12 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 public class UriSyntax {
 
 	public static void check(final String uri) throws RuleException{
-		if(uri == null){
-			throw new NullPointerException("URI string cannot be null.");
-		}
+		NotNull.check("URI string cannot be null.", uri);
 		try {
 			new URI(uri);
 		} catch (URISyntaxException e) {

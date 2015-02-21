@@ -31,6 +31,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
@@ -57,6 +59,9 @@ import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
  */
 public class DefaultImcManager extends AbstractImManager<IMC> implements
         ImcManager {
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultImcManager.class);
 
     private final ImcAdapterFactory adapterFactory;
     private final TnccAdapterFactory tnccFactory;
@@ -127,6 +132,18 @@ public class DefaultImcManager extends AbstractImManager<IMC> implements
     }
 
     @Override
+    protected void terminate(final long primaryId) {
+        if (this.adapterIndex.containsKey(primaryId)) {
+            ImcAdapter adapter = this.adapterIndex.remove(primaryId);
+            try {
+                adapter.terminate();
+            } catch (TerminatedException e) {
+                // ignore
+            }
+        }
+    }
+
+    @Override
     public Map<Long, ImcAdapter> getAdapter() {
         return new HashMap<>(this.adapterIndex);
     }
@@ -137,17 +154,12 @@ public class DefaultImcManager extends AbstractImManager<IMC> implements
     }
 
     @Override
-    public void removeAdapter(final long id) {
-        if (this.adapterIndex.containsKey(id)) {
-            ImcAdapter adapter = this.adapterIndex.remove(id);
-            try {
-                adapter.terminate();
-            } catch (TerminatedException e) {
-                // ignore
-            }
+    public void notifyFatalError(final long primaryId, final TncException e) {
+        LOGGER.error("IMC with ID " + primaryId
+                + "has thrown a fatal exception"
+                + "and will be removed.", e);
 
-        }
-        super.remove(id);
+        super.remove(primaryId);
     }
 
     @Override
@@ -155,7 +167,7 @@ public class DefaultImcManager extends AbstractImManager<IMC> implements
         Set<Long> keys = new HashSet<>(this.adapterIndex.keySet());
         for (Iterator<Long> iter = keys.iterator(); iter.hasNext();) {
             Long key = iter.next();
-            this.removeAdapter(key);
+            super.remove(key);
         }
     }
 

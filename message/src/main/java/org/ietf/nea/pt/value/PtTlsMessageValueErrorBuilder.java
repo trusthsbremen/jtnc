@@ -1,6 +1,7 @@
 package org.ietf.nea.pt.value;
 
 import org.ietf.nea.exception.RuleException;
+
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
 public interface PtTlsMessageValueErrorBuilder extends TransportMessageValueBuilder {

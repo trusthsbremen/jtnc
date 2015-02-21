@@ -25,6 +25,7 @@
 package de.hsbremen.tc.tnc.im.evaluate.simple;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -162,8 +163,9 @@ public class DefaultImcEvaluatorManager implements ImcEvaluatorManager {
 
     @Override
     public Set<SupportedMessageType> getSupportedMessageTypes() {
-        return (this.supportedMessageTypes != null) ? this.supportedMessageTypes
-                : new HashSet<SupportedMessageType>();
+        return Collections.unmodifiableSet((this.supportedMessageTypes != null)
+                ? this.supportedMessageTypes
+                : new HashSet<SupportedMessageType>());
     }
 
 }

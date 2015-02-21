@@ -4,14 +4,14 @@ import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 public class SaslMechanismName {
 	
 	public static void check(final String value) throws RuleException{
-		if(value == null){
-	    	throw new NullPointerException("Value cannot be null.");
-	    }
+		NotNull.check("Value cannot be null.", value);
 	 	if(value.contains("\0")){
-	        throw new RuleException("Message contains Null termination sequences.",true,PtTlsMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PtTlsErrorCauseEnum.NULL_TERMINATION.number(),value);
+	        throw new RuleException("Message contains Null termination sequences.",true,PtTlsMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PtTlsErrorCauseEnum.null_TERMINATION.number(),value);
 	    }
 	 	
 	 	

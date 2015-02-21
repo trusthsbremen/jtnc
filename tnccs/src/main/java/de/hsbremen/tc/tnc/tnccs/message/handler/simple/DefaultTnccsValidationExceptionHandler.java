@@ -38,6 +38,7 @@ import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsValidationExceptionHandler;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default handler to handle minor message validation
@@ -63,10 +64,9 @@ public class DefaultTnccsValidationExceptionHandler implements
      * @param attributes the session/connection attributes
      */
     public DefaultTnccsValidationExceptionHandler(final Attributed attributes) {
-        if (attributes == null) {
-            throw new NullPointerException(
-                    "Attributes cannot be null. Use empty attributes instead.");
-        }
+        NotNull.check("Attributes cannot be null. Use empty attributes instead."
+                , attributes);
+
         this.attributes = attributes;
     }
 

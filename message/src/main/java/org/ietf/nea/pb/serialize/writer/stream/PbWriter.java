@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.PbBatchHeader;
-import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessage;
+import org.ietf.nea.pb.message.PbMessageHeader;
 import org.ietf.nea.pb.message.PbMessageValue;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
@@ -18,6 +18,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.Combined;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbWriter implements TnccsWriter<TnccsBatch>, Combined<TnccsWriter<PbMessageValue>> {
 
@@ -43,12 +44,8 @@ class PbWriter implements TnccsWriter<TnccsBatch>, Combined<TnccsWriter<PbMessag
 	@Override
 	public void write(final TnccsBatch batch, final OutputStream out)
 			throws SerializationException{
-		if(batch == null){
-			throw new NullPointerException("Batch cannot be null.");
-		}
-		if(out == null){
-			throw new NullPointerException("OutputStream cannot be null.");
-		}
+		NotNull.check("Batch cannot be null.", batch);
+		NotNull.check("OutputStream cannot be null.", out);
 		
 		if(!(batch instanceof PbBatch)){
 			throw new IllegalArgumentException("Batch of type " + batch.getClass().getCanonicalName() + " is not supported. Bacth must be of type " +PbBatch.class.getCanonicalName()+ "." );

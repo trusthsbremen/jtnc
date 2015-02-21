@@ -50,7 +50,7 @@ import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 public abstract class AbstractImConnectionContext implements
         ImConnectionContext {
 
-    protected static final Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(AbstractImConnectionContext.class);
 
     private final List<TnccsMessage> messageQueue;

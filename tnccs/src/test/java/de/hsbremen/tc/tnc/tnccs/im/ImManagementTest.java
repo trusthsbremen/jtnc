@@ -88,7 +88,7 @@ public class ImManagementTest {
 	}
 	
 	@Test
-	public void testReservAdditinalIdAndExclRouting() throws ImInitializeException, TncException, NoRecipientFoundException{
+	public void testReservAdditinalIdAndExclRouting() throws ImInitializeException, TncException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test routing and exclusive delivery."));
 		Set<SupportedMessageType> types = new HashSet<>();
 		SupportedMessageType type = SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(0x0001);
@@ -103,15 +103,20 @@ public class ImManagementTest {
 		Assert.assertEquals(1, id0);
 		
 		this.manager.reserveAdditionalId(imc);
-		
-		Long l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
-		Assert.assertEquals(new Long(id0),l);
-		
+		Long l;
+		try{
+    		l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
+    		Assert.assertEquals(new Long(id0),l);
+		}catch (NoRecipientFoundException e){
+		    Assert.fail();
+		}
 		this.manager.remove(id0);
 		
-		l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
-		if(l != null){
-			Assert.fail();
+		try{
+		    l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
+		    Assert.fail();
+		}catch(NoRecipientFoundException e){
+		    System.out.println(e.getMessage());
 		}
 	}
 	

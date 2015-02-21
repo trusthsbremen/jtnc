@@ -43,6 +43,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception
 .StateMachineAccessException;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default TNCC session state machine.
@@ -69,9 +70,8 @@ public class DefaultClientStateMachine implements StateMachine {
     public DefaultClientStateMachine(
             final StateHelper<? extends TnccContentHandler> stateHelper) {
 
-        if (stateHelper == null) {
-            throw new NullPointerException("StateHelper cannot be null.");
-        }
+        NotNull.check("StateHelper cannot be null.", stateHelper);
+
         this.stateHelper = stateHelper;
 
         this.state = null;

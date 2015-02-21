@@ -12,15 +12,14 @@ import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageHeaderWriter implements TnccsWriter<PbMessageHeader>{
 
 	@Override
 	public void write(final PbMessageHeader data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message header cannot be NULL.");
-		}
+		NotNull.check("Message header cannot be null.", data);
 
 		PbMessageHeader mHead = data;
 		

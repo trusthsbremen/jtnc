@@ -11,6 +11,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 
@@ -23,8 +24,10 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm>{
 	@Override
 	public PbMessageValueIm read(final ByteBuffer buffer, final long messageLength)
 			throws SerializationException, ValidationException {
+	    
+	    NotNull.check("Buffer cannot be null.", buffer);
 		
-		long errorOffset = 0;
+	    long errorOffset = 0;
 		
 		PbMessageValueIm value = null;
 		PbMessageValueImBuilder builder = (PbMessageValueImBuilder)this.baseBuilder.newInstance();

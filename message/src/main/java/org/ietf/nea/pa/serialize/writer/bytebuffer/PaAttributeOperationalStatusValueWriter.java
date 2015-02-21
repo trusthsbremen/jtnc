@@ -10,6 +10,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueOperationalStatus;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeOperationalStatusValueWriter implements ImWriter<PaAttributeValueOperationalStatus>{
 
@@ -25,13 +26,9 @@ class PaAttributeOperationalStatusValueWriter implements ImWriter<PaAttributeVal
 	@Override
 	public void write(final PaAttributeValueOperationalStatus data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be NULL.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		PaAttributeValueOperationalStatus aValue = data;
 		

@@ -12,6 +12,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReasonString>{
 
@@ -25,6 +26,8 @@ class PbMessageReasonStringValueReader implements TnccsReader<PbMessageValueReas
 	public PbMessageValueReasonString read(final ByteBuffer buffer, final long messageLength)
 			throws SerializationException, ValidationException {
 		
+	    NotNull.check("Buffer cannot be null.", buffer);
+	    
 		long errorOffset = 0;
 		
 		PbMessageValueReasonString value = null;

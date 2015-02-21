@@ -35,6 +35,7 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.ImAdapterManager;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandlerBuilder;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default builder to build a default message handler,
@@ -56,6 +57,8 @@ public class DefaultImcHandlerBuilder implements ImcHandlerBuilder {
      */
     public DefaultImcHandlerBuilder(
             final ImAdapterManager<ImcAdapter> adapterManager) {
+        NotNull.check("IMC sdapter manager arguments cannot "
+                + "be null.", adapterManager);
         this.adapterManager = adapterManager;
         this.connectionContext = new DefaultImcConnectionContext(
                 new AttributeCollection(), null);

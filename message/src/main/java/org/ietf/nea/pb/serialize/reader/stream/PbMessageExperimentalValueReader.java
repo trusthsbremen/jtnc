@@ -13,6 +13,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageExperimentalValueReader implements TnccsReader<PbMessageValueExperimental>{
 
@@ -26,6 +27,8 @@ class PbMessageExperimentalValueReader implements TnccsReader<PbMessageValueExpe
 	public PbMessageValueExperimental read(final InputStream in, final long messageLength)
 			throws SerializationException, ValidationException {
 		
+	    NotNull.check("Stream cannot be null.", in);
+	    
 		long errorOffset = 0;
 		
 		PbMessageValueExperimental value = null;

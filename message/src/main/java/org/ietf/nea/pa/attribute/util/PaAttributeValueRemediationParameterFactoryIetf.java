@@ -7,18 +7,17 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeRemediationParameterTypeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaAttributeValueRemediationParameterFactoryIetf {
 	
 	
 	public static PaAttributeValueRemediationParameterString createRemediationParameterString(final long rpVendorId, final long rpType, final String remediationString, final String langCode){
 	
-		if(remediationString == null){
-			throw new NullPointerException("Remediation string cannot be null.");
-		}
-		if(langCode == null){
-			throw new NullPointerException("Language code cannot be null.");
-		}
+		NotNull.check("Remediation string cannot be null.", remediationString);
+
+		NotNull.check("Language code cannot be null.", langCode);
+
 		if(langCode.length() > 0xFF){
 			throw new IllegalArgumentException("Language code length " +langCode.length()+ "is to long.");
 		}
@@ -41,9 +40,8 @@ public class PaAttributeValueRemediationParameterFactoryIetf {
 	
 	public static PaAttributeValueRemediationParameterUri createRemediationParameterUri(final long rpVendorId, final long rpType, String uri){
 		
-		if(uri == null){
-			throw new NullPointerException("URI cannot be null.");
-		}
+		NotNull.check("URI cannot be null.", uri);
+		
 		if(rpVendorId != IETFConstants.IETF_PEN_VENDORID || rpType != PaAttributeRemediationParameterTypeEnum.IETF_URI.type()){
 			throw new IllegalArgumentException("Requested remediation value is not supported in attribute with remediation vendor ID "+ rpVendorId +" and of remediation type "+ rpType +".");
 		}

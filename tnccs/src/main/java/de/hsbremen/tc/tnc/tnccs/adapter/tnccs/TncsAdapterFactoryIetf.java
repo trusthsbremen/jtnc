@@ -31,6 +31,7 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * TNCS adapter factory, that creates TNCS adapter
@@ -50,14 +51,18 @@ public class TncsAdapterFactoryIetf implements TncsAdapterFactory {
      * @param listener the handshake retry handler
      */
     public TncsAdapterFactoryIetf(final GlobalHandshakeRetryListener listener) {
+        NotNull.check("Global handshake listener cannot be null.", listener);
         this.listener = listener;
     }
 
     @Override
-    public TNCS createTncs(final IMV imc, final Attributed attributes,
+    public TNCS createTncs(final IMV imv, final Attributed attributes,
             final ImManager<IMV> manager) {
 
-        if (imc instanceof IMVLong) {
+        NotNull.check("None of the provided arguments to build a TNCS adapter"
+                + "can be null.", imv, attributes, manager);
+
+        if (imv instanceof IMVLong) {
             return new TncsAdapterIetfLong(manager, attributes, this.listener);
         } else {
             return new TncsAdapterIetf(manager, attributes, this.listener);

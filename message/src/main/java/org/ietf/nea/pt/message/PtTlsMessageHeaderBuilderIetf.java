@@ -1,13 +1,13 @@
 package org.ietf.nea.pt.message;
 
 import org.ietf.nea.exception.RuleException;
+import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
+import org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum;
 import org.ietf.nea.pt.validate.rules.CommonLengthLimits;
 import org.ietf.nea.pt.validate.rules.ConfiguredLengthLimit;
 import org.ietf.nea.pt.validate.rules.IdentifierLimits;
 import org.ietf.nea.pt.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pt.validate.rules.VendorIdReservedAndLimits;
-import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
-import org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 

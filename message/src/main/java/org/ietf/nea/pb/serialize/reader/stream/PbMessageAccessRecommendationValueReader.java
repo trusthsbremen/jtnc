@@ -12,6 +12,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageAccessRecommendationValueReader implements TnccsReader<PbMessageValueAccessRecommendation>{
 
@@ -24,7 +25,8 @@ class PbMessageAccessRecommendationValueReader implements TnccsReader<PbMessageV
 	@Override
 	public PbMessageValueAccessRecommendation read(final InputStream in, final long messageLength)
 			throws SerializationException, ValidationException {
-		
+	    
+	    NotNull.check("Stream cannot be null.", in);
 		// ignore any given length and find out on your own.
 		
 		long errorOffset = 0;

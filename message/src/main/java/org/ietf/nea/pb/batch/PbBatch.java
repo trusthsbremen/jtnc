@@ -6,6 +6,7 @@ import java.util.List;
 import org.ietf.nea.pb.message.PbMessage;
 
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PbBatch implements TnccsBatch {
 	
@@ -13,12 +14,8 @@ public class PbBatch implements TnccsBatch {
     private final List<PbMessage> messages;
 
 	public PbBatch(final PbBatchHeader header, List<PbMessage> messages) {
-		if(header == null){
-			throw new NullPointerException("Batch header cannot be null.");
-		}
-		if(messages == null){
-			throw new NullPointerException("Messages cannot be null.");
-		}
+		NotNull.check("Batch header cannot be null.", header);
+		NotNull.check("Messages cannot be null.", messages);
 		this.header = header;
 		this.messages = messages;
 	}

@@ -9,14 +9,13 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaAttributeValueErrorInformationFactoryIetf {
 	
 	public static PaAttributeValueErrorInformationInvalidParam createErrorInformationInvalidParameter(long errorVendorId, long errorCode, byte[] messageHeader, long offset){
 		
-		if(messageHeader == null){
-			throw new NullPointerException("Message header cannot be null.");
-		}
+	    NotNull.check("Message header cannot be null.", messageHeader);
 		
 		if(offset < 0){
 			throw new IllegalArgumentException("Offset cannot be negative.");
@@ -35,13 +34,9 @@ public class PaAttributeValueErrorInformationFactoryIetf {
 
 	public static PaAttributeValueErrorInformationUnsupportedAttribute createErrorInformationUnsupportedAttribute(long errorVendorId, long errorCode, byte[] messageHeader, PaAttributeHeader attributeHeader){
 		
-		if(messageHeader == null){
-			throw new NullPointerException("Message header cannot be null.");
-		}
+	    NotNull.check("Message header cannot be null.", messageHeader);
+	    NotNull.check("Attribute header cannot be null.", attributeHeader);
 		
-		if(attributeHeader == null){
-			throw new NullPointerException("Attribute header cannot be null.");
-		}
 		
 		if(errorVendorId != IETFConstants.IETF_PEN_VENDORID || errorCode != PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_MANDATORY_ATTRIBUTE.code()){
 			throw new IllegalArgumentException("Requested error value is not supported in attribute with error vendor ID "+ errorVendorId +" and code "+ errorCode +".");
@@ -55,10 +50,8 @@ public class PaAttributeValueErrorInformationFactoryIetf {
 	}
 	
 	public static PaAttributeValueErrorInformationUnsupportedVersion createErrorInformationUnsupportedVersion(long errorVendorId, long errorCode, byte[] messageHeader, short maxVersion, short minVersion){
-		
-		if(messageHeader == null){
-			throw new NullPointerException("Message header cannot be null.");
-		}
+  
+	    NotNull.check("Message header cannot be null.", messageHeader);
 
 		if(errorVendorId != IETFConstants.IETF_PEN_VENDORID || errorCode != PaAttributeErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code()){
 			throw new IllegalArgumentException("Requested error value is not supported in attribute with error vendor ID "+ errorVendorId +" and code "+ errorCode +".");

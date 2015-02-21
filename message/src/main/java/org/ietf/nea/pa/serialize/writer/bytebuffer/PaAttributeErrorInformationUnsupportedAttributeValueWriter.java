@@ -10,6 +10,7 @@ import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupporte
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeErrorInformationUnsupportedAttributeValueWriter implements ImWriter<PaAttributeValueErrorInformationUnsupportedAttribute>{
 	
@@ -17,13 +18,9 @@ class PaAttributeErrorInformationUnsupportedAttributeValueWriter implements ImWr
 	@Override
 	public void write(final PaAttributeValueErrorInformationUnsupportedAttribute data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be NULL.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		PaAttributeValueErrorInformationUnsupportedAttribute aValue = data;
 		

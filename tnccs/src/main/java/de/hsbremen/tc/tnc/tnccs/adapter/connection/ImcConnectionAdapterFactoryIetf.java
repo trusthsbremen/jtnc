@@ -24,6 +24,8 @@
  */
 package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 /**
  * The factory creates an IMC connection adapter according to IETF/TCG
  * specifications.
@@ -42,10 +44,8 @@ public class ImcConnectionAdapterFactoryIetf implements
      * @param context the IMC connection context
      */
     public ImcConnectionAdapterFactoryIetf(final ImcConnectionContext context) {
-        if (context == null) {
-            throw new NullPointerException(
-                    "Connection context cannot be NULL.");
-        }
+        NotNull.check("Connection context cannot be null.", context);
+
         this.context = context;
     }
 

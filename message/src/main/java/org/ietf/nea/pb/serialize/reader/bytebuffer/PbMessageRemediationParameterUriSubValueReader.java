@@ -11,6 +11,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageRemediationParameterUriSubValueReader implements TnccsReader<PbMessageValueRemediationParameterUri>{
 
@@ -24,6 +25,8 @@ class PbMessageRemediationParameterUriSubValueReader implements TnccsReader<PbMe
 	public  PbMessageValueRemediationParameterUri read(final ByteBuffer buffer, final long messageLength)
 			throws SerializationException, ValidationException {
 		
+	    NotNull.check("Buffer cannot be null.", buffer);
+	    
 		long errorOffset = 0;
 		
 		PbMessageValueRemediationParameterUri value = null;

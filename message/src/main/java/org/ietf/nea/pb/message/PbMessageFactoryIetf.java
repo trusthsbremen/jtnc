@@ -13,6 +13,7 @@ import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PbMessageFactoryIetf {
 
@@ -140,9 +141,7 @@ public class PbMessageFactoryIetf {
 	}
 	
 	private static PbMessage createMessage(final byte flags, final long type, final AbstractPbMessageValue value) throws ValidationException {
-		if(value == null){
-			throw new NullPointerException("Value cannot be null.");
-		}
+		NotNull.check("Value cannot be null.", value);
 		
 	    PbMessageHeaderBuilderIetf mBuilder = new PbMessageHeaderBuilderIetf();
 		try{

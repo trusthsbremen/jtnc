@@ -27,6 +27,8 @@ package de.hsbremen.tc.tnc.im.adapter.tncc;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 /**
  * TNCC adapter factory, that creates TNCC adapter
  * according to the IETF/TCG specifications.
@@ -38,13 +40,8 @@ public class TnccAdapterFactoryIetf implements TnccAdapterFactory {
 
     @Override
     public TnccAdapter createTnccAdapter(final IMC imc, final TNCC tncc) {
-        if (imc == null) {
-            throw new NullPointerException("IMC cannot be null.");
-        }
-
-        if (tncc == null) {
-            throw new NullPointerException("TNCC cannot be null.");
-        }
+        NotNull.check("IMC cannot be null.",imc);
+        NotNull.check("TNCC cannot be null.",tncc);
 
         return new TnccAdapterIetf(imc, tncc);
     }

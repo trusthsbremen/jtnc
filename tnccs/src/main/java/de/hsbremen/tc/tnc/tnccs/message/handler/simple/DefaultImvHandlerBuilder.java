@@ -35,6 +35,7 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.ImAdapterManager;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandlerBuilder;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default builder to build a default message handler,
@@ -56,6 +57,8 @@ public class DefaultImvHandlerBuilder implements ImvHandlerBuilder {
      */
     public DefaultImvHandlerBuilder(
             final ImAdapterManager<ImvAdapter> adapterManager) {
+        NotNull.check("IMV sdapter manager arguments cannot "
+                + "be null.", adapterManager);
         this.adapterManager = adapterManager;
         this.connectionContext = new DefaultImvConnectionContext(
                 new AttributeCollection(), null);

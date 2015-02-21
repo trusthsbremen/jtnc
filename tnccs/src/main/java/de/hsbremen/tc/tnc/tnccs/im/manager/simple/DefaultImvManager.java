@@ -31,6 +31,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
@@ -57,6 +59,9 @@ import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
  */
 public class DefaultImvManager extends AbstractImManager<IMV> implements
         ImvManager {
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(DefaultImvManager.class);
 
     private final ImvAdapterFactory adapterFactory;
     private final TncsAdapterFactory tncsFactory;
@@ -127,6 +132,18 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements
     }
 
     @Override
+    protected void terminate(final long primaryId) {
+        if (this.adapterIndex.containsKey(primaryId)) {
+            ImvAdapter adapter = this.adapterIndex.remove(primaryId);
+            try {
+                adapter.terminate();
+            } catch (TerminatedException e) {
+                // ignore
+            }
+        }
+    }
+
+    @Override
     public Map<Long, ImvAdapter> getAdapter() {
         return new HashMap<>(this.adapterIndex);
     }
@@ -137,16 +154,12 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements
     }
 
     @Override
-    public void removeAdapter(final long id) {
-        if (this.adapterIndex.containsKey(id)) {
-            ImvAdapter adapter = this.adapterIndex.remove(id);
-            try {
-                adapter.terminate();
-            } catch (TerminatedException e) {
-                // ignore
-            }
-        }
-        super.remove(id);
+    public void notifyFatalError(final long primaryId, final TncException e) {
+        LOGGER.error("IMV with ID " + primaryId
+                + "has thrown a fatal exception"
+                + "and will be removed.", e);
+
+        super.remove(primaryId);
 
     }
 
@@ -155,7 +168,7 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements
         Set<Long> keys = new HashSet<>(this.adapterIndex.keySet());
         for (Iterator<Long> iter = keys.iterator(); iter.hasNext();) {
             Long key = iter.next();
-            this.removeAdapter(key);
+            super.remove(key);
         }
     }
 

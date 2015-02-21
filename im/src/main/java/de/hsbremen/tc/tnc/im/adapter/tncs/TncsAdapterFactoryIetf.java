@@ -27,6 +27,8 @@ package de.hsbremen.tc.tnc.im.adapter.tncs;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 /**
  * TNCS adapter factory, that creates TNCS adapter
  * according to the IETF/TCG specifications.
@@ -38,13 +40,8 @@ public class TncsAdapterFactoryIetf implements TncsAdapterFactory {
 
     @Override
     public TncsAdapter createTncsAdapter(final IMV imv, final TNCS tncs) {
-        if (imv == null) {
-            throw new NullPointerException("IMV cannot be null.");
-        }
-
-        if (tncs == null) {
-            throw new NullPointerException("TNCS cannot be null.");
-        }
+        NotNull.check("IMV cannot be null.",imv);
+        NotNull.check("TNCS cannot be null.",tncs);
 
         return new TncsAdapterIetf(imv, tncs);
     }

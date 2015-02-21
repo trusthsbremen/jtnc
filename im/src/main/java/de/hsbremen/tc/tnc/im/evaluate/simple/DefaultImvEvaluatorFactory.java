@@ -40,6 +40,7 @@ import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default IMV evaluator factory to compose the integrity measurement
@@ -60,11 +61,14 @@ public class DefaultImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
 
     @Override
     protected ImvEvaluatorManager createEvaluatorManager(
-            final TnccsAdapter tncc, final ImParameter imParams) {
+            final TnccsAdapter tncs, final ImParameter imParams) {
 
+        NotNull.check("TNCS adapter cannot be null.",tncs);
+        NotNull.check("Parameter cannot be null.", imParams);
+ 
         List<ImvEvaluationUnit> units = new ArrayList<>();
         units.add(new DefaultImvEvaluationUnit(
-                tncc.getHandshakeRetryListener()));
+                tncs.getHandshakeRetryListener()));
 
         ImvEvaluator evaluator = new DefaultImvEvaluator(
                 imParams.getPrimaryId(), units,

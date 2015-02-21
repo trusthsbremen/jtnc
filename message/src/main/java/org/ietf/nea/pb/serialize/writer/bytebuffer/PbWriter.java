@@ -16,6 +16,7 @@ import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.Combined;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbWriter implements TnccsWriter<TnccsBatch>, Combined<TnccsWriter<PbMessageValue>> {
 
@@ -41,13 +42,9 @@ class PbWriter implements TnccsWriter<TnccsBatch>, Combined<TnccsWriter<PbMessag
 	@Override
 	public void write(final TnccsBatch batch, final ByteBuffer buffer)
 			throws SerializationException{
-		if(batch == null){
-			throw new NullPointerException("Batch cannot be null.");
-		}
+		NotNull.check("Batch cannot be null.", batch);
 		
-		if(buffer == null){
-			throw new NullPointerException("OutputStream cannot be null.");
-		}
+		NotNull.check("Output buffer cannot be null.", buffer);
 		
 		if(!buffer.isWriteable()){
 			throw new IllegalArgumentException("Buffer must be writeable.");

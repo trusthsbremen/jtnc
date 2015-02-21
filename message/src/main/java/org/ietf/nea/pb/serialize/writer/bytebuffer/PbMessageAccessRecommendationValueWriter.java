@@ -7,6 +7,7 @@ import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageAccessRecommendationValueWriter implements TnccsWriter<PbMessageValueAccessRecommendation>{
 
@@ -15,9 +16,7 @@ class PbMessageAccessRecommendationValueWriter implements TnccsWriter<PbMessageV
 	@Override
 	public void write(final PbMessageValueAccessRecommendation data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message value cannot be NULL.");
-		}
+		NotNull.check("Message value cannot be null.", data);
 		
 		PbMessageValueAccessRecommendation mValue = data;
 		try{

@@ -9,15 +9,14 @@ import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageRemediationParameterUriSubValueWriter implements TnccsWriter<PbMessageValueRemediationParameterUri>{
 
 	@Override
 	public void write(final PbMessageValueRemediationParameterUri data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message value cannot be NULL.");
-		}
+		NotNull.check("Message value cannot be null.", data);
 		
 		PbMessageValueRemediationParameterUri mValue = data;
 		

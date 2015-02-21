@@ -12,15 +12,14 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeFlagsEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeHeaderWriter implements ImWriter<PaAttributeHeader>{
 
 	@Override
 	public void write(final PaAttributeHeader data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Attribute header cannot be NULL.");
-		}
+		NotNull.check("Attribute header cannot be null.", data);
 
 		PaAttributeHeader aHead = data;
 		

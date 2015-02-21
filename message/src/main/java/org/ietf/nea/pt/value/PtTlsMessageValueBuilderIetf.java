@@ -9,6 +9,7 @@ import org.ietf.nea.pt.value.util.SaslMechanism;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PtTlsMessageValueBuilderIetf {
 	
@@ -70,9 +71,7 @@ public class PtTlsMessageValueBuilderIetf {
 
 	public static PtTlsMessageValueSaslMechanismSelection createSaslMechanisSelectionValue(final SaslMechanism mechanism, byte[] initialData){
 	
-		if(mechanism == null){
-			throw new NullPointerException("Mechanism cannot be null.");
-		}
+		NotNull.check("Mechanism cannot be null.", mechanism);
 		
 		long length = 0;
 		
@@ -94,9 +93,7 @@ public class PtTlsMessageValueBuilderIetf {
 	
 	public static PtTlsMessageValueSaslAuthenticationData createSaslAuthenticationDataValue(final byte[] authenticationData){
 		
-		if(authenticationData == null){
-			throw new NullPointerException("Data cannot be null.");
-		}
+		NotNull.check("Data cannot be null.", authenticationData);
 		
 		return new PtTlsMessageValueSaslAuthenticationData(authenticationData.length, authenticationData);
 	}
@@ -107,9 +104,7 @@ public class PtTlsMessageValueBuilderIetf {
 	
 	public static PtTlsMessageValueSaslResult createSaslResultValue(final PtTlsSaslResultEnum result, byte[] resultData){
 		
-		if(result == null){
-			throw new NullPointerException("Result cannot be null.");
-		}
+		NotNull.check("Result cannot be null.", result);
 		
 		long length = PtTlsMessageTlvFixedLengthEnum.SASL_RLT.length();
 		
@@ -123,9 +118,7 @@ public class PtTlsMessageValueBuilderIetf {
 	
 	public static PtTlsMessageValueError createErrorValue(final long errorVendorId, final long errorCode, final byte[] messageCopy ){
 
-		if(messageCopy == null){
-			throw new NullPointerException("Message copy cannot be null.");
-		}
+		NotNull.check("Message copy cannot be null.", messageCopy);
 		
 		if(errorVendorId > IETFConstants.IETF_MAX_VENDOR_ID){
 			throw new IllegalArgumentException("Vendor ID is greater than "+ Long.toString(IETFConstants.IETF_MAX_VENDOR_ID) + ".");
@@ -141,9 +134,7 @@ public class PtTlsMessageValueBuilderIetf {
 	
 	public static PtTlsMessageValuePbBatch createPbBatchValue(final ByteBuffer tnccsData){
 		
-		if(tnccsData == null){
-			throw new NullPointerException("Data cannot be null.");
-		}
+		NotNull.check("Data cannot be null.", tnccsData);
 		
 		return new PtTlsMessageValuePbBatch(tnccsData.bytesWritten(), tnccsData);
 	}

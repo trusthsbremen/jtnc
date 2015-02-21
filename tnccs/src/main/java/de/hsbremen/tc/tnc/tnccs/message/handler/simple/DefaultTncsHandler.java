@@ -49,6 +49,7 @@ import de.hsbremen.tc.tnc.report.LeastPrivilegeRecommendationComparator;
 import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TncsHandler;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Generic handler to handle messages destined to/from a TNCS.
@@ -58,7 +59,7 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.TncsHandler;
  */
 public class DefaultTncsHandler implements TncsHandler {
 
-    protected static final Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultTncsHandler.class);
 
     private final Attributed sessionAttributes;
@@ -75,10 +76,8 @@ public class DefaultTncsHandler implements TncsHandler {
      * @param sessionAttributes the session/connection attributes
      */
     public DefaultTncsHandler(final Attributed sessionAttributes) {
-        if (sessionAttributes == null) {
-            throw new NullPointerException(
-                    "Attributes cannot be null. Use empty attributes instead.");
-        }
+        NotNull.check("Attributes cannot be null. Use empty attributes instead."
+                   , sessionAttributes);
         this.sessionAttributes = sessionAttributes;
         this.state = DefaultTncConnectionStateEnum.HSB_CONNECTION_STATE_UNKNOWN;
         this.tnccLanguagePreference = HSBConstants.HSB_DEFAULT_LANGUAGE;

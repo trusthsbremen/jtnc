@@ -192,8 +192,9 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
 
     @Override
     public Set<SupportedMessageType> getSupportedMessageTypes() {
-        return (this.supportedMessageTypes != null) ? this.supportedMessageTypes
-                : new HashSet<SupportedMessageType>();
+        return Collections.unmodifiableSet((this.supportedMessageTypes != null)
+                ? this.supportedMessageTypes
+                : new HashSet<SupportedMessageType>());
     }
 
     /**

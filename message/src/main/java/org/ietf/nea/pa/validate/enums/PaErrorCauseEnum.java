@@ -8,7 +8,7 @@ public enum PaErrorCauseEnum {
 	VENDOR_ID_RESERVED 		(1),
 	TYPE_RESERVED			(2),
     LENGTH_TO_SHORT 		(3),
-    NULL_TERMINATION        (4),
+    null_TERMINATION        (4),
     ZERO_STRING 			(5),
     ILLEGAL_ATTRIBUTE_REQUEST (6), 
     MESSAGE_VERSION_NOT_SUPPORTED(7),
@@ -52,7 +52,7 @@ public enum PaErrorCauseEnum {
     		case 3:
     			return LENGTH_TO_SHORT;
     		case 4:
-    			return NULL_TERMINATION;
+    			return null_TERMINATION;
     		case 5:
     			return ZERO_STRING;
     		case 6:

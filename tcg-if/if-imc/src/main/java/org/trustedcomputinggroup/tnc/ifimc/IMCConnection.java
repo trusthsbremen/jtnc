@@ -90,7 +90,7 @@ public interface IMCConnection {
      * An IMC calls this method to give a message to the TNCC for 
      * delivery. The message is contained in the buffer referenced by 
      * the message parameter.  The message parameter may 
-     * be NULL which represent an empty message. The type 
+     * be null which represent an empty message. The type 
      * of the message is indicated by the messageType parameter. 
      * <p>
      * All IMC Connections MUST implement this method. The IMC 

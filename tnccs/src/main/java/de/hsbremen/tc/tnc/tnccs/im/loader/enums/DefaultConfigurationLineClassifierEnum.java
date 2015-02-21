@@ -2,7 +2,8 @@ package de.hsbremen.tc.tnc.tnccs.im.loader.enums;
 
 public enum DefaultConfigurationLineClassifierEnum implements ConfigurationLineClassifier {
 	JAVA_IMC("JAVA-IMC"),
-	JAVA_IMV("JAVA-IMV");
+	JAVA_IMV("JAVA-IMV"),
+	COMMENT("#");
 	
 	private String classifier;
 	
@@ -23,6 +24,10 @@ public enum DefaultConfigurationLineClassifierEnum implements ConfigurationLineC
 		
 		if(classifier.trim().equals(JAVA_IMV.classifier)){
 			return JAVA_IMV;
+		}
+		
+		if(classifier.trim().equals("#")){
+		    return COMMENT;
 		}
 		
 		return null;

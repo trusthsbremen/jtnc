@@ -47,6 +47,7 @@ import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default client facade to interact with a TNC(C/S).
@@ -80,11 +81,9 @@ public class DefaultClientFacade implements ClientFacade,
     public DefaultClientFacade(final SessionFactory factory,
             final long sessionCleanUpInterval) {
 
-        if (factory != null) {
-            this.sessionFactory = factory;
-        } else {
-            throw new NullPointerException("SessionFactory cannot be null.");
-        }
+        NotNull.check("SessionFactory cannot be null.", factory);
+
+        this.sessionFactory = factory;
 
         this.sessionCleanUpInterval = (sessionCleanUpInterval <= 0)
                 ? DEFAULT_SESSION_CLEANUP_INTERVAL

@@ -23,6 +23,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.Combined;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PtTlsReader implements TransportReader<TransportMessageContainer>, Combined<TransportReader<PtTlsMessageValue>> {
 
@@ -46,9 +47,7 @@ class PtTlsReader implements TransportReader<TransportMessageContainer>, Combine
 	public TransportMessageContainer read(final ByteBuffer buffer, final long length)
 			throws SerializationException, ValidationException {
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be null.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		if(!buffer.isReadable()){
 			throw new IllegalArgumentException("Buffer must be readable.");

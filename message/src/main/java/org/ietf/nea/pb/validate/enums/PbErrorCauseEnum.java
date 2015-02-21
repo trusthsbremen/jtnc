@@ -12,7 +12,7 @@ public enum PbErrorCauseEnum {
 	NOSKIP_NOT_ALLOWED      (5),
     NOSKIP_MISSING       	(6),
     LENGTH_TO_SHORT 		(7),
-    NULL_TERMINATION        (8),
+    null_TERMINATION        (8),
     ZERO_STRING 			(9),
 	
     // own specifications
@@ -57,7 +57,7 @@ public enum PbErrorCauseEnum {
     		case 7:
     			return LENGTH_TO_SHORT;
     		case 8:
-    			return NULL_TERMINATION;
+    			return null_TERMINATION;
     		case 9:
     			return ZERO_STRING;
     		case 10:

@@ -31,6 +31,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
 
 import de.hsbremen.tc.tnc.HSBConstants;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * The factory creates an IMC adapter according to IETF/TCG specifications.
@@ -79,9 +80,7 @@ public class ImcAdapterFactoryIetf implements ImcAdapterFactory {
     @Override
     public ImcAdapter createImcAdapter(final IMC imc, final long primaryId) {
 
-        if (imc == null) {
-            throw new NullPointerException("IMC cannot be null.");
-        }
+        NotNull.check("IMC cannot be null.", imc);
 
         ImcAdapter adapter = null;
         if (timeout > 0) {

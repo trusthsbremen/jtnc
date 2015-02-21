@@ -27,6 +27,7 @@ package de.hsbremen.tc.tnc.report;
 
 import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Factory utility to create an ImvRecommendationPair object.
@@ -70,14 +71,9 @@ public abstract class ImvRecommendationPairFactory {
             final ImvActionRecommendationEnum recommendation,
             final ImvEvaluationResultEnum result) {
 
-        if (recommendation == null) {
-            throw new NullPointerException(
-                    "Action recommendation cannot be null.");
-        }
+        NotNull.check("Action recommendation cannot be null.", recommendation);
 
-        if (result == null) {
-            throw new NullPointerException("Evaluation result cannot be null.");
-        }
+        NotNull.check("Evaluation result cannot be null.", result);
 
         return new ImvRecommendationPair(recommendation, result);
     }

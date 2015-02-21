@@ -5,9 +5,6 @@ import java.io.InputStream;
 import java.nio.BufferUnderflowException;
 import java.util.Arrays;
 
-import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
-
 public class StreamedReadOnlyBuffer implements ByteBuffer {
 
 	private final static int DEFAULT_STREAM_CHUNK = 8192;

@@ -2,23 +2,21 @@ package de.hsbremen.tc.tnc.tnccs.im.loader;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
-import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationChangeListener;
-import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntry;
-import de.hsbremen.tc.tnc.tnccs.im.loader.FileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
 import de.hsbremen.tc.tnc.tnccs.im.loader.enums.DefaultConfigurationLineClassifierEnum;
 
 public class Dummy extends AbstractDummy {
 
-	public static FileChangeListener getFileChangeListener(final NotifyTestObject o){
-		return new FileChangeListener() {
+	public static ConfigurationFileChangeHandler getFileChangeListener(final NotifyTestObject o){
+		return new ConfigurationFileChangeHandler() {
 			
 			@Override
 			public void notifyDelete(File config) {
@@ -46,6 +44,10 @@ public class Dummy extends AbstractDummy {
 		String s = "JAVA-IMC \"Example IMC"+i+"\" de.hsbremen.sidanet.nar.imc.ExampleImc"+i+" /home/tnc/example_imc"+i+".jar";
 		return s;
 	}
+	public static String getConfigLineToDummyImc(){
+	    String s = "JAVA-IMC \"Example IMC\" de.hsbremen.tc.tnc.DummyImc /home/sidanetdev/git/jtnc/tnccs/src/test/resources/DummyImc.jar";
+	    return s;
+	}
 	
 	public static String getConfigLineComment(){
 		int i = new Random().nextInt(100);
@@ -53,11 +55,21 @@ public class Dummy extends AbstractDummy {
 		return s;	
 	}
 
-	public static Map<ConfigurationChangeListener,Set<ConfigurationLineClassifier>> getConfigurationChangeListener(final NotifyTestObject o) {
+	public static ConfigurationEntryChangeListener getConfigurationChangeListener(final NotifyTestObject o) {
 		
-		ConfigurationChangeListener listener = new ConfigurationChangeListener() {
+	    
+		return new ConfigurationEntryChangeListener() {
 			
-			@Override
+		    Set<ConfigurationLineClassifier> classifiers =
+		            new HashSet<ConfigurationLineClassifier>(
+		            Arrays.asList(DefaultConfigurationLineClassifierEnum.JAVA_IMC));
+		    
+            @Override
+            public Set<ConfigurationLineClassifier> getSupportedConfigurationLines() {
+                return classifiers;
+            }
+
+            @Override
 			public void notifyDelete() {
 				o.deleteNotified = true;
 				
@@ -71,15 +83,19 @@ public class Dummy extends AbstractDummy {
 				System.out.println(Arrays.toString(entries.toArray()));
 			}
 		};
-		
-		Set<ConfigurationLineClassifier> classifiers = new HashSet<>(); 
-		classifiers.add(DefaultConfigurationLineClassifierEnum.JAVA_IMC);
-		
-		Map<ConfigurationChangeListener, Set<ConfigurationLineClassifier>> map = new HashMap<>();
-		map.put(listener, classifiers);
-		
-		return map;
-		
+
 	}
+	
+	public static GlobalHandshakeRetryListener getRetryListener(){
+        return new GlobalHandshakeRetryListener() {
+            
+            @Override
+            public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason)
+                    throws TncException {
+                System.out.println("Retry requested with reason: "+ reason.toString());
+                
+            }
+        };
+    }
 }
 	

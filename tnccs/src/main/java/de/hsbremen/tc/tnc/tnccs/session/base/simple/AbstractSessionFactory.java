@@ -73,7 +73,7 @@ abstract class AbstractSessionFactory implements SessionFactory {
      *
      * @return the IF-TNCCS protocol type
      */
-    public String getTnccsProtocolType() {
+    protected String getTnccsProtocolType() {
         return this.tnccsProtocolType;
     }
 
@@ -82,7 +82,7 @@ abstract class AbstractSessionFactory implements SessionFactory {
      *
      * @return the IF-TNCCS protocol version
      */
-    public String getTnccsProtocolVersion() {
+    protected String getTnccsProtocolVersion() {
         return this.tnccsProtocolVersion;
     }
 
@@ -90,7 +90,7 @@ abstract class AbstractSessionFactory implements SessionFactory {
      * Returns the writer to serialize a message.
      * @return the writer to serialize a message
      */
-    public TnccsWriter<TnccsBatch> getWriter() {
+    protected TnccsWriter<TnccsBatch> getWriter() {
         return this.writer;
     }
 
@@ -98,7 +98,7 @@ abstract class AbstractSessionFactory implements SessionFactory {
      * Returns the reader to parse a message.
      * @return the reader to parse a message
      */
-    public TnccsReader<TnccsBatchContainer> getReader() {
+    protected TnccsReader<TnccsBatchContainer> getReader() {
         return this.reader;
     }
 

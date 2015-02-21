@@ -32,6 +32,7 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.Combined;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader<PbMessageValue>> {
 
@@ -60,9 +61,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 	public TnccsBatchContainer read(final ByteBuffer buffer, final long length)
 			throws SerializationException, ValidationException {
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be null.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		if(!buffer.isReadable()){
 			throw new IllegalArgumentException("Buffer must be readable.");

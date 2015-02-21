@@ -26,6 +26,7 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Generic helper base to make information and commonly used functions
@@ -52,12 +53,9 @@ public abstract class AbstractStateHelper<T extends TnccsContentHandler>
      */
     protected AbstractStateHelper(final Attributed attributes,
             final T contentHandler) {
-        if (attributes == null) {
-            throw new NullPointerException("Attributes cannot be null.");
-        }
-        if (contentHandler == null) {
-            throw new NullPointerException("Content handler cannot be null.");
-        }
+        NotNull.check("Attributes cannot be null.", attributes);
+        NotNull.check("Content handler cannot be null.", contentHandler);
+
         this.attributes = attributes;
         this.contentHandler = contentHandler;
     }

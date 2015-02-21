@@ -8,7 +8,7 @@ public enum PtTlsErrorCauseEnum {
 	VENDOR_ID_RESERVED 		(1),
 	MESSAGE_TYPE_RESERVED	(2),
     LENGTH_TO_SHORT 		(3),
-    NULL_TERMINATION        (4),
+    null_TERMINATION        (4),
     ZERO_STRING 			(5),
 	
     // own specifications
@@ -42,7 +42,7 @@ public enum PtTlsErrorCauseEnum {
     		case 3:
     			return LENGTH_TO_SHORT;
     		case 4:
-    			return NULL_TERMINATION;
+    			return null_TERMINATION;
     		case 5:
     			return ZERO_STRING;
     		case 6:

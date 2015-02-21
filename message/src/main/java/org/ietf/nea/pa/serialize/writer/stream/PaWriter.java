@@ -17,6 +17,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
 import de.hsbremen.tc.tnc.message.util.Combined;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaWriter implements ImWriter<ImMessage>, Combined<ImWriter<PaAttributeValue>> {
 
@@ -42,12 +43,8 @@ class PaWriter implements ImWriter<ImMessage>, Combined<ImWriter<PaAttributeValu
 	@Override
 	public void write(final ImMessage message, final OutputStream out)
 			throws SerializationException{
-		if(message == null){
-			throw new NullPointerException("Message cannot be null.");
-		}
-		if(out == null){
-			throw new NullPointerException("OutputStream cannot be null.");
-		}
+		NotNull.check("Message cannot be null.", message);
+		NotNull.check("OutputStream cannot be null.", out);
 		
 		if(!(message instanceof PaMessage)){
 			throw new IllegalArgumentException("Message of type " + message.getClass().getCanonicalName() + " is not supported. Message must be of type " +PaMessage.class.getCanonicalName()+ "." );

@@ -9,15 +9,14 @@ import org.ietf.nea.pa.attribute.PaAttributeValueTesting;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeTestingValueWriter implements ImWriter<PaAttributeValueTesting>{
 
 	@Override
 	public void write(final PaAttributeValueTesting data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValueTesting aValue = data;
 		

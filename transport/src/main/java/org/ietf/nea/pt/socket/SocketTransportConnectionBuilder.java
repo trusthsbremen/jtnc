@@ -36,6 +36,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.TransportConnectionBuilder;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Builder to create a TransportConnection based on an underlying socket.
@@ -72,6 +73,11 @@ public class SocketTransportConnectionBuilder implements
             final String tVersion,
             final TransportWriter<TransportMessage> writer,
             final TransportReader<TransportMessageContainer> reader) {
+
+        NotNull.check("Protocol type cannot be null.",tProtocol);
+        NotNull.check("Protocol version cannot be null.",tVersion);
+        NotNull.check("Writer cannot be null.",writer);
+        NotNull.check("Reader cannot be null.",reader);
 
         this.tProtocol = tProtocol;
         this.tVersion = tVersion;
@@ -213,9 +219,7 @@ public class SocketTransportConnectionBuilder implements
             final boolean selfInitiated, final boolean server,
             final Socket underlying) {
 
-        if (underlying == null) {
-            throw new NullPointerException("Underlying cannot be NULL.");
-        }
+        NotNull.check("Underlying cannot be null.", underlying);
 
         Socket socket = underlying;
 
@@ -234,9 +238,7 @@ public class SocketTransportConnectionBuilder implements
     public TransportConnection toConnection(final boolean selfInitiated,
             final boolean server, final Socket underlying) {
 
-        if (underlying == null) {
-            throw new NullPointerException("Underlying cannot be NULL.");
-        }
+        NotNull.check("Underlying cannot be null.", underlying);
 
         if (!(underlying instanceof Socket)) {
             throw new IllegalArgumentException("Underlying must be of type "

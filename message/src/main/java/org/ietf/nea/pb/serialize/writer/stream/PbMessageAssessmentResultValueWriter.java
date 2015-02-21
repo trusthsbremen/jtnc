@@ -10,15 +10,14 @@ import org.ietf.nea.pb.message.PbMessageValueAssessmentResult;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageAssessmentResultValueWriter implements TnccsWriter<PbMessageValueAssessmentResult>{
 
 	@Override
 	public void write(final PbMessageValueAssessmentResult data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message value cannot be NULL.");
-		}
+		NotNull.check("Message value cannot be null.", data);
 		
 		PbMessageValueAssessmentResult mValue = data;
 		

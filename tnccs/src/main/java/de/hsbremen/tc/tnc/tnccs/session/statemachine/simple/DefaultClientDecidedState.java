@@ -37,6 +37,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.Decided;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default TNCC decided state. The TNCC handles
@@ -85,38 +86,35 @@ class DefaultClientDecidedState extends AbstractState implements Decided {
     public TnccsBatch handle(final TnccsBatchContainer batchContainer) {
         TnccsBatch b = null;
 
-        if (batchContainer.getResult() == null) {
-            throw new NullPointerException(
-                    "Batch cannot be null. "
-                    + "The state transitions seem corrupted.");
+        NotNull.check("Batch cannot be null. "
+                + "The state transitions seem corrupted.",
+                batchContainer.getResult());
 
-        } else {
+        if (batchContainer.getResult() instanceof PbBatch) {
+            PbBatch current = (PbBatch) batchContainer.getResult();
 
-            if (batchContainer.getResult() instanceof PbBatch) {
-                PbBatch current = (PbBatch) batchContainer.getResult();
-
-                if (current.getHeader().getType()
-                        .equals(PbBatchTypeEnum.RESULT)) {
-                    this.handleResult(batchContainer);
-                    super.setSuccessor(this);
-                } else {
-
-                    throw new IllegalArgumentException(
-                                    "Batch cannot be of type "
-                                    + current.getHeader().getType().toString()
-                                    + ". The state transitions seem corrupted."
-                                    );
-
-                }
+            if (current.getHeader().getType()
+                    .equals(PbBatchTypeEnum.RESULT)) {
+                this.handleResult(batchContainer);
+                super.setSuccessor(this);
             } else {
 
                 throw new IllegalArgumentException(
-                        "Batch must be an instance of "
-                                + PbBatch.class.getCanonicalName()
-                                + ". The state transitions seem corrupted.");
+                                "Batch cannot be of type "
+                                + current.getHeader().getType().toString()
+                                + ". The state transitions seem corrupted."
+                                );
 
             }
+        } else {
+
+            throw new IllegalArgumentException(
+                    "Batch must be an instance of "
+                            + PbBatch.class.getCanonicalName()
+                            + ". The state transitions seem corrupted.");
+
         }
+        
 
         return b;
     }

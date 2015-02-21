@@ -10,15 +10,14 @@ import org.ietf.nea.pa.attribute.PaAttributeValueForwardingEnabled;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeForwardingEnabledValueWriter implements ImWriter<PaAttributeValueForwardingEnabled>{
 
 	@Override
 	public void write(final PaAttributeValueForwardingEnabled data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValueForwardingEnabled aValue = data;
 		

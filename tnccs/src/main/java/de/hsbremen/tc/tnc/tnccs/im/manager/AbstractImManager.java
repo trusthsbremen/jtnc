@@ -25,6 +25,7 @@
 package de.hsbremen.tc.tnc.tnccs.im.manager;
 
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -50,16 +51,16 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
     private Deque<Long> idRecyclingBin;
     private final long maxImId;
 
-    private Map<Long, T> imcIndex;
-    private Map<T, Long> imcs;
+    private Map<Long, T> imIndex;
+    private Map<T, Long> ims;
 
     private ImMessageRouter router;
 
     /**
-     * Creates a IM(C/V) manager base with the given messag router and
+     * Creates a IM(C/V) manager base with the given message router and
      * a maximum IM(C/V) ID limiting the number of available IDs.
      *
-     * @param router the messge router
+     * @param router the message router
      * @param maxImId the maximum IM(C/V) ID
      */
     public AbstractImManager(final ImMessageRouter router, final long maxImId) {
@@ -68,9 +69,9 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
         /* Use this because sessions and IM management may have threads */
         this.idRecyclingBin = new ConcurrentLinkedDeque<>();
         /* Use this because sessions and IM management may have threads */
-        this.imcs = new ConcurrentHashMap<>();
+        this.ims = new ConcurrentHashMap<>();
         /* Use this because sessions and IM management may have threads */
-        this.imcIndex = new ConcurrentHashMap<>();
+        this.imIndex = new ConcurrentHashMap<>();
         this.router = router;
         this.maxImId = maxImId;
     }
@@ -85,14 +86,14 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
                     "Intialization of IMC failed. IMC will be removed.", e);
         }
 
-        this.imcIndex.put(primaryId, im);
-        this.imcs.put(im, primaryId);
+        this.imIndex.put(primaryId, im);
+        this.ims.put(im, primaryId);
 
         try {
             this.initialize(primaryId, im);
         } catch (TncException e) {
-            this.imcIndex.remove(primaryId);
-            this.imcs.remove(im);
+            this.imIndex.remove(primaryId);
+            this.ims.remove(im);
             this.idRecyclingBin.add(primaryId);
             throw new ImInitializeException(
                     "Intialization of IMC failed. IMC will be removed.", e);
@@ -101,23 +102,29 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
     }
 
     @Override
-    public void remove(final long id) {
+    public void remove(final long primaryId) {
 
-        T imc = this.imcIndex.remove(id);
-        this.router.remove(id);
+        this.terminate(primaryId);
+        T imc = this.imIndex.remove(primaryId);
+        this.router.remove(primaryId);
         if (imc != null) {
-            this.imcs.remove(imc);
+            this.ims.remove(imc);
         }
 
-        this.idRecyclingBin.add(id);
+        this.idRecyclingBin.add(primaryId);
 
     }
 
     @Override
+    public Map<Long, T> getManaged() {
+        return new HashMap<Long, T>(this.imIndex);
+    }
+
+    @Override
     public long reserveAdditionalId(final T im) throws TncException {
-        if (this.imcs.containsKey(im)) {
+        if (this.ims.containsKey(im)) {
             long additionalId = this.reserveId();
-            this.router.addExclusiveId(this.imcs.get(im), additionalId);
+            this.router.addExclusiveId(this.ims.get(im), additionalId);
             return additionalId;
         }
 
@@ -130,8 +137,8 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
     public void reportSupportedMessagesTypes(final T im,
             final Set<SupportedMessageType> types) throws TncException {
 
-        if (this.imcs.containsKey(im)) {
-            this.router.updateMap(this.imcs.get(im), types);
+        if (this.ims.containsKey(im)) {
+            this.router.updateMap(this.ims.get(im), types);
         } else {
             throw new TncException("The given IMC/V "
                     + im.getClass().getCanonicalName() + " is unknown.",
@@ -141,7 +148,8 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
 
     /**
      * Initializes the given IM(C/V) using the given primary ID.
-     * Must be implemented by extending class.
+     * Must be implemented by an extending class and is called
+     * at the end of the add() method.
      *
      * @param primaryId the primary ID
      * @param im the IM(C/V)
@@ -149,6 +157,15 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
      */
     protected abstract void initialize(final long primaryId, final T im)
             throws TncException;
+
+    /**
+     * Terminates the IM(C/V) with the given primary ID. Must be
+     * implemented by an extending class and is called, at the beginning
+     * of the remove() method.
+     *
+     * @param id the IM(C/V) ID
+     */
+    protected abstract void terminate(final long id);
 
     /**
      * Reserves an ID from the ID pool.

@@ -7,6 +7,7 @@ import org.ietf.nea.pb.batch.PbBatchHeader;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbBatchHeaderWriter implements TnccsWriter<PbBatchHeader>{
 
@@ -15,9 +16,7 @@ class PbBatchHeaderWriter implements TnccsWriter<PbBatchHeader>{
 	@Override
 	public void write(final PbBatchHeader data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Batch header cannot be NULL.");
-		}
+		NotNull.check("Batch header cannot be null.", data);
 
 		PbBatchHeader bHead = data;
 	

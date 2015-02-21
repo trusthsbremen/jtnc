@@ -59,6 +59,7 @@ import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default TNC(C/S) session managing a transport connection.
@@ -70,7 +71,7 @@ import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
  */
 public class DefaultSession implements Session {
 
-    protected static final Logger LOGGER = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultSession.class);
 
     private final SessionAttributes attributes;
@@ -96,10 +97,9 @@ public class DefaultSession implements Session {
             final TnccsWriter<TnccsBatch> writer,
             final TnccsReader<TnccsBatchContainer> reader,
             final ExecutorService runner) {
-        if (attributes == null || writer == null || reader == null) {
-            throw new NullPointerException(
-                    "Constructor arguments cannot be null.");
-        }
+        NotNull.check("Constructor arguments cannot be null.",
+                attributes, writer, reader);
+
         this.attributes = attributes;
         this.writer = writer;
         this.reader = reader;

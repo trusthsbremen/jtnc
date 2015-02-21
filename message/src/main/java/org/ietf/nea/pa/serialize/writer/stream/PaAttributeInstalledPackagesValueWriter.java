@@ -13,6 +13,7 @@ import org.ietf.nea.pa.attribute.util.PackageEntry;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeInstalledPackagesValueWriter implements ImWriter<PaAttributeValueInstalledPackages>{
 
@@ -21,9 +22,7 @@ class PaAttributeInstalledPackagesValueWriter implements ImWriter<PaAttributeVal
 	@Override
 	public void write(final PaAttributeValueInstalledPackages data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValueInstalledPackages aValue = data;
 		

@@ -9,16 +9,14 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeFlagsEnum;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 public class PaAttributeNoSkip {
 
 	public static void check(PaAttributeValue value, final Set<PaAttributeFlagsEnum> flags ) throws RuleException{
-		if(flags == null){
-        	throw new NullPointerException("Flags can not be null.");
-        }
+		NotNull.check("Flags can not be null.", flags);
 		
-		if(value == null){
-			throw new NullPointerException("Value can not be null.");
-		}
+		NotNull.check("Value can not be null.", value);
 		
 		if(!value.isOmittable()){
 			 if(flags.isEmpty() || !flags.contains(PaAttributeFlagsEnum.NOSKIP)){	

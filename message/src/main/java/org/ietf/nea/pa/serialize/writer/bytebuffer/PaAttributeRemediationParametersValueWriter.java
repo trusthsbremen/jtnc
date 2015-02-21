@@ -11,6 +11,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeRemediationParametersValueWriter implements ImWriter<PaAttributeValueRemediationParameters>{
 
@@ -28,13 +29,9 @@ class PaAttributeRemediationParametersValueWriter implements ImWriter<PaAttribut
 	@Override
 	public void write(final PaAttributeValueRemediationParameters data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be NULL.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		PaAttributeValueRemediationParameters mValue = data;
 

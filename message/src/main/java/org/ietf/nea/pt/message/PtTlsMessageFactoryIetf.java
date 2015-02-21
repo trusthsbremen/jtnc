@@ -13,6 +13,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PtTlsMessageFactoryIetf {
 
@@ -108,9 +109,7 @@ public class PtTlsMessageFactoryIetf {
 	}
 	
 	private static PtTlsMessage createMessage(final long identifier,final long type, final AbstractPtTlsMessageValue value) throws ValidationException {
-		if(value == null){
-			throw new NullPointerException("Value cannot be null.");
-		}
+		NotNull.check("Value cannot be null.", value);
 		
 		if(identifier > 0xFFFFFFFFL){
 			throw new IllegalArgumentException("Identifier to large. Identifier must be in range from 0 to " + 0xFFFFFFFFL );

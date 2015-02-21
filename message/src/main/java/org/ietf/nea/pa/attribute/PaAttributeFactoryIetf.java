@@ -19,6 +19,7 @@ import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaAttributeFactoryIetf {
 
@@ -188,9 +189,7 @@ public class PaAttributeFactoryIetf {
 	}
 
 	private static PaAttribute createAttribute(final byte flags, final long type, final AbstractPaAttributeValue value) throws ValidationException {
-		if(value == null){
-			throw new NullPointerException("Value cannot be null.");
-		}
+		NotNull.check("Value cannot be null.", value);
 		
 	    PaAttributeHeaderBuilderIetf aBuilder = new PaAttributeHeaderBuilderIetf();
 		try{

@@ -51,6 +51,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.util.StateUtil;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Default TNCS server working state. The TNCS handles messages
@@ -106,59 +107,55 @@ class DefaultServerServerWorkingState extends AbstractState implements
 
         TnccsBatch b = null;
 
-        if (batchContainer.getResult() == null) {
-            throw new NullPointerException(
-                    "Batch cannot be null. "
-                    + "The state transitions seem corrupted.");
+        NotNull.check("Batch cannot be null. "
+                + "The state transitions seem corrupted.",
+                batchContainer.getResult());
 
-        } else {
+        if (batchContainer.getResult() instanceof PbBatch) {
+            PbBatch current = (PbBatch) batchContainer.getResult();
 
-            if (batchContainer.getResult() instanceof PbBatch) {
-                PbBatch current = (PbBatch) batchContainer.getResult();
+            if (current.getHeader().getType().equals(PbBatchTypeEnum.CDATA)
+                    || current.getHeader().getType()
+                            .equals(PbBatchTypeEnum.CRETRY)) {
 
-                if (current.getHeader().getType().equals(PbBatchTypeEnum.CDATA)
-                        || current.getHeader().getType()
-                                .equals(PbBatchTypeEnum.CRETRY)) {
+                boolean roundTripOverrunImminent = this.checkRoundTrips();
 
-                    boolean roundTripOverrunImminent = this.checkRoundTrips();
-
-                    try {
-                        b = this.handleClientData(batchContainer);
-                        if (!b.getMessages().isEmpty()
-                                && !roundTripOverrunImminent) {
-                            super.setSuccessor(this.helper
-                                    .getState(TnccsStateEnum.CLIENT_WORKING));
-                        } else {
-                            // if empty, than there is no more to say, so a
-                            // decision can be made
-                            b = this.createResult();
-                            super.setSuccessor(this.helper
-                                    .getState(TnccsStateEnum.DECIDED));
-                        }
-
-                    } catch (ValidationException e) {
-                        TnccsMessage error = StateUtil.createLocalError();
-                        b = StateUtil.createCloseBatch(true, error);
+                try {
+                    b = this.handleClientData(batchContainer);
+                    if (!b.getMessages().isEmpty()
+                            && !roundTripOverrunImminent) {
                         super.setSuccessor(this.helper
-                                .getState(TnccsStateEnum.END));
+                                .getState(TnccsStateEnum.CLIENT_WORKING));
+                    } else {
+                        // if empty, than there is no more to say, so a
+                        // decision can be made
+                        b = this.createResult();
+                        super.setSuccessor(this.helper
+                                .getState(TnccsStateEnum.DECIDED));
                     }
-                } else {
 
-                    throw new IllegalArgumentException(
-                                    "Batch cannot be of type "
-                                    + current.getHeader().getType().toString()
-                                    + ". The state transitions seem corrupted."
-                                    );
-
+                } catch (ValidationException e) {
+                    TnccsMessage error = StateUtil.createLocalError();
+                    b = StateUtil.createCloseBatch(true, error);
+                    super.setSuccessor(this.helper
+                            .getState(TnccsStateEnum.END));
                 }
             } else {
 
                 throw new IllegalArgumentException(
-                        "Batch must be an instance of "
-                                + PbBatch.class.getCanonicalName()
-                                + ". The state transitions seem corrupted.");
+                                "Batch cannot be of type "
+                                + current.getHeader().getType().toString()
+                                + ". The state transitions seem corrupted."
+                                );
 
             }
+        } else {
+
+            throw new IllegalArgumentException(
+                    "Batch must be an instance of "
+                            + PbBatch.class.getCanonicalName()
+                            + ". The state transitions seem corrupted.");
+
         }
 
         return b;

@@ -31,6 +31,7 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVLong;
 import org.trustedcomputinggroup.tnc.ifimv.IMVTNCSFirst;
 
 import de.hsbremen.tc.tnc.HSBConstants;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * The factory creates an IMC adapter according to IETF/TCG specifications.
@@ -79,9 +80,7 @@ public class ImvAdapterFactoryIetf implements ImvAdapterFactory {
     @Override
     public ImvAdapter createImvAdapter(final IMV imv, final long primaryId) {
 
-        if (imv == null) {
-            throw new NullPointerException("IMV cannot be null.");
-        }
+        NotNull.check("IMV cannot be null.", imv);
 
         ImvAdapter adapter = null;
         if (timeout > 0) {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class DefaultMessageContainer implements ImMessageContainer {
 
@@ -15,9 +16,7 @@ public class DefaultMessageContainer implements ImMessageContainer {
 
 	public DefaultMessageContainer(PaMessage message, List<ValidationException> exceptions) {
 		
-		if(message == null){
-			throw new NullPointerException("Message cannot be null.");
-		}
+		NotNull.check("Message cannot be null.", message);
 		
 		this.message = message;
 		this.exceptions = ((exceptions != null) ? exceptions : new ArrayList<ValidationException>(0));

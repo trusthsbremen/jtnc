@@ -15,6 +15,7 @@ import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.Combined;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaWriter implements ImWriter<ImMessage>, Combined<ImWriter<PaAttributeValue>> {
 
@@ -40,13 +41,9 @@ class PaWriter implements ImWriter<ImMessage>, Combined<ImWriter<PaAttributeValu
 	@Override
 	public void write(final ImMessage message, final ByteBuffer buffer)
 			throws SerializationException{
-		if(message == null){
-			throw new NullPointerException("Message cannot be null.");
-		}
+		NotNull.check("Message cannot be null.", message);
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be null.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		if(!buffer.isWriteable()){
 			throw new IllegalArgumentException("Buffer must be writeable.");

@@ -12,6 +12,7 @@ import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributePortFilterValueWriter implements ImWriter<PaAttributeValuePortFilter>{
 
@@ -20,9 +21,7 @@ class PaAttributePortFilterValueWriter implements ImWriter<PaAttributeValuePortF
 	@Override
 	public void write(final PaAttributeValuePortFilter data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValuePortFilter aValue = data;
 		

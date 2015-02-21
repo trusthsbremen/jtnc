@@ -13,6 +13,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 
@@ -32,9 +33,7 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError>{
 	@Override
 	public void write(final PbMessageValueError data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message value cannot be NULL.");
-		}
+		NotNull.check("Message value cannot be null.", data);
 		
 		PbMessageValueError mValue = data;
 		

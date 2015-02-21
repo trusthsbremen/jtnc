@@ -15,6 +15,7 @@ import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupporte
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeErrorValueWriter implements ImWriter<PaAttributeValueError>{
 
@@ -38,9 +39,7 @@ class PaAttributeErrorValueWriter implements ImWriter<PaAttributeValueError>{
 	@Override
 	public void write(final PaAttributeValueError data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValueError mValue = data;
 		

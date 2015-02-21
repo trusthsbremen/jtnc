@@ -28,6 +28,7 @@ import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  *
@@ -61,9 +62,7 @@ public class DefaultImcSessionFactory implements ImSessionFactory<ImcSession> {
     @Override
     public <S extends ImConnectionAdapter, E extends ImEvaluatorManager>
     ImcSession createSession(final S connection, final E evaluator) {
-        if (connection == null) {
-            throw new NullPointerException("Connection cannot be null.");
-        }
+        NotNull.check("Connection cannot be null.", connection);
 
         if (!(connection instanceof ImcConnectionAdapter)) {
             throw new IllegalArgumentException(
@@ -72,9 +71,7 @@ public class DefaultImcSessionFactory implements ImSessionFactory<ImcSession> {
                             + ".");
         }
 
-        if (evaluator == null) {
-            throw new NullPointerException("Evaluators cannot be null.");
-        }
+        NotNull.check("Evaluators cannot be null.", evaluator);
 
         if (!(evaluator instanceof ImEvaluatorManager)) {
             throw new IllegalArgumentException(

@@ -1,6 +1,7 @@
 package org.ietf.nea.pb.message;
 
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PbMessage implements TnccsMessage{
 
@@ -8,12 +9,8 @@ public class PbMessage implements TnccsMessage{
 	private final PbMessageValue value;
 
 	public PbMessage(PbMessageHeader header, PbMessageValue value) {
-		if(header == null){
-			throw new NullPointerException("Message header cannot be null.");
-		}
-		if(value == null){
-			throw new NullPointerException("Messages cannot be null.");
-		}
+		NotNull.check("Message header cannot be null.", header);
+		NotNull.check("Messages cannot be null.", value);
 		this.header = header;
 		this.value = value;
 	}

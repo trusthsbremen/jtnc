@@ -26,6 +26,7 @@ package de.hsbremen.tc.tnc.tnccs.im.manager;
 
 import java.util.Map;
 
+import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImAdapter;
 import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 
@@ -54,10 +55,13 @@ public interface ImAdapterManager<T extends ImAdapter<?>> {
     ImMessageRouter getRouter();
 
     /**
-     * Removes an IM(C/V) adapter of the IM(C/V)
-     * with the given primary ID.
+     * Notifies the manager about a fatal
+     * error caused by an IM(C/V), so that the manager
+     * can decide what to do with the IM(C/V) (e.g.
+     * reload, terminate).
      *
-     * @param id the primary ID
+     * @param primaryId the primary ID
+     * @param exception exception describing the fatal error
      */
-    void removeAdapter(long id);
+    void notifyFatalError(long primaryId, TncException exception);
 }

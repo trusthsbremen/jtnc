@@ -9,16 +9,14 @@ import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
+import de.hsbremen.tc.tnc.util.NotNull;
+
 public class PbMessageNoSkip {
 
 	public static void check(PbMessageValue value, final Set<PbMessageFlagsEnum> flags ) throws RuleException{
-		if(flags == null){
-        	throw new NullPointerException("Flags can not be null.");
-        }
+		NotNull.check("Flags can not be null.", flags);
 		
-		if(value == null){
-			throw new NullPointerException("Value can not be null.");
-		}
+		NotNull.check("Value can not be null.", value);
 		
 		if(!value.isOmittable()){
 			 if(flags.isEmpty() || !flags.contains(PbMessageFlagsEnum.NOSKIP)){	

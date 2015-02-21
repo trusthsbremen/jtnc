@@ -11,19 +11,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy;
-import de.hsbremen.tc.tnc.tnccs.im.loader.FileChangeListener;
-import de.hsbremen.tc.tnc.tnccs.im.loader.FileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy.NotifyTestObject;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationEntryManager;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultFileChangeMonitor;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultTncConfigurationFileParser;
 
 public class ConfigurationEntryManagerTest {
 
-	private FileChangeListener manager;
 	private NotifyTestObject o;
-	private FileChangeMonitor monitor;
+	private ConfigurationFileChangeMonitor monitor;
 	private File file = new File("src/test/resources/tnc_config.test");
 
 	@BeforeClass
@@ -34,17 +27,14 @@ public class ConfigurationEntryManagerTest {
 	@Before
 	public void setUp() throws IOException{
 		o = new Dummy.NotifyTestObject();
-		manager = new DefaultConfigurationEntryManager(new DefaultTncConfigurationFileParser(), Dummy.getConfigurationChangeListener(o));
-		this.monitor = new DefaultFileChangeMonitor(file, 200, true);
-		this.monitor.add(manager);
+		this.monitor = new DefaultConfigurationMonitorBuilder(200, true).addChangeListener(Dummy.getConfigurationChangeListener(o)).createMonitor(file);
 		this.file.createNewFile();
 	}
 	
 	@Test
 	public void testChange() throws IOException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test change notification."));
-		Thread t = new Thread(this.monitor);
-		t.start();
+		this.monitor.start();
 		
 		
 		FileWriter w = new FileWriter(this.file);
@@ -60,7 +50,7 @@ public class ConfigurationEntryManagerTest {
 			e.printStackTrace();
 		}
 		
-		t.interrupt();
+		this.monitor.stop();
 		
 		Assert.assertTrue(o.changeNotified);
 		
@@ -70,8 +60,7 @@ public class ConfigurationEntryManagerTest {
 	public void testDelete() throws IOException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test delete notification."));
 		
-		Thread t = new Thread(this.monitor);
-		t.start();
+		this.monitor.start();
 		
 		this.file.delete();
 		
@@ -83,7 +72,7 @@ public class ConfigurationEntryManagerTest {
 			e.printStackTrace();
 		}
 		
-		t.interrupt();
+		this.monitor.stop();
 
 		Assert.assertTrue(o.deleteNotified);
 		
@@ -94,8 +83,7 @@ public class ConfigurationEntryManagerTest {
 		
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test ignore change notification."));
 		
-		Thread t = new Thread(this.monitor);
-		t.start();
+		this.monitor.start();
 		
 		
 		FileWriter w = new FileWriter(this.file);
@@ -111,7 +99,7 @@ public class ConfigurationEntryManagerTest {
 			e.printStackTrace();
 		}
 		
-		t.interrupt();
+		this.monitor.stop();
 		
 		Assert.assertFalse(o.changeNotified);
 		
@@ -122,8 +110,7 @@ public class ConfigurationEntryManagerTest {
 		
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test line delete change notification."));
 		
-		Thread t = new Thread(this.monitor);
-		t.start();
+		this.monitor.start();
 		
 		FileWriter w = new FileWriter(this.file);
 		w.append(Dummy.getConfigLine());
@@ -179,7 +166,7 @@ public class ConfigurationEntryManagerTest {
 			e.printStackTrace();
 		}
 		
-		t.interrupt();
+		this.monitor.stop();
 		
 		Assert.assertTrue(o.changeNotified);
 		

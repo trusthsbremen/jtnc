@@ -46,7 +46,7 @@ public class DefaultTncsContentHandlerFactory implements
             final TncsHandler tncsHandler,
             final TnccsValidationExceptionHandler exceptionHandler) {
 
-        NotNull.check("Handler arguments cannot be NULL.",
+        NotNull.check("Handler arguments cannot be null.",
                 imHandler, tncsHandler, exceptionHandler);
 
         TncsContentHandler contentHandler = new DefaultTncsContentHandler(

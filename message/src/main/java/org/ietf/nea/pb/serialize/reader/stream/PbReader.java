@@ -33,6 +33,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.Combined;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader<PbMessageValue>> {
 
@@ -52,6 +53,9 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 	public PbReader(TnccsReader<PbBatchHeader> bHeadReader,
 			TnccsReader<PbMessageHeader> mHeadReader,
 			Map<Long, Map<Long, TnccsReader<PbMessageValue>>> valueReader) {
+	    NotNull.check("Constructor arguments cannot be null.",
+	            bHeadReader, mHeadReader, valueReader);
+	    
 		this.bHeadReader = bHeadReader;
 		this.mHeadReader = mHeadReader;
 		this.valueReader = valueReader;
@@ -61,6 +65,8 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 	public TnccsBatchContainer read(final InputStream in, final long length)
 			throws SerializationException, ValidationException {
 		
+	    NotNull.check("Stream cannot be null.", in);
+	    
 		BufferedInputStream bIn = (in instanceof BufferedInputStream)? (BufferedInputStream)in : new BufferedInputStream(in) ;
 		List<ValidationException> minorExceptions = new LinkedList<>();
 		

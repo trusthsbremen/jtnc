@@ -24,6 +24,7 @@
  */
 package de.hsbremen.tc.tnc.tnccs.im.manager;
 
+import java.util.Map;
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.exception.TncException;
@@ -53,9 +54,16 @@ public interface ImManager<T> {
      * Removes and unloads an IM(C/V) with the given
      * primary ID from the manager.
      *
-     * @param id the primary IM(C/V) ID
+     * @param primaryId the primary IM(C/V) ID
      */
-    void remove(long id);
+    void remove(long primaryId);
+
+    /**
+     * Returns a list of managed IM(C/V).
+     *
+     * @return a list of IM(C/V)
+     */
+    Map<Long, T> getManaged();
 
     /**
      * Requests an additional ID for the given IM(C/V) from

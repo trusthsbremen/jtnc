@@ -7,24 +7,17 @@
   </parent>
   
   <artifactId>examples</artifactId>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <name>Implementation examples</name>
   
+	<modules>
+		<module>naa</module>
+		<module>nar</module>
+		<module>imc</module>
+		<module>imv</module>
+	</modules>
   <!-- <properties>
 		<main.basedir>${project.parent.basedir}</main.basedir>
   </properties> -->
   
- 
-	<dependencies>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>
-			<artifactId>tnccs</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>
-			<artifactId>im</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
 </project>

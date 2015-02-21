@@ -13,6 +13,7 @@ import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.Combined;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PtTlsWriter implements TransportWriter<TransportMessage>, Combined<TransportWriter<PtTlsMessageValue>> {
 
@@ -34,13 +35,9 @@ class PtTlsWriter implements TransportWriter<TransportMessage>, Combined<Transpo
 	@Override
 	public void write(final TransportMessage m, final ByteBuffer buffer)
 			throws SerializationException{
-		if(m == null){
-			throw new NullPointerException("Message cannot be null.");
-		}
+		NotNull.check("Message cannot be null.", m);
 		
-		if(buffer == null){
-			throw new NullPointerException("Buffer cannot be null.");
-		}
+		NotNull.check("Buffer cannot be null.", buffer);
 		
 		if(!buffer.isWriteable()){
 			throw new IllegalArgumentException("Buffer must be writeable.");

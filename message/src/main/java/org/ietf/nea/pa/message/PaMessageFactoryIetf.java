@@ -7,13 +7,12 @@ import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaMessageFactoryIetf {
     
 	public static PaMessage createMessage(long identifier, List<PaAttribute> attributes) throws ValidationException{
-		if(attributes == null){
-			throw new NullPointerException("Attributes cannot be null.");
-		}
+		NotNull.check("Attributes cannot be null.", attributes);
 		
 		PaMessageHeaderBuilderIetf builder = new PaMessageHeaderBuilderIetf();
 		

@@ -7,6 +7,7 @@ import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PbMessageErrorParameterVersionSubValueWriter implements TnccsWriter<PbMessageValueErrorParameterVersion>{
 
@@ -15,9 +16,7 @@ class PbMessageErrorParameterVersionSubValueWriter implements TnccsWriter<PbMess
 	@Override
 	public void write(final PbMessageValueErrorParameterVersion data, final ByteBuffer buffer)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Message value cannot be NULL.");
-		}
+		NotNull.check("Message value cannot be null.", data);
 		
 		PbMessageValueErrorParameterVersion mValue = data;
 

@@ -10,15 +10,14 @@ import org.ietf.nea.pa.attribute.PaAttributeValueNumericVersion;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeNumericVersionValueWriter implements ImWriter<PaAttributeValueNumericVersion>{
 
 	@Override
 	public void write(final PaAttributeValueNumericVersion data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValueNumericVersion aValue = data;
 		

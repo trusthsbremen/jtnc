@@ -10,15 +10,14 @@ import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImWriter;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaAttributeAssessmentResultValueWriter implements ImWriter<PaAttributeValueAssessmentResult>{
 
 	@Override
 	public void write(final PaAttributeValueAssessmentResult data, final OutputStream out)
 			throws SerializationException {
-		if(data == null){
-			throw new NullPointerException("Value cannot be NULL.");
-		}
+		NotNull.check("Value cannot be null.", data);
 		
 		PaAttributeValueAssessmentResult aValue = data;
 		
