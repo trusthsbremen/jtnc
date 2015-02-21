@@ -12,7 +12,6 @@ import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.im.AbstractDummy;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;

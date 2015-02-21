@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>de.hsbremen.tc.tnc</groupId>
-    <artifactId>examples</artifactId>
+    <parent>
+    <groupId>de.hsbremen.tc.tnc.jtnc.example</groupId>
+    <artifactId>jtnc-examples</artifactId>
     <version>0.0.3-SNAPSHOT</version>
   </parent>
   
   <artifactId>nar</artifactId>
   <packaging>jar</packaging>
-  <name>Implementation examples</name>
+  <name>NAR implementation examples</name>
   
   <!-- <properties>
 		<main.basedir>${project.parent.basedir}</main.basedir>
@@ -17,12 +17,12 @@
  
 	<dependencies>
 		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>
+			<groupId>de.hsbremen.tc.tnc.jtnc.core</groupId>
 			<artifactId>tnccs</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>de.hsbremen.tc.tnc</groupId>
+			<groupId>de.hsbremen.tc.tnc.jtnc.example</groupId>
 			<artifactId>imc</artifactId>
 			<version>${project.version}</version>
 		</dependency>

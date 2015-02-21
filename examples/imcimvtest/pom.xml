@@ -6,9 +6,9 @@
     <version>0.0.3-SNAPSHOT</version>
   </parent>
   
-  <artifactId>naa</artifactId>
+  <artifactId>imcimvtest</artifactId>
   <packaging>jar</packaging>
-  <name>NAA implementation examples</name>
+  <name>IMC IMV communication short cute example</name>
   
   <!-- <properties>
 		<main.basedir>${project.parent.basedir}</main.basedir>
@@ -17,8 +17,8 @@
  
 	<dependencies>
 		<dependency>
-			<groupId>de.hsbremen.tc.tnc.jtnc.core</groupId>
-			<artifactId>tnccs</artifactId>
+			<groupId>de.hsbremen.tc.tnc.jtnc.example</groupId>
+			<artifactId>imc</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

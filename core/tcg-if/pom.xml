@@ -1,14 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>de.hsbremen.tc.tnc.jtnc.example</groupId>
-    <artifactId>jtnc-examples</artifactId>
+    <groupId>de.hsbremen.tc.tnc.jtnc.core</groupId>
+    <artifactId>jtnc-core</artifactId>
     <version>0.0.3-SNAPSHOT</version>
   </parent>
   
-  <artifactId>imv</artifactId>
-  <packaging>jar</packaging>
-  <name>IMV implementation examples</name>
+  <artifactId>tcg-if</artifactId>
+  <packaging>pom</packaging>
+  <name>TCG and HSB interface specifications</name>
+   
+  <modules>
+	<module>if-common</module>
+	<module>if-imc</module>
+	<module>if-imv</module>
+  </modules>
   
   <!-- <properties>
 		<main.basedir>${project.parent.basedir}</main.basedir>
@@ -16,10 +22,5 @@
   
  
 	<dependencies>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc.jtnc.core</groupId>
-			<artifactId>im</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 </project>

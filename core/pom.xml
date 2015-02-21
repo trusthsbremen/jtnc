@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.hsbremen.tc.tnc.jtnc.example</groupId>
- <artifactId>jtnc-examples</artifactId>
+  <groupId>de.hsbremen.tc.tnc.jtnc.core</groupId>
+  <artifactId>jtnc-core</artifactId>
   <version>0.0.3-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>jTNC examples</name>
-	<description>Java based TNC implementation examples.</description>
+  <name>jTNC</name>
+	<description>Java based TNC implementation attempt.</description>
 	<url>http://sidanet.hsbremen.de/</url>
 	<organization>
 		<name>Hochschule Bremen</name>
@@ -15,11 +15,12 @@
 		<!-- TODO: eintragen -->
 	</developers>
 	<modules>
-		<module>naa</module>
-		<module>nar</module>
-		<module>imc</module>
-		<module>imv</module>
-		<module>imcimvtest</module>
+		<module>native</module>
+		<module>im</module>
+		<module>transport</module>
+		<module>tcg-if</module>
+		<module>message</module>
+		<module>tnccs</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
