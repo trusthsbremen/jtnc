@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-    <groupId>de.hsbremen.tc.tnc.jtnc.core</groupId>
+    <groupId>de.hsbremen.tc.tnc.jtnc</groupId>
     <artifactId>jtnc-core</artifactId>
     <version>0.0.3-SNAPSHOT</version>
   </parent>
@@ -17,7 +17,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.hsbremen.tc.tnc.jtnc.core</groupId>
+			<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
 			<artifactId>if-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>

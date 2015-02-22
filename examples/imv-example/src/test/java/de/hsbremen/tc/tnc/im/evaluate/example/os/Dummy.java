@@ -92,33 +92,33 @@ public class Dummy extends AbstractDummy{
 	
 
 	public static PaAttribute getAttributeStringVersion() throws ValidationException {
-		UTSNAME systemDescription = new UTSNAME();
-		CLibrary.INSTANCE.uname(systemDescription);
-		return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release).trim(),null,new String(systemDescription.machine).trim());
-	}
+        UTSNAME systemDescription = new UTSNAME();
+        CLibrary.INSTANCE.uname(systemDescription);
+        return PaAttributeFactoryIetf.createStringVersion(new String(systemDescription.release).trim(),null,new String(systemDescription.machine).trim());
+    }
 
-	public static PaAttribute getAttributeNumericVersion() throws NumberFormatException, ValidationException, PatternNotFoundException {
-		UTSNAME systemDescription = new UTSNAME();
-		CLibrary.INSTANCE.uname(systemDescription);
-		String release = new String(systemDescription.release).trim();
-		Pattern p = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)-(\\d+)");
-		Matcher m = p.matcher(release);
-		if(m.find()){
-			long majorVersion = Long.parseLong(m.group(1));
-			long minorVersion = Long.parseLong(m.group(2));
-			long buildVersion = Long.parseLong(m.group(3));
-			int servicePackVersion =  Integer.parseInt(m.group(4));
-			int servicePackVersionMinor = 0;
-			return PaAttributeFactoryIetf.createNumericVersion(majorVersion,minorVersion,buildVersion,servicePackVersion, servicePackVersionMinor);
-		}else{
-			throw new PatternNotFoundException("Version pattern " + p.toString() +" was not found.", release, p.toString());
-		}
-	}
+    public static PaAttribute getAttributeNumericVersion() throws NumberFormatException, ValidationException, PatternNotFoundException {
+        UTSNAME systemDescription = new UTSNAME();
+        CLibrary.INSTANCE.uname(systemDescription);
+        String release = new String(systemDescription.release).trim();
+        Pattern p = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)-(\\d+)");
+        Matcher m = p.matcher(release);
+        if(m.find()){
+            long majorVersion = Long.parseLong(m.group(1));
+            long minorVersion = Long.parseLong(m.group(2));
+            long buildVersion = Long.parseLong(m.group(3));
+            int servicePackVersion =  Integer.parseInt(m.group(4));
+            int servicePackVersionMinor = 0;
+            return PaAttributeFactoryIetf.createNumericVersion(majorVersion,minorVersion,buildVersion,servicePackVersion, servicePackVersionMinor);
+        }else{
+            throw new PatternNotFoundException("Version pattern " + p.toString() +" was not found.", release, p.toString());
+        }
+    }
 
-	public static PaAttribute getAttributeProductInformation() throws ValidationException {
-		UTSNAME systemDescription = new UTSNAME();
-		CLibrary.INSTANCE.uname(systemDescription);
-		// RFC 5792 Vendor ID unknown = 0 => Product ID  = 0
-		return PaAttributeFactoryIetf.createProductInformation(0,0, new String(systemDescription.version).trim());
-	}
+    public static PaAttribute getAttributeProductInformation() throws ValidationException {
+        UTSNAME systemDescription = new UTSNAME();
+        CLibrary.INSTANCE.uname(systemDescription);
+        // RFC 5792 Vendor ID unknown = 0 => Product ID  = 0
+        return PaAttributeFactoryIetf.createProductInformation(0,0, new String(systemDescription.version).trim());
+    }
 }

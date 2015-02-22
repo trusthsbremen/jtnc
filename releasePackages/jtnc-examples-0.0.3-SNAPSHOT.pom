@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.hsbremen.tc.tnc.jtnc.example</groupId>
+  <groupId>de.hsbremen.tc.tnc.jtnc</groupId>
  <artifactId>jtnc-examples</artifactId>
   <version>0.0.3-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -15,11 +15,12 @@
 		<!-- TODO: eintragen -->
 	</developers>
 	<modules>
-		<module>naa</module>
-		<module>nar</module>
-		<module>imc</module>
-		<module>imv</module>
-		<module>imcimvtest</module>
+		<module>naa-example</module>
+		<module>nar-example</module>
+		<module>imc-example</module>
+		<module>imv-example</module>
+		<module>imcimv-test</module>
+		<module>native-example</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
