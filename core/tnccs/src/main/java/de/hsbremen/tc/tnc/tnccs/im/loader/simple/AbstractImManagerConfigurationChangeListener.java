@@ -1,5 +1,6 @@
 package de.hsbremen.tc.tnc.tnccs.im.loader.simple;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntry;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ImLoader;
 import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
+import de.hsbremen.tc.tnc.tnccs.im.loader.exception.LoadingException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 
@@ -21,13 +23,13 @@ public abstract class AbstractImManagerConfigurationChangeListener<T> implements
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AbstractImManagerConfigurationChangeListener.class);
     
-    final ImLoader<T> imcLoader;
+    final ImLoader<T> imLoader;
     final ImManager<T> manager;
     final Map<ConfigurationEntry, Long> loadedEntries;
 
     public AbstractImManagerConfigurationChangeListener(
-            final ImLoader<T> imcLoader, final ImManager<T> manager) {
-        this.imcLoader = imcLoader;
+            final ImLoader<T> imLoader, final ImManager<T> manager) {
+        this.imLoader = imLoader;
         this.manager = manager;
         this.loadedEntries = new ConcurrentHashMap<>();
     }
@@ -57,6 +59,8 @@ public abstract class AbstractImManagerConfigurationChangeListener<T> implements
             }
         }
     
+        this.imLoader.cleanUp(new HashSet<>(this.loadedEntries.keySet()));
+        
         for (ConfigurationEntry configurationEntry : entries) {
             if (configurationEntry instanceof DefaultConfigurationEntryImJava) {
                 if (!loadedEntries.containsKey(configurationEntry)) {
@@ -86,9 +90,10 @@ public abstract class AbstractImManagerConfigurationChangeListener<T> implements
     }
 
     private void addImcToManager(ConfigurationEntry configurationEntry) {
-        T imc = this.imcLoader
-                .loadIm((DefaultConfigurationEntryImJava) configurationEntry);
         try {
+            T imc = this.imLoader
+                .loadIm((DefaultConfigurationEntryImJava) configurationEntry);
+
             Long primaryId = this.manager.add(imc);
             this.loadedEntries.put(configurationEntry, primaryId);
     
@@ -98,6 +103,10 @@ public abstract class AbstractImManagerConfigurationChangeListener<T> implements
                     + " was added to manager.");
         } catch (ImInitializeException e) {
             LOGGER.error("IM(C/V) could not be initialized and"
+                    + " will be ignored.", e);
+
+        } catch (LoadingException e) {
+            LOGGER.error("IM(C/V) could not be loaded and"
                     + " will be ignored.", e);
         }
     }

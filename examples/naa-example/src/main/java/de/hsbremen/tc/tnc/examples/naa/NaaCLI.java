@@ -78,7 +78,7 @@ public abstract class NaaCLI {
         do {
             if (input.contains("start")) {
                 if (input.length() > "start".length()) {
-                    
+
                     Matcher m  = CONFIG_FILE_PATH.matcher(input);
                     if (m.find()) {
 

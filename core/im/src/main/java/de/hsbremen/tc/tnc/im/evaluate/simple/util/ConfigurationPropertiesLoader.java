@@ -53,8 +53,8 @@ public abstract class ConfigurationPropertiesLoader {
      * @return the file as property object
      * @throws IOException if file access fails
      */
-    public static Properties loadProperties(final String evaluationValuesFile)
-            throws IOException {
+    public static Properties loadProperties(final String evaluationValuesFile,
+            Class<?> resourceHook) throws IOException {
 
         Properties p = new Properties();
         BufferedInputStream stream = null;
@@ -62,7 +62,7 @@ public abstract class ConfigurationPropertiesLoader {
         // first try to read as resource
         try {
              stream = new BufferedInputStream(
-                    evaluationValuesFile.getClass().getResourceAsStream(
+                   resourceHook.getResourceAsStream(
                             evaluationValuesFile));
              p.load(stream);
         } catch (IOException e){

@@ -89,7 +89,7 @@ public class FileImvEvaluationUnit extends AbstractImEvaluationUnitIetf
 
         try {
             properties = ConfigurationPropertiesLoader
-                    .loadProperties(evaluationValuesFile);
+                    .loadProperties(evaluationValuesFile, this.getClass());
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
             properties = null;

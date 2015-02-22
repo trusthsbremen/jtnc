@@ -92,7 +92,7 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
 
         try {
             properties = ConfigurationPropertiesLoader
-                    .loadProperties(evaluationValuesFile);
+                    .loadProperties(evaluationValuesFile, this.getClass());
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
             properties = null;

@@ -9,7 +9,7 @@
 
 	<artifactId>imcimv-test</artifactId>
 	<packaging>jar</packaging>
-	<name>IMC IMV communication short cute example</name>
+	<name>IMC IMV communication short cut test</name>
 
 	<!-- <properties> <main.basedir>${project.parent.basedir}</main.basedir> 
 		</properties> -->

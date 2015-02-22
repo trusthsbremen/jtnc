@@ -50,7 +50,7 @@ import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.DefaultConfigurationMonitorBuilder;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcLoader;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple
 .DefaultImcManagerConfigurationChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
@@ -119,7 +119,7 @@ public class Nar {
      * @param file the configuration file
      */
     public void loadImcFromConfigurationFile(final File file) {
-        DefaultImcLoader loader = new DefaultImcLoader();
+        DefaultImLoader<IMC> loader = new DefaultImLoader<IMC>();
         ConfigurationEntryChangeListener listener =
                 new DefaultImcManagerConfigurationChangeListener(
                 loader, this.manager);

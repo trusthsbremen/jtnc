@@ -9,10 +9,10 @@ import java.net.URLClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class JarLoaderUtil {
+class JarLoaderUtil2 {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(JarLoaderUtil.class);
+            .getLogger(JarLoaderUtil2.class);
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     static <T> T loadIm(final DefaultConfigurationEntryImJava parameter) {
@@ -65,15 +65,15 @@ class JarLoaderUtil {
             im = null;
         }
 
-        try {
-            urlLoader.close();
-        } catch (IOException e) {
-            LOGGER.warn(
-                    "An IOException occured while trying to close the"
-                    + " ClassLoader. Usually this does not indicate a"
-                    + " serious problem.",
-                    e);
-        }
+//        try {
+//            urlLoader.close();
+//        } catch (IOException e) {
+//            LOGGER.warn(
+//                    "An IOException occured while trying to close the"
+//                    + " ClassLoader. Usually this does not indicate a"
+//                    + " serious problem.",
+//                    e);
+//        }
 
         return im;
     }

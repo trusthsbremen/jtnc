@@ -1,10 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>de.hsbremen.tc.tnc.jtnc</groupId>
- <artifactId>jtnc-examples</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>jTNC examples</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
+	<artifactId>jtnc-examples</artifactId>
+	<version>0.0.3-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>jTNC examples</name>
 	<description>Java based TNC implementation examples.</description>
 	<url>http://sidanet.hsbremen.de/</url>
 	<organization>
@@ -24,7 +25,7 @@
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!--  <main.basedir>${project.basedir}</main.basedir>  -->
+		<!-- <main.basedir>${project.basedir}</main.basedir> -->
 	</properties>
 	<pluginRepositories>
 		<pluginRepository>
@@ -125,7 +126,7 @@
 					<aggregate>true</aggregate>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>

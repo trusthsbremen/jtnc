@@ -53,7 +53,7 @@ import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.DefaultConfigurationMonitorBuilder;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImvLoader;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple
 .DefaultImvManagerConfigurationChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImvManager;
@@ -127,12 +127,12 @@ public class Naa {
     }
 
     /**
-     * Creates a file monitor to load IMC using a configuration file.
+     * Creates a file monitor to load IMV using a configuration file.
      *
      * @param file the configuration file
      */
     public void loadImvFromConfigurationFile(final File file) {
-        DefaultImvLoader loader = new DefaultImvLoader();
+        DefaultImLoader<IMV> loader = new DefaultImLoader<IMV>();
         ConfigurationEntryChangeListener listener =
                 new DefaultImvManagerConfigurationChangeListener(
                 loader, this.manager);

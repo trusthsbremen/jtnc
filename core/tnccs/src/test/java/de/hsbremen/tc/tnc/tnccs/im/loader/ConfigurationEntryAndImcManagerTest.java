@@ -9,12 +9,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
+import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
 
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactoryIetf;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcLoader;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
@@ -29,7 +30,7 @@ public class ConfigurationEntryAndImcManagerTest {
     private ImMessageRouter router;
     private ImcAdapterFactory imcFactory;
     private TnccAdapterFactory tnccFactory;
-    
+    private ImLoader<IMC> loader;
     @BeforeClass
     public static void logSetup(){
         Dummy.setLogSettings();
@@ -42,8 +43,8 @@ public class ConfigurationEntryAndImcManagerTest {
         this.router = new DefaultImMessageRouter();
         this.imManager = new DefaultImcManager(router, imcFactory, tnccFactory);
         
-        DefaultImcLoader loader = new DefaultImcLoader();
-        ConfigurationEntryChangeListener listener = new DefaultImcManagerConfigurationChangeListener(loader, imManager);
+        this.loader = new DefaultImLoader<IMC>();
+        ConfigurationEntryChangeListener listener = new DefaultImcManagerConfigurationChangeListener(this.loader, imManager);
         
         this.monitor = new DefaultConfigurationMonitorBuilder(200, false).addChangeListener(listener).createMonitor(file);
         this.file.createNewFile();
