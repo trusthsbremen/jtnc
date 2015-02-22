@@ -28,7 +28,6 @@ import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
-import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
@@ -75,14 +74,15 @@ public class DefaultImvSession extends
 
         ImvRecommendationPair recommendation = null;
 
-        if (super.getEvaluator() instanceof ImvEvaluator) {
+        if (super.getEvaluator() instanceof ImvEvaluatorManager) {
             recommendation = ((ImvEvaluatorManager) super.getEvaluator())
                     .getRecommendation(this);
         }
 
         super.getConnection().provideRecommendation(
-                (recommendation != null) ? ImvRecommendationPairFactory
-                        .getDefaultRecommendationPair() : recommendation);
+                (recommendation != null) ? recommendation 
+                        : ImvRecommendationPairFactory
+                        .getDefaultRecommendationPair());
     }
 
     /**
@@ -101,6 +101,7 @@ public class DefaultImvSession extends
                     .getEvaluator();
 
             if (manager.hasRecommendation()) {
+
                 super.getConnection().provideRecommendation(
                         manager.getRecommendation(this));
             }

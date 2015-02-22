@@ -43,7 +43,7 @@ import org.trustedcomputinggroup.tnc.ifimv.IMV;
 public abstract class NaaCLI {
 
     private static final Pattern CONFIG_FILE_PATH =
-            Pattern.compile("(([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+)");
+            Pattern.compile("(start) (([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+)");
 
     /**
      * Main method to run the NAA.
@@ -78,9 +78,11 @@ public abstract class NaaCLI {
         do {
             if (input.contains("start")) {
                 if (input.length() > "start".length()) {
+                    
                     Matcher m  = CONFIG_FILE_PATH.matcher(input);
                     if (m.find()) {
-                        File file = new File(m.group(1));
+
+                        File file = new File(m.group(2).trim());
                         if (file.exists() && file.canRead()) {
                             naa.loadImvFromConfigurationFile(file);
                         } else {

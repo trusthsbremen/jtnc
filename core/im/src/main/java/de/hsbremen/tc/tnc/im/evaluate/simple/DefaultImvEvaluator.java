@@ -72,6 +72,7 @@ public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements
             final ImSessionContext context) {
         LOGGER.debug("getRecommendation() called, with connection state: "
                 + context.getConnectionState().toString());
+        
         List<ImvRecommendationPair> recommendations = new LinkedList<>();
         // cast save here because it must be initialized with ImvEvaluationUnits
         for (ImvEvaluationUnit unit : (List<ImvEvaluationUnit>) super

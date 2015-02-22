@@ -163,6 +163,7 @@ class ImvAdapterIetf implements ImvAdapter {
             throws TncException, TerminatedException {
 
         try {
+            connection.allowMessageReceipt();
             this.imv.solicitRecommendation(connection);
         } catch (TNCException e) {
             throw new TncException(e);
@@ -170,6 +171,8 @@ class ImvAdapterIetf implements ImvAdapter {
             throw new TerminatedException("The IMV with ID " + this.primaryId
                     + " is terminated and should be removed.", e, new Long(
                     this.primaryId));
+        } finally {
+            connection.denyMessageReceipt();
         }
 
     }

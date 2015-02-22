@@ -209,8 +209,11 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
             final ImSessionContext context) {
         if (this.evaluatorRecommendations != null
                 && !this.evaluatorRecommendations.isEmpty()) {
+
             List<ImvRecommendationPair> recommendations = new LinkedList<>(
                     this.evaluatorRecommendations.values());
+            // clear the recommendations for new ones
+            this.evaluatorRecommendations.clear();
 
             Collections.sort(recommendations,
                     LeastPrivilegeRecommendationComparator.getInstance());

@@ -2,20 +2,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-    <groupId>de.hsbremen.tc.tnc.jtnc</groupId>
-    <artifactId>jtnc-examples</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
-  </parent>
-	
+		<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
+		<artifactId>jtnc-examples</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+	</parent>
+
 	<artifactId>native-example</artifactId>
 	<packaging>jar</packaging>
 	<name>Native measurement helper example</name>
-	
-	<!--  <properties>
-		<main.basedir>${project.parent.parent.basedir}</main.basedir>
-	</properties> -->
 
-	
+	<!-- <properties> <main.basedir>${project.parent.parent.basedir}</main.basedir> 
+		</properties> -->
+
+
 	<dependencies>
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>

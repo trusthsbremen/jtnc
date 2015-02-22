@@ -1,0 +1,2 @@
+# Start the NAR with a configuration file
+start /home/sidanetdev/git/jtnc/examples/nar-example/config/tnc_config

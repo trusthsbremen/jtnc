@@ -25,6 +25,7 @@
 package de.hsbremen.tc.tnc.tnccs.message.handler.simple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
+import de.hsbremen.tc.tnc.attribute.TncHsbAttributeTypeEnum;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
@@ -45,6 +47,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
+import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 import de.hsbremen.tc.tnc.report.LeastPrivilegeRecommendationComparator;
 import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
@@ -235,24 +238,27 @@ public class DefaultTncsHandler implements TncsHandler {
     public List<TnccsMessage> provideRecommendation(
             final List<ImvRecommendationPair> imvResults) {
         List<TnccsMessage> messages = new ArrayList<>(0);
+        List<ImvRecommendationPair> imvResultsCopy = imvResults;
 
         TncConnectionState state =
                 DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_ACCESS_NONE;
 
-        if (imvResults != null && !imvResults.isEmpty()) {
-
-            Collections.sort(imvResults,
-                    LeastPrivilegeRecommendationComparator.getInstance());
-            // because of the sort get last from list which should be the most
-            // severe //
-            ImvRecommendationPair leastEqualWeightPrivilege = imvResults
-                    .get((imvResults.size() - 1));
-
-            messages = this
-                    .mapRecommendationToMessages(leastEqualWeightPrivilege);
-            state = this.mapRecommendationToState(leastEqualWeightPrivilege);
+        if (imvResultsCopy == null || imvResultsCopy.isEmpty()) {
+            imvResultsCopy = new ArrayList<>(Arrays.asList(
+                    ImvRecommendationPairFactory
+                    .getDefaultRecommendationPair()));
         }
-
+        Collections.sort(imvResultsCopy,
+                LeastPrivilegeRecommendationComparator.getInstance());
+        // because of the sort get last from list which should be the most
+        // severe //
+        ImvRecommendationPair leastEqualWeightPrivilege = imvResultsCopy
+                .get((imvResultsCopy.size() - 1));
+        
+        messages = this
+                .mapRecommendationToMessages(leastEqualWeightPrivilege);
+        state = this.mapRecommendationToState(leastEqualWeightPrivilege);
+       
         this.setConnectionState(state);
 
         return messages;
@@ -288,7 +294,7 @@ public class DefaultTncsHandler implements TncsHandler {
             // is already denied so do nothing
             break;
         }
-
+        
         try {
             TnccsMessage message = PbMessageFactoryIetf
                     .createAccessRecommendation(pbAction);
@@ -332,6 +338,28 @@ public class DefaultTncsHandler implements TncsHandler {
                     e);
         }
 
+        if(LOGGER.isDebugEnabled()){
+            StringBuilder b = new StringBuilder();
+            b.append("TNCS recommends ") 
+            .append(pbAction.toString())
+            .append(" access for the result ")
+            .append(pbResult.toString());
+            
+            try {
+                Object connectionId = this.sessionAttributes.getAttribute(
+                        TncHsbAttributeTypeEnum.HSB_ATTRIBUTEID_IFT_ID);
+                if(connectionId instanceof String){
+                    b.append(" for the connection with ID ")
+                    .append((String)connectionId);
+                }
+            } catch (TncException e) {
+               LOGGER.debug("Could not identify connection "
+                       + "via session attributes.");
+            }
+            b.append(".");
+            LOGGER.debug(b.toString());
+        }
+        
         return messages;
     }
 

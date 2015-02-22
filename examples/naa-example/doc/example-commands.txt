@@ -1,0 +1,2 @@
+# Start the NAA with a configuration file
+start /home/sidanetdev/git/jtnc/examples/naa-example/config/tnc_config

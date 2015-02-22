@@ -95,8 +95,8 @@ public class Nar {
         SessionFactory factory = new DefaultClientSessionFactory(
                 PbReaderFactory.getTnccsProtocol(),
                 PbReaderFactory.getTnccsVersion(),
-                PbWriterFactory.createProductionDefault(),
-                PbReaderFactory.createProductionDefault(), this.manager);
+                PbWriterFactory.createExperimentalDefault(),
+                PbReaderFactory.createExperimentalDefault(), this.manager);
 
         this.client = new DefaultClientFacade(factory, SESSION_CLEAN_INTERVAL);
 

@@ -1,20 +1,32 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-    <parent>
-    <groupId>de.hsbremen.tc.tnc.jtnc</groupId>
-    <artifactId>jtnc-examples</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
-  </parent>
-  
-  <artifactId>nar-example</artifactId>
-  <packaging>jar</packaging>
-  <name>NAR implementation examples</name>
-  
-  <!-- <properties>
-		<main.basedir>${project.parent.basedir}</main.basedir>
-  </properties> -->
-  
- 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
+		<artifactId>jtnc-examples</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>nar-example</artifactId>
+	<packaging>jar</packaging>
+	<name>NAR implementation examples</name>
+
+	<!-- <properties> <main.basedir>${project.parent.basedir}</main.basedir> 
+		</properties> -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>de.hsbremen.tc.tnc.jtnc</groupId>

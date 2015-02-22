@@ -26,12 +26,15 @@ package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimv.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
 import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
+import de.hsbremen.tc.tnc.attribute.TncHsbAttributeTypeEnum;
 import de.hsbremen.tc.tnc.attribute.TncServerAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -50,6 +53,9 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements
         ImvConnectionAdapter {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ImvConnectionAdapterIetf.class);
+    
     private final ImvConnectionContext context;
     private long maxMessageSize;
 
@@ -174,6 +180,30 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements
                     TNCException.TNC_RESULT_INVALID_PARAMETER);
         }
 
+        if(LOGGER.isDebugEnabled()){
+            StringBuilder b = new StringBuilder();
+            b.append("IMV # ")
+            .append(super.getImId())
+            .append(" recommends ") 
+            .append(recommendationPair.getRecommendation().toString())
+            .append(" access for the result ")
+            .append(recommendationPair.getResult().toString());
+            
+            try {
+                Object connectionId = this.context.getAttribute(
+                        TncHsbAttributeTypeEnum.HSB_ATTRIBUTEID_IFT_ID);
+                if(connectionId instanceof String){
+                    b.append(" for the connection with ID ")
+                    .append((String)connectionId);
+                }
+            } catch (TncException e) {
+               LOGGER.debug("Could not identify connection "
+                       + "via connection context.");
+            }
+            b.append(".");
+            LOGGER.debug(b.toString());
+        }
+        
         try {
             this.context.addRecommendation(super.getImId(), recommendationPair);
         } catch (TncException e) {

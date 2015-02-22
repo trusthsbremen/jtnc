@@ -58,7 +58,7 @@ public class DefaultTnccHandler implements TnccHandler {
             .getLogger(DefaultTnccHandler.class);
 
     private final Attributed sessionAttributes;
-    private final String tnccLanguagePreference;
+    private String tnccLanguagePreference;
 
     private String tempTnccsLanguagePreference;
     private TncConnectionState state;
@@ -252,6 +252,7 @@ public class DefaultTnccHandler implements TnccHandler {
                                 TncCommonAttributeTypeEnum
                                 .TNC_ATTRIBUTEID_PREFERRED_LANGUAGE,
                                 this.tempTnccsLanguagePreference);
+                this.tnccLanguagePreference = tempTnccsLanguagePreference;
             } catch (TncException | UnsupportedOperationException e) {
 
                 LOGGER.warn("Language preference could not be set"

@@ -112,8 +112,8 @@ public class Naa {
         SessionFactory factory = new DefaultServerSessionFactory(
                 PbReaderFactory.getTnccsProtocol(),
                 PbReaderFactory.getTnccsVersion(),
-                PbWriterFactory.createProductionDefault(),
-                PbReaderFactory.createProductionDefault(), this.manager);
+                PbWriterFactory.createExperimentalDefault(),
+                PbReaderFactory.createExperimentalDefault(), this.manager);
 
         this.client = new DefaultClientFacade(factory, SESSION_CLEAN_INTERVAL);
 
@@ -190,6 +190,7 @@ public class Naa {
                 LOGGER.error(e.getMessage(), e);
             }
 
+            this.monitor.stop();
             this.client.stop();
             this.manager.terminate();
         }

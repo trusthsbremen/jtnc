@@ -106,6 +106,7 @@ public class AttributeCollection implements Attributed {
     @Override
     public void setAttribute(final TncAttributeType type, final Object value)
             throws TncException {
+        boolean attributeSet = false;
         if (attributes.isEmpty()) {
             throw new UnsupportedOperationException(
                     "The operation setAttribute(...) "
@@ -117,15 +118,18 @@ public class AttributeCollection implements Attributed {
             if (attribut instanceof Attributed) {
                 try {
                     ((Attributed) attribut).setAttribute(type, value);
+                    attributeSet = true;
                 } catch (UnsupportedOperationException | TncException e) {
                     // ignore
                 }
             }
         }
 
-        throw new TncException("The attribute with ID " + type.id()
-                + " is unknown or not writeable.",
-                TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+        if(!attributeSet){
+            throw new TncException("The attribute with ID " + type.id()
+                    + " is unknown or not writeable.",
+                    TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+        }
     }
 
 }
