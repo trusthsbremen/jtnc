@@ -9,14 +9,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
-import org.trustedcomputinggroup.tnc.ifimc.IMCLong;
 
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactory;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileParserImJava;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
@@ -44,9 +46,13 @@ public class ConfigurationEntryAndImcManagerTest {
         this.imManager = new DefaultImcManager(router, imcFactory, tnccFactory);
         
         this.loader = new DefaultImLoader<IMC>();
-        ConfigurationEntryChangeListener listener = new DefaultImcManagerConfigurationChangeListener(this.loader, imManager);
         
-        this.monitor = new DefaultConfigurationMonitorBuilder(200, false).addChangeListener(listener).createMonitor(file);
+        ConfigurationEntryHandler handler = new DefaultImcManagerConfigurationEntryHandler(this.loader, imManager);
+        ConfigurationFileParser parser = new DefaultConfigurationFileParserImJava(false);
+        DefaultConfigurationFileChangeListener listener = new DefaultConfigurationFileChangeListener(parser);
+        listener.addHandler(handler.getSupportedConfigurationLines(), handler);
+        this.monitor = new DefaultConfigurationFileChangeMonitor(file, 200, false);
+        this.monitor.add(listener);
         this.file.createNewFile();
     }
     

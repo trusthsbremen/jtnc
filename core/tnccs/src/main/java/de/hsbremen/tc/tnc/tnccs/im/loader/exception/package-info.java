@@ -22,8 +22,4 @@
  * THE SOFTWARE.
  *
  */
-/**
- * @author Carl-Heinz Genzel
- *
- */
 package de.hsbremen.tc.tnc.tnccs.im.loader.exception;

@@ -46,10 +46,12 @@ public abstract class ConfigurationPropertiesLoader {
     }
 
     /**
-     * Loads a java properties file with reference values for an
+     * Loads a java properties file/resource with reference values for an
      * evaluation unit.
      *
-     * @param evaluationValuesFile the path to the file
+     * @param evaluationValuesFile the path to the file/resource
+     * @param resourceHook hook to determine the correct resource
+     * path if resource should be loaded
      * @return the file as property object
      * @throws IOException if file access fails
      */
@@ -61,8 +63,10 @@ public abstract class ConfigurationPropertiesLoader {
         
         // first try to read as resource
         try {
-             stream = new BufferedInputStream(
-                   resourceHook.getResourceAsStream(
+             Class<?> hook = (resourceHook != null) ? resourceHook
+                     : evaluationValuesFile.getClass();
+       
+             stream = new BufferedInputStream(hook.getResourceAsStream(
                             evaluationValuesFile));
              p.load(stream);
         } catch (IOException e){

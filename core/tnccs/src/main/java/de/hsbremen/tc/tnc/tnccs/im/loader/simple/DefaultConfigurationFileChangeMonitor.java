@@ -1,3 +1,27 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package de.hsbremen.tc.tnc.tnccs.im.loader.simple;
 
 import java.io.BufferedInputStream;
@@ -19,40 +43,68 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeHandler;
+import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 
-public class DefaultConfigurationFileChangeMonitor implements ConfigurationFileChangeMonitor {
+/**
+ * Default file change monitor, that watches a file for changes or deletion and
+ * notifies change handler about these events. It checks the file
+ * in a regular timed interval.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class DefaultConfigurationFileChangeMonitor implements
+        ConfigurationFileChangeMonitor {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultConfigurationFileChangeMonitor.class);
+    private static final long DEFAULT_CHECK_INTERVAL = 5000;
 
     private final long interval;
-    private final Set<ConfigurationFileChangeHandler> listener;
+    private final Set<ConfigurationFileChangeListener> listener;
     private final FileChecker checker;
     private ScheduledExecutorService executor;
 
-    public DefaultConfigurationFileChangeMonitor(File config) {
-        this(config, 5000, false);
+    /**
+     * Creates a file change monitor for the given file with
+     * default values.
+     * <ul>
+     *  <li>Check interval: 5 sec</li>
+     *  <li>Check type: last modification time</li>
+     * </ul>
+     *
+     * @param file the file to monitor
+     */
+    public DefaultConfigurationFileChangeMonitor(final File file) {
+        this(file, DEFAULT_CHECK_INTERVAL, false);
     }
 
-    public DefaultConfigurationFileChangeMonitor(File config, long interval,
-            boolean paranoid) {
+    /**
+     * Creates a file change monitor for the given file based
+     * on the given values.
+     *
+     * @param file the file to monitor
+     * @param interval the check interval
+     * @param improved if true a hash sum is used to monitor the
+     * file instead of the last modification time
+     */
+    public DefaultConfigurationFileChangeMonitor(final File file,
+            final long interval, final boolean improved) {
 
         this.interval = interval;
         this.listener = new HashSet<>();
-        this.checker = new FileChecker(config, paranoid);
+        this.checker = new FileChecker(file, improved);
 
     }
 
     @Override
     public void start() {
-       this.executor = Executors.newScheduledThreadPool(1);
-       // check once, than start the regular checking
-       this.executor.schedule(this.checker, 0, TimeUnit.MILLISECONDS);
-       this.executor.scheduleAtFixedRate(
-               this.checker, interval, interval,
-               TimeUnit.MILLISECONDS);
+        this.executor = Executors.newScheduledThreadPool(1);
+        // check once, than start the regular checking
+        this.executor.schedule(this.checker, 0, TimeUnit.MILLISECONDS);
+        this.executor.scheduleAtFixedRate(this.checker, interval, interval,
+                TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -61,7 +113,7 @@ public class DefaultConfigurationFileChangeMonitor implements ConfigurationFileC
     }
 
     @Override
-    public void add(ConfigurationFileChangeHandler listener) {
+    public void add(final ConfigurationFileChangeListener listener) {
         synchronized (listener) {
             this.listener.add(listener);
         }
@@ -69,53 +121,61 @@ public class DefaultConfigurationFileChangeMonitor implements ConfigurationFileC
     }
 
     @Override
-    public void remove(ConfigurationFileChangeHandler listener) {
+    public void remove(final ConfigurationFileChangeListener listener) {
         synchronized (listener) {
             this.listener.remove(listener);
         }
     }
 
-    private void notifyChange(File file) {
-        for (ConfigurationFileChangeHandler listener : this.listener) {
-            listener.notifyChange(file);
-        }
-    }
-
-    private void notifyDelete(File file) {
-        for (ConfigurationFileChangeHandler listener : this.listener) {
-            listener.notifyDelete(file);
-        }
-    }
-
+    /**
+     * Runnable to check a files for changes.
+     *
+     * @author Carl-Heinz Genzel
+     *
+     */
     private class FileChecker implements Runnable {
 
-        private final File config;
-        private final boolean paranoid;
+        private final File file;
+        private final boolean improved;
         private final String messageDigestIdentifier;
 
         private boolean noFileExists;
         private byte[] change;
 
-        public FileChecker(File config, boolean paranoid) {
-            this(config, paranoid, null);
+        /**
+         * Creates the file checker for the given file.
+         *
+         * @param file the file to check
+         * @param improved if true a hash sum is used to monitor the
+         * file instead of the last modification time
+         */
+        public FileChecker(final File file, final boolean improved) {
+            this(file, (improved) ? "SHA1" : null);
         }
 
-        public FileChecker(File config, boolean paranoid,
-                String messageDigestIdentifier) {
-            this.config = config;
-            this.paranoid = paranoid;
-            this.messageDigestIdentifier = (messageDigestIdentifier != null
-                    && !messageDigestIdentifier.isEmpty())
-                    ? messageDigestIdentifier : "SHA1";
+        /**
+         * Creates the file checker for the given file.
+         *
+         * @param file the file to check
+         * @param messageDigestIdentifier the identifier for the message digest
+         * algorithm that should be used, if null only modification time check
+         * is used
+         */
+        public FileChecker(final File file,
+                final String messageDigestIdentifier) {
+            this.file = file;
+            this.improved = (messageDigestIdentifier != null
+                    && !messageDigestIdentifier.isEmpty());
+            this.messageDigestIdentifier =  messageDigestIdentifier;
             this.change = new byte[0];
         }
 
         @Override
         public void run() {
 
-            if (!this.config.exists()) {
+            if (!this.file.exists()) {
                 if (!this.noFileExists) {
-                    notifyDelete(this.config);
+                    notifyDelete();
                     this.noFileExists = true;
                 }
                 return;
@@ -126,7 +186,7 @@ public class DefaultConfigurationFileChangeMonitor implements ConfigurationFileC
             }
 
             byte[] changeTracker = new byte[0];
-            if (this.paranoid) {
+            if (this.improved) {
                 try {
                     changeTracker = this.checkFileChecksum();
                 } catch (NoSuchAlgorithmException e) {
@@ -150,10 +210,35 @@ public class DefaultConfigurationFileChangeMonitor implements ConfigurationFileC
             if (!Arrays.equals(this.change, changeTracker)) {
                 LOGGER.debug("Configuration file changed. Notify handler.");
                 this.change = changeTracker;
-                notifyChange(this.config);
+                notifyChange();
             }
         }
 
+        /**
+         * Notifies the listener that the monitored file has changed.
+         */
+        private void notifyChange() {
+            for (ConfigurationFileChangeListener lis : listener) {
+                lis.notifyChange(this.file);
+            }
+        }
+
+        /**
+         * Notifies the listener that the monitored file was deleted.
+         */
+        private void notifyDelete() {
+            for (ConfigurationFileChangeListener lis : listener) {
+                lis.notifyDelete();
+            }
+        }
+
+        /**
+         * Monitors the file using a check sum.
+         * @return the checksum
+         * @throws IOException if file access fails
+         * @throws NoSuchAlgorithmException if message digest
+         * algorithm identifier is not known
+         */
         private byte[] checkFileChecksum() throws IOException,
                 NoSuchAlgorithmException {
             byte[] newDigest = new byte[0];
@@ -162,7 +247,7 @@ public class DefaultConfigurationFileChangeMonitor implements ConfigurationFileC
             DigestInputStream dis = null;
             try {
                 dis = new DigestInputStream(new BufferedInputStream(
-                        new FileInputStream(this.config)), md);
+                        new FileInputStream(this.file)), md);
 
                 while ((dis.read()) != -1) {
                     // read the digest
@@ -178,12 +263,15 @@ public class DefaultConfigurationFileChangeMonitor implements ConfigurationFileC
             return newDigest;
         }
 
+        /**
+         * Monitors the file using the last modified time.
+         * @return the time
+         */
         private byte[] checkFileTimestamp() {
-            byte[] newTime = ByteBuffer.allocate(8)
-                    .putLong(this.config.lastModified()).array();
+            final int longByteLength = 8;
+            byte[] newTime = ByteBuffer.allocate(longByteLength)
+                    .putLong(this.file.lastModified()).array();
             return newTime;
         }
-
     }
-
 }

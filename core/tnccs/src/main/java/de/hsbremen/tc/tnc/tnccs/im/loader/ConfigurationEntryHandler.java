@@ -24,12 +24,40 @@
  */
 package de.hsbremen.tc.tnc.tnccs.im.loader;
 
+import java.util.Set;
+
+import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
+
 /**
- * Marks an object as configuration entry.
+ * Generic handler to handle changes of configuration entries.
  *
  * @author Carl-Heinz Genzel
  *
  */
-public interface ConfigurationEntry {
-    
+public interface ConfigurationEntryHandler {
+
+    /**
+     * Returns configuration line classifier that identify the configuration entries 
+     * supported by this handler.
+     *
+     * @return a set of configuration line classifiers
+     */
+    Set<ConfigurationLineClassifier> getSupportedConfigurationLines();
+
+    /**
+     * Handles the the case, where all configuration lines are deleted.
+     *
+     */
+    void notifyDelete();
+
+    /**
+     * Handles the case, where the current configuration entries for the given
+     * line classifier have changed.
+     *
+     * @param classfier the classifier for the configuration entries in the set
+     * @param entries the set of current, valid configuration entries
+     */
+    void notifyChange(ConfigurationLineClassifier classfier,
+            Set<ConfigurationEntry> entries);
+
 }

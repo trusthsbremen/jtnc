@@ -24,12 +24,36 @@
  */
 package de.hsbremen.tc.tnc.tnccs.im.loader;
 
+import java.util.Set;
+
+import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
+
 /**
- * Marks an object as configuration entry.
+ * Dispatches configuration entries to registered configuration handlers.
  *
  * @author Carl-Heinz Genzel
  *
  */
-public interface ConfigurationEntry {
-    
+public interface ConfigurationEntryDispatcher {
+
+    /**
+     * Adds a handler as observer for configuration lines with the given
+     * configuration line classifiers.
+     *
+     * @param classifiers the configuration line classifiers
+     * @param handler the handler to add
+     */
+    void addHandler(Set<ConfigurationLineClassifier> classifiers,
+            ConfigurationEntryHandler handler);
+
+    /**
+     * Removes a handler as observer for configuration lines with the given
+     * configuration line classifiers.
+     *
+     * @param classifiers the configuration line classifiers
+     * @param handler the handler to remove
+     */
+    void removeHandler(Set<ConfigurationLineClassifier> classifiers,
+            ConfigurationEntryHandler handler);
+
 }

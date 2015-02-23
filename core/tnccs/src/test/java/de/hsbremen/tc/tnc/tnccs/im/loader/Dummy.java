@@ -15,11 +15,11 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums.DefaultConfigurationLineClassifi
 
 public class Dummy extends AbstractDummy {
 
-	public static ConfigurationFileChangeHandler getFileChangeListener(final NotifyTestObject o){
-		return new ConfigurationFileChangeHandler() {
+	public static ConfigurationFileChangeListener getFileChangeListener(final NotifyTestObject o){
+		return new ConfigurationFileChangeListener() {
 			
 			@Override
-			public void notifyDelete(File config) {
+			public void notifyDelete() {
 				o.deleteNotified = true;
 				
 			}
@@ -55,10 +55,10 @@ public class Dummy extends AbstractDummy {
 		return s;	
 	}
 
-	public static ConfigurationEntryChangeListener getConfigurationChangeListener(final NotifyTestObject o) {
+	public static ConfigurationEntryHandler getConfigurationChangeListener(final NotifyTestObject o) {
 		
 	    
-		return new ConfigurationEntryChangeListener() {
+		return new ConfigurationEntryHandler() {
 			
 		    Set<ConfigurationLineClassifier> classifiers =
 		            new HashSet<ConfigurationLineClassifier>(
@@ -76,8 +76,8 @@ public class Dummy extends AbstractDummy {
 			}
 			
 			@Override
-			public void notifyChange(Set<ConfigurationEntry> entries,
-					ConfigurationLineClassifier classfier) {
+			public void notifyChange(ConfigurationLineClassifier classfier,
+			        Set<ConfigurationEntry> entries) {
 				o.changeNotified = true;
 				System.out.println("Change notified for classifier: " + classfier.toString());
 				System.out.println(Arrays.toString(entries.toArray()));

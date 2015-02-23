@@ -47,12 +47,14 @@ import de.hsbremen.tc.tnc.tnccs.client.DefaultClientFacade;
 import de.hsbremen.tc.tnc.tnccs.client.GlobalHandshakeRetryProxy;
 import de.hsbremen.tc.tnc.tnccs.client.enums.CommonConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
-import de.hsbremen.tc.tnc.tnccs.im.loader.DefaultConfigurationMonitorBuilder;
+import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileParser;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileParserImJava;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultImcManagerConfigurationChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
@@ -120,13 +122,20 @@ public class Nar {
      */
     public void loadImcFromConfigurationFile(final File file) {
         DefaultImLoader<IMC> loader = new DefaultImLoader<IMC>();
-        ConfigurationEntryChangeListener listener =
-                new DefaultImcManagerConfigurationChangeListener(
+        ConfigurationEntryHandler handler =
+                new DefaultImcManagerConfigurationEntryHandler(
                 loader, this.manager);
 
-        this.monitor = new DefaultConfigurationMonitorBuilder(
-                FILE_CHECK_INTERVAL, true)
-                .addChangeListener(listener).createMonitor(file);
+        ConfigurationFileParser parser =
+                new DefaultConfigurationFileParserImJava(false);
+        DefaultConfigurationFileChangeListener listener =
+                new DefaultConfigurationFileChangeListener(parser);
+        listener.addHandler(handler.getSupportedConfigurationLines(),
+                handler);
+
+        this.monitor = new DefaultConfigurationFileChangeMonitor(
+                file, FILE_CHECK_INTERVAL, true);
+        this.monitor.add(listener);
         this.monitor.start();
     }
 

@@ -24,12 +24,28 @@
  */
 package de.hsbremen.tc.tnc.tnccs.im.loader;
 
+import java.io.File;
+
 /**
- * Marks an object as configuration entry.
+ * Generic file change listener to listen for file change events
+ * of one file.
  *
  * @author Carl-Heinz Genzel
  *
  */
-public interface ConfigurationEntry {
-    
+public interface ConfigurationFileChangeListener {
+
+    /**
+     * Handles the case, where the content of the given file was changed.
+     *
+     * @param file the file
+     */
+    void notifyChange(File file);
+
+    /**
+     * Handles the the case, where the file was deleted.
+     *
+     */
+    void notifyDelete();
+
 }

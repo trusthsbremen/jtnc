@@ -12,6 +12,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.tnccs.im.loader.Dummy.NotifyTestObject;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileParserImJava;
 
 public class ConfigurationEntryManagerTest {
 
@@ -27,8 +30,14 @@ public class ConfigurationEntryManagerTest {
 	@Before
 	public void setUp() throws IOException{
 		o = new Dummy.NotifyTestObject();
-		this.monitor = new DefaultConfigurationMonitorBuilder(200, true).addChangeListener(Dummy.getConfigurationChangeListener(o)).createMonitor(file);
-		this.file.createNewFile();
+		ConfigurationEntryHandler handler = Dummy.getConfigurationChangeListener(o);
+        ConfigurationFileParser parser = new DefaultConfigurationFileParserImJava(false);
+        DefaultConfigurationFileChangeListener listener = new DefaultConfigurationFileChangeListener(parser);
+        listener.addHandler(handler.getSupportedConfigurationLines(), handler);
+        this.monitor = new DefaultConfigurationFileChangeMonitor(file, 200, true);
+        this.monitor.add(listener);
+        this.file.createNewFile();
+
 	}
 	
 	@Test
