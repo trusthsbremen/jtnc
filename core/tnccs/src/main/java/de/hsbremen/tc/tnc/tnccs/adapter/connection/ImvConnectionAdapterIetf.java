@@ -55,7 +55,7 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ImvConnectionAdapterIetf.class);
-    
+
     private final ImvConnectionContext context;
     private long maxMessageSize;
 
@@ -180,21 +180,21 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements
                     TNCException.TNC_RESULT_INVALID_PARAMETER);
         }
 
-        if(LOGGER.isDebugEnabled()){
+        if (LOGGER.isDebugEnabled()) {
             StringBuilder b = new StringBuilder();
             b.append("IMV # ")
             .append(super.getImId())
-            .append(" recommends ") 
+            .append(" recommends ")
             .append(recommendationPair.getRecommendation().toString())
             .append(" access for the result ")
             .append(recommendationPair.getResult().toString());
-            
+
             try {
                 Object connectionId = this.context.getAttribute(
                         TncHsbAttributeTypeEnum.HSB_ATTRIBUTEID_IFT_ID);
-                if(connectionId instanceof String){
+                if (connectionId instanceof String) {
                     b.append(" for the connection with ID ")
-                    .append((String)connectionId);
+                    .append((String) connectionId);
                 }
             } catch (TncException e) {
                LOGGER.debug("Could not identify connection "
@@ -203,7 +203,7 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements
             b.append(".");
             LOGGER.debug(b.toString());
         }
-        
+
         try {
             this.context.addRecommendation(super.getImId(), recommendationPair);
         } catch (TncException e) {

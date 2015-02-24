@@ -80,7 +80,7 @@ public class DefaultImvSession extends
         }
 
         super.getConnection().provideRecommendation(
-                (recommendation != null) ? recommendation 
+                (recommendation != null) ? recommendation
                         : ImvRecommendationPairFactory
                         .getDefaultRecommendationPair());
     }

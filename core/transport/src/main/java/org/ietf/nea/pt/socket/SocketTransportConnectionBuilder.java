@@ -74,10 +74,10 @@ public class SocketTransportConnectionBuilder implements
             final TransportWriter<TransportMessage> writer,
             final TransportReader<TransportMessageContainer> reader) {
 
-        NotNull.check("Protocol type cannot be null.",tProtocol);
-        NotNull.check("Protocol version cannot be null.",tVersion);
-        NotNull.check("Writer cannot be null.",writer);
-        NotNull.check("Reader cannot be null.",reader);
+        NotNull.check("Protocol type cannot be null.", tProtocol);
+        NotNull.check("Protocol version cannot be null.", tVersion);
+        NotNull.check("Writer cannot be null.", writer);
+        NotNull.check("Reader cannot be null.", reader);
 
         this.tProtocol = tProtocol;
         this.tVersion = tVersion;
@@ -180,7 +180,7 @@ public class SocketTransportConnectionBuilder implements
      * Sets the maximum IF-M message length.
      *
      * @param imMessageLength the maximum IF-M message length
-     * @throws IllegalArgumentException if message length <= 0 
+     * @throws IllegalArgumentException if message length <= 0
      * or length > available heap space
      * @return the SocketTransportConnectionBuilder for fluent use
      */

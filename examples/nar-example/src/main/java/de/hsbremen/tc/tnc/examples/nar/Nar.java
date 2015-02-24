@@ -50,11 +50,15 @@ import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileParser;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeListener;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileParserImJava;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultConfigurationFileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultConfigurationFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultConfigurationFileParserImJava;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationEntryHandler;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultImcManagerConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
@@ -164,11 +168,17 @@ public class Nar {
      */
     public void startHandshake() throws IOException {
         this.socket = new Socket("localhost", NAA_PORT);
+
         SocketTransportConnectionBuilder builder =
                 new SocketTransportConnectionBuilder(
                 TcgTProtocolEnum.PLAIN.value(), TcgTVersionEnum.V1.value(),
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
+
+        final int estimatedDefaultImCount = 10;
+
+        builder.setMessageLength(MAX_MSG_SIZE)
+                .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
         /*
          * Just for info, limiting possible but not done here.
          * builder.setMaxRoundTrips(1);

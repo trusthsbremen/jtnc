@@ -111,8 +111,10 @@ public class Naa {
          * this.connectionBuilder.setMaxRoundTrips(1);
          */
 
+        final int estimatedDefaultImCount = 10;
+
         this.connectionBuilder.setMessageLength(MAX_MSG_SIZE)
-                .setImMessageLength(MAX_MSG_SIZE / 10);
+                .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
 
         SessionFactory factory = new DefaultServerSessionFactory(
                 PbReaderFactory.getTnccsProtocol(),

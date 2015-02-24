@@ -45,7 +45,8 @@ import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
-import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
+import org.ietf.nea.pa.attribute.util
+.PaAttributeValueErrorInformationInvalidParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

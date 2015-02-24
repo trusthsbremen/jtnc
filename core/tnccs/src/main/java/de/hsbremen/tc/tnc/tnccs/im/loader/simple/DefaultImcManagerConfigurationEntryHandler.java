@@ -34,16 +34,33 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ImLoader;
 import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
-import de.hsbremen.tc.tnc.tnccs.im.loader.enums.DefaultConfigurationLineClassifierEnum;
+import de.hsbremen.tc.tnc.tnccs.im.loader.enums
+.DefaultConfigurationLineClassifierEnum;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 
+/**
+ * Default configuration entry handler to handle changes of configuration
+ * entries to load an IMC.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class DefaultImcManagerConfigurationEntryHandler extends
         AbstractImManagerConfigurationEntryHandler<IMC> implements
         ConfigurationEntryHandler {
 
-    private static final Set<ConfigurationLineClassifier> CLASSIFIER = new HashSet<>(
-            Arrays.asList(new ConfigurationLineClassifier[] { DefaultConfigurationLineClassifierEnum.JAVA_IMC }));
+    private static final Set<ConfigurationLineClassifier> CLASSIFIER =
+            new HashSet<>(Arrays.asList(new ConfigurationLineClassifier[] {
+                    DefaultConfigurationLineClassifierEnum.JAVA_IMC }));
 
+
+    /**
+     * Creates the configuration entry handler with the given IMC
+     * loader to load an IMC using a configuration entry and the given
+     * manager to manage the IMC's life cycle.
+     * @param imcLoader the IMC loader
+     * @param manager the IMC manager
+     */
     public DefaultImcManagerConfigurationEntryHandler(
             final ImLoader<IMC> imcLoader, final ImManager<IMC> manager) {
         super(imcLoader, manager);

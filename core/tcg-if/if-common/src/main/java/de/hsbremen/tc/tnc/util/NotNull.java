@@ -78,8 +78,9 @@ public abstract class NotNull {
         for (int i = 0; i < objects.length; i++) {
             try {
                 NotNull.check(objects[i]);
-            } catch (NullPointerException e){
-                throw new NullPointerException("The " + i+1 
+            } catch (NullPointerException e) {
+                throw new NullPointerException("The "
+                        + (i + 1)
                         + ". object was null. "
                         + e.getMessage());
             }
@@ -97,7 +98,7 @@ public abstract class NotNull {
         try {
             NotNull.check(objects);
         } catch (NullPointerException e) {
-            throw new NullPointerException(message+" "+e.getMessage());
+            throw new NullPointerException(message + " " + e.getMessage());
         }
     }
 }

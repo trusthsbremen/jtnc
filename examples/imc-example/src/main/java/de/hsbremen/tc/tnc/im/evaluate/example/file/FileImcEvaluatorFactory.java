@@ -73,7 +73,7 @@ public class FileImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
      */
     public FileImcEvaluatorFactory(final String messageDigestIdentifier,
             final String filePath) {
-        this.filePath = filePath != null? filePath : "";
+        this.filePath = (filePath != null) ? filePath : "";
         this.messageDigestIdentifier = messageDigestIdentifier != null
                 ? messageDigestIdentifier : "SHA1";
     }
@@ -83,7 +83,7 @@ public class FileImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
             final TnccsAdapter tncc,
             final ImParameter imParams) {
 
-        NotNull.check("TNCC adapter cannot be null.",tncc);
+        NotNull.check("TNCC adapter cannot be null.", tncc);
         NotNull.check("Parameter cannot be null.", imParams);
 
         List<ImcEvaluationUnit> units = new ArrayList<>();

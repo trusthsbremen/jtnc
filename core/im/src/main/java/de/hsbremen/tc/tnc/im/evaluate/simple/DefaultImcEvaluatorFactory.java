@@ -63,7 +63,7 @@ public class DefaultImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
     protected ImcEvaluatorManager createEvaluatorManager(
             final TnccsAdapter tncc, final ImParameter imParams) {
 
-        NotNull.check("TNCC adapter cannot be null.",tncc);
+        NotNull.check("TNCC adapter cannot be null.", tncc);
         NotNull.check("Parameter cannot be null.", imParams);
 
         List<ImcEvaluationUnit> units = new ArrayList<>();

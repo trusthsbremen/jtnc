@@ -40,8 +40,8 @@ public class TnccAdapterFactoryIetf implements TnccAdapterFactory {
 
     @Override
     public TnccAdapter createTnccAdapter(final IMC imc, final TNCC tncc) {
-        NotNull.check("IMC cannot be null.",imc);
-        NotNull.check("TNCC cannot be null.",tncc);
+        NotNull.check("IMC cannot be null.", imc);
+        NotNull.check("TNCC cannot be null.", tncc);
 
         return new TnccAdapterIetf(imc, tncc);
     }

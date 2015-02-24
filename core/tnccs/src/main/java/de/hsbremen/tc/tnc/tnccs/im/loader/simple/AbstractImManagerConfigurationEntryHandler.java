@@ -42,16 +42,32 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.exception.LoadingException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 
+/**
+ * Generic configuration entry handler base
+ * to handle changes of configuration entries to load IM(C/V).
+ * Especially important for inheritance.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ * @param <T> the loadable type (e.g. IMC or IMV)
+ */
 public abstract class AbstractImManagerConfigurationEntryHandler<T>
         implements ConfigurationEntryHandler {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AbstractImManagerConfigurationEntryHandler.class);
 
-    final ImLoader<T> imLoader;
-    final ImManager<T> manager;
-    final Map<ConfigurationEntry, Long> loadedEntries;
+    private final ImLoader<T> imLoader;
+    private final ImManager<T> manager;
+    private final Map<ConfigurationEntry, Long> loadedEntries;
 
+    /**
+     * Creates the configuration entry handler base with the given IM(C/V)
+     * loader to load an IM(C/V) using a configuration entry and the given
+     * manager to manage the IM(C/V)'s life cycle.
+     * @param imLoader the IM(C/V) loader
+     * @param manager the IM(C/V) manager
+     */
     public AbstractImManagerConfigurationEntryHandler(
             final ImLoader<T> imLoader, final ImManager<T> manager) {
         this.imLoader = imLoader;
@@ -98,9 +114,9 @@ public abstract class AbstractImManagerConfigurationEntryHandler<T>
                             .get(configurationEntry))) {
 
                         LOGGER.debug("Configuration entry "
-                                + configurationEntry.toString()
-                                + " is old but IM(C/V) was removed from manager."
-                                + " IM(C/V) will be added to manager again.");
+                              + configurationEntry.toString()
+                              + " is old but IM(C/V) was removed from manager."
+                              + " IM(C/V) will be added to manager again.");
 
                         this.addImcToManager(configurationEntry);
 
@@ -115,10 +131,17 @@ public abstract class AbstractImManagerConfigurationEntryHandler<T>
 
     }
 
-    private void addImcToManager(ConfigurationEntry configurationEntry) {
+    /**
+     * Adds a IM(C/V) to the manager by loading it according to the given
+     * configuration entry and saving its primary ID to track already
+     * loaded configuration entries.
+     *
+     * @param configurationEntry the configuration entry to used for loading
+     */
+    private void addImcToManager(final ConfigurationEntry configurationEntry) {
         try {
-            T imc = this.imLoader
-                    .loadIm((DefaultConfigurationEntryImJava) configurationEntry);
+            T imc = this.imLoader.loadIm(
+                    (DefaultConfigurationEntryImJava) configurationEntry);
 
             Long primaryId = this.manager.add(imc);
             this.loadedEntries.put(configurationEntry, primaryId);
@@ -135,5 +158,4 @@ public abstract class AbstractImManagerConfigurationEntryHandler<T>
                     + " will be ignored.", e);
         }
     }
-
 }

@@ -50,9 +50,8 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums
 .DefaultConfigurationLineClassifierEnum;
 
 /**
- * Default parser to parse a configuration lines
- * into configuration entry objects. Currently it only supports
- * Java based IM(C/V) configuration lines. Other line classifiers
+ * Default parser to parse configuration lines into configuration entry objects.
+ * Currently it only supports Java based IM(C/V) configuration lines. Other line
  * are ignored.
  *
  * @author Carl-Heinz Genzel
@@ -66,42 +65,50 @@ public class DefaultConfigurationFileParserImJava implements
     private static final String URL_SHEMA = "file://";
 
     private final ConfigurationLineClassifier lineClassifier;
-    
-    public DefaultConfigurationFileParserImJava(boolean server){
-        if(server){
+
+    /**
+     * Creates the default parser to parse configuration lines either for IMC or
+     * for IMV.
+     *
+     * @param server true if the parser should parse configuration lines for
+     * IMV, false for IMC
+     */
+    public DefaultConfigurationFileParserImJava(final boolean server) {
+        if (server) {
             this.lineClassifier =
                     DefaultConfigurationLineClassifierEnum.JAVA_IMV;
-        }else{
+        } else {
             this.lineClassifier =
                     DefaultConfigurationLineClassifierEnum.JAVA_IMC;
         }
     }
-    
+
     @Override
     public Set<ConfigurationLineClassifier> getSupportedConfigurationLines() {
-       
+
         return new HashSet<>(Arrays.asList(this.lineClassifier));
     }
 
     @Override
-    public Map<ConfigurationLineClassifier,Set<ConfigurationEntry>> parseConfigurationEntries(
-            final File configFile) {
+    public Map<ConfigurationLineClassifier, Set<ConfigurationEntry>>
+    parseConfigurationEntries(final File configFile) {
 
-        Map<ConfigurationLineClassifier, Set<ConfigurationEntry>> entries = new HashMap<>();
+        Map<ConfigurationLineClassifier, Set<ConfigurationEntry>> entries =
+                new HashMap<>();
 
         List<String> lines = this.getLines(configFile);
-        entries.put(this.lineClassifier,this.convertLinesToImConfigurationEntries(lines));
+        entries.put(this.lineClassifier,
+                this.convertLinesToImConfigurationEntries(lines));
 
         return entries;
 
     }
 
     /**
-     * Parses the configuration file searching for lines with the given
-     * line prefix and returning them as list.
+     * Filters the configuration file searching for parsable lines.
      *
      * @param configFile the file to parse
-     * @return a list of lines as string
+     * @return a list of parsable lines
      */
     private List<String> getLines(final File configFile) {
         List<String> lines = new ArrayList<>();
@@ -137,7 +144,8 @@ public class DefaultConfigurationFileParserImJava implements
      * @param lines the list of strings to convert
      * @return a set of configuration entries
      */
-    private Set<ConfigurationEntry> convertLinesToImConfigurationEntries(final List<String> lines) {
+    private Set<ConfigurationEntry> convertLinesToImConfigurationEntries(
+            final List<String> lines) {
         Set<ConfigurationEntry> imSet = new HashSet<>();
         // if nothing to parse, return
         if (lines == null || lines.size() <= 0) {
@@ -149,11 +157,12 @@ public class DefaultConfigurationFileParserImJava implements
         final String filePath = "((?!.*//.*)(?!.*/ .*)/{1}"
                 + "([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+\\.(jar))";
         final String imName = "\"([^\"]+)\"";
-        Pattern p = Pattern.compile("^" + this.lineClassifier.linePrefix() 
+        Pattern p = Pattern.compile("^" + this.lineClassifier.linePrefix()
                 + " " + imName + " " + javaNaming + " " + filePath + "$");
 
         final int nameGroupIdx = 1;
         final int classGroupIdx = 2;
+        // 3 is an intermediate match
         final int pathGroupIdx = 4;
 
         for (String line : lines) {
@@ -161,14 +170,15 @@ public class DefaultConfigurationFileParserImJava implements
             if (m.find()) {
                 String name = m.group(nameGroupIdx).trim();
                 String mainClass = m.group(classGroupIdx).trim();
-                // 3 is an intermediate match
                 String path = m.group(pathGroupIdx).trim();
+
                 try {
                     URL url = new URL(URL_SHEMA + path);
                     ConfigurationEntry cfg =
                             new DefaultConfigurationEntryImJava(
                             name, mainClass, url);
                     imSet.add(cfg);
+
                 } catch (MalformedURLException e) {
                     LOGGER.error("MalformedURLException was thrown"
                             + " while creating configuration entry"

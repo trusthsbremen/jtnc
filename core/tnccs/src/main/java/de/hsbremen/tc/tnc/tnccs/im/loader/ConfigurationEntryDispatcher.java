@@ -38,7 +38,8 @@ public interface ConfigurationEntryDispatcher {
 
     /**
      * Adds a handler as observer for configuration lines with the given
-     * configuration line classifiers.
+     * configuration line classifiers. Configuration line classifiers, that
+     * are not supported by the dispatcher are ignored.
      *
      * @param classifiers the configuration line classifiers
      * @param handler the handler to add
@@ -48,7 +49,8 @@ public interface ConfigurationEntryDispatcher {
 
     /**
      * Removes a handler as observer for configuration lines with the given
-     * configuration line classifiers.
+     * configuration line classifiers. Configuration line classifiers, that
+     * are not supported by the dispatcher are ignored.
      *
      * @param classifiers the configuration line classifiers
      * @param handler the handler to remove

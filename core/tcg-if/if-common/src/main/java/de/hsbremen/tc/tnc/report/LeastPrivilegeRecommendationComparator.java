@@ -33,7 +33,7 @@ import java.util.Comparator;
  * @author Carl-Heinz Genzel
  *
  */
-public class LeastPrivilegeRecommendationComparator implements
+public final class LeastPrivilegeRecommendationComparator implements
         Comparator<ImvRecommendationPair> {
 
     /**
@@ -54,14 +54,14 @@ public class LeastPrivilegeRecommendationComparator implements
     public static Comparator<ImvRecommendationPair> getInstance() {
         return Singleton.INSTANCE;
     }
-    
+
     /**
      * Creates the least privilege comparator.
      */
     private LeastPrivilegeRecommendationComparator() {
         // Singleton
     }
-    
+
     /**
      * Returns a weight for a action recommendation ID where the most negative
      * action has the highest weight.

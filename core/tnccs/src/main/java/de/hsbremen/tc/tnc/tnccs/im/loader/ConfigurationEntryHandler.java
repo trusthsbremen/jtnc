@@ -37,8 +37,8 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
 public interface ConfigurationEntryHandler {
 
     /**
-     * Returns configuration line classifier that identify the configuration entries 
-     * supported by this handler.
+     * Returns configuration line classifier, that identify the
+     * configuration entries supported by this handler.
      *
      * @return a set of configuration line classifiers
      */

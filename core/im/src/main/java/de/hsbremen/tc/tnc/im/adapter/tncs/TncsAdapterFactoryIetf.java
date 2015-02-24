@@ -40,8 +40,8 @@ public class TncsAdapterFactoryIetf implements TncsAdapterFactory {
 
     @Override
     public TncsAdapter createTncsAdapter(final IMV imv, final TNCS tncs) {
-        NotNull.check("IMV cannot be null.",imv);
-        NotNull.check("TNCS cannot be null.",tncs);
+        NotNull.check("IMV cannot be null.", imv);
+        NotNull.check("TNCS cannot be null.", tncs);
 
         return new TncsAdapterIetf(imv, tncs);
     }

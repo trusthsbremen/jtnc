@@ -56,35 +56,35 @@ public abstract class ConfigurationPropertiesLoader {
      * @throws IOException if file access fails
      */
     public static Properties loadProperties(final String evaluationValuesFile,
-            Class<?> resourceHook) throws IOException {
+            final Class<?> resourceHook) throws IOException {
 
         Properties p = new Properties();
         BufferedInputStream stream = null;
-        
+
         // first try to read as resource
         try {
              Class<?> hook = (resourceHook != null) ? resourceHook
                      : evaluationValuesFile.getClass();
-       
+
              stream = new BufferedInputStream(hook.getResourceAsStream(
                             evaluationValuesFile));
              p.load(stream);
-        } catch (IOException e){
-            if(stream != null){
+        } catch (IOException e) {
+            if (stream != null) {
                 try {
                     stream.close();
                 } catch (IOException e1) {
                     // ignore
                 }
             }
-            
+
             // than try to read as file
             try {
                 File f = new File(evaluationValuesFile);
                 stream = new BufferedInputStream(new FileInputStream(f));
                 p.load(stream);
             } catch (IOException e2) {
-                if(stream != null){
+                if (stream != null) {
                     try {
                         stream.close();
                     } catch (IOException e1) {
@@ -92,14 +92,14 @@ public abstract class ConfigurationPropertiesLoader {
                     }
                 }
                 throw new IOException("The given file path "
-                        + evaluationValuesFile 
+                        + evaluationValuesFile
                         + " is neither a resource nor an existing file."
-                        + " Cannot load IMV properties"); 
+                        + " Cannot load IMV properties");
             }
         }
-        
-        if(stream != null){
-            try{
+
+        if (stream != null) {
+            try {
                 stream.close();
             } catch (IOException e1) {
                 // ignore

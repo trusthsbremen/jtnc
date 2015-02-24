@@ -48,7 +48,7 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 
 /**
  * Default file change monitor, that watches a file for changes or deletion and
- * notifies change handler about these events. It checks the file
+ * notifies change handlers about these events. It checks the file
  * in a regular timed interval.
  *
  * @author Carl-Heinz Genzel

@@ -114,7 +114,6 @@ class DefaultClientDecidedState extends AbstractState implements Decided {
                             + ". The state transitions seem corrupted.");
 
         }
-        
 
         return b;
     }

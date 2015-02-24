@@ -33,15 +33,31 @@ import org.trustedcomputinggroup.tnc.ifimv.IMV;
 
 import de.hsbremen.tc.tnc.tnccs.im.loader.ImLoader;
 import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
-import de.hsbremen.tc.tnc.tnccs.im.loader.enums.DefaultConfigurationLineClassifierEnum;
+import de.hsbremen.tc.tnc.tnccs.im.loader.enums
+.DefaultConfigurationLineClassifierEnum;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 
+/**
+ * Default configuration entry handler to handle changes of configuration
+ * entries to load an IMV.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class DefaultImvManagerConfigurationEntryHandler extends
         AbstractImManagerConfigurationEntryHandler<IMV> {
 
-    private static final Set<ConfigurationLineClassifier> CLASSIFIER = new HashSet<>(
-            Arrays.asList(new ConfigurationLineClassifier[] { DefaultConfigurationLineClassifierEnum.JAVA_IMV }));
+    private static final Set<ConfigurationLineClassifier> CLASSIFIER =
+            new HashSet<>(Arrays.asList(new ConfigurationLineClassifier[] {
+                    DefaultConfigurationLineClassifierEnum.JAVA_IMV}));
 
+    /**
+     * Creates the configuration entry handler with the given IMV
+     * loader to load an IMV using a configuration entry and the given
+     * manager to manage the IMV's life cycle.
+     * @param imvLoader the IMV loader
+     * @param manager the IMV manager
+     */
     public DefaultImvManagerConfigurationEntryHandler(
             final ImLoader<IMV> imvLoader, final ImManager<IMV> manager) {
         super(imvLoader, manager);

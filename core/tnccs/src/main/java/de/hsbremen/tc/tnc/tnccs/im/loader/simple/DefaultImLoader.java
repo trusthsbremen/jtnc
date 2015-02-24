@@ -131,9 +131,8 @@ public class DefaultImLoader<T> implements ImLoader<T> {
     }
 
     /**
-     * Loads a Java based IM(C/V) from file specified
-     * in the given configuration entry and calls the default constructor
-     * that is specified in the configuration entry too.
+     * Loads a Java based IM(C/V) as specified in the given configuration entry
+     * from file and calls the default constructor.
      *
      * @param config the configuration entry
      * @return the IM(C/V)

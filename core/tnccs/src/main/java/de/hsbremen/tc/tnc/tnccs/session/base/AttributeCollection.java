@@ -125,7 +125,7 @@ public class AttributeCollection implements Attributed {
             }
         }
 
-        if(!attributeSet){
+        if (!attributeSet) {
             throw new TncException("The attribute with ID " + type.id()
                     + " is unknown or not writeable.",
                     TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);

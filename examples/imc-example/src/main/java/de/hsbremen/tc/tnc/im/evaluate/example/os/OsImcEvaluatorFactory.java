@@ -66,7 +66,7 @@ public class OsImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {
             final TnccsAdapter tncc,
             final ImParameter imParams) {
 
-        NotNull.check("TNCC adapter cannot be null.",tncc);
+        NotNull.check("TNCC adapter cannot be null.", tncc);
         NotNull.check("Parameter cannot be null.", imParams);
 
         List<ImcEvaluationUnit> units = new ArrayList<>();

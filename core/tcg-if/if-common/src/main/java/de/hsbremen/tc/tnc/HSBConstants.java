@@ -96,7 +96,7 @@ public abstract class HSBConstants {
     public static final long TCG_MAX_MESSAGE_IDENTIFIER = 0xFFFFFFFFL;
 
     /**
-     * Maximum amount of time an IF-IM(C/V) IM(C/V) function call 
+     * Maximum amount of time an IF-IM(C/V) IM(C/V) function call
      * has to finish its execution.
      */
     public static final long TCG_IM_MAX_FUNCTION_RUNTIME = 1000;

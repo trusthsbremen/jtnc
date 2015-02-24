@@ -254,11 +254,11 @@ public class DefaultTncsHandler implements TncsHandler {
         // severe //
         ImvRecommendationPair leastEqualWeightPrivilege = imvResultsCopy
                 .get((imvResultsCopy.size() - 1));
-        
+
         messages = this
                 .mapRecommendationToMessages(leastEqualWeightPrivilege);
         state = this.mapRecommendationToState(leastEqualWeightPrivilege);
-       
+
         this.setConnectionState(state);
 
         return messages;
@@ -294,7 +294,7 @@ public class DefaultTncsHandler implements TncsHandler {
             // is already denied so do nothing
             break;
         }
-        
+
         try {
             TnccsMessage message = PbMessageFactoryIetf
                     .createAccessRecommendation(pbAction);
@@ -338,19 +338,19 @@ public class DefaultTncsHandler implements TncsHandler {
                     e);
         }
 
-        if(LOGGER.isDebugEnabled()){
+        if (LOGGER.isDebugEnabled()) {
             StringBuilder b = new StringBuilder();
-            b.append("TNCS recommends ") 
+            b.append("TNCS recommends ")
             .append(pbAction.toString())
             .append(" access for the result ")
             .append(pbResult.toString());
-            
+
             try {
                 Object connectionId = this.sessionAttributes.getAttribute(
                         TncHsbAttributeTypeEnum.HSB_ATTRIBUTEID_IFT_ID);
-                if(connectionId instanceof String){
+                if (connectionId instanceof String) {
                     b.append(" for the connection with ID ")
-                    .append((String)connectionId);
+                    .append((String) connectionId);
                 }
             } catch (TncException e) {
                LOGGER.debug("Could not identify connection "
@@ -359,7 +359,7 @@ public class DefaultTncsHandler implements TncsHandler {
             b.append(".");
             LOGGER.debug(b.toString());
         }
-        
+
         return messages;
     }
 

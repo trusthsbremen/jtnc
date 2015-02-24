@@ -28,20 +28,34 @@ import java.net.URL;
 
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntry;
 
+/**
+ * Configuration entry holding the necessary parameters to
+ * load an IM(C/V).
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class DefaultConfigurationEntryImJava implements ConfigurationEntry {
 
     private final String name;
     private final String mainClassName;
     private final URL path;
 
-    public DefaultConfigurationEntryImJava(String name, String mainClassName,
-            URL path) {
+    /**
+     * Creates a configuration entry with the given values.
+     * @param name the IM(C/V) name
+     * @param mainClassName the IM(C/V) the name of the class to load
+     * @param path the path to the IM(C/V) Java archive
+     */
+    public DefaultConfigurationEntryImJava(final String name,
+            final String mainClassName, final URL path) {
         this.name = name;
         this.mainClassName = mainClassName;
         this.path = path;
     }
 
     /**
+     * Returns the IM(C/V) name.
      * @return the name
      */
     public String getName() {
@@ -49,24 +63,21 @@ public class DefaultConfigurationEntryImJava implements ConfigurationEntry {
     }
 
     /**
-     * @return the mainClassName
+     * Returns the IM(C/V) main class name.
+     * @return the name of the class to load
      */
     public String getMainClassName() {
         return this.mainClassName;
     }
 
     /**
-     * @return the path
+     * Returns th path to the IM(C/V) Java archive.
+     * @return the path to the IM(C/V) archive
      */
     public URL getPath() {
         return this.path;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -82,13 +93,8 @@ public class DefaultConfigurationEntryImJava implements ConfigurationEntry {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -98,7 +104,8 @@ public class DefaultConfigurationEntryImJava implements ConfigurationEntry {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        DefaultConfigurationEntryImJava other = (DefaultConfigurationEntryImJava) obj;
+        DefaultConfigurationEntryImJava other =
+                (DefaultConfigurationEntryImJava) obj;
         if (this.mainClassName == null) {
             if (other.mainClassName != null) {
                 return false;
@@ -123,11 +130,6 @@ public class DefaultConfigurationEntryImJava implements ConfigurationEntry {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "ImConfigurationEntry [name=" + this.name + ", mainClassName="

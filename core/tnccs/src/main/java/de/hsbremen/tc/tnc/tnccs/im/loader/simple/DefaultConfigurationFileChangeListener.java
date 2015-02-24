@@ -41,23 +41,40 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileParser;
 import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
 
+/**
+ * Default file change listener to listen for file change events
+ * of one file. If an event occurs the file will be parsed for
+ * configuration entries and the resulting entries are dispatched
+ * to registered configuration handlers.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class DefaultConfigurationFileChangeListener implements
         ConfigurationFileChangeListener, ConfigurationEntryDispatcher {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultConfigurationFileChangeListener.class);
 
-    private final Map<ConfigurationLineClassifier, Set<ConfigurationEntry>> configurationEntries;
+    private final Map<ConfigurationLineClassifier, Set<ConfigurationEntry>>
+    configurationEntries;
     private final ConfigurationFileParser parser;
-    private final Map<ConfigurationLineClassifier, Set<ConfigurationEntryHandler>> listeners;
+    private final Map<ConfigurationLineClassifier,
+    Set<ConfigurationEntryHandler>> listeners;
 
+    /**
+     * Creates the default listener with the given parser. The listener
+     * can only handle entries, that are supported by the parser.
+     *
+     * @param parser the configuration entry parser.
+     */
     public DefaultConfigurationFileChangeListener(
-            ConfigurationFileParser fileFilter) {
+            final ConfigurationFileParser parser) {
 
         // may be accessed from more than one thread
         this.listeners = new ConcurrentHashMap<>();
         this.configurationEntries = new HashMap<>();
-        this.parser = fileFilter;
+        this.parser = parser;
 
         for (ConfigurationLineClassifier classifier : this.parser
                 .getSupportedConfigurationLines()) {
@@ -71,8 +88,8 @@ public class DefaultConfigurationFileChangeListener implements
     }
 
     @Override
-    public void addHandler(Set<ConfigurationLineClassifier> classifiers,
-            ConfigurationEntryHandler handler) {
+    public void addHandler(final Set<ConfigurationLineClassifier> classifiers,
+            final ConfigurationEntryHandler handler) {
         if (classifiers != null && handler != null) {
             for (ConfigurationLineClassifier classifier : classifiers) {
                 if (this.listeners.containsKey(classifier)) {
@@ -80,7 +97,8 @@ public class DefaultConfigurationFileChangeListener implements
                 } else {
                     LOGGER.warn("Classifier "
                             + classifier.linePrefix()
-                            + " not supported. Handler will not be added for the classifier.");
+                            + " not supported."
+                            + " Handler will not be added for the classifier.");
                 }
             }
         }
@@ -88,8 +106,9 @@ public class DefaultConfigurationFileChangeListener implements
     }
 
     @Override
-    public void removeHandler(Set<ConfigurationLineClassifier> classifiers,
-            ConfigurationEntryHandler handler) {
+    public void removeHandler(
+            final Set<ConfigurationLineClassifier> classifiers,
+            final ConfigurationEntryHandler handler) {
         if (classifiers != null && handler != null) {
             for (ConfigurationLineClassifier classifier : classifiers) {
                 if (this.listeners.containsKey(classifier)) {
@@ -100,9 +119,9 @@ public class DefaultConfigurationFileChangeListener implements
     }
 
     @Override
-    public void notifyChange(File config) {
-        Map<ConfigurationLineClassifier, Set<ConfigurationEntry>> newLines = this.parser
-                .parseConfigurationEntries(config);
+    public void notifyChange(final File config) {
+        Map<ConfigurationLineClassifier, Set<ConfigurationEntry>> newLines =
+                this.parser.parseConfigurationEntries(config);
 
         if (newLines == null) {
             this.notifyDelete();
@@ -117,7 +136,8 @@ public class DefaultConfigurationFileChangeListener implements
                 LOGGER.debug("No entries for classifier "
                         + classifier.linePrefix()
                         + " found. Existing entries will be removed.");
-                this.notifyChange(classifier, new HashSet<ConfigurationEntry>());
+                this.notifyChange(classifier,
+                        new HashSet<ConfigurationEntry>());
             }
 
             // update existing/add new ones
@@ -158,12 +178,19 @@ public class DefaultConfigurationFileChangeListener implements
         }
     }
 
-    private void notifyChange(ConfigurationLineClassifier classifier,
-            Set<ConfigurationEntry> entries) {
+    /**
+     * Notifies the handler about a change within the configuration entries
+     * identified by the given classifier.
+     * @param classifier the identifying line classifier
+     * @param entries the configuration entries
+     */
+    private void notifyChange(final ConfigurationLineClassifier classifier,
+            final Set<ConfigurationEntry> entries) {
 
         this.configurationEntries.put(classifier, entries);
 
-        for (ConfigurationEntryHandler handler : this.listeners.get(classifier)) {
+        for (ConfigurationEntryHandler handler
+                : this.listeners.get(classifier)) {
             handler.notifyChange(classifier,
                     this.configurationEntries.get(classifier));
         }
