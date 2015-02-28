@@ -1,8 +1,9 @@
 package org.ietf.nea.pt.value;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.validate.rules.SaslMechanismName;
 import org.ietf.nea.pt.value.util.SaslMechanism;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PtTlsMessageValueSaslMechanismSelectionBuilderIetf implements
 PtTlsMessageValueSaslMechanismSelectionBuilder {

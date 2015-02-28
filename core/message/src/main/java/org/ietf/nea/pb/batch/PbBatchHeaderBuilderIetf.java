@@ -1,6 +1,5 @@
 package org.ietf.nea.pb.batch;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
@@ -9,6 +8,8 @@ import org.ietf.nea.pb.validate.rules.BatchDirectionality;
 import org.ietf.nea.pb.validate.rules.BatchType;
 import org.ietf.nea.pb.validate.rules.BatchVersion;
 import org.ietf.nea.pb.validate.rules.CommonLengthLimits;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PbBatchHeaderBuilderIetf implements PbBatchHeaderBuilder{
 

@@ -3,11 +3,11 @@ package org.ietf.nea.pb.serialize.reader.stream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffset;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffsetBuilder;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsReader;

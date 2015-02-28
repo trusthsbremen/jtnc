@@ -1,7 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.exception.RuleException;
-
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageHeaderBuilder;
 
 public interface PbMessageHeaderBuilder extends TnccsMessageHeaderBuilder {

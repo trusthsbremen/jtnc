@@ -25,6 +25,7 @@
 package de.hsbremen.tc.tnc.transport;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 
 /**
  * Common attributes for every TransportConnection. Attributes are accessible
@@ -42,18 +43,11 @@ public interface TransportAttributes extends Attributed {
     String getTransportId();
 
     /**
-     * Returns the version (e.g. V1.0).
+     * Returns the protocol identifier (e.g. TLS 1.0).
      *
-     * @return the version of TransportConnection
+     * @return the protocol of TransportConnection
      */
-    String getTransportVersion();
-
-    /**
-     * Returns the protocol type (e.g. TLS).
-     *
-     * @return the protocol type of a TransportConnection
-     */
-    String getTransportProtocol();
+    TcgProtocolBindingIdentifier getTransportProtocolIdentifier();
 
     /**
      * Return the maximum full message length.

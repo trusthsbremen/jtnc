@@ -30,6 +30,7 @@ import java.util.concurrent.Executors;
 import org.ietf.nea.pt.DefaultTransportAttributes;
 
 import de.hsbremen.tc.tnc.HSBConstants;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
@@ -48,8 +49,7 @@ public class SocketTransportConnectionBuilder implements
 
     private static final int DEFAULT_IM_COUNT = 10;
 
-    private final String tProtocol;
-    private final String tVersion;
+    private final TcgProtocolBindingIdentifier tProtocol;
 
     private final TransportWriter<TransportMessage> writer;
     private final TransportReader<TransportMessageContainer> reader;
@@ -64,23 +64,20 @@ public class SocketTransportConnectionBuilder implements
      * Creates a builder for a TransportConnection objekt using the specified
      * reader and writer for serialization.
      *
-     * @param tProtocol the transport protocol type
-     * @param tVersion the transport protocol version
+     * @param tProtocol the transport protocol identifier
      * @param writer the transport protocol serializer
      * @param reader the transport protocol parser
      */
-    public SocketTransportConnectionBuilder(final String tProtocol,
-            final String tVersion,
+    public SocketTransportConnectionBuilder(
+            final TcgProtocolBindingIdentifier tProtocol,
             final TransportWriter<TransportMessage> writer,
             final TransportReader<TransportMessageContainer> reader) {
 
-        NotNull.check("Protocol type cannot be null.", tProtocol);
-        NotNull.check("Protocol version cannot be null.", tVersion);
+        NotNull.check("Protocol identifier cannot be null.", tProtocol);
         NotNull.check("Writer cannot be null.", writer);
         NotNull.check("Reader cannot be null.", reader);
 
         this.tProtocol = tProtocol;
-        this.tVersion = tVersion;
 
         this.writer = writer;
         this.reader = reader;
@@ -93,21 +90,12 @@ public class SocketTransportConnectionBuilder implements
     }
 
     /**
-     * Returns the transport protocol type.
+     * Returns the transport protocol identifier.
      *
-     * @return the transport protocol type
+     * @return the transport protocol identifier
      */
-    public String getTransportProtocol() {
+    public TcgProtocolBindingIdentifier getTransportProtocolIdentifier() {
         return this.tProtocol;
-    }
-
-    /**
-     * Returns the transport protocol version.
-     *
-     * @return the transport protocol version
-     */
-    public String getTransportProtocolVersion() {
-        return this.tVersion;
     }
 
     /**
@@ -224,7 +212,7 @@ public class SocketTransportConnectionBuilder implements
         Socket socket = underlying;
 
         DefaultTransportAttributes attributes = new DefaultTransportAttributes(
-                id, this.tProtocol, this.tVersion, this.messageLength,
+                id, this.tProtocol, this.messageLength,
                 this.imMessageLength, this.maxRoundTrips);
 
         SocketTransportConnection t = new SocketTransportConnection(

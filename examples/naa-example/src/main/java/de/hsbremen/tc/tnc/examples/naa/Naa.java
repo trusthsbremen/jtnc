@@ -41,8 +41,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 
-import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
+import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TncsAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
@@ -52,15 +51,16 @@ import de.hsbremen.tc.tnc.tnccs.client.enums.CommonConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileParser;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.
-DefaultConfigurationFileChangeListener;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.
-DefaultConfigurationFileChangeMonitor;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.
-DefaultConfigurationFileParserImJava;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.
-DefaultImvManagerConfigurationEntryHandler;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultConfigurationFileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultConfigurationFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultConfigurationFileParserImJava;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultImLoader;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultImvManagerConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImvManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImvManager;
@@ -103,7 +103,7 @@ public class Naa {
                         retryProxy));
 
         this.connectionBuilder = new SocketTransportConnectionBuilder(
-                TcgTProtocolEnum.PLAIN.value(), TcgTVersionEnum.V1.value(),
+                TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
         /*
@@ -117,8 +117,7 @@ public class Naa {
                 .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
 
         SessionFactory factory = new DefaultServerSessionFactory(
-                PbReaderFactory.getTnccsProtocol(),
-                PbReaderFactory.getTnccsVersion(),
+                PbReaderFactory.getProtocolIdentifier(),
                 PbWriterFactory.createExperimentalDefault(),
                 PbReaderFactory.createExperimentalDefault(), this.manager);
 

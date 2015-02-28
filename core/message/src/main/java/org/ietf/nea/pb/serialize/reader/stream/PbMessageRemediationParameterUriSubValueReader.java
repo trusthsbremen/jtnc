@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUri;
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilder;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.stream.TnccsReader;

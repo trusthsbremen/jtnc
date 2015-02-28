@@ -28,7 +28,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
-import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;
+import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer;
 
 public class ReaderTest {
 
@@ -212,7 +212,7 @@ public class ReaderTest {
 	public void deserializeTransportMessageWithErrorUsingStream() throws SerializationException, ValidationException{
 		byte[] data  = transport.getErrorAsByte();
 		InputStream in = new ByteArrayInputStream(data);
-		ByteBuffer b = new StreamedReadOnlyBuffer(in);
+		ByteBuffer b = new StreamedReadOnlyByteBuffer(in);
 
 		TransportMessageContainer tc = bs.read(b, -1);
 		

@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.message.DefaultTransportMessageContainer;
 import org.ietf.nea.pt.message.PtTlsMessage;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
@@ -16,12 +15,13 @@ import org.ietf.nea.pt.validate.rules.MinMessageLength;
 import org.ietf.nea.pt.value.PtTlsMessageValue;
 import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
 
+import de.hsbremen.tc.tnc.message.Combined;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.message.util.Combined;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.util.NotNull;
 

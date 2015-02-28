@@ -30,6 +30,7 @@ import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
 import de.hsbremen.tc.tnc.attribute.TncHsbAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 
 /**
@@ -40,8 +41,7 @@ import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
  */
 public class DefaultSessionAttributes implements SessionAttributes {
 
-    private final String tnccsProtocol;
-    private final String tnccsVersion;
+    private final TcgProtocolBindingIdentifier tnccsProtocol;
     private long currentRoundTrips;
 
     private String preferredLanguage;
@@ -51,41 +51,31 @@ public class DefaultSessionAttributes implements SessionAttributes {
      * and version. The default preferred language is set to english
      * and the maximum message round trips are set to unknown.
      *
-     * @param tnccsProtocol the IF-TNCCS protocol type
-     * @param tnccsVersion the IF-TNCCS protocol version
+     * @param tnccsProtocol the IF-TNCCS protocol identifier
      */
-    public DefaultSessionAttributes(final String tnccsProtocol,
-            final String tnccsVersion) {
-        this(tnccsProtocol, tnccsVersion, HSBConstants.HSB_DEFAULT_LANGUAGE,
-                HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
+    public DefaultSessionAttributes(
+            final TcgProtocolBindingIdentifier tnccsProtocol) {
+        this(tnccsProtocol, HSBConstants.HSB_DEFAULT_LANGUAGE);
     }
 
     /**
      * Creates the default session attributes with a given attribute values.
      *
-     * @param tnccsProtocol the IF-TNCCS protocol type
-     * @param tnccsVersion the IF-TNCCS protocol version
+     * @param tnccsProtocol the IF-TNCCS protocol identifier
      * @param preferredLanguage the preferred human readable language
-     * @param maxRoundTrips the maximum message round trips
      */
-    public DefaultSessionAttributes(final String tnccsProtocol,
-            final String tnccsVersion, final String preferredLanguage,
-            final long maxRoundTrips) {
+    public DefaultSessionAttributes(
+            final TcgProtocolBindingIdentifier tnccsProtocol,
+            final String preferredLanguage) {
         this.tnccsProtocol = tnccsProtocol;
-        this.tnccsVersion = tnccsVersion;
         this.currentRoundTrips = 0;
         this.preferredLanguage = preferredLanguage;
 
     }
 
     @Override
-    public String getTnccsProtocolType() {
+    public TcgProtocolBindingIdentifier getTnccsProtocolIdentifier() {
         return this.tnccsProtocol;
-    }
-
-    @Override
-    public String getTnccsProtocolVersion() {
-        return this.tnccsVersion;
     }
 
     @Override
@@ -115,12 +105,24 @@ public class DefaultSessionAttributes implements SessionAttributes {
             throws TncException {
         if (type.equals(
                 TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_IFTNCCS_PROTOCOL)) {
-            return this.tnccsProtocol;
+            try {
+                return this.tnccsProtocol.label();
+            } catch (NullPointerException e) {
+                throw new TncException("The attribute with ID " + type.id()
+                        + " is unknown.",
+                        TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+            }
         }
 
         if (type.equals(
                 TncCommonAttributeTypeEnum.TNC_ATTRIBUTEID_IFTNCCS_VERSION)) {
-            return this.tnccsVersion;
+            try {
+                return this.tnccsProtocol.version();
+            } catch (NullPointerException e) {
+                throw new TncException("The attribute with ID " + type.id()
+                        + " is unknown.",
+                        TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+            }
         }
 
         if (type.equals(

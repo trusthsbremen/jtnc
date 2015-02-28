@@ -1,9 +1,10 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.AccessRecommendation;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PbMessageValueAccessRecommendationBuilderIetf implements
 		PbMessageValueAccessRecommendationBuilder {

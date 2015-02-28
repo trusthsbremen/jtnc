@@ -3,10 +3,11 @@ package org.ietf.nea.pa.attribute.util;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 import org.ietf.nea.pa.validate.rules.NoZeroString;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaAttributeValueRemediationParameterUriBuilderIetf implements PaAttributeValueRemediationParameterUriBuilder{
 

@@ -2,11 +2,12 @@ package org.ietf.nea.pb.message.util;
 
 import java.nio.charset.Charset;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.LangCodeStringLimit;
 import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pb.validate.rules.NoZeroString;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMessageValueRemediationParameterStringBuilder{
 

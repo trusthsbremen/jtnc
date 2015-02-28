@@ -1,11 +1,11 @@
 package org.ietf.nea.pt.value;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.validate.rules.MessageVersion;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
 import org.ietf.nea.pt.validate.rules.VersionLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PtTlsMessageValueVersionResponseBuilderIetf implements PtTlsMessageValueVersionResponseBuilder{
 	

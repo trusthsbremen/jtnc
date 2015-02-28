@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributePortFilterStatus;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class OpposingPortFilterEntries {
 

@@ -1,6 +1,5 @@
 package org.ietf.nea.pa.attribute;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
@@ -8,6 +7,7 @@ import org.ietf.nea.pa.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pa.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBuilder{
     

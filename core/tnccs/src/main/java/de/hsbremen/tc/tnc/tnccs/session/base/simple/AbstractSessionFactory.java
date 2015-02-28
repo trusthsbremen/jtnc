@@ -24,6 +24,7 @@
  */
 package de.hsbremen.tc.tnc.tnccs.session.base.simple;
 
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
@@ -40,8 +41,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  */
 abstract class AbstractSessionFactory implements SessionFactory {
 
-    private final String tnccsProtocolType;
-    private final String tnccsProtocolVersion;
+    private final TcgProtocolBindingIdentifier tnccsProtocol;
 
     private final TnccsWriter<TnccsBatch> writer;
     private final TnccsReader<TnccsBatchContainer> reader;
@@ -50,41 +50,30 @@ abstract class AbstractSessionFactory implements SessionFactory {
      * Creates a the TNC(C/S) session factory base using the given
      * writer and reader.
      *
-     * @param tnccsProtocolType the IF-TNCCS protocol type
-     * @param tnccsProtocolVersion the if TNCCS protocol version
+     * @param tnccsProtocol the IF-TNCCS protocol identifier
      * @param writer the message writer
      * @param reader the message reader
      */
-    AbstractSessionFactory(final String tnccsProtocolType,
-            final String tnccsProtocolVersion,
+    AbstractSessionFactory(final TcgProtocolBindingIdentifier tnccsProtocol,
             final TnccsWriter<TnccsBatch> writer,
             final TnccsReader<TnccsBatchContainer> reader) {
         NotNull.check("Constructor agruments cannot be null.",
-                tnccsProtocolType , tnccsProtocolVersion, writer, reader);
+                tnccsProtocol, writer, reader);
 
-        this.tnccsProtocolType = tnccsProtocolType;
-        this.tnccsProtocolVersion = tnccsProtocolVersion;
+        this.tnccsProtocol = tnccsProtocol;
         this.writer = writer;
         this.reader = reader;
     }
 
     /**
-     * Returns the IF-TNCCS protocol type supported by a session.
+     * Returns the IF-TNCCS protocol identifier supported by a session.
      *
-     * @return the IF-TNCCS protocol type
+     * @return the IF-TNCCS protocol identifier
      */
-    protected String getTnccsProtocolType() {
-        return this.tnccsProtocolType;
+    protected TcgProtocolBindingIdentifier getTnccsProtocolIdentifier() {
+        return this.tnccsProtocol;
     }
 
-    /**
-     * Returns the IF-TNCCS protocol version supported by this session.
-     *
-     * @return the IF-TNCCS protocol version
-     */
-    protected String getTnccsProtocolVersion() {
-        return this.tnccsProtocolVersion;
-    }
 
     /**
      * Returns the writer to serialize a message.

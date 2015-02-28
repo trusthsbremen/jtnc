@@ -1,7 +1,8 @@
 package org.ietf.nea.pb.message.util;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PbMessageValueErrorParameterVersionBuilderIetf implements PbMessageValueErrorParameterVersionBuilder{
 

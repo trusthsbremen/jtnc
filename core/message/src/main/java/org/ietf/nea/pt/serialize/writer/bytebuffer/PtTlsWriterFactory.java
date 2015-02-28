@@ -3,20 +3,17 @@ package org.ietf.nea.pt.serialize.writer.bytebuffer;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
+import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 
 public class PtTlsWriterFactory {
 
-	public static String getTransportProtocol(){
-		return TcgTProtocolEnum.TLS.value();
-	}
-	
-	public static String getTransportVersion(){
-		return TcgTVersionEnum.V1.value();
-	}
+    public static TcgProtocolBindingIdentifier getProtocolIdentifier(){
+        return TcgTProtocolBindingEnum.TLS1;
+    }
+    
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	public static TransportWriter<TransportMessage> createProductionDefault(){

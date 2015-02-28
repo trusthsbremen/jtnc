@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.validate.enums;
 
-import org.ietf.nea.exception.RuleException;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public enum PbErrorCauseEnum {
 

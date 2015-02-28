@@ -1,8 +1,8 @@
 package org.ietf.nea.pa.attribute;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
 public interface PaAttributeValueErrorBuilder extends ImAttributeValueBuilder {

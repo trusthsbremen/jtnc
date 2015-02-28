@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.ietf.nea.pa.validate.rules.MinEntryCount;
 import org.ietf.nea.pa.validate.rules.RequestingForbiddenAttributes;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaAttributeValueAttributeRequestBuilderIetf implements
 PaAttributeValueAttributeRequestBuilder {

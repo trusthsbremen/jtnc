@@ -1,6 +1,6 @@
 package org.ietf.nea.pa.validate.enums;
 
-import org.ietf.nea.exception.RuleException;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public enum PaErrorCauseEnum {
 

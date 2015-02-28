@@ -3,7 +3,6 @@ package org.ietf.nea.pa.serialize.reader.stream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueError;
 import org.ietf.nea.pa.attribute.PaAttributeValueErrorBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
@@ -12,6 +11,7 @@ import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidPar
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttribute;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedVersion;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.serialize.stream.ImReader;

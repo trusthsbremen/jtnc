@@ -1,9 +1,10 @@
 package org.ietf.nea.pa.attribute;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeFactoryDefaultPasswordStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.FactoryDefaultPasswordStatus;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf implements
 	PaAttributeValueFactoryDefaultPasswordEnabledBuilder {

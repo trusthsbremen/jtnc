@@ -1,12 +1,12 @@
 package org.ietf.nea.pt.value;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
 import org.ietf.nea.pt.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pt.validate.rules.VendorIdReservedAndLimits;
 import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PtTlsMessageValueErrorBuilderIetf implements PtTlsMessageValueErrorBuilder{
 	

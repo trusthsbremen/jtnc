@@ -26,8 +26,7 @@ import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
+import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
@@ -53,8 +52,8 @@ public class Dummy extends AbstractDummy{
 			
 			
 			
-			private String tProtocol = TcgTProtocolEnum.TLS.value();
-			private String tVersion = TcgTVersionEnum.V1.value();
+			private String tProtocol = TcgTProtocolBindingEnum.TLS1.label();
+			private String tVersion = TcgTProtocolBindingEnum.TLS1.version();
 			private Long maxMessageSize = new Long(512);
 			private Long maxRoundtrips = new Long(HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
 			

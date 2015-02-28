@@ -2,13 +2,13 @@ package org.ietf.nea.pa.validate.rules;
 
 import java.util.List;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReference;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class RequestingForbiddenAttributes {
 

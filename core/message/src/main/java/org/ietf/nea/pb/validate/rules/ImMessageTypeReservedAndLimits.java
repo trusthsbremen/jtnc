@@ -1,11 +1,11 @@
 package org.ietf.nea.pb.validate.rules;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class ImMessageTypeReservedAndLimits {
 	public static void check(final long messageType) throws RuleException{

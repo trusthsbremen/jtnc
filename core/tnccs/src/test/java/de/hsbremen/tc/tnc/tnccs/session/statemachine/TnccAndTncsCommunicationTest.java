@@ -11,8 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccContentHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TncsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccContentHandler;
@@ -23,8 +22,8 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTncsHandler;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultSessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateHelper;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerStateMachine;
 
@@ -46,13 +45,13 @@ public class TnccAndTncsCommunicationTest {
 		this.clientBatchQueue = new LinkedBlockingDeque<>();
 		this.serverBatchQueue = new LinkedBlockingDeque<>();
 		
-		DefaultSessionAttributes serverAttributes = new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
+		DefaultSessionAttributes serverAttributes = new DefaultSessionAttributes(TcgTnccsProtocolBindingEnum.TNCCS2);
 		TncsContentHandler tncsHandler = new DefaultTncsContentHandler(Dummy.getImvHandler(), 
 				new DefaultTncsHandler(serverAttributes), 
 				new DefaultTnccsValidationExceptionHandler(new AttributeCollection()));
 		this.server = new DefaultServerStateMachine(new DefaultServerStateHelper(serverAttributes,tncsHandler));
 		
-		DefaultSessionAttributes clientAttributes = new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
+		DefaultSessionAttributes clientAttributes = new DefaultSessionAttributes(TcgTnccsProtocolBindingEnum.TNCCS2);
 		TnccContentHandler tnccHandler = new DefaultTnccContentHandler(Dummy.getImcHandler(), 
 				new DefaultTnccHandler(clientAttributes), 
 				new DefaultTnccsValidationExceptionHandler(new AttributeCollection()));

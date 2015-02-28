@@ -25,6 +25,7 @@
 package de.hsbremen.tc.tnc.tnccs.session.base;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 
 /**
  * Common attributes for every TNC(C/S) session. Attributes are accessible
@@ -35,16 +36,11 @@ import de.hsbremen.tc.tnc.attribute.Attributed;
 public interface SessionAttributes extends Attributed {
 
     /**
-     * Returns the IF-TNCCS protocol type (e.g. IF-TNCCS).
-     * @return the IF-TNCCS protocol type
+     * Returns the IF-TNCCS protocol identifier (e.g. IF-TNCCS 2.0).
+     * @return the IF-TNCCS protocol identifier
      */
-    String getTnccsProtocolType();
+    TcgProtocolBindingIdentifier getTnccsProtocolIdentifier();
 
-    /**
-     * Returns the IF-TNCCS protocol version (e.g. 2.0).
-     * @return the IF-TNCCS version
-     */
-    String getTnccsProtocolVersion();
 
     /**
      * Returns the current message round trip count of

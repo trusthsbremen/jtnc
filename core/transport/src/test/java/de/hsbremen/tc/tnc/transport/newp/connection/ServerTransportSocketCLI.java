@@ -16,8 +16,7 @@ import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
 import org.ietf.nea.pt.socket.SocketTransportConnection;
 
-import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
+import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
@@ -101,7 +100,7 @@ public class ServerTransportSocketCLI {
 					Socket socket = sSocket.accept();
 					System.out.println("Socket accepted.");
 					TransportConnection con = new SocketTransportConnection(false, true, socket, 
-							new DefaultTransportAttributes(socket.getInetAddress().getHostAddress(),TcgTProtocolEnum.PLAIN.value(),TcgTVersionEnum.V1.value()), 
+							new DefaultTransportAttributes(socket.getInetAddress().getHostAddress(),TcgTProtocolBindingEnum.PLAIN1), 
 							PtTlsWriterFactory.createProductionDefault(), 
 							PtTlsReaderFactory.createProductionDefault(131072), 
 							Executors.newSingleThreadExecutor());

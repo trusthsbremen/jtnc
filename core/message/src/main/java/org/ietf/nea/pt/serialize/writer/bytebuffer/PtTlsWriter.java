@@ -8,11 +8,11 @@ import org.ietf.nea.pt.message.PtTlsMessageHeader;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValue;
 
+import de.hsbremen.tc.tnc.message.Combined;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.message.util.Combined;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 class PtTlsWriter implements TransportWriter<TransportMessage>, Combined<TransportWriter<PtTlsMessageValue>> {

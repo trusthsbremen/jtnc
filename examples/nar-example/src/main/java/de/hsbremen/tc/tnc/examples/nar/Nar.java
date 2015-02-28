@@ -38,8 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 
-import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
+import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.adapter.tnccs.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.tnccs.client.ClientFacade;
@@ -56,7 +55,8 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.simple
 .DefaultConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple
 .DefaultConfigurationFileParserImJava;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple
+.DefaultImLoader;
 import de.hsbremen.tc.tnc.tnccs.im.loader.simple
 .DefaultImcManagerConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
@@ -99,8 +99,7 @@ public class Nar {
                         retryProxy));
 
         SessionFactory factory = new DefaultClientSessionFactory(
-                PbReaderFactory.getTnccsProtocol(),
-                PbReaderFactory.getTnccsVersion(),
+                PbReaderFactory.getProtocolIdentifier(),
                 PbWriterFactory.createExperimentalDefault(),
                 PbReaderFactory.createExperimentalDefault(), this.manager);
 
@@ -171,7 +170,7 @@ public class Nar {
 
         SocketTransportConnectionBuilder builder =
                 new SocketTransportConnectionBuilder(
-                TcgTProtocolEnum.PLAIN.value(), TcgTVersionEnum.V1.value(),
+                TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
 

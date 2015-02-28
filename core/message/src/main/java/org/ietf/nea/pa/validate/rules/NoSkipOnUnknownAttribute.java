@@ -2,10 +2,11 @@ package org.ietf.nea.pa.validate.rules;
 
 import java.util.Set;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeFlagsEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class NoSkipOnUnknownAttribute {
 

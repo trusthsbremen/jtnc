@@ -5,13 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationLastResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 import org.ietf.nea.pa.validate.rules.LastUseSyntaxCheck;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaAttributeValueOperationalStatusBuilderIetf implements
 	PaAttributeValueOperationalStatusBuilder {

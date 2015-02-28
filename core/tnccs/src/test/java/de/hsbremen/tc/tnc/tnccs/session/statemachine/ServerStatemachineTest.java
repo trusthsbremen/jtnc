@@ -16,8 +16,7 @@ import org.junit.Test;
 
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TncsContentHandler;
@@ -41,7 +40,7 @@ public class ServerStatemachineTest {
 	
 	@Before
 	public void setUp(){
-		DefaultSessionAttributes attributes = new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
+		DefaultSessionAttributes attributes = new DefaultSessionAttributes(TcgTnccsProtocolBindingEnum.TNCCS2);
 		TncsContentHandler handler = new DefaultTncsContentHandler(Dummy.getImvHandler(), 
 				new DefaultTncsHandler(attributes), 
 				new DefaultTnccsValidationExceptionHandler(new AttributeCollection()));

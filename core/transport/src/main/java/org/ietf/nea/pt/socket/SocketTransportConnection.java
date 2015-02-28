@@ -32,7 +32,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
@@ -47,6 +46,7 @@ import org.slf4j.LoggerFactory;
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.attribute.Attributed;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
@@ -55,7 +55,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
-import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyBuffer;
+import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer;
 import de.hsbremen.tc.tnc.transport.TnccsListener;
 import de.hsbremen.tc.tnc.transport.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
@@ -647,7 +647,7 @@ public class SocketTransportConnection implements TransportConnection {
         if (isOpen()) {
             try {
 
-                ByteBuffer b = new StreamedReadOnlyBuffer(
+                ByteBuffer b = new StreamedReadOnlyByteBuffer(
                         socket.getInputStream());
 
                 TransportMessageContainer ct = this.reader.read(b, -1);

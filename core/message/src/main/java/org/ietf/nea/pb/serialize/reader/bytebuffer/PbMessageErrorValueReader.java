@@ -2,7 +2,6 @@ package org.ietf.nea.pb.serialize.reader.bytebuffer;
 
 import java.nio.BufferUnderflowException;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.PbMessageValueError;
 import org.ietf.nea.pb.message.PbMessageValueErrorBuilder;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
@@ -10,6 +9,7 @@ import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffset;
 import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;

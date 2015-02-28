@@ -3,10 +3,10 @@ package org.ietf.nea.pa.validate.rules;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 public class UriSyntax {

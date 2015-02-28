@@ -1,6 +1,5 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageRemediationParameterTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
@@ -8,6 +7,7 @@ import org.ietf.nea.pb.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pb.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PbMessageValueRemediationParametersBuilderIetf implements PbMessageValueRemediationParametersBuilder{
     

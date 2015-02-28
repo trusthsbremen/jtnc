@@ -2,7 +2,6 @@ package org.ietf.nea.pa.serialize.reader.bytebuffer;
 
 import java.nio.BufferUnderflowException;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters;
 import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParametersBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributeRemediationParameterTypeEnum;
@@ -10,6 +9,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterString;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;

@@ -16,8 +16,7 @@ import org.junit.Test;
 
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TnccContentHandler;
@@ -27,8 +26,8 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccsValidationExc
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultSessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateHelper;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientStateMachine;
 
 public class ClientStatemachineTest {
 
@@ -41,7 +40,7 @@ public class ClientStatemachineTest {
 	
 	@Before
 	public void setUp(){
-		DefaultSessionAttributes attributes = new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.value(), TcgTnccsVersionEnum.V2.value());
+		DefaultSessionAttributes attributes = new DefaultSessionAttributes(TcgTnccsProtocolBindingEnum.TNCCS2);
 		TnccContentHandler handler = new DefaultTnccContentHandler(Dummy.getImcHandler(), 
 				new DefaultTnccHandler(attributes), 
 				new DefaultTnccsValidationExceptionHandler(new AttributeCollection()));

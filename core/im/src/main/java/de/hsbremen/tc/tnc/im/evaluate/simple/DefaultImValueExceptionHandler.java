@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.im.evaluate.simple;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
@@ -36,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.im.adapter.data.ImFaultyObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImValueExceptionHandler;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 

@@ -1,6 +1,5 @@
 package org.ietf.nea.pt.message;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum;
 import org.ietf.nea.pt.validate.rules.CommonLengthLimits;
@@ -10,6 +9,7 @@ import org.ietf.nea.pt.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pt.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PtTlsMessageHeaderBuilderIetf implements PtTlsMessageHeaderBuilder{
 

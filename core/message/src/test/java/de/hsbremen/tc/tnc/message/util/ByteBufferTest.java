@@ -2,6 +2,7 @@ package de.hsbremen.tc.tnc.message.util;
 
 import java.nio.BufferOverflowException;
 import java.nio.BufferUnderflowException;
+import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -226,15 +227,14 @@ public class ByteBufferTest {
 		b.write(array);
 		
 		ByteBuffer b1 = new DefaultByteBuffer(b.bytesWritten());
-		
-		b1.write(b);
-		Assert.assertEquals(b.bytesRead(), b1.bytesWritten());
-		
+	
+		b1.write(b.read(b.bytesWritten()));
+        Assert.assertEquals(b.bytesRead(), b1.bytesWritten());
 		
 	}
 	
 	@Test 
-	public void testWriterBufferToBuffer(){
+	public void testWriteBufferToBuffer(){
 		byte[] array = {1,23,2,43,56,6,67,6,67,67,89,3,3,23,2};
 		ByteBuffer b = new DefaultByteBuffer(100);
 		b.write(array);
@@ -242,7 +242,56 @@ public class ByteBufferTest {
 		ByteBuffer b1 = new DefaultByteBuffer(b.bytesWritten());
 		
 		b1.write(b);
-		Assert.assertEquals(b.bytesRead(), b1.bytesWritten());
+	    Assert.assertEquals(b.bytesRead(), b1.bytesWritten());
+		
+		
 	}
+	
+	@Test
+	public void revertWriteAndRead(){
+	    
+	    ByteBuffer buf = new DefaultByteBuffer(100);
+       
+        byte[] b = new byte[]{0,1,2,3,4,5,6,7,8,9,10};
+        
+        for (int i = 0; i < 6; i++){
+            buf.write(b);
+        }
+        
+        Assert.assertEquals(6*b.length, buf.bytesWritten());
+        
+        long l = buf.revertWrite(10);
+        Assert.assertEquals(0, buf.bytesRead());
+        Assert.assertEquals(6*b.length - 10, l);
+        
+        Assert.assertEquals(0,buf.readByte());
+        
+        long l1  = buf.revertRead(1);
+        Assert.assertEquals(0, l1);
+        Assert.assertEquals(0, buf.bytesRead());
+	}
+	
+	@Test
+    public void revertWriteAndReadBoundary(){
+        
+        ByteBuffer buf = new DefaultByteBuffer(100,8);
+       
+        byte[] b = new byte[]{0,1,2,3,4,5,6,7,8,9,10};
+        
+        for (int i = 0; i < 6; i++){
+            buf.write(b);
+        }
+        
+        Assert.assertEquals(6*b.length, buf.bytesWritten());
+        
+        long l = buf.revertWrite(9);
+        
+        Assert.assertEquals(6*b.length - 9, l);
+        Assert.assertTrue(Arrays.equals(new byte[]{0,1,2,3,4,5,6,7,8},buf.read(9)));
+        long l1  = buf.revertRead(9);
+        Assert.assertEquals(0, l1);
+        Assert.assertEquals(0, buf.bytesRead());
+        
+    }
 	
 }

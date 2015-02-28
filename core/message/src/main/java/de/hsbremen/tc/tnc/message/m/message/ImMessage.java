@@ -6,13 +6,26 @@ import de.hsbremen.tc.tnc.message.m.ImData;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 
 /**
- * Marker for TNCCS message classes.
+ * Generic integrity measurement component message base
+ * consisting of a message header and a set of integrity
+ * measurement attributes.
+ *
  * @author Carl-Heinz Genzel
  *
  */
-public interface ImMessage extends ImData{
-	
-	public ImMessageHeader getHeader();
+public interface ImMessage extends ImData {
 
-	public List<? extends ImAttribute> getAttributes();
+    /**
+     * Returns the header.
+     *
+     * @return the header
+     */
+    ImMessageHeader getHeader();
+
+    /**
+     * Returns the contained attributes.
+     *
+     * @return a list of attributes
+     */
+    List<? extends ImAttribute> getAttributes();
 }

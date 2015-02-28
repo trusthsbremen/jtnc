@@ -2,7 +2,7 @@ package org.ietf.nea.pa.attribute;
 
 import java.nio.charset.Charset;
 
-import org.ietf.nea.exception.RuleException;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaAttributeValueTestingBuilderIetf implements PaAttributeValueTestingBuilder{
 

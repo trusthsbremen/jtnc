@@ -1,6 +1,5 @@
 package org.ietf.nea.pt.message;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum;
 import org.ietf.nea.pt.value.AbstractPtTlsMessageValue;
@@ -10,6 +9,7 @@ import org.ietf.nea.pt.value.util.SaslMechanism;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;

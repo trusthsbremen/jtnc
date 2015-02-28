@@ -14,20 +14,16 @@ import org.ietf.nea.pt.value.PtTlsMessageValueVersionRequestBuilderIetf;
 import org.ietf.nea.pt.value.PtTlsMessageValueVersionResponseBuilderIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolEnum;
-import de.hsbremen.tc.tnc.message.t.enums.TcgTVersionEnum;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
+import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 
 public class PtTlsReaderFactory {
 
-	public static String getTransportProtocol(){
-		return TcgTProtocolEnum.TLS.value();
-	}
-	
-	public static String getTnccsVersion(){
-		return TcgTVersionEnum.V1.value();
-	}
+    public static TcgProtocolBindingIdentifier getProtocolIdentifier(){
+        return TcgTProtocolBindingEnum.TLS1;
+    }
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	public static TransportReader<TransportMessageContainer> createProductionDefault(long maxMessageSize){

@@ -1,9 +1,10 @@
 package org.ietf.nea.pa.message;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.CommonLengthLimits;
 import org.ietf.nea.pa.validate.rules.MessageVersion;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaMessageHeaderBuilderIetf implements PaMessageHeaderBuilder{
 

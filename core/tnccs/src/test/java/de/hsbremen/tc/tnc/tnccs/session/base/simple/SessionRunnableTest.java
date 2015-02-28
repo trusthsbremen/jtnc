@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 public class SessionRunnableTest {
@@ -28,7 +27,7 @@ public class SessionRunnableTest {
 	@Before
 	public void setUp(){
 		this.session = new DefaultSession(
-				new DefaultSessionAttributes(TcgTnccsProtocolEnum.TNCCS.toString(), TcgTnccsVersionEnum.V2.value()),
+				new DefaultSessionAttributes(TcgTnccsProtocolBindingEnum.TNCCS2),
 				PbWriterFactory.createProductionDefault(),
 				PbReaderFactory.createProductionDefault(),
 				Executors.newSingleThreadExecutor());

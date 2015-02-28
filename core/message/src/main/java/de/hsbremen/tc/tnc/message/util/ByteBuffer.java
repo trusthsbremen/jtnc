@@ -1,55 +1,296 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package de.hsbremen.tc.tnc.message.util;
 
+/**
+ * Generic byte buffer that can be used to write and read bytes from. It also
+ * provides several helper functions to read or write different Java primitives
+ * from/to the buffer. The buffer has two pointers to indicate the read
+ * and write position. Is is not possible to read more bytes than
+ * where written to the buffer before.
+ *
+ * The buffer can throw a underflow or overflow exception. Underflow is
+ * thrown if the bytes read exceed the bytes written. Overflow is thrown
+ * if the bytes written exceed the buffer capacity.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public interface ByteBuffer {
-	
-	public abstract void write(ByteBuffer buffer);
-	
-	public abstract void write(byte[] array);
 
-	public abstract void writeByte(byte b);
+    /**
+     * Appends the content of the given buffer to
+     * the content of this buffer.
+     *
+     * @param buffer the source buffer
+     */
+    void write(ByteBuffer buffer);
 
-	public abstract void writeUnsignedByte(short unsigned);
+    /**
+     * Appends the content of the given byte array
+     * to the content of this buffer.
+     *
+     * @param array the source array
+     */
+    void write(byte[] array);
 
-	public abstract void writeShort(short signed);
+    /**
+     * Appends the byte to the content of this buffer.
+     *
+     * @param signed the signed byte
+     */
+    void writeByte(byte signed);
 
-	public abstract void writeUnsignedShort(int unsigned);
+    /**
+     * Appends the short as unsigned byte to the content
+     * of this buffer.
+     *
+     * @param unsigned the unsigned byte
+     */
+    void writeUnsignedByte(short unsigned);
 
-	public abstract void writeInt(int signed);
+    /**
+     * Appends the short to the content of this buffer.
+     *
+     * @param signed the signed short
+     */
+    void writeShort(short signed);
 
-	public abstract void writeUnsignedInt(long unsigned);
+    /**
+     * Appends the int as unsigned short to the content
+     * of this buffer.
+     *
+     * @param unsigned the unsigned short
+     */
+    void writeUnsignedShort(int unsigned);
 
-	public abstract void writeLong(long signed);
+    /**
+     * Appends the int to the content of this buffer.
+     *
+     * @param signed the signed int
+     */
+    void writeInt(int signed);
 
-	public abstract void writeDigits(long number, byte length);
+    /**
+     * Appends the long as unsigned int to the content
+     * of this buffer.
+     *
+     * @param unsigned the unsigned int
+     */
+    void writeUnsignedInt(long unsigned);
 
-	public abstract ByteBuffer read(long length);
-	
-	public abstract byte[] read(int length);
-	
-	public abstract byte readByte();
+    /**
+     * Appends the long to the content of this buffer.
+     *
+     * @param signed the signed long
+     */
+    void writeLong(long signed);
 
-	public abstract short readShort();
+    /**
+     * Appends the digits of a long until length
+     * is reached. Maximum length is 8.
+     *
+     * @param number the number to append
+     * @param length the length of digits to use from the number
+     */
+    void writeDigits(long number, byte length);
 
-	public abstract short readShort(byte length);
+    /**
+     * Returns the content of length from the buffer as
+     * byte buffer.
+     *
+     * @param length the content length to read
+     * @return the resulting buffer
+     */
+    ByteBuffer read(long length);
 
-	public abstract int readInt();
+    /**
+     * Returns the content of length from the buffer as
+     * byte array.
+     *
+     * @param length the content length to read
+     * @return the resulting array
+     */
+    byte[] read(int length);
 
-	public abstract int readInt(byte length);
+    /**
+     * Returns one byte from the buffer.
+     *
+     * @return the resulting byte
+     */
+    byte readByte();
 
-	public abstract long readLong();
+    /**
+     * Returns one short from the buffer.
+     *
+     * @return the resulting short
+     */
+    short readShort();
 
-	public abstract long readLong(byte length);
+    /**
+     * Returns one short from the buffer.
+     * The short can be build with 1 or
+     * 2 bytes depending on the given length.
+     * Maximum length is 2.
+     *
+     * Useful to read an unsigned byte.
+     *
+     * @param length the content length to read
+     * @return the resulting short
+     */
+    short readShort(byte length);
 
-	public abstract void clear();
+    /**
+     * Returns one int from the buffer.
+     *
+     * @return the resulting short
+     */
+    int readInt();
 
-	public abstract long bytesWritten();
+    /**
+     * Returns one int from the buffer.
+     * The int can be build with 1 to
+     * 4 bytes depending on the given length.
+     * Maximum length is 4.
+     *
+     * Useful to read an unsigned short.
+     *
+     * @param length the content length to read
+     * @return the resulting int
+     */
+    int readInt(byte length);
 
-	public abstract long bytesRead();
-	
-	public abstract boolean isReadable();
-	
-	public abstract boolean isWriteable();
-	
-	public abstract long capacity();
+    /**
+     * Returns one long from the buffer.
+     *
+     * @return the resulting short
+     */
+    long readLong();
+
+    /**
+     * Returns one long from the buffer.
+     * The long can be build with 1 to
+     * b bytes depending on the given length.
+     * Maximum length is 8.
+     *
+     * Useful to read an unsigned int.
+     *
+     * @param length the content length to read
+     * @return the resulting long
+     */
+    long readLong(byte length);
+
+    /**
+     * Resets the write pointer about the given
+     * length of bytes. The new position is bytes written
+     * minus length. If the read pointer is larger than
+     * the new position, the pointer is set too, that
+     * write pointer == read pointer. If the write pointer
+     * is smaller than the given length, both pointers are
+     * set to zero. Revert write discards all bytes that
+     * are within the reverted length.
+     *
+     * @param length the number of bytes to step back
+     * @return the new position of the write pointer
+     */
+    long revertWrite(long length);
+
+    /**
+     * Resets the read pointer about the given
+     * length of bytes. The new position is bytes read
+     * minus length. If the read pointer is smaller than
+     * the given length, the pointer is set to zero. No bytes
+     * will be discarded by this operation.
+     *
+     * @param length the number of bytes to step back
+     * @return the new position of the write pointer
+     */
+    long revertRead(long length);
+
+    /**
+     * Clears the buffer. The buffer will be empty
+     * after this operation an all pointers will be
+     * zero.
+     *
+     */
+    void clear();
+
+    /**
+     * Returns the bytes currently written to
+     * the buffer. If the buffer capacity is larger
+     * than MAX_LONG and the number of bytes written
+     * is larger than MAX_LONG or the buffer is not writable
+     * -1 is returned.
+     *
+     * @return the written bytes count
+     */
+    long bytesWritten();
+
+    /**
+     * Returns the bytes already read from
+     * the buffer. If the buffer capacity is larger
+     * than MAX_LONG and the number of bytes written
+     * is larger than MAX_LONG or the buffer is not readable
+     * -1 is returned.
+     *
+     * @return the read bytes count
+     */
+    long bytesRead();
+
+    /**
+     * Returns true if the buffer supports reading and
+     * false if the buffer is write only (e.g. if the buffer
+     * is backed by an input stream it is read only).
+     *
+     * @return true if buffer supports reading
+     */
+    boolean isReadable();
+
+    /**
+     * Returns true if the buffer supports writing and
+     * false if the buffer is read only (e.g. if the buffer
+     * is backed by an output stream it is write only).
+     *
+     * @return true if buffer supports writing
+     */
+    boolean isWriteable();
+
+    /**
+     * Returns true if the buffer supports a revert of the
+     * write and read position pointers.
+     *
+     * @return true if buffer supports revert
+     */
+    boolean isRevertable();
+    /**
+     * Returns the maximum capacity of the buffer, that
+     * can be written and read afterwards. If the capacity
+     * is not known -1 is returned.
+     *
+     * @return the maximum buffer capacity
+     */
+    long capacity();
 
 }

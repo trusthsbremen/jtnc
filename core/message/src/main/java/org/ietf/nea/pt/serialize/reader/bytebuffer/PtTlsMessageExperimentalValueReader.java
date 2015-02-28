@@ -3,10 +3,10 @@ package org.ietf.nea.pt.serialize.reader.bytebuffer;
 import java.nio.BufferUnderflowException;
 import java.nio.charset.Charset;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pt.value.PtTlsMessageValueExperimental;
 import org.ietf.nea.pt.value.PtTlsMessageValueExperimentalBuilder;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;

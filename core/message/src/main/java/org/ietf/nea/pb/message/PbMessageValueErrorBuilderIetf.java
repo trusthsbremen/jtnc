@@ -1,6 +1,5 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorFlagsEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
@@ -9,6 +8,7 @@ import org.ietf.nea.pb.validate.rules.ErrorCodeLimits;
 import org.ietf.nea.pb.validate.rules.ErrorVendorIdLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilder{
 	

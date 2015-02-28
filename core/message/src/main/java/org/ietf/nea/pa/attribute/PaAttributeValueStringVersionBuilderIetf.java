@@ -2,10 +2,11 @@ package org.ietf.nea.pa.attribute;
 
 import java.nio.charset.Charset;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.rules.NoNullTerminatedString;
 import org.ietf.nea.pa.validate.rules.StringLengthLimit;
+
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValueStringVersionBuilder{
 

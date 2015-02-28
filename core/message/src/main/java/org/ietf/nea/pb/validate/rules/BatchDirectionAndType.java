@@ -1,11 +1,11 @@
 package org.ietf.nea.pb.validate.rules;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pb.batch.enums.PbBatchDirectionalityEnum;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.enums.PbMessageErrorCodeEnum;
 import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 public class BatchDirectionAndType {

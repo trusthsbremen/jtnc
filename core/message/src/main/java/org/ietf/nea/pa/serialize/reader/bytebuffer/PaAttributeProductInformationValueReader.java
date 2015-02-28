@@ -3,11 +3,11 @@ package org.ietf.nea.pa.serialize.reader.bytebuffer;
 import java.nio.BufferUnderflowException;
 import java.nio.charset.Charset;
 
-import org.ietf.nea.exception.RuleException;
 import org.ietf.nea.pa.attribute.PaAttributeValueProductInformation;
 import org.ietf.nea.pa.attribute.PaAttributeValueProductInformationBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;

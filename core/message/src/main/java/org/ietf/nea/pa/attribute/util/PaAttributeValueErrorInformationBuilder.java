@@ -1,6 +1,6 @@
 package org.ietf.nea.pa.attribute.util;
 
-import org.ietf.nea.exception.RuleException;
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public interface PaAttributeValueErrorInformationBuilder {
 

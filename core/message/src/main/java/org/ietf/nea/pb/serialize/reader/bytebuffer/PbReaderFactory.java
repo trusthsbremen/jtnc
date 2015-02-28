@@ -17,20 +17,16 @@ import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterStringBuil
 import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilderIetf;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolEnum;
-import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsVersionEnum;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
+import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 
 public class PbReaderFactory {
 
-	public static String getTnccsProtocol(){
-		return TcgTnccsProtocolEnum.TNCCS.value();
-	}
-	
-	public static String getTnccsVersion(){
-		return TcgTnccsVersionEnum.V2.value();
-	}
+    public static TcgProtocolBindingIdentifier getProtocolIdentifier(){
+        return TcgTnccsProtocolBindingEnum.TNCCS2;
+    }
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	public static TnccsReader<TnccsBatchContainer> createProductionDefault(){

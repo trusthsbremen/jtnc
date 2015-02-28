@@ -10,11 +10,11 @@ import org.ietf.nea.pa.attribute.PaAttributeValue;
 import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageHeader;
 
+import de.hsbremen.tc.tnc.message.Combined;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.message.util.Combined;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 class PaWriter implements ImWriter<ImMessage>, Combined<ImWriter<PaAttributeValue>> {

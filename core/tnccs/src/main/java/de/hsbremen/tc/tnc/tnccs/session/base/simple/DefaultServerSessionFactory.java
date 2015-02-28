@@ -27,6 +27,7 @@ package de.hsbremen.tc.tnc.tnccs.session.base.simple;
 import java.util.concurrent.Executors;
 
 import de.hsbremen.tc.tnc.attribute.Attributed;
+import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
@@ -82,18 +83,17 @@ public class DefaultServerSessionFactory extends AbstractSessionFactory {
      * writer and reader as well as an adapter manager to adapt the
      * IMV available to a session.
      *
-     * @param tnccsProtocolType the IF-TNCCS protocol type
-     * @param tnccsProtocolVersion the if TNCCS protocol version
+     * @param tnccsProtocol the IF-TNCCS protocol identifier
      * @param writer the message writer
      * @param reader the message reader
      * @param adapterManager the IMV adapter manager
      */
-    public DefaultServerSessionFactory(final String tnccsProtocolType,
-            final String tnccsProtocolVersion,
+    public DefaultServerSessionFactory(
+            final TcgProtocolBindingIdentifier tnccsProtocol,
             final TnccsWriter<TnccsBatch> writer,
             final TnccsReader<TnccsBatchContainer> reader,
             final ImAdapterManager<ImvAdapter> adapterManager) {
-        this(tnccsProtocolType, tnccsProtocolVersion, writer, reader,
+        this(tnccsProtocol, writer, reader,
                 new DefaultImvHandlerBuilder(adapterManager),
                 new DefaultTncsHandlerBuilder(),
                 new DefaultTnccsValidationExceptionHandlerBuilder(),
@@ -106,8 +106,7 @@ public class DefaultServerSessionFactory extends AbstractSessionFactory {
      * writer and reader. Several builders are added to
      * customize the session behavior.
      *
-     * @param tnccsProtocolType the IF-TNCCS protocol type
-     * @param tnccsProtocolVersion the if TNCCS protocol version
+     * @param tnccsProtocol the IF-TNCCS protocol identifier
      * @param writer the message writer
      * @param reader the message reader
      * @param imvHandlerBuilder the builder to build an IMV message handler
@@ -119,8 +118,7 @@ public class DefaultServerSessionFactory extends AbstractSessionFactory {
      * @param stateMachineBuilder the builder to build a server state machine
      */
     public DefaultServerSessionFactory(
-            final String tnccsProtocolType,
-            final String tnccsProtocolVersion,
+            final TcgProtocolBindingIdentifier tnccsProtocol,
             final TnccsWriter<TnccsBatch> writer,
             final TnccsReader<TnccsBatchContainer> reader,
             final ImvHandlerBuilder imvHandlerBuilder,
@@ -129,7 +127,7 @@ public class DefaultServerSessionFactory extends AbstractSessionFactory {
             tnccsValExBuilder,
             final TncsContentHandlerFactory tncsContentHandlerFactory,
             final StateMachineBuilder<TncsContentHandler> stateMachineBuilder) {
-        super(tnccsProtocolType, tnccsProtocolVersion, writer, reader);
+        super(tnccsProtocol, writer, reader);
         NotNull.check("Constructor agruments cannot be null.",
                 imvHandlerBuilder, tncsHandlerBuilder,
                 tnccsValExBuilder, tncsContentHandlerFactory,
@@ -146,7 +144,7 @@ public class DefaultServerSessionFactory extends AbstractSessionFactory {
     public Session createTnccsSession(final TransportConnection connection) {
 
         DefaultSession s = new DefaultSession(new DefaultSessionAttributes(
-                super.getTnccsProtocolType(), super.getTnccsProtocolVersion()),
+                super.getTnccsProtocolIdentifier()),
                 super.getWriter(), super.getReader(),
                 Executors.newSingleThreadExecutor());
 
