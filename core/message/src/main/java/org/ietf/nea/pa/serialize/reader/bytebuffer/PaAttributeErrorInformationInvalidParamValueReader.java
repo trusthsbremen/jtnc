@@ -2,10 +2,10 @@ package org.ietf.nea.pa.serialize.reader.bytebuffer;
 
 import java.nio.BufferUnderflowException;
 
-import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParamBuilder;
+import org.ietf.nea.pa.attribute.util.RawMessageHeader;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;

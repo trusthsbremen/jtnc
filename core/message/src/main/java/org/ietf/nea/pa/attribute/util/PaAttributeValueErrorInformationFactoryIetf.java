@@ -3,7 +3,6 @@ package org.ietf.nea.pa.attribute.util;
 import java.util.Arrays;
 
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
-import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 

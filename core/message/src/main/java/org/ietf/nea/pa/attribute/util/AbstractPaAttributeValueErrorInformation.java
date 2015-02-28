@@ -1,7 +1,5 @@
 package org.ietf.nea.pa.attribute.util;
 
-import org.ietf.nea.pa.attribute.RawMessageHeader;
-
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeSubValue;
 
 

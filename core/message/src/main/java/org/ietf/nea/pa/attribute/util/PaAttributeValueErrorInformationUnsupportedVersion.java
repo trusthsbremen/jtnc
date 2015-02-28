@@ -1,6 +1,5 @@
 package org.ietf.nea.pa.attribute.util;
 
-import org.ietf.nea.pa.attribute.RawMessageHeader;
 
 public class PaAttributeValueErrorInformationUnsupportedVersion extends AbstractPaAttributeValueErrorInformation{
   

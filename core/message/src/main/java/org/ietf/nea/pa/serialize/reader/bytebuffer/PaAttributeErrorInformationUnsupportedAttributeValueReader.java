@@ -4,10 +4,10 @@ import java.nio.BufferUnderflowException;
 
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeHeaderBuilder;
-import org.ietf.nea.pa.attribute.RawMessageHeader;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttribute;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttributeBuilder;
+import org.ietf.nea.pa.attribute.util.RawMessageHeader;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;

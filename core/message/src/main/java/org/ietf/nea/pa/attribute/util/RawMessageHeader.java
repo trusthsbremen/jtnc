@@ -1,4 +1,4 @@
-package org.ietf.nea.pa.attribute;
+package org.ietf.nea.pa.attribute.util;
 
 import java.util.Arrays;
 
