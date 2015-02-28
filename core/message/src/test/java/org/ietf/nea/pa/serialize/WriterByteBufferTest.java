@@ -2,6 +2,7 @@ package org.ietf.nea.pa.serialize;
 
 import java.util.Arrays;
 
+import org.ietf.nea.ByteArrayHelper;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.ietf.nea.pa.attribute.PaAttributeValueInstalledPackages;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
@@ -15,7 +16,6 @@ import org.junit.Test;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
-import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 

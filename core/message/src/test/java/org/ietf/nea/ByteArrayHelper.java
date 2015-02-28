@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.message.util;
+package org.ietf.nea;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,15 +30,11 @@ import java.util.Arrays;
 
 /**
  * Helper object to handle byte arrays providing
- * some copy and conversion methods. Was used in the
- * stream readers and writers. But these will be refactored
- * with the streamed byte buffers eventually. That is why this
- * helper is already marked deprecated.
+ * some copy and conversion methods.
  *
  * @author Carl-Heinz Genzel
  *
  */
-@Deprecated
 public abstract class ByteArrayHelper {
 
     /**

@@ -8,7 +8,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
-import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 public class PaAttributeValueErrorInformationFactoryIetf {
@@ -70,7 +69,13 @@ public class PaAttributeValueErrorInformationFactoryIetf {
 		
 		short version = sizedMessageHeader[0];
 		byte[] reserved = Arrays.copyOfRange(sizedMessageHeader, 1,4);
-		long identifier = ByteArrayHelper.toLong(Arrays.copyOfRange(sizedMessageHeader, 4,8));
+		
+		long value = 0L;
+		byte[] b = Arrays.copyOfRange(sizedMessageHeader, 4,8);
+		for (int i = 0; i < b.length; i++) {
+	        value = (value << 8) + (b[i] & 0xFF);
+	    }
+		long identifier = value;
 		
 	    return new RawMessageHeader(version, reserved, identifier);
 	}

@@ -2,6 +2,7 @@ package org.ietf.nea.pb.serialize;
 
 import java.util.Arrays;
 
+import org.ietf.nea.ByteArrayHelper;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 import org.ietf.nea.pb.message.PbMessageValueAccessRecommendation;
@@ -16,7 +17,6 @@ import org.junit.Test;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
-import de.hsbremen.tc.tnc.message.util.ByteArrayHelper;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 
