@@ -34,7 +34,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.ietf.nea.pb.message.PbMessageValueIm;
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -222,7 +222,7 @@ public class DefaultImcHandler implements ImcHandler {
             PbMessageValueIm valueCast = (PbMessageValueIm) value;
 
             Set<Long> recipients = new HashSet<>();
-            if (valueCast.getImFlags().contains(PbMessageImFlagsEnum.EXCL)) {
+            if (valueCast.getImFlags().contains(PbMessageImFlagEnum.EXCL)) {
                 try {
                     Long recipient = this.router.findExclRecipientId(
                         valueCast.getCollectorId(), valueCast.getSubVendorId(),
@@ -327,7 +327,7 @@ public class DefaultImcHandler implements ImcHandler {
             PbMessageValueIm valueCast = (PbMessageValueIm) value;
 
             Set<Long> recipients = new HashSet<>();
-            if (valueCast.getImFlags().contains(PbMessageImFlagsEnum.EXCL)) {
+            if (valueCast.getImFlags().contains(PbMessageImFlagEnum.EXCL)) {
                 try {
                     Long recipient = this.router.findExclRecipientId(
                             valueCast.getCollectorId(),

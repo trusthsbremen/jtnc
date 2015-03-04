@@ -24,7 +24,7 @@ PtTlsMessageValueSaslResultBuilder {
 		
 		
 		SaslResult.check(result);
-		this.result = PtTlsSaslResultEnum.fromCode(result);
+		this.result = PtTlsSaslResultEnum.fromId(result);
 		
 		return this;
 	}

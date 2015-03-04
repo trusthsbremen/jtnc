@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.connection;
 
 /**
- * Enumeration with known connection states.
+ * Enumeration of known connection states.
  *
  * @author Carl-Heinz Genzel
  *

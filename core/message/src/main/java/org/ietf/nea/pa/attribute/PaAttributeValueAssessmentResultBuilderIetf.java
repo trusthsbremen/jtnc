@@ -22,7 +22,7 @@ public class PaAttributeValueAssessmentResultBuilderIetf implements
 	public PaAttributeValueAssessmentResultBuilder setResult(long result) throws RuleException {
 		
 		AssessmentResult.check(result);
-		this.result = PaAttributeAssessmentResultEnum.fromNumber(result);
+		this.result = PaAttributeAssessmentResultEnum.fromId(result);
 		
 		return this;
 	}

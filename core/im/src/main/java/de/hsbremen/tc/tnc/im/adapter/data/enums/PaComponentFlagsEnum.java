@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.im.adapter.data.enums;
 
 /**
- * Enumeration with known component message flags.
+ * Enumeration of known component message flags.
  *
  * @author Carl-Heinz Genzel
  *

@@ -207,7 +207,7 @@ public class TestData {
 	 */
 	public PtTlsMessage getSaslMechanismsSelect() throws ValidationException, UnsupportedEncodingException {
 		SaslMechanism m = new SaslMechanism("PLAIN");
-		return PtTlsMessageFactoryIetf.createSaslMechanisSelection(4, m, "PWND".getBytes("US-ASCII"));
+		return PtTlsMessageFactoryIetf.createSaslMechanismSelection(4, m, "PWND".getBytes("US-ASCII"));
 	}
 
 	/**

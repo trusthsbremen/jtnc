@@ -23,7 +23,7 @@ class PaAttributeAssessmentResultValueWriter implements ImWriter<PaAttributeValu
 		try{
 			
 			/* result */
-			buffer.writeUnsignedInt(aValue.getResult().number());
+			buffer.writeUnsignedInt(aValue.getResult().id());
 		
 		}catch(BufferOverflowException e){
 			throw new SerializationException(

@@ -56,7 +56,7 @@ public class ReaderByteBufferTest {
 		PaMessage b = (PaMessage)mc.getResult();
 		
 		Assert.assertEquals(1,b.getHeader().getVersion());
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES, ((PaAttributeValueAssessmentResult)b.getAttributes().get(0).getValue()).getResult());
 	}
 	
@@ -78,7 +78,7 @@ public class ReaderByteBufferTest {
 		PaMessage b = (PaMessage)mc.getResult();
 		
 		Assert.assertEquals(1,b.getHeader().getVersion());
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals(7, ((PaAttributeValueNumericVersion)b.getAttributes().get(0).getValue()).getMinorVersion());
 	}
 	
@@ -100,7 +100,7 @@ public class ReaderByteBufferTest {
 		PaMessage b = (PaMessage)mc.getResult();
 		
 		Assert.assertEquals(1,b.getHeader().getVersion());
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.id(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals("1.7.0_40", ((PaAttributeValueInstalledPackages)b.getAttributes().get(0).getValue()).getPackages().get(1).getPackageVersion());
 
 	}
@@ -123,8 +123,8 @@ public class ReaderByteBufferTest {
 		PaMessage b = (PaMessage)mc.getResult();
 		
 		Assert.assertEquals(1,b.getHeader().getVersion());
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType(), ((PaAttributeValueAttributeRequest)b.getAttributes().get(0).getValue()).getReferences().get(0).getType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id(), b.getAttributes().get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id(), ((PaAttributeValueAttributeRequest)b.getAttributes().get(0).getValue()).getReferences().get(0).getType());
 
 	}
 	
@@ -160,13 +160,13 @@ public class ReaderByteBufferTest {
 		
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.attributeType(), attributes.get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(), attributes.get(0).getHeader().getAttributeType());
 		Assert.assertEquals(7, ((PaAttributeValueNumericVersion)attributes.get(0).getValue()).getMinorVersion());
 
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.attributeType(), attributes.get(1).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.id(), attributes.get(1).getHeader().getAttributeType());
 		Assert.assertEquals("1.7.0_40", ((PaAttributeValueInstalledPackages)attributes.get(1).getValue()).getPackages().get(1).getPackageVersion());
 		
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.attributeType(), attributes.get(2).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(), attributes.get(2).getHeader().getAttributeType());
 		Assert.assertEquals(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES, ((PaAttributeValueAssessmentResult)attributes.get(2).getValue()).getResult());
 	}
 	
@@ -205,10 +205,10 @@ public class ReaderByteBufferTest {
 		
 		Assert.assertEquals(1,b.getHeader().getVersion());
 		
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.attributeType(), attributes.get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(), attributes.get(0).getHeader().getAttributeType());
 		Assert.assertEquals(7, ((PaAttributeValueNumericVersion)attributes.get(0).getValue()).getMinorVersion());
 	
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.attributeType(), attributes.get(1).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(), attributes.get(1).getHeader().getAttributeType());
 		Assert.assertEquals(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES, ((PaAttributeValueAssessmentResult)attributes.get(1).getValue()).getResult());
 	}
 	
@@ -230,7 +230,7 @@ public class ReaderByteBufferTest {
 		PaMessage b = (PaMessage)mc.getResult();
 		
 		Assert.assertEquals(1,b.getHeader().getVersion());
-		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.attributeType(), b.getAttributes().get(0).getHeader().getAttributeType());
+		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(), b.getAttributes().get(0).getHeader().getAttributeType());
 		Assert.assertEquals(7, ((PaAttributeValueNumericVersion)b.getAttributes().get(0).getValue()).getMinorVersion());
 	}
 	

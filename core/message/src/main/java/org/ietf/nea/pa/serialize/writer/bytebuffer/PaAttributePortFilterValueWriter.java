@@ -31,7 +31,7 @@ class PaAttributePortFilterValueWriter implements ImWriter<PaAttributeValuePortF
 				for (PortFilterEntry entry : entries) {
 					
 					/* reserved (7 bit(s)) + blocking status (1 bit(s)) = 8 bit(s) */
-					buffer.writeByte((byte)(RESERVED | (entry.getFilterStatus().toBlockedBit() & 0x01)));
+					buffer.writeByte((byte)(RESERVED | (entry.getFilterStatus().toStatusBit() & 0x01)));
 					
 					/* protocol 8 bit(s) */
 					buffer.writeUnsignedByte(entry.getProtocolNumber());

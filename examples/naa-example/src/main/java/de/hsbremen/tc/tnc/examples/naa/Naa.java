@@ -102,20 +102,17 @@ public class Naa {
                 new ImvAdapterFactoryIetf(), new TncsAdapterFactoryIetf(
                         retryProxy));
 
+        final int estimatedDefaultImCount = 10;
         this.connectionBuilder = new SocketTransportConnectionBuilder(
                 TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
-                PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
+                PtTlsReaderFactory.createProductionDefault())
+            .setMessageLength(MAX_MSG_SIZE)
+            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
         /*
          * Just for info, limiting possible but not done here.
          * this.connectionBuilder.setMaxRoundTrips(1);
          */
-
-        final int estimatedDefaultImCount = 10;
-
-        this.connectionBuilder.setMessageLength(MAX_MSG_SIZE)
-                .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
-
         SessionFactory factory = new DefaultServerSessionFactory(
                 PbReaderFactory.getProtocolIdentifier(),
                 PbWriterFactory.createExperimentalDefault(),

@@ -1,51 +1,94 @@
-package org.ietf.nea.pa.attribute.enums;
-
-
 /**
- * Reference IETF RFC 5792 section 4.2.5:
- * ------------------------------------
- * Value   Description
- * -----   -----------
- * 0       Unknown or other
- * 1       Successful use with no errors detected
- * 2       Successful use with one or more errors detected
- * 3       Unsuccessful use (e.g., aborted)
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
  */
+package org.ietf.nea.pa.attribute.enums;
 
-public enum PaAttributeOperationLastResultEnum{
+/**
+ * Enumeration of known integrity measurement values for the result of an
+ * operation's last use.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public enum PaAttributeOperationLastResultEnum {
 
-    // IETF
-    IETF_UNKNOWN            ((short)0),
-    IETF_SUCCESSFUL         ((short)1),
-    IETF_SUCCESSFUL_W_ERROR ((short)2),
-    IETF_UNSUCCESSFUL   	((short)3);
- 
-    
-    private short result;
-    
-    private PaAttributeOperationLastResultEnum(short result){
-        this.result = result;
+    /**
+     * 0 - Unknown or other result.
+     */
+    UNKNOWN((short) 0),
+    /**
+     * 1 - Successful use with no errors detected.
+     */
+    SUCCESSFUL((short) 1),
+    /**
+     * 2 - Successful use with one or more errors detected.
+     */
+    SUCCESSFUL_W_ERROR((short) 2),
+    /**
+     * 3 - Unsuccessful use (e.g., aborted).
+     */
+    UNSUCCESSFUL((short) 3);
+
+    private short id;
+
+    /**
+     * Creates the operation result with the given result ID.
+     * @param id the result ID
+     */
+    private PaAttributeOperationLastResultEnum(final short id) {
+        this.id = id;
     }
 
-    public short result(){
-        return this.result;
+    /**
+     * Returns the operation result ID.
+     *
+     * @return the result ID
+     */
+    public short id() {
+        return this.id;
     }
-    
-    public static PaAttributeOperationLastResultEnum fromNumber(short number){
-    	
-    	if(number == IETF_UNSUCCESSFUL.result){
-    		return IETF_UNSUCCESSFUL;
-    	}
-    	
-    	if(number == IETF_SUCCESSFUL_W_ERROR.result){
-    		return IETF_SUCCESSFUL_W_ERROR;
-    	}
-    	
-    	if(number == IETF_SUCCESSFUL.result){
-    		return IETF_SUCCESSFUL;
-    	}
-    	
-    	return IETF_UNKNOWN;
+
+    /**
+     * Returns the operational result for the given result ID.
+     *
+     * @param id the result ID
+     * @return a result
+     */
+    public static PaAttributeOperationLastResultEnum fromCode(final short id) {
+
+        if (id == UNSUCCESSFUL.id) {
+            return UNSUCCESSFUL;
+        }
+
+        if (id == SUCCESSFUL_W_ERROR.id) {
+            return SUCCESSFUL_W_ERROR;
+        }
+
+        if (id == SUCCESSFUL.id) {
+            return SUCCESSFUL;
+        }
+
+        return UNKNOWN;
     }
 }

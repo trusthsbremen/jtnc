@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.tnccs.adapter.im;
 
 import org.ietf.nea.pb.message.PbMessageValueIm;
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
@@ -208,7 +208,7 @@ class ImcAdapterIetf implements ImcAdapter {
                 pbValue.getImFlags();
 
                 byte bFlags = 0;
-                for (PbMessageImFlagsEnum pbMessageImFlagsEnum : pbValue
+                for (PbMessageImFlagEnum pbMessageImFlagsEnum : pbValue
                         .getImFlags()) {
                     bFlags |= pbMessageImFlagsEnum.bit();
                 }

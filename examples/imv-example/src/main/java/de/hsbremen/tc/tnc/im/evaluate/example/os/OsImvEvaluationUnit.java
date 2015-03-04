@@ -346,13 +346,13 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
         return PaAttributeFactoryIetf.createAttributeRequest(
                 new AttributeReference(IETFConstants.IETF_PEN_VENDORID,
                         PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION
-                                .attributeType()),
+                                .id()),
                 new AttributeReference(IETFConstants.IETF_PEN_VENDORID,
                         PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION
-                                .attributeType()),
+                                .id()),
                 new AttributeReference(IETFConstants.IETF_PEN_VENDORID,
                         PaAttributeTypeEnum.IETF_PA_STRING_VERSION
-                                .attributeType()));
+                                .id()));
 
     }
 

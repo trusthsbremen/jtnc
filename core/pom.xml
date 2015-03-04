@@ -26,6 +26,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- <main.basedir>${project.basedir}</main.basedir> -->
 	</properties>
+<!-- 	<distributionManagement> -->
+<!-- 	    <repository> -->
+<!-- 	      <id>tnc.repo</id> -->
+<!-- 	      <name>Java TNC Repository</name> -->
+<!-- 	      <url>file:/home/sidanetdev/git/smgw-app/main/repo/</url> -->
+<!-- 	    </repository> -->
+<!--     </distributionManagement> -->
 	<pluginRepositories>
 		<pluginRepository>
 			<id>doodleproject-repo</id>
@@ -41,11 +48,18 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.5</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>

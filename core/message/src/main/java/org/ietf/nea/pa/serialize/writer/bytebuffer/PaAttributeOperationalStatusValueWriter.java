@@ -34,10 +34,10 @@ class PaAttributeOperationalStatusValueWriter implements ImWriter<PaAttributeVal
 		
 		try{
 			/* status 8 bit(s) */
-			buffer.writeUnsignedByte(aValue.getStatus().status());
+			buffer.writeUnsignedByte(aValue.getStatus().id());
 			
 			/* result 8 bit(s) */
-			buffer.writeUnsignedByte(aValue.getResult().result());
+			buffer.writeUnsignedByte(aValue.getResult().id());
 			
 			/* reserved 24 bit(s) */
 			buffer.write(RESERVED);

@@ -6,7 +6,7 @@ public class PaAttributeValueErrorInformationUnsupportedAttribute extends Abstra
   
     private final PaAttributeHeader attributeHeader;
 
-	PaAttributeValueErrorInformationUnsupportedAttribute(final long length, final RawMessageHeader messageHeader, final PaAttributeHeader attributeHeader) {
+	PaAttributeValueErrorInformationUnsupportedAttribute(final long length, final MessageHeaderDump messageHeader, final PaAttributeHeader attributeHeader) {
 		super(length, messageHeader);
 		this.attributeHeader = attributeHeader;
 	}

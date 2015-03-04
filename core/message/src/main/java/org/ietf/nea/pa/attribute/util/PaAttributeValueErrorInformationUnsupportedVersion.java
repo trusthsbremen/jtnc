@@ -6,7 +6,7 @@ public class PaAttributeValueErrorInformationUnsupportedVersion extends Abstract
     private final short maxVersion;
     private final short minVersion;   
     
-	PaAttributeValueErrorInformationUnsupportedVersion(final long length, final RawMessageHeader messageHeader, final short maxVersion, final short minVersion) {
+	PaAttributeValueErrorInformationUnsupportedVersion(final long length, final MessageHeaderDump messageHeader, final short maxVersion, final short minVersion) {
 		super(length, messageHeader);
 	
 		this.maxVersion = maxVersion;

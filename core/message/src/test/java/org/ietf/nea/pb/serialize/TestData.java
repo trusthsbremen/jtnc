@@ -11,10 +11,10 @@ import org.ietf.nea.pb.batch.PbBatchFactoryIetf;
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.PbMessageHeaderBuilderIetf;
-import org.ietf.nea.pb.message.PbMessageValueBuilderIetf;
+import org.ietf.nea.pb.message.PbMessageValueFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTypeEnum;
 
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -146,7 +146,7 @@ public class TestData {
 	public PbBatch getBatchWithImMessage() throws ValidationException{
 		
 		
-		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		PbMessageImFlagEnum[] imFlags = new PbMessageImFlagEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
 		short collectorId = 1;
@@ -159,7 +159,7 @@ public class TestData {
 	
 	public PbBatch getBatchWithInvalidImMessage() throws ValidationException{
 		
-		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		PbMessageImFlagEnum[] imFlags = new PbMessageImFlagEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
 		short collectorId = 1;
@@ -190,7 +190,7 @@ public class TestData {
 	
 	public PbBatch getBatchWithMixedMessages() throws ValidationException{
 		
-		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		PbMessageImFlagEnum[] imFlags = new PbMessageImFlagEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
 		short collectorId = 1;
@@ -209,13 +209,13 @@ public class TestData {
 		try{
 			builder.setFlags((byte)0);
 			builder.setVendorId(IETFConstants.IETF_PEN_VENDORID);
-			builder.setType(PbMessageTypeEnum.IETF_PB_PA.messageType());
+			builder.setType(PbMessageTypeEnum.IETF_PB_PA.id());
 		}catch(RuleException e){
 			throw new ValidationException(e.getMessage(), e, ValidationException.OFFSET_NOT_SET);
 		}
 
 		List<TnccsMessage> messages = new ArrayList<>();
-		messages.add(new PbMessage(builder.toObject(), PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12})));
+		messages.add(new PbMessage(builder.toObject(), PbMessageValueFactoryIetf.createImValue(new PbMessageImFlagEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12})));
 		
 		
 		return PbBatchFactoryIetf.createClientData(messages);

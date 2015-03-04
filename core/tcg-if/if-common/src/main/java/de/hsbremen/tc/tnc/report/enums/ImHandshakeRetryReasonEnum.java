@@ -28,7 +28,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 
 /**
- * Enumeration with known retry reasons from client and server.
+ * Enumeration of known retry reasons from client and server.
  *
  * @author Carl-Heinz Genzel
  *

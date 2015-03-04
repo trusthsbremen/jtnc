@@ -7,17 +7,17 @@ public class PaAttributeValueErrorInformationInvalidParamBuilderIetf implements
 	
 	
 	private long length;
-	private RawMessageHeader messageHeader;
+	private MessageHeaderDump messageHeader;
 	private long offset;
 	
 	public PaAttributeValueErrorInformationInvalidParamBuilderIetf(){
 		this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 4; // 4 = offset
-		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
+		this.messageHeader = new MessageHeaderDump((short)0, new byte[0], 0L);
 		this.offset = 0;
 	}
 
 	@Override
-	public void setMessageHeader(RawMessageHeader messageHeader) {
+	public void setMessageHeader(MessageHeaderDump messageHeader) {
 		if(messageHeader != null){
 			this.messageHeader = messageHeader;
 		}

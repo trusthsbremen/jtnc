@@ -7,7 +7,7 @@ public interface PaAttributeValueErrorInformationUnsupportedAttributeBuilder ext
 	/**
 	 * @param messageHeader the messageHeader to set
 	 */
-	public abstract void setMessageHeader(RawMessageHeader messageHeader);
+	public abstract void setMessageHeader(MessageHeaderDump messageHeader);
 
 	public abstract void setAttributeHeader(PaAttributeHeader attributeHeader);
 }

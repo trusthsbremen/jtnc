@@ -119,7 +119,6 @@ public abstract class StateUtil {
                     .createErrorVersion(
                             new PbMessageErrorFlagsEnum[] {
                                     PbMessageErrorFlagsEnum.FATAL},
-                            PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION,
                             badVersion, maxVersion, minVersion);
         } catch (ValidationException e) {
             return null;

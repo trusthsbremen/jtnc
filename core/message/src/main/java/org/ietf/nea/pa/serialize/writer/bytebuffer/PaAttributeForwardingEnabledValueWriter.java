@@ -23,7 +23,7 @@ class PaAttributeForwardingEnabledValueWriter implements ImWriter<PaAttributeVal
 		
 		try{
 			/* forwarding status */
-			buffer.writeUnsignedInt(aValue.getForwardingStatus().status());
+			buffer.writeUnsignedInt(aValue.getForwardingStatus().id());
 
 		}catch(BufferOverflowException e){
 			throw new SerializationException(

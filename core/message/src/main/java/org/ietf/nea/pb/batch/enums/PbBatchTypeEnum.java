@@ -1,102 +1,135 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pb.batch.enums;
 
 /**
- * Reference IETF RFC 5793 section 4.1:
- * ------------------------------------
- * Number   Name     Definition
- *    ------   ----     ----------
+ * Enumeration of known TNCCS batch types.
  *
- *    1        CDATA    The Posture Broker Client may send a batch with
- *                      this Batch Type to convey messages to the
- *                      Posture Broker Server.  A Posture Broker Server
- *                      MUST NOT send this Batch Type.  A CDATA batch
- *                      may be empty (contain no messages) if the
- *                      Posture Broker Client has nothing to send.
+ * @author Carl-Heinz Genzel
  *
- *    2        SDATA    The Posture Broker Server may send a batch with
- *                      this Batch Type to convey messages to the
- *                      Posture Broker Client.  A Posture Broker Client
- *                      MUST NOT send this Batch Type.  An SDATA batch
- *                      may be empty (contain no messages) if the
- *                      Posture Broker Server has nothing to send.
- *                      
- *    3        RESULT   The Posture Broker Server may send a batch with
- *                      this Batch Type to indicate that it has
- *                      completed its evaluation.  The batch MUST
- *                      include a PB-Assessment-Result message and MAY
- *                      include a PB-Access-Recommendation message.
- *
- *    4        CRETRY   The Posture Broker Client may send a batch with
- *                      this Batch Type to indicate that it wishes to
- *                      restart an exchange.  A Posture Broker Server
- *                      MUST NOT send this Batch Type.  A CRETRY batch
- *                      may be empty (contain no messages) if the
- *                      Posture Broker Client has nothing else to send.
- *                      
- *    5        SRETRY  The Posture Broker Server may send a batch with
- *                     this Batch Type to indicate that it wishes to
- *                     restart the exchange.  A Posture Broker Client
- *                     MUST NOT send this Batch Type.  A SRETRY batch
- *                     may be empty (contain no messages) if the
- *                     Posture Broker Server has nothing else to send.
- *                     
- *    6        CLOSE   The Posture Broker Server or Posture Broker
- *                     Client may send a batch with this Batch Type to
- *                     indicate that it is about to terminate the
- *                     underlying PT connection.  A CLOSE batch may be
- *                     empty (contain no messages) if there is nothing
- *                     to send.  However, if the termination is due to a
- *                     fatal error, then the CLOSE batch MUST contain a
- *                     PB-Error message.
  */
-
 public enum PbBatchTypeEnum {
-    CDATA  ((byte)1),
-    SDATA  ((byte)2),
-    RESULT ((byte)3),
-    CRETRY ((byte)4),
-    SRETRY ((byte)5),
-    CLOSE  ((byte)6),
-    UNKNOWN ((byte)0);
-    
-    private byte type;
-    
-    private PbBatchTypeEnum(byte number){
-        this.type = number;
+
+    /**
+     * 1 - CDATA - The Posture Broker Client may send a batch with this Batch
+     * Type to convey messages to the Posture Broker Server. A Posture Broker
+     * Server MUST NOT send this Batch Type. A CDATA batch may be empty (contain
+     * no messages) if the Posture Broker Client has nothing to send.
+     */
+    CDATA((byte) 1),
+    /**
+     * 2 - SDATA - The Posture Broker Server may send a batch with this Batch
+     * Type to convey messages to the Posture Broker Client. A Posture Broker
+     * Client MUST NOT send this Batch Type. An SDATA batch may be empty
+     * (contain no messages) if the Posture Broker Server has nothing to send.
+     */
+    SDATA((byte) 2),
+    /**
+     * 3 - RESULT - The Posture Broker Server may send a batch with this Batch
+     * Type to indicate that it has completed its evaluation. The batch MUST
+     * include a PB-Assessment-Result message and MAY include a
+     * PB-Access-Recommendation message.
+     */
+    RESULT((byte) 3),
+    /**
+     * 4 - CRETRY - The Posture Broker Client may send a batch with this Batch
+     * Type to indicate that it wishes to restart an exchange. A Posture Broker
+     * Server MUST NOT send this Batch Type. A CRETRY batch may be empty
+     * (contain no messages) if the Posture Broker Client has nothing else to
+     * send.
+     */
+    CRETRY((byte) 4),
+    /**
+     * 5 - SRETRY - The Posture Broker Server may send a batch with this Batch
+     * Type to indicate that it wishes to restart the exchange. A Posture Broker
+     * Client MUST NOT send this Batch Type. A SRETRY batch may be empty
+     * (contain no messages) if the Posture Broker Server has nothing else to
+     * send.
+     */
+    SRETRY((byte) 5),
+    /**
+     * 6 - CLOSE - The Posture Broker Server or Posture Broker Client may send a
+     * batch with this Batch Type to indicate that it is about to terminate the
+     * underlying PT connection. A CLOSE batch may be empty (contain no
+     * messages) if there is nothing to send. However, if the termination is due
+     * to a fatal error, then the CLOSE batch MUST contain a PB-Error message.
+     */
+    CLOSE((byte) 6);
+
+    private byte id;
+
+    /**
+     * Creates the type with the given type ID.
+     *
+     * @param id the type ID
+     */
+    private PbBatchTypeEnum(final byte id) {
+        this.id = id;
     }
-    
-    public byte type(){
-        return this.type;
+
+    /**
+     * Returns the batch type ID.
+     *
+     * @return the type ID
+     */
+    public byte id() {
+        return this.id;
     }
-    
-  public static PbBatchTypeEnum fromType(byte type){
-    	
-    	if(type == CDATA.type){
-    		return CDATA;
-    	}
-    	
-    	if(type == SDATA.type){
-    		return SDATA;
-    	}
-    	
-    	if(type == RESULT.type){
-    		return RESULT;
-    	}
-    	
-    	if(type == CRETRY.type){
-    		return CRETRY;
-    	}
-    	
-    	if(type == SRETRY.type){
-    		return SRETRY;
-    	}
-    	
-    	if(type == CLOSE.type){
-    		return CLOSE;
-    	}
-    	
-    	return null;
+
+    /**
+     * Returns the type for the given type ID.
+     * @param id the type ID
+     * @return a type enumeration or null
+     */
+    public static PbBatchTypeEnum fromId(final byte id) {
+
+        if (id == CDATA.id) {
+            return CDATA;
+        }
+
+        if (id == SDATA.id) {
+            return SDATA;
+        }
+
+        if (id == RESULT.id) {
+            return RESULT;
+        }
+
+        if (id == CRETRY.id) {
+            return CRETRY;
+        }
+
+        if (id == SRETRY.id) {
+            return SRETRY;
+        }
+
+        if (id == CLOSE.id) {
+            return CLOSE;
+        }
+
+        return null;
     }
-    
-    
+
 }

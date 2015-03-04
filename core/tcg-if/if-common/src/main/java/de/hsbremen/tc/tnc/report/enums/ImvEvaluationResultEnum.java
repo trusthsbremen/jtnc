@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.report.enums;
 
 /**
- * Enumeration with known evaluation result values from an IMV.
+ * Enumeration of known evaluation result values from an IMV.
  *
  * @author Carl-Heinz Genzel
  *

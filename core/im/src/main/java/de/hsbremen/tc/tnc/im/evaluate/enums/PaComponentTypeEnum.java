@@ -24,8 +24,9 @@
  */
 package de.hsbremen.tc.tnc.im.evaluate.enums;
 
+
 /**
- * Enumeration with known component types.
+ * Enumeration of known component types.
  *
  * @author Carl-Heinz Genzel
  *
@@ -36,44 +37,44 @@ public enum PaComponentTypeEnum {
     /**
      * Testing component type.
      */
-    IETF_PA_TESTING                 (0),
+    IETF_PA_TESTING(0),
     /**
      * Operating system component type.
      */
-    IETF_PA_OPERATING_SYSTEM        (1),
+    IETF_PA_OPERATING_SYSTEM(1),
     /**
      * Anti-virus component type.
      */
-    IETF_PA_ANTI_VIRUS              (2),
+    IETF_PA_ANTI_VIRUS(2),
     /**
      * Anti-spyware component type.
      */
-    IETF_PA_ANTI_SPYWARE            (3),
+    IETF_PA_ANTI_SPYWARE(3),
     /**
      * Anti-malware component type.
      */
-    IETF_PA_ANTI_MALWARE            (4),
+    IETF_PA_ANTI_MALWARE(4),
     /**
      * Firewall component type.
      */
-    IETF_PA_FIREWALL                (5),
+    IETF_PA_FIREWALL(5),
     /**
      * Intrusion detection/prevention component type.
      */
-    IETF_PA_IDPS                    (6),
+    IETF_PA_IDPS(6),
     /**
      * VPN component type.
      */
-    IETF_PA_VPN                     (7),
+    IETF_PA_VPN(7),
     /**
      * NEA client component type.
      */
-    IETF_PA_NEA_CLIENT              (8),
+    IETF_PA_NEA_CLIENT(8),
 
     /**
      * Reserved (not specified in RFC) component type.
      */
-    IETF_PA_RESERVED        (0xffffffff);
+    IETF_PA_RESERVED(0xffffffff);
 
     private long id;
 
@@ -94,5 +95,56 @@ public enum PaComponentTypeEnum {
     public long id() {
         return this.id;
     }
-}
 
+    /**
+     * Returns the type for the given type ID.
+     *
+     * @param id the type ID
+     * @return a type or null
+     */
+    public static PaComponentTypeEnum fromId(final long id) {
+
+        if (id == IETF_PA_TESTING.id) {
+            return IETF_PA_TESTING;
+        }
+
+        if (id == IETF_PA_OPERATING_SYSTEM.id) {
+            return IETF_PA_OPERATING_SYSTEM;
+        }
+
+        if (id == IETF_PA_ANTI_VIRUS.id) {
+            return IETF_PA_ANTI_VIRUS;
+        }
+
+        if (id == IETF_PA_ANTI_SPYWARE.id) {
+            return IETF_PA_ANTI_SPYWARE;
+        }
+
+        if (id == IETF_PA_ANTI_MALWARE.id) {
+            return IETF_PA_ANTI_MALWARE;
+        }
+
+        if (id == IETF_PA_FIREWALL.id) {
+            return IETF_PA_FIREWALL;
+        }
+
+        if (id == IETF_PA_IDPS.id) {
+            return IETF_PA_IDPS;
+        }
+
+        if (id == IETF_PA_VPN.id) {
+            return IETF_PA_VPN;
+        }
+
+        if (id == IETF_PA_NEA_CLIENT.id) {
+            return IETF_PA_NEA_CLIENT;
+        }
+
+        if (id == IETF_PA_RESERVED.id) {
+            return IETF_PA_RESERVED;
+        }
+
+        return null;
+    }
+
+}

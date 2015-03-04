@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.attribute;
 
 /**
- * Enumeration with known attributes used by client and server.
+ * Enumeration of known attributes used by client and server.
  *
  * @author Carl-Heinz Genzel
  *

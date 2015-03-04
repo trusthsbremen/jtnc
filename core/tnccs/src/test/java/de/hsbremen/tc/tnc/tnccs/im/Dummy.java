@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 import org.trustedcomputinggroup.tnc.ifimc.AttributeSupport;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
@@ -277,7 +277,7 @@ public class Dummy extends AbstractDummy{
 
 	
 	public static PbMessage getPaAssessmentResult() throws ValidationException{
-		return PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0], 0, 1, (int)TNCConstants.TNC_IMCID_ANY, 15, new byte[] {1, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 1,
+		return PbMessageFactoryIetf.createIm(new PbMessageImFlagEnum[0], 0, 1, (int)TNCConstants.TNC_IMCID_ANY, 15, new byte[] {1, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 1,
 	            0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 4});
 	}
 	

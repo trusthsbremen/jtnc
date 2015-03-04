@@ -91,7 +91,7 @@ public class ImEvaluatorOsTest {
 	@Test
 	public void testHandleRequest(){
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test handle request with AttributeRequest."));
-		AttributeReference reference = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType());
+		AttributeReference reference = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id());
 		List<ImAttribute> attributes = new ArrayList<>();
 		try{
 			attributes.add(PaAttributeFactoryIetf.createAttributeRequest(reference));

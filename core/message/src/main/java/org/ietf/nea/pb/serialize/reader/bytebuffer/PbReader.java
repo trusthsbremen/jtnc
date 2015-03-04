@@ -151,12 +151,12 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 								}
 
 								// filter messages of type access recommendation and assessment result if batch is not of type result. RFC5793
-								if(mHead.getVendorId() == IETFConstants.IETF_PEN_VENDORID && mHead.getMessageType() == PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType()){
+								if(mHead.getVendorId() == IETFConstants.IETF_PEN_VENDORID && mHead.getMessageType() == PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.id()){
 									if(bHead.getType().equals(PbBatchTypeEnum.RESULT)){
 										msgs.add(new PbMessage(mHead, mValue));
 									}else{
 										try{
-											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
+											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().id()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 											bHead = changedBHeader;
 										}catch(RuleException e2){
 											// the new header is only a convenient process if the creation fails
@@ -164,12 +164,12 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 											LOGGER.warn("The header update for the current batch failed. The old header is left in use.");
 										}	
 									}
-								}else if(mHead.getVendorId() == IETFConstants.IETF_PEN_VENDORID && mHead.getMessageType() == PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType()){
+								}else if(mHead.getVendorId() == IETFConstants.IETF_PEN_VENDORID && mHead.getMessageType() == PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.id()){
 									if(bHead.getType().equals(PbBatchTypeEnum.RESULT)){
 										msgs.add(new PbMessage(mHead, mValue));
 									}else{
 										try{
-											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
+											PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().id()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 											bHead = changedBHeader;
 										}catch(RuleException e2){
 											// the new header is only a convenient process if the creation fails
@@ -197,7 +197,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 								// skip the remaining bytes of the attribute
 								buffer.read(valueLength);
 								try{
-									PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
+									PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().id()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 									bHead = changedBHeader;
 								}catch(RuleException e2){
 									// the new header is only a convenient process if the creation fails
@@ -222,7 +222,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 							// skip the remaining bytes of the attribute
 							buffer.read(valueLength);
 							try{
-								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
+								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().id()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 								bHead = changedBHeader;
 							}catch(RuleException e2){
 								// the new header is only a convenient process if the creation fails
@@ -250,7 +250,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 							fullBuffer.read(mHead.getLength() - (fullBuffer.bytesRead() - headerOffset));
 							
 							try{
-								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().type()).setLength(bHead.getLength() - mHead.getLength()).toObject();
+								PbBatchHeader changedBHeader = (PbBatchHeader)new PbBatchHeaderBuilderIetf().setVersion(bHead.getVersion()).setDirection(bHead.getDirectionality().toDirectionalityBit()).setType(bHead.getType().id()).setLength(bHead.getLength() - mHead.getLength()).toObject();
 								bHead = changedBHeader;
 							}catch(RuleException e2){
 								// the new header is only a convenient process if the creation fails

@@ -20,7 +20,7 @@ public class PbMessageValueRemediationParametersBuilderIetf implements PbMessage
     
     public PbMessageValueRemediationParametersBuilderIetf(){
     	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
-    	this.rpType = PbMessageRemediationParameterTypeEnum.IETF_STRING.type();
+    	this.rpType = PbMessageRemediationParameterTypeEnum.IETF_STRING.id();
     	this.length = PbMessageTlvFixedLengthEnum.REM_PAR_VALUE.length();
     	this.parameter = null;
     }

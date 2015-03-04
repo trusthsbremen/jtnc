@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.im.session.enums;
 
 /**
- * Enumeration with values to switch the message retrieval function.
+ * Enumeration of values to switch the message retrieval function.
  *
  * @author Carl-Heinz Genzel
  *

@@ -51,40 +51,40 @@ public class PaReaderFactory {
 		
 		PaReader reader = new PaReader(mReader, aReader);
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(),
 				(ImReader)new PaAttributeAssessmentResultValueReader(new PaAttributeValueAssessmentResultBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id(),
 				(ImReader)new PaAttributeAttributeRequestValueReader(new PaAttributeValueAttributeRequestBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_FACTORY_DEFAULT_PW_ENABLED.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_FACTORY_DEFAULT_PW_ENABLED.id(),
 				(ImReader)new PaAttributeFactoryDefaultPasswordEnabledValueReader(new PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_FORWARDING_ENABLED.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_FORWARDING_ENABLED.id(),
 				(ImReader)new PaAttributeForwardingEnabledValueReader(new PaAttributeValueForwardingEnabledBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.id(),
 				(ImReader)new PaAttributeInstalledPackagesValueReader(new PaAttributeValueInstalledPackagesBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(),
 				(ImReader)new PaAttributeNumericVersionValueReader(new PaAttributeValueNumericVersionBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_OPERATIONAL_STATUS.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_OPERATIONAL_STATUS.id(),
 				(ImReader)new PaAttributeOperationalStatusValueReader(new PaAttributeValueOperationalStatusBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_PORT_FILTER.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_PORT_FILTER.id(),
 				(ImReader)new PaAttributePortFilterValueReader(new PaAttributeValuePortFilterBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.id(),
 				(ImReader)new PaAttributeProductInformationValueReader(new PaAttributeValueProductInformationBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id(),
 				(ImReader)new PaAttributeStringVersionValueReader(new PaAttributeValueStringVersionBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id(),
 				(ImReader)new PaAttributeAttributeRequestValueReader(new PaAttributeValueAttributeRequestBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID,  PaAttributeTypeEnum.IETF_PA_REMEDIATION_INSTRUCTIONS.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID,  PaAttributeTypeEnum.IETF_PA_REMEDIATION_INSTRUCTIONS.id(),
 				(ImReader)new PaAttributeRemediationParametersValueReader(
 						new PaAttributeValueRemediationParametersBuilderIetf(), 
 						new PaAttributeRemediationParameterStringValueReader(new PaAttributeValueRemediationParameterStringBuilderIetf()),
@@ -92,7 +92,7 @@ public class PaReaderFactory {
 						)
 		);
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID,  PaAttributeTypeEnum.IETF_PA_ERROR.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID,  PaAttributeTypeEnum.IETF_PA_ERROR.id(),
 				(ImReader)new PaAttributeErrorValueReader(
 						new PaAttributeValueErrorBuilderIetf(), 
 						new PaAttributeErrorInformationInvalidParamValueReader(
@@ -120,7 +120,7 @@ public class PaReaderFactory {
 		
 		PaReader reader = (PaReader) createProductionDefault();
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_TESTING.attributeType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_TESTING.id(),
 				(ImReader)new PaAttributeTestingValueReader(new PaAttributeValueTestingBuilderIetf()));
 		
 		return reader;

@@ -47,7 +47,7 @@ public class ClientTransportSocketCLI {
 					connection = new SocketTransportConnection(true, false, socket, 
 							new DefaultTransportAttributes(socket.getInetAddress().getHostAddress(),TcgTProtocolBindingEnum.PLAIN1), 
 							PtTlsWriterFactory.createProductionDefault(), 
-							PtTlsReaderFactory.createProductionDefault(131072), 
+							PtTlsReaderFactory.createProductionDefault(), 
 							Executors.newSingleThreadExecutor());
 					
 					try {

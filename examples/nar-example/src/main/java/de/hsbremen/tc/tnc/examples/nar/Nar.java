@@ -168,16 +168,14 @@ public class Nar {
     public void startHandshake() throws IOException {
         this.socket = new Socket("localhost", NAA_PORT);
 
+        final int estimatedDefaultImCount = 10;
         SocketTransportConnectionBuilder builder =
                 new SocketTransportConnectionBuilder(
                 TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
-                PtTlsReaderFactory.createProductionDefault(MAX_MSG_SIZE));
-
-        final int estimatedDefaultImCount = 10;
-
-        builder.setMessageLength(MAX_MSG_SIZE)
-                .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
+                PtTlsReaderFactory.createProductionDefault())
+            .setMessageLength(MAX_MSG_SIZE)
+            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
         /*
          * Just for info, limiting possible but not done here.
          * builder.setMaxRoundTrips(1);

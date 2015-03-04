@@ -4,7 +4,7 @@ import java.nio.BufferOverflowException;
 import java.util.Set;
 
 import org.ietf.nea.pb.message.PbMessageValueIm;
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
@@ -23,9 +23,9 @@ class PbMessageImValueWriter implements TnccsWriter<PbMessageValueIm>{
 		
 		try{
 			/* flags 8 bit(s) */
-			Set<PbMessageImFlagsEnum> flags = mValue.getImFlags();
+			Set<PbMessageImFlagEnum> flags = mValue.getImFlags();
 			byte bFlags = 0;
-			for (PbMessageImFlagsEnum pbMessageImFlagsEnum : flags) {
+			for (PbMessageImFlagEnum pbMessageImFlagsEnum : flags) {
 				bFlags |= pbMessageImFlagsEnum.bit();
 			}
 			buffer.writeByte(bFlags);

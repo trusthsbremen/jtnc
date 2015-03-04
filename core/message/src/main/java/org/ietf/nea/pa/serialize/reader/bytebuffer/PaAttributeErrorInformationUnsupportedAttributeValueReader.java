@@ -7,7 +7,7 @@ import org.ietf.nea.pa.attribute.PaAttributeHeaderBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttribute;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttributeBuilder;
-import org.ietf.nea.pa.attribute.util.RawMessageHeader;
+import org.ietf.nea.pa.attribute.util.MessageHeaderDump;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -51,7 +51,7 @@ class PaAttributeErrorInformationUnsupportedAttributeValueReader implements ImRe
 				/* copy identifier */
 				long identifier = buffer.readLong((byte)4);
 	
-				builder.setMessageHeader(new RawMessageHeader(version, reserved, identifier));
+				builder.setMessageHeader(new MessageHeaderDump(version, reserved, identifier));
 
 
 				/* max version */

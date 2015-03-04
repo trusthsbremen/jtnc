@@ -26,7 +26,7 @@ public class PtTlsReaderFactory {
     }
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	public static TransportReader<TransportMessageContainer> createProductionDefault(long maxMessageSize){
+	public static TransportReader<TransportMessageContainer> createProductionDefault(){
 
 		/* 
 		 * TODO Remove raw types and unchecked conversion.
@@ -36,26 +36,26 @@ public class PtTlsReaderFactory {
 		 */
 	
 		
-		PtTlsMessageHeaderReader mReader = new PtTlsMessageHeaderReader(new PtTlsMessageHeaderBuilderIetf(maxMessageSize));
+		PtTlsMessageHeaderReader mReader = new PtTlsMessageHeaderReader(new PtTlsMessageHeaderBuilderIetf());
 		
 		
 		PtTlsReader reader = new PtTlsReader(mReader);
 
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_REQUEST.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_REQUEST.id(),
 				(TransportReader)new PtTlsMessageVersionRequestValueReader(new PtTlsMessageValueVersionRequestBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_RESPONSE.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_RESPONSE.id(),
 				(TransportReader)new PtTlsMessageVersionResponseValueReader(new PtTlsMessageValueVersionResponseBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_PB_BATCH.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_PB_BATCH.id(),
 		(TransportReader)new PtTlsMessagePbBatchValueReader(new PtTlsMessageValuePbBatchBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.id(),
 				(TransportReader)new PtTlsMessageErrorValueReader(new PtTlsMessageValueErrorBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISMS.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISMS.id(),
 				(TransportReader)new PtTlsMessageSaslMechanismsValueReader(new PtTlsMessageValueSaslMechanismsBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISM_SELECTION.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISM_SELECTION.id(),
 				(TransportReader)new PtTlsMessageSaslMechanismSelectionValueReader(new PtTlsMessageValueSaslMechanismSelectionBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_AUTHENTICATION_DATA.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_AUTHENTICATION_DATA.id(),
 				(TransportReader)new PtTlsMessageSaslAuthenticationDataValueReader(new PtTlsMessageValueSaslAuthenticationDataBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_RESULT.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_RESULT.id(),
 				(TransportReader)new PtTlsMessageSaslResultValueReader(new PtTlsMessageValueSaslResultBuilderIetf()));
 		
 		
@@ -72,9 +72,9 @@ public class PtTlsReaderFactory {
 		 * else can.
 		 */
 		
-		PtTlsReader reader = (PtTlsReader) createProductionDefault(maxMessageSize);
+		PtTlsReader reader = (PtTlsReader) createProductionDefault();
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_EXERIMENTAL.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_EXERIMENTAL.id(),
 				(TransportReader)new PtTlsMessageExperimentalValueReader( new PtTlsMessageValueExperimentalBuilderIetf()));
 		
 		return reader;

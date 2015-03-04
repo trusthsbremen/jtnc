@@ -15,14 +15,14 @@ public class PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf implements
 	
 	public PaAttributeValueFactoryDefaultPasswordEnabledBuilderIetf(){
 		this.length = PaAttributeTlvFixedLengthEnum.FAC_PW.length();
-		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.IETF_NOT_SET;
+		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.NOT_SET;
 	}
 
 	@Override
 	public PaAttributeValueFactoryDefaultPasswordEnabledBuilder setStatus(long status) throws RuleException {
 		
 		FactoryDefaultPasswordStatus.check(status);
-		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.fromNumber(status);
+		this.status = PaAttributeFactoryDefaultPasswordStatusEnum.fromId(status);
 		
 		return this;
 	}

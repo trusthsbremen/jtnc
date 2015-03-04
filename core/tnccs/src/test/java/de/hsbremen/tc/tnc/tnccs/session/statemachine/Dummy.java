@@ -11,7 +11,7 @@ import org.ietf.nea.pb.message.PbMessage;
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
@@ -84,7 +84,7 @@ public class Dummy extends AbstractDummy{
 	protected static PbBatch getClientDataBatchWithImMessage() throws ValidationException{
 		
 		
-		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		PbMessageImFlagEnum[] imFlags = new PbMessageImFlagEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
 		short collectorId = 1;
@@ -173,7 +173,7 @@ public class Dummy extends AbstractDummy{
 
 	protected static TnccsBatch getServerDataBatch() throws ValidationException{
 
-		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		PbMessageImFlagEnum[] imFlags = new PbMessageImFlagEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
 		short collectorId = (short)0xFFFF;
@@ -187,7 +187,7 @@ public class Dummy extends AbstractDummy{
 	
 	protected static TnccsBatch getServerResultBatch() throws ValidationException{
 
-		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		PbMessageImFlagEnum[] imFlags = new PbMessageImFlagEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
 		short collectorId = (short)0xFFFF;
@@ -239,7 +239,7 @@ public class Dummy extends AbstractDummy{
 				if(handShakeBegin){
 					Random r = new Random();
 					try {
-						PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
+						PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
 						messages.add(m);
 					} catch (ValidationException e) {
 						// TODO Auto-generated catch block
@@ -298,7 +298,7 @@ public class Dummy extends AbstractDummy{
 				if(handShakeBegin){
 					Random r = new Random();
 					try {
-						PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
+						PbMessage m = PbMessageFactoryIetf.createIm(new PbMessageImFlagEnum[0],r.nextInt(10) , r.nextInt(4), (short)r.nextInt(7), (short)r.nextInt(7), new byte[0]);
 						messages.add(m);
 					} catch (ValidationException e) {
 						// TODO Auto-generated catch block
@@ -333,7 +333,7 @@ public class Dummy extends AbstractDummy{
 	}
 
 	public static TnccsBatch getClientDataBatch() throws ValidationException{
-		PbMessageImFlagsEnum[] imFlags = new PbMessageImFlagsEnum[0];
+		PbMessageImFlagEnum[] imFlags = new PbMessageImFlagEnum[0];
 		long subVendorId = IETFConstants.IETF_PEN_VENDORID;
 		long subType = 1L;
 		short collectorId = 1;

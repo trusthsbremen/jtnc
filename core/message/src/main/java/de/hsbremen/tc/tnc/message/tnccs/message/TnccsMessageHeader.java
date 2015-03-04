@@ -49,4 +49,9 @@ public interface TnccsMessageHeader extends TnccsData {
      */
     long getMessageType();
 
+    /**
+     * Returns the message length.
+     * @return the message length
+     */
+    long getLength();
 }

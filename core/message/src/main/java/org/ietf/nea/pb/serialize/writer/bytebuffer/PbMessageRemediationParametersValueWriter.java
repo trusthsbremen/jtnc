@@ -54,10 +54,10 @@ class PbMessageRemediationParametersValueWriter implements TnccsWriter<PbMessage
 		long rpMessageType = mValue.getRpType();
 		
 		if(rpVendor == IETFConstants.IETF_PEN_VENDORID){
-	       	if(rpMessageType == PbMessageRemediationParameterTypeEnum.IETF_STRING.type()){
+	       	if(rpMessageType == PbMessageRemediationParameterTypeEnum.IETF_STRING.id()){
 	       		this.stringWriter.write((PbMessageValueRemediationParameterString)mValue.getParameter(), buffer);
 	       		
-	       	}else if(rpMessageType == PbMessageRemediationParameterTypeEnum.IETF_URI.type()){
+	       	}else if(rpMessageType == PbMessageRemediationParameterTypeEnum.IETF_URI.id()){
 	       		this.uriWriter.write((PbMessageValueRemediationParameterUri)mValue.getParameter(), buffer);
 	       	} else {
 				throw new SerializationException(

@@ -31,21 +31,21 @@ public class PtTlsWriterFactory {
 		
 		PtTlsWriter writer = new PtTlsWriter(mWriter);
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_REQUEST.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_REQUEST.id(),
 		(TransportWriter)new PtTlsMessageVersionRequestValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_RESPONSE.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_RESPONSE.id(),
 				(TransportWriter)new PtTlsMessageVersionResponseValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_PB_BATCH.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_PB_BATCH.id(),
 				(TransportWriter)new PtTlsMessagePbBatchValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.id(),
 				(TransportWriter)new PtTlsMessageErrorValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISMS.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISMS.id(),
 				(TransportWriter)new PtTlsMessageSaslMechanismsValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISM_SELECTION.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISM_SELECTION.id(),
 				(TransportWriter)new PtTlsMessageSaslMechanismSelectionValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_AUTHENTICATION_DATA.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_AUTHENTICATION_DATA.id(),
 				(TransportWriter)new PtTlsMessageSaslAutenticationDataValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_RESULT.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_RESULT.id(),
 				(TransportWriter)new PtTlsMessageSaslResultValueWriter());
 		
 		return writer;
@@ -63,7 +63,7 @@ public class PtTlsWriterFactory {
 		
 		PtTlsWriter writer = (PtTlsWriter) createProductionDefault();
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_EXERIMENTAL.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PtTlsMessageTypeEnum.IETF_PT_TLS_EXERIMENTAL.id(),
 				(TransportWriter)new PtTlsMessageExperimentalValueWriter());
 		
 		return writer;

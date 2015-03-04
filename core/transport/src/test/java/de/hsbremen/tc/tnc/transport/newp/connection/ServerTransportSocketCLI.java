@@ -102,7 +102,7 @@ public class ServerTransportSocketCLI {
 					TransportConnection con = new SocketTransportConnection(false, true, socket, 
 							new DefaultTransportAttributes(socket.getInetAddress().getHostAddress(),TcgTProtocolBindingEnum.PLAIN1), 
 							PtTlsWriterFactory.createProductionDefault(), 
-							PtTlsReaderFactory.createProductionDefault(131072), 
+							PtTlsReaderFactory.createProductionDefault(), 
 							Executors.newSingleThreadExecutor());
 					try {
 						System.out.println("Try to open connection.");

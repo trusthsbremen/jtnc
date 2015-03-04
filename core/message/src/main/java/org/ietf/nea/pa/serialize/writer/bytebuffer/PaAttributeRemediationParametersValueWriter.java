@@ -56,10 +56,10 @@ class PaAttributeRemediationParametersValueWriter implements ImWriter<PaAttribut
 		long rpMessageType = mValue.getRpType();
 		
 		if(rpVendor == IETFConstants.IETF_PEN_VENDORID){
-	       	if(rpMessageType == PaAttributeRemediationParameterTypeEnum.IETF_STRING.type()){
+	       	if(rpMessageType == PaAttributeRemediationParameterTypeEnum.IETF_STRING.id()){
 	       		this.stringWriter.write((PaAttributeValueRemediationParameterString)mValue.getParameter(), buffer);
 	       		
-	       	}else if(rpMessageType == PaAttributeRemediationParameterTypeEnum.IETF_URI.type()){
+	       	}else if(rpMessageType == PaAttributeRemediationParameterTypeEnum.IETF_URI.id()){
 	       		this.uriWriter.write((PaAttributeValueRemediationParameterUri)mValue.getParameter(), buffer);
 	       	} else {
 				throw new SerializationException(

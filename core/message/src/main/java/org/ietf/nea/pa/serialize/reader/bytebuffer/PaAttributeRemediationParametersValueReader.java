@@ -70,11 +70,11 @@ class PaAttributeRemediationParametersValueReader implements ImReader<PaAttribut
 			// value length = overall message length - header length
 			long valueLength = messageLength - PaAttributeTlvFixedLengthEnum.REM_PAR.length();
 
-			if(rpType == PaAttributeRemediationParameterTypeEnum.IETF_URI.type()){
+			if(rpType == PaAttributeRemediationParameterTypeEnum.IETF_URI.id()){
 				PaAttributeValueRemediationParameterUri paramUri = this.uriReader.read(buffer, valueLength);
 				builder.setParameter(paramUri);
 					
-			}else if(rpType == PaAttributeRemediationParameterTypeEnum.IETF_STRING.type()){
+			}else if(rpType == PaAttributeRemediationParameterTypeEnum.IETF_STRING.id()){
 				PaAttributeValueRemediationParameterString paramString = this.stringReader.read(buffer, valueLength);
 			    builder.setParameter(paramString);
 			}else{

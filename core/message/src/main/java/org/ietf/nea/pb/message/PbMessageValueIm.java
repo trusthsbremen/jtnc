@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 
 /**
  * Reference IETF RFC 5793 section 4.5:
@@ -45,7 +45,7 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
 
     private static final boolean OMMITTABLE = Boolean.FALSE;
     
-    private final EnumSet<PbMessageImFlagsEnum> imFlags; //  8 bit(s)
+    private final EnumSet<PbMessageImFlagEnum> imFlags; //  8 bit(s)
    
     private final long subVendorId;                                           // 24 bit(s)
     private final long subType;                                               // 32 bit(s)
@@ -57,14 +57,14 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
    
     
     
-    PbMessageValueIm(final PbMessageImFlagsEnum[] flags, final long subVendorId, final long subType,
+    PbMessageValueIm(final PbMessageImFlagEnum[] flags, final long subVendorId, final long subType,
 			final long collectorId, final long validatorId, final long length, final byte[] message) {
 		super(length, OMMITTABLE);
 		
 		if(flags != null && flags.length > 0){
 	        	this.imFlags = EnumSet.copyOf(Arrays.asList(flags));
 	    }else{
-	    	this.imFlags = EnumSet.noneOf(PbMessageImFlagsEnum.class);
+	    	this.imFlags = EnumSet.noneOf(PbMessageImFlagEnum.class);
 	    }
 		this.subVendorId = subVendorId;
 		this.subType = subType;
@@ -75,7 +75,7 @@ public class PbMessageValueIm extends AbstractPbMessageValue{
 	/**
      * @return the flags
      */
-    public Set<PbMessageImFlagsEnum> getImFlags() {
+    public Set<PbMessageImFlagEnum> getImFlags() {
         return Collections.unmodifiableSet(imFlags);
     }
 

@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.attribute;
 
 /**
- * Enumeration with known client-only attributes.
+ * Enumeration of known client-only attributes.
  *
  * @author Carl-Heinz Genzel
  *

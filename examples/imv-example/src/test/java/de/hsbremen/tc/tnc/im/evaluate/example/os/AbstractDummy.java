@@ -1,12 +1,11 @@
 package de.hsbremen.tc.tnc.im.evaluate.example.os;
 
-import org.apache.log4j.BasicConfigurator;
 
 public abstract class AbstractDummy {
 	
 	
 	public static final void setLogSettings(){
-		BasicConfigurator.configure();
+//		BasicConfigurator.configure();
 	}
 	
 	public static String getTestDescriptionHead(String className, String head){

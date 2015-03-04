@@ -26,7 +26,7 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine.enums;
 
 /**
  *
- * Enumeration with state names.
+ * Enumeration of state names.
  *
  * @author Carl-Heinz Genzel
  *

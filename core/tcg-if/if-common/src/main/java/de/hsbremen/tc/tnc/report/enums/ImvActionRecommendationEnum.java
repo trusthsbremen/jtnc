@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.report.enums;
 
 /**
- * Enumeration with known action recommendations from an IMV.
+ * Enumeration of known action recommendations from an IMV.
  *
  * @author Carl-Heinz Genzel
  *

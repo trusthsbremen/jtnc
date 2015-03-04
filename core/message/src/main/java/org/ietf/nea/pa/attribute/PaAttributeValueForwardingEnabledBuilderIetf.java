@@ -15,14 +15,14 @@ public class PaAttributeValueForwardingEnabledBuilderIetf implements
 	
 	public PaAttributeValueForwardingEnabledBuilderIetf(){
 		this.length = PaAttributeTlvFixedLengthEnum.FWD_EN.length();
-		this.status = PaAttributeForwardingStatusEnum.IETF_UNKNWON;
+		this.status = PaAttributeForwardingStatusEnum.UNKNWON;
 	}
 
 	@Override
 	public PaAttributeValueForwardingEnabledBuilder setStatus(long status) throws RuleException {
 		
 		ForwardingStatus.check(status);
-		this.status = PaAttributeForwardingStatusEnum.fromNumber(status);
+		this.status = PaAttributeForwardingStatusEnum.fromId(status);
 		
 		return this;
 	}

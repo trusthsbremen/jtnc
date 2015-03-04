@@ -151,17 +151,17 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
                 if (attributeReference.getVendorId() == 0) {
                     if (attributeReference.getType()
                             == PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION
-                            .attributeType()) {
+                            .id()) {
                         attributeList.add(this
                                 .getProductInformation(systemDescription));
                     } else if (attributeReference.getType()
                             == PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION
-                            .attributeType()) {
+                            .id()) {
                         attributeList.add(this
                                 .getNumericVersion(systemDescription));
                     } else if (attributeReference.getType()
                             == PaAttributeTypeEnum.IETF_PA_STRING_VERSION
-                            .attributeType()) {
+                            .id()) {
                         attributeList.add(this
                                 .getStringVersion(systemDescription));
                     }
@@ -220,7 +220,7 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
             final PaAttributeValueAssessmentResult value,
             final ImSessionContext context) {
         LOGGER.info("Assessment result is: " + value.getResult().toString()
-                + " - (# " + value.getResult().number() + ")");
+                + " - (# " + value.getResult().id() + ")");
         return new ArrayList<>(0);
     }
 

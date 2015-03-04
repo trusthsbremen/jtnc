@@ -31,30 +31,30 @@ public class PbWriterFactory {
 		
 		PbWriter writer = new PbWriter(bWriter, mWriter);
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.id(),
 		(TnccsWriter)new PbMessageImValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.id(),
 		(TnccsWriter)new PbMessageReasonStringValueWriter());
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.id(),
 				(TnccsWriter)new PbMessageAccessRecommendationValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType(), 
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.id(), 
 				(TnccsWriter)new PbMessageAssessmentResultValueWriter());
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.id(),
 				(TnccsWriter)new PbMessageLanguagePreferenceValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.id(),
 				(TnccsWriter)new PbMessageImValueWriter());
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.id(),
 				(TnccsWriter)new PbMessageReasonStringValueWriter());
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ERROR.messageType(), 
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ERROR.id(), 
 				(TnccsWriter)new PbMessageErrorValueWriter(
 						new PbMessageErrorParameterOffsetSubValueWriter(), 
 						new PbMessageErrorParameterVersionSubValueWriter()
 						));
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.id(),
 				(TnccsWriter)new PbMessageRemediationParametersValueWriter(
 						new PbMessageRemediationParameterStringSubValueWriter(),
 						new PbMessageRemediationParameterUriSubValueWriter()
@@ -78,7 +78,7 @@ public class PbWriterFactory {
 		
 		PbWriter writer = (PbWriter) createProductionDefault();
 		
-		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.messageType(),
+		writer.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.id(),
 				(TnccsWriter)new PbMessageExperimentalValueWriter());
 		
 		return writer;

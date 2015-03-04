@@ -135,7 +135,7 @@ public class TestData {
 	
 	public PaMessage getMessageWithAttributeRequest() throws ValidationException{
 		
-		AttributeReference ref1 = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.attributeType());
+		AttributeReference ref1 = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id());
 		
 		PaAttribute a = PaAttributeFactoryIetf.createAttributeRequest(ref1);
 		List<PaAttribute> attributes = new ArrayList<>();

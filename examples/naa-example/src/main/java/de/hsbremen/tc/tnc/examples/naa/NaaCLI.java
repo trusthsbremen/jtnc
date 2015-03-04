@@ -31,7 +31,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.BasicConfigurator;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
 
 /**
@@ -51,8 +50,6 @@ public abstract class NaaCLI {
      * @param args the main arguments
      */
     public static void main(final String[] args) {
-        // LOGGER
-        BasicConfigurator.configure();
 
         Naa naa = new Naa();
 

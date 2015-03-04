@@ -135,7 +135,7 @@ public class FileImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
                 if (attributeReference.getVendorId() == 0) {
                     if (attributeReference.getType()
                             == PaAttributeTypeEnum.IETF_PA_TESTING
-                            .attributeType()) {
+                            .id()) {
 
                         attributeList.add(this.getFileHash());
                     }
@@ -191,7 +191,7 @@ public class FileImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
             final ImSessionContext context) {
 
         LOGGER.info("Assessment result is: " + value.getResult().toString()
-                + " - (# " + value.getResult().number() + ")");
+                + " - (# " + value.getResult().id() + ")");
         return new ArrayList<>(0);
     }
 

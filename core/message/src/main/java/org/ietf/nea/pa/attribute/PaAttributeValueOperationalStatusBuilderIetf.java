@@ -26,8 +26,8 @@ public class PaAttributeValueOperationalStatusBuilderIetf implements
 	
 	public PaAttributeValueOperationalStatusBuilderIetf(){
 		this.length = PaAttributeTlvFixedLengthEnum.OP_STAT.length();
-		this.status = PaAttributeOperationStatusEnum.IETF_UNKNOWN;
-		this.result = PaAttributeOperationLastResultEnum.IETF_UNKNOWN;
+		this.status = PaAttributeOperationStatusEnum.UNKNOWN;
+		this.result = PaAttributeOperationLastResultEnum.UNKNOWN;
 		this.lastUse = null;
 		
 		this.dateFormater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -37,13 +37,13 @@ public class PaAttributeValueOperationalStatusBuilderIetf implements
 	@Override
 	public void setStatus(short status) {
 		// defaults to unknown
-		this.status = PaAttributeOperationStatusEnum.fromNumber(status);
+		this.status = PaAttributeOperationStatusEnum.fromId(status);
 	}
 
 	@Override
 	public void setResult(short result) {
 		// defaults to unknown
-		this.result = PaAttributeOperationLastResultEnum.fromNumber(result);
+		this.result = PaAttributeOperationLastResultEnum.fromCode(result);
 	}
 
 	@Override

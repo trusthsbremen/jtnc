@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.tnccs.client.enums;
 
 /**
- * Enumeration with connection changes.
+ * Enumeration of connection changes.
  *
  * @author Carl-Heinz Genzel
  *

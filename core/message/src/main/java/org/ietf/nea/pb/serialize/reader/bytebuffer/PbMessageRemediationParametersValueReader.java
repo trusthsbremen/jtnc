@@ -71,11 +71,11 @@ class PbMessageRemediationParametersValueReader implements TnccsReader<PbMessage
 			long valueLength = messageLength - this.getMinDataLength();
 
 
-			if(rpType == PbMessageRemediationParameterTypeEnum.IETF_URI.type()){
+			if(rpType == PbMessageRemediationParameterTypeEnum.IETF_URI.id()){
 				PbMessageValueRemediationParameterUri paramUri = this.uriReader.read(buffer, valueLength);
 				builder.setParameter(paramUri);
 				
-			}else if(rpType == PbMessageRemediationParameterTypeEnum.IETF_STRING.type()){
+			}else if(rpType == PbMessageRemediationParameterTypeEnum.IETF_STRING.id()){
 				PbMessageValueRemediationParameterString paramString = this.stringReader.read(buffer, valueLength);
 			    builder.setParameter(paramString);
 			}else{

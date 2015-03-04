@@ -5,7 +5,7 @@ public class PaAttributeValueErrorInformationInvalidParam extends AbstractPaAttr
   
     private final long offset;
 
-	PaAttributeValueErrorInformationInvalidParam(final long length, final RawMessageHeader messageHeader, final long offset) {
+	PaAttributeValueErrorInformationInvalidParam(final long length, final MessageHeaderDump messageHeader, final long offset) {
 		super(length, messageHeader);
 		this.offset = offset;
 	}

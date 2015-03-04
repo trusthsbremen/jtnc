@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 
 import org.ietf.nea.pb.message.PbMessageFactoryIetf;
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 import org.trustedcomputinggroup.tnc.ifimc.IMCConnectionLong;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import org.trustedcomputinggroup.tnc.ifimc.TNCException;
@@ -80,7 +80,7 @@ class ImcConnectionAdapterIetfLong extends ImcConnectionAdapterIetf implements
 
         TnccsMessage m = null;
         try {
-            m = PbMessageFactoryIetf.createIm(new PbMessageImFlagsEnum[0],
+            m = PbMessageFactoryIetf.createIm(new PbMessageImFlagEnum[0],
                     messageVendorID, messageSubtype, (int) sourceIMCID,
                     (int) destinationIMVID, message);
 

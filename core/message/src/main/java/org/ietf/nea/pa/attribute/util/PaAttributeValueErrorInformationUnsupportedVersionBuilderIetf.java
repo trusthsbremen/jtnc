@@ -7,19 +7,19 @@ public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf imple
 	
 	
 	private long length;
-	private RawMessageHeader messageHeader;
+	private MessageHeaderDump messageHeader;
 	private short maxVersion;
 	private short minVersion;
 	
 	public PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf(){
 		this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 4; // 4 = min + max version
-		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
+		this.messageHeader = new MessageHeaderDump((short)0, new byte[0], 0L);
 		this.minVersion = 0;
 		this.maxVersion = 0;
 	}
 
 	@Override
-	public void setMessageHeader(RawMessageHeader messageHeader) {
+	public void setMessageHeader(MessageHeaderDump messageHeader) {
 		if(messageHeader != null){
 			this.messageHeader = messageHeader;
 		}

@@ -32,7 +32,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.BasicConfigurator;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
 
 /**
@@ -51,9 +50,6 @@ public abstract class NarCLI {
      * @param args the main arguments
      */
     public static void main(final String[] args) {
-        // LOGGER
-        BasicConfigurator.configure();
-
         Nar nar = new Nar();
 
         String input = "";

@@ -4,7 +4,7 @@ import java.nio.BufferOverflowException;
 import java.util.Set;
 
 import org.ietf.nea.pb.message.PbMessageHeader;
-import org.ietf.nea.pb.message.enums.PbMessageFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageFlagEnum;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
@@ -23,9 +23,9 @@ class PbMessageHeaderWriter implements TnccsWriter<PbMessageHeader>{
 		
 		try{
 			/* flags 8 bit(s) */
-			Set<PbMessageFlagsEnum> flags = mHead.getFlags();
+			Set<PbMessageFlagEnum> flags = mHead.getFlags();
 			byte bFlags = 0;
-			for (PbMessageFlagsEnum pbMessageFlagsEnum : flags) {
+			for (PbMessageFlagEnum pbMessageFlagsEnum : flags) {
 				bFlags |= pbMessageFlagsEnum.bit();
 			}
 			buffer.writeByte(bFlags);

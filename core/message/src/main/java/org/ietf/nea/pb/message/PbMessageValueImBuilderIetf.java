@@ -1,6 +1,6 @@
 package org.ietf.nea.pb.message;
 
-import org.ietf.nea.pb.message.enums.PbMessageImFlagsEnum;
+import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import org.ietf.nea.pb.validate.rules.ImIdLimits;
 import org.ietf.nea.pb.validate.rules.ImMessageTypeReservedAndLimits;
@@ -11,7 +11,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 
-	private PbMessageImFlagsEnum[] imFlags; //  8 bit(s)
+	private PbMessageImFlagEnum[] imFlags; //  8 bit(s)
 	   
     private long subVendorId;                                           // 24 bit(s)
     private long subType;                                               // 32 bit(s)
@@ -22,7 +22,7 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
     private byte[] message; //ImMessage as byte[]
 
     public PbMessageValueImBuilderIetf(){
-    	this.imFlags = new PbMessageImFlagsEnum[0];
+    	this.imFlags = new PbMessageImFlagEnum[0];
     	this.subVendorId = IETFConstants.IETF_PEN_VENDORID;
     	this.subType = 0;
     	this.collectorId = TNCConstants.TNC_IMCID_ANY;
@@ -34,8 +34,8 @@ public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
 	@Override
 	public PbMessageValueImBuilder setImFlags(byte imFlags) {
 		
-		if ((byte)(imFlags & 0x80)  == PbMessageImFlagsEnum.EXCL.bit()) {
-			this.imFlags = new PbMessageImFlagsEnum[]{PbMessageImFlagsEnum.EXCL};
+		if ((byte)(imFlags & 0x80)  == PbMessageImFlagEnum.EXCL.bit()) {
+			this.imFlags = new PbMessageImFlagEnum[]{PbMessageImFlagEnum.EXCL};
 		}
 		
 		return this;

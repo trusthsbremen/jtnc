@@ -47,4 +47,9 @@ public interface ImAttributeHeader extends ImData {
      */
     long getAttributeType();
 
+    /**
+     * Returns the attribute length.
+     * @return the attribute length
+     */
+    long getLength();
 }

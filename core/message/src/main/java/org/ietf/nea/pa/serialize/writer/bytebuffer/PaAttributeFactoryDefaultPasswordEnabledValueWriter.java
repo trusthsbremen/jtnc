@@ -23,7 +23,7 @@ class PaAttributeFactoryDefaultPasswordEnabledValueWriter implements ImWriter<Pa
 		try{
 
 			/* factory default password status */
-			buffer.writeUnsignedInt(aValue.getFactoryDefaultPasswordStatus().status());
+			buffer.writeUnsignedInt(aValue.getFactoryDefaultPasswordStatus().id());
 		
 		}catch(BufferOverflowException e){
 			throw new SerializationException(

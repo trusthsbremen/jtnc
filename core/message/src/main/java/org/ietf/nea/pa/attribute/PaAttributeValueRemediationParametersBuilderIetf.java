@@ -20,7 +20,7 @@ public class PaAttributeValueRemediationParametersBuilderIetf implements PaAttri
     
     public PaAttributeValueRemediationParametersBuilderIetf(){
     	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
-    	this.rpType = PaAttributeRemediationParameterTypeEnum.IETF_STRING.type();
+    	this.rpType = PaAttributeRemediationParameterTypeEnum.IETF_STRING.id();
     	this.length = PaAttributeTlvFixedLengthEnum.REM_PAR.length();
     	this.parameter = null;
     }

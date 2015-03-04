@@ -253,7 +253,7 @@ public class FileImvEvaluationUnit extends AbstractImEvaluationUnitIetf
         return PaAttributeFactoryIetf
                 .createAttributeRequest(new AttributeReference(
                         IETFConstants.IETF_PEN_VENDORID,
-                        PaAttributeTypeEnum.IETF_PA_TESTING.attributeType()));
+                        PaAttributeTypeEnum.IETF_PA_TESTING.id()));
     }
 
 }

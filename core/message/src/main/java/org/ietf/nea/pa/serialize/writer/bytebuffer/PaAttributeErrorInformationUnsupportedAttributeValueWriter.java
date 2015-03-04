@@ -4,7 +4,7 @@ import java.nio.BufferOverflowException;
 import java.util.Set;
 
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
-import org.ietf.nea.pa.attribute.enums.PaAttributeFlagsEnum;
+import org.ietf.nea.pa.attribute.enums.PaAttributeFlagEnum;
 import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationUnsupportedAttribute;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -39,9 +39,9 @@ class PaAttributeErrorInformationUnsupportedAttributeValueWriter implements ImWr
 			PaAttributeHeader aHead = aValue.getAttributeHeader();
 			
 			/* flags 8 bit(s) */
-			Set<PaAttributeFlagsEnum> flags = aHead.getFlags();
+			Set<PaAttributeFlagEnum> flags = aHead.getFlags();
 			byte bFlags = 0;
-			for (PaAttributeFlagsEnum paAttributeFlagsEnum : flags) {
+			for (PaAttributeFlagEnum paAttributeFlagsEnum : flags) {
 				bFlags |= paAttributeFlagsEnum.bit();
 			}
 			buffer.writeByte(bFlags);

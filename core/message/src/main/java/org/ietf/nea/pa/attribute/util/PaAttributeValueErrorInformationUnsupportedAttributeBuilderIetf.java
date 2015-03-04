@@ -9,7 +9,7 @@ public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf imp
 	
 	
 	private long length;
-	private RawMessageHeader messageHeader;
+	private MessageHeaderDump messageHeader;
 	private PaAttributeHeader attributeHeader;
 
 	
@@ -18,12 +18,12 @@ public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf imp
 				PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 
 				PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length() - 4; // -4 = attribute length is ignored
 		
-		this.messageHeader = new RawMessageHeader((short)0, new byte[0], 0L);
+		this.messageHeader = new MessageHeaderDump((short)0, new byte[0], 0L);
 		this.attributeHeader = new PaAttributeHeaderBuilderIetf().toObject();
 	}
 
 	@Override
-	public void setMessageHeader(RawMessageHeader messageHeader) {
+	public void setMessageHeader(MessageHeaderDump messageHeader) {
 		if(messageHeader != null){
 			this.messageHeader = messageHeader;
 		}

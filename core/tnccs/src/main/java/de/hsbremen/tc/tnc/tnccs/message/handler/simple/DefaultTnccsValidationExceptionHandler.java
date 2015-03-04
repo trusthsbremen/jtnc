@@ -184,7 +184,6 @@ public class DefaultTnccsValidationExceptionHandler implements
                         .createErrorVersion(
                                 new PbMessageErrorFlagsEnum[]
                                         {PbMessageErrorFlagsEnum.FATAL},
-                                PbMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION,
                                 actual, maxVersion, minVersion);
 
             } else {

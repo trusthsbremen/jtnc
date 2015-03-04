@@ -6,7 +6,7 @@ public interface PaAttributeValueErrorInformationInvalidParamBuilder extends PaA
 	/**
 	 * @param messageHeader the messageHeader to set
 	 */
-	public abstract void setMessageHeader(RawMessageHeader messageHeader);
+	public abstract void setMessageHeader(MessageHeaderDump messageHeader);
 	
 
 	/**

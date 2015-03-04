@@ -19,12 +19,12 @@ public class BatchResultWithoutMessageAssessmentResult {
 		}
 		if(messages != null){
 			for (Object pbMessage : messages) {
-				if(((PbMessage)pbMessage).getHeader().getVendorId() == IETFConstants.IETF_PEN_VENDORID && ((PbMessage) pbMessage).getHeader().getMessageType() ==  PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType()){
+				if(((PbMessage)pbMessage).getHeader().getVendorId() == IETFConstants.IETF_PEN_VENDORID && ((PbMessage) pbMessage).getHeader().getMessageType() ==  PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.id()){
 					return;
 				}
 			}
 		}
-		throw new RuleException("The batch of type " + type.toString() + " must contain a message with vendor id " + IETFConstants.IETF_PEN_VENDORID + " and message type " + PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType() + ".", true, PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(), PbErrorCauseEnum.BATCH_RESULT_NO_ASSESSMENT_RESULT.number(), 
+		throw new RuleException("The batch of type " + type.toString() + " must contain a message with vendor id " + IETFConstants.IETF_PEN_VENDORID + " and message type " + PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.id() + ".", true, PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(), PbErrorCauseEnum.BATCH_RESULT_NO_ASSESSMENT_RESULT.number(), 
 				type.toString(), IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.toString());
 	}
 }

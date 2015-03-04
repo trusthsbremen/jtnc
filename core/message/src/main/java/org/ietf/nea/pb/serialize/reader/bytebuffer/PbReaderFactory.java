@@ -46,31 +46,31 @@ public class PbReaderFactory {
 		PbReader reader = new PbReader(bReader, mReader);
 
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.id(),
 		(TnccsReader)new PbMessageImValueReader(new PbMessageValueImBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.id(),
 		(TnccsReader)new PbMessageReasonStringValueReader(new PbMessageValueReasonStringBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.id(),
 				(TnccsReader)new PbMessageAccessRecommendationValueReader(new PbMessageValueAccessRecommendationBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType(), 
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.id(), 
 				(TnccsReader)new PbMessageAssessmentResultValueReader(new PbMessageValueAssessmentResultBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_LANGUAGE_PREFERENCE.id(),
 				(TnccsReader)new PbMessageLanguagePreferenceValueReader(new PbMessageValueLanguagePreferenceBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_PA.id(),
 				(TnccsReader)new PbMessageImValueReader(new PbMessageValueImBuilderIetf()));
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REASON_STRING.id(),
 				(TnccsReader)new PbMessageReasonStringValueReader(new PbMessageValueReasonStringBuilderIetf()));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ERROR.messageType(), 
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_ERROR.id(), 
 				(TnccsReader)new PbMessageErrorValueReader(
 						new PbMessageValueErrorBuilderIetf(), 
 						new PbMessageErrorParameterOffsetSubValueReader(new PbMessageValueErrorParameterOffsetBuilderIetf()),
 						new PbMessageErrorParameterVersionSubValueReader(new PbMessageValueErrorParameterVersionBuilderIetf())
 						));
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_REMEDIATION_PARAMETERS.id(),
 				(TnccsReader)new PbMessageRemediationParametersValueReader(
 						new PbMessageValueRemediationParametersBuilderIetf(), 
 						new PbMessageRemediationParameterStringSubValueReader(new PbMessageValueRemediationParameterStringBuilderIetf()),
@@ -95,7 +95,7 @@ public class PbReaderFactory {
 		
 		PbReader reader = (PbReader) createProductionDefault();
 		
-		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.messageType(),
+		reader.add(IETFConstants.IETF_PEN_VENDORID, PbMessageTypeEnum.IETF_PB_EXPERIMENTAL.id(),
 				(TnccsReader)new PbMessageExperimentalValueReader( new PbMessageValueExperimentalBuilderIetf()));
 		
 		return reader;

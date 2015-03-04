@@ -25,7 +25,7 @@
 package de.hsbremen.tc.tnc.attribute;
 
 /**
- * Enumeration with additional attributes used by this implementation.
+ * Enumeration of additional attributes used by this implementation.
  *
  * @author Carl-Heinz Genzel
  *

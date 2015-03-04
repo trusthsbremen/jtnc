@@ -23,7 +23,7 @@ class PtTlsMessageSaslResultValueWriter implements TransportWriter<PtTlsMessageV
 		try{
 	
 			/* result 16 bit(s) */
-			buffer.writeUnsignedShort(mValue.getResult().code());
+			buffer.writeUnsignedShort(mValue.getResult().id());
 			
 			/* preferred version 8 bit(s) */
 			if(mValue.getResultData() != null){

@@ -16,13 +16,13 @@ public class RequestingForbiddenAttributes {
 		if(attributes != null){
 			for (AttributeReference ref : attributes) {
 				if( ref.getVendorId() == IETFConstants.IETF_PEN_VENDORID ){
-					if( ref.getType() == PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType() ){
-						throw new RuleException("The attribute request must not request an attribute with vendor id " + IETFConstants.IETF_PEN_VENDORID + " and attribute type " + PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.attributeType() + ".", false, PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(), PaErrorCauseEnum.ILLEGAL_ATTRIBUTE_REQUEST.number(), 
+					if( ref.getType() == PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id() ){
+						throw new RuleException("The attribute request must not request an attribute with vendor id " + IETFConstants.IETF_PEN_VENDORID + " and attribute type " + PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id() + ".", false, PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(), PaErrorCauseEnum.ILLEGAL_ATTRIBUTE_REQUEST.number(), 
 								 IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.toString(), attributes.indexOf(attributes));
 					}
 					
-					if( ref.getType() == PaAttributeTypeEnum.IETF_PA_ERROR.attributeType() ){
-						throw new RuleException("The attribute request must not request an attribute with vendor id " + IETFConstants.IETF_PEN_VENDORID + " and attribute type " + PaAttributeTypeEnum.IETF_PA_ERROR.attributeType() + ".", false, PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(), PaErrorCauseEnum.ILLEGAL_ATTRIBUTE_REQUEST.number(), 
+					if( ref.getType() == PaAttributeTypeEnum.IETF_PA_ERROR.id() ){
+						throw new RuleException("The attribute request must not request an attribute with vendor id " + IETFConstants.IETF_PEN_VENDORID + " and attribute type " + PaAttributeTypeEnum.IETF_PA_ERROR.id() + ".", false, PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(), PaErrorCauseEnum.ILLEGAL_ATTRIBUTE_REQUEST.number(), 
 								IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_ERROR.toString(), attributes.indexOf(attributes));
 					}
 					

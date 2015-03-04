@@ -55,7 +55,7 @@ public class ReaderByteBufferTest {
 		PbBatch b = (PbBatch)bc.getResult();
 		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBS,((PbBatchHeader)b.getHeader()).getDirectionality());
-		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_PA.messageType(), b.getMessages().get(0).getHeader().getMessageType());
+		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_PA.id(), b.getMessages().get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueIm)b.getMessages().get(0).getValue()).getSubType(), 1L);
 	}
 	
@@ -75,7 +75,7 @@ public class ReaderByteBufferTest {
 		PbBatch b = (PbBatch)bc.getResult();
 		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBS,((PbBatchHeader)b.getHeader()).getDirectionality());
-		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(), b.getMessages().get(0).getHeader().getMessageType());
+		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_REASON_STRING.id(), b.getMessages().get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueReasonString)b.getMessages().get(0).getValue()).getReasonString(),"Don't ever take intimate pictures with your mobile phone.");
 	}
 	
@@ -108,10 +108,10 @@ public class ReaderByteBufferTest {
 		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBC,((PbBatchHeader)b.getHeader()).getDirectionality());
 		
-		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.messageType(), messages.get(0).getHeader().getMessageType());
+		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_ASSESSMENT_RESULT.id(), messages.get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueAssessmentResult) messages.get(0).getValue()).getResult(), PbMessageAssessmentResultEnum.COMPLIANT);
 		
-		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.messageType(),messages.get(1).getHeader().getMessageType());
+		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.id(),messages.get(1).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueAccessRecommendation)messages.get(1).getValue()).getRecommendation(), PbMessageAccessRecommendationEnum.ALLOWED);
 		
 	}
@@ -164,9 +164,9 @@ public class ReaderByteBufferTest {
 		});
 		
 		Assert.assertEquals(PbBatchDirectionalityEnum.TO_PBS,((PbBatchHeader)b.getHeader()).getDirectionality());
-		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_PA.messageType(), messages.get(0).getHeader().getMessageType());
+		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_PA.id(), messages.get(0).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueIm)messages.get(0).getValue()).getSubType(), 1L);
-		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_REASON_STRING.messageType(), messages.get(1).getHeader().getMessageType());
+		Assert.assertEquals(PbMessageTypeEnum.IETF_PB_REASON_STRING.id(), messages.get(1).getHeader().getMessageType());
 		Assert.assertEquals(((PbMessageValueReasonString)messages.get(1).getValue()).getReasonString(),"Don't ever take intimate pictures with your mobile phone.");
 		
 	}

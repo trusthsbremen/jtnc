@@ -32,7 +32,7 @@ class PbBatchHeaderWriter implements TnccsWriter<PbBatchHeader>{
 			
 			/* Reserved 4 bit(s) + Type 4 bit(s) */
 			buffer.writeByte((byte) (RESERVED | (bHead
-					.getType().type() & 0x0F)));
+					.getType().id() & 0x0F)));
 	
 			/* Length 32 bit(s) */
 			buffer.writeUnsignedInt(bHead.getLength());

@@ -10,7 +10,7 @@ import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeValue;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
-import org.ietf.nea.pa.message.DefaultMessageContainer;
+import org.ietf.nea.pa.message.DefaultImMessageContainer;
 import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageHeader;
 import org.ietf.nea.pa.validate.rules.MinAttributeLength;
@@ -225,7 +225,7 @@ class PaReader implements ImReader<ImMessageContainer>, Combined<ImReader<PaAttr
 		
 		PaMessage m = new PaMessage(mHead,attributes);
 		
-		return new DefaultMessageContainer(m, minorExceptions);
+		return new DefaultImMessageContainer(m, minorExceptions);
 	}
 
 	@Override
