@@ -8,7 +8,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueNumericVersion;
 import org.ietf.nea.pa.attribute.PaAttributeValueProductInformation;
 import org.ietf.nea.pa.attribute.PaAttributeValueStringVersion;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -91,7 +91,7 @@ public class ImEvaluatorOsTest {
 	@Test
 	public void testHandleRequest(){
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test handle request with AttributeRequest."));
-		AttributeReference reference = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id());
+		AttributeReferenceEntry reference = new AttributeReferenceEntry(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id());
 		List<ImAttribute> attributes = new ArrayList<>();
 		try{
 			attributes.add(PaAttributeFactoryIetf.createAttributeRequest(reference));

@@ -1,41 +1,58 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pt.value;
 
-
 /**
- * Reference IETF RFC 6876 section 3.7.2:
- * ------------------------------------
- * This message is sent in response to receiving a Version Request
- * message at the start of a new assessment session.  If a recipient
- * receives a Version Request after a successful version negotiation has
- * occurred on the session, the recipient MUST send an Invalid Message
- * error code in a PT-TLS Error message and have TLS close the session.
- * This message MUST be sent using the syntax, semantics, and
- * requirements of the protocol version specified in this message. 
- * 
- * The PT Message Length field MUST contain the value 20 since 
- * that is the total of the length of the fixed-length fields at the start 
- * of the PT message (the Vendor ID, PT Message Type, and PT Message Length, 
- * PT Message Identifier) along with the Access Recommendation 
- * field.
- * 
+ * IETF RFC 6876 transport version response message value.
+ *
+ * @author Carl-Heinz Genzel
+ *
  */
-
-public class PtTlsMessageValueVersionResponse extends AbstractPtTlsMessageValue{
-
+public class PtTlsMessageValueVersionResponse extends AbstractPtTlsMessageValue {
 
     private final short selectedVersion;
 
-	PtTlsMessageValueVersionResponse(final long length,final short selectedVersion) {
-		super(length);
-		this.selectedVersion = selectedVersion;
-	}
+    /**
+     * Creates the message value with the given values.
+     *
+     * @param length the value length
+     * @param selectedVersion the selected version
+     */
+    PtTlsMessageValueVersionResponse(final long length,
+            final short selectedVersion) {
+        super(length);
+        this.selectedVersion = selectedVersion;
+    }
 
-	/**
-	 * @return the selectedVersion
-	 */
-	public short getSelectedVersion() {
-		return this.selectedVersion;
-	}
+    /**
+     * Returns the selected version.
+     *
+     * @return the selected version
+     */
+    public short getSelectedVersion() {
+        return this.selectedVersion;
+    }
 
-	
 }

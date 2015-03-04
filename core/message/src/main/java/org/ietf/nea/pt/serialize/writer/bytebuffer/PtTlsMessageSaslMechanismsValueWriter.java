@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslMechanisms;
-import org.ietf.nea.pt.value.util.SaslMechanism;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
@@ -26,10 +26,10 @@ class PtTlsMessageSaslMechanismsValueWriter implements TransportWriter<PtTlsMess
 		try{
 	
 			/* mechanisms (variable length)*/
-			List<SaslMechanism> mechs = mValue.getMechanisms();
+			List<SaslMechanismEntry> mechs = mValue.getMechanisms();
 			
 			if(mechs != null){
-				for (SaslMechanism mech : mechs) {
+				for (SaslMechanismEntry mech : mechs) {
 					/* reserved + name length 8 bit(s) */
 					buffer.writeByte(mech.getNameLength());
 					

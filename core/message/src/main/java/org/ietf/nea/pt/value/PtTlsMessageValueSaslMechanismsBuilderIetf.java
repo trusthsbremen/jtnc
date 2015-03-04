@@ -1,3 +1,27 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pt.value;
 
 import java.util.ArrayList;
@@ -5,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.ietf.nea.pt.validate.rules.SaslMechanismName;
-import org.ietf.nea.pt.value.util.SaslMechanism;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
@@ -15,7 +39,7 @@ PtTlsMessageValueSaslMechanismsBuilder {
 	private static final byte LENGTH_FIELDS_AND_RESERVED_LENGTH = 1;
 	
 	private long length;
-	private List<SaslMechanism> mechanisms;
+	private List<SaslMechanismEntry> mechanisms;
 	
 	public PtTlsMessageValueSaslMechanismsBuilderIetf(){
 		this.length = 0;
@@ -23,9 +47,9 @@ PtTlsMessageValueSaslMechanismsBuilder {
 	}
 
 	@Override
-	public PtTlsMessageValueSaslMechanismsBuilder addMechanism(SaslMechanism mech1, SaslMechanism... mechs) throws RuleException {
+	public PtTlsMessageValueSaslMechanismsBuilder addMechanism(SaslMechanismEntry mech1, SaslMechanismEntry... mechs) throws RuleException {
 		
-		List<SaslMechanism> temp = new ArrayList<>();
+		List<SaslMechanismEntry> temp = new ArrayList<>();
 		
 		if(mech1 != null){
 			SaslMechanismName.check(mech1.getName());
@@ -33,7 +57,7 @@ PtTlsMessageValueSaslMechanismsBuilder {
 		}
 		
 		if(mechs != null){
-			for (SaslMechanism mech : mechs) {
+			for (SaslMechanismEntry mech : mechs) {
 				if(mech != null){
 					SaslMechanismName.check(mech.getName());
 					temp.add(mech);
@@ -49,7 +73,7 @@ PtTlsMessageValueSaslMechanismsBuilder {
 
 	private void updateLength() {
 		this.length = 0;
-		for (SaslMechanism mech : this.mechanisms) {
+		for (SaslMechanismEntry mech : this.mechanisms) {
 			this.length += (mech.getNameLength() + LENGTH_FIELDS_AND_RESERVED_LENGTH) ; // 1 bytes for length values
 		}
 	}

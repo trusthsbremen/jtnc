@@ -47,7 +47,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
 import org.ietf.nea.pa.attribute.util
 .AbstractPaAttributeValueRemediationParameter;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.ietf.nea.pa.attribute.util
 .PaAttributeValueErrorInformationFactoryIetf;
 import org.ietf.nea.pa.attribute.util
@@ -153,18 +153,18 @@ public abstract class PaAttributeValueFactoryIetf {
      * @return an IETF RFC 5792 compliant integrity measurement attribute value
      */
     public static PaAttributeValueAttributeRequest createAttributeRequestValue(
-            final AttributeReference reference,
-            final AttributeReference... moreReferences) {
+            final AttributeReferenceEntry reference,
+            final AttributeReferenceEntry... moreReferences) {
 
         NotNull.check(
                 "Reference cannot be null, "
                 + "there must be at least one reference.",
                 reference);
 
-        List<AttributeReference> referenceList = new LinkedList<>();
+        List<AttributeReferenceEntry> referenceList = new LinkedList<>();
         referenceList.add(reference);
         if (moreReferences != null) {
-            for (AttributeReference attributeReference : moreReferences) {
+            for (AttributeReferenceEntry attributeReference : moreReferences) {
                 if (attributeReference != null) {
                     referenceList.add(attributeReference);
                 }

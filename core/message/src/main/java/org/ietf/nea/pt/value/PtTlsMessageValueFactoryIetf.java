@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
 import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
-import org.ietf.nea.pt.value.util.SaslMechanism;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
@@ -106,15 +106,15 @@ public abstract class PtTlsMessageValueFactoryIetf {
      * @return an IETF RFC 6876 compliant transport message value
      */
     public static PtTlsMessageValueSaslMechanisms createSaslMechanismsValue(
-            final SaslMechanism... mechanisms) {
+            final SaslMechanismEntry... mechanisms) {
 
-        List<SaslMechanism> mechs = new ArrayList<>();
+        List<SaslMechanismEntry> mechs = new ArrayList<>();
 
         long length = 0;
 
         if (mechanisms != null) {
 
-            for (SaslMechanism saslMechanism : mechanisms) {
+            for (SaslMechanismEntry saslMechanism : mechanisms) {
                 if (saslMechanism.getName().matches("[A-Z0-9\\-_]{1,20}")) {
                     mechs.add(saslMechanism);
                     length += saslMechanism.getNameLength();
@@ -138,7 +138,7 @@ public abstract class PtTlsMessageValueFactoryIetf {
      */
     public static PtTlsMessageValueSaslMechanismSelection
         createSaslMechanismSelectionValue(
-            final SaslMechanism mechanism) {
+            final SaslMechanismEntry mechanism) {
         return createSaslMechanismSelectionValue(mechanism, null);
     }
 
@@ -151,7 +151,7 @@ public abstract class PtTlsMessageValueFactoryIetf {
      */
     public static PtTlsMessageValueSaslMechanismSelection
         createSaslMechanismSelectionValue(
-            final SaslMechanism mechanism, final byte[] initialData) {
+            final SaslMechanismEntry mechanism, final byte[] initialData) {
 
         NotNull.check("Mechanism cannot be null.", mechanism);
 

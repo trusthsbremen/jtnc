@@ -26,7 +26,7 @@ package org.ietf.nea.pa.attribute.enums;
 
 /**
  * Enumeration of known integrity measurement assessment
- * result.
+ * results.
  * @author Carl-Heinz Genzel
  *
  */

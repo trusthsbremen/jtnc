@@ -20,7 +20,7 @@ class PbMessageAssessmentResultValueWriter implements TnccsWriter<PbMessageValue
 
 		try{
 			/* result */
-			buffer.writeUnsignedInt(mValue.getResult().number());
+			buffer.writeUnsignedInt(mValue.getResult().id());
 		}catch(BufferOverflowException e){
 			throw new SerializationException(
 					"Buffer capacity "+ buffer.capacity() + " to short.", e, false,

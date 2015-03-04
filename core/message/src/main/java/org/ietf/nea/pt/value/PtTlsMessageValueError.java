@@ -1,62 +1,87 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pt.value;
 
 import java.util.Arrays;
 
 /**
- * Reference IETF RFC 6876 section 3.9:
- * ------------------------------------
- * When a PT-TLS error is received, the recipient MUST NOT respond with
- * a PT-TLS error, because this could result in an infinite loop of
- * error messages being sent.  Instead, the recipient MAY log the error,
- * modify its behavior to avoid future errors, ignore the error,
- * terminate the assessment, or take other action as appropriate (as
- * long as it is consistent with the requirements of this
- * specification).
- * 
- * This variable-length value MUST contain a copy (up to 1024 bytes)
- * of the original PT-TLS message that caused the error.  If the
- * original message is longer than 1024 bytes, only the initial 1024
- * bytes will be included in this field. 
- * 
+ * IETF RFC 6876 transport error message value.
+ *
+ * @author Carl-Heinz Genzel
+ *
  */
-public class PtTlsMessageValueError extends AbstractPtTlsMessageValue{
-    
-    private final long errorVendorId;                           // 24 bit(s)
-    private final long errorCode;                               // 32 bit(s)
-    private final byte[] partialMessageCopy; 					// max 1024 byte(s)
+public class PtTlsMessageValueError extends AbstractPtTlsMessageValue {
 
-	PtTlsMessageValueError( final long errorVendorId,
-			final long errorCode, final long length,
-			final byte[] partialMessageCopy) {
-		super(length);
-		
+    private final long errorVendorId; // 24 bit(s)
+    private final long errorCode; // 32 bit(s)
+    private final byte[] partialMessageCopy; // max 1024 byte(s)
 
-		this.errorVendorId = errorVendorId;
-		this.errorCode = errorCode;
-		this.partialMessageCopy = partialMessageCopy;
-	}
+    /**
+     * Creates the message value with the given values.
+     *
+     * @param errorVendorId the error vendor ID
+     * @param errorCode the code describing the error
+     * @param length the value length
+     * @param partialMessageCopy the partial copy of the message
+     */
+    PtTlsMessageValueError(final long errorVendorId, final long errorCode,
+            final long length, final byte[] partialMessageCopy) {
+        super(length);
 
-	/**
-	 * @return the errVendorId
-	 */
-	public long getErrorVendorId() {
-		return this.errorVendorId;
-	}
+        this.errorVendorId = errorVendorId;
+        this.errorCode = errorCode;
+        this.partialMessageCopy = (partialMessageCopy != null) ? partialMessageCopy
+                : new byte[0];
+    }
 
-	/**
-	 * @return the errCode
-	 */
-	public long getErrorCode() {
-		return this.errorCode;
-	}
+    /**
+     * Returns the error vendor ID.
+     *
+     * @return the error vendor ID
+     */
+    public long getErrorVendorId() {
+        return this.errorVendorId;
+    }
 
-	/**
-	 * @return the partialMessageCopy
-	 */
-	public byte[] getPartialMessageCopy() {
-		return Arrays.copyOf(this.partialMessageCopy, this.partialMessageCopy.length);
-	}
+    /**
+     * Returns the error code.
+     *
+     * @return the error code
+     */
+    public long getErrorCode() {
+        return this.errorCode;
+    }
 
-	
+    /**
+     * Returns the partial message copy.
+     *
+     * @return the message copy
+     */
+    public byte[] getPartialMessageCopy() {
+        return Arrays.copyOf(this.partialMessageCopy,
+                this.partialMessageCopy.length);
+    }
 
 }

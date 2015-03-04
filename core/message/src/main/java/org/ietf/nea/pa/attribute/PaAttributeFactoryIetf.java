@@ -35,7 +35,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeOperationLastResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 
@@ -267,8 +267,8 @@ public abstract class PaAttributeFactoryIetf {
      * @throws ValidationException if creation fails because of invalid values
      */
     public static PaAttribute createAttributeRequest(
-            final AttributeReference first,
-            final AttributeReference... more) throws ValidationException {
+            final AttributeReferenceEntry first,
+            final AttributeReferenceEntry... more) throws ValidationException {
         byte flags = 0;
         long type = PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST
                 .id();

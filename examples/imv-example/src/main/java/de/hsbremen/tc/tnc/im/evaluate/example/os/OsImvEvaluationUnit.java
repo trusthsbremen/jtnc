@@ -37,7 +37,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueProductInformation;
 import org.ietf.nea.pa.attribute.PaAttributeValueStringVersion;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -344,13 +344,13 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
     private PaAttribute getAttributeRequest() throws ValidationException {
 
         return PaAttributeFactoryIetf.createAttributeRequest(
-                new AttributeReference(IETFConstants.IETF_PEN_VENDORID,
+                new AttributeReferenceEntry(IETFConstants.IETF_PEN_VENDORID,
                         PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION
                                 .id()),
-                new AttributeReference(IETFConstants.IETF_PEN_VENDORID,
+                new AttributeReferenceEntry(IETFConstants.IETF_PEN_VENDORID,
                         PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION
                                 .id()),
-                new AttributeReference(IETFConstants.IETF_PEN_VENDORID,
+                new AttributeReferenceEntry(IETFConstants.IETF_PEN_VENDORID,
                         PaAttributeTypeEnum.IETF_PA_STRING_VERSION
                                 .id()));
 

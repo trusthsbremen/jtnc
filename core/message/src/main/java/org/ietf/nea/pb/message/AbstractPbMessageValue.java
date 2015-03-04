@@ -69,4 +69,9 @@ public abstract class AbstractPbMessageValue implements PbMessageValue {
         return omittable;
     }
 
+    @Override
+    public String toString() {
+        return "AbstractPbMessageValue [length=" + this.length + ", omittable="
+                + this.omittable + "]";
+    }
 }

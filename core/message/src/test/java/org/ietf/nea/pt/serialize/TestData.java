@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import org.ietf.nea.pt.message.PtTlsMessage;
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
-import org.ietf.nea.pt.value.util.SaslMechanism;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
@@ -196,7 +196,7 @@ public class TestData {
 	 */
 	public PtTlsMessage getSaslMechanisms() throws ValidationException {
 		
-		SaslMechanism m = new SaslMechanism("PLAIN");
+		SaslMechanismEntry m = new SaslMechanismEntry("PLAIN");
 		return PtTlsMessageFactoryIetf.createSaslMechanisms(3, m);
 	}
 
@@ -206,7 +206,7 @@ public class TestData {
 	 * @throws ValidationException 
 	 */
 	public PtTlsMessage getSaslMechanismsSelect() throws ValidationException, UnsupportedEncodingException {
-		SaslMechanism m = new SaslMechanism("PLAIN");
+		SaslMechanismEntry m = new SaslMechanismEntry("PLAIN");
 		return PtTlsMessageFactoryIetf.createSaslMechanismSelection(4, m, "PWND".getBytes("US-ASCII"));
 	}
 

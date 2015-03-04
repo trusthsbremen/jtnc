@@ -4,7 +4,7 @@ import java.nio.BufferOverflowException;
 import java.nio.charset.Charset;
 
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslMechanismSelection;
-import org.ietf.nea.pt.value.util.SaslMechanism;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
@@ -25,7 +25,7 @@ class PtTlsMessageSaslMechanismSelectionValueWriter implements TransportWriter<P
 		try{
 	
 			/* mechanism selection (variable length)*/
-			SaslMechanism mech = mValue.getMechanism();
+			SaslMechanismEntry mech = mValue.getMechanism();
 
 			/* reserved + name length 8 bit(s) */
 			buffer.writeByte(mech.getNameLength());

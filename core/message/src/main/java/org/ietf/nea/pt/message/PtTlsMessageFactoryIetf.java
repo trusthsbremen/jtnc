@@ -29,7 +29,7 @@ import org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum;
 import org.ietf.nea.pt.value.AbstractPtTlsMessageValue;
 import org.ietf.nea.pt.value.PtTlsMessageValueFactoryIetf;
 import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
-import org.ietf.nea.pt.value.util.SaslMechanism;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
@@ -116,7 +116,7 @@ public abstract class PtTlsMessageFactoryIetf {
      * @throws ValidationException if creation fails because of invalid values
      */
     public static PtTlsMessage createSaslMechanisms(final long identifier,
-            final SaslMechanism... mechanisms) throws ValidationException {
+            final SaslMechanismEntry... mechanisms) throws ValidationException {
         long type = PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISMS
                 .id();
 
@@ -133,7 +133,7 @@ public abstract class PtTlsMessageFactoryIetf {
      * @throws ValidationException if creation fails because of invalid values
      */
     public static PtTlsMessage createSaslMechanismSelection(
-            final long identifier, final SaslMechanism mechanism)
+            final long identifier, final SaslMechanismEntry mechanism)
             throws ValidationException {
         long type = PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISM_SELECTION
                 .id();
@@ -153,7 +153,7 @@ public abstract class PtTlsMessageFactoryIetf {
      * @throws ValidationException if creation fails because of invalid values
      */
     public static PtTlsMessage createSaslMechanismSelection(
-            final long identifier, final SaslMechanism mechanism,
+            final long identifier, final SaslMechanismEntry mechanism,
             final byte[] initialData) throws ValidationException {
         long type = PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISM_SELECTION
                 .id();

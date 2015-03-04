@@ -5,7 +5,7 @@ import java.nio.BufferUnderflowException;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequestBuilder;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -54,7 +54,7 @@ class PaAttributeAttributeRequestValueReader implements ImReader<PaAttributeValu
 					attributeId = buffer.readLong((byte)4);
 					counter += 4;
 
-					builder.addReferences(new AttributeReference(vendorId, attributeId));
+					builder.addReferences(new AttributeReferenceEntry(vendorId, attributeId));
 					
 				}while(messageLength - counter > 0);
 			

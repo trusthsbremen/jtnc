@@ -24,7 +24,7 @@ class PbMessageAccessRecommendationValueWriter implements TnccsWriter<PbMessageV
 			buffer.writeShort(RESERVED);
 			
 			/* recommendation */
-			buffer.writeUnsignedShort(mValue.getRecommendation().number());
+			buffer.writeUnsignedShort(mValue.getRecommendation().id());
 		
 		}catch(BufferOverflowException e){
 			throw new SerializationException(

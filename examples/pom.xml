@@ -41,7 +41,7 @@
 <!-- 	    <repository> -->
 <!-- 	      <id>tnc.repo</id> -->
 <!-- 	      <name>Java TNC Repository</name> -->
-<!-- 	      <url>file:/home/sidanetdev/git/jtnc/repo</url> -->
+<!-- 	      <url>file:/home/sidanetdev/git/smgw-app/main/repo/</url> -->
 <!-- 	    </repository> -->
 <!--     </distributionManagement> -->
 	<dependencies>

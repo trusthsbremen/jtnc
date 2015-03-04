@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslMechanisms;
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslMechanismsBuilder;
-import org.ietf.nea.pt.value.util.SaslMechanism;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -49,7 +49,7 @@ class PtTlsMessageSaslMechanismsValueReader implements TransportReader<PtTlsMess
 							/* name */
 							byte[] sData = buffer.read(nameLength);
 							String name = new String(sData, Charset.forName("US-ASCII")); 
-							SaslMechanism mech = new SaslMechanism(name);
+							SaslMechanismEntry mech = new SaslMechanismEntry(name);
 							counter += sData.length;
 							
 							builder.addMechanism(mech);

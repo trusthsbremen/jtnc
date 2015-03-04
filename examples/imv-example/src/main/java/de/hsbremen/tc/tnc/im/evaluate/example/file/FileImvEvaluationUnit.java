@@ -35,7 +35,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueError;
 import org.ietf.nea.pa.attribute.PaAttributeValueTesting;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -251,7 +251,7 @@ public class FileImvEvaluationUnit extends AbstractImEvaluationUnitIetf
     private PaAttribute getAttributeRequest() throws ValidationException {
 
         return PaAttributeFactoryIetf
-                .createAttributeRequest(new AttributeReference(
+                .createAttributeRequest(new AttributeReferenceEntry(
                         IETFConstants.IETF_PEN_VENDORID,
                         PaAttributeTypeEnum.IETF_PA_TESTING.id()));
     }

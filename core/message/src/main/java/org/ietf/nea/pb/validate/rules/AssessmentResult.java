@@ -9,7 +9,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 public class AssessmentResult {
 
 	public static void check(final long result) throws RuleException{
-		if(PbMessageAssessmentResultEnum.fromNumber(result) == null){
+		if(PbMessageAssessmentResultEnum.fromId(result) == null){
         	throw new RuleException("The result value " + result + " is unknown.",true,PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.ASSESSMENT_RESULT_NOT_SUPPORTED.number(),result);
         }
     }

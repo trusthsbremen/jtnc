@@ -69,7 +69,7 @@ public class WriterByteBufferTest {
 		Assert.assertEquals(0x02,serialized[0]);
 		Assert.assertEquals(PbBatchTypeEnum.RESULT.id(),serialized[3]);
 		Assert.assertEquals(b.getHeader().getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
-		Assert.assertEquals(((PbMessageValueAccessRecommendation)b.getMessages().get(0).getValue()).getRecommendation(), PbMessageAccessRecommendationEnum.fromNumber(ByteArrayHelper.toShort(Arrays.copyOfRange(serialized, 22, 24))));
+		Assert.assertEquals(((PbMessageValueAccessRecommendation)b.getMessages().get(0).getValue()).getRecommendation(), PbMessageAccessRecommendationEnum.fromId(ByteArrayHelper.toShort(Arrays.copyOfRange(serialized, 22, 24))));
 		Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	}
 	@Test

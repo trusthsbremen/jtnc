@@ -10,7 +10,7 @@ import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.ietf.nea.pa.attribute.util.PackageEntry;
 import org.ietf.nea.pa.message.PaMessage;
 import org.ietf.nea.pa.message.PaMessageFactoryIetf;
@@ -135,7 +135,7 @@ public class TestData {
 	
 	public PaMessage getMessageWithAttributeRequest() throws ValidationException{
 		
-		AttributeReference ref1 = new AttributeReference(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id());
+		AttributeReferenceEntry ref1 = new AttributeReferenceEntry(IETFConstants.IETF_PEN_VENDORID, PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id());
 		
 		PaAttribute a = PaAttributeFactoryIetf.createAttributeRequest(ref1);
 		List<PaAttribute> attributes = new ArrayList<>();

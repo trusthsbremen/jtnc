@@ -1,56 +1,65 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pb.message;
 
 import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 
 /**
- * Reference IETF RFC 5793 section 4.7:
- * ------------------------------------
- * The PB-TNC message type named PB-Access-Recommendation (value 3) is
-   used by the Posture Broker Server to provide an access recommendation
-   after the Posture Broker Server has completed some assessment of the
-   endpoint.  The PB-Assessment-Result and the PB-Access-Recommendation
-   attribute together constitute the global assessment decision for an
-   endpoint.  The PB-Access-Recommendation is not authoritative, and the
-   network and host-based access control systems would typically use
-   additional information to determine the network access that is
-   granted to the endpoint.  The Posture Broker Server MAY include one
-   message of this type in any batch of type RESULT and MUST NOT include
-   a message of this type in any other type of batch.  Posture Broker
-   Clients MUST NOT send a PB-TNC message with this message type.  If a
-   Posture Broker Server receives a PB-TNC message with this message
-   type, it MUST respond with a fatal Invalid Parameter error in a CLOSE 
-   batch.  The Posture Broker Client MUST implement and process this
-   message and MUST ignore any message with this message type that is
-   not part of a batch of type RESULT.
-
-   The NOSKIP flag in the PB-TNC Message Header MUST NOT be set for this
-   message type.  Any Posture Broker Client or Posture Broker Server
-   that receives a PB-Access-Recommendation message with the NOSKIP flag
-   set MUST ignore the message and MUST respond with a fatal Invalid
-   Parameter error code in a CLOSE batch.
-   
-   The PB-TNC Message Length field MUST contain the value 16 since 
-   that is the total of the length of the fixed-length fields at the start 
-   of the PB-TNC message (the fields Flags, PB-TNC Vendor ID, PB-TNC Message 
-   Type, and PB-TNC Message Length) along with the Access Recommendation 
-   field.
+ * IETF RFC 5793 TNCCS access recommendation message value.
+ *
+ * @author Carl-Heinz Genzel
+ *
  */
-public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue{
-    
-    private final PbMessageAccessRecommendationEnum recommendation;  //16 bit(s)
-    
-    PbMessageValueAccessRecommendation(final long length,
-			final PbMessageAccessRecommendationEnum recommendation) {
-		super(length);
-		this.recommendation = recommendation;
-	}
+public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue {
 
-	/**
-     * @return the recommendationEnum
+    private final PbMessageAccessRecommendationEnum recommendation; // 16 bit(s)
+
+    /**
+     * Creates the message value with the given values.
+     *
+     * @param length the value length
+     * @param recommendation the access recommendation
+     */
+    PbMessageValueAccessRecommendation(final long length,
+            final PbMessageAccessRecommendationEnum recommendation) {
+        super(length);
+        this.recommendation = recommendation;
+    }
+
+    /**
+     * Returns the access recommendation.
+     * @return the access recommendation
      */
     public PbMessageAccessRecommendationEnum getRecommendation() {
         return recommendation;
-        
+
     }
 
+    @Override
+    public String toString() {
+        return "PbMessageValueAccessRecommendation [recommendation="
+                + this.recommendation.toString() + "]";
+    }
 }

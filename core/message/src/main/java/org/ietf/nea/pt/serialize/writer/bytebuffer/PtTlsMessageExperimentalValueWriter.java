@@ -24,7 +24,7 @@ class PtTlsMessageExperimentalValueWriter implements TransportWriter<PtTlsMessag
 		try{
 	
 			/* message */
-			buffer.write(mValue.getMessage().getBytes(Charset.forName("UTF-8")));
+			buffer.write(mValue.getContent().getBytes(Charset.forName("UTF-8")));
 
 		
 		}catch(BufferOverflowException e){

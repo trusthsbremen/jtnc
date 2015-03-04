@@ -52,7 +52,7 @@ public class PtTlsMessageHeaderBuilderIetf implements
     /**
      * Creates the builder using default values.
      * <ul>
-     * <li>Vendor ID: 0</li>
+     * <li>Vendor: IETF</li>
      * <li>Type: TNCCS batch </li>
      * <li>Length: Header length only</li>
      * </ul>

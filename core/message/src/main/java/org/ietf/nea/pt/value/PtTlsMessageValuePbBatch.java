@@ -1,33 +1,60 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pt.value;
 
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-
+import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 
 /**
- * Reference IETF RFC 6876 section 3.6:
- * --------------------------------------
- * Contains a PB-TNC batch.  For more information on PB-TNC batches, 
- * see RFC 5793 (PB-TNC) Section 4. This message type MUST only be sent 
- * when the NEA Client and NEA Server are in the PT-TLS Data Transport 
- * phase. Recipients SHOULD send an Invalid Message error code in a 
- * PT-TLS Error message if a PB-TNC Batch is received outside of the 
- * Data Transport phase.
- * 
- * These bytes must not be interpreted by the PT-TLS layer, in that PT-TLS 
- * is not dependent on PB-TNC for its transfer state decisions.
- * 
+ * IETF RFC 6876 transport TNCCS batch message value.
+ *
+ * @author Carl-Heinz Genzel
+ *
  */
-
-public class PtTlsMessageValuePbBatch extends AbstractPtTlsMessageValue{
+public class PtTlsMessageValuePbBatch extends AbstractPtTlsMessageValue {
 
     private final ByteBuffer tnccsData;
 
-	PtTlsMessageValuePbBatch(final long length, ByteBuffer tnccsData) {
-		super(length);
-		this.tnccsData = tnccsData;
-	}
+    /**
+     * Creates the message value with the given values.
+     *
+     * @param length the value length
+     * @param tnccsData the TNCCS batch data
+     */
+    PtTlsMessageValuePbBatch(final long length, final ByteBuffer tnccsData) {
+        super(length);
+        this.tnccsData = (tnccsData != null)
+                ? tnccsData : new DefaultByteBuffer(0, 0);
+    }
 
-	public ByteBuffer getTnccsData() {
-		return tnccsData;
-	}
+    /**
+     * Returns the TNCCS batch data.
+     *
+     * @return the TNCCS batch data
+     */
+    public ByteBuffer getTnccsData() {
+        return tnccsData;
+    }
 }

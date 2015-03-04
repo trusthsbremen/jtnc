@@ -1,46 +1,61 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pb.message;
 
-
 /**
- * Reference IETF RFC 5793 section 4.4:
- * ------------------------------------
- * The PB-Experimental PB-TNC message type is a PB-TNC message type
- * (value 0) that has been set aside for experimental purposes.  It may
- * be used to test code or for other experimental purposes.  It MUST NOT
- * be used in a production environment or in a product. 
- * The contents of the PB-TNC Message Length and PB-TNC Message Value
- * fields for this PB-TNC message type are not specified.  They may have
- * almost any value, depending on what experiments are being conducted.
- * Similarly, the Flags field for this message may have the NOSKIP bit
- * set or cleared, depending on what experiments are being conducted.
- * 
- * A Posture Broker Client or Posture Broker Server implementation
- * intended for production use MUST NOT send a message with this Message
- * Type with the value zero (0) as the vendor ID.  If it receives a
- * message with this message type and with the value zero (0) as the
- * vendor ID, it MUST ignore the message unless the NOSKIP bit is set,
- * in which case it MUST respond with a fatal Unsupported Mandatory
- * Message error code in a CLOSE batch.
- * 
+ * IETF RFC 5793 TNCCS experimental message value.
+ *
+ * @author Carl-Heinz Genzel
+ *
  */
+public class PbMessageValueExperimental extends AbstractPbMessageValue {
 
-public class PbMessageValueExperimental extends AbstractPbMessageValue{
+    private final String content; // variable string
 
-    
-    private final String message; //variable string
-
-    
-    
-    PbMessageValueExperimental(final long length, final String message) {
-		super(length);
-		this.message = message;
-	}
-
-	/**
-     * @return the message
+    /**
+     * Creates the message value with the given values.
+     *
+     * @param length the value length
+     * @param content the experimental content
      */
-    public String getMessage() {
-        return message;
+    PbMessageValueExperimental(final long length, final String content) {
+        super(length);
+        this.content = content;
     }
-    
+
+    /**
+     * Returns the experimental content.
+     * @return the experimental content
+     */
+    public String getContent() {
+        return content;
+    }
+
+    @Override
+    public String toString() {
+        return "PbMessageValueExperimental [content=" + this.content + "]";
+    }
+
 }

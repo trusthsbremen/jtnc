@@ -1,68 +1,68 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pb.message;
 
-
 /**
+ * IETF RFC 5793 TNCCS language preference message value.
  *
- * Reference IETF RFC 5793 section 4.10:
- * ------------------------------------
- * The PB-TNC message type named PB-Language-Parameters (value 6) is
- * used by the Posture Broker Client to indicate which language or
- * languages it would prefer for any human-readable strings that might
- * be sent to it.  This allows the Posture Broker Server and Posture
- * Validators to adapt any messages they may send to the Posture Broker
- * Client's preferences (probably determined by the language preferences
- * of the endpoint's users).
+ * @author Carl-Heinz Genzel
  *
- * The Posture Broker Server may also send this message type to the
- * Posture Broker Client to indicate the Posture Broker Server's
- * language preferences, but this is not very useful since the Posture
- * Broker Client rarely sends human-readable strings to the Posture
- * Broker Server and, if it does, rarely can adapt those strings to the
- * preferences of the Posture Broker Server.
- *
- * No Posture Broker Client or Posture Broker Server is required to send
- * or implement this message type.
- * 
- * A Posture Broker Client or Posture Broker Server may include a
- * message of this type in any batch of any type.  However, it is
- * suggested that this message be included in the first batch sent by
- * the Posture Broker Client or Posture Broker Server in a PB-TNC
- * session so that the recipient can start adapting its human-readable
- * messages as soon as possible.  If one PB-Language-Parameters message
- * is received and then another one is received in a later batch for the
- * same PB-TNC session, the value included in the later message should
- * be considered to replace the value in the earlier message.
- * 
- * A Posture Broker Client or Posture Broker Server MUST NOT include
- * more than one message of this type in a single batch.  If a Posture
- * Broker Client or Posture Broker Server receives more than one message
- * of this type in a single batch, it should ignore all but the last
- * one.
- * 
- * E.g.:  Accept-Language: da, en-gb;q=0.8, en;q=0.7
- * 
- * Pattern in ABNF:
- * Accept-Language = "Accept-Language:" [CFWS] language-q*( "," [CFWS] language-q )
- * language-q      = language-range [";" [CFWS] "q=" qvalue ] [CFWS]
- * qvalue          = ( "0" [ "." 0*3DIGIT ] ) / ( "1" [ "." 0*3("0") ] )
- * 
  */
 public class PbMessageValueLanguagePreference extends AbstractPbMessageValue {
 
-	
-    private final String preferedLanguage; //32 bit(s), accept-Language header, as described in RFC 3282 [4]  as Accept-Language included in that RFC, US-ASCII only, no control characters allowed, no comments, no NUL termination)
+    private final String preferedLanguage; // 32 bit(s), accept-Language header,
+                                           // as described in RFC 3282 [4] as
+                                           // Accept-Language included in that
+                                           // RFC, US-ASCII only, no control
+                                           // characters allowed, no comments,
+                                           // no NUL termination)
 
-    
-	PbMessageValueLanguagePreference(final long length, final String preferedLanguage) {
-		super(length);
-		this.preferedLanguage = preferedLanguage;
-	}
+    /**
+     * Creates the message value with the given values.
+     *
+     * @param length the value length
+     * @param preferedLanguage the RFC4646 language preference
+     */
+    PbMessageValueLanguagePreference(final long length,
+            final String preferedLanguage) {
+        super(length);
+        this.preferedLanguage = preferedLanguage;
+    }
 
-	/**
-	 * @return the preferedLanguage
-	 */
-	public String getPreferedLanguage() {
-		return this.preferedLanguage;
-	}    
-    
+    /**
+     * Returns the RFC4646 language preference.
+     * @return the RFC4646 language preference
+     */
+    public String getPreferedLanguage() {
+        return this.preferedLanguage;
+    }
+
+    @Override
+    public String toString() {
+        return "PbMessageValueLanguagePreference [preferedLanguage="
+                + this.preferedLanguage + "]";
+    }
+
 }

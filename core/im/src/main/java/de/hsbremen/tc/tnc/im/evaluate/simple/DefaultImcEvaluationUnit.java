@@ -31,7 +31,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueAssessmentResult;
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
 import org.ietf.nea.pa.attribute.PaAttributeValueError;
 import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
@@ -99,10 +99,10 @@ public class DefaultImcEvaluationUnit extends AbstractImcEvaluationUnitIetf
             final PaAttributeValueAttributeRequest value,
             final ImSessionContext context) {
 
-        List<AttributeReference> references = value.getReferences();
+        List<AttributeReferenceEntry> references = value.getReferences();
         StringBuilder b = new StringBuilder();
         if (references != null) {
-            for (AttributeReference ref : references) {
+            for (AttributeReferenceEntry ref : references) {
                 b.append(ref.toString());
                 b.append("\n");
             }

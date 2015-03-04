@@ -51,7 +51,7 @@ public class PbMessageHeaderBuilderIetf implements PbMessageHeaderBuilder {
     /**
      * Creates the builder using default values.
      * <ul>
-     * <li>Vendor ID: 0</li>
+     * <li>Vendor: IETF</li>
      * <li>Type: Language preference</li>
      * <li>Length: Header length only</li>
      * </ul>

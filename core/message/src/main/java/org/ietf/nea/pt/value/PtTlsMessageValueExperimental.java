@@ -1,34 +1,57 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Carl-Heinz Genzel
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 package org.ietf.nea.pt.value;
 
-
 /**
- * Reference IETF RFC 6876 section 3.6:
- * ------------------------------------
- * Reserved for experimental use.'This type will not offer 
- * interoperability but allows for experimentation.  This message
- * type MUST only be sent when the NEA Client and NEA Server 
- * are in the Data Transport phase and only on a restricted, 
- * experimental network. Compliant implementations MUST send an
- * Invalid Message error code in a PT-TLS Error message if an 
- * Experimental message is received.
- * 
+ * IETF RFC 6876 transport experimental message value.
+ *
+ * @author Carl-Heinz Genzel
+ *
  */
+public class PtTlsMessageValueExperimental extends AbstractPtTlsMessageValue {
 
-public class PtTlsMessageValueExperimental extends AbstractPtTlsMessageValue{
+    private final String content; // variable string
 
-    
-    private final String message; //variable string
-    
-    PtTlsMessageValueExperimental(final long length, final String message) {
-		super(length);
-		this.message = message;
-	}
-
-	/**
-     * @return the message
+    /**
+     * Creates the message value with the given values.
+     *
+     * @param length the value length
+     * @param content the experimental content
      */
-    public String getMessage() {
-        return message;
+    PtTlsMessageValueExperimental(final long length, final String content) {
+        super(length);
+        this.content = content;
     }
-    
+
+    /**
+     * Returns the experimental content.
+     *
+     * @return the content
+     */
+    public String getContent() {
+        return content;
+    }
+
 }

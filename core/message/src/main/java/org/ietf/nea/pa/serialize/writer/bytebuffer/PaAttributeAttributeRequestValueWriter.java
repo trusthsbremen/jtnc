@@ -4,7 +4,7 @@ import java.nio.BufferOverflowException;
 import java.util.List;
 
 import org.ietf.nea.pa.attribute.PaAttributeValueAttributeRequest;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
@@ -24,10 +24,10 @@ class PaAttributeAttributeRequestValueWriter implements ImWriter<PaAttributeValu
 		
 		PaAttributeValueAttributeRequest aValue = data;
 
-		List<AttributeReference> attributes = aValue.getReferences();
+		List<AttributeReferenceEntry> attributes = aValue.getReferences();
 		try{
 			if(attributes != null && attributes.size() > 0){
-				for (AttributeReference attributeReference : attributes) {
+				for (AttributeReferenceEntry attributeReference : attributes) {
 					/* reserved 8 bit(s) */
 					buffer.writeByte(RESERVED);
 					

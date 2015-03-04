@@ -22,7 +22,7 @@ class PbMessageExperimentalValueWriter implements TnccsWriter<PbMessageValueExpe
 		/* message */
 		try{
 			
-			buffer.write(mValue.getMessage().getBytes(Charset.forName("UTF-8")));
+			buffer.write(mValue.getContent().getBytes(Charset.forName("UTF-8")));
 			
 		}catch(BufferOverflowException e){
 			throw new SerializationException(

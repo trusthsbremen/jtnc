@@ -35,7 +35,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
- * Generic builder to build an integrity measurement attribute header compliant
+ * Builder to build an integrity measurement attribute header compliant
  * to RFC 5792. It can be used in a fluent way.
  *
  * @author Carl-Heinz Genzel
@@ -52,7 +52,7 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder {
      * Creates the builder using default values.
      * <ul>
      * <li>Flags: No flags set</li>
-     * <li>Vendor ID: 0</li>
+     * <li>Vendor: IETF</li>
      * <li>Type: Product information </li>
      * <li>Length: Header length only</li>
      * </ul>

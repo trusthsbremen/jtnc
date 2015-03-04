@@ -44,7 +44,7 @@ import org.ietf.nea.pa.attribute.PaAttributeValueError;
 import org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters;
 import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
-import org.ietf.nea.pa.attribute.util.AttributeReference;
+import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import org.ietf.nea.pa.attribute.util
 .PaAttributeValueErrorInformationInvalidParam;
 import org.slf4j.Logger;
@@ -129,8 +129,8 @@ public class FileImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
 
         List<PaAttribute> attributeList = new ArrayList<>();
 
-        List<AttributeReference> references = value.getReferences();
-        for (AttributeReference attributeReference : references) {
+        List<AttributeReferenceEntry> references = value.getReferences();
+        for (AttributeReferenceEntry attributeReference : references) {
             try {
                 if (attributeReference.getVendorId() == 0) {
                     if (attributeReference.getType()
