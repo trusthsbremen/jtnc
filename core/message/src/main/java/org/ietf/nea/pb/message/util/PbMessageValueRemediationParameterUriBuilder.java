@@ -26,12 +26,24 @@ package org.ietf.nea.pb.message.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PbMessageValueRemediationParameterUriBuilder extends PbMessageValueRemediationParameterBuilder{
+/**
+ * Generic builder to build an TNCCS message URI remediation parameter value
+ * compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueRemediationParameterUriBuilder extends
+        PbMessageSubValueBuilder<PbMessageValueRemediationParameterUri> {
 
-	/**
-	 * @param uri the uri to set
-	 * @throws RuleException 
-	 */
-	public abstract  PbMessageValueRemediationParameterUriBuilder setUri(String uri) throws RuleException;
+    /**
+     * Sets the remediation URI.
+     *
+     * @param uri the remediation URI
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueRemediationParameterUriBuilder setUri(
+            String uri) throws RuleException;
 
 }

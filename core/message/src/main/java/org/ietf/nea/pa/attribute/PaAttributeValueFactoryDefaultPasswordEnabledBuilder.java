@@ -27,8 +27,24 @@ package org.ietf.nea.pa.attribute;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueFactoryDefaultPasswordEnabledBuilder extends ImAttributeValueBuilder{
-	
-	public abstract PaAttributeValueFactoryDefaultPasswordEnabledBuilder setStatus(long status) throws RuleException;
+/**
+ * Generic builder to build an integrity measurement default password enables
+ * status attribute value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueFactoryDefaultPasswordEnabledBuilder extends
+        ImAttributeValueBuilder {
+
+    /**
+     * Sets the default password enabled status.
+     *
+     * @param status the status ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueFactoryDefaultPasswordEnabledBuilder setStatus(long status)
+            throws RuleException;
 
 }

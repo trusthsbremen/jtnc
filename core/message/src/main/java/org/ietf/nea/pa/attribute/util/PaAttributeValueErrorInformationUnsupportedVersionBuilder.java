@@ -24,21 +24,47 @@
  */
 package org.ietf.nea.pa.attribute.util;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PaAttributeValueErrorInformationUnsupportedVersionBuilder extends PaAttributeValueErrorInformationBuilder{
-	
-	/**
-	 * @param messageHeader the messageHeader to set
-	 */
-	public abstract void setMessageHeader(MessageHeaderDump messageHeader);
-	
-	/**
-	 * @param offset the offset to set
-	 */
-	public abstract void setMaxVersion(short maxVersion);
+/**
+ * Generic builder to build an integrity measurement unsupported version error
+ * information value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueErrorInformationUnsupportedVersionBuilder
+    extends PaAttributeSubValueBuilder<
+        PaAttributeValueErrorInformationUnsupportedVersion> {
 
-	/**
-	 * @param offset the offset to set
-	 */
-	public abstract void setMinVersion(short minVersion);
+    /**
+     * Sets the byte copy of the message header of the erroneous message.
+     *
+     * @param messageHeader the byte copy of the message header of the erroneous
+     * message
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorInformationUnsupportedVersionBuilder setMessageHeader(
+            MessageHeaderDump messageHeader) throws RuleException;
+
+    /**
+     * Sets the maximum supported version.
+     *
+     * @param maxVersion the maximum version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorInformationUnsupportedVersionBuilder setMaxVersion(
+            short maxVersion) throws RuleException;
+
+    /**
+     * Sets the minimum supported version.
+     *
+     * @param minVersion the minimum supported version.
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorInformationUnsupportedVersionBuilder setMinVersion(
+            short minVersion) throws RuleException;
 }

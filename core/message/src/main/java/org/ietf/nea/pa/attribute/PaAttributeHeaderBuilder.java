@@ -40,7 +40,7 @@ public interface PaAttributeHeaderBuilder extends ImAttributeHeaderBuilder {
      * Sets the attribute flags encoded in one byte.
      *
      * @param flags the attribute flags
-     * @return this builder;
+     * @return this builder
      */
     PaAttributeHeaderBuilder setFlags(byte flags);
 

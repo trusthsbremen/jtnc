@@ -49,7 +49,7 @@ public class PbMessageValueReasonString extends AbstractPbMessageValue {
      *
      * @param length the value length
      * @param reasonString the reason string
-     * @param langCode the RFC4646 language identifier
+     * @param langCode the RFC 4646 language identifier
      */
     PbMessageValueReasonString(final long length, final String reasonString,
             final String langCode) {
@@ -87,7 +87,7 @@ public class PbMessageValueReasonString extends AbstractPbMessageValue {
     }
 
     /**
-     * Returns the RFC4646 language code.
+     * Returns the RFC 4646 language code.
      * @return the language code
      */
     public String getLangCode() {

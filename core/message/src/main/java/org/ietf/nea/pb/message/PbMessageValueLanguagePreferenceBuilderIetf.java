@@ -31,38 +31,59 @@ import org.ietf.nea.pb.validate.rules.NoNullTerminatedString;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
-public class PbMessageValueLanguagePreferenceBuilderIetf implements TnccsMessageValueBuilder, PbMessageValueLanguagePreferenceBuilder{
+/**
+ * Builder to build a TNCCS language preference message value compliant to RFC
+ * 5793. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PbMessageValueLanguagePreferenceBuilderIetf implements
+        TnccsMessageValueBuilder, PbMessageValueLanguagePreferenceBuilder {
 
-	private long length;
-    private String languagePreference;  //32 bit(s), accept-Language header, as described in RFC 3282 [4]  as Accept-Language included in that RFC, US-ASCII only, no control characters allowed, no comments, no NUL termination)
-     
-    public PbMessageValueLanguagePreferenceBuilderIetf(){
-    	this.length = 0;
-    	this.languagePreference = "";
+    private long length;
+    private String languagePreference; // 32 bit(s), accept-Language header, as
+                                       // described in RFC 3282 [4] as
+                                       // Accept-Language included in that RFC,
+                                       // US-ASCII only, no control characters
+                                       // allowed, no comments, no NUL
+                                       // termination)
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Preference: ""</li>
+     * </ul>
+     */
+    public PbMessageValueLanguagePreferenceBuilderIetf() {
+        this.length = 0;
+        this.languagePreference = "";
     }
 
-	@Override
-	public PbMessageValueLanguagePreferenceBuilder setLanguagePreference(String languagePreference) throws RuleException {
+    @Override
+    public PbMessageValueLanguagePreferenceBuilder setLanguagePreference(
+            final String languagePreference) throws RuleException {
 
-		// TODO regular expression test for language string (RFC 2234).
-		
-		// No Null termination is one thing of that.
-		NoNullTerminatedString.check(languagePreference);
-		this.languagePreference = languagePreference;
-		this.length = languagePreference.getBytes(Charset.forName("US-ASCII")).length;
-		return this;
-	}
+        // TODO regular expression test for language string (RFC 3282).
 
-	@Override
-	public PbMessageValueLanguagePreference toObject(){
+        NoNullTerminatedString.check(languagePreference);
+        this.languagePreference = languagePreference;
+        this.length = languagePreference.getBytes(
+                Charset.forName("US-ASCII")).length;
+        return this;
+    }
 
-		return new PbMessageValueLanguagePreference(this.length,this.languagePreference);
-	}
+    @Override
+    public PbMessageValueLanguagePreference toObject() {
 
-	@Override
-	public PbMessageValueLanguagePreferenceBuilder newInstance() {
+        return new PbMessageValueLanguagePreference(this.length,
+                this.languagePreference);
+    }
 
-		return new PbMessageValueLanguagePreferenceBuilderIetf();
-	}
+    @Override
+    public PbMessageValueLanguagePreferenceBuilder newInstance() {
+        return new PbMessageValueLanguagePreferenceBuilderIetf();
+    }
 
 }

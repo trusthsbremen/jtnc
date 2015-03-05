@@ -26,14 +26,43 @@ package org.ietf.nea.pb.message.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PbMessageValueErrorParameterVersionBuilder extends PbMessageValueErrorParameterBuilder {
+/**
+ * Generic builder to build an TNCCS message version error parameter value
+ * compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueErrorParameterVersionBuilder extends
+        PbMessageSubValueBuilder<PbMessageValueErrorParameterVersion> {
 
-	public abstract PbMessageValueErrorParameterVersionBuilder setBadVersion(short version)
-			throws RuleException;
-	
-	public abstract PbMessageValueErrorParameterVersionBuilder setMaxVersion(short version)
-			throws RuleException;
-	
-	public abstract PbMessageValueErrorParameterVersionBuilder setMinVersion(short version)
-			throws RuleException;
+    /**
+     * Sets the unsupported version.
+     *
+     * @param version the bad version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueErrorParameterVersionBuilder setBadVersion(
+            short version) throws RuleException;
+
+    /**
+     * Sets the maximum supported version.
+     *
+     * @param version the maximum version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueErrorParameterVersionBuilder setMaxVersion(
+            short version) throws RuleException;
+
+    /**
+     * Sets the minimum supported version.
+     *
+     * @param version the minimum version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueErrorParameterVersionBuilder setMinVersion(
+            short version) throws RuleException;
 }

@@ -27,8 +27,24 @@ package org.ietf.nea.pa.attribute;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueForwardingEnabledBuilder extends ImAttributeValueBuilder{
-	
-	public abstract PaAttributeValueForwardingEnabledBuilder setStatus(long status) throws RuleException;
+/**
+ * Generic builder to build an integrity measurement traffic forwarding status
+ * attribute value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueForwardingEnabledBuilder extends
+        ImAttributeValueBuilder {
+
+    /**
+     * Sets the traffic forwarding status.
+     *
+     * @param status the status ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueForwardingEnabledBuilder setStatus(long status)
+            throws RuleException;
 
 }

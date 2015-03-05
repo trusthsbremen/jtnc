@@ -33,46 +33,64 @@ import org.ietf.nea.pa.validate.rules.NoZeroString;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PaAttributeValueRemediationParameterUriBuilderIetf implements PaAttributeValueRemediationParameterUriBuilder{
+/**
+ * Builder to build an integrity measurement URI remediation parameter value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PaAttributeValueRemediationParameterUriBuilderIetf implements
+        PaAttributeValueRemediationParameterUriBuilder {
 
-	private long length;
+    private long length;
     private URI uri;
-    
-    public PaAttributeValueRemediationParameterUriBuilderIetf(){
-    	this.length = 0;
-    	this.uri = null;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>URI: null</li>
+     * </ul>
+     */
+    public PaAttributeValueRemediationParameterUriBuilderIetf() {
+        this.length = 0;
+        this.uri = null;
     }
 
-	/* (non-Javadoc)
-	 * @see org.ietf.nea.pb.message.PbMessageValueRemediationParameterUriBuilder#setUri(java.lang.String)
-	 */
-	@Override
-	public PaAttributeValueRemediationParameterUriBuilder setUri(String uri) throws RuleException {
-		
-		NoZeroString.check(uri);
-		try{
-			this.uri = new URI(uri);
-		} catch (URISyntaxException e) {
-			throw new RuleException("URI syntax not valid.",e, true, PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.URI_SYNTAX_NOT_VALID.number(),uri);
-		}
-		this.length = this.uri.toString().getBytes().length;
-		return this;
-	}
+    @Override
+    public PaAttributeValueRemediationParameterUriBuilder setUri(
+            final String uri) throws RuleException {
 
-	@Override
-	public PaAttributeValueRemediationParameterUri toObject() throws RuleException {
-		
-		if( uri == null){
-				throw new IllegalStateException("A message value has to be set.");
-		}
-		
-		return new PaAttributeValueRemediationParameterUri(this.length, this.uri);
-	}
+        NoZeroString.check(uri);
+        try {
+            this.uri = new URI(uri);
+        } catch (URISyntaxException e) {
+            throw new RuleException("URI syntax not valid.", e, true,
+                    PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),
+                    PaErrorCauseEnum.URI_SYNTAX_NOT_VALID.id(), uri);
+        }
+        this.length = this.uri.toString().getBytes().length;
+        return this;
+    }
 
-	@Override
-	public PaAttributeValueRemediationParameterUriBuilder newInstance() {
+    @Override
+    public PaAttributeValueRemediationParameterUri toObject()
+            throws RuleException {
 
-		return new PaAttributeValueRemediationParameterUriBuilderIetf();
-	}
+        if (uri == null) {
+            throw new IllegalStateException("A message value has to be set.");
+        }
+
+        return new PaAttributeValueRemediationParameterUri(this.length,
+                this.uri);
+    }
+
+    @Override
+    public PaAttributeValueRemediationParameterUriBuilder newInstance() {
+
+        return new PaAttributeValueRemediationParameterUriBuilderIetf();
+    }
 
 }

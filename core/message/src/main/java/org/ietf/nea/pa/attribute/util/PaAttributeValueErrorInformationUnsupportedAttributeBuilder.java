@@ -26,12 +26,40 @@ package org.ietf.nea.pa.attribute.util;
 
 import org.ietf.nea.pa.attribute.PaAttributeHeader;
 
-public interface PaAttributeValueErrorInformationUnsupportedAttributeBuilder extends PaAttributeValueErrorInformationBuilder{
-	
-	/**
-	 * @param messageHeader the messageHeader to set
-	 */
-	public abstract void setMessageHeader(MessageHeaderDump messageHeader);
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-	public abstract void setAttributeHeader(PaAttributeHeader attributeHeader);
+/**
+ * Generic builder to build an integrity measurement unsupported attribute error
+ * information value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueErrorInformationUnsupportedAttributeBuilder
+        extends PaAttributeSubValueBuilder<
+            PaAttributeValueErrorInformationUnsupportedAttribute> {
+
+    /**
+     * Sets the byte copy of the message header of the erroneous message.
+     *
+     * @param messageHeader the byte copy of the message header of the erroneous
+     * message
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorInformationUnsupportedAttributeBuilder
+        setMessageHeader(MessageHeaderDump messageHeader)
+                throws RuleException;
+
+    /**
+     * Sets the copy of the header of the unsupported attribute.
+     *
+     * @param attributeHeader the copy of the header of the unsupported
+     * attribute
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorInformationUnsupportedAttributeBuilder
+        setAttributeHeader(PaAttributeHeader attributeHeader)
+                throws RuleException;
 }

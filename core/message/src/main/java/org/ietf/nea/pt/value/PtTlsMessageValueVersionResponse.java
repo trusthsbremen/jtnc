@@ -30,7 +30,8 @@ package org.ietf.nea.pt.value;
  * @author Carl-Heinz Genzel
  *
  */
-public class PtTlsMessageValueVersionResponse extends AbstractPtTlsMessageValue {
+public class PtTlsMessageValueVersionResponse extends
+    AbstractPtTlsMessageValue {
 
     private final short selectedVersion;
 

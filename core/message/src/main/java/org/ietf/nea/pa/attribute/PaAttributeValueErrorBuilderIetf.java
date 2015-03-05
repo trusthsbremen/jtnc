@@ -33,65 +33,87 @@ import org.ietf.nea.pa.validate.rules.VendorIdReservedAndLimits;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PaAttributeValueErrorBuilderIetf implements PaAttributeValueErrorBuilder{
-    
-    private long errorVendorId;         // 24 bit(s)
-    private long errorCode;             // 32 bit(s)
-    
-    private long length; 
-    
+/**
+ * Builder to build an integrity measurement error attribute value compliant to
+ * RFC 5792. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PaAttributeValueErrorBuilderIetf implements
+        PaAttributeValueErrorBuilder {
+
+    private long errorVendorId; // 24 bit(s)
+    private long errorCode; // 32 bit(s)
+
+    private long length;
+
     private AbstractPaAttributeValueErrorInformation errorInformation;
-    
-    public PaAttributeValueErrorBuilderIetf(){
-    	this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
-    	this.errorCode = PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code();
-    	this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length();
-    	this.errorInformation = null;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Vendor: IETF</li>
+     * <li>Code: Invalid parameter</li>
+     * <li>Information: null</li>
+     * </ul>
+     */
+    public PaAttributeValueErrorBuilderIetf() {
+        this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
+        this.errorCode = PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code();
+        this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length();
+        this.errorInformation = null;
     }
 
-	@Override
-	public PaAttributeValueErrorBuilder setErrorVendorId(long rpVendorId) throws RuleException {
-		
-		VendorIdReservedAndLimits.check(rpVendorId);
-		this.errorVendorId = rpVendorId;
-	
-		return this;
-	}
+    @Override
+    public PaAttributeValueErrorBuilder setErrorVendorId(final long rpVendorId)
+            throws RuleException {
 
-	@Override
-	public PaAttributeValueErrorBuilder setErrorCode(long rpType) throws RuleException {
-		
-		TypeReservedAndLimits.check(rpType);
-		this.errorCode = rpType;
-		
-		return this;
-	}
+        VendorIdReservedAndLimits.check(rpVendorId);
+        this.errorVendorId = rpVendorId;
 
-	@Override
-	public PaAttributeValueErrorBuilder setErrorInformation(
-			AbstractPaAttributeValueErrorInformation parameter) {
-		
-		if(parameter != null){
-			this.errorInformation = parameter;
-			this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + parameter.getLength();
-		}
-		
-		return this;
-	}
+        return this;
+    }
 
-	@Override
-	public PaAttributeValueError toObject(){
-		if(errorInformation == null){
-			throw new IllegalStateException("An error information has to be set.");
-		}
-		
-		return new PaAttributeValueError(this.length, this.errorVendorId, this.errorCode, this.errorInformation);
-	}
+    @Override
+    public PaAttributeValueErrorBuilder setErrorCode(final long rpType)
+            throws RuleException {
 
-	@Override
-	public PaAttributeValueErrorBuilder newInstance() {
+        TypeReservedAndLimits.check(rpType);
+        this.errorCode = rpType;
 
-		return new PaAttributeValueErrorBuilderIetf();
-	}
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueErrorBuilder setErrorInformation(
+            final AbstractPaAttributeValueErrorInformation parameter) {
+
+        if (parameter != null) {
+            this.errorInformation = parameter;
+            this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length()
+                    + parameter.getLength();
+        }
+
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueError toObject() {
+        if (errorInformation == null) {
+            throw new IllegalStateException(
+                    "An error information has to be set.");
+        }
+
+        return new PaAttributeValueError(this.length, this.errorVendorId,
+                this.errorCode, this.errorInformation);
+    }
+
+    @Override
+    public PaAttributeValueErrorBuilder newInstance() {
+
+        return new PaAttributeValueErrorBuilderIetf();
+    }
 
 }

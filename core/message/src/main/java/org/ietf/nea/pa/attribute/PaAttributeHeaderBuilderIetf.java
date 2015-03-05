@@ -36,7 +36,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
  * Builder to build an integrity measurement attribute header compliant
- * to RFC 5792. It can be used in a fluent way.
+ * to RFC 5792. It evaluates the given values and can be used in a fluent way.
  *
  * @author Carl-Heinz Genzel
  *
@@ -53,14 +53,14 @@ public class PaAttributeHeaderBuilderIetf implements PaAttributeHeaderBuilder {
      * <ul>
      * <li>Flags: No flags set</li>
      * <li>Vendor: IETF</li>
-     * <li>Type: Product information </li>
+     * <li>Type: Testing </li>
      * <li>Length: Header length only</li>
      * </ul>
      */
     public PaAttributeHeaderBuilderIetf() {
         this.flags = new PaAttributeFlagEnum[0];
         this.vendorId = IETFConstants.IETF_PEN_VENDORID;
-        this.type = PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION
+        this.type = PaAttributeTypeEnum.IETF_PA_TESTING
                 .id();
         this.length = PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length();
     }

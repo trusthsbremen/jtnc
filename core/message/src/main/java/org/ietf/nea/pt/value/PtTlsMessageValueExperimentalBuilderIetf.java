@@ -26,39 +26,53 @@ package org.ietf.nea.pt.value;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a transport experimental message value compliant to RFC
+ * 6876. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PtTlsMessageValueExperimentalBuilderIetf implements
-		PtTlsMessageValueExperimentalBuilder {
-	
-	private long length;
-	private String message; // variable string
-	
-	public PtTlsMessageValueExperimentalBuilderIetf(){
-		this.length = 0;
-		this.message = "";
-	}
-	
-	@Override
-	public PtTlsMessageValueExperimentalBuilder setMessage(String message) throws RuleException {
-		// no checks necessary because experimental
-		if(message != null){
-			this.message = message;
-			this.length = message.getBytes().length;
-		}
-		
-		return this;
-	}
-	
-	@Override
-	public PtTlsMessageValueExperimental toObject(){
+        PtTlsMessageValueExperimentalBuilder {
 
-		return new PtTlsMessageValueExperimental(this.length,this.message);
-	}
+    private long length;
+    private String content; // variable string
 
-	@Override
-	public PtTlsMessageValueExperimentalBuilder newInstance() {
-		
-		return new PtTlsMessageValueExperimentalBuilderIetf();
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Content: ""</li>
+     * </ul>
+     */
+    public PtTlsMessageValueExperimentalBuilderIetf() {
+        this.length = 0;
+        this.content = "";
+    }
 
+    @Override
+    public PtTlsMessageValueExperimentalBuilder setMessage(final String content)
+            throws RuleException {
+        // no checks necessary because experimental
+        if (content != null) {
+            this.content = content;
+            this.length = content.getBytes().length;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueExperimental toObject() {
+
+        return new PtTlsMessageValueExperimental(this.length, this.content);
+    }
+
+    @Override
+    public PtTlsMessageValueExperimentalBuilder newInstance() {
+
+        return new PtTlsMessageValueExperimentalBuilderIetf();
+    }
 
 }

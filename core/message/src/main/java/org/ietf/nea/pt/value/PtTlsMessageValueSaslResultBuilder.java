@@ -27,11 +27,34 @@ package org.ietf.nea.pt.value;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
-public interface PtTlsMessageValueSaslResultBuilder extends TransportMessageValueBuilder{
+/**
+ * Generic builder to build a transport SASL result message value compliant to
+ * RFC 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValueSaslResultBuilder extends
+        TransportMessageValueBuilder {
 
-	public abstract PtTlsMessageValueSaslResultBuilder setResult(int saslResult) throws RuleException;
+    /**
+     * Sets the SASL authentication result.
+     *
+     * @param saslResult the SASL authentication result ID
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueSaslResultBuilder setResult(int saslResult)
+            throws RuleException;
 
-	public abstract PtTlsMessageValueSaslResultBuilder setOptionalResultData(
-			byte[] data) throws RuleException;
-	
+    /**
+     * Sets the optional result data.
+     *
+     * @param data the optional result data
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueSaslResultBuilder setOptionalResultData(byte[] data)
+            throws RuleException;
+
 }

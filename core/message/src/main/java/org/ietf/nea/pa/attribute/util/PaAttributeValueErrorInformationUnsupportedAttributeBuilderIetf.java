@@ -28,48 +28,68 @@ import org.ietf.nea.pa.attribute.PaAttributeHeader;
 import org.ietf.nea.pa.attribute.PaAttributeHeaderBuilderIetf;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
-public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf implements
-	PaAttributeValueErrorInformationUnsupportedAttributeBuilder {
-	
-	
-	private long length;
-	private MessageHeaderDump messageHeader;
-	private PaAttributeHeader attributeHeader;
+/**
+ * Builder to build an integrity measurement unsupported attribute error
+ * information value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf
+        implements PaAttributeValueErrorInformationUnsupportedAttributeBuilder {
 
-	
-	public PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + 
-				PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 
-				PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length() - 4; // -4 = attribute length is ignored
-		
-		this.messageHeader = new MessageHeaderDump((short)0, new byte[0], 0L);
-		this.attributeHeader = new PaAttributeHeaderBuilderIetf().toObject();
-	}
+    private long length;
+    private MessageHeaderDump messageHeader;
+    private PaAttributeHeader attributeHeader;
 
-	@Override
-	public void setMessageHeader(MessageHeaderDump messageHeader) {
-		if(messageHeader != null){
-			this.messageHeader = messageHeader;
-		}
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Message header: Dummy header</li>
+     * <li>Attribute header: Testing header</li>
+     * </ul>
+     */
+    public PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf() {
+        final int attributeLengthIgnoreOffset = 4;
+        this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length()
+                + PaAttributeTlvFixedLengthEnum.MESSAGE.length()
+                + PaAttributeTlvFixedLengthEnum.ATTRIBUTE.length()
+                - attributeLengthIgnoreOffset;
 
-	@Override
-	public void setAttributeHeader(PaAttributeHeader attributeHeader) {
-		if(attributeHeader != null){
-			this.attributeHeader = attributeHeader;
-		}
-	}
+        this.messageHeader = new MessageHeaderDump((short) 0, new byte[0], 0L);
+        this.attributeHeader = new PaAttributeHeaderBuilderIetf().toObject();
+    }
 
-	@Override
-	public PaAttributeValueErrorInformationUnsupportedAttribute toObject(){
-		
-		return new PaAttributeValueErrorInformationUnsupportedAttribute(this.length, this.messageHeader, this.attributeHeader);
-	}
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedAttributeBuilder
+        setMessageHeader(final MessageHeaderDump messageHeader) {
+        if (messageHeader != null) {
+            this.messageHeader = messageHeader;
+        }
+        return this;
+    }
 
-	@Override
-	public PaAttributeValueErrorInformationUnsupportedAttributeBuilder newInstance() {
-		// TODO Auto-generated method stub
-		return new PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf();
-	}
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedAttributeBuilder
+        setAttributeHeader(final PaAttributeHeader attributeHeader) {
+        if (attributeHeader != null) {
+            this.attributeHeader = attributeHeader;
+        }
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedAttribute toObject() {
+
+        return new PaAttributeValueErrorInformationUnsupportedAttribute(
+                this.length, this.messageHeader, this.attributeHeader);
+    }
+
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedAttributeBuilder
+        newInstance() {
+        return new PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf();
+    }
 
 }

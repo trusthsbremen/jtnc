@@ -52,8 +52,8 @@ public class PtTlsMessageValueError extends AbstractPtTlsMessageValue {
 
         this.errorVendorId = errorVendorId;
         this.errorCode = errorCode;
-        this.partialMessageCopy = (partialMessageCopy != null) ? partialMessageCopy
-                : new byte[0];
+        this.partialMessageCopy = (partialMessageCopy != null)
+                ? partialMessageCopy : new byte[0];
     }
 
     /**

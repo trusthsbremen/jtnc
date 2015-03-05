@@ -27,43 +27,68 @@ package org.ietf.nea.pb.message;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
+/**
+ * Generic builder to build a TNCCS integrity measurement component message
+ * value compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public interface PbMessageValueImBuilder extends TnccsMessageValueBuilder {
 
-	/**
-	 * @param imFlags the imFlags to set
-	 */
-	public abstract PbMessageValueImBuilder setImFlags(byte imFlags);
+    /**
+     * Sets the integrity measurement component flags encoded as byte.
+     *
+     * @param imFlags the integrity measurement component flags
+     * @return this builder
+     */
+    PbMessageValueImBuilder setImFlags(byte imFlags);
 
-	/**
-	 * @param subVendorId the subVendorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueImBuilder setSubVendorId(long subVendorId)
-			throws RuleException;
+    /**
+     * Sets the the integrity measurement component vendor ID.
+     *
+     * @param subVendorId the component vendor ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueImBuilder setSubVendorId(long subVendorId)
+            throws RuleException;
 
-	/**
-	 * @param subType the subType to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueImBuilder setSubType(long subType) throws RuleException;
+    /**
+     * Sets the type describing the integrity measurement component.
+     *
+     * @param subType the component type ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueImBuilder setSubType(long subType) throws RuleException;
 
-	/**
-	 * @param collectorId the collectorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueImBuilder setCollectorId(long collectorId)
-			throws RuleException;
+    /**
+     * Sets the the IMC ID receiving/sending the measurements.
+     *
+     * @param collectorId the IMC ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueImBuilder setCollectorId(long collectorId)
+            throws RuleException;
 
-	/**
-	 * @param validatorId the validatorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueImBuilder setValidatorId(long validatorId)
-			throws RuleException;
+    /**
+     * Sets the the IMV ID receiving/sending the measurements.
+     *
+     * @param validatorId the IMV ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueImBuilder setValidatorId(long validatorId)
+            throws RuleException;
 
-	/**
-	 * @param message the message to set
-	 */
-	public abstract PbMessageValueImBuilder setMessage(byte[] message);
+    /**
+     * Sets the integrity measurement component message.
+     *
+     * @param message the message
+     * @return this builder
+     */
+    PbMessageValueImBuilder setMessage(byte[] message);
 
 }

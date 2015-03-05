@@ -33,60 +33,75 @@ import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a transport SASL mechanisms message value compliant to RFC
+ * 6876. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PtTlsMessageValueSaslMechanismsBuilderIetf implements
-PtTlsMessageValueSaslMechanismsBuilder {
-	
-	private static final byte LENGTH_FIELDS_AND_RESERVED_LENGTH = 1;
-	
-	private long length;
-	private List<SaslMechanismEntry> mechanisms;
-	
-	public PtTlsMessageValueSaslMechanismsBuilderIetf(){
-		this.length = 0;
-		this.mechanisms = new LinkedList<>();
-	}
+        PtTlsMessageValueSaslMechanismsBuilder {
 
-	@Override
-	public PtTlsMessageValueSaslMechanismsBuilder addMechanism(SaslMechanismEntry mech1, SaslMechanismEntry... mechs) throws RuleException {
-		
-		List<SaslMechanismEntry> temp = new ArrayList<>();
-		
-		if(mech1 != null){
-			SaslMechanismName.check(mech1.getName());
-			temp.add(mech1);
-		}
-		
-		if(mechs != null){
-			for (SaslMechanismEntry mech : mechs) {
-				if(mech != null){
-					SaslMechanismName.check(mech.getName());
-					temp.add(mech);
-				}
-			}
-		}
+    private static final byte LENGTH_FIELDS_AND_RESERVED_LENGTH = 1;
 
-		this.mechanisms.addAll(temp);
-		this.updateLength();
-		
-		return this;
-	}
+    private long length;
+    private List<SaslMechanismEntry> mechanisms;
 
-	private void updateLength() {
-		this.length = 0;
-		for (SaslMechanismEntry mech : this.mechanisms) {
-			this.length += (mech.getNameLength() + LENGTH_FIELDS_AND_RESERVED_LENGTH) ; // 1 bytes for length values
-		}
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Entries: Empty list</li>
+     * </ul>
+     */
+    public PtTlsMessageValueSaslMechanismsBuilderIetf() {
+        this.length = 0;
+        this.mechanisms = new LinkedList<>();
+    }
 
-	@Override
-	public PtTlsMessageValueSaslMechanisms toObject(){
-		
-		return new PtTlsMessageValueSaslMechanisms(this.length, this.mechanisms);
-	}
+    @Override
+    public PtTlsMessageValueSaslMechanismsBuilder addMechanism(
+            final SaslMechanismEntry... mechs) throws RuleException {
 
-	@Override
-	public PtTlsMessageValueSaslMechanismsBuilder newInstance() {
-		return new PtTlsMessageValueSaslMechanismsBuilderIetf();
-	}
+        List<SaslMechanismEntry> temp = new ArrayList<>();
+
+        if (mechs != null) {
+            for (SaslMechanismEntry mech : mechs) {
+                if (mech != null) {
+                    SaslMechanismName.check(mech.getName());
+                    temp.add(mech);
+                }
+            }
+        }
+
+        this.mechanisms.addAll(temp);
+        this.updateLength();
+
+        return this;
+    }
+
+    /**
+     * Updates length according to the values set.
+     */
+    private void updateLength() {
+        this.length = 0;
+        for (SaslMechanismEntry mech : this.mechanisms) {
+            this.length += (mech.getNameLength()
+                    + LENGTH_FIELDS_AND_RESERVED_LENGTH);
+        }
+    }
+
+    @Override
+    public PtTlsMessageValueSaslMechanisms toObject() {
+
+        return new PtTlsMessageValueSaslMechanisms(this.length,
+                this.mechanisms);
+    }
+
+    @Override
+    public PtTlsMessageValueSaslMechanismsBuilder newInstance() {
+        return new PtTlsMessageValueSaslMechanismsBuilderIetf();
+    }
 
 }

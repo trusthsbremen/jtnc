@@ -24,7 +24,6 @@
  */
 package org.ietf.nea.pb.message.util;
 
-import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageSubValue;
 
 /**
  * Generic IETF RFC 5793 remediation parameter base. Especially important for
@@ -34,7 +33,7 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageSubValue;
  *
  */
 public abstract class AbstractPbMessageValueRemediationParameter implements
-        TnccsMessageSubValue {
+        PbMessageSubValue {
 
     private final long length;
 
@@ -47,11 +46,7 @@ public abstract class AbstractPbMessageValueRemediationParameter implements
         this.length = length;
     }
 
-    /**
-     * Returns the value length.
-     *
-     * @return the length
-     */
+    @Override
     public long getLength() {
         return this.length;
     }

@@ -26,39 +26,53 @@ package org.ietf.nea.pb.message;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a TNCCS experimental message value compliant to RFC 5793.
+ * It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PbMessageValueExperimentalBuilderIetf implements
-		PbMessageValueExperimentalBuilder {
-	
-	private long length;
-	private String message; // variable string
-	
-	public PbMessageValueExperimentalBuilderIetf(){
-		this.length = 0;
-		this.message = "";
-	}
-	
-	@Override
-	public PbMessageValueExperimentalBuilder setMessage(String message) throws RuleException {
-		// no checks necessary because experimental
-		if(message != null){
-			this.message = message;
-			this.length = message.getBytes().length;
-		}
-		
-		return this;
-	}
-	
-	@Override
-	public PbMessageValueExperimental toObject(){
+        PbMessageValueExperimentalBuilder {
 
-		return new PbMessageValueExperimental(this.length,this.message);
-	}
+    private long length;
+    private String content; // variable string
 
-	@Override
-	public PbMessageValueExperimentalBuilder newInstance() {
-		
-		return new PbMessageValueExperimentalBuilderIetf();
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Content: ""</li>
+     * </ul>
+     */
+    public PbMessageValueExperimentalBuilderIetf() {
+        this.length = 0;
+        this.content = "";
+    }
 
+    @Override
+    public PbMessageValueExperimentalBuilder setMessage(final String content)
+            throws RuleException {
+        // no checks necessary because experimental
+        if (content != null) {
+            this.content = content;
+            this.length = content.getBytes().length;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueExperimental toObject() {
+
+        return new PbMessageValueExperimental(this.length, this.content);
+    }
+
+    @Override
+    public PbMessageValueExperimentalBuilder newInstance() {
+
+        return new PbMessageValueExperimentalBuilderIetf();
+    }
 
 }

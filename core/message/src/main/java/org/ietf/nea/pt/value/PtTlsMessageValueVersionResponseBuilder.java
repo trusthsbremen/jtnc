@@ -27,8 +27,23 @@ package org.ietf.nea.pt.value;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
-public interface PtTlsMessageValueVersionResponseBuilder extends TransportMessageValueBuilder {
-	
-	public abstract PtTlsMessageValueVersionResponseBuilder setVersion(short version)
-			throws RuleException;
+/**
+ * Generic builder to build a transport version response message value compliant
+ * to RFC 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValueVersionResponseBuilder extends
+        TransportMessageValueBuilder {
+
+    /**
+     * Sets the chosen version.
+     *
+     * @param version the chosen version
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueVersionResponseBuilder setVersion(short version)
+            throws RuleException;
 }

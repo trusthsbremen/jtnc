@@ -340,7 +340,7 @@ public class SocketTransportConnection implements TransportConnection {
                                         PtTlsMessageErrorCodeEnum.
                                         IETF_INVALID_MESSAGE.code(),
                                         PtTlsErrorCauseEnum.
-                                        MESSAGE_TYPE_UNEXPECTED.number()),
+                                        MESSAGE_TYPE_UNEXPECTED.id()),
                                         0, ct.getResult().getHeader());
                     }
 
@@ -376,8 +376,7 @@ public class SocketTransportConnection implements TransportConnection {
                                 true,
                                 PtTlsMessageErrorCodeEnum.
                                 IETF_UNSUPPORTED_VERSION.code(),
-                                PtTlsErrorCauseEnum.
-                                UNSUPPORTED_VERSION.number()),
+                                PtTlsErrorCauseEnum.TRANSPORT_VERSION_NOT_SUPPORTED.id()),
                                 0, ct.getResult().getHeader());
             }
 
@@ -408,7 +407,7 @@ public class SocketTransportConnection implements TransportConnection {
                                         PtTlsMessageErrorCodeEnum.
                                         IETF_INVALID_MESSAGE.code(),
                                         PtTlsErrorCauseEnum.
-                                        MESSAGE_TYPE_UNEXPECTED.number()),
+                                        MESSAGE_TYPE_UNEXPECTED.id()),
                                         0, ct.getResult().getHeader());
                     }
 
@@ -450,8 +449,7 @@ public class SocketTransportConnection implements TransportConnection {
                                 true,
                                 PtTlsMessageErrorCodeEnum.
                                 IETF_UNSUPPORTED_VERSION.code(),
-                                PtTlsErrorCauseEnum.
-                                UNSUPPORTED_VERSION.number()),
+                                PtTlsErrorCauseEnum.TRANSPORT_VERSION_NOT_SUPPORTED.id()),
                                 0, ct.getResult().getHeader());
             }
 
@@ -540,7 +538,7 @@ public class SocketTransportConnection implements TransportConnection {
                                         PtTlsMessageErrorCodeEnum.
                                         IETF_INVALID_MESSAGE.code(),
                                         PtTlsErrorCauseEnum.
-                                        MESSAGE_TYPE_UNEXPECTED.number()),
+                                        MESSAGE_TYPE_UNEXPECTED.id()),
                                         0, ct.getResult().getHeader());
                     }
 
@@ -573,7 +571,7 @@ public class SocketTransportConnection implements TransportConnection {
                                 PtTlsMessageErrorCodeEnum.
                                 IETF_SASL_MECHANISM_ERROR.code(),
                                 PtTlsErrorCauseEnum.
-                                ADDITIONAL_SASL_NOT_SUPPORTED.number()),
+                                ADDITIONAL_SASL_NOT_SUPPORTED.id()),
                                 0, ct.getResult().getHeader());
             }
         }
@@ -752,7 +750,7 @@ public class SocketTransportConnection implements TransportConnection {
                                                 PtTlsMessageErrorCodeEnum
                                                 .IETF_INVALID_MESSAGE.code(),
                                                 PtTlsErrorCauseEnum
-                                                .MESSAGE_TYPE_UNEXPECTED.number()),
+                                                .MESSAGE_TYPE_UNEXPECTED.id()),
                                                 0, ct.getResult().getHeader());
                             }
                         }

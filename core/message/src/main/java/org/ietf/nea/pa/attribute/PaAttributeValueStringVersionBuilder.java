@@ -27,12 +27,44 @@ package org.ietf.nea.pa.attribute;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueStringVersionBuilder extends ImAttributeValueBuilder{
+/**
+ * Generic builder to build an integrity measurement string version attribute
+ * value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueStringVersionBuilder extends
+        ImAttributeValueBuilder {
 
-	void setProductVersion(String productVersion) throws RuleException;
+    /**
+     * Sets the product version.
+     *
+     * @param productVersion the product version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueStringVersionBuilder setProductVersion(
+            String productVersion) throws RuleException;
 
-	void setBuildNumber(String buildNumber) throws RuleException;
+    /**
+     * Sets the product build number.
+     *
+     * @param buildNumber the product build number.
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueStringVersionBuilder setBuildNumber(String buildNumber)
+            throws RuleException;
 
-	void setConfigurationVersion(String configVersion) throws RuleException;
+    /**
+     * Sets the configuration version number.
+     *
+     * @param configVersion the configuration version number
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueStringVersionBuilder setConfigurationVersion(
+            String configVersion) throws RuleException;
 
 }

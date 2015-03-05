@@ -30,36 +30,53 @@ import org.ietf.nea.pb.validate.rules.AccessRecommendation;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a TNCCS access recommendation message value compliant to
+ * RFC 5793. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PbMessageValueAccessRecommendationBuilderIetf implements
-		PbMessageValueAccessRecommendationBuilder {
-    
-	private long length;
-    private PbMessageAccessRecommendationEnum recommendation;  //16 bit(s)
-	
-	public PbMessageValueAccessRecommendationBuilderIetf(){
-		this.length = PbMessageTlvFixedLengthEnum.ACC_REC_VALUE.length();
-		this.recommendation = PbMessageAccessRecommendationEnum.ALLOWED;
-	}
+        PbMessageValueAccessRecommendationBuilder {
 
-	@Override
-	public PbMessageValueAccessRecommendationBuilder setRecommendation(int recommendation) throws RuleException {
-		
-		AccessRecommendation.check(recommendation);
-		this.recommendation = PbMessageAccessRecommendationEnum.fromId(recommendation);
-		
-		return this;
-	}
+    private long length;
+    private PbMessageAccessRecommendationEnum recommendation; // 16 bit(s)
 
-	@Override
-	public PbMessageValueAccessRecommendation toObject(){
-		
-		return new PbMessageValueAccessRecommendation(this.length, this.recommendation);
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Recommendation: Allowed</li>
+     * </ul>
+     */
+    public PbMessageValueAccessRecommendationBuilderIetf() {
+        this.length = PbMessageTlvFixedLengthEnum.ACC_REC_VALUE.length();
+        this.recommendation = PbMessageAccessRecommendationEnum.ALLOWED;
+    }
 
-	@Override
-	public PbMessageValueAccessRecommendationBuilder newInstance() {
+    @Override
+    public PbMessageValueAccessRecommendationBuilder setRecommendation(
+            final int recommendation) throws RuleException {
 
-		return new PbMessageValueAccessRecommendationBuilderIetf();
-	}
+        AccessRecommendation.check(recommendation);
+        this.recommendation = PbMessageAccessRecommendationEnum
+                .fromId(recommendation);
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueAccessRecommendation toObject() {
+
+        return new PbMessageValueAccessRecommendation(this.length,
+                this.recommendation);
+    }
+
+    @Override
+    public PbMessageValueAccessRecommendationBuilder newInstance() {
+
+        return new PbMessageValueAccessRecommendationBuilderIetf();
+    }
 
 }

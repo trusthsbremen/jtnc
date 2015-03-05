@@ -150,7 +150,7 @@ class PbReader implements TnccsReader<TnccsBatchContainer>, Combined<TnccsReader
 									throw new ValidationException(e1.getMessage(), e1, headerOffset);
 								}
 
-								// filter messages of type access recommendation and assessment result if batch is not of type result. RFC5793
+								// filter messages of type access recommendation and assessment result if batch is not of type result. RFC 5793
 								if(mHead.getVendorId() == IETFConstants.IETF_PEN_VENDORID && mHead.getMessageType() == PbMessageTypeEnum.IETF_PB_ACCESS_RECOMMENDATION.id()){
 									if(bHead.getType().equals(PbBatchTypeEnum.RESULT)){
 										msgs.add(new PbMessage(mHead, mValue));

@@ -27,8 +27,23 @@ package org.ietf.nea.pa.attribute;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueTestingBuilder extends ImAttributeValueBuilder{
-
-	public abstract PaAttributeValueTestingBuilder setContent(String Content) throws RuleException;
+/**
+ * Generic builder to build an integrity measurement test attribute value
+ * compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueTestingBuilder extends
+    ImAttributeValueBuilder {
+    /**
+     * Sets the test content.
+     *
+     * @param content the test content
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueTestingBuilder setContent(String content)
+            throws RuleException;
 
 }

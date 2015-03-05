@@ -26,43 +26,59 @@ package org.ietf.nea.pt.value;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a transport SASL authentication data message value compliant
+ * to RFC 6876. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PtTlsMessageValueSaslAuthenticationDataBuilderIetf implements
-		PtTlsMessageValueSaslAuthenticationDataBuilder {
-	
-	private long length;
-	private byte[] authenticationData; // variable string
-	
-	public PtTlsMessageValueSaslAuthenticationDataBuilderIetf(){
-		this.length = 0;
-		this.authenticationData = null;
-	}
-	
-	@Override
-	public PtTlsMessageValueSaslAuthenticationDataBuilder setAuthenticationData(byte[] data) throws RuleException {
-		// no checks necessary because opaque
-		if(data != null){
-			this.authenticationData = data;
-			this.length = data.length;
-		}
-		
-		return this;
-	}
-	
-	@Override
-	public PtTlsMessageValueSaslAuthenticationData toObject(){
+        PtTlsMessageValueSaslAuthenticationDataBuilder {
 
-		if(this.authenticationData == null){
-			throw new IllegalStateException("The SASL authentication data has to be set.");
-		}
-		
-		return new PtTlsMessageValueSaslAuthenticationData(this.length,this.authenticationData);
-	}
+    private long length;
+    private byte[] authenticationData; // variable string
 
-	@Override
-	public PtTlsMessageValueSaslAuthenticationDataBuilder newInstance() {
-		
-		return new PtTlsMessageValueSaslAuthenticationDataBuilderIetf();
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Data: null</li>
+     * </ul>
+     */
+    public PtTlsMessageValueSaslAuthenticationDataBuilderIetf() {
+        this.length = 0;
+        this.authenticationData = null;
+    }
 
+    @Override
+    public PtTlsMessageValueSaslAuthenticationDataBuilder setAuthenticationData(
+            final byte[] data) throws RuleException {
+        // no checks necessary because opaque
+        if (data != null) {
+            this.authenticationData = data;
+            this.length = data.length;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueSaslAuthenticationData toObject() {
+
+        if (this.authenticationData == null) {
+            throw new IllegalStateException(
+                    "The SASL authentication data has to be set.");
+        }
+
+        return new PtTlsMessageValueSaslAuthenticationData(this.length,
+                this.authenticationData);
+    }
+
+    @Override
+    public PtTlsMessageValueSaslAuthenticationDataBuilder newInstance() {
+
+        return new PtTlsMessageValueSaslAuthenticationDataBuilderIetf();
+    }
 
 }

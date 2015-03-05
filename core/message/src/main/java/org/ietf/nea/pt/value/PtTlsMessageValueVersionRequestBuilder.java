@@ -27,14 +27,43 @@ package org.ietf.nea.pt.value;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
-public interface PtTlsMessageValueVersionRequestBuilder extends TransportMessageValueBuilder {
+/**
+ * Generic builder to build a transport version request message value compliant
+ * to RFC 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValueVersionRequestBuilder extends
+        TransportMessageValueBuilder {
 
-	public abstract PtTlsMessageValueVersionRequestBuilder setPreferredVersion(short version)
-			throws RuleException;
-	
-	public abstract PtTlsMessageValueVersionRequestBuilder setMaxVersion(short version)
-			throws RuleException;
-	
-	public abstract PtTlsMessageValueVersionRequestBuilder setMinVersion(short version)
-			throws RuleException;
+    /**
+     * Sets the preferred transport message version.
+     *
+     * @param version the preferred version
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueVersionRequestBuilder setPreferredVersion(short version)
+            throws RuleException;
+
+    /**
+     * Sets the maximum transport message version.
+     *
+     * @param version the maximum version
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueVersionRequestBuilder setMaxVersion(short version)
+            throws RuleException;
+
+    /**
+     * Sets the minimum transport message version.
+     *
+     * @param version the minimum version
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueVersionRequestBuilder setMinVersion(short version)
+            throws RuleException;
 }

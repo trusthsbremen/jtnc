@@ -35,54 +35,71 @@ import org.ietf.nea.pa.validate.rules.OpposingPortFilterEntries;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build an integrity measurement port filter attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValuePortFilterBuilderIetf implements
-	PaAttributeValuePortFilterBuilder {
-	
-	
-	private long length;
-	private List<PortFilterEntry> filterEntries;
-	
-	public PaAttributeValuePortFilterBuilderIetf(){
-		this.length = 0;
-		this.filterEntries = new LinkedList<>();
-	}
+        PaAttributeValuePortFilterBuilder {
 
-	@Override
-	public PaAttributeValuePortFilterBuilder addEntries(PortFilterEntry entry, PortFilterEntry... entries) throws RuleException {
-		
-		List<PortFilterEntry> temp = new ArrayList<>();
-		
-		if(entry != null){
-			temp.add(entry);
-		}
-		
-		if(entries != null){
-			for (PortFilterEntry pEntry : entries) {
-				if(pEntry != null){
-					temp.add(pEntry);
-				}
-			}
-		}
-	
-		OpposingPortFilterEntries.check(temp);
-		
-		this.filterEntries.addAll(temp);
-		this.length = (PaAttributeTlvFixedLengthEnum.PORT_FT.length() * this.filterEntries.size());
+    private long length;
+    private List<PortFilterEntry> filterEntries;
 
-		MinEntryCount.check((byte)1, this.filterEntries);
-		
-		return this;
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Entries: Empty list</li>
+     * </ul>
+     */
+    public PaAttributeValuePortFilterBuilderIetf() {
+        this.length = 0;
+        this.filterEntries = new LinkedList<>();
+    }
 
-	@Override
-	public PaAttributeValuePortFilter toObject(){
-		
-		return new PaAttributeValuePortFilter(this.length, this.filterEntries);
-	}
+    @Override
+    public PaAttributeValuePortFilterBuilder addEntries(
+            final PortFilterEntry entry,
+            final PortFilterEntry... entries) throws RuleException {
 
-	@Override
-	public PaAttributeValuePortFilterBuilder newInstance() {
-		return new PaAttributeValuePortFilterBuilderIetf();
-	}
+        List<PortFilterEntry> temp = new ArrayList<>();
+
+        if (entry != null) {
+            temp.add(entry);
+        }
+
+        if (entries != null) {
+            for (PortFilterEntry pEntry : entries) {
+                if (pEntry != null) {
+                    temp.add(pEntry);
+                }
+            }
+        }
+
+        OpposingPortFilterEntries.check(temp);
+
+        this.filterEntries.addAll(temp);
+        this.length = (PaAttributeTlvFixedLengthEnum.PORT_FT.length()
+                * this.filterEntries.size());
+
+        MinEntryCount.check((byte) 1, this.filterEntries);
+
+        return this;
+    }
+
+    @Override
+    public PaAttributeValuePortFilter toObject() {
+
+        return new PaAttributeValuePortFilter(this.length, this.filterEntries);
+    }
+
+    @Override
+    public PaAttributeValuePortFilterBuilder newInstance() {
+        return new PaAttributeValuePortFilterBuilderIetf();
+    }
 
 }

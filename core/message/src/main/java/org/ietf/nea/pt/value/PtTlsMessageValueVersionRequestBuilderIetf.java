@@ -30,59 +30,78 @@ import org.ietf.nea.pt.validate.rules.VersionLimits;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PtTlsMessageValueVersionRequestBuilderIetf implements PtTlsMessageValueVersionRequestBuilder{
-	
-	private final short PREFERRED_VERSION = IETFConstants.IETF_RFC6876_VERSION_NUMBER;
-	
-	private long length;
+/**
+ * Builder to build a transport version request message value compliant to RFC
+ * 6876. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PtTlsMessageValueVersionRequestBuilderIetf implements
+        PtTlsMessageValueVersionRequestBuilder {
+
+    private static final short PREFERRED_VERSION =
+            IETFConstants.IETF_RFC6876_VERSION_NUMBER;
+
+    private long length;
     private short preferredVersion;
     private short maxVersion;
     private short minVersion;
-    
-    public PtTlsMessageValueVersionRequestBuilderIetf(){
-    	this.length = PtTlsMessageTlvFixedLengthEnum.VER_REQ.length();
-    	this.preferredVersion = PREFERRED_VERSION;
-    	this.maxVersion = PREFERRED_VERSION;
-    	this.minVersion = PREFERRED_VERSION;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Preferred version: RFC 6876 version number</li>
+     * <li>Maximum version: RFC 6876 version number</li>
+     * <li>Minimum version: RFC 6876 version number</li>
+     * </ul>
+     */
+    public PtTlsMessageValueVersionRequestBuilderIetf() {
+        this.length = PtTlsMessageTlvFixedLengthEnum.VER_REQ.length();
+        this.preferredVersion = PREFERRED_VERSION;
+        this.maxVersion = PREFERRED_VERSION;
+        this.minVersion = PREFERRED_VERSION;
     }
 
-	@Override
-	public PtTlsMessageValueVersionRequestBuilder setPreferredVersion(short version)
-			throws RuleException {
-		
-		VersionLimits.check(version);
-		this.preferredVersion = version;
-		return this;
-	}
+    @Override
+    public PtTlsMessageValueVersionRequestBuilder setPreferredVersion(
+            final short version) throws RuleException {
 
-	@Override
-	public PtTlsMessageValueVersionRequestBuilder setMaxVersion(short version)
-			throws RuleException {
-		
-		VersionLimits.check(version);
-		this.maxVersion = version;
-		return this;
-	}
+        VersionLimits.check(version);
+        this.preferredVersion = version;
+        return this;
+    }
 
-	@Override
-	public PtTlsMessageValueVersionRequestBuilder setMinVersion(short version)
-			throws RuleException {
-		
-		VersionLimits.check(version);
-		this.minVersion = version;
-		return this;
-	}
+    @Override
+    public PtTlsMessageValueVersionRequestBuilder setMaxVersion(
+            final short version) throws RuleException {
 
-	@Override
-	public PtTlsMessageValueVersionRequest toObject() {
+        VersionLimits.check(version);
+        this.maxVersion = version;
+        return this;
+    }
 
-		return new PtTlsMessageValueVersionRequest(length, preferredVersion, maxVersion, minVersion);
-	}
+    @Override
+    public PtTlsMessageValueVersionRequestBuilder setMinVersion(
+            final short version) throws RuleException {
 
-	@Override
-	public PtTlsMessageValueVersionRequestBuilder newInstance() {
+        VersionLimits.check(version);
+        this.minVersion = version;
+        return this;
+    }
 
-		return new PtTlsMessageValueVersionRequestBuilderIetf();
-	}
+    @Override
+    public PtTlsMessageValueVersionRequest toObject() {
+
+        return new PtTlsMessageValueVersionRequest(length, preferredVersion,
+                maxVersion, minVersion);
+    }
+
+    @Override
+    public PtTlsMessageValueVersionRequestBuilder newInstance() {
+
+        return new PtTlsMessageValueVersionRequestBuilderIetf();
+    }
 
 }

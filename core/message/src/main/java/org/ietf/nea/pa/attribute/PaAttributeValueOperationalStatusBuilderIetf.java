@@ -38,63 +38,90 @@ import org.ietf.nea.pa.validate.rules.LastUseSyntaxCheck;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build an integrity measurement operational status attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValueOperationalStatusBuilderIetf implements
-	PaAttributeValueOperationalStatusBuilder {
-	
-	
-	private long length;
-	private PaAttributeOperationStatusEnum status;
-	private PaAttributeOperationLastResultEnum result;
-	private Date lastUse;
-	private SimpleDateFormat dateFormater;
-	
-	public PaAttributeValueOperationalStatusBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.OP_STAT.length();
-		this.status = PaAttributeOperationStatusEnum.UNKNOWN;
-		this.result = PaAttributeOperationLastResultEnum.UNKNOWN;
-		this.lastUse = null;
-		
-		this.dateFormater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		this.dateFormater.setTimeZone(TimeZone.getTimeZone("UTC"));
-	}
-	
-	@Override
-	public void setStatus(short status) {
-		// defaults to unknown
-		this.status = PaAttributeOperationStatusEnum.fromId(status);
-	}
+        PaAttributeValueOperationalStatusBuilder {
 
-	@Override
-	public void setResult(short result) {
-		// defaults to unknown
-		this.result = PaAttributeOperationLastResultEnum.fromCode(result);
-	}
+    private long length;
+    private PaAttributeOperationStatusEnum status;
+    private PaAttributeOperationLastResultEnum result;
+    private Date lastUse;
+    private SimpleDateFormat dateFormater;
 
-	@Override
-	public void setLastUse(String dateTime) throws RuleException {
-		if(dateTime != null && !dateTime.equals("0000-00-00T00:00:00Z")){
-			LastUseSyntaxCheck.check(dateTime);
-			try{
-				Date d = this.dateFormater.parse(dateTime);
-				this.lastUse = d;
-			} catch (ParseException e) {
-				// should never happen because of the check before.
-				throw new RuleException("Time format: " + dateTime + " could not be parsed.",e, false,PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PaErrorCauseEnum.TIME_FORMAT_NOT_VALID.number(),dateTime);
-			}
-			
-		}
-	}		
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Status: Unknown</li>
+     * <li>Result: Unknown</li>
+     * <li>Last Use: null</li>
+     * </ul>
+     */
+    public PaAttributeValueOperationalStatusBuilderIetf() {
+        this.length = PaAttributeTlvFixedLengthEnum.OP_STAT.length();
+        this.status = PaAttributeOperationStatusEnum.UNKNOWN;
+        this.result = PaAttributeOperationLastResultEnum.UNKNOWN;
+        this.lastUse = null;
 
-	@Override
-	public PaAttributeValueOperationalStatus toObject(){
-		
-		return new PaAttributeValueOperationalStatus(this.length, this.status, this.result, this.lastUse);
-	}
+        this.dateFormater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        this.dateFormater.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
 
-	@Override
-	public PaAttributeValueOperationalStatusBuilder newInstance() {
+    @Override
+    public PaAttributeValueOperationalStatusBuilder setStatus(
+            final short status) {
+        // defaults to unknown
+        this.status = PaAttributeOperationStatusEnum.fromId(status);
+        return this;
+    }
 
-		return new PaAttributeValueOperationalStatusBuilderIetf();
-	}
+    @Override
+    public PaAttributeValueOperationalStatusBuilder setResult(
+            final short result) {
+        // defaults to unknown
+        this.result = PaAttributeOperationLastResultEnum.fromCode(result);
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueOperationalStatusBuilder setLastUse(
+            final String dateTime) throws RuleException {
+        if (dateTime != null && !dateTime.equals("0000-00-00T00:00:00Z")) {
+            LastUseSyntaxCheck.check(dateTime);
+            try {
+                Date d = this.dateFormater.parse(dateTime);
+                this.lastUse = d;
+            } catch (ParseException e) {
+                // should never happen because of the check before.
+                throw new RuleException("Time format: " + dateTime
+                        + " could not be parsed.", e, false,
+                        PaAttributeErrorCodeEnum.IETF_INVALID_PARAMETER.code(),
+                        PaErrorCauseEnum.TIME_FORMAT_NOT_VALID.id(),
+                        dateTime);
+            }
+
+        }
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueOperationalStatus toObject() {
+
+        return new PaAttributeValueOperationalStatus(this.length, this.status,
+                this.result, this.lastUse);
+    }
+
+    @Override
+    public PaAttributeValueOperationalStatusBuilder newInstance() {
+
+        return new PaAttributeValueOperationalStatusBuilderIetf();
+    }
 
 }

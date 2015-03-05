@@ -28,33 +28,49 @@ import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PbMessageValueErrorParameterOffsetBuilderIetf implements PbMessageValueErrorParameterOffsetBuilder{
+/**
+ * Builder to build an TNCCS message error parameter value with an
+ * error offset compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PbMessageValueErrorParameterOffsetBuilderIetf implements
+        PbMessageValueErrorParameterOffsetBuilder {
 
-	private long length;
+    private long length;
     private long offset;
-    
-    public PbMessageValueErrorParameterOffsetBuilderIetf(){
-    	this.length = PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
-    	this.offset = 0;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Offset: 0</li>
+     * </ul>
+     */
+    public PbMessageValueErrorParameterOffsetBuilderIetf() {
+        this.length = PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
+        this.offset = 0;
     }
 
-	@Override
-	public PbMessageValueErrorParameterOffsetBuilder setOffset(long offset) throws RuleException {
-		
-		this.offset = offset;
-		return this;
-	}
+    @Override
+    public PbMessageValueErrorParameterOffsetBuilder setOffset(
+            final long offset) throws RuleException {
 
-	@Override
-	public PbMessageValueErrorParameterOffset toObject() throws RuleException {
+        this.offset = offset;
+        return this;
+    }
 
-		return new PbMessageValueErrorParameterOffset(length, offset);
-	}
+    @Override
+    public PbMessageValueErrorParameterOffset toObject() throws RuleException {
 
-	@Override
-	public PbMessageValueErrorParameterOffsetBuilder newInstance() {
+        return new PbMessageValueErrorParameterOffset(length, offset);
+    }
 
-		return new PbMessageValueErrorParameterOffsetBuilderIetf();
-	}
+    @Override
+    public PbMessageValueErrorParameterOffsetBuilder newInstance() {
+
+        return new PbMessageValueErrorParameterOffsetBuilderIetf();
+    }
 
 }

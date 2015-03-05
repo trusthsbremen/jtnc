@@ -36,8 +36,8 @@ import org.ietf.nea.pb.validate.rules.CommonLengthLimits;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
- * Builder to build a TNCCS batch header compliant to RFC 5793. It can
- * be used in a fluent way.
+ * Builder to build a TNCCS batch header compliant to RFC 5793. It
+ * evaluates the given values and can be used in a fluent way.
  *
  * @author Carl-Heinz Genzel
  *

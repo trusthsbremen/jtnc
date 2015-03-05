@@ -22,13 +22,33 @@
  * THE SOFTWARE.
  *
  */
-package org.ietf.nea.pa.attribute.util;
+package org.ietf.nea.pb.message.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PaAttributeValueErrorInformationBuilder {
+/**
+ * Generic builder base to build a supporting value for a TNCCS message value.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ * @param <T> the supporting value type
+ */
+public interface PbMessageSubValueBuilder<T extends PbMessageSubValue> {
 
-	public abstract AbstractPaAttributeValueErrorInformation toObject() throws RuleException;
-	
-	public abstract PaAttributeValueErrorInformationBuilder newInstance();
+    /**
+     * Returns the object after building process.
+     *
+     * @return the message sub value
+     * @throws RuleException if object cannot be build because a given value is
+     * invalid.
+     */
+    T toObject() throws RuleException;
+
+    /**
+     * Creates a new instance of this builder to clean up all settings and side
+     * effects.
+     *
+     * @return a new instance of this builder
+     */
+    PbMessageSubValueBuilder<T> newInstance();
 }

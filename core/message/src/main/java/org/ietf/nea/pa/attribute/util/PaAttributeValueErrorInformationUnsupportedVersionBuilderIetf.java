@@ -26,50 +26,78 @@ package org.ietf.nea.pa.attribute.util;
 
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
-public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf implements
-		PaAttributeValueErrorInformationUnsupportedVersionBuilder {
-	
-	
-	private long length;
-	private MessageHeaderDump messageHeader;
-	private short maxVersion;
-	private short minVersion;
-	
-	public PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length() + PaAttributeTlvFixedLengthEnum.MESSAGE.length() + 4; // 4 = min + max version
-		this.messageHeader = new MessageHeaderDump((short)0, new byte[0], 0L);
-		this.minVersion = 0;
-		this.maxVersion = 0;
-	}
+import de.hsbremen.tc.tnc.IETFConstants;
 
-	@Override
-	public void setMessageHeader(MessageHeaderDump messageHeader) {
-		if(messageHeader != null){
-			this.messageHeader = messageHeader;
-		}
-	}
+/**
+ * Builder to build an integrity measurement unsupported version error
+ * information value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf
+        implements PaAttributeValueErrorInformationUnsupportedVersionBuilder {
 
-	@Override
-	public void setMaxVersion(short maxVersion) {
-		this.maxVersion = maxVersion;
-	}
+    private static final short PREFERRED_VERSION =
+            IETFConstants.IETF_RFC5792_VERSION_NUMBER;
 
-	@Override
-	public void setMinVersion(short minVersion) {
-		this.minVersion = minVersion;
-		
-	}
-	
-	@Override
-	public PaAttributeValueErrorInformationUnsupportedVersion toObject(){
-		
-		return new PaAttributeValueErrorInformationUnsupportedVersion(this.length, this.messageHeader, this.maxVersion, this.minVersion);
-	}
+    private long length;
+    private MessageHeaderDump messageHeader;
+    private short maxVersion;
+    private short minVersion;
 
-	@Override
-	public PaAttributeValueErrorInformationUnsupportedVersionBuilder newInstance() {
-		// TODO Auto-generated method stub
-		return new PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf();
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Message header: Dummy header</li>
+     * <li>Maximum version: RFC 5792 version</li>
+     * <li>Minimum version: RFC 5792 version</li>
+     * </ul>
+     */
+    public PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf() {
+        final int fixedMinMaxLength = 4;
+        this.length = PaAttributeTlvFixedLengthEnum.ERR_INF.length()
+                + PaAttributeTlvFixedLengthEnum.MESSAGE.length()
+                + fixedMinMaxLength;
+        this.messageHeader = new MessageHeaderDump((short) 0, new byte[0], 0L);
+        this.minVersion = PREFERRED_VERSION;
+        this.maxVersion = PREFERRED_VERSION;
+    }
+
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedVersionBuilder
+        setMessageHeader(final MessageHeaderDump messageHeader) {
+        if (messageHeader != null) {
+            this.messageHeader = messageHeader;
+        }
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedVersionBuilder
+        setMaxVersion(final short maxVersion) {
+        this.maxVersion = maxVersion;
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedVersionBuilder
+        setMinVersion(final short minVersion) {
+        this.minVersion = minVersion;
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedVersion toObject() {
+        return new PaAttributeValueErrorInformationUnsupportedVersion(
+                this.length, this.messageHeader, this.maxVersion,
+                this.minVersion);
+    }
+
+    @Override
+    public PaAttributeValueErrorInformationUnsupportedVersionBuilder newInstance() {
+        return new PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf();
+    }
 
 }

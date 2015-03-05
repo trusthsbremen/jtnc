@@ -24,30 +24,49 @@
  */
 package org.ietf.nea.pa.attribute;
 
-import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter;
+import org.ietf.nea.pa.attribute.util
+.AbstractPaAttributeValueRemediationParameter;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueRemediationParametersBuilder extends ImAttributeValueBuilder {
+/**
+ * Generic builder to build an integrity measurement remediation parameters
+ * attribute value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueRemediationParametersBuilder extends
+        ImAttributeValueBuilder {
 
-	/**
-	 * @param rpVendorId the rpVendorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PaAttributeValueRemediationParametersBuilder setRpVendorId(long rpVendorId)
-			throws RuleException;
+    /**
+     * Sets the remediation vendor ID.
+     *
+     * @param rpVendorId the remediation vendor ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueRemediationParametersBuilder setRpVendorId(long rpVendorId)
+            throws RuleException;
 
-	/**
-	 * @param rpType the rpType to set
-	 * @throws RuleException 
-	 */
-	public abstract PaAttributeValueRemediationParametersBuilder setRpType(long rpType) throws RuleException;
+    /**
+     * Sets the type describing the remediation.
+     *
+     * @param rpType the remediation type ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueRemediationParametersBuilder setRpType(long rpType)
+            throws RuleException;
 
-	/**
-	 * @param parameter the parameter to set
-	 */
-	public abstract PaAttributeValueRemediationParametersBuilder setParameter(
-			AbstractPaAttributeValueRemediationParameter parameter);
+    /**
+     * Sets the remediation parameter.
+     *
+     * @param parameter the remediation parameter
+     * @return this builder
+     */
+    PaAttributeValueRemediationParametersBuilder setParameter(
+            AbstractPaAttributeValueRemediationParameter parameter);
 
 }

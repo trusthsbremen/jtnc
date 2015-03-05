@@ -30,37 +30,52 @@ import org.ietf.nea.pa.validate.rules.ForwardingStatus;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build an integrity measurement traffic forwarding status attribute
+ * value compliant to RFC 5792. It evaluates the given values and can be used in
+ * a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValueForwardingEnabledBuilderIetf implements
-	PaAttributeValueForwardingEnabledBuilder {
-	
-	
-	private long length;
-	private PaAttributeForwardingStatusEnum status;      
-	
-	public PaAttributeValueForwardingEnabledBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.FWD_EN.length();
-		this.status = PaAttributeForwardingStatusEnum.UNKNWON;
-	}
+        PaAttributeValueForwardingEnabledBuilder {
 
-	@Override
-	public PaAttributeValueForwardingEnabledBuilder setStatus(long status) throws RuleException {
-		
-		ForwardingStatus.check(status);
-		this.status = PaAttributeForwardingStatusEnum.fromId(status);
-		
-		return this;
-	}
+    private long length;
+    private PaAttributeForwardingStatusEnum status;
 
-	@Override
-	public PaAttributeValueForwardingEnabled toObject(){
-		
-		return new PaAttributeValueForwardingEnabled(this.length, this.status);
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Status: Unknown</li>
+     * </ul>
+     */
+    public PaAttributeValueForwardingEnabledBuilderIetf() {
+        this.length = PaAttributeTlvFixedLengthEnum.FWD_EN.length();
+        this.status = PaAttributeForwardingStatusEnum.UNKNWON;
+    }
 
-	@Override
-	public PaAttributeValueForwardingEnabledBuilder newInstance() {
-		// TODO Auto-generated method stub
-		return new PaAttributeValueForwardingEnabledBuilderIetf();
-	}
+    @Override
+    public PaAttributeValueForwardingEnabledBuilder setStatus(final long status)
+            throws RuleException {
+
+        ForwardingStatus.check(status);
+        this.status = PaAttributeForwardingStatusEnum.fromId(status);
+
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueForwardingEnabled toObject() {
+
+        return new PaAttributeValueForwardingEnabled(this.length, this.status);
+    }
+
+    @Override
+    public PaAttributeValueForwardingEnabledBuilder newInstance() {
+        // TODO Auto-generated method stub
+        return new PaAttributeValueForwardingEnabledBuilderIetf();
+    }
 
 }

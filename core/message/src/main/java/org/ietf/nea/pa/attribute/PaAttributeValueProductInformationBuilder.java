@@ -27,23 +27,44 @@ package org.ietf.nea.pa.attribute;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueProductInformationBuilder extends ImAttributeValueBuilder{
-	
-	/**
-	 * @param vendorId the vendorId to set
-	 * @throws RuleException 
-	 */
-	public abstract void setVendorId(long vendorId) throws RuleException;
+/**
+ * Generic builder to build an integrity measurement product information
+ * attribute value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueProductInformationBuilder extends
+        ImAttributeValueBuilder {
 
-	/**
-	 * @param productId the productId to set
-	 * @throws RuleException 
-	 */
-	public abstract void setProductId(int productId) throws RuleException;
+    /**
+     * Sets the product vendor ID.
+     *
+     * @param vendorId the product vendor ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueProductInformationBuilder setVendorId(long vendorId)
+            throws RuleException;
 
-	/**
-	 * @param name the name to set
-	 */
-	public abstract void setName(String name) throws RuleException;
+    /**
+     * Sets the product ID.
+     *
+     * @param productId the product ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueProductInformationBuilder setProductId(int productId)
+            throws RuleException;
+
+    /**
+     * Sets the product name.
+     *
+     * @param name the product name
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueProductInformationBuilder setName(String name)
+            throws RuleException;
 
 }

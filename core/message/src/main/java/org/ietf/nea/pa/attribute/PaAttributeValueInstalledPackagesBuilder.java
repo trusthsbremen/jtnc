@@ -29,9 +29,24 @@ import org.ietf.nea.pa.attribute.util.PackageEntry;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueInstalledPackagesBuilder extends ImAttributeValueBuilder{
+/**
+ * Generic builder to build an integrity measurement installed packages
+ * attribute value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueInstalledPackagesBuilder extends
+        ImAttributeValueBuilder {
 
-	public PaAttributeValueInstalledPackagesBuilder addPackages(PackageEntry pkg, PackageEntry... pkgs) throws RuleException;
-	
-	
+    /**
+     * Sets the installed packages.
+     *
+     * @param pkgs the packages
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueInstalledPackagesBuilder addPackages(PackageEntry... pkgs)
+            throws RuleException;
+
 }

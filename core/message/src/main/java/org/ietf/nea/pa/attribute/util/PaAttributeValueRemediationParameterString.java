@@ -49,7 +49,7 @@ public class PaAttributeValueRemediationParameterString extends
      *
      * @param length the parameter length
      * @param remediationString the remediation string
-     * @param langCode the RFC4646 language identifier
+     * @param langCode the RFC 4646 language identifier
      */
     PaAttributeValueRemediationParameterString(final long length,
             final String remediationString, final String langCode) {
@@ -90,7 +90,7 @@ public class PaAttributeValueRemediationParameterString extends
     }
 
     /**
-     * Returns the RFC4646 language identifier.
+     * Returns the RFC 4646 language identifier.
      *
      * @return the language code
      */

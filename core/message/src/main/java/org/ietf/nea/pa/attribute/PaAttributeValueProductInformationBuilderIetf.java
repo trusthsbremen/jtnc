@@ -29,51 +29,74 @@ import org.ietf.nea.pa.validate.rules.ProductInformationZeroConstraint;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build an integrity measurement product information attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValueProductInformationBuilderIetf implements
-	PaAttributeValueProductInformationBuilder {
-	
-	
-	private long length;
-	private long vendorId;
-	private int productId;
-	private String name;
-	
-	public PaAttributeValueProductInformationBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.PRO_INF.length();
-		this.vendorId = 0L;
-		this.productId = 0;
-		this.name = "";
-	}
+        PaAttributeValueProductInformationBuilder {
 
-	@Override
-	public void setVendorId(long vendorId) throws RuleException {
-		ProductInformationZeroConstraint.check(this.vendorId, this.productId);
-		this.vendorId = vendorId;
-	}
+    private long length;
+    private long vendorId;
+    private int productId;
+    private String name;
 
-	@Override
-	public void setProductId(int productId) throws RuleException {
-		
-		ProductInformationZeroConstraint.check(this.vendorId, this.productId);
-		this.productId = productId;
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Vendor: IETF</li>
+     * <li>ID: 0</li>
+     * <li>Name: ""</li>
+     * </ul>
+     */
+    public PaAttributeValueProductInformationBuilderIetf() {
+        this.length = PaAttributeTlvFixedLengthEnum.PRO_INF.length();
+        this.vendorId = 0L;
+        this.productId = 0;
+        this.name = "";
+    }
 
-	@Override
-	public void setName(String name){
-		if(name != null){
-			this.name = name;
-		}
-	}
+    @Override
+    public PaAttributeValueProductInformationBuilder setVendorId(
+            final long vendorId) throws RuleException {
+        ProductInformationZeroConstraint.check(this.vendorId, this.productId);
+        this.vendorId = vendorId;
+        return this;
+    }
 
-	@Override
-	public PaAttributeValueProductInformation toObject(){
-		return new PaAttributeValueProductInformation(this.length, this.vendorId, this.productId, this.name);
-	}
+    @Override
+    public PaAttributeValueProductInformationBuilder setProductId(
+            final int productId) throws RuleException {
 
-	@Override
-	public PaAttributeValueProductInformationBuilder newInstance() {
+        ProductInformationZeroConstraint.check(this.vendorId, this.productId);
+        this.productId = productId;
+        return this;
+    }
 
-		return new PaAttributeValueProductInformationBuilderIetf();
-	}
+    @Override
+    public PaAttributeValueProductInformationBuilder setName(
+            final String name) {
+        if (name != null) {
+            this.name = name;
+        }
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueProductInformation toObject() {
+        return new PaAttributeValueProductInformation(this.length,
+                this.vendorId, this.productId, this.name);
+    }
+
+    @Override
+    public PaAttributeValueProductInformationBuilder newInstance() {
+
+        return new PaAttributeValueProductInformationBuilderIetf();
+    }
 
 }

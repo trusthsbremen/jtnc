@@ -27,9 +27,24 @@ package org.ietf.nea.pb.message;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
-public interface PbMessageValueLanguagePreferenceBuilder extends TnccsMessageValueBuilder{
+/**
+ * Generic builder to build a TNCCS language preference message value compliant
+ * to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueLanguagePreferenceBuilder extends
+        TnccsMessageValueBuilder {
 
-	public abstract PbMessageValueLanguagePreferenceBuilder setLanguagePreference(String languagePreference)
-			throws RuleException;
+    /**
+     * Sets the RFC 3282 language preference.
+     *
+     * @param languagePreference the language preference
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueLanguagePreferenceBuilder setLanguagePreference(
+            String languagePreference) throws RuleException;
 
 }

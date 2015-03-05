@@ -27,9 +27,24 @@ package org.ietf.nea.pt.value;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
-public interface PtTlsMessageValueExperimentalBuilder extends TransportMessageValueBuilder{
+/**
+ * Generic builder to build a transport experimental message value compliant to
+ * RFC 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValueExperimentalBuilder extends
+        TransportMessageValueBuilder {
 
-	public abstract PtTlsMessageValueExperimentalBuilder setMessage(String message)
-			throws RuleException;
+    /**
+     * Sets the experimental content.
+     *
+     * @param content the experimental content
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueExperimentalBuilder setMessage(String content)
+            throws RuleException;
 
 }

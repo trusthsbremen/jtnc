@@ -24,7 +24,6 @@
  */
 package org.ietf.nea.pa.attribute.util;
 
-import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeSubValue;
 
 /**
  * Generic IETF RFC 5792 remediation parameter base. Especially important for
@@ -34,7 +33,7 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeSubValue;
  *
  */
 public abstract class AbstractPaAttributeValueRemediationParameter implements
-        ImAttributeSubValue {
+    PaAttributeSubValue {
 
     private final long length;
 
@@ -47,11 +46,7 @@ public abstract class AbstractPaAttributeValueRemediationParameter implements
         this.length = length;
     }
 
-    /**
-     * Returns the value length.
-     *
-     * @return the length
-     */
+    @Override
     public long getLength() {
         return this.length;
     }

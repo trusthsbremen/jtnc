@@ -43,7 +43,7 @@ public class PbMessageValueLanguagePreference extends AbstractPbMessageValue {
      * Creates the message value with the given values.
      *
      * @param length the value length
-     * @param preferedLanguage the RFC4646 language preference
+     * @param preferedLanguage the RFC 3282 language preference
      */
     PbMessageValueLanguagePreference(final long length,
             final String preferedLanguage) {
@@ -52,8 +52,8 @@ public class PbMessageValueLanguagePreference extends AbstractPbMessageValue {
     }
 
     /**
-     * Returns the RFC4646 language preference.
-     * @return the RFC4646 language preference
+     * Returns the RFC 3282 language preference.
+     * @return the RFC 3282 language preference
      */
     public String getPreferedLanguage() {
         return this.preferedLanguage;

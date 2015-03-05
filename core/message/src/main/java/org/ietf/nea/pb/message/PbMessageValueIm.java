@@ -56,9 +56,9 @@ public class PbMessageValueIm extends AbstractPbMessageValue {
      * @param flags the integrity measurement component flags
      * @param subVendorId the component vendor ID
      * @param subType the type describing the component
-     * @param collectorId the IMC ID that receiving/sending
+     * @param collectorId the IMC ID receiving/sending
      * the measurements
-     * @param validatorId the IMV ID that receiving/sending
+     * @param validatorId the IMV ID receiving/sending
      * the measurements
      * @param length the value length
      * @param message the integrity measurement component message

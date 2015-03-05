@@ -22,13 +22,34 @@
  * THE SOFTWARE.
  *
  */
-package org.ietf.nea.pb.message.util;
+package org.ietf.nea.pa.attribute.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PbMessageValueRemediationParameterBuilder {
+/**
+ * Generic builder base to build a supporting value for an
+ * integrity measurement attribute value.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ * @param <T> the supporting value type
+ */
+public interface PaAttributeSubValueBuilder<T extends PaAttributeSubValue> {
 
-	public abstract AbstractPbMessageValueRemediationParameter toObject() throws RuleException;
-	
-	public abstract PbMessageValueRemediationParameterBuilder newInstance();
+    /**
+     * Returns the object after building process.
+     *
+     * @return the attribute sub value
+     * @throws RuleException if object cannot be build because a given value is
+     * invalid.
+     */
+    T toObject() throws RuleException;
+
+    /**
+     * Creates a new instance of this builder to clean up all settings and side
+     * effects.
+     *
+     * @return a new instance of this builder
+     */
+    PaAttributeSubValueBuilder<T> newInstance();
 }

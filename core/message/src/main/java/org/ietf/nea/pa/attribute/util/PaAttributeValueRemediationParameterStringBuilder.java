@@ -26,20 +26,34 @@ package org.ietf.nea.pa.attribute.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PaAttributeValueRemediationParameterStringBuilder extends PaAttributeValueRemediationParameterBuilder{
+/**
+ * Generic builder to build an integrity measurement string remediation
+ * parameter value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueRemediationParameterStringBuilder extends
+        PaAttributeSubValueBuilder<PaAttributeValueRemediationParameterString> {
 
-	/**
-	 * @param remediationString the remediationString to set
-	 * @throws RuleException 
-	 */
-	public abstract PaAttributeValueRemediationParameterStringBuilder setRemediationString(String remediationString)
-			throws RuleException;
+    /**
+     * Set the remediation string.
+     *
+     * @param remediationString the remediation string
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueRemediationParameterStringBuilder setRemediationString(
+            String remediationString) throws RuleException;
 
-	/**
-	 * @param langCode the langCode to set
-	 * @throws RuleException 
-	 */
-	public abstract PaAttributeValueRemediationParameterStringBuilder setLangCode(String langCode)
-			throws RuleException;
-	
+    /**
+     * Sets the RFC 4646 language code.
+     *
+     * @param langCode the language code
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueRemediationParameterStringBuilder setLangCode(
+            String langCode) throws RuleException;
+
 }

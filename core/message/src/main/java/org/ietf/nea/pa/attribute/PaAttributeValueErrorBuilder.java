@@ -29,25 +29,41 @@ import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
+/**
+ * Generic builder to build an integrity measurement error attribute value
+ * compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public interface PaAttributeValueErrorBuilder extends ImAttributeValueBuilder {
 
-	/**
-	 * @param rpVendorId the rpVendorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PaAttributeValueErrorBuilder setErrorVendorId(long errorVendorId)
-			throws RuleException;
+    /**
+     * Sets the error vendor ID.
+     *
+     * @param errorVendorId the error vendor ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorBuilder setErrorVendorId(long errorVendorId)
+            throws RuleException;
 
-	/**
-	 * @param rpType the rpType to set
-	 * @throws RuleException 
-	 */
-	public abstract PaAttributeValueErrorBuilder setErrorCode(long code) throws RuleException;
+    /**
+     * Sets the error code describing the error.
+     *
+     * @param code the error code
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorBuilder setErrorCode(long code) throws RuleException;
 
-	/**
-	 * @param parameter the parameter to set
-	 */
-	public abstract PaAttributeValueErrorBuilder setErrorInformation(
-			AbstractPaAttributeValueErrorInformation errorInformation);
+    /**
+     * Sets the additional error information.
+     *
+     * @param errorInformation the additional error information
+     * @return this builder
+     */
+    PaAttributeValueErrorBuilder setErrorInformation(
+            AbstractPaAttributeValueErrorInformation errorInformation);
 
 }

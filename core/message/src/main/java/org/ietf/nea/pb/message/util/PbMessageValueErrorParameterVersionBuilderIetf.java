@@ -26,53 +26,75 @@ package org.ietf.nea.pb.message.util;
 
 import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 
+import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PbMessageValueErrorParameterVersionBuilderIetf implements PbMessageValueErrorParameterVersionBuilder{
+/**
+ * Builder to build an TNCCS message version error parameter value
+ * compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PbMessageValueErrorParameterVersionBuilderIetf implements
+        PbMessageValueErrorParameterVersionBuilder {
 
-	private long length;
+    private static final short PREFERRED_VERSION =
+            IETFConstants.IETF_RFC5793_VERSION_NUMBER;
+
+    private long length;
     private short badVersion;
     private short maxVersion;
     private short minVersion;
-    
-    public PbMessageValueErrorParameterVersionBuilderIetf(){
-    	this.length = PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
-    	this.badVersion = 0;
-    	this.maxVersion = 0;
-    	this.minVersion = 0;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Bad version: 0</li>
+     * <li>Maximum version: RFC 5793 version</li>
+     * <li>Minimum version: RFC 5793 version</li>
+     * </ul>
+     */
+    public PbMessageValueErrorParameterVersionBuilderIetf() {
+        this.length = PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
+        this.badVersion = 0;
+        this.maxVersion = PREFERRED_VERSION;
+        this.minVersion = PREFERRED_VERSION;
     }
 
-	@Override
-	public PbMessageValueErrorParameterVersionBuilder setBadVersion(short version)
-			throws RuleException {
-		this.badVersion = version;
-		return this;
-	}
+    @Override
+    public PbMessageValueErrorParameterVersionBuilder setBadVersion(
+            final short version) throws RuleException {
+        this.badVersion = version;
+        return this;
+    }
 
-	@Override
-	public PbMessageValueErrorParameterVersionBuilder setMaxVersion(short version)
-			throws RuleException {
-		this.maxVersion = version;
-		return this;
-	}
+    @Override
+    public PbMessageValueErrorParameterVersionBuilder setMaxVersion(
+            final short version) throws RuleException {
+        this.maxVersion = version;
+        return this;
+    }
 
-	@Override
-	public PbMessageValueErrorParameterVersionBuilder setMinVersion(short version)
-			throws RuleException {
-		this.minVersion = version;
-		return this;
-	}
+    @Override
+    public PbMessageValueErrorParameterVersionBuilder setMinVersion(
+            final short version) throws RuleException {
+        this.minVersion = version;
+        return this;
+    }
 
-	@Override
-	public PbMessageValueErrorParameterVersion toObject() throws RuleException {
+    @Override
+    public PbMessageValueErrorParameterVersion toObject() throws RuleException {
 
-		return new PbMessageValueErrorParameterVersion(length, badVersion, maxVersion, minVersion);
-	}
+        return new PbMessageValueErrorParameterVersion(length, badVersion,
+                maxVersion, minVersion);
+    }
 
-	@Override
-	public PbMessageValueErrorParameterVersionBuilder newInstance() {
+    @Override
+    public PbMessageValueErrorParameterVersionBuilder newInstance() {
 
-		return new PbMessageValueErrorParameterVersionBuilderIetf();
-	}
+        return new PbMessageValueErrorParameterVersionBuilderIetf();
+    }
 
 }

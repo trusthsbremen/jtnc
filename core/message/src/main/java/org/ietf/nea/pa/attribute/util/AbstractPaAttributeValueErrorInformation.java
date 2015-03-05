@@ -24,7 +24,6 @@
  */
 package org.ietf.nea.pa.attribute.util;
 
-import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeSubValue;
 
 /**
  * Generic IETF RFC 5792 error information base. Especially
@@ -34,7 +33,7 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeSubValue;
  *
  */
 public abstract class AbstractPaAttributeValueErrorInformation implements
-        ImAttributeSubValue {
+        PaAttributeSubValue {
 
     private final long length;
     private final MessageHeaderDump messageHeader; // variable length
@@ -52,10 +51,7 @@ public abstract class AbstractPaAttributeValueErrorInformation implements
         this.messageHeader = messageHeader;
     }
 
-    /**
-     * Returns the value length.
-     * @return the length
-     */
+    @Override
     public long getLength() {
         return this.length;
     }

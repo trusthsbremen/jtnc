@@ -29,25 +29,43 @@ import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
-public interface PbMessageValueRemediationParametersBuilder extends TnccsMessageValueBuilder {
+/**
+ * Generic builder to build a TNCCS remediation parameters message value
+ * compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueRemediationParametersBuilder extends
+        TnccsMessageValueBuilder {
 
-	/**
-	 * @param rpVendorId the rpVendorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId)
-			throws RuleException;
+    /**
+     * Sets the remediation vendor ID.
+     *
+     * @param rpVendorId the remediation vendor ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueRemediationParametersBuilder setRpVendorId(long rpVendorId)
+            throws RuleException;
 
-	/**
-	 * @param rpType the rpType to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueRemediationParametersBuilder setRpType(long rpType) throws RuleException;
+    /**
+     * Sets the type describing the remediation.
+     *
+     * @param rpType the remediation type ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueRemediationParametersBuilder setRpType(long rpType)
+            throws RuleException;
 
-	/**
-	 * @param parameter the parameter to set
-	 */
-	public abstract PbMessageValueRemediationParametersBuilder setParameter(
-			AbstractPbMessageValueRemediationParameter parameter);
+    /**
+     * Sets the remediation parameter.
+     *
+     * @param parameter the remediation parameter
+     * @return this builder
+     */
+    PbMessageValueRemediationParametersBuilder setParameter(
+            AbstractPbMessageValueRemediationParameter parameter);
 
 }

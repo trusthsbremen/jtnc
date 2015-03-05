@@ -26,72 +26,95 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.pa.attribute.enums.PaAttributeRemediationParameterTypeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
-import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter;
+import org.ietf.nea.pa.attribute.util
+.AbstractPaAttributeValueRemediationParameter;
 import org.ietf.nea.pa.validate.rules.TypeReservedAndLimits;
 import org.ietf.nea.pa.validate.rules.VendorIdReservedAndLimits;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PaAttributeValueRemediationParametersBuilderIetf implements PaAttributeValueRemediationParametersBuilder{
-    
-    private long rpVendorId;         // 24 bit(s)
-    private long rpType;             // 32 bit(s)
-    
-    private long length; 
-    
+/**
+ * Builder to build an integrity measurement remediation parameters attribute
+ * value compliant to RFC 5792. It evaluates the given values and can be used in
+ * a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PaAttributeValueRemediationParametersBuilderIetf implements
+        PaAttributeValueRemediationParametersBuilder {
+
+    private long rpVendorId; // 24 bit(s)
+    private long rpType; // 32 bit(s)
+
+    private long length;
+
     private AbstractPaAttributeValueRemediationParameter parameter;
-    
-    public PaAttributeValueRemediationParametersBuilderIetf(){
-    	this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
-    	this.rpType = PaAttributeRemediationParameterTypeEnum.IETF_STRING.id();
-    	this.length = PaAttributeTlvFixedLengthEnum.REM_PAR.length();
-    	this.parameter = null;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Vendor: IETF</li>
+     * <li>Type: String</li>
+     * <li>Parameter: null</li>
+     * </ul>
+     */
+    public PaAttributeValueRemediationParametersBuilderIetf() {
+        this.rpVendorId = IETFConstants.IETF_PEN_VENDORID;
+        this.rpType = PaAttributeRemediationParameterTypeEnum.IETF_STRING.id();
+        this.length = PaAttributeTlvFixedLengthEnum.REM_PAR.length();
+        this.parameter = null;
     }
 
-	@Override
-	public PaAttributeValueRemediationParametersBuilder setRpVendorId(long rpVendorId) throws RuleException {
-		
-		VendorIdReservedAndLimits.check(rpVendorId);
-		this.rpVendorId = rpVendorId;
-	
-		return this;
-	}
+    @Override
+    public PaAttributeValueRemediationParametersBuilder setRpVendorId(
+            final long rpVendorId) throws RuleException {
 
-	@Override
-	public PaAttributeValueRemediationParametersBuilder setRpType(long rpType) throws RuleException {
-		
-		TypeReservedAndLimits.check(rpType);
-		this.rpType = rpType;
-		
-		return this;
-	}
+        VendorIdReservedAndLimits.check(rpVendorId);
+        this.rpVendorId = rpVendorId;
 
-	@Override
-	public PaAttributeValueRemediationParametersBuilder setParameter(
-			AbstractPaAttributeValueRemediationParameter parameter) {
-		
-		if(parameter != null){
-			this.parameter = parameter;
-			this.length = PaAttributeTlvFixedLengthEnum.REM_PAR.length() + parameter.getLength();
-		}
-		
-		return this;
-	}
+        return this;
+    }
 
-	@Override
-	public PaAttributeValueRemediationParameters toObject(){
-		if(parameter == null){
-			throw new IllegalStateException("A message value has to be set.");
-		}
-		
-		return new PaAttributeValueRemediationParameters(this.rpVendorId, this.rpType, this.length, this.parameter);
-	}
+    @Override
+    public PaAttributeValueRemediationParametersBuilder setRpType(
+            final long rpType) throws RuleException {
 
-	@Override
-	public PaAttributeValueRemediationParametersBuilder newInstance() {
+        TypeReservedAndLimits.check(rpType);
+        this.rpType = rpType;
 
-		return new PaAttributeValueRemediationParametersBuilderIetf();
-	}
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueRemediationParametersBuilder setParameter(
+            final AbstractPaAttributeValueRemediationParameter parameter) {
+
+        if (parameter != null) {
+            this.parameter = parameter;
+            this.length = PaAttributeTlvFixedLengthEnum.REM_PAR.length()
+                    + parameter.getLength();
+        }
+
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueRemediationParameters toObject() {
+        if (parameter == null) {
+            throw new IllegalStateException("A message value has to be set.");
+        }
+
+        return new PaAttributeValueRemediationParameters(this.rpVendorId,
+                this.rpType, this.length, this.parameter);
+    }
+
+    @Override
+    public PaAttributeValueRemediationParametersBuilder newInstance() {
+
+        return new PaAttributeValueRemediationParametersBuilderIetf();
+    }
 
 }

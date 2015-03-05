@@ -27,12 +27,24 @@ package org.ietf.nea.pb.message;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
-public interface PbMessageValueAssessmentResultBuilder extends TnccsMessageValueBuilder{
+/**
+ * Generic builder to build a TNCCS assessment result message value compliant to
+ * RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueAssessmentResultBuilder extends
+        TnccsMessageValueBuilder {
 
-	/**
-	 * @param result the result to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueAssessmentResultBuilder setResult(long result) throws RuleException;
+    /**
+     * Sets the assessment result.
+     *
+     * @param result the assessment result ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueAssessmentResultBuilder setResult(long result)
+            throws RuleException;
 
 }

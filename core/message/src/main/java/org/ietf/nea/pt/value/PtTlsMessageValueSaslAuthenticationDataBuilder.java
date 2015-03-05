@@ -27,9 +27,24 @@ package org.ietf.nea.pt.value;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
-public interface PtTlsMessageValueSaslAuthenticationDataBuilder extends TransportMessageValueBuilder{
+/**
+ * Generic builder to build a transport SASL authentication data message value
+ * compliant to RFC 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValueSaslAuthenticationDataBuilder extends
+        TransportMessageValueBuilder {
 
-	public abstract PtTlsMessageValueSaslAuthenticationDataBuilder setAuthenticationData(byte[] data)
-			throws RuleException;
+    /**
+     * Sets the SASL authentication data.
+     *
+     * @param data the authentication data
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueSaslAuthenticationDataBuilder setAuthenticationData(
+            byte[] data) throws RuleException;
 
 }

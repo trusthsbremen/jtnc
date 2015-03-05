@@ -27,21 +27,39 @@ package org.ietf.nea.pa.attribute;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueOperationalStatusBuilder extends ImAttributeValueBuilder{
-	
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(short status);
-	
-	/**
-	 * @param result the result to set
-	 */
-	public abstract void setResult(short result);
-	
-	/**
-	 * @param lastUse the lastUse to set
-	 * @throws RuleException 
-	 */
-	public abstract void setLastUse(String dateTime) throws RuleException;
+/**
+ * Generic builder to build an integrity measurement operational status
+ * attribute value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueOperationalStatusBuilder extends
+        ImAttributeValueBuilder {
+
+    /**
+     * Sets the operational status.
+     *
+     * @param status the operational status ID
+     * @return this builder
+     */
+    PaAttributeValueOperationalStatusBuilder setStatus(short status);
+
+    /**
+     * Sets the result of the last use.
+     *
+     * @param result the result ID
+     * @return this builder
+     */
+    PaAttributeValueOperationalStatusBuilder setResult(short result);
+
+    /**
+     * Sets the time of last use.
+     *
+     * @param dateTime the time stamp
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueOperationalStatusBuilder setLastUse(String dateTime)
+            throws RuleException;
 }

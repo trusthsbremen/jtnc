@@ -35,55 +35,72 @@ import org.ietf.nea.pa.validate.rules.RequestingForbiddenAttributes;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build an integrity measurement attribute request attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValueAttributeRequestBuilderIetf implements
-PaAttributeValueAttributeRequestBuilder {
-	
-	
-	private long length;
-	private List<AttributeReferenceEntry> references;
-	
-	public PaAttributeValueAttributeRequestBuilderIetf(){
-		this.length = 0;
-		this.references = new LinkedList<>();
-	}
+        PaAttributeValueAttributeRequestBuilder {
 
-	@Override
-	public PaAttributeValueAttributeRequestBuilder addReferences(AttributeReferenceEntry reference, AttributeReferenceEntry... references) throws RuleException {
-		
-		List<AttributeReferenceEntry> temp = new ArrayList<>();
-		
-		if(reference != null){
-			temp.add(reference);
-		}
-		
-		if(references != null){
-			for (AttributeReferenceEntry attributeReference : references) {
-				if(attributeReference != null){
-					temp.add(attributeReference);
-				}
-			}
-		}
-	
-		RequestingForbiddenAttributes.check(temp);	
-		
-		this.references.addAll(temp);
-		this.length = (PaAttributeTlvFixedLengthEnum.ATT_REQ.length() * this.references.size());
+    private long length;
+    private List<AttributeReferenceEntry> references;
 
-		MinEntryCount.check((byte)1, this.references);
-		
-		return this;
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>References: Empty list</li>
+     * </ul>
+     */
+    public PaAttributeValueAttributeRequestBuilderIetf() {
+        this.length = 0;
+        this.references = new LinkedList<>();
+    }
 
-	@Override
-	public PaAttributeValueAttributeRequest toObject(){
-		
-		return new PaAttributeValueAttributeRequest(length, references);
-	}
+    @Override
+    public PaAttributeValueAttributeRequestBuilder addReferences(
+            final AttributeReferenceEntry reference,
+            final AttributeReferenceEntry... references) throws RuleException {
 
-	@Override
-	public PaAttributeValueAttributeRequestBuilder newInstance() {
+        List<AttributeReferenceEntry> temp = new ArrayList<>();
 
-		return new PaAttributeValueAttributeRequestBuilderIetf();
-	}
+        if (reference != null) {
+            temp.add(reference);
+        }
+
+        if (references != null) {
+            for (AttributeReferenceEntry attributeReference : references) {
+                if (attributeReference != null) {
+                    temp.add(attributeReference);
+                }
+            }
+        }
+
+        RequestingForbiddenAttributes.check(temp);
+
+        this.references.addAll(temp);
+        this.length = (PaAttributeTlvFixedLengthEnum.ATT_REQ.length()
+                * this.references.size());
+
+        MinEntryCount.check((byte) 1, this.references);
+
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueAttributeRequest toObject() {
+
+        return new PaAttributeValueAttributeRequest(length, references);
+    }
+
+    @Override
+    public PaAttributeValueAttributeRequestBuilder newInstance() {
+
+        return new PaAttributeValueAttributeRequestBuilderIetf();
+    }
 
 }

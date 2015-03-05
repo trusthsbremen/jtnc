@@ -24,17 +24,37 @@
  */
 package org.ietf.nea.pa.attribute.util;
 
+import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PaAttributeValueErrorInformationInvalidParamBuilder extends PaAttributeValueErrorInformationBuilder{
-	
-	/**
-	 * @param messageHeader the messageHeader to set
-	 */
-	public abstract void setMessageHeader(MessageHeaderDump messageHeader);
-	
+/**
+ * Generic builder to build an integrity measurement invalid parameter error
+ * information value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueErrorInformationInvalidParamBuilder
+        extends PaAttributeSubValueBuilder<
+            PaAttributeValueErrorInformationInvalidParam> {
 
-	/**
-	 * @param offset the offset to set
-	 */
-	public abstract void setOffset(long offset);
+    /**
+     * Sets the byte copy of the message header of the erroneous message.
+     *
+     * @param messageHeader the byte copy of the message header of the erroneous
+     * message
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorInformationInvalidParamBuilder setMessageHeader(
+            MessageHeaderDump messageHeader) throws RuleException;
+
+    /**
+     * Sets the offset from the message beginning to the erroneous value.
+     *
+     * @param offset the error offset
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueErrorInformationInvalidParamBuilder setOffset(long offset)
+        throws RuleException;
 }

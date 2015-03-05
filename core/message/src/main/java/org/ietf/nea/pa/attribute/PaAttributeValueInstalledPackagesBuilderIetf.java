@@ -35,66 +35,81 @@ import org.ietf.nea.pa.validate.rules.StringLengthLimit;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build an integrity measurement installed packages attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValueInstalledPackagesBuilderIetf implements
-PaAttributeValueInstalledPackagesBuilder {
-	
-	private static final byte LENGTH_FIELDS_LENGTH = 2;
-	
-	private long length;
-	private List<PackageEntry> packages;
-	
-	public PaAttributeValueInstalledPackagesBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
-		this.packages = new LinkedList<>();
-	}
+        PaAttributeValueInstalledPackagesBuilder {
 
-	@Override
-	public PaAttributeValueInstalledPackagesBuilder addPackages(PackageEntry pkg, PackageEntry... pkgs) throws RuleException {
-		
-		List<PackageEntry> temp = new ArrayList<>();
-		
-		if(pkg != null){
-			NoNullTerminatedString.check(pkg.getPackageName());
-			StringLengthLimit.check(pkg.getPackageName(), 0xFF);
-			NoNullTerminatedString.check(pkg.getPackageVersion());
-			StringLengthLimit.check(pkg.getPackageVersion(), 0xFF);
-			temp.add(pkg);
-		}
-		
-		if(pkgs != null){
-			for (PackageEntry pkgEntry : pkgs) {
-				if(pkgEntry != null){
-					NoNullTerminatedString.check(pkgEntry.getPackageName());
-					StringLengthLimit.check(pkgEntry.getPackageName(), 0xFF);
-					NoNullTerminatedString.check(pkgEntry.getPackageVersion());
-					StringLengthLimit.check(pkgEntry.getPackageVersion(), 0xFF);
-					temp.add(pkgEntry);
-				}
-			}
-		}
+    private static final byte LENGTH_FIELDS_LENGTH = 2;
+    private static final int MAX_STRING_LENGTH = 0xFF;
+    private long length;
+    private List<PackageEntry> packages;
 
-		this.packages.addAll(temp);
-		this.updateLength();
-		
-		return this;
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Packages: Empty list</li>
+     * </ul>
+     */
+    public PaAttributeValueInstalledPackagesBuilderIetf() {
+        this.length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
+        this.packages = new LinkedList<>();
+    }
 
-	private void updateLength() {
-		this.length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
-		for (PackageEntry pkg : this.packages) {
-			this.length += (pkg.getPackageNameLength() + pkg.getPackageVersionLength() + LENGTH_FIELDS_LENGTH) ; // 2 bytes for length values
-		}
-	}
+    @Override
+    public PaAttributeValueInstalledPackagesBuilder addPackages(
+            final PackageEntry... pkgs) throws RuleException {
 
-	@Override
-	public PaAttributeValueInstalledPackages toObject(){
-		
-		return new PaAttributeValueInstalledPackages(this.length, this.packages);
-	}
+        List<PackageEntry> temp = new ArrayList<>();
 
-	@Override
-	public PaAttributeValueInstalledPackagesBuilder newInstance() {
-		return new PaAttributeValueInstalledPackagesBuilderIetf();
-	}
+        if (pkgs != null) {
+            for (PackageEntry pkgEntry : pkgs) {
+                if (pkgEntry != null) {
+                    NoNullTerminatedString.check(pkgEntry.getPackageName());
+                    StringLengthLimit.check(pkgEntry.getPackageName(),
+                            MAX_STRING_LENGTH);
+                    NoNullTerminatedString.check(pkgEntry.getPackageVersion());
+                    StringLengthLimit.check(pkgEntry.getPackageVersion(),
+                            MAX_STRING_LENGTH);
+                    temp.add(pkgEntry);
+                }
+            }
+        }
+
+        this.packages.addAll(temp);
+        this.updateLength();
+
+        return this;
+    }
+
+    /**
+     * Updates the length according to the list of packages.
+     */
+    private void updateLength() {
+        this.length = PaAttributeTlvFixedLengthEnum.INS_PKG.length();
+        for (PackageEntry pkg : this.packages) {
+            this.length += (pkg.getPackageNameLength()
+                    + pkg.getPackageVersionLength() + LENGTH_FIELDS_LENGTH);
+        }
+    }
+
+    @Override
+    public PaAttributeValueInstalledPackages toObject() {
+
+        return new PaAttributeValueInstalledPackages(this.length,
+                this.packages);
+    }
+
+    @Override
+    public PaAttributeValueInstalledPackagesBuilder newInstance() {
+        return new PaAttributeValueInstalledPackagesBuilderIetf();
+    }
 
 }

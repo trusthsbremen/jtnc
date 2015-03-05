@@ -27,41 +27,55 @@ package org.ietf.nea.pt.value;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
+/**
+ * Builder to build a transport TNCCS batch message value compliant to RFC 6876.
+ * It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PtTlsMessageValuePbBatchBuilderIetf implements
-		PtTlsMessageValuePbBatchBuilder {
-	
-	private long length;
-	private ByteBuffer tnccsData; // variable string
-	
-	public PtTlsMessageValuePbBatchBuilderIetf(){
-		this.length = 0;
-		this.tnccsData = null;
-	}
-	
-	@Override
-	public PtTlsMessageValuePbBatchBuilder setTnccsData(ByteBuffer data) throws RuleException {
-		// no checks necessary
-		if(data != null){
-			this.tnccsData = data;
-			this.length = data.bytesWritten();
-		}
-		
-		return this;
-	}
-	
-	@Override
-	public PtTlsMessageValuePbBatch toObject(){
-		if(this.tnccsData == null){
-			throw new IllegalStateException("The batch data has to be set.");
-		}
-		return new PtTlsMessageValuePbBatch(this.length,tnccsData);
-	}
+        PtTlsMessageValuePbBatchBuilder {
 
-	@Override
-	public PtTlsMessageValuePbBatchBuilder newInstance() {
-		
-		return new PtTlsMessageValuePbBatchBuilderIetf();
-	}
+    private long length;
+    private ByteBuffer tnccsData; // variable string
 
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Batch: null</li>
+     * </ul>
+     */
+    public PtTlsMessageValuePbBatchBuilderIetf() {
+        this.length = 0;
+        this.tnccsData = null;
+    }
+
+    @Override
+    public PtTlsMessageValuePbBatchBuilder setTnccsData(final ByteBuffer data)
+            throws RuleException {
+        // no checks necessary
+        if (data != null) {
+            this.tnccsData = data;
+            this.length = data.bytesWritten();
+        }
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValuePbBatch toObject() {
+        if (this.tnccsData == null) {
+            throw new IllegalStateException("The batch data has to be set.");
+        }
+        return new PtTlsMessageValuePbBatch(this.length, tnccsData);
+    }
+
+    @Override
+    public PtTlsMessageValuePbBatchBuilder newInstance() {
+
+        return new PtTlsMessageValuePbBatchBuilderIetf();
+    }
 
 }

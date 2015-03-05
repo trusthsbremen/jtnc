@@ -51,7 +51,7 @@ public class RuleException extends ComprehensibleException {
      * @param fatal true if the exception is fatal an message processing
      * must be stopped
      * @param errorCode a defined code classifying the exception
-     * @param errorCause a second qualifier to describe the exception besides
+     * @param errorCause a second qualifier to describe the exception
      * in addition to the classification more precisely
      * @param reasons the optional reasons, which let to the exception
      */

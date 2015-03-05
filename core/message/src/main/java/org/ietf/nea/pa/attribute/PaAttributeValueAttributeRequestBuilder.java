@@ -29,11 +29,26 @@ import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueAttributeRequestBuilder extends ImAttributeValueBuilder{
+/**
+ * Generic builder to build an integrity measurement attribute request attribute
+ * value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueAttributeRequestBuilder extends
+        ImAttributeValueBuilder {
 
-	public abstract PaAttributeValueAttributeRequestBuilder addReferences(
-			AttributeReferenceEntry reference, AttributeReferenceEntry... references)
-			throws RuleException;
-	
-	
+    /**
+     * Sets the references for the attributes to request.
+     *
+     * @param reference one mandatory reference
+     * @param references additional references
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueAttributeRequestBuilder addReferences(
+            AttributeReferenceEntry reference,
+            AttributeReferenceEntry... references) throws RuleException;
+
 }

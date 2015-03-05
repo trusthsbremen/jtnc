@@ -33,43 +33,63 @@ import org.ietf.nea.pb.validate.rules.NoZeroString;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PbMessageValueRemediationParameterUriBuilderIetf implements PbMessageValueRemediationParameterUriBuilder{
+/**
+ * Builder to build an TNCCS message URI remediation parameter value
+ * compliant to RFC 5793. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PbMessageValueRemediationParameterUriBuilderIetf implements
+        PbMessageValueRemediationParameterUriBuilder {
 
-	private long length;
+    private long length;
     private URI uri;
-    
-    public PbMessageValueRemediationParameterUriBuilderIetf(){
-    	this.length = 0;
-    	this.uri = null;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>URI: null</li>
+     * </ul>
+     */
+    public PbMessageValueRemediationParameterUriBuilderIetf() {
+        this.length = 0;
+        this.uri = null;
     }
 
-	@Override
-	public PbMessageValueRemediationParameterUriBuilder setUri(String uri) throws RuleException {
-		
-		NoZeroString.check(uri);
-		try{
-			this.uri = new URI(uri);
-		} catch (URISyntaxException e) {
-			throw new RuleException("URI syntax not valid.",e, true, PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),PbErrorCauseEnum.URI_SYNTAX_NOT_VALID.number(),uri);
-		}
-		this.length = this.uri.toString().getBytes().length;
-		return this;
-	}
+    @Override
+    public PbMessageValueRemediationParameterUriBuilder setUri(final String uri)
+            throws RuleException {
 
-	@Override
-	public PbMessageValueRemediationParameterUri toObject() throws RuleException {
-		
-		if( uri == null){
-				throw new IllegalStateException("An uri value has to be set.");
-		}
-		
-		return new PbMessageValueRemediationParameterUri(this.length, this.uri);
-	}
+        NoZeroString.check(uri);
+        try {
+            this.uri = new URI(uri);
+        } catch (URISyntaxException e) {
+            throw new RuleException("URI syntax not valid.", e, true,
+                    PbMessageErrorCodeEnum.IETF_INVALID_PARAMETER.code(),
+                    PbErrorCauseEnum.URI_SYNTAX_NOT_VALID.id(), uri);
+        }
+        this.length = this.uri.toString().getBytes().length;
+        return this;
+    }
 
-	@Override
-	public PbMessageValueRemediationParameterUriBuilder newInstance() {
+    @Override
+    public PbMessageValueRemediationParameterUri toObject()
+            throws RuleException {
 
-		return new PbMessageValueRemediationParameterUriBuilderIetf();
-	}
+        if (uri == null) {
+            throw new IllegalStateException("An uri value has to be set.");
+        }
+
+        return new PbMessageValueRemediationParameterUri(this.length, this.uri);
+    }
+
+    @Override
+    public PbMessageValueRemediationParameterUriBuilder newInstance() {
+
+        return new PbMessageValueRemediationParameterUriBuilderIetf();
+    }
 
 }

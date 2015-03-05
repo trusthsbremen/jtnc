@@ -30,36 +30,50 @@ import org.ietf.nea.pb.validate.rules.AssessmentResult;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a TNCCS assessment result message value compliant to RFC
+ * 5793. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PbMessageValueAssessmentResultBuilderIetf implements
-		PbMessageValueAssessmentResultBuilder {
-	
-	
-	private long length;
-	private PbMessageAssessmentResultEnum result;      
-	
-	public PbMessageValueAssessmentResultBuilderIetf(){
-		this.length = PbMessageTlvFixedLengthEnum.ASS_RES_VALUE.length();
-		this.result = PbMessageAssessmentResultEnum.COMPLIANT;
-	}
+        PbMessageValueAssessmentResultBuilder {
 
-	@Override
-	public PbMessageValueAssessmentResultBuilder setResult(long result) throws RuleException {
-		
-		AssessmentResult.check(result);
-		this.result = PbMessageAssessmentResultEnum.fromId(result);
-		
-		return this;
-	}
+    private long length;
+    private PbMessageAssessmentResultEnum result;
 
-	@Override
-	public PbMessageValueAssessmentResult toObject(){
-		
-		return new PbMessageValueAssessmentResult(this.length, this.result);
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Result: Compliant</li>
+     * </ul>
+     */
+    public PbMessageValueAssessmentResultBuilderIetf() {
+        this.length = PbMessageTlvFixedLengthEnum.ASS_RES_VALUE.length();
+        this.result = PbMessageAssessmentResultEnum.COMPLIANT;
+    }
 
-	@Override
-	public PbMessageValueAssessmentResultBuilder newInstance() {
-		return new PbMessageValueAssessmentResultBuilderIetf();
-	}
+    @Override
+    public PbMessageValueAssessmentResultBuilder setResult(final long result)
+            throws RuleException {
+
+        AssessmentResult.check(result);
+        this.result = PbMessageAssessmentResultEnum.fromId(result);
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueAssessmentResult toObject() {
+
+        return new PbMessageValueAssessmentResult(this.length, this.result);
+    }
+
+    @Override
+    public PbMessageValueAssessmentResultBuilder newInstance() {
+        return new PbMessageValueAssessmentResultBuilderIetf();
+    }
 
 }

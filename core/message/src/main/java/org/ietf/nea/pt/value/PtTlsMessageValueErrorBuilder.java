@@ -27,25 +27,42 @@ package org.ietf.nea.pt.value;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
-public interface PtTlsMessageValueErrorBuilder extends TransportMessageValueBuilder {
+/**
+ * Generic builder to build a transport error message value compliant to RFC
+ * 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValueErrorBuilder extends
+        TransportMessageValueBuilder {
 
-	/**
-	 * @param errorVendorId the errorVendorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PtTlsMessageValueErrorBuilder setErrorVendorId(long errorVendorId)
-			throws RuleException;
+    /**
+     * Sets the error vendor ID.
+     *
+     * @param errorVendorId the error vendor ID
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueErrorBuilder setErrorVendorId(long errorVendorId)
+            throws RuleException;
 
-	/**
-	 * @param errorCode the errorCode to set
-	 * @throws RuleException 
-	 */
-	public abstract PtTlsMessageValueErrorBuilder setErrorCode(long errorCode)
-			throws RuleException;
+    /**
+     * Sets the code describing the error.
+     *
+     * @param errorCode the error code
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueErrorBuilder setErrorCode(long errorCode)
+            throws RuleException;
 
-	/**
-	 * @param message the partial copy of the faulty message
-	 */
-	public abstract PtTlsMessageValueErrorBuilder setPartialMessage(byte[] message);
+    /**
+     * Sets the partial copy of the erroneous message.
+     *
+     * @param message the partial byte copy
+     * @return the builder
+     */
+    PtTlsMessageValueErrorBuilder setPartialMessage(byte[] message);
 
 }

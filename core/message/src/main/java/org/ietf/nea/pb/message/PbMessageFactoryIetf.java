@@ -138,7 +138,7 @@ public abstract class PbMessageFactoryIetf {
     /**
      * Creates a TNCCS message suggesting a preferred language for human
      * readable strings.
-     * @param preferredLanguage the RFC 4646 preferred language
+     * @param preferredLanguage the RFC 3282 preferred language
      * @return an IETF RFC 5793 compliant TNCCS message
      * @throws ValidationException if creation fails because of invalid values
      */

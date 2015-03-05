@@ -26,12 +26,24 @@ package org.ietf.nea.pa.attribute.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PaAttributeValueRemediationParameterUriBuilder extends PaAttributeValueRemediationParameterBuilder{
+/**
+ * Generic builder to build an integrity measurement URI remediation parameter
+ * value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueRemediationParameterUriBuilder extends
+        PaAttributeSubValueBuilder<PaAttributeValueRemediationParameterUri> {
 
-	/**
-	 * @param uri the uri to set
-	 * @throws RuleException 
-	 */
-	public abstract  PaAttributeValueRemediationParameterUriBuilder setUri(String uri) throws RuleException;
+    /**
+     * Sets the remediation URI.
+     *
+     * @param uri the URI
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueRemediationParameterUriBuilder setUri(String uri)
+            throws RuleException;
 
 }

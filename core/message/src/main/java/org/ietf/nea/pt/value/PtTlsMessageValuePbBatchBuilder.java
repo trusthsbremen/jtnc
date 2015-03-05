@@ -28,9 +28,24 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
-public interface PtTlsMessageValuePbBatchBuilder extends TransportMessageValueBuilder{
+/**
+ * Generic builder to build a transport TNCCS batch message value compliant to
+ * RFC 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValuePbBatchBuilder extends
+        TransportMessageValueBuilder {
 
-	public abstract PtTlsMessageValuePbBatchBuilder setTnccsData(ByteBuffer data)
-			throws RuleException;
+    /**
+     * Sets the TNCC batch data.
+     *
+     * @param data the TNCCS batch data
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValuePbBatchBuilder setTnccsData(ByteBuffer data)
+            throws RuleException;
 
 }

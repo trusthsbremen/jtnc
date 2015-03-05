@@ -26,9 +26,24 @@ package org.ietf.nea.pb.message.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PbMessageValueErrorParameterOffsetBuilder extends PbMessageValueErrorParameterBuilder {
+/**
+ * Generic builder to build an TNCCS message error parameter value with an
+ * error offset compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueErrorParameterOffsetBuilder extends
+        PbMessageSubValueBuilder<PbMessageValueErrorParameterOffset> {
 
-	public abstract PbMessageValueErrorParameterOffsetBuilder setOffset(long offset)
-			throws RuleException;
-	
+    /**
+     * Sets the offset to the invalid value counted from the beginning
+     * of an erroneous message.
+     * @param offset the error offset
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueErrorParameterOffsetBuilder setOffset(long offset)
+            throws RuleException;
+
 }

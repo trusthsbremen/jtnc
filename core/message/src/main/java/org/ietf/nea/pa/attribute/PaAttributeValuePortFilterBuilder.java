@@ -29,9 +29,25 @@ import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValuePortFilterBuilder extends ImAttributeValueBuilder{
+/**
+ * Generic builder to build an integrity measurement port filter attribute value
+ * compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValuePortFilterBuilder extends
+        ImAttributeValueBuilder {
 
-	public abstract PaAttributeValuePortFilterBuilder addEntries(PortFilterEntry entry,
-			PortFilterEntry... entries) throws RuleException;
-	
+    /**
+     * Sets the port filter entries.
+     *
+     * @param entry one mandatory port filter entry
+     * @param entries additional port filter entries
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValuePortFilterBuilder addEntries(PortFilterEntry entry,
+            PortFilterEntry... entries) throws RuleException;
+
 }

@@ -33,65 +33,93 @@ import org.ietf.nea.pb.validate.rules.NoZeroString;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PbMessageValueRemediationParameterStringBuilderIetf implements PbMessageValueRemediationParameterStringBuilder{
+/**
+ * Builder to build an TNCCS message string remediation parameter value
+ * compliant to RFC 5793. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PbMessageValueRemediationParameterStringBuilderIetf implements
+        PbMessageValueRemediationParameterStringBuilder {
 
-	private long length;
-    private String remediationString;   // variable length, UTF-8 encoded, NUL termination MUST NOT be included.
-    private String langCode;            // variable length, US-ASCII string composed of a well-formed RFC 4646 [3] language tag
-    
-    public PbMessageValueRemediationParameterStringBuilderIetf(){
-    	this.length = PbMessageTlvFixedLengthEnum.REM_STR_SUB_VALUE.length();
-    	this.remediationString = "";
-    	this.langCode = "";
+    private long length;
+    private String remediationString; // variable length, UTF-8 encoded, NUL
+                                      // termination MUST NOT be included.
+    private String langCode; // variable length, US-ASCII string composed of a
+                             // well-formed RFC 4646 [3] language tag
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>String: ""</li>
+     * <li>Language: ""</li>
+     * </ul>
+     */
+    public PbMessageValueRemediationParameterStringBuilderIetf() {
+        this.length = PbMessageTlvFixedLengthEnum.REM_STR_SUB_VALUE.length();
+        this.remediationString = "";
+        this.langCode = "";
     }
 
-	@Override
-	public PbMessageValueRemediationParameterStringBuilder setRemediationString(String remediationString) throws RuleException {
+    @Override
+    public PbMessageValueRemediationParameterStringBuilder setRemediationString(
+            final String remediationString) throws RuleException {
 
-		NoZeroString.check(remediationString);
-		NoNullTerminatedString.check(remediationString);
-		this.remediationString = remediationString;
-		this.updateLength();
-		
-		return this;
-	}
+        NoZeroString.check(remediationString);
+        NoNullTerminatedString.check(remediationString);
+        this.remediationString = remediationString;
+        this.updateLength();
 
-	@Override
-	public PbMessageValueRemediationParameterStringBuilder setLangCode(String langCode) throws RuleException {
-		
-		// Zero length string for language code allowed.
-        if(langCode != null){
-        	NoNullTerminatedString.check(langCode);
-        	LangCodeStringLimit.check(langCode);
-        	this.langCode = langCode;
-        	this.updateLength();
-        }
-		
         return this;
-	}
+    }
 
-	@Override
-	public PbMessageValueRemediationParameterString toObject() throws RuleException {
+    @Override
+    public PbMessageValueRemediationParameterStringBuilder setLangCode(
+            final String langCode) throws RuleException {
 
-		// check again because it has to set properly
-		NoZeroString.check(this.remediationString);
-		
-		return new PbMessageValueRemediationParameterString(this.length, this.remediationString, this.langCode);
-	}
+        // Zero length string for language code allowed.
+        if (langCode != null) {
+            NoNullTerminatedString.check(langCode);
+            LangCodeStringLimit.check(langCode);
+            this.langCode = langCode;
+            this.updateLength();
+        }
 
-	@Override
-	public PbMessageValueRemediationParameterStringBuilder newInstance() {
+        return this;
+    }
 
-		return new PbMessageValueRemediationParameterStringBuilderIetf();
-	}
+    @Override
+    public PbMessageValueRemediationParameterString toObject()
+            throws RuleException {
 
-	private void updateLength(){
-		this.length = PbMessageTlvFixedLengthEnum.REM_STR_SUB_VALUE.length();
-		if(remediationString.length() > 0){
-			this.length += remediationString.getBytes(Charset.forName("UTF-8")).length;
-		}
-		if(langCode.length() > 0){
-			this.length += langCode.getBytes(Charset.forName("US-ASCII")).length;
-		}
-	}
+        // check again because it has to set properly
+        NoZeroString.check(this.remediationString);
+
+        return new PbMessageValueRemediationParameterString(this.length,
+                this.remediationString, this.langCode);
+    }
+
+    @Override
+    public PbMessageValueRemediationParameterStringBuilder newInstance() {
+
+        return new PbMessageValueRemediationParameterStringBuilderIetf();
+    }
+
+    /**
+     * Updates the length according to the values set.
+     */
+    private void updateLength() {
+        this.length = PbMessageTlvFixedLengthEnum.REM_STR_SUB_VALUE.length();
+        if (remediationString.length() > 0) {
+            this.length += remediationString.getBytes(
+                    Charset.forName("UTF-8")).length;
+        }
+        if (langCode.length() > 0) {
+            this.length += langCode.getBytes(
+                    Charset.forName("US-ASCII")).length;
+        }
+    }
 }

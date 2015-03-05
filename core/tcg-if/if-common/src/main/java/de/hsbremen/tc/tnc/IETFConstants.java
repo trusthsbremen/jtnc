@@ -80,12 +80,17 @@ public abstract class IETFConstants {
     public static final short IETF_MAX_LANG_CODE_LENGTH = 0xFF;
 
     /**
-     * Binding version number for the binding in RFC5793.
+     * Binding version number for the binding in RFC 5793.
      */
     public static final byte IETF_RFC5793_VERSION_NUMBER = 2;
 
     /**
-     * Binding version number for the binding in RFC6876.
+     * Binding version number for the binding in RFC 5792.
+     */
+    public static final byte IETF_RFC5792_VERSION_NUMBER = 1;
+    
+    /**
+     * Binding version number for the binding in RFC 6876.
      */
     public static final byte IETF_RFC6876_VERSION_NUMBER = 1;
 

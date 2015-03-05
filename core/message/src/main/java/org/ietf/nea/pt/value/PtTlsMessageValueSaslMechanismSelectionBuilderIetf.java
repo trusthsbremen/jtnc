@@ -29,65 +29,84 @@ import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a transport SASL mechanism selection message value compliant
+ * to RFC 6876. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PtTlsMessageValueSaslMechanismSelectionBuilderIetf implements
-PtTlsMessageValueSaslMechanismSelectionBuilder {
-	
-	private static final byte LENGTH_FIELDS_AND_RESERVED_LENGTH = 1;
-	
-	private long length;
-	private SaslMechanismEntry mechanism;
-	private byte[] initialSaslMsg;
-	
-	public PtTlsMessageValueSaslMechanismSelectionBuilderIetf(){
-		this.length = 0;
-		this.mechanism = null;
-		this.initialSaslMsg = null;
-	}
+        PtTlsMessageValueSaslMechanismSelectionBuilder {
 
-	@Override
-	public PtTlsMessageValueSaslMechanismSelectionBuilder setMechanism(SaslMechanismEntry mech) throws RuleException {
-		
-		
-		if(mech != null){
-			SaslMechanismName.check(mech.getName());
-			this.mechanism = mech;
-		}
-		
-		return this;
-	}
+    private static final byte LENGTH_FIELDS_AND_RESERVED_LENGTH = 1;
 
-	@Override
-	public PtTlsMessageValueSaslMechanismSelectionBuilder setInitialSaslMessage(byte[] initialSaslMsg) throws RuleException {
-		
-		
-		if(initialSaslMsg != null){
-			this.initialSaslMsg = initialSaslMsg;
-		}
-		
-		return this;
-	}
-	
-	
-	@Override
-	public PtTlsMessageValueSaslMechanismSelection toObject(){
-		
-		if(this.mechanism == null){
-			throw new IllegalStateException("The SASL mechanism has to be set.");
-		}
-		
-		this.length = (this.mechanism.getNameLength() + LENGTH_FIELDS_AND_RESERVED_LENGTH) ;
-		
-		if(this.initialSaslMsg != null){
-			this.length += this.initialSaslMsg.length;
-			return new PtTlsMessageValueSaslMechanismSelection(this.length,this.mechanism,this.initialSaslMsg);
-		}else{
-			return new PtTlsMessageValueSaslMechanismSelection(this.length,this.mechanism);
-		}
-	}
+    private long length;
+    private SaslMechanismEntry mechanism;
+    private byte[] initialSaslMsg;
 
-	@Override
-	public PtTlsMessageValueSaslMechanismSelectionBuilder newInstance() {
-		return new PtTlsMessageValueSaslMechanismSelectionBuilderIetf();
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Mechanism: null</li>
+     * <li>Message: null</li>
+     * </ul>
+     */
+    public PtTlsMessageValueSaslMechanismSelectionBuilderIetf() {
+        this.length = 0;
+        this.mechanism = null;
+        this.initialSaslMsg = null;
+    }
+
+    @Override
+    public PtTlsMessageValueSaslMechanismSelectionBuilder setMechanism(
+            final SaslMechanismEntry mech) throws RuleException {
+
+        if (mech != null) {
+            SaslMechanismName.check(mech.getName());
+            this.mechanism = mech;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueSaslMechanismSelectionBuilder
+        setOptionalInitialSaslMessage(final byte[] initialSaslMsg)
+                throws RuleException {
+
+        if (initialSaslMsg != null) {
+            this.initialSaslMsg = initialSaslMsg;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueSaslMechanismSelection toObject() {
+
+        if (this.mechanism == null) {
+            throw new IllegalStateException(
+                    "The SASL mechanism has to be set.");
+        }
+
+        this.length = (this.mechanism.getNameLength()
+                + LENGTH_FIELDS_AND_RESERVED_LENGTH);
+
+        if (this.initialSaslMsg != null) {
+            this.length += this.initialSaslMsg.length;
+            return new PtTlsMessageValueSaslMechanismSelection(this.length,
+                    this.mechanism, this.initialSaslMsg);
+        } else {
+            return new PtTlsMessageValueSaslMechanismSelection(this.length,
+                    this.mechanism);
+        }
+    }
+
+    @Override
+    public PtTlsMessageValueSaslMechanismSelectionBuilder newInstance() {
+        return new PtTlsMessageValueSaslMechanismSelectionBuilderIetf();
+    }
 
 }

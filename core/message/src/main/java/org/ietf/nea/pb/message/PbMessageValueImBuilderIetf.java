@@ -33,95 +33,124 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder{
+/**
+ * Builder to build a TNCCS integrity measurement component message value
+ * compliant to RFC 5793. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PbMessageValueImBuilderIetf implements PbMessageValueImBuilder {
 
-	private PbMessageImFlagEnum[] imFlags; //  8 bit(s)
-	   
-    private long subVendorId;                                           // 24 bit(s)
-    private long subType;                                               // 32 bit(s)
-    private long collectorId;                                            // 16 bit(s)
-    private long validatorId;                                            // 16 bit(s)
+    private PbMessageImFlagEnum[] imFlags; // 8 bit(s)
+
+    private long subVendorId; // 24 bit(s)
+    private long subType; // 32 bit(s)
+    private long collectorId; // 16 bit(s)
+    private long validatorId; // 16 bit(s)
     private long length;
-    
-    private byte[] message; //ImMessage as byte[]
 
-    public PbMessageValueImBuilderIetf(){
-    	this.imFlags = new PbMessageImFlagEnum[0];
-    	this.subVendorId = IETFConstants.IETF_PEN_VENDORID;
-    	this.subType = 0;
-    	this.collectorId = TNCConstants.TNC_IMCID_ANY;
-    	this.validatorId = TNCConstants.TNC_IMVID_ANY;
-    	this.length = PbMessageTlvFixedLengthEnum.IM_VALUE.length();
-    	this.message = new byte[0];
+    private byte[] message; // ImMessage as byte[]
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Flags: None set</li>
+     * <li>Vendor: IETF</li>
+     * <li>Type: Testing</li>
+     * <li>IMC ID: Any</li>
+     * <li>IMV ID: Any</li>
+     * <li>Length: Fixed value length only</li>
+     * <li>Message: Empty message</li>
+     * </ul>
+     */
+    public PbMessageValueImBuilderIetf() {
+        this.imFlags = new PbMessageImFlagEnum[0];
+        this.subVendorId = IETFConstants.IETF_PEN_VENDORID;
+        this.subType = 0;
+        this.collectorId = TNCConstants.TNC_IMCID_ANY;
+        this.validatorId = TNCConstants.TNC_IMVID_ANY;
+        this.length = PbMessageTlvFixedLengthEnum.IM_VALUE.length();
+        this.message = new byte[0];
     }
-    
-	@Override
-	public PbMessageValueImBuilder setImFlags(byte imFlags) {
-		
-		if ((byte)(imFlags & 0x80)  == PbMessageImFlagEnum.EXCL.bit()) {
-			this.imFlags = new PbMessageImFlagEnum[]{PbMessageImFlagEnum.EXCL};
-		}
-		
-		return this;
-	}
 
-	@Override
-	public PbMessageValueImBuilder setSubVendorId(long subVendorId) throws RuleException {
-		
-		ImMessageTypeReservedAndLimits.check(subVendorId);
-		this.subVendorId = subVendorId;
-		
-		return this;
-	}
+    @Override
+    public PbMessageValueImBuilder setImFlags(final byte imFlags) {
+        // filter for EXCL
+        if ((byte) (imFlags & PbMessageImFlagEnum.EXCL.bit())
+                == PbMessageImFlagEnum.EXCL.bit()) {
+            this.imFlags = new PbMessageImFlagEnum[] {
+                    PbMessageImFlagEnum.EXCL};
+        }
 
-	@Override
-	public PbMessageValueImBuilder setSubType(long subType) throws RuleException {
-		
-		ImMessageTypeReservedAndLimits.check(subType);
-		this.subType = subType;
-		
-		return this;
-	}
+        return this;
+    }
 
-	@Override
-	public PbMessageValueImBuilder setCollectorId(long collectorId) throws RuleException {
-		
-		ImIdLimits.check(collectorId);
-		this.collectorId = collectorId;
-		
-		return this;
-	}
+    @Override
+    public PbMessageValueImBuilder setSubVendorId(final long subVendorId)
+            throws RuleException {
 
-	@Override
-	public PbMessageValueImBuilder setValidatorId(long validatorId) throws RuleException {
-		
-		ImIdLimits.check(validatorId);
-		this.validatorId = validatorId;
-		
-		return this;
-	}
+        ImMessageTypeReservedAndLimits.check(subVendorId);
+        this.subVendorId = subVendorId;
 
-	@Override
-	public PbMessageValueImBuilder setMessage(byte[] message) {
-		
-		if(message != null){
-			this.message = message;
-			this.length = PbMessageTlvFixedLengthEnum.IM_VALUE.length() + message.length;
-		}
-		
-		return this;
-	}
+        return this;
+    }
 
-	@Override
-	public PbMessageValueIm toObject(){
+    @Override
+    public PbMessageValueImBuilder setSubType(final long subType)
+            throws RuleException {
 
-		return new PbMessageValueIm(this.imFlags, this.subVendorId, this.subType, this.collectorId, this.validatorId, this.length, this.message);
-	}
+        ImMessageTypeReservedAndLimits.check(subType);
+        this.subType = subType;
 
-	@Override
-	public PbMessageValueImBuilder newInstance() {
+        return this;
+    }
 
-		return new PbMessageValueImBuilderIetf();
-	}
+    @Override
+    public PbMessageValueImBuilder setCollectorId(final long collectorId)
+            throws RuleException {
+
+        ImIdLimits.check(collectorId);
+        this.collectorId = collectorId;
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueImBuilder setValidatorId(final long validatorId)
+            throws RuleException {
+
+        ImIdLimits.check(validatorId);
+        this.validatorId = validatorId;
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueImBuilder setMessage(final byte[] message) {
+
+        if (message != null) {
+            this.message = message;
+            this.length = PbMessageTlvFixedLengthEnum.IM_VALUE.length()
+                    + message.length;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueIm toObject() {
+
+        return new PbMessageValueIm(this.imFlags, this.subVendorId,
+                this.subType, this.collectorId, this.validatorId, this.length,
+                this.message);
+    }
+
+    @Override
+    public PbMessageValueImBuilder newInstance() {
+
+        return new PbMessageValueImBuilderIetf();
+    }
 
 }

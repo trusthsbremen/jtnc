@@ -52,7 +52,7 @@ class PtTlsMessageSaslMechanismSelectionValueReader implements TransportReader<P
 						if(counter > 0){
 							errorOffset = buffer.bytesRead();
 							byte[] initialSaslMsg = buffer.read(counter);
-							builder.setInitialSaslMessage(initialSaslMsg);
+							builder.setOptionalInitialSaslMessage(initialSaslMsg);
 						}
 
 

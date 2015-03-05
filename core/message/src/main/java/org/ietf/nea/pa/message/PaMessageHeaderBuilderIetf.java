@@ -32,7 +32,8 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
  * Builder to build an integrity measurement component message header
- * compliant to RFC 5792. It can be used in a fluent way.
+ * compliant to RFC 5792. It evaluates the given values and can be
+ * used in a fluent way.
  *
  * @author Carl-Heinz Genzel
  *

@@ -32,77 +32,106 @@ import org.ietf.nea.pa.validate.rules.StringLengthLimit;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PaAttributeValueStringVersionBuilderIetf implements PaAttributeValueStringVersionBuilder{
+/**
+ * Builder to build an integrity measurement string version attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PaAttributeValueStringVersionBuilderIetf implements
+        PaAttributeValueStringVersionBuilder {
 
-	private long length;
-	private String productVersion;
-	private String buildVersion;
-	private String configVersion;
-	
-	public PaAttributeValueStringVersionBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.STR_VER.length();
-		this.productVersion = "";
-		this.buildVersion = "";
-		this.configVersion = "";
-	}
-	
-	@Override
-	public void setProductVersion(String productVersion) throws RuleException {
-		if(productVersion != null){
-			NoNullTerminatedString.check(productVersion);
-			StringLengthLimit.check(productVersion, 0xFF);
-			this.productVersion = productVersion;
-			this.updateLength();
-		}
-		
-	}
+    private static final int MAX_STRING_LENGTH = 0xFF;
 
-	@Override
-	public void setBuildNumber(String buildNumber) throws RuleException {
-		if(buildNumber != null){
-			NoNullTerminatedString.check(buildNumber);
-			StringLengthLimit.check(buildNumber, 0xFF);
-			this.buildVersion = buildNumber;
-			this.updateLength();
-		}
-		
-	}
+    private long length;
+    private String productVersion;
+    private String buildVersion;
+    private String configVersion;
 
-	@Override
-	public void setConfigurationVersion(String configVersion)
-			throws RuleException {
-		if(configVersion != null){
-			NoNullTerminatedString.check(configVersion);
-			StringLengthLimit.check(configVersion, 0xFF);
-			this.configVersion = configVersion;
-			this.updateLength();
-		}
-		
-	}
-	
-	@Override
-	public PaAttributeValueStringVersion toObject() {
-		return new PaAttributeValueStringVersion(this.length, this.productVersion, this.buildVersion, this.configVersion);
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Product version: ""</li>
+     * <li>Build version: ""</li>
+     * <li>Configuration version: ""</li>
+     * </ul>
+     */
+    public PaAttributeValueStringVersionBuilderIetf() {
+        this.length = PaAttributeTlvFixedLengthEnum.STR_VER.length();
+        this.productVersion = "";
+        this.buildVersion = "";
+        this.configVersion = "";
+    }
 
-	@Override
-	public PaAttributeValueStringVersionBuilder newInstance() {
-		return new PaAttributeValueStringVersionBuilderIetf();
-	}
-	
-	private void updateLength(){
-		this.length = PaAttributeTlvFixedLengthEnum.STR_VER.length();
-		if(productVersion.length() > 0){
-			this.length += productVersion.getBytes(Charset.forName("UTF-8")).length;
-		}
-		
-		if(buildVersion.length() > 0){
-			this.length += buildVersion.getBytes(Charset.forName("UTF-8")).length;
-		}
-		
-		if(configVersion.length() > 0){
-			this.length += configVersion.getBytes(Charset.forName("UTF-8")).length;
-		}
-	}
+    @Override
+    public PaAttributeValueStringVersionBuilder setProductVersion(
+            final String productVersion) throws RuleException {
+        if (productVersion != null) {
+            NoNullTerminatedString.check(productVersion);
+            StringLengthLimit.check(productVersion, MAX_STRING_LENGTH);
+            this.productVersion = productVersion;
+            this.updateLength();
+        }
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueStringVersionBuilder setBuildNumber(
+            final String buildNumber) throws RuleException {
+        if (buildNumber != null) {
+            NoNullTerminatedString.check(buildNumber);
+            StringLengthLimit.check(buildNumber, MAX_STRING_LENGTH);
+            this.buildVersion = buildNumber;
+            this.updateLength();
+        }
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueStringVersionBuilder setConfigurationVersion(
+            final String configVersion) throws RuleException {
+        if (configVersion != null) {
+            NoNullTerminatedString.check(configVersion);
+            StringLengthLimit.check(configVersion, MAX_STRING_LENGTH);
+            this.configVersion = configVersion;
+            this.updateLength();
+        }
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueStringVersion toObject() {
+        return new PaAttributeValueStringVersion(this.length,
+                this.productVersion, this.buildVersion, this.configVersion);
+    }
+
+    @Override
+    public PaAttributeValueStringVersionBuilder newInstance() {
+        return new PaAttributeValueStringVersionBuilderIetf();
+    }
+
+    /**
+     * Updates the length according to the given version information.
+     */
+    private void updateLength() {
+        this.length = PaAttributeTlvFixedLengthEnum.STR_VER.length();
+        if (productVersion.length() > 0) {
+            this.length += productVersion.getBytes(
+                    Charset.forName("UTF-8")).length;
+        }
+
+        if (buildVersion.length() > 0) {
+            this.length += buildVersion.getBytes(
+                    Charset.forName("UTF-8")).length;
+        }
+
+        if (configVersion.length() > 0) {
+            this.length += configVersion.getBytes(
+                    Charset.forName("UTF-8")).length;
+        }
+    }
 
 }

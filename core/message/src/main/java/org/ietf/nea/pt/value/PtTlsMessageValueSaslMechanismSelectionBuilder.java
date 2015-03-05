@@ -29,11 +29,35 @@ import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
 
-public interface PtTlsMessageValueSaslMechanismSelectionBuilder extends TransportMessageValueBuilder{
+/**
+ * Generic builder to build a transport SASL mechanism selection message value
+ * compliant to RFC 6876. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PtTlsMessageValueSaslMechanismSelectionBuilder extends
+        TransportMessageValueBuilder {
 
-	public abstract PtTlsMessageValueSaslMechanismSelectionBuilder setMechanism(SaslMechanismEntry mech1) throws RuleException;
+    /**
+     * Sets the selected mechanism.
+     *
+     * @param mech the selected mechanism
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueSaslMechanismSelectionBuilder setMechanism(
+            SaslMechanismEntry mech) throws RuleException;
 
-	public abstract PtTlsMessageValueSaslMechanismSelectionBuilder setInitialSaslMessage(
-			byte[] initialSaslMsg) throws RuleException;
-	
+    /**
+     * Sets the optional initial SASL message.
+     *
+     * @param initialSaslMsg the initial SASL message
+     * @return the builder
+     * @throws RuleException if given value is not valid
+     */
+    PtTlsMessageValueSaslMechanismSelectionBuilder
+        setOptionalInitialSaslMessage(byte[] initialSaslMsg)
+                throws RuleException;
+
 }

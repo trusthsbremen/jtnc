@@ -27,16 +27,64 @@ package org.ietf.nea.pa.attribute;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValueBuilder;
 
-public interface PaAttributeValueNumericVersionBuilder extends ImAttributeValueBuilder{
+/**
+ * Generic builder to build an integrity measurement numeric version attribute
+ * value compliant to RFC 5792. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PaAttributeValueNumericVersionBuilder extends
+        ImAttributeValueBuilder {
 
-	void setMajorVersion(long majorVersion) throws RuleException;
+    /**
+     * Sets the major product version.
+     *
+     * @param majorVersion the major product version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueNumericVersionBuilder setMajorVersion(long majorVersion)
+            throws RuleException;
 
-	void setMinorVersion(long minorVersion) throws RuleException;
+    /**
+     * Sets the minor product version.
+     *
+     * @param minorVersion the minor product version.
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueNumericVersionBuilder setMinorVersion(long minorVersion)
+            throws RuleException;
 
-	void setBuildVersion(long buildVersion) throws RuleException;
+    /**
+     * Sets the build version.
+     *
+     * @param buildVersion the build version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueNumericVersionBuilder setBuildVersion(long buildVersion)
+            throws RuleException;
 
-	void setServicePackMajor(int servicePackMajor) throws RuleException;
+    /**
+     * Sets the service pack major version.
+     *
+     * @param servicePackMajor the service pack major version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueNumericVersionBuilder setServicePackMajor(
+            int servicePackMajor) throws RuleException;
 
-	void setServicePackMinor(int servicePackMinor) throws RuleException;
+    /**
+     * Sets the service pack minor version.
+     *
+     * @param servicePackMinor the service pack minor version
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PaAttributeValueNumericVersionBuilder setServicePackMinor(
+            int servicePackMinor) throws RuleException;
 
 }

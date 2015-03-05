@@ -28,45 +28,62 @@ import java.nio.charset.Charset;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PaAttributeValueTestingBuilderIetf implements PaAttributeValueTestingBuilder{
+/**
+ * Builder to build an integrity measurement test attribute value compliant to
+ * RFC 5792. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PaAttributeValueTestingBuilderIetf implements
+        PaAttributeValueTestingBuilder {
 
-	private long length;
-	private String content;
-	
-	public PaAttributeValueTestingBuilderIetf(){
-		this.length = 0;
-		this.content = "";
+    private long length;
+    private String content;
 
-	}
-	
-	@Override
-	public PaAttributeValueTestingBuilder setContent(String content) throws RuleException {
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: 0</li>
+     * <li>Content: ""</li>
+     * </ul>
+     */
+    public PaAttributeValueTestingBuilderIetf() {
+        this.length = 0;
+        this.content = "";
 
-		if(content != null){
-			this.content = content;
-			this.updateLength();
-		}
-		
-		return this;
-	}
-	
-	@Override
-	public PaAttributeValueTesting toObject() {
-		return new PaAttributeValueTesting(this.length, this.content);
-	}
+    }
 
-	@Override
-	public PaAttributeValueTestingBuilder newInstance() {
-		return new PaAttributeValueTestingBuilderIetf();
-	}
-	
-	private void updateLength(){
-		this.length = 0;
-		if(content.length() > 0){
-			this.length += content.getBytes(Charset.forName("UTF-8")).length;
-		}
-	}
+    @Override
+    public PaAttributeValueTestingBuilder setContent(final String content)
+            throws RuleException {
 
-	
+        if (content != null) {
+            this.content = content;
+            this.updateLength();
+        }
+
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueTesting toObject() {
+        return new PaAttributeValueTesting(this.length, this.content);
+    }
+
+    @Override
+    public PaAttributeValueTestingBuilder newInstance() {
+        return new PaAttributeValueTestingBuilderIetf();
+    }
+
+    /**
+     * Updates the length according to the current content.
+     */
+    private void updateLength() {
+        this.length = 0;
+        if (content.length() > 0) {
+            this.length += content.getBytes(Charset.forName("UTF-8")).length;
+        }
+    }
 
 }

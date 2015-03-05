@@ -31,39 +31,55 @@ import org.ietf.nea.pt.validate.rules.VersionLimits;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PtTlsMessageValueVersionResponseBuilderIetf implements PtTlsMessageValueVersionResponseBuilder{
-	
-	private final short PREFERED_VERSION = IETFConstants.IETF_RFC6876_VERSION_NUMBER;
-	
-	private long length;
+/**
+ * Builder to build a transport version response message value compliant to RFC
+ * 6876. It evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PtTlsMessageValueVersionResponseBuilderIetf implements
+        PtTlsMessageValueVersionResponseBuilder {
+
+    private static final short PREFERRED_VERSION =
+            IETFConstants.IETF_RFC6876_VERSION_NUMBER;
+
+    private long length;
     private short version;
-    
-    public PtTlsMessageValueVersionResponseBuilderIetf(){
-    	this.length = PtTlsMessageTlvFixedLengthEnum.VER_RES.length();
-    	this.version = PREFERED_VERSION;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Version: RFC 6876 version number</li>
+     * </ul>
+     */
+    public PtTlsMessageValueVersionResponseBuilderIetf() {
+        this.length = PtTlsMessageTlvFixedLengthEnum.VER_RES.length();
+        this.version = PREFERRED_VERSION;
     }
 
-	@Override
-	public PtTlsMessageValueVersionResponseBuilder setVersion(short version)
-			throws RuleException {
-		
-		VersionLimits.check(version);
-		MessageVersion.check(version, PREFERED_VERSION);
-		
-		this.version = version;
-		return this;
-	}
+    @Override
+    public PtTlsMessageValueVersionResponseBuilder setVersion(
+            final short version) throws RuleException {
 
-	@Override
-	public PtTlsMessageValueVersionResponse toObject() {
+        VersionLimits.check(version);
+        MessageVersion.check(version, PREFERRED_VERSION);
 
-		return new PtTlsMessageValueVersionResponse(length, version);
-	}
+        this.version = version;
+        return this;
+    }
 
-	@Override
-	public PtTlsMessageValueVersionResponseBuilder newInstance() {
+    @Override
+    public PtTlsMessageValueVersionResponse toObject() {
 
-		return new PtTlsMessageValueVersionResponseBuilderIetf();
-	}
+        return new PtTlsMessageValueVersionResponse(length, version);
+    }
+
+    @Override
+    public PtTlsMessageValueVersionResponseBuilder newInstance() {
+
+        return new PtTlsMessageValueVersionResponseBuilderIetf();
+    }
 
 }

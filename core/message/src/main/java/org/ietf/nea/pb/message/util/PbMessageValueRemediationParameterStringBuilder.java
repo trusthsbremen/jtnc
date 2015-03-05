@@ -26,20 +26,32 @@ package org.ietf.nea.pb.message.util;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public interface PbMessageValueRemediationParameterStringBuilder extends PbMessageValueRemediationParameterBuilder{
+/**
+ * Generic builder to build an TNCCS message string remediation parameter value
+ * compliant to RFC 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueRemediationParameterStringBuilder extends
+        PbMessageSubValueBuilder<PbMessageValueRemediationParameterString> {
 
-	/**
-	 * @param remediationString the remediationString to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueRemediationParameterStringBuilder setRemediationString(String remediationString)
-			throws RuleException;
+    /**
+     * Sets the remediation string.
+     * @param remediationString the remediation string
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueRemediationParameterStringBuilder setRemediationString(
+            String remediationString) throws RuleException;
 
-	/**
-	 * @param langCode the langCode to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueRemediationParameterStringBuilder setLangCode(String langCode)
-			throws RuleException;
-	
+    /**
+     * Sets the RFC 4646 language code.
+     * @param langCode the language code
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueRemediationParameterStringBuilder setLangCode(
+            String langCode) throws RuleException;
+
 }

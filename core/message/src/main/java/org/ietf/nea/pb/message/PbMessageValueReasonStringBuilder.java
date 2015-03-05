@@ -27,12 +27,34 @@ package org.ietf.nea.pb.message;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
-public interface PbMessageValueReasonStringBuilder extends TnccsMessageValueBuilder{
+/**
+ * Generic builder to build a TNCCS reason string message value compliant to RFC
+ * 5793. It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public interface PbMessageValueReasonStringBuilder extends
+        TnccsMessageValueBuilder {
 
-	public abstract PbMessageValueReasonStringBuilder setReasonString(String reasonString)
-			throws RuleException;
+    /**
+     * Sets the reason string.
+     *
+     * @param reasonString the reason string
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueReasonStringBuilder setReasonString(String reasonString)
+            throws RuleException;
 
-	public abstract PbMessageValueReasonStringBuilder setLangCode(String langCode)
-			throws RuleException;
+    /**
+     * Sets the RFC 4646 language identifier.
+     *
+     * @param langCode the language code
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueReasonStringBuilder setLangCode(String langCode)
+            throws RuleException;
 
 }

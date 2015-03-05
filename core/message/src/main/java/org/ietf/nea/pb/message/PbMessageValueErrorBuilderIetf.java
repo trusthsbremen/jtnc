@@ -34,75 +34,96 @@ import org.ietf.nea.pb.validate.rules.ErrorVendorIdLimits;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PbMessageValueErrorBuilderIetf implements PbMessageValueErrorBuilder{
-	
-	private PbMessageErrorFlagsEnum[] errorFlags;  //  8 bit(s) 
-    private long errorVendorId;                    // 24 bit(s)
-    private int errorCode;                         // 16 bit(s)
+/**
+ * Builder to build a TNCCS error message value compliant to RFC 5793. It
+ * evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PbMessageValueErrorBuilderIetf implements
+        PbMessageValueErrorBuilder {
+
+    private PbMessageErrorFlagsEnum[] errorFlags; // 8 bit(s)
+    private long errorVendorId; // 24 bit(s)
+    private int errorCode; // 16 bit(s)
     private long length;
-    private AbstractPbMessageValueErrorParameter errorParameter; //32 bit(s)
-    
-    public PbMessageValueErrorBuilderIetf(){
-    	this.errorFlags = new PbMessageErrorFlagsEnum[0];
-    	this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
-    	this.errorCode = PbMessageErrorCodeEnum.IETF_LOCAL.code();
-    	this.length = PbMessageTlvFixedLengthEnum.ERR_VALUE.length();
-    	this.errorParameter = null;
+    private AbstractPbMessageValueErrorParameter errorParameter; // 32 bit(s)
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Flags: None set</li>
+     * <li>Vendor: IETF</li>
+     * <li>Code: Local error</li>
+     * <li>Parameter: null</li>
+     * <li>Length: Fixed value length only</li>
+     * </ul>
+     */
+    public PbMessageValueErrorBuilderIetf() {
+        this.errorFlags = new PbMessageErrorFlagsEnum[0];
+        this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
+        this.errorCode = PbMessageErrorCodeEnum.IETF_LOCAL.code();
+        this.length = PbMessageTlvFixedLengthEnum.ERR_VALUE.length();
+        this.errorParameter = null;
     }
 
-	@Override
-	public PbMessageValueErrorBuilder setErrorFlags(byte errorFlags) {
-		
-		if ((byte)(errorFlags & 0x80)  == PbMessageErrorFlagsEnum.FATAL.bit()) {
-			this.errorFlags = new PbMessageErrorFlagsEnum[]{PbMessageErrorFlagsEnum.FATAL};
-		}
-		
-		return this;
-	}
+    @Override
+    public PbMessageValueErrorBuilder setErrorFlags(final byte errorFlags) {
+        // filter for FATAL
+        if ((byte) (errorFlags & PbMessageErrorFlagsEnum.FATAL.bit())
+                == PbMessageErrorFlagsEnum.FATAL.bit()) {
+            this.errorFlags = new PbMessageErrorFlagsEnum[] {
+                    PbMessageErrorFlagsEnum.FATAL};
+        }
 
-	@Override
-	public PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId) throws RuleException {
-		
-		ErrorVendorIdLimits.check(errorVendorId);
-		this.errorVendorId = errorVendorId;
-		
-		return this;
-	}
+        return this;
+    }
 
-	@Override
-	public PbMessageValueErrorBuilder setErrorCode(int errorCode) throws RuleException {
-		
-		ErrorCodeLimits.check(errorCode);
-		this.errorCode = errorCode;
-		
-		return this;
-	}
+    @Override
+    public PbMessageValueErrorBuilder setErrorVendorId(final long errorVendorId)
+            throws RuleException {
 
-	@Override
-	public PbMessageValueErrorBuilder setErrorParameter(AbstractPbMessageValueErrorParameter errorParameter) {
-		
-		if( errorParameter != null){
-			this.errorParameter = errorParameter;
-			this.length = PbMessageTlvFixedLengthEnum.ERR_VALUE.length() + errorParameter.getLength();
-		}
-		
-		return this;
-	}
+        ErrorVendorIdLimits.check(errorVendorId);
+        this.errorVendorId = errorVendorId;
 
-	@Override
-	public PbMessageValueError toObject(){
-//	    Error parameter can be null
-//		if(this.errorParameter == null){
-//			throw new IllegalStateException("A error value has to be set.");
-//		}
-		
-		return new PbMessageValueError(this.errorFlags, this.errorVendorId, this.errorCode, this.length, this.errorParameter);
-	}
+        return this;
+    }
 
-	@Override
-	public PbMessageValueErrorBuilder newInstance() {
+    @Override
+    public PbMessageValueErrorBuilder setErrorCode(final int errorCode)
+            throws RuleException {
 
-		return new PbMessageValueErrorBuilderIetf();
-	}
+        ErrorCodeLimits.check(errorCode);
+        this.errorCode = errorCode;
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueErrorBuilder setErrorParameter(
+            final AbstractPbMessageValueErrorParameter errorParameter) {
+
+        if (errorParameter != null) {
+            this.errorParameter = errorParameter;
+            this.length = PbMessageTlvFixedLengthEnum.ERR_VALUE.length()
+                    + errorParameter.getLength();
+        }
+
+        return this;
+    }
+
+    @Override
+    public PbMessageValueError toObject() {
+
+        return new PbMessageValueError(this.errorFlags, this.errorVendorId,
+                this.errorCode, this.length, this.errorParameter);
+    }
+
+    @Override
+    public PbMessageValueErrorBuilder newInstance() {
+
+        return new PbMessageValueErrorBuilderIetf();
+    }
 
 }

@@ -40,7 +40,7 @@ public interface PbMessageHeaderBuilder extends TnccsMessageHeaderBuilder {
      * Sets the message flags encoded in one byte.
      *
      * @param flags the message flags
-     * @return this builder;
+     * @return this builder
      */
     PbMessageHeaderBuilder setFlags(byte flags);
 

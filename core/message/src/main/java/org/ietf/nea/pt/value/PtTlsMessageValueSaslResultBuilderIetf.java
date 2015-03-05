@@ -30,56 +30,71 @@ import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build a transport SASL authentication result message value
+ * compliant to RFC 6876. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PtTlsMessageValueSaslResultBuilderIetf implements
-PtTlsMessageValueSaslResultBuilder {
-	
-	private long length;
-	private PtTlsSaslResultEnum result;
+        PtTlsMessageValueSaslResultBuilder {
+
+    private long length;
+    private PtTlsSaslResultEnum result;
     private byte[] resultData;
-	
-	public PtTlsMessageValueSaslResultBuilderIetf(){
-		this.length = PtTlsMessageTlvFixedLengthEnum.SASL_RLT.length();
-		this.result = PtTlsSaslResultEnum.ABORT;
-		this.resultData = null;
-	}
 
-	@Override
-	public PtTlsMessageValueSaslResultBuilder setResult(int result) throws RuleException {
-		
-		
-		SaslResult.check(result);
-		this.result = PtTlsSaslResultEnum.fromId(result);
-		
-		return this;
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Result: Abort</li>
+     * <li>Data: null</li>
+     * </ul>
+     */
+    public PtTlsMessageValueSaslResultBuilderIetf() {
+        this.length = PtTlsMessageTlvFixedLengthEnum.SASL_RLT.length();
+        this.result = PtTlsSaslResultEnum.ABORT;
+        this.resultData = null;
+    }
 
-	@Override
-	public PtTlsMessageValueSaslResultBuilder setOptionalResultData(byte[] resultData) throws RuleException {
-		
-		
-		if(resultData != null){
-			this.resultData = resultData;
-		}
-		
-		return this;
-	}
-	
-	
-	@Override
-	public PtTlsMessageValueSaslResult toObject(){
-		
-		
-		if(this.resultData != null){
-			this.length += this.resultData.length;
-			return new PtTlsMessageValueSaslResult(this.length, this.result, this.resultData);
-		}else{
-			return new PtTlsMessageValueSaslResult(this.length,this.result);
-		}
-	}
+    @Override
+    public PtTlsMessageValueSaslResultBuilder setResult(final int result)
+            throws RuleException {
 
-	@Override
-	public PtTlsMessageValueSaslResultBuilder newInstance() {
-		return new PtTlsMessageValueSaslResultBuilderIetf();
-	}
+        SaslResult.check(result);
+        this.result = PtTlsSaslResultEnum.fromId(result);
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueSaslResultBuilder setOptionalResultData(
+            final byte[] resultData) throws RuleException {
+
+        if (resultData != null) {
+            this.resultData = resultData;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueSaslResult toObject() {
+
+        if (this.resultData != null) {
+            this.length += this.resultData.length;
+            return new PtTlsMessageValueSaslResult(this.length, this.result,
+                    this.resultData);
+        } else {
+            return new PtTlsMessageValueSaslResult(this.length, this.result);
+        }
+    }
+
+    @Override
+    public PtTlsMessageValueSaslResultBuilder newInstance() {
+        return new PtTlsMessageValueSaslResultBuilderIetf();
+    }
 
 }

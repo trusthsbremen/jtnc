@@ -29,30 +29,49 @@ import org.ietf.nea.pb.message.util.AbstractPbMessageValueErrorParameter;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
 
+/**
+ * Generic builder to build a TNCCS error message value compliant to RFC 5793.
+ * It can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public interface PbMessageValueErrorBuilder extends TnccsMessageValueBuilder {
 
-	/**
-	 * @param errorFlags the errorFlags to set
-	 */
-	public abstract PbMessageValueErrorBuilder setErrorFlags(byte errorFlags);
+    /**
+     * Sets the error flags encoded as byte.
+     *
+     * @param errorFlags the error flags
+     * @return this builder
+     */
+    PbMessageValueErrorBuilder setErrorFlags(byte errorFlags);
 
-	/**
-	 * @param errorVendorId the errorVendorId to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId)
-			throws RuleException;
+    /**
+     * Sets the error vendor ID.
+     *
+     * @param errorVendorId the error vendor ID
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueErrorBuilder setErrorVendorId(long errorVendorId)
+            throws RuleException;
 
-	/**
-	 * @param errorCode the errorCode to set
-	 * @throws RuleException 
-	 */
-	public abstract PbMessageValueErrorBuilder setErrorCode(int errorCode)
-			throws RuleException;
+    /**
+     * Sets the code describing the error.
+     *
+     * @param errorCode the error code
+     * @return this builder
+     * @throws RuleException if given value is not valid
+     */
+    PbMessageValueErrorBuilder setErrorCode(int errorCode) throws RuleException;
 
-	/**
-	 * @param errorParameter the errorParameter to set
-	 */
-	public abstract PbMessageValueErrorBuilder setErrorParameter(AbstractPbMessageValueErrorParameter errorParameter);
+    /**
+     * Sets the additional error parameter.
+     *
+     * @param errorParameter the error parameter
+     * @return this builder
+     */
+    PbMessageValueErrorBuilder setErrorParameter(
+            AbstractPbMessageValueErrorParameter errorParameter);
 
 }

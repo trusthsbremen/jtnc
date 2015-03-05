@@ -30,37 +30,52 @@ import org.ietf.nea.pa.validate.rules.AssessmentResult;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
+/**
+ * Builder to build an integrity measurement assessment result attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValueAssessmentResultBuilderIetf implements
-		PaAttributeValueAssessmentResultBuilder {
-	
-	
-	private long length;
-	private PaAttributeAssessmentResultEnum result;      
-	
-	public PaAttributeValueAssessmentResultBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.ASS_RES.length();
-		this.result = PaAttributeAssessmentResultEnum.COMPLIANT;
-	}
+        PaAttributeValueAssessmentResultBuilder {
 
-	@Override
-	public PaAttributeValueAssessmentResultBuilder setResult(long result) throws RuleException {
-		
-		AssessmentResult.check(result);
-		this.result = PaAttributeAssessmentResultEnum.fromId(result);
-		
-		return this;
-	}
+    private long length;
+    private PaAttributeAssessmentResultEnum result;
 
-	@Override
-	public PaAttributeValueAssessmentResult toObject(){
-		
-		return new PaAttributeValueAssessmentResult(this.length, this.result);
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Result: Compliant</li>
+     * </ul>
+     */
+    public PaAttributeValueAssessmentResultBuilderIetf() {
+        this.length = PaAttributeTlvFixedLengthEnum.ASS_RES.length();
+        this.result = PaAttributeAssessmentResultEnum.COMPLIANT;
+    }
 
-	@Override
-	public PaAttributeValueAssessmentResultBuilder newInstance() {
+    @Override
+    public PaAttributeValueAssessmentResultBuilder setResult(final long result)
+            throws RuleException {
 
-		return new PaAttributeValueAssessmentResultBuilderIetf();
-	}
+        AssessmentResult.check(result);
+        this.result = PaAttributeAssessmentResultEnum.fromId(result);
+
+        return this;
+    }
+
+    @Override
+    public PaAttributeValueAssessmentResult toObject() {
+
+        return new PaAttributeValueAssessmentResult(this.length, this.result);
+    }
+
+    @Override
+    public PaAttributeValueAssessmentResultBuilder newInstance() {
+
+        return new PaAttributeValueAssessmentResultBuilderIetf();
+    }
 
 }

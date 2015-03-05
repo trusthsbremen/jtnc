@@ -32,62 +32,85 @@ import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
-public class PtTlsMessageValueErrorBuilderIetf implements PtTlsMessageValueErrorBuilder{
-	
-    private long errorVendorId;                    // 24 bit(s)
-    private long errorCode;                        // 32 bit(s)
+/**
+ * Builder to build a transport error message value compliant to RFC 6876. It
+ * evaluates the given values and can be used in a fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
+public class PtTlsMessageValueErrorBuilderIetf implements
+        PtTlsMessageValueErrorBuilder {
+
+    private long errorVendorId; // 24 bit(s)
+    private long errorCode; // 32 bit(s)
     private long length;
     private byte[] message;
-    
-    public PtTlsMessageValueErrorBuilderIetf(){
-    	this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
-    	this.errorCode = PtTlsMessageErrorCodeEnum.IETF_RESERVED.code();
-    	this.length = PtTlsMessageTlvFixedLengthEnum.ERR_VALUE.length();
-    	this.message = null;
+
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Vendor: IETF</li>
+     * <li>Code: Reserved</li>
+     * <li>Message: null</li>
+     * </ul>
+     */
+    public PtTlsMessageValueErrorBuilderIetf() {
+        this.errorVendorId = IETFConstants.IETF_PEN_VENDORID;
+        this.errorCode = PtTlsMessageErrorCodeEnum.IETF_RESERVED.code();
+        this.length = PtTlsMessageTlvFixedLengthEnum.ERR_VALUE.length();
+        this.message = null;
     }
 
-	@Override
-	public PtTlsMessageValueErrorBuilder setErrorVendorId(long errorVendorId) throws RuleException {
-		
-		VendorIdReservedAndLimits.check(errorVendorId);
-		this.errorVendorId = errorVendorId;
-		
-		return this;
-	}
+    @Override
+    public PtTlsMessageValueErrorBuilder setErrorVendorId(
+            final long errorVendorId) throws RuleException {
 
-	@Override
-	public PtTlsMessageValueErrorBuilder setErrorCode(long errorCode) throws RuleException {
-		
-		TypeReservedAndLimits.check(errorCode);
-		this.errorCode = errorCode;
-		
-		return this;
-	}
+        VendorIdReservedAndLimits.check(errorVendorId);
+        this.errorVendorId = errorVendorId;
 
-	@Override
-	public PtTlsMessageValueErrorBuilder setPartialMessage(byte[] message) {
-		
-		if( message != null){
-			this.message = message;
-			this.length = PtTlsMessageTlvFixedLengthEnum.ERR_VALUE.length() + message.length;
-		}
-		
-		return this;
-	}
+        return this;
+    }
 
-	@Override
-	public PtTlsMessageValueError toObject(){
-		if(this.message == null){
-			throw new IllegalStateException("The faulty message has to be copied and set.");
-		}
-		
-		return new PtTlsMessageValueError(this.errorVendorId, this.errorCode, this.length, this.message);
-	}
+    @Override
+    public PtTlsMessageValueErrorBuilder setErrorCode(final long errorCode)
+            throws RuleException {
 
-	@Override
-	public PtTlsMessageValueErrorBuilder newInstance() {
+        TypeReservedAndLimits.check(errorCode);
+        this.errorCode = errorCode;
 
-		return new PtTlsMessageValueErrorBuilderIetf();
-	}
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueErrorBuilder setPartialMessage(
+            final byte[] message) {
+
+        if (message != null) {
+            this.message = message;
+            this.length = PtTlsMessageTlvFixedLengthEnum.ERR_VALUE.length()
+                    + message.length;
+        }
+
+        return this;
+    }
+
+    @Override
+    public PtTlsMessageValueError toObject() {
+        if (this.message == null) {
+            throw new IllegalStateException(
+                    "The faulty message has to be copied and set.");
+        }
+
+        return new PtTlsMessageValueError(this.errorVendorId, this.errorCode,
+                this.length, this.message);
+    }
+
+    @Override
+    public PtTlsMessageValueErrorBuilder newInstance() {
+
+        return new PtTlsMessageValueErrorBuilderIetf();
+    }
 
 }

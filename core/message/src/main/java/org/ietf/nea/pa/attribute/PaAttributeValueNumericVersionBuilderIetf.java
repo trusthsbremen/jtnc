@@ -26,59 +26,90 @@ package org.ietf.nea.pa.attribute;
 
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 
+/**
+ * Builder to build an integrity measurement numeric version attribute value
+ * compliant to RFC 5792. It evaluates the given values and can be used in a
+ * fluent way.
+ *
+ * @author Carl-Heinz Genzel
+ *
+ */
 public class PaAttributeValueNumericVersionBuilderIetf implements
-	PaAttributeValueNumericVersionBuilder {
+        PaAttributeValueNumericVersionBuilder {
 
-	private long length;
-	private long majorVersion;
-	private long minorVersion;
-	private long buildVersion;
-	private int servicePackMajor;
-	private int servicePackMinor;
-	
-	public PaAttributeValueNumericVersionBuilderIetf(){
-		this.length = PaAttributeTlvFixedLengthEnum.NUM_VER.length();
-		this.majorVersion = 0L;
-		this.minorVersion = 0L;
-		this.buildVersion = 0L;
-		this.servicePackMajor = 0;
-		this.servicePackMinor = 0;
-	}
+    private long length;
+    private long majorVersion;
+    private long minorVersion;
+    private long buildVersion;
+    private int servicePackMajor;
+    private int servicePackMinor;
 
-	@Override
-	public void setMajorVersion(long majorVersion) {
-		this.majorVersion = majorVersion;
-	}
+    /**
+     * Creates the builder using default values.
+     * <ul>
+     * <li>Length: Fixed value length only</li>
+     * <li>Major version: 0</li>
+     * <li>Minor version: 0</li>
+     * <li>Build version: 0</li>
+     * <li>Service pack major: 0</li>
+     * <li>Service pack minor: 0</lI>
+     * </ul>
+     */
+    public PaAttributeValueNumericVersionBuilderIetf() {
+        this.length = PaAttributeTlvFixedLengthEnum.NUM_VER.length();
+        this.majorVersion = 0L;
+        this.minorVersion = 0L;
+        this.buildVersion = 0L;
+        this.servicePackMajor = 0;
+        this.servicePackMinor = 0;
+    }
 
-	@Override
-	public void setMinorVersion(long minorVersion) {
-		this.minorVersion = minorVersion;
-	}
+    @Override
+    public PaAttributeValueNumericVersionBuilder setMajorVersion(
+            final long majorVersion) {
+        this.majorVersion = majorVersion;
+        return this;
+    }
 
-	@Override
-	public void setBuildVersion(long buildVersion) {
-		this.buildVersion = buildVersion;
-	}
+    @Override
+    public PaAttributeValueNumericVersionBuilder setMinorVersion(
+            final long minorVersion) {
+        this.minorVersion = minorVersion;
+        return this;
+    }
 
-	@Override
-	public void setServicePackMajor(int servicePackMajor) {
-		this.servicePackMajor = servicePackMajor;
-	}
+    @Override
+    public PaAttributeValueNumericVersionBuilder setBuildVersion(
+            final long buildVersion) {
+        this.buildVersion = buildVersion;
+        return this;
+    }
 
-	@Override
-	public void setServicePackMinor(int servicePackMinor) {
-		this.servicePackMinor = servicePackMinor;
-	}
+    @Override
+    public PaAttributeValueNumericVersionBuilder setServicePackMajor(
+            final int servicePackMajor) {
+        this.servicePackMajor = servicePackMajor;
+        return this;
+    }
 
-	@Override
-	public PaAttributeValueNumericVersion toObject(){
-		
-		return new PaAttributeValueNumericVersion(this.length, this.majorVersion, this.minorVersion, this.buildVersion, this.servicePackMajor, this.servicePackMinor);
-	}
+    @Override
+    public PaAttributeValueNumericVersionBuilder setServicePackMinor(
+            final int servicePackMinor) {
+        this.servicePackMinor = servicePackMinor;
+        return this;
+    }
 
-	@Override
-	public PaAttributeValueNumericVersionBuilder newInstance() {
-		return new PaAttributeValueNumericVersionBuilderIetf();
-	}
+    @Override
+    public PaAttributeValueNumericVersion toObject() {
+
+        return new PaAttributeValueNumericVersion(this.length,
+                this.majorVersion, this.minorVersion, this.buildVersion,
+                this.servicePackMajor, this.servicePackMinor);
+    }
+
+    @Override
+    public PaAttributeValueNumericVersionBuilder newInstance() {
+        return new PaAttributeValueNumericVersionBuilderIetf();
+    }
 
 }

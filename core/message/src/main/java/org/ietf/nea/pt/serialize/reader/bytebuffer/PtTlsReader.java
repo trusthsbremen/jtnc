@@ -127,7 +127,7 @@ class PtTlsReader implements TransportReader<TransportMessageContainer>, Combine
 								"Message with vendor ID " +vendor+ " and type "+type+" not supported.", 
 								false, 
 								PtTlsMessageErrorCodeEnum.IETF_UNSUPPORTED_MESSAGE_TYPE.code(), 
-								PtTlsErrorCauseEnum.MESSAGE_TYPE_NOT_SUPPORTED.number()
+								PtTlsErrorCauseEnum.MESSAGE_TYPE_NOT_SUPPORTED.id()
 						), 
 						4,headerByteCopy,Long.toString(vendor), Long.toString(type));
 			} 
@@ -137,7 +137,7 @@ class PtTlsReader implements TransportReader<TransportMessageContainer>, Combine
 							"Message with vendor ID " +vendor+ " and type "+type+" not supported.", 
 							false, 
 							PtTlsMessageErrorCodeEnum.IETF_UNSUPPORTED_MESSAGE_TYPE.code(), 
-							PtTlsErrorCauseEnum.MESSAGE_TYPE_NOT_SUPPORTED.number()
+							PtTlsErrorCauseEnum.MESSAGE_TYPE_NOT_SUPPORTED.id()
 					), 
 					1,headerByteCopy, Long.toString(vendor), Long.toString(type));
 		}

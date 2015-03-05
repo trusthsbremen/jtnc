@@ -22,17 +22,21 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.message.m.attribute;
+package org.ietf.nea.pb.message.util;
 
-import de.hsbremen.tc.tnc.message.m.ImData;
-
+import de.hsbremen.tc.tnc.message.tnccs.TnccsData;
 /**
- * Marker to characterize an object as integrity measurement value contained in
- * an integrity measurement attribute value used by IM(C/V).
+ * Generic value contained in a TNCCS message value
+ * as supporting value.
  *
  * @author Carl-Heinz Genzel
- *
  */
-public interface ImAttributeSubValue extends ImData {
+public interface PbMessageSubValue extends TnccsData {
 
+    /**
+     * Returns the value length.
+     *
+     * @return the length
+     */
+    long getLength();
 }
