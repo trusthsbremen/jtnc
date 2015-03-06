@@ -23,6 +23,6 @@
  *
  */
 /**
- * Utilities for evaluation.
+ * Integrity measurement utilities for evaluation.
  */
 package de.hsbremen.tc.tnc.im.evaluate.simple.util;

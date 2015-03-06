@@ -23,6 +23,6 @@
  *
  */
 /**
- * State machine exceptions.
+ * TNC(C/S) state machine exceptions.
  */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.exception;

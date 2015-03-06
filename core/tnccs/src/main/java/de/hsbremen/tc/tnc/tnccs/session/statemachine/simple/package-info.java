@@ -23,6 +23,6 @@
  *
  */
 /**
- * State machine implementation.
+ * TNC(C/S) state machine implementation.
  */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.simple;

@@ -23,6 +23,6 @@
  *
  */
 /**
- * State machine helper.
+ * TNC(C/S) State machine helper.
  */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.util;

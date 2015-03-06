@@ -23,6 +23,6 @@
  *
  */
 /**
- * State machine constants.
+ * TNC(C/S) state machine constants.
  */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.enums;
