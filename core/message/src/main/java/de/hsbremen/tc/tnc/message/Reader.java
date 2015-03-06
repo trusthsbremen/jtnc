@@ -49,7 +49,9 @@ public interface Reader<T extends Data, S> {
 
     /**
      * Reads a number (length) of bytes from the source and parses it
-     * to a Java object.
+     * to a Java object. The length may be ignored if the reader
+     * contains an implemented fixed length or the length is dependent
+     * of the data being parsed.
      *
      * @param source the data source
      * @param length the number of bytes to read

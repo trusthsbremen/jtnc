@@ -21,7 +21,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;

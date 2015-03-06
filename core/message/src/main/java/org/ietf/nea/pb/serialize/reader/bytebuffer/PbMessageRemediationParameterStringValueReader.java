@@ -22,32 +22,34 @@
  * THE SOFTWARE.
  *
  */
-package org.ietf.nea.pa.serialize.reader.bytebuffer;
+package org.ietf.nea.pb.serialize.reader.bytebuffer;
 
 import java.nio.BufferUnderflowException;
 import java.nio.charset.Charset;
 
-import org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri;
-import org.ietf.nea.pa.attribute.util
-.PaAttributeValueRemediationParameterUriBuilder;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
+import org.ietf.nea.pb.message.util
+.PbMessageValueRemediationParameterStringBuilder;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
- * Reader to parse an integrity measurement URI remediation parameter compliant
- * to RFC 5792 from a buffer of bytes to a Java object.
+ * Reader to parse a TNCCS string remediation parameter compliant to RFC 5793
+ * from a buffer of bytes to a Java object.
  *
  * @author Carl-Heinz Genzel
  *
  */
-class PaAttributeRemediationParameterUriValueReader implements
-        ImReader<PaAttributeValueRemediationParameterUri> {
+class PbMessageRemediationParameterStringValueReader implements
+        TnccsReader<PbMessageValueRemediationParameterString> {
 
-    private PaAttributeValueRemediationParameterUriBuilder baseBuilder;
+    private PbMessageValueRemediationParameterStringBuilder baseBuilder;
 
     /**
      * Creates the reader with a corresponding builder to validate the parsed
@@ -55,43 +57,60 @@ class PaAttributeRemediationParameterUriValueReader implements
      *
      * @param builder the corresponding parameter builder
      */
-    PaAttributeRemediationParameterUriValueReader(
-            final PaAttributeValueRemediationParameterUriBuilder builder) {
+    PbMessageRemediationParameterStringValueReader(
+            final PbMessageValueRemediationParameterStringBuilder builder) {
         this.baseBuilder = builder;
     }
 
     @Override
-    public PaAttributeValueRemediationParameterUri read(
+    public PbMessageValueRemediationParameterString read(
             final ByteBuffer buffer, final long messageLength)
             throws SerializationException, ValidationException {
 
+        NotNull.check("Buffer cannot be null.", buffer);
+
         long errorOffset = 0;
 
-        PaAttributeValueRemediationParameterUri value = null;
-        PaAttributeValueRemediationParameterUriBuilder builder =
-                (PaAttributeValueRemediationParameterUriBuilder)
-                this.baseBuilder.newInstance();
+        PbMessageValueRemediationParameterString value = null;
+        PbMessageValueRemediationParameterStringBuilder builder =
+                (PbMessageValueRemediationParameterStringBuilder) baseBuilder
+                .newInstance();
 
         try {
 
             try {
 
-                /* uri */
+                /* first 4 bytes are the remediation string length */
+                errorOffset = buffer.bytesRead();
+                long stringLength = buffer.readLong((byte) 4);
+
+                /* remediation string */
                 errorOffset = buffer.bytesRead();
                 /* FIXME: the length may be shortened here, to respect the
                  * maximum Java string length.
                  */
-                int safeLength = (messageLength <= Integer.MAX_VALUE)
-                ? (int) messageLength : Integer.MAX_VALUE;
+                int safeLength = (stringLength <= Integer.MAX_VALUE)
+                ? (int) stringLength : Integer.MAX_VALUE;
 
                 byte[] sData = buffer.read((int) safeLength);
-                if (messageLength > safeLength) {
+                if (stringLength > safeLength) {
                     // skip the rest that does not fit
-                    buffer.read(messageLength - safeLength);
+                    buffer.read(stringLength - safeLength);
                 }
-                String uriString = new String(sData,
+                String remString = new String(sData,
+                        Charset.forName("UTF-8"));
+                builder.setRemediationString(remString);
+
+                /* next byte is the language code length */
+                errorOffset = buffer.bytesRead();
+                short langLength = buffer.readShort((byte) 1);
+
+                /* language code */
+                errorOffset = buffer.bytesRead();
+                byte[] lsData = buffer.read(langLength);
+                String langCode = new String(lsData,
                         Charset.forName("US-ASCII"));
-                builder.setUri(uriString);
+                builder.setLangCode(langCode);
 
             } catch (BufferUnderflowException e) {
                 throw new SerializationException("Data length "
@@ -99,7 +118,7 @@ class PaAttributeRemediationParameterUriValueReader implements
                         true, Long.toString(buffer.bytesWritten()));
             }
 
-            value = (PaAttributeValueRemediationParameterUri) builder
+            value = (PbMessageValueRemediationParameterString) builder
                     .toObject();
 
         } catch (RuleException e) {
@@ -111,7 +130,7 @@ class PaAttributeRemediationParameterUriValueReader implements
 
     @Override
     public byte getMinDataLength() {
-        // no minimal length
-        return 0;
+
+        return PbMessageTlvFixedLengthEnum.REA_STR_VALUE.length();
     }
 }

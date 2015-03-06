@@ -22,78 +22,65 @@
  * THE SOFTWARE.
  *
  */
-package org.ietf.nea.pt.serialize.reader.bytebuffer;
+package org.ietf.nea.pb.serialize.reader.bytebuffer;
 
 import java.nio.BufferUnderflowException;
 
-import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
-import org.ietf.nea.pt.value.PtTlsMessageValueVersionRequest;
-import org.ietf.nea.pt.value.PtTlsMessageValueVersionRequestBuilder;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffset;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterOffsetBuilder;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
- * Reader to parse a transport version request message value compliant to RFC
- * 6876 from a buffer of bytes to a Java object.
+ * Reader to parse a TNCCS error parameter with an error offset
+ * compliant to RFC 5793 from a buffer of bytes to a Java object.
  *
  * @author Carl-Heinz Genzel
  *
  */
-class PtTlsMessageVersionRequestValueReader implements
-        TransportReader<PtTlsMessageValueVersionRequest> {
+class PbMessageErrorParameterOffsetValueReader implements
+        TnccsReader<PbMessageValueErrorParameterOffset> {
 
-    private PtTlsMessageValueVersionRequestBuilder baseBuilder;
+    private PbMessageValueErrorParameterOffsetBuilder baseBuilder;
 
     /**
      * Creates the reader with a corresponding builder to validate the parsed
-     * values and build the message value.
+     * values and build the parameter.
      *
-     * @param builder the corresponding message value builder
+     * @param builder the corresponding parameter builder
      */
-    PtTlsMessageVersionRequestValueReader(
-            final PtTlsMessageValueVersionRequestBuilder builder) {
+    PbMessageErrorParameterOffsetValueReader(
+            final PbMessageValueErrorParameterOffsetBuilder builder) {
         this.baseBuilder = builder;
     }
 
     @Override
-    public PtTlsMessageValueVersionRequest read(final ByteBuffer buffer,
-            final long length) throws SerializationException,
+    public PbMessageValueErrorParameterOffset read(final ByteBuffer buffer,
+            final long messageLength) throws SerializationException,
             ValidationException {
 
-        // ignore any given length and find out on your own.
+        NotNull.check("Buffer cannot be null.", buffer);
 
         long errorOffset = 0;
 
-        PtTlsMessageValueVersionRequest mValue = null;
-        PtTlsMessageValueVersionRequestBuilder builder =
-                (PtTlsMessageValueVersionRequestBuilder) this.baseBuilder
+        PbMessageValueErrorParameterOffset value = null;
+        PbMessageValueErrorParameterOffsetBuilder builder =
+                (PbMessageValueErrorParameterOffsetBuilder) this.baseBuilder
                 .newInstance();
 
         try {
+
             try {
-
-                /* ignore reserved */
+                /* offset 32 bit(s) */
                 errorOffset = buffer.bytesRead();
-                buffer.readByte();
-
-                /* min version */
-                errorOffset = buffer.bytesRead();
-                short minVersion = buffer.readShort((byte) 1);
-                builder.setMinVersion(minVersion);
-
-                /* max Version */
-                errorOffset = buffer.bytesRead();
-                short maxVersion = buffer.readShort((byte) 1);
-                builder.setMaxVersion(maxVersion);
-
-                /* preferred Version */
-                errorOffset = buffer.bytesRead();
-                short preferredVersion = buffer.readShort((byte) 1);
-                builder.setPreferredVersion(preferredVersion);
+                long offset = buffer.readLong((byte) 4);
+                builder.setOffset(offset);
 
             } catch (BufferUnderflowException e) {
                 throw new SerializationException("Data length "
@@ -101,17 +88,18 @@ class PtTlsMessageVersionRequestValueReader implements
                         true, Long.toString(buffer.bytesWritten()));
             }
 
-            mValue = (PtTlsMessageValueVersionRequest) builder.toObject();
+            value = (PbMessageValueErrorParameterOffset) builder.toObject();
 
         } catch (RuleException e) {
             throw new ValidationException(e.getMessage(), e, errorOffset);
         }
 
-        return mValue;
+        return value;
     }
 
     @Override
     public byte getMinDataLength() {
-        return PtTlsMessageTlvFixedLengthEnum.VER_REQ.length();
+
+        return PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
     }
 }

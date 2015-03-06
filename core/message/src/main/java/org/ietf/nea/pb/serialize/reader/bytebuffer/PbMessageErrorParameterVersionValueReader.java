@@ -22,78 +22,80 @@
  * THE SOFTWARE.
  *
  */
-package org.ietf.nea.pt.serialize.reader.bytebuffer;
+package org.ietf.nea.pb.serialize.reader.bytebuffer;
 
 import java.nio.BufferUnderflowException;
 
-import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
-import org.ietf.nea.pt.value.PtTlsMessageValueVersionRequest;
-import org.ietf.nea.pt.value.PtTlsMessageValueVersionRequestBuilder;
+import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersion;
+import org.ietf.nea.pb.message.util.PbMessageValueErrorParameterVersionBuilder;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
+import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
- * Reader to parse a transport version request message value compliant to RFC
- * 6876 from a buffer of bytes to a Java object.
+ * Reader to parse a TNCCS unsupported version error
+ * parameter compliant to RFC 5793 from a buffer of bytes to a Java object.
  *
  * @author Carl-Heinz Genzel
  *
  */
-class PtTlsMessageVersionRequestValueReader implements
-        TransportReader<PtTlsMessageValueVersionRequest> {
+class PbMessageErrorParameterVersionValueReader implements
+        TnccsReader<PbMessageValueErrorParameterVersion> {
 
-    private PtTlsMessageValueVersionRequestBuilder baseBuilder;
+    private PbMessageValueErrorParameterVersionBuilder baseBuilder;
 
     /**
      * Creates the reader with a corresponding builder to validate the parsed
-     * values and build the message value.
+     * values and build the parameter.
      *
-     * @param builder the corresponding message value builder
+     * @param builder the corresponding parameter builder
      */
-    PtTlsMessageVersionRequestValueReader(
-            final PtTlsMessageValueVersionRequestBuilder builder) {
+    PbMessageErrorParameterVersionValueReader(
+            final PbMessageValueErrorParameterVersionBuilder builder) {
         this.baseBuilder = builder;
     }
 
     @Override
-    public PtTlsMessageValueVersionRequest read(final ByteBuffer buffer,
-            final long length) throws SerializationException,
+    public PbMessageValueErrorParameterVersion read(final ByteBuffer buffer,
+            final long messageLength) throws SerializationException,
             ValidationException {
 
-        // ignore any given length and find out on your own.
+        NotNull.check("Buffer cannot be null.", buffer);
 
         long errorOffset = 0;
 
-        PtTlsMessageValueVersionRequest mValue = null;
-        PtTlsMessageValueVersionRequestBuilder builder =
-                (PtTlsMessageValueVersionRequestBuilder) this.baseBuilder
+        PbMessageValueErrorParameterVersion value = null;
+        PbMessageValueErrorParameterVersionBuilder builder =
+                (PbMessageValueErrorParameterVersionBuilder) this.baseBuilder
                 .newInstance();
 
         try {
+
             try {
 
-                /* ignore reserved */
+                /* bad version 8 bit(s) */
                 errorOffset = buffer.bytesRead();
-                buffer.readByte();
+                short badVersion = buffer.readShort((byte) 1);
+                builder.setBadVersion(badVersion);
 
-                /* min version */
-                errorOffset = buffer.bytesRead();
-                short minVersion = buffer.readShort((byte) 1);
-                builder.setMinVersion(minVersion);
-
-                /* max Version */
+                /* max version 8 bit(s) */
                 errorOffset = buffer.bytesRead();
                 short maxVersion = buffer.readShort((byte) 1);
                 builder.setMaxVersion(maxVersion);
 
-                /* preferred Version */
+                /* min version 8 bit(s) */
                 errorOffset = buffer.bytesRead();
-                short preferredVersion = buffer.readShort((byte) 1);
-                builder.setPreferredVersion(preferredVersion);
+                short minVersion = buffer.readShort((byte) 1);
+                builder.setMinVersion(minVersion);
+
+                /* ignore reserved 8 bit(s) */
+                errorOffset = buffer.bytesRead();
+                buffer.readByte();
 
             } catch (BufferUnderflowException e) {
                 throw new SerializationException("Data length "
@@ -101,17 +103,18 @@ class PtTlsMessageVersionRequestValueReader implements
                         true, Long.toString(buffer.bytesWritten()));
             }
 
-            mValue = (PtTlsMessageValueVersionRequest) builder.toObject();
+            value = (PbMessageValueErrorParameterVersion) builder.toObject();
 
         } catch (RuleException e) {
             throw new ValidationException(e.getMessage(), e, errorOffset);
         }
 
-        return mValue;
+        return value;
     }
 
     @Override
     public byte getMinDataLength() {
-        return PtTlsMessageTlvFixedLengthEnum.VER_REQ.length();
+
+        return PbMessageTlvFixedLengthEnum.ERR_SUB_VALUE.length();
     }
 }

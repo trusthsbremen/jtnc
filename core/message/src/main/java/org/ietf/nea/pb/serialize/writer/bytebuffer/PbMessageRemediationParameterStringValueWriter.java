@@ -27,7 +27,7 @@ package org.ietf.nea.pb.serialize.writer.bytebuffer;
 import java.nio.BufferOverflowException;
 import java.nio.charset.Charset;
 
-import org.ietf.nea.pb.message.PbMessageValueExperimental;
+import org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterString;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
@@ -35,34 +35,42 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
- * Writer to serialize a TNCCS experimental message value compliant to RFC 5793
- * from a Java object to a buffer of bytes.
+ * Writer to serialize a TNCCS string remediation parameter compliant to RFC
+ * 5793 from a Java object to a buffer of bytes.
  *
  * @author Carl-Heinz Genzel
  *
  */
-class PbMessageExperimentalValueWriter implements
-        TnccsWriter<PbMessageValueExperimental> {
+class PbMessageRemediationParameterStringValueWriter implements
+        TnccsWriter<PbMessageValueRemediationParameterString> {
 
     @Override
-    public void write(final PbMessageValueExperimental data,
+    public void write(final PbMessageValueRemediationParameterString data,
             final ByteBuffer buffer) throws SerializationException {
         NotNull.check("Message value cannot be null.", data);
 
-        PbMessageValueExperimental mValue = data;
+        PbMessageValueRemediationParameterString mValue = data;
 
-        /* message */
         try {
+            /* String length 32 bit(s) */
+            buffer.writeUnsignedInt(mValue.getStringLength());
 
-            buffer.write(mValue.getContent().getBytes(
+            /* reason String */
+            buffer.write(mValue.getRemediationString().getBytes(
                     Charset.forName("UTF-8")));
+
+            /* language code length 8 bit(s) */
+            buffer.writeUnsignedByte(mValue.getLangCodeLength());
+
+            /* language code */
+            buffer.write(mValue.getLangCode().getBytes(
+                    Charset.forName("US-ASCII")));
 
         } catch (BufferOverflowException e) {
             throw new SerializationException("Buffer capacity "
                     + buffer.capacity() + " to short.", e, false,
                     Long.toString(buffer.capacity()));
         }
-
     }
 
 }
