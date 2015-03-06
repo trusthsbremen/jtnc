@@ -123,7 +123,7 @@ public interface IMC {
      * <p>
      * @param c the IMC connection object 
      * @param newState new network connection state
-     * 
+     *
      * @exception TNCException if a TNC error occurs
      */
  
@@ -146,7 +146,7 @@ public interface IMC {
      * All IMCs MUST implement this method.
       * <p>
      * @param c the IMC connection object 
-     * 
+     *
      * @exception TNCException if a TNC error occurs
      */
     public void beginHandshake(IMCConnection c) throws TNCException;
@@ -213,7 +213,7 @@ public interface IMC {
      * @param c the IMC connection object 
      * @param messageType the type of message to be delivered
      * @param message the message to be delivered 
-     * 
+     *
      * @exception TNCException if a TNC error occurs
      */
     
@@ -243,7 +243,7 @@ public interface IMC {
 	 * otherwise).
      * <p>
      * @param c the IMC connection object 
-     * 
+     *
      * @exception TNCException if a TNC error occurs
      */
 

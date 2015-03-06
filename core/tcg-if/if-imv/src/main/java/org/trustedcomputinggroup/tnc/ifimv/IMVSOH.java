@@ -120,7 +120,7 @@ public interface IMVSOH {
 	 * @param c the IMV connection object
 	 * @param systemHealthID the type of message to be delivered
 	 * @param sohReportEntry the message to be delivered
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
 	void receiveMessageSOH(IMVConnection c,

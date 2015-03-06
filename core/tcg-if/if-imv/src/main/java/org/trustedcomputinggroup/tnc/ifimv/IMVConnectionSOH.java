@@ -116,7 +116,7 @@ public interface IMVConnectionSOH {
 	 * accommodate these limitations if available.
 	 * <p>
 	 * @param sohrReportEntry sohrReportEntry to be delivered
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
 	public void sendMessageSOH(byte[] sohrReportEntry) throws TNCException;

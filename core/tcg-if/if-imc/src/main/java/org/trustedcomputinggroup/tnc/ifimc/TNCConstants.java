@@ -65,7 +65,7 @@ public interface TNCConstants {
 	public static final long TNC_CONNECTION_STATE_ACCESS_ALLOWED = 2;
     
 	/**
-     * 
+     *
      * Handshake completed. TNC Server recommended that isolated 
      * access be allowed.
      */

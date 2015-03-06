@@ -61,7 +61,7 @@ public interface IMV {
 	 * successfully.
 	 * <p>
 	 * @param tncs the TNC Server
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
     public void initialize(TNCS tncs) throws TNCException;
@@ -113,7 +113,7 @@ public interface IMV {
      * <p> 
      * @param c the IMV Connection
      * @param newState new network connection state
-     * 
+     *
      * @throws TNCException
      */
     public void notifyConnectionChange(IMVConnection c, long newState) throws TNCException;
@@ -195,7 +195,7 @@ public interface IMV {
      * @param c the IMVConnection
      * @param messageType the message type that is being delivered to the IMV
      * @param message the message that is being delivered to the IMV
-     * 
+     *
      * @throws TNCException
      */
     public void receiveMessage(IMVConnection c, long messageType, byte[] message) throws TNCException;
@@ -240,7 +240,7 @@ public interface IMV {
      * on the data they have gathered so far.
      * <p>
      * @param c IMV connection
-     * 
+     *
      * @throws TNCException
      */
     public void solicitRecommendation(IMVConnection c) throws TNCException;
@@ -275,7 +275,7 @@ public interface IMV {
 	 * timeouts (PDP, PEP or otherwise). 
      * <p>
      * @param c IMV connection
-     * 
+     *
      * @throws TNCException
      */
     public void batchEnding(IMVConnection c) throws TNCException;

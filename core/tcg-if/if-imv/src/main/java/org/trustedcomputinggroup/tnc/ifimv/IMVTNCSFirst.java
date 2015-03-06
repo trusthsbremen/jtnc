@@ -88,7 +88,7 @@ public interface IMVTNCSFirst {
 	 * otherwise).
 	 * <p>
 	 * @param c the IMVConnection object
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
 	void beginHandshake(IMVConnection c) throws TNCException;

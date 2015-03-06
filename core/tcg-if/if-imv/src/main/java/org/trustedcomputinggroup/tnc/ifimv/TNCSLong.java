@@ -94,7 +94,7 @@ public interface TNCSLong {
 	 *		  to receive
 	 * @param supportedSubtypes the list of message subtypes the IMV 
 	 *		  wishes to receive
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
 	void reportMessageTypesLong(IMV	imv,
@@ -157,7 +157,7 @@ public interface TNCSLong {
 	 * required to reserve IMV IDs in a specific order.
 	 * <p>
 	 * @param imv the IMV reporting its message types
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
 	long reserveAdditionalIMVID(IMV	imv) throws TNCException;

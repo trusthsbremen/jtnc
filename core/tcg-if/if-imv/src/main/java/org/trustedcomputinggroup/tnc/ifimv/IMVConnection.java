@@ -204,10 +204,10 @@ public interface IMVConnection {
 	 * the related TNC_ATTRIBUTEID within the TNCS.getAttribute
 	 * method.  The IMV SHOULD adapt its behavior to accommodate
 	 * these limitations if available.
-     * 
+     *
      * @param messageType the type of message to be delivered
      * @param message the message to be delivered 
-     * 
+     *
      * @throws TNCException if an error occurs
      */
     
@@ -245,7 +245,7 @@ public interface IMVConnection {
      * in displaying diagnostic and progress messages.
      * <p>
      * @param reason handshake retry reason code
-     * 
+     *
      * @throws TNCException
      */
     public void requestHandshakeRetry(long reason) throws TNCException;
@@ -322,7 +322,7 @@ public interface IMVConnection {
      * <p>
      * @param recommendation action recommendation
      * @param evaluation evaluation result
-     * 
+     *
      * @throws TNCException
      */
     

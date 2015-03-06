@@ -138,7 +138,7 @@ public interface IMVLong {
 	 * @param message the message to be delivered
 	 * @param sourceIMCID source IMC ID for the message
 	 * @param destinationIMVID destination IMV ID for message
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
 	// FIXME corrected this to the super interface IMVConnection as is the case in IMCConnectionLong

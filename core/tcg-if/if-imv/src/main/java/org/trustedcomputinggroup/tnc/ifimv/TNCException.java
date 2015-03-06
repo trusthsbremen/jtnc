@@ -64,7 +64,7 @@ package org.trustedcomputinggroup.tnc.ifimv;
 public class TNCException extends Exception {
 	
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1701914844092560832L;
 

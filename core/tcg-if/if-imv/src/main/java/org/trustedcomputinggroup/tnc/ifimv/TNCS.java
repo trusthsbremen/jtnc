@@ -85,7 +85,7 @@ public interface TNCS {
 	 * <p>
 	 * @param imv the IMV reporting its message types
 	 * @param supportedTypes the message types the IMV wishes to receive
-	 * 
+	 *
 	 * @throws TNCException
 	 */
     public void reportMessageTypes(IMV imv, long [] supportedTypes) throws TNCException;
@@ -131,7 +131,7 @@ public interface TNCS {
      * <p>
      * @param imv IMV object
      * @param reason reason for retry handshake request
-     * 
+     *
      * @throws TNCException
      */
     public void requestHandshakeRetry(IMV imv, long reason) throws TNCException;

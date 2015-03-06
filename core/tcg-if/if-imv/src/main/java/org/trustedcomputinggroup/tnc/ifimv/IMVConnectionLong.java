@@ -162,7 +162,7 @@ public interface IMVConnectionLong {
 	 * @param message the message to be delivered
 	 * @param sourceIMVID source IMC ID for the message
 	 * @param destinationIMCID destination IMV ID for message
-	 * 
+	 *
 	 * @throws TNCException if a TNC error occurs
 	 */
 	public void sendMessageLong(long messageFlags,
