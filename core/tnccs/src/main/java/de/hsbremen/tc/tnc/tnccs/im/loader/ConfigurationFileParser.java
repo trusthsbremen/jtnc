@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
  * Generic parser to parse a configuration file into configuration entry
  * objects.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConfigurationFileParser {

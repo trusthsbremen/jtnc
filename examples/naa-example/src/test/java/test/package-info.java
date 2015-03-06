@@ -23,7 +23,6 @@
  *
  */
 /**
- * @author Carl-Heinz Genzel
  *
  */
 package test;

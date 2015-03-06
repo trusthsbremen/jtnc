@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Enumeration of error causes according to invalid integrity measurement
  * messages, attributes or integrity measurement attribute values.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PaErrorCauseEnum {

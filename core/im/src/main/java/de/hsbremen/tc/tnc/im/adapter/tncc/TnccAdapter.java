@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
 /**
  * Generic adapter for TNCC.
  *
- * @author Carl-Heinz Genzel
  */
 public interface TnccAdapter extends TnccsAdapter {
 

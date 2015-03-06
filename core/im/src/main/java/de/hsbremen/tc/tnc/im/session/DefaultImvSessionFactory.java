@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  * Default factory to create a session for an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvSessionFactory implements ImSessionFactory<ImvSession> {
@@ -43,8 +42,7 @@ public class DefaultImvSessionFactory implements ImSessionFactory<ImvSession> {
     /**
      * Singleton to instantiate the factory only on first access.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private static class Singleton {
         private static final ImSessionFactory<ImvSession> INSTANCE =

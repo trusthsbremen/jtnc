@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
  * Generic base for an evaluator factory to compose the integrity measurement
  * components. Especially important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractImEvaluatorFactoryIetf implements

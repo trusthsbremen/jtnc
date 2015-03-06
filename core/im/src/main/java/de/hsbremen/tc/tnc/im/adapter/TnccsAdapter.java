@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 /**
  * Generic base adapter for TNC(C/S).
  *
- * @author Carl-Heinz Genzel
  */
 public interface TnccsAdapter {
 

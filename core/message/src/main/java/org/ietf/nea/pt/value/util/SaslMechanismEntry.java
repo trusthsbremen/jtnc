@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 /**
  * Entry object describing a SASL mechanism.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class SaslMechanismEntry {

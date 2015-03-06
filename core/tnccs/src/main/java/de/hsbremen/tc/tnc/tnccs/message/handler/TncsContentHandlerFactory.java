@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.tnccs.message.handler;
  * Generic TNCS content handler factory to create a TNCS
  * content handler.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncsContentHandlerFactory {

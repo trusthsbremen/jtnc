@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * NAR example implementation.
+ */
 package de.hsbremen.tc.tnc.examples.nar;

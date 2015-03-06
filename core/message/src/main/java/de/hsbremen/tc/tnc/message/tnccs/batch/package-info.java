@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNCCS batch interfaces.
+ */
 package de.hsbremen.tc.tnc.message.tnccs.batch;

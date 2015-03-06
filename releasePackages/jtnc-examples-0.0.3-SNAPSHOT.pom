@@ -37,13 +37,13 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-	<distributionManagement>
-	    <repository>
-	      <id>tnc.repo</id>
-	      <name>Java TNC Repository</name>
-	      <url>file:/home/sidanetdev/git/smgw-app/main/repo/</url>
-	    </repository>
-    </distributionManagement>
+<!-- 	<distributionManagement> -->
+<!-- 	    <repository> -->
+<!-- 	      <id>tnc.repo</id> -->
+<!-- 	      <name>Java TNC Repository</name> -->
+<!-- 	      <url>file:/home/sidanetdev/git/smgw-app/main/repo/</url> -->
+<!-- 	    </repository> -->
+<!--     </distributionManagement> -->
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>

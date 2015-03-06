@@ -46,7 +46,6 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
  * Factory utility to create a reader that can parse an entire transport message
  * compliant to RFC 6876 from a buffer of bytes to a Java object.
  *
- * @author Carl-Heinz Genzel
  */
 public abstract class PtTlsReaderFactory {
 

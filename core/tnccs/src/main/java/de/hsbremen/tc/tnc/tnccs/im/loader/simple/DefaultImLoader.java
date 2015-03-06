@@ -49,7 +49,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * It handles the class path for the loaded IM(C/V) by managing a set
  * of URL class loaders.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the loadable type (e.g. IMC or IMV)
  */

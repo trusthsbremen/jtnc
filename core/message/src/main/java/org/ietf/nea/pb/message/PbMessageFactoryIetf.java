@@ -41,7 +41,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Factory utility to create a IETF RFC 5793 compliant TNCCS message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PbMessageFactoryIetf {

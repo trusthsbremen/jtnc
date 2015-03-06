@@ -45,7 +45,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 /**
  * Generic base for an evaluator. Especially important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class AbstractImEvaluatorIetf implements ImEvaluator {

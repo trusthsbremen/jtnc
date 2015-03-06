@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Integrity measurement byte buffer serialization interfaces.
+ */
 package de.hsbremen.tc.tnc.message.m.serialize.bytebuffer;

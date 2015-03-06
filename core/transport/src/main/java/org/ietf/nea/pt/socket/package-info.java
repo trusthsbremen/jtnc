@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF socket transport connection.
+ */
 package org.ietf.nea.pt.socket;

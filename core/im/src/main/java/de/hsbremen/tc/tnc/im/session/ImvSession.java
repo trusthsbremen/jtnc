@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.exception.TncException;
  * Generic IMV session. It extends the session base by adding a method to
  * request a recommendation from an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvSession extends ImSession, ImSessionContext {

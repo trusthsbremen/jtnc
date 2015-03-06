@@ -27,7 +27,6 @@ package org.ietf.nea.pb.message.util;
 /**
  * IETF RFC 5793 TNCCS error parameter with offset.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueErrorParameterOffset extends

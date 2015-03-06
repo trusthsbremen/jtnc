@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
  * Default configuration entry handler to handle changes of configuration
  * entries to load an IMC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcManagerConfigurationEntryHandler extends

@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Generic builder base to build a supporting value for a TNCCS message value.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the supporting value type
  */

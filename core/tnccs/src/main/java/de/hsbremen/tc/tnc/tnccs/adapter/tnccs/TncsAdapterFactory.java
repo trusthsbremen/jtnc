@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 /**
  * Generic TNCS adapter factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncsAdapterFactory {

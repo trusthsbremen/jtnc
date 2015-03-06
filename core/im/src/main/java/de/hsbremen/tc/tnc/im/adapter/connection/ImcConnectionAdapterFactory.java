@@ -29,7 +29,6 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 /**
  * Generic adapter factory for an IMC connection.
  *
- * @author Carl-Heinz Genzel
  */
 public interface ImcConnectionAdapterFactory {
 

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * File integrity measurement collection example.
+ */
 package de.hsbremen.tc.tnc.im.evaluate.example.file;

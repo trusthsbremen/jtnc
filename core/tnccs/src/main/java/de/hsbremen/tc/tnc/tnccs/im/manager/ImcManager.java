@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter;
  * Generic IMC manager, that manages IMC and its
  * associated adapters.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcManager extends

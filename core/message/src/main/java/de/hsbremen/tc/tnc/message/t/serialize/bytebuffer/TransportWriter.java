@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
  * Generic writer that accepts a transport message object and serializes
  * it to the given byte buffer.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the transport object to be accepted
  */

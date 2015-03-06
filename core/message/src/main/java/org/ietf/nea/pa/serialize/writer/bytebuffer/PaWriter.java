@@ -48,7 +48,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * elements (e.g. header, attributes, ...). Attribute value writers can be
  * managed with the add and remove operations.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaWriter implements ImWriter<ImMessage>,

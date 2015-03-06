@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Integrity measurement component constants.
+ */
 package de.hsbremen.tc.tnc.im.adapter.data.enums;

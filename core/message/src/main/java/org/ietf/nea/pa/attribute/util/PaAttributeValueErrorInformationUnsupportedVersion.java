@@ -27,7 +27,6 @@ package org.ietf.nea.pa.attribute.util;
 /**
  * IETF RFC 5792 integrity measurement unsupported version error information.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueErrorInformationUnsupportedVersion extends

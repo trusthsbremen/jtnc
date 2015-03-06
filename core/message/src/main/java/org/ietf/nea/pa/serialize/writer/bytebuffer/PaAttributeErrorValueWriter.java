@@ -45,7 +45,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Writer to serialize an integrity measurement error attribute value compliant
  * to RFC 5792 from a Java object to a buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PaAttributeErrorValueWriter implements ImWriter<PaAttributeValueError> {

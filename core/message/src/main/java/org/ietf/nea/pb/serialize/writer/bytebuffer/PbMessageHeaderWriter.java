@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Writer to serialize a TNCCS message header compliant to RFC 5793 from a Java
  * object to a buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PbMessageHeaderWriter implements TnccsWriter<PbMessageHeader> {

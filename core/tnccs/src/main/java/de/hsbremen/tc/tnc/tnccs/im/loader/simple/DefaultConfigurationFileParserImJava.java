@@ -54,7 +54,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums
  * Currently it only supports Java based IM(C/V) configuration lines. Other line
  * are ignored.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultConfigurationFileParserImJava implements

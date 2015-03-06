@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
 /**
  * Generic evaluator factory to compose the integrity measurement components.
  *
- * @author Carl-Heinz Genzel
  */
 public interface ImEvaluatorFactory {
 

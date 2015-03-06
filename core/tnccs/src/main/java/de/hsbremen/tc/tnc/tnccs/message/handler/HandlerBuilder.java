@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.message.handler;
 /**
  * Generic builder base to build a message handler handling IF-TNCCS message.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the handler type (e.g. TNCC, TNCS, IMV or IMV handler)
  */

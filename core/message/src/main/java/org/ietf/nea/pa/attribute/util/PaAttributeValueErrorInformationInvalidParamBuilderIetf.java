@@ -30,7 +30,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
  * Builder to build an integrity measurement invalid parameter error
  * information value compliant to RFC 5792. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueErrorInformationInvalidParamBuilderIetf implements

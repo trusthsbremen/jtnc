@@ -30,7 +30,6 @@ package de.hsbremen.tc.tnc.im.adapter.data;
  * addressing of the component to/from an IM(C/V). Especially important
  * for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractImComponent {

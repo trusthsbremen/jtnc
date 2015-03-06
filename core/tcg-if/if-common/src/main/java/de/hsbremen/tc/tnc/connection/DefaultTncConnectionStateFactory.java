@@ -33,7 +33,6 @@ import java.util.List;
 /**
  * Factory to create the standard connection states.
  *
- * @author Carl-Heinz Genzel
  */
 public final class DefaultTncConnectionStateFactory implements
         TncConnectionStateFactory {
@@ -43,8 +42,7 @@ public final class DefaultTncConnectionStateFactory implements
     /**
      * Singleton to instantiate the factory only on first access.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private static class Singleton {
         private static final TncConnectionStateFactory INSTANCE =
@@ -101,8 +99,7 @@ public final class DefaultTncConnectionStateFactory implements
 
     /**
      * Comparator to sort and find connections by state value.
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class StateComparator implements Comparator<TncConnectionState> {
 

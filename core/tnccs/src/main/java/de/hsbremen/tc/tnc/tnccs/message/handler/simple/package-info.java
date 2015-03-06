@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC(C/S) IM(C/V) message handling implementation.
+ */
 package de.hsbremen.tc.tnc.tnccs.message.handler.simple;

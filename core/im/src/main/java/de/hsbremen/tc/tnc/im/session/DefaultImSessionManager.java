@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
  * Default session manager. It holds all sessions and manages them according to
  * their state.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <K> the connection type (e.g. IMC or IMV connection)
  * @param <V> the session type (e.g. IMC or IMV session)
@@ -114,8 +113,7 @@ public class DefaultImSessionManager<K, V extends ImSession> implements
      * Runnable that removes sessions from the manager,
      * which are closed or where the state is unknown.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class Cleaner implements Runnable {
 

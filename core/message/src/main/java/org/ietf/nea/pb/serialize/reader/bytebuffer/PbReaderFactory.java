@@ -54,7 +54,6 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
  * Factory utility to create a reader that can parse an entire TNCCS batch
  * compliant to RFC 5793 from a buffer of bytes to a Java object.
  *
- * @author Carl-Heinz Genzel
  */
 public abstract class PbReaderFactory {
 

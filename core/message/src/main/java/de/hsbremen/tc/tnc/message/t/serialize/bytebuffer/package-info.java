@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Transport byte buffer serialization interfaces.
+ */
 package de.hsbremen.tc.tnc.message.t.serialize.bytebuffer;

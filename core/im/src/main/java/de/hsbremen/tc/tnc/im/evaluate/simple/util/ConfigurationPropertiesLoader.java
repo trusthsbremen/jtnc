@@ -33,7 +33,6 @@ import java.util.Properties;
 /**
  * Configuration parameter utility class.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ConfigurationPropertiesLoader {

@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.im.loader.enums;
 /**
  * Enumeration of known standard configuration line classifiers.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum DefaultConfigurationLineClassifierEnum implements

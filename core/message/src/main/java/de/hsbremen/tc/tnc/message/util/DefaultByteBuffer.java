@@ -38,7 +38,6 @@ import java.util.List;
  * chunks as soon as needed and not at once to prevent unnecessary
  * memory allocation.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultByteBuffer implements ByteBuffer {

@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
  * IMV connection adapter adapting an IMV connection according to
  * IETF/TCG specifications, that supports long addressing.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class ImvConnectionAdapterIetfLong extends ImvConnectionAdapterIetf implements

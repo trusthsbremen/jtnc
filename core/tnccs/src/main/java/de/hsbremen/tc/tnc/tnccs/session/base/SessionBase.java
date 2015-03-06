@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
  * Generic TNC(C/S) session base. It contains the basic functionality
  * to manage a session.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface SessionBase {

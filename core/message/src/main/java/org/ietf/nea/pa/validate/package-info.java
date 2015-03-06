@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF integrity measurement validation.
+ */
 package org.ietf.nea.pa.validate;

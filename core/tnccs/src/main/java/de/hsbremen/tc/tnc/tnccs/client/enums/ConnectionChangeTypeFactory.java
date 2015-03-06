@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * Generic connection change type factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConnectionChangeTypeFactory {

@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 /**
  * Generic listener for global handshake retry requests from evaluation units.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface GlobalHandshakeRetryListener {

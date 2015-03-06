@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Message data container.
+ */
 package de.hsbremen.tc.tnc.message.util;

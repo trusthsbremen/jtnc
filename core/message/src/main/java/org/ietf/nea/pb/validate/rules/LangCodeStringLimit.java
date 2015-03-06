@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if an RFC 4646 language code string is to large.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class LangCodeStringLimit {

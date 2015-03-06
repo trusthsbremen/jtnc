@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 /**
  * IETF RFC 6876 transport TNCCS batch message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageValuePbBatch extends AbstractPtTlsMessageValue {

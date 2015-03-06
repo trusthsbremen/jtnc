@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
  * Factory utility to create a writer that can serialize an entire TNCCS batch
  * compliant to RFC 5793 from a Java object to a buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  */
 public abstract class PbWriterFactory {
 

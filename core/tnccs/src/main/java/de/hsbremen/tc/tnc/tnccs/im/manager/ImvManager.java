@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapter;
  * Generic IMV manager, that manages IMV and its
  * associated adapters.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvManager extends

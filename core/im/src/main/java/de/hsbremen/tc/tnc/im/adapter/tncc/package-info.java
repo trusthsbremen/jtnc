@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TCG TNCC adapter.
+ */
 package de.hsbremen.tc.tnc.im.adapter.tncc;

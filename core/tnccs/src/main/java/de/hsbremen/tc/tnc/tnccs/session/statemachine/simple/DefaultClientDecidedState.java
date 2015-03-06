@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * results from the TNCS and waits for handshake retry requests
  * in the decided state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultClientDecidedState extends AbstractState implements Decided {

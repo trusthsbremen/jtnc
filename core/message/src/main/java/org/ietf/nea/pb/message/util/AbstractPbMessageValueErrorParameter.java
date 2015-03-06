@@ -29,7 +29,6 @@ package org.ietf.nea.pb.message.util;
  * Generic IETF RFC 5793 error parameter base. Especially important for
  * inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractPbMessageValueErrorParameter implements

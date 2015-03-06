@@ -27,7 +27,6 @@ package org.ietf.nea.pt.value.enums;
 /**
  * Enumeration of known transport message error codes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PtTlsMessageErrorCodeEnum {

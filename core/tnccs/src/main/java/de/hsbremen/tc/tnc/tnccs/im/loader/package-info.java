@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) configuration management and loader.
+ */
 package de.hsbremen.tc.tnc.tnccs.im.loader;

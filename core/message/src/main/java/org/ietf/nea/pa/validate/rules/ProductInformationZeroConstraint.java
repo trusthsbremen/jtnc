@@ -30,7 +30,6 @@ import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if product ID is zero if vendor ID is zero.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ProductInformationZeroConstraint {

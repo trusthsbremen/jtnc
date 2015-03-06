@@ -41,7 +41,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 /**
  * Factory utility to create a IETF RFC 5793 compliant TNCCS message batch.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PbBatchFactoryIetf {

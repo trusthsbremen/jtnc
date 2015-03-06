@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF transport message value implementation.
+ */
 package org.ietf.nea.pt.value;

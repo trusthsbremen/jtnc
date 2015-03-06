@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Generic builder base to build a supporting value for an
  * integrity measurement attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the supporting value type
  */

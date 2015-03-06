@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.transport.exception;
 /**
  * Exception signals that a TnccsListener was closed.
  *
- * @author Carl-Heinz Genzel
  */
 public class ListenerClosedException extends Exception {
 

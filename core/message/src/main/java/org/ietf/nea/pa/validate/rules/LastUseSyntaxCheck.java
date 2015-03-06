@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that Checks if the syntax of the date for an operation's
  * last us is valid.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class LastUseSyntaxCheck {

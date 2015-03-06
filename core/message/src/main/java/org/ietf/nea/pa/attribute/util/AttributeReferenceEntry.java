@@ -27,7 +27,6 @@ package org.ietf.nea.pa.attribute.util;
 /**
  * Entry object describing an attribute type.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class AttributeReferenceEntry {

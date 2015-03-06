@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF TNCCS message processing implementation.
+ */
 package org.ietf.nea.pb;

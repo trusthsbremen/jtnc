@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 /**
  * Generic base to manage the IM(C/V) adapter life cycle.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the managed adapter type (e.g. IMC adapter
  * or IMV adapter)

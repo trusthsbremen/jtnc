@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.tnccs.TnccsData;
  * Generic TNCCS message batch header base consisting of general parameters that
  * describe a batch.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsBatchHeader extends TnccsData {

@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
  * Exception signals that no IM(C/V) was found as recipient for a message
  * type.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class NoRecipientFoundException extends ComprehensibleException {

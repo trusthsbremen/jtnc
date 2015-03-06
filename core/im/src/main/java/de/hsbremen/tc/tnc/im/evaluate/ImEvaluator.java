@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
  * responsible to measure exactly one instance of a component type (e.g. if
  * there are two VPN clients to measure, there must be two evaluators.
  *
- * @author Carl-Heinz Genzel
  *
  */
 interface ImEvaluator extends ImEvaluationComponent<ImObjectComponent> {

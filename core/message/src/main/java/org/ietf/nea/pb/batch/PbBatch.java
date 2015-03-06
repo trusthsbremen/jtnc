@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * IETF RFC 5793 TNCCS batch.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbBatch implements TnccsBatch {

@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.t.message.TransportMessageHeaderBuilder;
  * Generic builder to build a transport message header compliant to RFC 6876. It
  * can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PtTlsMessageHeaderBuilder extends

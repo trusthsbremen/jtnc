@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Rule, that checks if an URI string has a valid syntax.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class UriSyntax {

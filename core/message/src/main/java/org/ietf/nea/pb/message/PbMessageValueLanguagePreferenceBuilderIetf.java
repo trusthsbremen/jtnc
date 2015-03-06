@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
  * Builder to build a TNCCS language preference message value compliant to RFC
  * 5793. It evaluates the given values and can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueLanguagePreferenceBuilderIetf implements

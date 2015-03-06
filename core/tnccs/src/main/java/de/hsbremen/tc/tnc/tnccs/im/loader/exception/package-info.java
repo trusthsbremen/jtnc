@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) configuration management and loader exceptions.
+ */
 package de.hsbremen.tc.tnc.tnccs.im.loader.exception;

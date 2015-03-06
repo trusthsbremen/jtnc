@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception
  * Generic TNC(C/S) session state machine to control the message flow
  * for integrity handshakes of a connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface StateMachine {

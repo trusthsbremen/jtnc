@@ -46,7 +46,6 @@ import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
  * providing common functions for derived adapters.
  * Especially important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractImAdapter {

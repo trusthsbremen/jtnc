@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * IETF RFC 5792 integrity measurement message attribute.
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttribute implements ImAttribute {

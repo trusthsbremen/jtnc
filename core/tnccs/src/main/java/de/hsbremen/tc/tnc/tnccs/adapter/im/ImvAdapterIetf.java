@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 /**
  * IMV adapter adapting an IMV according to IETF/TCG specifications.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class ImvAdapterIetf implements ImvAdapter {

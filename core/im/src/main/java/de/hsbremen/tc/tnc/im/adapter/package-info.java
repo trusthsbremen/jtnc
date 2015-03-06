@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TCG IF-IM(C/V) interface adaption.
+ */
 package de.hsbremen.tc.tnc.im.adapter;

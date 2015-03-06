@@ -29,7 +29,6 @@ import java.net.URI;
 /**
  * IETF RFC 5792 integrity measurement URI remediation parameter.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueRemediationParameterUri extends

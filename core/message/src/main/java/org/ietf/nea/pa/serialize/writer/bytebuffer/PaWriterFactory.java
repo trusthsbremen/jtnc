@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
  * measurement component message compliant to RFC 5792 from a Java object to a
  * buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  */
 public abstract class PaWriterFactory {
 

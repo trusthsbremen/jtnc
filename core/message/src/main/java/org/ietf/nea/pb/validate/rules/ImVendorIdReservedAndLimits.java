@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if the integrity measurement component vendor ID
  * is reserved or not in range.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ImVendorIdReservedAndLimits {

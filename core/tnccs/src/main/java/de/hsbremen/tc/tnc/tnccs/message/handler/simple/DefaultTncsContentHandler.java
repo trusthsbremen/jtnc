@@ -41,7 +41,6 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.TncsHandler;
 /**
  * Default TNCC content handler.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTncsContentHandler implements TncsContentHandler {

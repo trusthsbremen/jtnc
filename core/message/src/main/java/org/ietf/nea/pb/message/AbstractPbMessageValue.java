@@ -28,7 +28,6 @@ package org.ietf.nea.pb.message;
  * Generic IETF RFC 5793 TNCCS message value base. Especially important for
  * inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractPbMessageValue implements PbMessageValue {

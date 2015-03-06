@@ -65,7 +65,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * (e.g. header, messages, ...). Message value readers can be managed with
  * the add and remove operations.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbReader implements TnccsReader<TnccsBatchContainer>,

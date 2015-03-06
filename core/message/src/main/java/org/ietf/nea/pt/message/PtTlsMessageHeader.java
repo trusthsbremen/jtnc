@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.t.message.TransportMessageHeader;
 /**
  * IETF RFC 6876 transport message header.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageHeader implements TransportMessageHeader {

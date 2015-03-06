@@ -47,7 +47,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 /**
  * Default IMV evaluator manager.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {

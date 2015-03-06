@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 /**
  * Generic adapter for an IMV connection.
  *
- * @author Carl-Heinz Genzel
  */
 public interface ImvConnectionAdapter extends ImConnectionAdapter {
 

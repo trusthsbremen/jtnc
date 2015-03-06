@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.m.message.ImMessageHeader;
 /**
  * IETF RFC 5792 integrity measurement message header.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaMessageHeader implements ImMessageHeader {

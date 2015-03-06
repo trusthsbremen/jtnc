@@ -50,7 +50,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * containing data for an integrity check handshake in the
  * client working state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultClientClientWorkingState extends AbstractState implements

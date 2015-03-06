@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * for further messages in the server working state and changes
  * the state according to a newly received message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultClientServerWorkingState extends AbstractState implements

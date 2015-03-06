@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF transport message validation constants.
+ */
 package org.ietf.nea.pt.validate.enums;

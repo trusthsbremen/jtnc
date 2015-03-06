@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 /**
  * Generic handler base to handle and collect IF-TNCCS messages.
  *
- * @author Carl-Heinz Genzel
  *
  */
 interface TnccsMessageHandler {

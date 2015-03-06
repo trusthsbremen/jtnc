@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
  * Generic helper to make information and commonly used functions accessible
  * to a TNC(C/S) state.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the helper type based on its content handler (e.g. TNCC -> TNCC
  * content handler)

@@ -27,7 +27,6 @@ package org.ietf.nea.pb.message.util;
 /**
  * IETF RFC 5793 TNCCS unsupported version error parameter.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueErrorParameterVersion extends

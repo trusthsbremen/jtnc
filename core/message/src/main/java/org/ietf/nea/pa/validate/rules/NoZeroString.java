@@ -30,7 +30,6 @@ import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if string contains zero characters.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class NoZeroString {

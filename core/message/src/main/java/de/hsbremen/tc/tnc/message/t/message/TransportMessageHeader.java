@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.t.TransportData;
  * Generic transport message header base consisting of general parameters that
  * describe the message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TransportMessageHeader extends TransportData {

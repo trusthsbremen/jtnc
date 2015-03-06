@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * OS integrity measurement verification exceptions.
+ */
 package de.hsbremen.tc.tnc.im.evaluate.example.os.exception;

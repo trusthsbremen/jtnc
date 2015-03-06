@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Serialization exceptions.
+ */
 package de.hsbremen.tc.tnc.message.exception;

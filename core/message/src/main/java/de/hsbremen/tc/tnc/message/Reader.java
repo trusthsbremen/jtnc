@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
  * Generic base for a reader that reads data from a source and parses it to
  * a Java object.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the resulting Java object
  * @param <S> the type of the data source

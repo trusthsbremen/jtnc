@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Integrity measurement verification examples.
+ */
 package de.hsbremen.tc.tnc.im.evaluate.example;

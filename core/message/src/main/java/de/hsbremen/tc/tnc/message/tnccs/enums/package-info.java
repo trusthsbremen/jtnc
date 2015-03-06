@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNCCS protocol identification constants.
+ */
 package de.hsbremen.tc.tnc.message.tnccs.enums;

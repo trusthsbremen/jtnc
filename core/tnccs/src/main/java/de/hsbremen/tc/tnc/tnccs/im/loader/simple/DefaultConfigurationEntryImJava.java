@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntry;
  * Configuration entry holding the necessary parameters to
  * load an IM(C/V).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultConfigurationEntryImJava implements ConfigurationEntry {

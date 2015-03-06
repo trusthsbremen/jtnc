@@ -27,7 +27,6 @@ package org.ietf.nea.pb.batch.enums;
 /**
  * Enumeration of known batch directions.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbBatchDirectionalityEnum {

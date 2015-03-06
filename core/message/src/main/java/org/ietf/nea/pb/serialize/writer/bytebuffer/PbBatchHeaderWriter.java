@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Writer to serialize a TNCCS batch header compliant to RFC 5793 from a Java
  * object to a buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PbBatchHeaderWriter implements TnccsWriter<PbBatchHeader> {

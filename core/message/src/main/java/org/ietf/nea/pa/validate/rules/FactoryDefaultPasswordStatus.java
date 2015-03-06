@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
  * Rule, that checks if factory default password status ID is known.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class FactoryDefaultPasswordStatus {

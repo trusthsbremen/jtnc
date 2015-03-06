@@ -28,7 +28,6 @@ package org.ietf.nea.pa.attribute.enums;
  * Enumeration of known integrity measurement values for the result of an
  * operation's last use.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PaAttributeOperationLastResultEnum {

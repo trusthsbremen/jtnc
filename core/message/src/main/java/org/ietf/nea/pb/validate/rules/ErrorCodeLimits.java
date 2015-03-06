@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if error code is known and in range.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ErrorCodeLimits {

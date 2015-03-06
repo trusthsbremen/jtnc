@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Builder to build an integrity measurement test attribute value compliant to
  * RFC 5792. It evaluates the given values and can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueTestingBuilderIetf implements

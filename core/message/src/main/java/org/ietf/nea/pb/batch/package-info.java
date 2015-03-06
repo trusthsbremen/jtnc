@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF TNCCS message batch implementation.
+ */
 package org.ietf.nea.pb.batch;

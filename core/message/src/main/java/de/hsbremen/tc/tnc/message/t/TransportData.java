@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.Data;
  * component as a message used by NA(A/R) for
  * transport.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TransportData extends Data {

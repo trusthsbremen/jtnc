@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
 /**
  * Generic handler to handle changes of configuration entries.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConfigurationEntryHandler {

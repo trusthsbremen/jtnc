@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
  * Common attributes for every TransportConnection. Attributes are accessible
  * thru getters as well as thru Attributed.
  *
- * @author Carl-Heinz Genzel
  */
 public interface TransportAttributes extends Attributed {
 

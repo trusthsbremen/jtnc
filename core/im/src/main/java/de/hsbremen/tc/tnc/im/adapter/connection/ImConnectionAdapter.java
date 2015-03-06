@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 /**
  * Generic adapter base for an IM(C/V) connection.
  *
- * @author Carl-Heinz Genzel
  */
 public interface ImConnectionAdapter {
 

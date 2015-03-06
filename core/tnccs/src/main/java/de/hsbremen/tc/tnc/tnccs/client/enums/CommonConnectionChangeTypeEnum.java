@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.client.enums;
 /**
  * Enumeration of connection changes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum CommonConnectionChangeTypeEnum implements ConnectionChangeType {

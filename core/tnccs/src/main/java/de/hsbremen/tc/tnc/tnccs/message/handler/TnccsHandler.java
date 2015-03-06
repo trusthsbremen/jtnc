@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.connection.TncConnectionState;
 /**
  * Generic handler base to handle messages destined to/from a TNC(C/S).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsHandler extends TnccsMessageHandler {

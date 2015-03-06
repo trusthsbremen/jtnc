@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.im.session;
 /**
  * Holds all sessions and manages them according to their state.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <K> the connection type (e.g. IMC or IMV connection)
  * @param <V> the session type (e.g. IMC or IMV session)

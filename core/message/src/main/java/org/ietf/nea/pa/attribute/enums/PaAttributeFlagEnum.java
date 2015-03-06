@@ -28,7 +28,6 @@ package org.ietf.nea.pa.attribute.enums;
  * Enumeration of known integrity measurement attribute flag bits. All bits
  * together fill exactly one byte (111111111).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PaAttributeFlagEnum {

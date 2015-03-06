@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.IETFConstants;
 /**
  * Factory utility to create an IETF RFC 5793 compliant error parameter.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PbMessageValueErrorParameterFactoryIetf {

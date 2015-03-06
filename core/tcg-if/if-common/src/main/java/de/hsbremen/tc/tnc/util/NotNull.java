@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.util;
 /**
  * Utility to check if an object or objects are null.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class NotNull {

@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.im.session;
 /**
  * Generic IMC session.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcSession extends ImSession {

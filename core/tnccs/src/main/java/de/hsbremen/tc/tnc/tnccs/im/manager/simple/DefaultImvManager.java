@@ -54,7 +54,6 @@ import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 /**
  * Default IMV manager, that manages IMV and its associated adapters.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvManager extends AbstractImManager<IMV> implements
@@ -176,8 +175,7 @@ public class DefaultImvManager extends AbstractImManager<IMV> implements
      * Holds a primary ID of an IMV and makes it accessible thru generic
      * attribute getters and setters.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class PrimaryImvIdAttribute implements Attributed {
 

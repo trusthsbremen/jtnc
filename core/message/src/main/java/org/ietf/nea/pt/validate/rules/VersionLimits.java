@@ -30,7 +30,6 @@ import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if message version is in range.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class VersionLimits {

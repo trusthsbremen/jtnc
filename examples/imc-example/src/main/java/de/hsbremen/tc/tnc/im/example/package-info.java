@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IMC core implementation examples.
+ */
 package de.hsbremen.tc.tnc.im.example;

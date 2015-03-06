@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * in the end state if one was received or creates one if an
  * external event to close the connection occurred.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultCommonEndState extends AbstractState implements End {

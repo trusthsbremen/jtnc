@@ -31,7 +31,6 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if an IM(C/V) ID is in range.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ImIdLimits {

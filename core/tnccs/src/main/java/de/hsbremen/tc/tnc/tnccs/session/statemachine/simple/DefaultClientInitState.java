@@ -45,7 +45,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.util.StateUtil;
  * initial set of measurement values in the initial
  * state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultClientInitState extends AbstractState implements Init {

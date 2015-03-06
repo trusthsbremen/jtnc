@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 /**
  * Default IMC session managing an IMC connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcSession extends

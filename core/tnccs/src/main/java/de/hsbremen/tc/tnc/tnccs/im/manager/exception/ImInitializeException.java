@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.tnccs.im.manager.exception;
  * Exception signals that the initialization of an IM(C/V) was
  * not successful.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImInitializeException extends Exception {

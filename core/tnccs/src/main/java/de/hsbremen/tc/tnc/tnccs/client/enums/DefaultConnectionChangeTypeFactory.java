@@ -33,7 +33,6 @@ import java.util.List;
 /**
  * Factory to create a connection change.
  *
- * @author Carl-Heinz Genzel
  */
 public final class DefaultConnectionChangeTypeFactory implements
         ConnectionChangeTypeFactory {
@@ -43,8 +42,7 @@ public final class DefaultConnectionChangeTypeFactory implements
     /**
      * Singleton to instantiate the factory only on first access.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private static class Singleton {
         private static final ConnectionChangeTypeFactory INSTANCE =
@@ -104,8 +102,7 @@ public final class DefaultConnectionChangeTypeFactory implements
 
     /**
      * Comparator to sort and find connection changes by type.
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class IdComparator implements Comparator<ConnectionChangeType> {
         @Override

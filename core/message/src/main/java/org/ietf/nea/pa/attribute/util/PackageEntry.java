@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 /**
  * Entry object describing an installed package.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PackageEntry {

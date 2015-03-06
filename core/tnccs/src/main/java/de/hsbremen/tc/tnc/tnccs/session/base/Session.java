@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.transport.TnccsListener;
  * Generic TNC(C/S) session. The session manages a transport
  * connection and is used to communicate thru the underlying connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface Session extends SessionBase, TnccsListener,

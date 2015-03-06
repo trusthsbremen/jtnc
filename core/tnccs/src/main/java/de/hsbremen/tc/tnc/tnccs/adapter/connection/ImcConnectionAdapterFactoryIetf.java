@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * The factory creates an IMC connection adapter according to IETF/TCG
  * specifications.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImcConnectionAdapterFactoryIetf implements

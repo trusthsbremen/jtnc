@@ -43,9 +43,9 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
+import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluationUnitIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.simple.util.ConfigurationPropertiesLoader;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -61,7 +61,6 @@ import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
  * a property file to obtain reference values for an
  * evaluation.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements

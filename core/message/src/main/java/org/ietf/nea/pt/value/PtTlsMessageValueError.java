@@ -29,7 +29,6 @@ import java.util.Arrays;
 /**
  * IETF RFC 6876 transport error message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageValueError extends AbstractPtTlsMessageValue {

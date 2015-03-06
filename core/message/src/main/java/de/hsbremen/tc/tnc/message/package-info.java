@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC message processing interfaces.
+ */
 package de.hsbremen.tc.tnc.message;

@@ -30,7 +30,6 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 /**
  * Enumeration of known retry reasons from client and server.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum ImHandshakeRetryReasonEnum {

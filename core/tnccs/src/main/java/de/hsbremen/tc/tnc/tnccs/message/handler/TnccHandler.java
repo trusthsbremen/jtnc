@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.tnccs.message.handler;
 /**
  * Generic handler to handle messages destined to/from a TNCC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccHandler extends TnccsHandler {

@@ -43,7 +43,6 @@ import de.hsbremen.tc.tnc.report.LeastPrivilegeRecommendationComparator;
 /**
  * Default IMV evaluator.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements

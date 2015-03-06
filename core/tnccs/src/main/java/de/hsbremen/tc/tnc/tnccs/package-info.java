@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC(C/S) core implementation.
+ */
 package de.hsbremen.tc.tnc.tnccs;

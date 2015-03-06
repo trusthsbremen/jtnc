@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.report.enums;
 /**
  * Enumeration of known evaluation result values from an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum ImvEvaluationResultEnum {

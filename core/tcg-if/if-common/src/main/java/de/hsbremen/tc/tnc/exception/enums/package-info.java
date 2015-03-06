@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC exception code constants.
+ */
 package de.hsbremen.tc.tnc.exception.enums;

@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 /**
  * Generic handler to handle messages destined to/from an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvHandler extends TnccsMessageHandler {

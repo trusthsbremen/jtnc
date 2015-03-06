@@ -29,7 +29,6 @@ import org.ietf.nea.pb.message.enums.PbMessageAssessmentResultEnum;
 /**
  * IETF RFC 5793 TNCCS assessment result message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueAssessmentResult extends AbstractPbMessageValue {

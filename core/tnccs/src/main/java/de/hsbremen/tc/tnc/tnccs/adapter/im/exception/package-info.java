@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) adapter exceptions.
+ */
 package de.hsbremen.tc.tnc.tnccs.adapter.im.exception;

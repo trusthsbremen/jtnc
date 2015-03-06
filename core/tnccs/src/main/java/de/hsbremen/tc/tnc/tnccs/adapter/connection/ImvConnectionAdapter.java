@@ -29,7 +29,6 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
 /**
  * Generic IMV connection adapter adapting and controlling an IMV connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvConnectionAdapter extends ImConnectionAdapter,

@@ -43,7 +43,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 /**
  * Default IMC evaluator manager.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcEvaluatorManager implements ImcEvaluatorManager {

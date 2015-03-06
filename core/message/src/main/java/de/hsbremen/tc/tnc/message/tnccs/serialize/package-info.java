@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNCCS serialization interfaces.
+ */
 package de.hsbremen.tc.tnc.message.tnccs.serialize;

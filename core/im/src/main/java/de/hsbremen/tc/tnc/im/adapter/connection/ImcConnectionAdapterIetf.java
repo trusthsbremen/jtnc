@@ -54,7 +54,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
  * Connection adapter for a IMC connection according to IETF/TCG
  * specifications.
  *
- * @author Carl-Heinz Genzel
  */
 class ImcConnectionAdapterIetf implements ImcConnectionAdapter {
 

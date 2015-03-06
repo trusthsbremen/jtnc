@@ -33,7 +33,6 @@ package de.hsbremen.tc.tnc.tnccs.adapter.connection;
  * Generic IM(C/V) connection adapter base containing common connection
  * attributes and functions to control a connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImConnectionAdapter {

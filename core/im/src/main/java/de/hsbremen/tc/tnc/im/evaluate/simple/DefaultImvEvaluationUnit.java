@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 /**
  * Default IMV evaluation unit. Does only log.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf

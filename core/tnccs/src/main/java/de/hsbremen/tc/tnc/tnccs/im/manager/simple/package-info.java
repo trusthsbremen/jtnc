@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) adaption and management implementation.
+ */
 package de.hsbremen.tc.tnc.tnccs.im.manager.simple;

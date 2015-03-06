@@ -29,7 +29,6 @@ package de.hsbremen.tc.tnc.tnccs.im.loader.enums;
  * classifier, to classify a configuration line based
  * on its beginning.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConfigurationLineClassifier {

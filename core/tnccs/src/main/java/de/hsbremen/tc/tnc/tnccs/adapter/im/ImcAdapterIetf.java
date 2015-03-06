@@ -45,7 +45,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 /**
  * IMC adapter adapting an IMC according to IETF/TCG specifications.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class ImcAdapterIetf implements ImcAdapter {

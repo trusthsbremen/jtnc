@@ -27,7 +27,6 @@ package org.ietf.nea.pa.attribute;
 /**
  * IETF RFC 5792 integrity measurement numeric version attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueNumericVersion extends AbstractPaAttributeValue {

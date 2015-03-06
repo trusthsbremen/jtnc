@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * State machine constants.
+ */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.enums;

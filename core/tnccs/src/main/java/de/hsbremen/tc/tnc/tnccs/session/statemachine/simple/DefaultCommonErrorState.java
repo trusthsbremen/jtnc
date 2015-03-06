@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.util.StateUtil;
  * or exceptions that lead to a fatal error by closing the
  * connection with error messages in a final message batch.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultCommonErrorState extends AbstractState implements Error {

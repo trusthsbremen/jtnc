@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Generic builder to build an integrity measurement string remediation
  * parameter value compliant to RFC 5792. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PaAttributeValueRemediationParameterStringBuilder extends

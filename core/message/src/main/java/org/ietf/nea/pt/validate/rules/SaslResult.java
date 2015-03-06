@@ -31,7 +31,6 @@ import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if SASL authentication result ID is known.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class SaslResult {

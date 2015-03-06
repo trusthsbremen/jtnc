@@ -30,7 +30,6 @@ import org.trustedcomputinggroup.tnc.ifimc.TNCC;
 /**
  * Generic TNCC adapter factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccAdapterFactory {

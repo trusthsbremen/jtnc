@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) session management.
+ */
 package de.hsbremen.tc.tnc.im.session;

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TCG IMV adapter.
+ */
 package de.hsbremen.tc.tnc.im.adapter.imv;

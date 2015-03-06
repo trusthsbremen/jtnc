@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
  * handling IF-TNCCS message destined for a TNCS.
  * The builder can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTncsHandlerBuilder implements

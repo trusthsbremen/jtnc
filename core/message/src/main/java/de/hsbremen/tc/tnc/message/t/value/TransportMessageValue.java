@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.t.TransportData;
  * Marker to characterize an object as transport
  * message value used by an NA(A/R) for transport.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TransportMessageValue extends TransportData {

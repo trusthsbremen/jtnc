@@ -40,7 +40,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Adapter factory for an IMV connection according to IETF/TCG specifications.
  *
- * @author Carl-Heinz Genzel
  */
 public class ImvConnectionAdapterFactoryIetf implements
         ImvConnectionAdapterFactory {

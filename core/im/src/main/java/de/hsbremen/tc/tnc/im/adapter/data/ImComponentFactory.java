@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  * Factory utility to create a certain component object holding an integrity
  * message for a component.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ImComponentFactory {

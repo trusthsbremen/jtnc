@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.attribute;
 /**
  * Enumeration of known attributes server-only attributes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum TncServerAttributeTypeEnum implements TncAttributeType {

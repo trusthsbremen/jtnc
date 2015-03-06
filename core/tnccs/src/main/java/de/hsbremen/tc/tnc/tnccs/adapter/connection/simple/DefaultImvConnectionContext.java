@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionContext;
 /**
  * Default IMV connection context.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvConnectionContext extends AbstractImConnectionContext

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF integrity measurement attribute supporting values.
+ */
 package org.ietf.nea.pa.attribute.util;

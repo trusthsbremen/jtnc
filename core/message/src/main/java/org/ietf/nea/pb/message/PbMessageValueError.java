@@ -35,7 +35,6 @@ import org.ietf.nea.pb.message.util.AbstractPbMessageValueErrorParameter;
 /**
  * IETF RFC 5793 TNCCS error message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueError extends AbstractPbMessageValue {

@@ -27,7 +27,6 @@ package org.ietf.nea.pa.attribute;
 /**
  * IETF RFC 5792 integrity measurement product information attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueProductInformation extends

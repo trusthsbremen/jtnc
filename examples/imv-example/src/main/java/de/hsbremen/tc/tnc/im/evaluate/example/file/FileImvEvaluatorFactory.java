@@ -49,7 +49,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Example IMV evaluator factory to compose a integrity measurement
  * component to watch changes on a file.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class FileImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {

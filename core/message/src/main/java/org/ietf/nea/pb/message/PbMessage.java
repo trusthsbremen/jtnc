@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * IETF RFC 5793 TNCCS message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessage implements TnccsMessage {

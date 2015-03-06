@@ -60,7 +60,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * (e.g. header, attributes, ...). Attribute value readers can be managed with
  * the add and remove operations.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaReader implements ImReader<ImMessageContainer>,

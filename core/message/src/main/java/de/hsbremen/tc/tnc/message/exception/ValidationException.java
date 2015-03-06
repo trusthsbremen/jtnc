@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 /**
  * Exception that signals that a message or message value is not valid.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ValidationException extends ComprehensibleException {

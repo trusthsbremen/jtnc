@@ -28,7 +28,6 @@ package org.ietf.nea.pt.value;
  * Generic IETF RFC 6876 transport message value base. Especially important for
  * inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class AbstractPtTlsMessageValue implements PtTlsMessageValue {

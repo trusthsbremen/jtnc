@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 /**
  * Generic base adapter for an IM(C/V).
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the connection type (e.g. IMC or IMV connection)
  */

@@ -30,7 +30,6 @@ import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if the given message version is supported.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class MessageVersion {

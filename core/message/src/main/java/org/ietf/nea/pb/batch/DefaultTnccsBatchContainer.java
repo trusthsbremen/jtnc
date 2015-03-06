@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
  * Default helper object to pass on a TNCCS message batch and minor
  * validation errors after parsing for further processing.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTnccsBatchContainer implements TnccsBatchContainer {

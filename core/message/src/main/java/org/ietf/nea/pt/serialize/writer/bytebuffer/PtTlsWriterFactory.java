@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
  * Factory utility to create a writer that can serialize an entire transport
  * message compliant to RFC 6876 from a Java object to a buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  */
 public abstract class PtTlsWriterFactory {
 

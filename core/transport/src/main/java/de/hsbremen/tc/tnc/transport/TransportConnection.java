@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 /**
  * Generic TransportConnection to control an underlying connection.
  *
- * @author Carl-Heinz Genzel
  */
 public interface TransportConnection {
 

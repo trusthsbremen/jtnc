@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 /**
  * Default exception handler.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImValueExceptionHandler implements ImValueExceptionHandler {

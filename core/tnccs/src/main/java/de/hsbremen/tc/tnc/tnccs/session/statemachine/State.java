@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 /**
  * Generic TNC(C/S) session state to drive the TNC(C/S) state machine.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface State {

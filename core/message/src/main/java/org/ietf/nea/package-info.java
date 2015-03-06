@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.enums;
+/**
+ * IETF message processing implementation.
+ */
+package org.ietf.nea;

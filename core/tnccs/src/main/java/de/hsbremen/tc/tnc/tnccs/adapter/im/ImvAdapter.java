@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
 /**
  * Generic adapter for an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvAdapter extends ImAdapter<ImvConnectionAdapter> {

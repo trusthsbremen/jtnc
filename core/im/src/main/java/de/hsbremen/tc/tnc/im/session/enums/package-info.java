@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) session constants.
+ */
 package de.hsbremen.tc.tnc.im.session.enums;

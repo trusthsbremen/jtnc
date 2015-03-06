@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
 /**
  * Generic IM(C/V) parameter set.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImParameter {

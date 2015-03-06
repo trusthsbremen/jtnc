@@ -53,7 +53,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Default client facade to interact with a TNC(C/S).
  * The facade wraps new connections into TNC(S/C) sessions.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultClientFacade implements ClientFacade,

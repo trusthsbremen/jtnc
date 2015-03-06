@@ -29,7 +29,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributePortFilterStatus;
 /**
  * Entry object describing an existing port filter rule.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PortFilterEntry {

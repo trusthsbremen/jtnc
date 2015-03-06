@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Integrity measurement protocol identification constants.
+ */
 package de.hsbremen.tc.tnc.message.m.enums;

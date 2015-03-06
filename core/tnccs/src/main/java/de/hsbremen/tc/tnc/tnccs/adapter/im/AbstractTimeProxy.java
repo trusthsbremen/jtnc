@@ -43,7 +43,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
  * Generic proxy base to control the time a function
  * call needs to finish.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractTimeProxy {
@@ -119,8 +118,7 @@ public abstract class AbstractTimeProxy {
      * Runnable that control the execution time of a function
      * and stops its execution, if a timeout is reached.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     @SuppressWarnings("rawtypes")
     private class WatchDog implements Runnable {

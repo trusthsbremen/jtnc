@@ -52,8 +52,8 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
+import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImcEvaluationUnitIetf;
-import de.hsbremen.tc.tnc.im.evaluate.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
@@ -62,7 +62,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  * Example file IMC evaluation unit, which uses
  * a hash sum to monitor file changes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class FileImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {

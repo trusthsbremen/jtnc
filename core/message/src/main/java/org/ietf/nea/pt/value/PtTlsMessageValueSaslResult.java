@@ -31,7 +31,6 @@ import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
 /**
  * IETF RFC 6876 transport SASL result message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageValueSaslResult extends AbstractPtTlsMessageValue {

@@ -27,7 +27,6 @@ package org.ietf.nea.pb.message;
 /**
  * IETF RFC 5793 TNCCS language preference message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueLanguagePreference extends AbstractPbMessageValue {

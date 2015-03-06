@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.tnccs.TnccsData;
  * Generic TNCCS message header base consisting of of a vendor ID and message
  * type ID characterizing the message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsMessageHeader extends TnccsData {

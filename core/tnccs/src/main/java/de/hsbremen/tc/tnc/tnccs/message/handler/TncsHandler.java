@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 /**
  * Generic handler to handle messages destined to/from a TNCS.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncsHandler extends TnccsHandler {

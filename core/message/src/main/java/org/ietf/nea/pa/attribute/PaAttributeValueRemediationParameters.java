@@ -30,7 +30,6 @@ import org.ietf.nea.pa.attribute.util
 /**
  * IETF RFC 5792 integrity measurement remediation parameters attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueRemediationParameters extends

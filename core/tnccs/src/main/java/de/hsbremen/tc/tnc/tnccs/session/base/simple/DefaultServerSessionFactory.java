@@ -66,7 +66,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Default TNCS session factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultServerSessionFactory extends AbstractSessionFactory {

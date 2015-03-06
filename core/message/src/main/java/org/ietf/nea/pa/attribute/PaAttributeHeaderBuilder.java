@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeHeaderBuilder;
  * Generic builder to build an integrity measurement attribute header compliant
  * to RFC 5792. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PaAttributeHeaderBuilder extends ImAttributeHeaderBuilder {

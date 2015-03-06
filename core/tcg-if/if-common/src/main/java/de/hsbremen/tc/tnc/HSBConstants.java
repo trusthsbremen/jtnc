@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc;
 /**
  * Holds several constants, needed by this implementation.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class HSBConstants {

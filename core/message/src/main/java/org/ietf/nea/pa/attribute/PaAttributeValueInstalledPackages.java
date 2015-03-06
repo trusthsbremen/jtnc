@@ -34,7 +34,6 @@ import org.ietf.nea.pa.attribute.util.PackageEntry;
 /**
  * IETF RFC 5792 integrity measurement installed packages attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueInstalledPackages extends

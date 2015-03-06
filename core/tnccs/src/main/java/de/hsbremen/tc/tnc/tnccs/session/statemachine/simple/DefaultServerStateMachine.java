@@ -47,7 +47,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Default TNCS session state machine.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultServerStateMachine implements StateMachine {

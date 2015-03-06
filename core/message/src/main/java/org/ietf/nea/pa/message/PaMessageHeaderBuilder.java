@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.m.message.ImMessageHeaderBuilder;
  * Generic builder to build an integrity measurement component message header
  * compliant to RFC 5792. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PaMessageHeaderBuilder extends ImMessageHeaderBuilder {

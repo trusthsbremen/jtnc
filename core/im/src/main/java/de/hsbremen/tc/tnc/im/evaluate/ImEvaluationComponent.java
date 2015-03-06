@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 /**
  * Generic base for the composition of integrity measurement components.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> a type, related to a component message, which is evaluated or
  * returned by the specific derived class

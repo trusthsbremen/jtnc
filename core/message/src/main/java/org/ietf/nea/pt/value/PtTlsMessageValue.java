@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.t.value.TransportMessageValue;
 /**
  * Generic IETF RFC 6876 transport message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PtTlsMessageValue extends TransportMessageValue {

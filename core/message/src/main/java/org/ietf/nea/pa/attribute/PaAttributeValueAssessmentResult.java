@@ -29,7 +29,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
 /**
  * IETF RFC 5792 integrity measurement assessment result attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueAssessmentResult extends AbstractPaAttributeValue {

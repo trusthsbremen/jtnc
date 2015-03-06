@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC report objects.
+ */
 package de.hsbremen.tc.tnc.report;

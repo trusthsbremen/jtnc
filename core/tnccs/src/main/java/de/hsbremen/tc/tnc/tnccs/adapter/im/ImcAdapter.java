@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionAdapter;
 /**
  * Generic adapter for an IMC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcAdapter extends

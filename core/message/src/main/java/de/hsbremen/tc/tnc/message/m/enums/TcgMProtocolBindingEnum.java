@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 /**
  * Enumeration containing the protocol names for IF-M protocol bindings.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum TcgMProtocolBindingEnum implements TcgProtocolBindingIdentifier {

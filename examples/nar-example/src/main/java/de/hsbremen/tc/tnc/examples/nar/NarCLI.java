@@ -37,7 +37,6 @@ import org.trustedcomputinggroup.tnc.ifimc.IMC;
 /**
  * The CLI to interact with the NAR.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class NarCLI {

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC connection state constants.
+ */
 package de.hsbremen.tc.tnc.connection;

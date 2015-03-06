@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 /**
  * Generic TNCS content handler.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncsContentHandler extends TnccsContentHandler {

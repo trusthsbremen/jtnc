@@ -38,7 +38,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * The adapter can be created with a time proxy to control the runtime of
  * a function call.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImcAdapterFactoryIetf implements ImcAdapterFactory {

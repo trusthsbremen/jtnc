@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  * Factory utility to create an IETF RFC 5792 compliant integrity measurement
  * component message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PaMessageFactoryIetf {

@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.tnccs.im.route.exception.NoRecipientFoundException;
  * Generic message router to find interested IM(C/V)
  * for a message of a component type.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImMessageRouter {

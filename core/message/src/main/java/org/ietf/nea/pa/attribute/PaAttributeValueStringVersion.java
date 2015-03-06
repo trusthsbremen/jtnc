@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 /**
  * IETF RFC 5792 integrity measurement string version attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueStringVersion extends AbstractPaAttributeValue {

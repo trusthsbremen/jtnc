@@ -29,7 +29,6 @@ import org.ietf.nea.pa.attribute.PaAttributeHeader;
 /**
  * IETF RFC 5792 integrity measurement unsupported attribute error information.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueErrorInformationUnsupportedAttribute extends

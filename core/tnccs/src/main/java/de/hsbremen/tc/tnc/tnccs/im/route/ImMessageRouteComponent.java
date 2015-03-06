@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
  * table with routing elements. Collects recipients
  * with their message type interests.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the recipient type
  */

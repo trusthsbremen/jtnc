@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.IETFConstants;
 /**
  * Factory utility to create an SupportedMessageType object.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class SupportedMessageTypeFactory {

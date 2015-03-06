@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
  * Generic manager for the composed integrity measurement components. It manages
  * all evaluators and its contained evaluation units.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImEvaluatorManager extends

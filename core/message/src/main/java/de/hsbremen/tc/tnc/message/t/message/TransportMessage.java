@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.t.value.TransportMessageValue;
  * Generic transport message base
  * consisting of a message header and a message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TransportMessage extends TransportData {

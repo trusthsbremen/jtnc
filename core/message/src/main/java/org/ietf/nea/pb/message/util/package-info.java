@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF TNCCS message supporting values.
+ */
 package org.ietf.nea.pb.message.util;

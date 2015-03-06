@@ -34,7 +34,6 @@ import org.ietf.nea.pa.attribute.util.PortFilterEntry;
 /**
  * IETF RFC 5792 integrity measurement port filter attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValuePortFilter extends AbstractPaAttributeValue {

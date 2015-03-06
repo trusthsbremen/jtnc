@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
  * Reader to parse a transport SASL authentication data message value compliant
  * to RFC 6876 from a buffer of bytes to a Java object.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PtTlsMessageSaslAuthenticationDataValueReader implements

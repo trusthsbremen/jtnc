@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC(C/S) IM(C/V) management.
+ */
 package de.hsbremen.tc.tnc.tnccs.im;

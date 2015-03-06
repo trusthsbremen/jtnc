@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.m.ImData;
  * Generic integrity measurement attribute base consisting of an attribute
  * header and an attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImAttribute extends ImData {

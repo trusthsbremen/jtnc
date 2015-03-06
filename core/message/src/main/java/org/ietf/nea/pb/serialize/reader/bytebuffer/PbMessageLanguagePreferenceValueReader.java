@@ -41,7 +41,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Reader to parse a TNCCS language preference message value compliant to RFC
  * 5793 from a buffer of bytes to a Java object.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PbMessageLanguagePreferenceValueReader implements

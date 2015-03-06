@@ -29,7 +29,6 @@ package org.ietf.nea.pa.attribute.util;
  * Generic IETF RFC 5792 remediation parameter base. Especially important for
  * inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractPaAttributeValueRemediationParameter implements

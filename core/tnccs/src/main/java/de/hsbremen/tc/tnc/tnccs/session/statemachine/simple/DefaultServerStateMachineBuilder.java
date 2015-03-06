@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachineBuilder;
 /**
  * Builds a TNCS session state machine. The builder can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultServerStateMachineBuilder implements

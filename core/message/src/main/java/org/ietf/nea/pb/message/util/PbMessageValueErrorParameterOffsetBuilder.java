@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Generic builder to build an TNCCS message error parameter value with an
  * error offset compliant to RFC 5793. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PbMessageValueErrorParameterOffsetBuilder extends

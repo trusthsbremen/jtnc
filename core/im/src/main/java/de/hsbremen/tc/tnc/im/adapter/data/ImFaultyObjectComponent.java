@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  * minor ValidationException objects, which should be handled later and a
  * raw message header for the creation of a error message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImFaultyObjectComponent extends ImObjectComponent {

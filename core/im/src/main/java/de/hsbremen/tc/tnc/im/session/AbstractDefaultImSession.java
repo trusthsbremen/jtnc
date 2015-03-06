@@ -47,7 +47,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 /**
  * Generic base for an IM(C/V) session. Especially important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the related connection type
  */

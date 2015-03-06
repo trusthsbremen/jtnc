@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
  * Helper object to pass on a TNCCS message batch and minor
  * validation errors after parsing for further processing.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsBatchContainer extends

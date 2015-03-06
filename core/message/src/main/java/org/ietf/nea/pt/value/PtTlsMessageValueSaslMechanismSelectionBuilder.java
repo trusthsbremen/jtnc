@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.t.value.TransportMessageValueBuilder;
  * Generic builder to build a transport SASL mechanism selection message value
  * compliant to RFC 6876. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PtTlsMessageValueSaslMechanismSelectionBuilder extends

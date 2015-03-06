@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
  * Generic writer that accepts a TNCCS message object and serializes
  * it to the given byte buffer.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the TNCCS object to be accepted
  */

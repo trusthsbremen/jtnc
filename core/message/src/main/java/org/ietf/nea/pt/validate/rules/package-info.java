@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF transport message validation rules.
+ */
 package org.ietf.nea.pt.validate.rules;

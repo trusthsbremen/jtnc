@@ -14,7 +14,7 @@ import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
-import de.hsbremen.tc.tnc.im.evaluate.enums.PaComponentTypeEnum;
+import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;

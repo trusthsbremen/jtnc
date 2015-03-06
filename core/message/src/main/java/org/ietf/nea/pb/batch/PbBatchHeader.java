@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeader;
 /**
  * IETF RFC 5793 TNCCS batch header.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbBatchHeader implements TnccsBatchHeader {

@@ -28,7 +28,6 @@ package org.ietf.nea.pt.message.enums;
 /**
  * Enumeration of known transport message types.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PtTlsMessageTypeEnum {

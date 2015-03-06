@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
  * Collection of attribute values. Implementing the same access control methods
  * like the attribute values.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class AttributeCollection implements Attributed {

@@ -27,7 +27,6 @@ package org.ietf.nea.pb.batch.enums;
 /**
  * Enumeration of known TNCCS batch types.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbBatchTypeEnum {

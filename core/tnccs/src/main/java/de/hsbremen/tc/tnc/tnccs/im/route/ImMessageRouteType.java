@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
  * Message type route element of a route table. Contains recipients
  * interested in the message type.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the recipient type
  */

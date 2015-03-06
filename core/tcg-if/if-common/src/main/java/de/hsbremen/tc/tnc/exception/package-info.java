@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Commonly used exceptions.
+ */
 package de.hsbremen.tc.tnc.exception;

@@ -36,7 +36,6 @@ import org.trustedcomputinggroup.tnc.ifimv.IMV;
 /**
  * The CLI to interact with the NAA.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class NaaCLI {

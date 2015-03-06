@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * IETF RFC 5792 integrity measurement message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaMessage implements ImMessage {

@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.attribute.Attributed;
  * handling IF-TNCCS message destined for a TNC(C/S).
  * The builder can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the handler type (e.g. TNCC or TNCS handler)
  */

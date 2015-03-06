@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
  * IMV adapter time controlling proxy. Controls the runtime of an IMV function
  * call and cancels a function call if necessary.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImvAdapterTimeProxy extends AbstractTimeProxy implements

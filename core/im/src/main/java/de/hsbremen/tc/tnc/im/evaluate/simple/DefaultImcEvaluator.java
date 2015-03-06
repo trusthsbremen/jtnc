@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;
 /**
  * Default IMC evaluator.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcEvaluator extends AbstractImEvaluatorIetf implements

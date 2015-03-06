@@ -33,7 +33,6 @@ import java.util.List;
 /**
  * Factory to create the standard attribute types.
  *
- * @author Carl-Heinz Genzel
  */
 public final class DefaultTncAttributeTypeFactory implements
         TncAttributeTypeFactory {
@@ -45,8 +44,7 @@ public final class DefaultTncAttributeTypeFactory implements
     /**
      * Singleton to instantiate the factory only on first access.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private static class Singleton {
         private static final TncAttributeTypeFactory INSTANCE =
@@ -175,8 +173,7 @@ public final class DefaultTncAttributeTypeFactory implements
 
     /**
      * Comparator to sort and find attributes by type.
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class IdComparator implements Comparator<TncAttributeType> {
         @Override

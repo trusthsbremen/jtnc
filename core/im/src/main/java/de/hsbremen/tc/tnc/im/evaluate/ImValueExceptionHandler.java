@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 /**
  * Handles minor exceptions, that occurred during message receipt.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImValueExceptionHandler {

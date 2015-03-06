@@ -47,7 +47,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
  * IMV connection adapter adapting a simple IMV connection according to
  * IETF/TCG specifications.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements

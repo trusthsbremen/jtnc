@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.im.session.enums;
 /**
  * Enumeration of values to switch the message retrieval function.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum ImMessageTriggerEnum {

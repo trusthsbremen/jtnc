@@ -38,7 +38,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Builder to build a TNCCS error message value compliant to RFC 5793. It
  * evaluates the given values and can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueErrorBuilderIetf implements

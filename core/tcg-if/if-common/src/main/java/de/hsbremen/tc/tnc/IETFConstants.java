@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc;
 /**
  * Holds several constants, defined by the IETF.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class IETFConstants {

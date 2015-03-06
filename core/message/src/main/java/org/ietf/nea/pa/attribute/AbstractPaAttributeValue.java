@@ -28,7 +28,6 @@ package org.ietf.nea.pa.attribute;
  * Generic IETF RFC 5792 integrity measurement attribute value base. Especially
  * important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractPaAttributeValue implements PaAttributeValue {

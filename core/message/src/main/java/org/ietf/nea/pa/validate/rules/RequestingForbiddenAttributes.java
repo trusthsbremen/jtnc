@@ -38,7 +38,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if the list of attribute references contains references
  * to forbidden attributes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class RequestingForbiddenAttributes {

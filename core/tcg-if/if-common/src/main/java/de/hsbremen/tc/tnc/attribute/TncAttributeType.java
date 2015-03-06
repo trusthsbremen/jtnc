@@ -26,7 +26,6 @@ package de.hsbremen.tc.tnc.attribute;
 
 /**
  * Extensible enumeration for attribute types.
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncAttributeType {

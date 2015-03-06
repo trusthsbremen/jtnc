@@ -65,7 +65,6 @@ import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 /**
  * Transport connection with an underlying Socket.
  *
- * @author Carl-Heinz Genzel
  */
 public class SocketTransportConnection implements TransportConnection {
     private static final Logger LOGGER = LoggerFactory
@@ -714,8 +713,7 @@ public class SocketTransportConnection implements TransportConnection {
      * Runnable which handles the transport phase with a remote peer.
      * It listens for incoming messages.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class TransportPhase implements Runnable {
         @Override

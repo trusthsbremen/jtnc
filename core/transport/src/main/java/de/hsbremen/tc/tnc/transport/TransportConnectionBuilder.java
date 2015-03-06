@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.transport;
  * Generic TransportConnectionBuilder to create a TransportConnection with an
  * underlying transport object (e.g. Socket).
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the underlying transport object
  */

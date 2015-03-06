@@ -38,7 +38,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Factory utility to create a IETF RFC 6876 compliant transport message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PtTlsMessageValueFactoryIetf {

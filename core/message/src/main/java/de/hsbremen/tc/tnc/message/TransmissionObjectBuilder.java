@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.message;
  * Generic builder base to build a transmission object such as batch, message or
  * attribute.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the transmission object type to build
  */

@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 /**
  * Default attributes for a TNC(C/S) session.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultSessionAttributes implements SessionAttributes {

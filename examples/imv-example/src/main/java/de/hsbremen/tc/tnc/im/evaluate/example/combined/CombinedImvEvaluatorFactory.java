@@ -52,7 +52,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Example IMV evaluator factory to compose a integrity measurement component of
  * several evaluation units.
  *
- * @author Carl-Heinz Genzel
  *
  */
 @Deprecated

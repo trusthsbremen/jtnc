@@ -35,7 +35,6 @@ import com.sun.jna.Structure;
  * JNI example to connect to the libc library of a UNIX/Linux system and get
  * information about the system.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface CLibrary extends Library {
@@ -44,8 +43,7 @@ public interface CLibrary extends Library {
 
     /**
      * Structure containing the attributes of the uname() c-function.
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     public static class UTSNAME extends Structure {
         /** C type : char[64 + 1]. */

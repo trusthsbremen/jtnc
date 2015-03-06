@@ -40,7 +40,6 @@ import de.hsbremen.tc.tnc.im.session.ImcSession;
 /**
  * Custom file IMC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class FileImc extends ImcAdapterIetf {

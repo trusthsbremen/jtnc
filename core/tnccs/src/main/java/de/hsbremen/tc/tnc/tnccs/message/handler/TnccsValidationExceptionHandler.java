@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
  * Generic handler to handle minor message validation
  * exceptions.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsValidationExceptionHandler {

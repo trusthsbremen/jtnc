@@ -28,7 +28,6 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 
 /**
  * Signals that a pattern of a reference value was not found during evaluation.
- * @author Carl-Heinz Genzel
  *
  */
 public class PatternNotFoundException extends ComprehensibleException {

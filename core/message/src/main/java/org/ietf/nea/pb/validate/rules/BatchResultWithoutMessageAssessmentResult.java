@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
  * Rule, that checks if batch is result batch and contains assessment result.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class BatchResultWithoutMessageAssessmentResult {

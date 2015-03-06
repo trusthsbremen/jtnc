@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Commonly used utilities.
+ */
 package de.hsbremen.tc.tnc.util;

@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsContentHandler;
  * Generic builder to build a TNC(C/S) session state machine.
  * The builder can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the state machine type based on its content handler (e.g. TNCC ->
  * TNCC content handler)

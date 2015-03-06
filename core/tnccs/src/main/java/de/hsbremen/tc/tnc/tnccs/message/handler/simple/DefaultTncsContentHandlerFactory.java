@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Default TNCS content handler factory to create a default TNCS
  * content handler.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTncsContentHandlerFactory implements

@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.tnccs.TnccsData;
  * Marker to characterize an object as TNCCS
  * message value used by TNC(C/S).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsMessageValue extends TnccsData {

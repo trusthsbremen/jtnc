@@ -29,7 +29,6 @@ import org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueErrorInformation;
 /**
  * IETF RFC 5792 integrity measurement error attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueError extends AbstractPaAttributeValue {

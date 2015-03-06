@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
  * Generic IM(C/V) session parameter set. It contains values that are specific
  * for the underlying connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImSessionContext {

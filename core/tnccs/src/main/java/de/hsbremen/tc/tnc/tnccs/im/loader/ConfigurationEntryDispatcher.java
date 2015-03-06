@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
 /**
  * Dispatches configuration entries to registered configuration handlers.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConfigurationEntryDispatcher {

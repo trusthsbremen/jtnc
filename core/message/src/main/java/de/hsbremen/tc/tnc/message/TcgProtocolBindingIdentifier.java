@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.message;
  * Extensible enumeration for protocol identifiers.
  * A protocol identifier has always a label and a version.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TcgProtocolBindingIdentifier {

@@ -32,7 +32,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeOperationStatusEnum;
 /**
  * IETF RFC 5792 integrity measurement operational status attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueOperationalStatus extends

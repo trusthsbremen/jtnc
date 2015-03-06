@@ -41,7 +41,6 @@ import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
  * Generic base for an IM(C/V) manager. Especially
  * important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the managed type (e.g. IMC or IMV)
  */

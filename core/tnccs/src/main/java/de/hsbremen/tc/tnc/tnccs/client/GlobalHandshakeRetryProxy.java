@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 /**
  * Helper to manage global handshake request retries like events.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class GlobalHandshakeRetryProxy implements GlobalHandshakeRetryListener {

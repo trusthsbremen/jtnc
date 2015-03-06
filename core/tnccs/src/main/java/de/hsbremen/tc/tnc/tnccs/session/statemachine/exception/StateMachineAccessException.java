@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine.exception;
  * Exception signals exceptions that are thrown by the state machine according
  * to its current state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class StateMachineAccessException extends Exception {

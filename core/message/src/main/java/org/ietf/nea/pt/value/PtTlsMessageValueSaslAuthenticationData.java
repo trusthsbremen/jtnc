@@ -29,7 +29,6 @@ import java.util.Arrays;
 /**
  * IETF RFC 6876 transport SASL authentication data message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageValueSaslAuthenticationData extends

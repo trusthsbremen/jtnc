@@ -40,7 +40,6 @@ import de.hsbremen.tc.tnc.im.session.ImvSession;
 /**
  * Custom operating system IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class OsImv extends ImvAdapterIetf {

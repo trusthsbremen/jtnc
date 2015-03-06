@@ -30,7 +30,6 @@ import java.util.Arrays;
  * Helper object that contains a parsed IETF RFC 5792 message header dump
  * including any reserved value fields for error handling.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class MessageHeaderDump {

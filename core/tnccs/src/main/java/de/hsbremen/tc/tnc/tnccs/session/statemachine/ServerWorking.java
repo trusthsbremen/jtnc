@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine;
 /**
  * Marker to characterize a state as server working state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ServerWorking {

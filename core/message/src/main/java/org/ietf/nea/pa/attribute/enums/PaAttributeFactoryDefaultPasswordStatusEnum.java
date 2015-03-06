@@ -28,7 +28,6 @@ package org.ietf.nea.pa.attribute.enums;
  * Enumeration of known integrity measurement factory default password status
  * values.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PaAttributeFactoryDefaultPasswordStatusEnum {

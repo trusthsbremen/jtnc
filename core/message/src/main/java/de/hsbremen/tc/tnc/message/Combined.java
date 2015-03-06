@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.message;
  * Generic helper to enable arbitrary message related objects to be stacked
  * together via add and remove operations.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the object type that will be stacked
  */

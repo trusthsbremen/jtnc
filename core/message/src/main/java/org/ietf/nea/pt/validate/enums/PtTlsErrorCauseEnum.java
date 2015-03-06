@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Enumeration of error causes according to invalid transport messages or
  * transport message values.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PtTlsErrorCauseEnum {

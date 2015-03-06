@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImcConnectionContext;
 /**
  * Default IMC connection context.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcConnectionContext extends AbstractImConnectionContext

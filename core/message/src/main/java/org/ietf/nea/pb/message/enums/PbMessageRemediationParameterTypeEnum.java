@@ -27,7 +27,6 @@ package org.ietf.nea.pb.message.enums;
 /**
  * Enumeration of known TNCCS message remediation parameter value types.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbMessageRemediationParameterTypeEnum {

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF transport message byte buffer readers.
+ */
 package org.ietf.nea.pt.serialize.reader.bytebuffer;

@@ -49,7 +49,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Example IMV evaluator factory to compose a integrity measurement
  * for a operating system component.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class OsImvEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {

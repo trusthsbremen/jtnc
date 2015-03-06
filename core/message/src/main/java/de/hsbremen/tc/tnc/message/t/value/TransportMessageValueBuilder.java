@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.TransmissionObjectBuilder;
 /**
  * Generic builder base to build a transport message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TransportMessageValueBuilder extends

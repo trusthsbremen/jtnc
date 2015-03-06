@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC report constants.
+ */
 package de.hsbremen.tc.tnc.report.enums;

@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
 /**
  * Generic factory to create a session for a TNC(C/S).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface SessionFactory {

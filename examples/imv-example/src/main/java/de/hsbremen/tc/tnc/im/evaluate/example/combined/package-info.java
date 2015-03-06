@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Combined file and OS integrity measurement verification example.
+ */
 package de.hsbremen.tc.tnc.im.evaluate.example.combined;

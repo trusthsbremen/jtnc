@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.im.evaluate;
 /**
  * Generic IMC evaluation unit measuring an AR.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcEvaluationUnit extends ImEvaluationUnit {

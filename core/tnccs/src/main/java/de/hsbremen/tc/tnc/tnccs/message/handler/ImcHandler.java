@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.message.handler;
 /**
  * Generic handler to handle messages destined to/from an IMC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcHandler extends TnccsMessageHandler {

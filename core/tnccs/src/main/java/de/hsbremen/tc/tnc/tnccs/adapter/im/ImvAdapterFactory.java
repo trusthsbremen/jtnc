@@ -29,7 +29,6 @@ import org.trustedcomputinggroup.tnc.ifimv.IMV;
 /**
  * Generic IMV adapter factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvAdapterFactory {

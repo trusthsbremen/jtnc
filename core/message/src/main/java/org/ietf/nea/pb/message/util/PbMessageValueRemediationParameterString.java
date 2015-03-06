@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 /**
  * IETF RFC 5793 TNCCS string remediation parameter.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueRemediationParameterString extends

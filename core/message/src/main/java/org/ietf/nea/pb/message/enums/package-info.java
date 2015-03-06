@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF TNCCS message constants.
+ */
 package org.ietf.nea.pb.message.enums;

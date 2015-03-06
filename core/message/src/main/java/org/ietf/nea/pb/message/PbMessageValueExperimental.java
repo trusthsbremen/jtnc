@@ -27,7 +27,6 @@ package org.ietf.nea.pb.message;
 /**
  * IETF RFC 5793 TNCCS experimental message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueExperimental extends AbstractPbMessageValue {

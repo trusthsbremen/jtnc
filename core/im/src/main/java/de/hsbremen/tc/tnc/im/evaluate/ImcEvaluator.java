@@ -26,7 +26,6 @@ package de.hsbremen.tc.tnc.im.evaluate;
 
 /**
  * Generic IMC evaluator holding IMC evaluation units.
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcEvaluator extends ImEvaluator {

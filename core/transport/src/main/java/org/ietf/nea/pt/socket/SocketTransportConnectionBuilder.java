@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Builder to create a TransportConnection based on an underlying socket.
  *
- * @author Carl-Heinz Genzel
  */
 public class SocketTransportConnectionBuilder implements
         TransportConnectionBuilder<Socket> {

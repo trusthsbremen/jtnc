@@ -51,7 +51,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
  * notifies change handlers about these events. It checks the file
  * in a regular timed interval.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultConfigurationFileChangeMonitor implements
@@ -130,8 +129,7 @@ public class DefaultConfigurationFileChangeMonitor implements
     /**
      * Runnable to check a files for changes.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class FileChecker implements Runnable {
 

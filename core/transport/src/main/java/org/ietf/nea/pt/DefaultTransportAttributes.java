@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.transport.TransportAttributes;
 /**
  * Default attributes for a TransportConnection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTransportAttributes implements TransportAttributes {

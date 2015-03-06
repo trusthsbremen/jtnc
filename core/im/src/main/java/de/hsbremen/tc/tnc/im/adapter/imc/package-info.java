@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TCG IMC adapter.
+ */
 package de.hsbremen.tc.tnc.im.adapter.imc;

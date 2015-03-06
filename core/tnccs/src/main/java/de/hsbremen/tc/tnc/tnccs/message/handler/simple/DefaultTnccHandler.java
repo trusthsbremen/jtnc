@@ -49,7 +49,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Default handler to handle messages destined to/from a TNCC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTnccHandler implements TnccHandler {

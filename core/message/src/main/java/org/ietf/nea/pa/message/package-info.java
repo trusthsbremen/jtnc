@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF integrity measurement message implementation.
+ */
 package org.ietf.nea.pa.message;

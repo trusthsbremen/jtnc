@@ -59,7 +59,6 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler;
 /**
  * Default IMV handler to handle messages destined to/from an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvHandler implements ImvHandler {

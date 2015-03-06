@@ -31,7 +31,6 @@ import org.ietf.nea.pa.attribute.enums
  * IETF RFC 5792 integrity measurement factory default password status attribute
  * value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueFactoryDefaultPasswordEnabled extends

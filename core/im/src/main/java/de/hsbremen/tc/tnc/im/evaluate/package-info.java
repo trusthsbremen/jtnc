@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Integrity measurement evaluation core.
+ */
 package de.hsbremen.tc.tnc.im.evaluate;

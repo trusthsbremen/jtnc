@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
  * Helper object to pass on a transport message and minor
  * validation errors after parsing for further processing.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TransportMessageContainer extends

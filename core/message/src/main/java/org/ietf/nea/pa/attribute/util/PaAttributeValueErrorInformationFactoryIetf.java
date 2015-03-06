@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Factory utility to create an IETF RFC 5792 compliant
  * error information.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PaAttributeValueErrorInformationFactoryIetf {

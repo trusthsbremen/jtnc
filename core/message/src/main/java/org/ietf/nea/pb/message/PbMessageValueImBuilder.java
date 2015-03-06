@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
  * Generic builder to build a TNCCS integrity measurement component message
  * value compliant to RFC 5793. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PbMessageValueImBuilder extends TnccsMessageValueBuilder {

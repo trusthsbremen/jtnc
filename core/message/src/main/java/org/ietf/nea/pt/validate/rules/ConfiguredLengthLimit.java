@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if a given length does not exceed a configured maximum
  * length.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ConfiguredLengthLimit {

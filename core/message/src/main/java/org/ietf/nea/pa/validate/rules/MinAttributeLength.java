@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if the given length satisfies the minimum attribute length
  * requirement.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class MinAttributeLength {

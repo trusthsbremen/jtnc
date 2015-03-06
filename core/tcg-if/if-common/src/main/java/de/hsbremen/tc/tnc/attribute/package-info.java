@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC client and server attributes.
+ */
 package de.hsbremen.tc.tnc.attribute;

@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.im.adapter.connection;
 /**
  * Generic adapter for an IMC connection.
  *
- * @author Carl-Heinz Genzel
  */
 public interface ImcConnectionAdapter extends ImConnectionAdapter {
     // no additional methods needed

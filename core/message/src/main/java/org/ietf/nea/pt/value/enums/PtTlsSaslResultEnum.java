@@ -27,7 +27,6 @@ package org.ietf.nea.pt.value.enums;
 /**
  * Enumeration of known SASL authentication results.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PtTlsSaslResultEnum {

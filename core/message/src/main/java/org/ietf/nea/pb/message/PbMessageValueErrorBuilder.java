@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder;
  * Generic builder to build a TNCCS error message value compliant to RFC 5793.
  * It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PbMessageValueErrorBuilder extends TnccsMessageValueBuilder {

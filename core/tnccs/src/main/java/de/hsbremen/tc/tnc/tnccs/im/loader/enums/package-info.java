@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) configuration management constants.
+ */
 package de.hsbremen.tc.tnc.tnccs.im.loader.enums;

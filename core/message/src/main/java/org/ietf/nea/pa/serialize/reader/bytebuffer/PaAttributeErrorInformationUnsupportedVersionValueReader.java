@@ -43,7 +43,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
  * Reader to parse an integrity measurement unsupported version error
  * information compliant to RFC 5792 from a buffer of bytes to a Java object.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PaAttributeErrorInformationUnsupportedVersionValueReader implements

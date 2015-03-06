@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.exception.TncException;
 /**
  * Generic attribute access control methods.
  *
- * @author Carl-Heinz Genzel
  */
 public interface Attributed {
 

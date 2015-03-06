@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * NA(A/R) API constants.
+ */
 package de.hsbremen.tc.tnc.tnccs.client.enums;

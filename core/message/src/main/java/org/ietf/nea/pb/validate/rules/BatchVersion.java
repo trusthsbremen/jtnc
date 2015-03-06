@@ -30,7 +30,6 @@ import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if given batch version is supported.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class BatchVersion {

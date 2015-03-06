@@ -30,7 +30,6 @@ import java.util.Comparator;
  * Simple recommendation comparator comparing recommendations based on the least
  * privilege principle.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public final class LeastPrivilegeRecommendationComparator implements
@@ -39,8 +38,7 @@ public final class LeastPrivilegeRecommendationComparator implements
     /**
      * Singleton to instantiate the factory only on first access.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private static class Singleton {
         private static final Comparator<ImvRecommendationPair> INSTANCE =

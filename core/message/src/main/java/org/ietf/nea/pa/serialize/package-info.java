@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF integrity measurement message serialization.
+ */
 package org.ietf.nea.pa.serialize;

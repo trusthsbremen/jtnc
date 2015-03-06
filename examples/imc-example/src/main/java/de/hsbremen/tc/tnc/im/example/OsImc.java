@@ -40,7 +40,6 @@ import de.hsbremen.tc.tnc.im.session.ImcSession;
 /**
  * Custom operating system IMC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class OsImc extends ImcAdapterIetf {

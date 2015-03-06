@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Transport protocol identification constants.
+ */
 package de.hsbremen.tc.tnc.message.t.enums;

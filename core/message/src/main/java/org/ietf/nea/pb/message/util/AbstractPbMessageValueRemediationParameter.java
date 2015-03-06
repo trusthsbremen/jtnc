@@ -29,7 +29,6 @@ package org.ietf.nea.pb.message.util;
  * Generic IETF RFC 5793 remediation parameter base. Especially important for
  * inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractPbMessageValueRemediationParameter implements

@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
  * IMC adapter time controlling proxy. Controls the runtime of an IMC function
  * call and cancels a function call if necessary.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImcAdapterTimeProxy extends AbstractTimeProxy implements

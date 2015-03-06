@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
  * function for all connections of a session. It enables the connection to
  * interact with the related session.
  *
- * @author Carl-Heinz Genzel
  *
  */
 interface ImConnectionContext extends Attributed {

@@ -30,7 +30,6 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 /**
  * Generic IMC connection adapter adapting and controlling an IMC connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcConnectionAdapter extends ImConnectionAdapter,

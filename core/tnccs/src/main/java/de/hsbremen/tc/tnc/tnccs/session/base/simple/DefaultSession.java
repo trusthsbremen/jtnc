@@ -66,7 +66,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * This implementation uses an event based approach to handle
  * incoming messages and handshake retry requests.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultSession implements Session {
@@ -276,8 +275,7 @@ public class DefaultSession implements Session {
      * connection. If the underlying connection was initiated at this side,
      * the first message batch will be send too.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class Start implements Runnable {
 
@@ -340,8 +338,7 @@ public class DefaultSession implements Session {
      * Runnable which receives and parses a message batch
      * from the underlying connection.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class Receive implements Runnable {
 
@@ -405,8 +402,7 @@ public class DefaultSession implements Session {
     /**
      * Runnable which tries to execute a handshake retry.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class Retry implements Callable<Boolean> {
 

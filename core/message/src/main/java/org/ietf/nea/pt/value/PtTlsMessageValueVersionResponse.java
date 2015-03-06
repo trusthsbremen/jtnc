@@ -27,7 +27,6 @@ package org.ietf.nea.pt.value;
 /**
  * IETF RFC 6876 transport version response message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageValueVersionResponse extends

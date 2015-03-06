@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder;
  * Generic builder to build a TNCCS batch header compliant to RFC 5793. It can
  * be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PbBatchHeaderBuilder extends TnccsBatchHeaderBuilder {

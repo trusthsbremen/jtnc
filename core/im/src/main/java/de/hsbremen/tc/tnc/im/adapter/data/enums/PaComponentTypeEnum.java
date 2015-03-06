@@ -22,13 +22,12 @@
  * THE SOFTWARE.
  *
  */
-package de.hsbremen.tc.tnc.im.evaluate.enums;
+package de.hsbremen.tc.tnc.im.adapter.data.enums;
 
 
 /**
  * Enumeration of known component types.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PaComponentTypeEnum {

@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
  * Exception that signals errors writting bytes to or reading byte from a byte
  * containing object such as stream or byte buffer.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class SerializationException extends ComprehensibleException {

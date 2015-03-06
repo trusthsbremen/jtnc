@@ -58,7 +58,6 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler;
 /**
  * Default IMC handler to handle messages destined to/from an IMC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcHandler implements ImcHandler {

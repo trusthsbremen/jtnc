@@ -34,7 +34,6 @@ import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
 /**
  * IETF RFC 5792 integrity measurement attribute request attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueAttributeRequest extends AbstractPaAttributeValue {

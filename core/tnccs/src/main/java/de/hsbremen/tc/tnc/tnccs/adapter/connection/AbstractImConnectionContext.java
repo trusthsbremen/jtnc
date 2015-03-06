@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 /**
  * Generic base for an IM(C/V) connection context.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractImConnectionContext implements

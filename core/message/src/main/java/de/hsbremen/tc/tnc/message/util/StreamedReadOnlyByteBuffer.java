@@ -36,7 +36,6 @@ import java.util.Arrays;
  * MAX_LONG. The buffer cannot be reverted, because of the stream nature.
  * If the stream throws an error the error is signaled by a buffer underflow.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class StreamedReadOnlyByteBuffer implements ByteBuffer {

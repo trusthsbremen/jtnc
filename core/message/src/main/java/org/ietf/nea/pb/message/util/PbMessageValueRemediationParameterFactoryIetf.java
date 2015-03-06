@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Factory utility to create a IETF RFC 5793 compliant
  * remediation parameter.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PbMessageValueRemediationParameterFactoryIetf {

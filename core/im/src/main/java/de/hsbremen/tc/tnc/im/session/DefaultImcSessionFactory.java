@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  * Default factory to create a session for an IMC.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcSessionFactory implements ImSessionFactory<ImcSession> {
@@ -42,8 +41,7 @@ public class DefaultImcSessionFactory implements ImSessionFactory<ImcSession> {
     /**
      * Singleton to instantiate the factory only on first access.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private static class Singleton {
         private static final ImSessionFactory<ImcSession> INSTANCE =

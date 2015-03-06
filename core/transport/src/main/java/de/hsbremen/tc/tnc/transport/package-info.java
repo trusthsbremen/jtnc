@@ -23,7 +23,6 @@
  *
  */
 /**
- * @author Carl-Heinz Genzel
- *
+ * Transport connection API.
  */
 package de.hsbremen.tc.tnc.transport;

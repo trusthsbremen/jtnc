@@ -40,7 +40,6 @@ import de.hsbremen.tc.tnc.im.session.ImvSession;
 /**
  * Custom file IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class FileImv extends ImvAdapterIetf {

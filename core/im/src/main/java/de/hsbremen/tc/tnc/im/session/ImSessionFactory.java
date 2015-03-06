@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 /**
  * Generic factory to create a session for an IM(C/V).
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the session type (e.g. IMC or IMV session)
  */

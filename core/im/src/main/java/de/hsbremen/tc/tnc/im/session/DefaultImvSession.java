@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 /**
  * Default IMV session managing an IMV connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImvSession extends

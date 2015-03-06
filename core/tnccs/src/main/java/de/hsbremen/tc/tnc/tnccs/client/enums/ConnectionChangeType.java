@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.client.enums;
 /**
  * Extensible enumeration for connection change types.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConnectionChangeType {

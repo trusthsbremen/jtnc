@@ -30,7 +30,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeForwardingStatusEnum;
  * IETF RFC 5792 integrity measurement traffic forwarding enabled attribute
  * value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueForwardingEnabled extends

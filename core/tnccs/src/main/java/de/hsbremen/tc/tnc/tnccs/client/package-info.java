@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * NA(A/R) API facade.
+ */
 package de.hsbremen.tc.tnc.tnccs.client;

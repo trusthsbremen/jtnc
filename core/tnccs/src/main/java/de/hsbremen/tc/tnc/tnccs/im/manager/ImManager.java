@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 /**
  * Generic IM(C/V) manager baser to manage the IM(C/V) life cycle.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the managed type (e.g. IMC or IMV)
  */

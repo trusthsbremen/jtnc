@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
  * Listener which is notified to receive a message buffer and when the
  * TransportConnection is closed.
  *
- * @author Carl-Heinz Genzel
  */
 public interface TnccsListener {
 

@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
  * Generic reader that reads byte data from a byte buffer,
  * and parses it to a transport message object.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the resulting transport Java object
  */

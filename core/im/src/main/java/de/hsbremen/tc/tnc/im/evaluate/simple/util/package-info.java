@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Utilities for evaluation.
+ */
 package de.hsbremen.tc.tnc.im.evaluate.simple.util;

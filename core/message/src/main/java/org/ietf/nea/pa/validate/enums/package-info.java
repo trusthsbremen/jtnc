@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF integrity measurement validation constants.
+ */
 package org.ietf.nea.pa.validate.enums;

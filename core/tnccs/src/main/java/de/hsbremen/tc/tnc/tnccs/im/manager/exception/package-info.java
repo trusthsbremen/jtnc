@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) management excpetions.
+ */
 package de.hsbremen.tc.tnc.tnccs.im.manager.exception;

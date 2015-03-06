@@ -35,7 +35,6 @@ import java.nio.BufferOverflowException;
  * The buffer cannot be reverted, because of the stream nature. If the stream
  * throws an error the error is signaled by a buffer overflow.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class StreamedWriteOnlyByteBuffer implements ByteBuffer {

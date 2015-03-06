@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.Data;
  * Marker to characterize a message or message
  * component as a message used by TNC(C/S).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsData extends Data {

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * JNI usage example.
+ */
 package de.hsbremen.tc.tnc.natives;

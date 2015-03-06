@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 /**
  * Generic IMC connection context.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcConnectionContext extends ImConnectionContext {

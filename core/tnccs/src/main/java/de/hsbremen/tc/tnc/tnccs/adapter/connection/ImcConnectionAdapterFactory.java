@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 /**
  * Generic IMC connection adapter factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImcConnectionAdapterFactory {

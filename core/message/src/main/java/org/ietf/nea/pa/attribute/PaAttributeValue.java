@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValue;
 /**
  * Generic IETF RFC 5792 integrity measurement attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PaAttributeValue extends ImAttributeValue {

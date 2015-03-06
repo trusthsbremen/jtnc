@@ -27,7 +27,6 @@ package org.ietf.nea.pa.attribute.util;
 /**
  * IETF RFC 5792 integrity measurement invalid parameter error information.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueErrorInformationInvalidParam extends

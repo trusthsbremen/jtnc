@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Transport connection API exceptions.
+ */
 package de.hsbremen.tc.tnc.transport.exception;

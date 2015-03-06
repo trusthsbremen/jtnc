@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Integrity measurement serialization interfaces.
+ */
 package de.hsbremen.tc.tnc.message.m.serialize;

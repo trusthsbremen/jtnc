@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 /**
  * Exception signals exceptions that are thrown by a TransportConnection.
  *
- * @author Carl-Heinz Genzel
  */
 public class ConnectionException extends ComprehensibleException {
 

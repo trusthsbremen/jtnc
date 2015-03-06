@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * Generic attribute type factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncAttributeTypeFactory {

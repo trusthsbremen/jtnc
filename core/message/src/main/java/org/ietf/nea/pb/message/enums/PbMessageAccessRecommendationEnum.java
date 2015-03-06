@@ -27,7 +27,6 @@ package org.ietf.nea.pb.message.enums;
 /**
  * Enumeration of known TNCCS access recommendations.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbMessageAccessRecommendationEnum {

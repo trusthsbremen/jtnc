@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
  * Implements all methods as unsupported operation. Methods must be
  * overwritten to work properly. Holds the successor state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractState implements State {

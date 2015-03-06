@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 /**
  * Generic base for an evaluation unit. Especially important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractImEvaluationUnitIetf implements ImEvaluationUnit {

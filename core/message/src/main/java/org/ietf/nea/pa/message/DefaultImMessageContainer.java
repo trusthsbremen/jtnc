@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
  * Default helper object to pass on an integrity measurement component message
  * and minor validation errors after parsing for further processing.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImMessageContainer implements ImMessageContainer {

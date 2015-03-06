@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.TransmissionObjectBuilder;
  * Generic builder base to build an integrity measurement
  * attribute header.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImAttributeHeaderBuilder extends

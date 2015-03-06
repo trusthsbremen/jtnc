@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
  * Facade for an NA(A/R) to submit new connections and
  * connection changes to a TNC(S/C).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ClientFacade {

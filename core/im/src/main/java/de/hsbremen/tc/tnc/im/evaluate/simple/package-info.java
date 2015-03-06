@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Default integrity measurement evaluation core implementation.
+ */
 package de.hsbremen.tc.tnc.im.evaluate.simple;

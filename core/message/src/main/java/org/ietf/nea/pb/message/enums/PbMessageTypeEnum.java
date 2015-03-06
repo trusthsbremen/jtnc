@@ -28,7 +28,6 @@ package org.ietf.nea.pb.message.enums;
 /**
  * Enumeration of known TNCCS message types.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbMessageTypeEnum {

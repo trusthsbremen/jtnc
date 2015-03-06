@@ -35,7 +35,6 @@ package de.hsbremen.tc.tnc.message.util;
  * thrown if the bytes read exceed the bytes written. Overflow is thrown
  * if the bytes written exceed the buffer capacity.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ByteBuffer {

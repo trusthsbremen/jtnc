@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
  * Generic writer that accepts an integrity measurement message object and
  * serializes it to the given byte buffer.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the integrity measurement object to be accepted
  */

@@ -46,7 +46,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Default IMC evaluator factory to compose the integrity measurement
  * components.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcEvaluatorFactory extends AbstractImEvaluatorFactoryIetf {

@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
  * Default TNCS decided state. The TNCS waits for handshake
  * retry requests in the decided state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultServerDecidedState extends AbstractState implements Decided {

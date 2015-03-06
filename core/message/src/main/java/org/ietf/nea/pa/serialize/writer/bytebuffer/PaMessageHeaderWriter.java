@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Writer to serialize an integrity measurement component message header
  * compliant to RFC 5792 from a Java object to a buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PaMessageHeaderWriter implements ImWriter<PaMessageHeader> {

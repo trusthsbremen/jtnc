@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
  * exception handler, to handle minor validation exceptions.
  * The builder can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTnccsValidationExceptionHandlerBuilder implements

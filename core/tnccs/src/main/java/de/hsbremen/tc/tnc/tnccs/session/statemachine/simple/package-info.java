@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * State machine implementation.
+ */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.simple;

@@ -28,7 +28,6 @@ package org.ietf.nea.pb.message.enums;
  * Enumeration of known TNCCS message error value flag bits. All bits together
  * fill exactly one byte (111111111).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbMessageErrorFlagsEnum {

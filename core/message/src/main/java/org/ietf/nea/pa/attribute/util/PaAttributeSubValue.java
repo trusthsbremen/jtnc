@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.m.ImData;
  * Generic value contained in an integrity measurement attribute value
  * as supporting value.
  *
- * @author Carl-Heinz Genzel
  */
 public interface PaAttributeSubValue extends ImData {
 

@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.tnccs.adapter.connection.ImvConnectionContext;
  * Generic builder to build a message handler, handling IF-TNCCS message
  * destined for an IMV. The builder can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvHandlerBuilder extends HandlerBuilder<ImvHandler> {

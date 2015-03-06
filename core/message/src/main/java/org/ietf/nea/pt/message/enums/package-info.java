@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF transport message constants.
+ */
 package org.ietf.nea.pt.message.enums;

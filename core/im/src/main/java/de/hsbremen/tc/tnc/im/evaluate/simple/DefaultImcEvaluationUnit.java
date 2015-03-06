@@ -45,7 +45,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 /**
  * Default IMC evaluation unit. Does only log.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcEvaluationUnit extends AbstractImcEvaluationUnitIetf

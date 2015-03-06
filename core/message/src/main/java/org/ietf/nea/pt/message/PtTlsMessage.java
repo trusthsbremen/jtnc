@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * IETF RFC 6876 transport message.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessage implements TransportMessage {

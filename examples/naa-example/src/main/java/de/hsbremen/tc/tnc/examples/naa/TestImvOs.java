@@ -41,7 +41,6 @@ import de.hsbremen.tc.tnc.im.session.ImvSession;
  * Overwritten default IMV to add custom elements. In this case the example
  * IMV to evaluate operating system attributes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class TestImvOs extends ImvAdapterIetf {

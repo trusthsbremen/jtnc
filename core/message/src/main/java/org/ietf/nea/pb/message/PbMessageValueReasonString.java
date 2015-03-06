@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 /**
  * IETF RFC 5793 TNCCS reason string message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueReasonString extends AbstractPbMessageValue {

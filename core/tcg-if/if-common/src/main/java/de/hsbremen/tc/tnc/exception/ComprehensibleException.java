@@ -32,7 +32,6 @@ import java.util.List;
  * Generic exception that can hold further objects to assess the reason for an
  * exception.
  *
- * @author Carl-Heinz Genzel
  */
 public abstract class ComprehensibleException extends Exception {
 

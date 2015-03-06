@@ -35,7 +35,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
  * exceptions. It manages different message handlers and dispatches the received
  * messages to these handlers.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsContentHandler {

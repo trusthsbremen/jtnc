@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * NAA example implementation.
+ */
 package de.hsbremen.tc.tnc.examples.naa;

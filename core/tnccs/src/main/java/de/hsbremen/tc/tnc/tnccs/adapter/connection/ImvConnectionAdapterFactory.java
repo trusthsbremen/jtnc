@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 /**
  * Generic IMV connection adapter factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvConnectionAdapterFactory {

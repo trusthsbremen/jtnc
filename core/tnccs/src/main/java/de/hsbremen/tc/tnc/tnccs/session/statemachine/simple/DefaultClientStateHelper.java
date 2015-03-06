@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
  * Default TNCC state helper to make information and commonly used
  * functions accessible to a TNCC state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultClientStateHelper extends

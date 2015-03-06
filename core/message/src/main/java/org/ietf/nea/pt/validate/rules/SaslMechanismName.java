@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Rule, that checks if SASL mechanism name meets the
  * RFC 4422 conventions.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class SaslMechanismName {

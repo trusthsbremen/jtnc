@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Writer to serialize a transport SASL result message value compliant to RFC
  * 6876 from a Java object to a buffer of bytes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PtTlsMessageSaslResultValueWriter implements

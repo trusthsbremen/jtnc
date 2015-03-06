@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.tnccs.im.loader;
  * Generic file change monitor, that watches a file for changes or deletion and
  * notifies change handler about these events.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConfigurationFileChangeMonitor {

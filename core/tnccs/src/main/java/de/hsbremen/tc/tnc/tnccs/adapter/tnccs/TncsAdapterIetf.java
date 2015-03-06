@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
  * TNCS adapter according to IETF/TCG specifications.
  * Implementing a simple IF-IMV TNCS interface.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class TncsAdapterIetf implements TNCS {

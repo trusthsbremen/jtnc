@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 /**
  * Entity which holds a integrity result pair from an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImvRecommendationPair {

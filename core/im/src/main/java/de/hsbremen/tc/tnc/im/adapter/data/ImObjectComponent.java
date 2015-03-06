@@ -39,7 +39,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  * component including the message header values and
  * the integrity measurement attributes as parsed objects.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImObjectComponent extends AbstractImComponent {

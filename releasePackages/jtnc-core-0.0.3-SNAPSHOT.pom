@@ -26,13 +26,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- <main.basedir>${project.basedir}</main.basedir> -->
 	</properties>
-	<distributionManagement>
-	    <repository>
-	      <id>tnc.repo</id>
-	      <name>Java TNC Repository</name>
-	      <url>file:/home/sidanetdev/git/smgw-app/main/repo/</url>
-	    </repository>
-    </distributionManagement>
+<!-- 	<distributionManagement> -->
+<!-- 	    <repository> -->
+<!-- 	      <id>tnc.repo</id> -->
+<!-- 	      <name>Java TNC Repository</name> -->
+<!-- 	      <url>file:/home/sidanetdev/git/smgw-app/main/repo/</url> -->
+<!-- 	    </repository> -->
+<!--     </distributionManagement> -->
 	<pluginRepositories>
 		<pluginRepository>
 			<id>doodleproject-repo</id>

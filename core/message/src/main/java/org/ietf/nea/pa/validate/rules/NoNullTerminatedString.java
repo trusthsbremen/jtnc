@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Rule, that checks if string is not terminated with null.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class NoNullTerminatedString {

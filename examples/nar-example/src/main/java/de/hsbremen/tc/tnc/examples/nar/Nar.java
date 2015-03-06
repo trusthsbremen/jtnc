@@ -70,7 +70,6 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
 /**
  * An example Network Access Requestor. Request handshake at localhost:10229.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class Nar {

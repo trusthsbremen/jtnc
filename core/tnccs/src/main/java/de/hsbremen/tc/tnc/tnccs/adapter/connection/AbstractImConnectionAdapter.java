@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.tnccs.adapter.connection;
  * Generic base for an IM(C/V) connection adapter with connection control
  * functions. Especially important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class AbstractImConnectionAdapter implements ImConnectionAdapter {

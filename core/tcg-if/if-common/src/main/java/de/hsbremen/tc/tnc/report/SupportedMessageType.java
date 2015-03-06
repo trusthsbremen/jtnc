@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.report;
 /**
  * Entity which holds a qualified message type using vendor ID and type ID.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class SupportedMessageType implements Comparable<SupportedMessageType> {

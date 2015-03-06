@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
  * message or batch and minor validation errors after parsing for further
  * processing.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the transmission object, the type must extend the
  * data marker.

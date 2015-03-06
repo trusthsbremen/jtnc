@@ -30,7 +30,6 @@ import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if the message version is supported.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class MessageVersion {

@@ -26,7 +26,6 @@ package org.ietf.nea.pb.message.enums;
 
 /**
  * Enumeration of known TNCCS message error codes.
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbMessageErrorCodeEnum {

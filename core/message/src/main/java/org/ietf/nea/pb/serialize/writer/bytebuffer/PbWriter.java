@@ -49,7 +49,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * ...). Message value writers can be managed with the add and remove
  * operations.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbWriter implements TnccsWriter<TnccsBatch>,

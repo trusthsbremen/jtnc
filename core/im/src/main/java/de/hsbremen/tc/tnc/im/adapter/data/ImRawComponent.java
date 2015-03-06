@@ -31,7 +31,6 @@ import java.util.Arrays;
  * component including the message header values and
  * the message as raw byte array.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class ImRawComponent extends AbstractImComponent {

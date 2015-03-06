@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.IETFConstants;
  * Builder to build an integrity measurement unsupported version error
  * information value compliant to RFC 5792. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf

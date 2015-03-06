@@ -47,7 +47,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
  * configuration entries and the resulting entries are dispatched
  * to registered configuration handlers.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultConfigurationFileChangeListener implements

@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.connection;
 /**
  * Extensible enumeration for connection states.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncConnectionState {

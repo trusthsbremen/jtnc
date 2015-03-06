@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageHeader;
 /**
  * IETF RFC 5793 TNCCS message header.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageHeader implements TnccsMessageHeader {

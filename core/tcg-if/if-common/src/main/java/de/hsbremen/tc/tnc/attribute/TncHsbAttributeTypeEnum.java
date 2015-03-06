@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.attribute;
 /**
  * Enumeration of additional attributes used by this implementation.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum TncHsbAttributeTypeEnum implements TncAttributeType {

@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if a given length value is within common limits.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class CommonLengthLimits {

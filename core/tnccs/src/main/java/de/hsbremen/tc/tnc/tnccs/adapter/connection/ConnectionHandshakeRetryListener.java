@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
  * Generic listener for handshake retry requests from an IM(C/V) for a specific
  * connection.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConnectionHandshakeRetryListener {

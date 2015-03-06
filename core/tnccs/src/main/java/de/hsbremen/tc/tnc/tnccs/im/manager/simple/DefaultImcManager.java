@@ -54,7 +54,6 @@ import de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter;
 /**
  * Default IMC manager, that manages IMC and its associated adapters.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcManager extends AbstractImManager<IMC> implements
@@ -176,8 +175,7 @@ public class DefaultImcManager extends AbstractImManager<IMC> implements
      * accessible thru generic attribute getters and
      * setters.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class PrimaryImcIdAttribute implements Attributed {
 

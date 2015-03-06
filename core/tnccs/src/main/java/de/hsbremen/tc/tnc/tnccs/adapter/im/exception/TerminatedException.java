@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
  * Exception signals that an IM(C/V) is terminated and should be
  * removed.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class TerminatedException extends ComprehensibleException {

@@ -27,7 +27,6 @@ package org.ietf.nea.pa.attribute.enums;
 /**
  * Enumeration of known integrity measurement operational status values.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PaAttributeOperationStatusEnum {

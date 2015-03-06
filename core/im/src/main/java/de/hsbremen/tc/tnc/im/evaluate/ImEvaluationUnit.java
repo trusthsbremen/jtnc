@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  * measure/evaluate a certain aspect of a component (e.g. the version of
  * the anti-virus software for the anti-virus component).
  *
- * @author Carl-Heinz Genzel
  *
  */
 interface ImEvaluationUnit extends ImEvaluationComponent<ImAttribute> {

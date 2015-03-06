@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 /**
  * Exception that signals that a rule was violated by a checked value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class RuleException extends ComprehensibleException {

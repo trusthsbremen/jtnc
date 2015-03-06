@@ -30,7 +30,6 @@ import java.io.File;
  * Generic file change listener to listen for file change events
  * of one file.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConfigurationFileChangeListener {

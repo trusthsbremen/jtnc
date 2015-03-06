@@ -43,7 +43,6 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
  * Implementing an IF-IMC TNCC interface with long addressing
  * support.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class TnccAdapterIetfLong extends TnccAdapterIetf implements TNCCLong {

@@ -73,7 +73,6 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
  * An example Network Access Authority.
  * Listens for handshakes at localhost:10229.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class Naa {
@@ -211,8 +210,7 @@ public class Naa {
      * Runnable which manages the server socket to accept connections
      * and dispatch them to the TNCS.
      *
-     * @author Carl-Heinz Genzel
-     *
+         *
      */
     private class ServerRunner implements Runnable {
 

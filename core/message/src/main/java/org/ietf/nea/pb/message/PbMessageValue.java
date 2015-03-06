@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue;
 /**
  * Generic IETF RFC 5793 TNCCS message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface PbMessageValue extends TnccsMessageValue {

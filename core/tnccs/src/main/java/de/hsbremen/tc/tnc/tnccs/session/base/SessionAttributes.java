@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
  * Common attributes for every TNC(C/S) session. Attributes are accessible
  * thru getters as well as thru Attributed.
  *
- * @author Carl-Heinz Genzel
  */
 public interface SessionAttributes extends Attributed {
 

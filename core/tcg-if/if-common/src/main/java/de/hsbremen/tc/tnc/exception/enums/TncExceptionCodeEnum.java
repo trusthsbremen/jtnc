@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.exception.enums;
 /**
  * Enumeration of known result codes for exceptions at the IF-IMC/V interface.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum TncExceptionCodeEnum {

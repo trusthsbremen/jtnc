@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.util.StateUtil;
  * Default TNCS retry state. The TNCS handles a handshake retry request in the
  * retry state.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class DefaultServerRetryState extends AbstractState implements Init {

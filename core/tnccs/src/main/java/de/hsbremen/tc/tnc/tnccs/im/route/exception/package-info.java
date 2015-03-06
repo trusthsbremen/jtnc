@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) routing exceptions.
+ */
 package de.hsbremen.tc.tnc.tnccs.im.route.exception;

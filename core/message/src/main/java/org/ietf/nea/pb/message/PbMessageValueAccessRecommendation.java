@@ -29,7 +29,6 @@ import org.ietf.nea.pb.message.enums.PbMessageAccessRecommendationEnum;
 /**
  * IETF RFC 5793 TNCCS access recommendation message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueAccessRecommendation extends AbstractPbMessageValue {

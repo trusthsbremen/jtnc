@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF TNCCS message serialization.
+ */
 package org.ietf.nea.pb.serialize;

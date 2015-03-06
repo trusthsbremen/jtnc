@@ -38,7 +38,6 @@ import de.hsbremen.tc.tnc.report.SupportedMessageType;
  * Vendor route element of a route table. Contains message
  * type route elements as sub elements.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the recipient type
  */

@@ -31,7 +31,6 @@ import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if the assessment result ID is known.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AssessmentResult {

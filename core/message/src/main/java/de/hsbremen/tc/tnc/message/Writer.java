@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
  * Generic base for a writer that accepts a message object and serializes it to
  * the given destination.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the data to be accepted
  * @param <S> the type of the destination

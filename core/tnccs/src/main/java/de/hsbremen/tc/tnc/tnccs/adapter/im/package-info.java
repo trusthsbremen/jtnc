@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TCG IM(C/V) adapter.
+ */
 package de.hsbremen.tc.tnc.tnccs.adapter.im;

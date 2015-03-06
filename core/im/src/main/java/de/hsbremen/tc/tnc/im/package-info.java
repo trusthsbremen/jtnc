@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V) core implementation.
+ */
 package de.hsbremen.tc.tnc.im;

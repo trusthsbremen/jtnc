@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.im.evaluate;
 /**
  * Generic manager for the composed integrity measurement components of an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvEvaluatorManager extends ImEvaluatorManager,

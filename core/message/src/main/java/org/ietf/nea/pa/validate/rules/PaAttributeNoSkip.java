@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Rule, that checks if an attribute needs a no skip flag and the no skip
  * flag is contained in the set of lags.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PaAttributeNoSkip {

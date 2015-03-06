@@ -34,7 +34,6 @@ import org.ietf.nea.pb.message.enums.PbMessageImFlagEnum;
 /**
  * IETF RFC 5793 TNCCS integrity measurement component message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueIm extends AbstractPbMessageValue {

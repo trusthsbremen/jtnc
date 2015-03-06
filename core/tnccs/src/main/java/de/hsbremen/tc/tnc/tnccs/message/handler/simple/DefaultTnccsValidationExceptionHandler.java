@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Default handler to handle minor message validation
  * exceptions.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTnccsValidationExceptionHandler implements

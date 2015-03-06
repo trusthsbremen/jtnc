@@ -31,7 +31,6 @@ import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 /**
  * IETF RFC 6876 transport SASL mechanism selection message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageValueSaslMechanismSelection extends

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF TNCCS message byte buffer readers.
+ */
 package org.ietf.nea.pb.serialize.reader.bytebuffer;

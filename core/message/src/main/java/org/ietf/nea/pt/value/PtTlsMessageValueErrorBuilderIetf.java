@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Builder to build a transport error message value compliant to RFC 6876. It
  * evaluates the given values and can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PtTlsMessageValueErrorBuilderIetf implements

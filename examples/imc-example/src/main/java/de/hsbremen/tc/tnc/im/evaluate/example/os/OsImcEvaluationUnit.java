@@ -45,8 +45,8 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
+import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImcEvaluationUnitIetf;
-import de.hsbremen.tc.tnc.im.evaluate.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception
 .PatternNotFoundException;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
@@ -59,7 +59,6 @@ import de.hsbremen.tc.tnc.natives.CLibrary.UTSNAME;
  * Example operating system IMC evaluation unit, which uses
  * JNI to get system information.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {

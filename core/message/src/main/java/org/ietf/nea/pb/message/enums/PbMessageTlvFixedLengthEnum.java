@@ -29,7 +29,6 @@ package org.ietf.nea.pb.message.enums;
  * are often minimal length values and my be larger in real. The length values
  * are not cumulated.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum PbMessageTlvFixedLengthEnum {

@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.tnccs.im.loader;
 /**
  * Marks an object as configuration entry.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ConfigurationEntry {

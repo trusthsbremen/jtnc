@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.Data;
  * Marker to characterize a message or message
  * component as a message used by IM(C/V).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImData extends Data {

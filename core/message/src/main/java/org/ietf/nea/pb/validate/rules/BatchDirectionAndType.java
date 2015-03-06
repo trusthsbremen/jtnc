@@ -34,7 +34,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Rule, that checks if the batch type and the batch direction correlate.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class BatchDirectionAndType {

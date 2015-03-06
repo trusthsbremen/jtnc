@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * handling IF-TNCCS message destined for an IMC.
  * The builder can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultImcHandlerBuilder implements ImcHandlerBuilder {

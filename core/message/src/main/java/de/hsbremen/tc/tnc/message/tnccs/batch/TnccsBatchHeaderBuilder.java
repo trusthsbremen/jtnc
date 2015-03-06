@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.TransmissionObjectBuilder;
 /**
  * Generic builder base to build a TNCCS message batch header.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TnccsBatchHeaderBuilder extends

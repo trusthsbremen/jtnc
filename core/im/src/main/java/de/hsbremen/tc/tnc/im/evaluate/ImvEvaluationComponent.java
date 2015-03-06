@@ -31,7 +31,6 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
  * Generic base extension for the composition of integrity measurement
  * components for an IMV.
  *
- * @author Carl-Heinz Genzel
  */
 public interface ImvEvaluationComponent {
 

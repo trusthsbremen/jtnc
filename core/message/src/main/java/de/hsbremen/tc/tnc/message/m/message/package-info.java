@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Integrity measurement component message interfaces. 
+ */
 package de.hsbremen.tc.tnc.message.m.message;

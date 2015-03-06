@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF TNCCS message validation.
+ */
 package org.ietf.nea.pb.validate;

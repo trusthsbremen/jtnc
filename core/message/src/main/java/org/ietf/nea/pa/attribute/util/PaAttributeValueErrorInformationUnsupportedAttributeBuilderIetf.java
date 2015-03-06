@@ -32,7 +32,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
  * Builder to build an integrity measurement unsupported attribute error
  * information value compliant to RFC 5792. It can be used in a fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf

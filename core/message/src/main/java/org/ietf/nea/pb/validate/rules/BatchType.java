@@ -31,7 +31,6 @@ import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if batch type ID is known.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class BatchType {

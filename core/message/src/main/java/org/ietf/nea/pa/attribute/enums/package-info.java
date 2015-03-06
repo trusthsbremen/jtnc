@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IETF integrity measurement attribute constants.
+ */
 package org.ietf.nea.pa.attribute.enums;

@@ -29,7 +29,6 @@ import java.net.URI;
 /**
  * IETF RFC 5793 TNCCS URI remediation parameter.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueRemediationParameterUri extends

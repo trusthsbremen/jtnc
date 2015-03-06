@@ -27,7 +27,6 @@ package de.hsbremen.tc.tnc.connection;
 /**
  * Enumeration of known connection states.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum DefaultTncConnectionStateEnum implements TncConnectionState {

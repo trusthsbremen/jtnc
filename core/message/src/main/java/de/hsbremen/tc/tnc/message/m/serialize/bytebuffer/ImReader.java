@@ -32,7 +32,6 @@ import de.hsbremen.tc.tnc.message.util.ByteBuffer;
  * Generic reader that reads data from a byte buffer
  * and parses it to an integrity measurement message object.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the type of the resulting integrity measurement Java object
  */

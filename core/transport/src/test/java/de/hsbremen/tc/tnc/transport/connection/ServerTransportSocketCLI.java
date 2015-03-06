@@ -1,4 +1,4 @@
-package de.hsbremen.tc.tnc.transport.newp.connection;
+package de.hsbremen.tc.tnc.transport.connection;
 
 import java.io.IOException;
 import java.net.ServerSocket;

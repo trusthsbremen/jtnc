@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 /**
  * Enumeration containing the protocol names for IF-TNCCS protocol bindings.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public enum TcgTnccsProtocolBindingEnum implements

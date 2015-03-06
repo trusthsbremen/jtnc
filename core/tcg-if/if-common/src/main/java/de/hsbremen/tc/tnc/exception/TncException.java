@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 /**
  * Exception signals exceptions that are thrown at the IF-IMC/V interface.
  *
- * @author Carl-Heinz Genzel
  */
 public class TncException extends ComprehensibleException {
 

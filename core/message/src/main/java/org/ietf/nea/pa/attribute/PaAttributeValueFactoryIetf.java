@@ -73,7 +73,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Factory utility to create an IETF RFC 5792 compliant
  * integrity measurement attribute value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PaAttributeValueFactoryIetf {

@@ -29,7 +29,6 @@ import org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter;
 /**
  * IETF RFC 5793 TNCCS remediation parameters message value.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PbMessageValueRemediationParameters extends

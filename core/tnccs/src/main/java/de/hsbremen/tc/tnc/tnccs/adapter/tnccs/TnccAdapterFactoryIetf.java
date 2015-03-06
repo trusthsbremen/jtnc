@@ -37,7 +37,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * TNCC adapter factory, that creates TNCC adapter
  * according to the IETF/TCG specifications.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class TnccAdapterFactoryIetf implements TnccAdapterFactory {

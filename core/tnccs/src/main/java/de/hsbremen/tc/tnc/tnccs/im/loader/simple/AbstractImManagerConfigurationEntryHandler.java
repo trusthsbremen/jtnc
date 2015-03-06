@@ -47,7 +47,6 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
  * to handle changes of configuration entries to load IM(C/V).
  * Especially important for inheritance.
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the loadable type (e.g. IMC or IMV)
  */

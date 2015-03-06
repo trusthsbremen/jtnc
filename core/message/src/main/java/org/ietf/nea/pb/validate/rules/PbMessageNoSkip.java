@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Rule, that checks if a message needs a no skip flag and the no skip.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class PbMessageNoSkip {

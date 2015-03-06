@@ -30,7 +30,6 @@ import de.hsbremen.tc.tnc.message.m.ImData;
  * Marker to characterize an object as integrity
  * measurement attribute value used by IM(C/V).
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImAttributeValue extends ImData {

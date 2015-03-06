@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC(C/S) session state machine.
+ */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine;

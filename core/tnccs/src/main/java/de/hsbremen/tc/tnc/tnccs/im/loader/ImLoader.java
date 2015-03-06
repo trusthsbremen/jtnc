@@ -33,7 +33,6 @@ import de.hsbremen.tc.tnc.tnccs.im.loader.exception.LoadingException;
  * Generic loader to load IM(C/V) according to a configuration entry
  * and handle the class path for the IM(C/V).
  *
- * @author Carl-Heinz Genzel
  *
  * @param <T> the loadable type (e.g. IMC or IMV)
  */

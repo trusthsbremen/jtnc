@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * State machine exceptions.
+ */
 package de.hsbremen.tc.tnc.tnccs.session.statemachine.exception;

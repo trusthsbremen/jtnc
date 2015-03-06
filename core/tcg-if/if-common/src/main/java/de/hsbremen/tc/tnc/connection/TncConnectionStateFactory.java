@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * Generic connection state factory.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface TncConnectionStateFactory {

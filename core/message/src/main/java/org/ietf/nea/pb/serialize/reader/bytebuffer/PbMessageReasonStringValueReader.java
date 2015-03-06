@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Reader to parse a TNCCS reason string message value compliant to RFC 5793
  * from a buffer of bytes to a Java object.
  *
- * @author Carl-Heinz Genzel
  *
  */
 class PbMessageReasonStringValueReader implements

@@ -40,7 +40,6 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 /**
  * TNCC adapter according to the IETF/TCG specifications.
- * @author Carl-Heinz Genzel
  *
  */
 class TnccAdapterIetf implements TnccAdapter, GlobalHandshakeRetryListener {

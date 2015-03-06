@@ -32,7 +32,6 @@ import java.util.Arrays;
  * Helper object to handle byte arrays providing
  * some copy and conversion methods.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class ByteArrayHelper {

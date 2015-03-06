@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * Commonly used objects and constants.
+ */
 package de.hsbremen.tc.tnc;

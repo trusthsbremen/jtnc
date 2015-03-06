@@ -41,7 +41,6 @@ import de.hsbremen.tc.tnc.im.session.ImcSession;
  * Overwritten default IMC to add custom elements. In this case the example
  * IMC to evaluate operating system attributes.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class TestImcOs extends ImcAdapterIetf {

@@ -31,7 +31,6 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
  * compliant to RFC 5792. It evaluates the given values and can be used in a
  * fluent way.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeValueNumericVersionBuilderIetf implements

@@ -28,7 +28,6 @@ package de.hsbremen.tc.tnc.im.evaluate;
  * Generic IMV evaluation unit evaluating an AR. It is extended by
  * specific IMV functions.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public interface ImvEvaluationUnit extends ImEvaluationUnit,

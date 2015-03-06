@@ -44,7 +44,6 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
  * batch containing error messages if the connection has to be closed
  * because of an error.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class StateUtil {

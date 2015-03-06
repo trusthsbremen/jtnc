@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IM(C/V)Connection helper implementation.
+ */
 package de.hsbremen.tc.tnc.tnccs.adapter.connection.simple;

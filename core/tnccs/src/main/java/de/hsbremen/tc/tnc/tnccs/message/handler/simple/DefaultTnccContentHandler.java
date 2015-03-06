@@ -40,7 +40,6 @@ import de.hsbremen.tc.tnc.tnccs.message.handler.TnccsValidationExceptionHandler;
 /**
  * Default TNCC content handler.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class DefaultTnccContentHandler implements TnccContentHandler {

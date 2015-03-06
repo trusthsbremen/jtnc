@@ -42,7 +42,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeValue;
  * inheritance. It has predefined methods to handle mandatory message attributes
  * received from an IMV.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class AbstractImcEvaluationUnitIetf extends

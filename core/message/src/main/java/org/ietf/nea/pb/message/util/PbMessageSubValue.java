@@ -29,7 +29,6 @@ import de.hsbremen.tc.tnc.message.tnccs.TnccsData;
  * Generic value contained in a TNCCS message value
  * as supporting value.
  *
- * @author Carl-Heinz Genzel
  */
 public interface PbMessageSubValue extends TnccsData {
 

@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * IMV examples.
+ */
 package de.hsbremen.tc.tnc.im;

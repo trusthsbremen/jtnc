@@ -33,7 +33,6 @@ import org.ietf.nea.pb.validate.enums.PbErrorCauseEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 /**
  * Rule, that checks if no skip flag is set in the set of flags.
- * @author Carl-Heinz Genzel
  *
  */
 public abstract class NoSkipOnUnknownAttribute {

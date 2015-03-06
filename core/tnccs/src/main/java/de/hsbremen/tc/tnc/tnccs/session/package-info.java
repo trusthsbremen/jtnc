@@ -22,4 +22,7 @@
  * THE SOFTWARE.
  *
  */
+/**
+ * TNC(C/S) session management.
+ */
 package de.hsbremen.tc.tnc.tnccs.session;

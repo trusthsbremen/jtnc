@@ -36,7 +36,6 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttributeHeader;
 /**
  * IETF RFC 5792 integrity measurement attribute header.
  *
- * @author Carl-Heinz Genzel
  *
  */
 public class PaAttributeHeader implements ImAttributeHeader {
