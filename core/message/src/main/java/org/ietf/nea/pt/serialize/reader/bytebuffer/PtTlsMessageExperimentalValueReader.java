@@ -95,7 +95,7 @@ class PtTlsMessageExperimentalValueReader implements
 
                 byte[] sData = buffer.read((int) safeLength);
                 if (length > safeLength) {
-                    // skip the rest that does not fit
+                    // skip the rest, that does not fit
                     buffer.read(length - safeLength);
                 }
                 String message = new String(sData, Charset.forName("UTF-8"));

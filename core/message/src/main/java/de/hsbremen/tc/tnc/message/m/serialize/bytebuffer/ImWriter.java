@@ -38,7 +38,7 @@ import de.hsbremen.tc.tnc.message.m.ImData;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 /**
- * Generic writer that accepts an integrity measurement message object and
+ * Generic writer, that accepts an integrity measurement message object and
  * serializes it to the given byte buffer.
  *
  *

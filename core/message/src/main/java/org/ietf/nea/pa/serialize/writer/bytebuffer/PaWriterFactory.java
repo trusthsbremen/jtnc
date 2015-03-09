@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 
 /**
- * Factory utility to create a writer that can serialize an entire integrity
+ * Factory utility to create a writer, that can serialize an entire integrity
  * measurement component message compliant to RFC 5792 from a Java object to a
  * buffer of bytes.
  *
@@ -57,7 +57,7 @@ public abstract class PaWriterFactory {
     }
 
     /**
-     * Returns the identifier of the RFC 5792 protocol supported by a writer
+     * Returns the identifier of the RFC 5792 protocol supported by a writer,
      * that is created with this factory.
      *
      * @return the protocol identifier
@@ -69,7 +69,7 @@ public abstract class PaWriterFactory {
     /**
      * Creates a writer to serialize an entire integrity measurement component
      * message compliant to RFC 5792 from a Java object to a buffer of bytes.
-     * The writer supports all elements that are specified by RFC 5792 and
+     * The writer supports all elements, that are specified by RFC 5792 and
      * allowed in a production environment.
      *
      * @return the integrity measurement component message writer
@@ -141,7 +141,7 @@ public abstract class PaWriterFactory {
     /**
      * Creates a writer to serialize an entire integrity measurement component
      * message compliant to RFC 5792 from a Java object to a buffer of bytes.
-     * The writer supports all elements that are specified by RFC 5792 including
+     * The writer supports all elements, that are specified by RFC 5792 including
      * the test attribute value.
      *
      * @return the integrity measurement component message writer

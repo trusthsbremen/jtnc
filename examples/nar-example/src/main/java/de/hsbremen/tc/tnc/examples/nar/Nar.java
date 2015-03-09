@@ -77,8 +77,13 @@ import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultClientSessionFactory;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 
 /**
- * An example Network Access Requestor. Request handshake at localhost:10229.
+ * An example Network Access Requestor.
+ * Requests handshakes at localhost:10229.
  *
+ * The NAR uses a plain socket for testing, this
+ * cannot be used for production where TLS
+ * protection is mandatory. However to achieve
+ * TLS protection just us a Java SSL socket.
  *
  */
 public class Nar {

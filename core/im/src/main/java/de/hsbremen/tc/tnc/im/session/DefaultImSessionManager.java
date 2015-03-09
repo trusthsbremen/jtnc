@@ -119,10 +119,10 @@ public class DefaultImSessionManager<K, V extends ImSession> implements
     }
 
     /**
-     * Runnable that removes sessions from the manager,
+     * Runnable, that removes sessions from the manager,
      * which are closed or where the state is unknown.
      *
-         *
+     *
      */
     private class Cleaner implements Runnable {
 

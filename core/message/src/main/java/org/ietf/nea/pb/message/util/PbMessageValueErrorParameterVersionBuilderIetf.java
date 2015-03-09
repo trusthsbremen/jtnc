@@ -39,7 +39,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
- * Builder to build an TNCCS message version error parameter value
+ * Builder to build a TNCCS message version error parameter value
  * compliant to RFC 5793. It can be used in a fluent way.
  *
  *

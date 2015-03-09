@@ -101,7 +101,7 @@ class PbMessageReasonStringValueReader implements
 
                 byte[] sData = buffer.read((int) safeLength);
                 if (reasonLength > safeLength) {
-                    // skip the rest that does not fit
+                    // skip the rest, that does not fit
                     buffer.read(reasonLength - safeLength);
                 }
                 String reasonString = new String(sData,

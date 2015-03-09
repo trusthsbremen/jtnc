@@ -36,7 +36,7 @@ package de.hsbremen.tc.tnc.message.exception;
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 
 /**
- * Exception that signals that a message or message value is not valid.
+ * Exception signals that a message or message value is not valid.
  *
  *
  */

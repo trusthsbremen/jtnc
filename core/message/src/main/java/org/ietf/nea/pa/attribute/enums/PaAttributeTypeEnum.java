@@ -75,14 +75,14 @@ public enum PaAttributeTypeEnum {
      */
     IETF_PA_OPERATIONAL_STATUS(5),
     /**
-     * 6 - Port Filter - Lists the set of ports (e.g., TCP port 80 for HTTP)
+     * 6 - Port Filter - Lists the set of ports (e.g., TCP port 80 for HTTP),
      * that are allowed or blocked on the endpoint.
      *
      */
     IETF_PA_PORT_FILTER(6),
     /**
-     * 7 - Installed Packages - List of software packages installed on endpoint
-     * that provide the requested component.
+     * 7 - Installed Packages - List of software packages installed on an
+     * endpoint that provides the requested component.
      */
     IETF_PA_INSTALLED_PACKAGES(7),
     /**

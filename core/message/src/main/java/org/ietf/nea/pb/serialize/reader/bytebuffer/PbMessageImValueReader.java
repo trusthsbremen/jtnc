@@ -120,7 +120,7 @@ class PbMessageImValueReader implements TnccsReader<PbMessageValueIm> {
 
                 byte[] imMessage = buffer.read((int) (safeLength));
                 if (valueLength > safeLength) {
-                    // skip the rest that does not fit
+                    // skip the rest, that does not fit
                     buffer.read(valueLength - safeLength);
                 }
                 builder.setMessage(imMessage);

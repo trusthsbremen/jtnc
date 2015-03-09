@@ -94,7 +94,7 @@ class PtTlsMessageSaslAuthenticationDataValueReader implements
 
                 byte[] data = buffer.read((int) safeLength);
                 if (length > safeLength) {
-                    // skip the rest that does not fit
+                    // skip the rest, that does not fit
                     buffer.read(length - safeLength);
                 }
                 builder.setAuthenticationData(data);

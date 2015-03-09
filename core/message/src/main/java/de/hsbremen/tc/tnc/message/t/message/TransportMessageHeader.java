@@ -36,8 +36,8 @@ package de.hsbremen.tc.tnc.message.t.message;
 import de.hsbremen.tc.tnc.message.t.TransportData;
 
 /**
- * Generic transport message header base consisting of general parameters that
- * describe the message.
+ * Generic transport message header base consisting of general parameters,
+ * that describe the message.
  *
  *
  */

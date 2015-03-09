@@ -38,7 +38,7 @@ import java.util.List;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 /**
- * Generic base for an helper object to pass on a transmission result such as a
+ * Generic base for a helper object to pass on a transmission result such as a
  * message or batch and minor validation errors after parsing for further
  * processing.
  *
@@ -50,7 +50,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 public interface ResultContainer<T extends Data> {
 
     /**
-     * Returns a list of minor errors that occurred during parsing.
+     * Returns a list of minor errors, that occurred during parsing.
      *
      * @return a list of minor validation errors
      */

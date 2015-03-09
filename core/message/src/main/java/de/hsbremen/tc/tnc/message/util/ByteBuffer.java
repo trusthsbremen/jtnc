@@ -34,7 +34,7 @@
 package de.hsbremen.tc.tnc.message.util;
 
 /**
- * Generic byte buffer that can be used to write and read bytes from. It also
+ * Generic byte buffer, that can be used to write and read bytes from. It also
  * provides several helper functions to read or write different Java primitives
  * from/to the buffer. The buffer has two pointers to indicate the read
  * and write position. Is is not possible to read more bytes than
@@ -217,7 +217,7 @@ public interface ByteBuffer {
      * the new position, the pointer is set too, that
      * write pointer == read pointer. If the write pointer
      * is smaller than the given length, both pointers are
-     * set to zero. Revert write discards all bytes that
+     * set to zero. Revert write discards all bytes, that
      * are within the reverted length.
      *
      * @param length the number of bytes to step back

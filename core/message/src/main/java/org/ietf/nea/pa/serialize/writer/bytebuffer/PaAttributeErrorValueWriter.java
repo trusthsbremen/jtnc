@@ -69,7 +69,7 @@ class PaAttributeErrorValueWriter implements ImWriter<PaAttributeValueError> {
         unsupportedAttributeWriter;
 
     /**
-     * Creates the writer with the given writers that are responsible to
+     * Creates the writer with the given writers, that are responsible to
      * serialize the contained supporting error information.
      *
      * @param invalidParamWriter the writer to serialize an invalid parameter

@@ -60,11 +60,11 @@ public enum TnccsStateEnum {
     DECIDED("Decided"),
     /**
      * End state indicating, that the state machine has reached its final state
-     * an no further message can be send over the related connection.
+     * and no further message can be send over the related connection.
      */
     END("End"),
     /**
-     * Error state indicating, that an error exists an has to be handled.
+     * Error state indicating, that an error exists and has to be handled.
      */
     ERROR("Error"),
     /**

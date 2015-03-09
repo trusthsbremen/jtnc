@@ -91,7 +91,7 @@ public class DefaultImcHandler implements ImcHandler {
      * to manage the IMC and the given connection factory to create IMC
      * connections for every IMC with the given IMC connection
      * context. The message router is used to route the message
-     * based on its component type address to IMC that are interested
+     * based on its component type address to IMC, that are interested
      * in that type.
      *
      * @param manager the IMC manager

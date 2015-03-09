@@ -43,7 +43,7 @@ public enum PtTlsMessageErrorCodeEnum {
     /**
      * 0 - Reserved - Reserved value indicates that the PT-TLS Error message
      * SHOULD be ignored by all recipients. This MAY be used for debugging
-     * purposes to allow a sender to see a copy of the message that was
+     * purposes to allow a sender to see a copy of the message, that was
      * received.
      */
     IETF_RESERVED(0),
@@ -57,11 +57,11 @@ public enum PtTlsMessageErrorCodeEnum {
     /**
      * 2 - Version Not Supported - This error SHOULD be sent when a PT-TLS
      * Responder receives a PT-TLS Version Request message containing a range of
-     * version numbers that doesn't include any version numbers that the
+     * version numbers, that doesn't include any version numbers that the
      * recipient is willing and able to support on the session. All PT-TLS
      * messages carrying the Version Not Supported error code MUST use a version
-     * number of 1. All parties that receive or send PT-TLS messages MUST be
-     * able to properly process an error message that meets this description,
+     * number of 1. All parties, that receive or send PT-TLS messages MUST be
+     * able to properly process an error message, that meets this description,
      * even if they cannot process any other aspect of PT-TLS version 1. The
      * sender and receiver of this error code MUST consider it a fatal error and
      * close the TLS session after sending or receiving this PT-TLS message.
@@ -69,10 +69,10 @@ public enum PtTlsMessageErrorCodeEnum {
     IETF_UNSUPPORTED_VERSION(2),
     /**
      * 3 - Type Not Supported - PT-TLS Message Type unknown or not supported.
-     * When a recipient receives a PT-TLS Message Type that it does not support,
+     * When a recipient receives a PT-TLS Message Type, that it does not support,
      * it MUST send back this error, ignore the message, and proceed. For
      * example, this could occur if the sender used a Vendor ID for the Message
-     * Type that is not supported by the recipient. This error message does not
+     * Type, that is not supported by the recipient. This error message does not
      * indicate that a fatal error has occurred, so the assessment is allowed to
      * continue.
      */

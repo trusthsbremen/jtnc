@@ -191,7 +191,7 @@ public class ConfigurationEntryAndImcManagerTest {
         
         this.monitor.stop();
         
-        // because of thread not always true that why it is deleted
+        // because of thread it is not always true that why it is deleted
         //Assert.assertTrue(this.imManager.getManaged().isEmpty());
         
     }

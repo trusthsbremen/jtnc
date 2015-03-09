@@ -53,7 +53,7 @@ public interface TnccsAdapter {
     /**
      * Submits a list of supported component messages to the TNC(C/S).
      * @param supportedTypes the list of supported component message types
-     * @throws TncException if message types are not valid or an local exception
+     * @throws TncException if message types are not valid or a local exception
      * occurred
      */
     void reportMessageTypes(

@@ -36,8 +36,8 @@ package de.hsbremen.tc.tnc.message;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 
 /**
- * Generic base for a writer that accepts a message object and serializes it to
- * the given destination.
+ * Generic base for a writer, that accepts a message object and serializes it
+ * to the given destination.
  *
  *
  * @param <T> the type of the data to be accepted

@@ -37,7 +37,7 @@ import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 
 /**
- * Entity which holds a integrity result pair from an IMV.
+ * Entity which holds an integrity result pair from an IMV.
  *
  *
  */

@@ -45,7 +45,7 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
 interface ImEvaluationUnit extends ImEvaluationComponent<ImAttribute> {
 
     /**
-     * Returns the vendor ID that specifies the measured aspect (e.g. an aspect
+     * Returns the vendor ID, that specifies the measured aspect (e.g. an aspect
      * specified by the IETF).
      *
      * @return the vendor ID
@@ -53,7 +53,7 @@ interface ImEvaluationUnit extends ImEvaluationComponent<ImAttribute> {
     long getVendorId();
 
     /**
-     * Returns the type ID that specifies the measured aspect (e.g. the product
+     * Returns the type ID, that specifies the measured aspect (e.g. the product
      * information aspect type from the IETF).
      *
      * @return the type ID

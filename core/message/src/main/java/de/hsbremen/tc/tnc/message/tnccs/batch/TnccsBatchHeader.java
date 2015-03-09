@@ -36,8 +36,8 @@ package de.hsbremen.tc.tnc.message.tnccs.batch;
 import de.hsbremen.tc.tnc.message.tnccs.TnccsData;
 
 /**
- * Generic TNCCS message batch header base consisting of general parameters that
- * describe a batch.
+ * Generic TNCCS message batch header base consisting of general parameters,
+ * that describe a batch.
  *
  *
  */

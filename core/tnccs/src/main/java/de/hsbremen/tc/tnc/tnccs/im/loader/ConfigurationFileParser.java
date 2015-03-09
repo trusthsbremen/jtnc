@@ -49,7 +49,7 @@ public interface ConfigurationFileParser {
 
     /**
      * Returns the configuration lines identified
-     * by a set of line classifiers that can be parsed
+     * by a set of line classifiers, that can be parsed
      * by this parser.
      *
      * @return a set of configuration line classifiers
@@ -57,7 +57,7 @@ public interface ConfigurationFileParser {
     Set<ConfigurationLineClassifier> getSupportedConfigurationLines();
 
     /**
-     * Parses a configuration file and returns the lines that could be
+     * Parses a configuration file and returns the lines, that could be
      * parsed by it, sorted by line classifier in a map.
      *
      * @param configFile the configuration file

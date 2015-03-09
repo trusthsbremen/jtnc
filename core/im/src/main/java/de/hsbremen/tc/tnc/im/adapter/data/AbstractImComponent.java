@@ -34,7 +34,7 @@
 package de.hsbremen.tc.tnc.im.adapter.data;
 
 /**
- * Generic base that holds a message concerning an integrity measurement
+ * Generic base, that holds a message concerning an integrity measurement
  * component. It defines the minimum attributes needed for the
  * addressing of the component to/from an IM(C/V). Especially important
  * for inheritance.

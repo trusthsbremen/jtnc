@@ -60,7 +60,7 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 
 /**
- * Factory utility to create a reader that can parse an entire TNCCS batch
+ * Factory utility to create a reader, that can parse an entire TNCCS batch
  * compliant to RFC 5793 from a buffer of bytes to a Java object.
  *
  */
@@ -74,7 +74,7 @@ public abstract class PbReaderFactory {
     }
 
     /**
-     * Returns the identifier of the RFC 5793 protocol supported by a reader
+     * Returns the identifier of the RFC 5793 protocol supported by a reader,
      * that is created with this factory.
      *
      * @return the protocol identifier
@@ -86,7 +86,7 @@ public abstract class PbReaderFactory {
     /**
      * Creates a reader to parse an entire TNCCS batch compliant to
      * RFC 5793 from a buffer of bytes to a Java object.
-     * The reader supports all elements that are specified by RFC 5793 and
+     * The reader supports all elements, that are specified by RFC 5793 and
      * allowed in a production environment.
      *
      * @return the TNCCS batch reader
@@ -165,8 +165,8 @@ public abstract class PbReaderFactory {
     /**
      * Creates a reader to parse an entire TNCCS batch compliant to
      * RFC 5793 from a buffer of bytes to a Java object.
-     * The reader supports all elements that are specified by RFC 5793 including
-     * the experimental message value.
+     * The reader supports all elements, that are specified by RFC 5793
+     * including the experimental message value.
      *
      * @return the TNCCS batch reader
      */

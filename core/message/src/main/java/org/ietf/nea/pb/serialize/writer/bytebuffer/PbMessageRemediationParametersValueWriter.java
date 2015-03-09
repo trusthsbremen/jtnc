@@ -62,7 +62,7 @@ class PbMessageRemediationParametersValueWriter implements
     private final PbMessageRemediationParameterUriValueWriter uriWriter;
 
     /**
-     * Creates the writer with the given writers that are responsible to
+     * Creates the writer with the given writers, that are responsible to
      * serialize the contained supporting remediation parameter.
      *
      * @param stringWriter the writer to serialize a string remediation

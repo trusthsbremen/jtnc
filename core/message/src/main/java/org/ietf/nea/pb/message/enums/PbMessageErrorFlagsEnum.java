@@ -70,7 +70,7 @@ public enum PbMessageErrorFlagsEnum {
      */
     RESERVED7((byte) 0x40),
     /**
-     * 10000000 - Fatal - Signals that an error is fatal an the connection
+     * 10000000 - Fatal - Signals that an error is fatal and the connection
      * should be terminated.
      */
     FATAL((byte) 0x80);

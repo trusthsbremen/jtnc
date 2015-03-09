@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 
 /**
- * Factory utility to create a writer that can serialize an entire transport
+ * Factory utility to create a writer, that can serialize an entire transport
  * message compliant to RFC 6876 from a Java object to a buffer of bytes.
  *
  */
@@ -56,7 +56,7 @@ public abstract class PtTlsWriterFactory {
     }
 
     /**
-     * Returns the identifier of the RFC 6876 protocol supported by a writer
+     * Returns the identifier of the RFC 6876 protocol supported by a writer,
      * that is created with this factory.
      *
      * @return the protocol identifier
@@ -68,7 +68,7 @@ public abstract class PtTlsWriterFactory {
     /**
      * Creates a writer to serialize an entire transport message compliant to
      * RFC 6876 from a Java object to a buffer of bytes. The writer supports all
-     * elements that are specified by RFC 6876 and allowed in a production
+     * elements, that are specified by RFC 6876 and allowed in a production
      * environment.
      *
      * @return the transport message writer
@@ -119,7 +119,7 @@ public abstract class PtTlsWriterFactory {
     /**
      * Creates a writer to serialize an entire transport message compliant to
      * RFC 6876 from a Java object to a buffer of bytes. The writer supports all
-     * elements that are specified by RFC 6876 including the experimental
+     * elements, that are specified by RFC 6876 including the experimental
      * message value.
      *
      * @return the Ttransport message writer

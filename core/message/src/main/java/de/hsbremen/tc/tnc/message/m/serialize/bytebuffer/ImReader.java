@@ -38,7 +38,7 @@ import de.hsbremen.tc.tnc.message.m.ImData;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 /**
- * Generic reader that reads data from a byte buffer
+ * Generic reader, that reads data from a byte buffer
  * and parses it to an integrity measurement message object.
  *
  *

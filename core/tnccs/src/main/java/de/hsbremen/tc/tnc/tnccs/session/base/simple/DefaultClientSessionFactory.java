@@ -118,8 +118,9 @@ public class DefaultClientSessionFactory extends AbstractSessionFactory {
      * @param writer the message writer
      * @param reader the message reader
      * @param imcHandlerBuilder the builder to build an IMC message handler
-     * @param tnccHandlerBuilder the builder to build an TNCC message handler
-     * @param tnccsValExBuilder the builder to build an validation exception
+     * @param tnccHandlerBuilder the builder to build a TNCC message handler
+     * @param tnccsValExBuilder the builder to build a validation exception
+     * handler
      * @param tnccContentHandlerFactory the builder to build a content handler,
      * which manages the IMC, TNCC and validation exception handler
      * @param stateMachineBuilder the builder to build a client state machine

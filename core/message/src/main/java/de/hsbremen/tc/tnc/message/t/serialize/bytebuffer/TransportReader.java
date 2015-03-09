@@ -38,7 +38,7 @@ import de.hsbremen.tc.tnc.message.t.TransportData;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 /**
- * Generic reader that reads byte data from a byte buffer,
+ * Generic reader, that reads byte data from a byte buffer,
  * and parses it to a transport message object.
  *
  *

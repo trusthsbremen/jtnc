@@ -37,7 +37,7 @@ import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 
 /**
- * Generic base for a reader that reads data from a source and parses it to
+ * Generic base for a reader, that reads data from a source and parses it to
  * a Java object.
  *
  *
@@ -47,7 +47,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 public interface Reader<T extends Data, S> {
 
     /**
-     * Returns the minimal data length that is needed to get a result
+     * Returns the minimal data length, that is needed to get a result
      * (e.g. at least a number of bytes for a header is needed
      * to parse something).
      *

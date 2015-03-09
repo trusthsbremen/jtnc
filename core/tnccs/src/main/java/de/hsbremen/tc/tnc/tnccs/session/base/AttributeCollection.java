@@ -59,7 +59,7 @@ public class AttributeCollection implements Attributed {
     }
 
     /**
-     * Adds an object that contains attributes to
+     * Adds an object, that contains attributes to
      * the collection.
      *
      * @param <T> the attribute type
@@ -70,7 +70,7 @@ public class AttributeCollection implements Attributed {
     }
 
     /**
-     * Removes an object that contains attributes from
+     * Removes an object, that contains attributes from
      * the collection.
      *
      * @param <T> the attribute type

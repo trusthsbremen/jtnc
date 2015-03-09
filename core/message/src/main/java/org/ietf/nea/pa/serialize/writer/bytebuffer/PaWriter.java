@@ -53,7 +53,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Writer to serialize an entire integrity measurement component message
  * compliant to RFC 5792 from a Java object to a buffer of bytes. The writer is
- * composed of several writers that are used to serialize the different message
+ * composed of several writers, that are used to serialize the different message
  * elements (e.g. header, attributes, ...). Attribute value writers can be
  * managed with the add and remove operations.
  *

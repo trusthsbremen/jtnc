@@ -36,8 +36,8 @@ package de.hsbremen.tc.tnc.message.exception;
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 
 /**
- * Exception that signals errors writting bytes to or reading byte from a byte
- * containing object such as stream or byte buffer.
+ * Exception signals errors while writting bytes to or reading bytes from
+ * a byte containing object such as stream or byte buffer.
  *
  *
  */
@@ -83,7 +83,7 @@ public class SerializationException extends ComprehensibleException {
     }
 
     /**
-     * Returns whether the whole read ore write process failed.
+     * Returns whether the whole read or write process failed.
      * @return the fatal flag
      */
     public boolean isFatal() {

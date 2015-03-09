@@ -43,7 +43,7 @@ import org.ietf.nea.pb.validate.rules.NoZeroString;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
- * Builder to build an TNCCS message string remediation parameter value
+ * Builder to build a TNCCS message string remediation parameter value
  * compliant to RFC 5793. It evaluates the given values and can be used in a
  * fluent way.
  *

@@ -38,7 +38,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Generic exception that can hold further objects to assess the reason for an
+ * Generic exception, that can hold further objects to assess the reason for an
  * exception.
  *
  */

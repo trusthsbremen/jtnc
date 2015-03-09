@@ -40,7 +40,7 @@ import java.util.Set;
 import de.hsbremen.tc.tnc.IETFConstants;
 
 /**
- * Factory utility to create an SupportedMessageType object.
+ * Factory utility to create a SupportedMessageType object.
  *
  *
  */
@@ -209,7 +209,7 @@ public abstract class SupportedMessageTypeFactory {
      * </ul>
      *
      * @param supportedMessageTypes the message type objects
-     * @return an two dimensional array of vendor IDs and message type IDs
+     * @return a two dimensional array of vendor IDs and message type IDs
      */
     public static long[][] createSupportedMessageTypeArray(
             final Set<SupportedMessageType> supportedMessageTypes) {

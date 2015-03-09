@@ -123,7 +123,8 @@ public abstract class PaAttributeValueFactoryIetf {
     }
 
     /**
-     * Creates an attribute value that indicates if a default password is used.
+     * Creates an attribute value, that indicates if a default password is
+     * used.
      * @param status indicator indicating if default password is used
      * @return an IETF RFC 5792 compliant integrity measurement attribute value
      */
@@ -138,7 +139,7 @@ public abstract class PaAttributeValueFactoryIetf {
     }
 
     /**
-     * Creates an attribute value that indicates if traffic forwarding is
+     * Creates an attribute value, that indicates if traffic forwarding is
      * enabled.
      * @param status indicator indicating if traffic forwarding is enabled
      * @return an IETF RFC 5792 compliant integrity measurement attribute value
@@ -227,7 +228,7 @@ public abstract class PaAttributeValueFactoryIetf {
             final int servicePackMajor, final int servicePackMinor) {
         /*
          * Nothing to check here. Maybe negative values are bad, but could not
-         * find something that mentioned this.
+         * find something, that mentioned this.
          */
         return new PaAttributeValueNumericVersion(
                 PaAttributeTlvFixedLengthEnum.NUM_VER.length(), majorVersion,
@@ -406,7 +407,7 @@ public abstract class PaAttributeValueFactoryIetf {
         for (PackageEntry pkgEntry : entries) {
             length += pkgEntry.getPackageNameLength();
             length += pkgEntry.getPackageVersionLength();
-            length += 2; // +2 for the fields that contain the length
+            length += 2; // +2 for the fields, that contain the length
         }
 
         return new PaAttributeValueInstalledPackages(length, entries);

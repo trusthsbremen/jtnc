@@ -38,7 +38,7 @@ package de.hsbremen.tc.tnc.message;
  * together via add and remove operations.
  *
  *
- * @param <T> the object type that will be stacked
+ * @param <T> the object type, that will be stacked
  */
 public interface Combined<T> {
 

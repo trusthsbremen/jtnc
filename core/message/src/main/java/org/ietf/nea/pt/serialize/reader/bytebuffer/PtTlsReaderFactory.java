@@ -52,8 +52,8 @@ import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 
 /**
- * Factory utility to create a reader that can parse an entire transport message
- * compliant to RFC 6876 from a buffer of bytes to a Java object.
+ * Factory utility to create a reader, that can parse an entire transport
+ * message compliant to RFC 6876 from a buffer of bytes to a Java object.
  *
  */
 public abstract class PtTlsReaderFactory {
@@ -66,7 +66,7 @@ public abstract class PtTlsReaderFactory {
     }
 
     /**
-     * Returns the identifier of the RFC 6876 protocol supported by a reader
+     * Returns the identifier of the RFC 6876 protocol supported by a reader,
      * that is created with this factory.
      *
      * @return the protocol identifier
@@ -78,7 +78,7 @@ public abstract class PtTlsReaderFactory {
     /**
      * Creates a reader to parse an entire transport message compliant to
      * RFC 6876 from a buffer of bytes to a Java object.
-     * The reader supports all elements that are specified by RFC 5793 and
+     * The reader supports all elements, that are specified by RFC 5793 and
      * allowed in a production environment.
      *
      * @return the transport message reader
@@ -139,8 +139,8 @@ public abstract class PtTlsReaderFactory {
     /**
      * Creates a reader to parse an entire transport message compliant to
      * RFC 6876 from a buffer of bytes to a Java object.
-     * The reader supports all elements that are specified by RFC 6876 including
-     * the experimental message value.
+     * The reader supports all elements, that are specified by RFC 6876
+     * including the experimental message value.
      *
      * @return the transport message reader
      */

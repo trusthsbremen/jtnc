@@ -53,7 +53,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Writer to serialize an entire TNCCS batch compliant to RFC 5793 from a Java
- * object to a buffer of bytes. The writer is composed of several writers that
+ * object to a buffer of bytes. The writer is composed of several writers that,
  * are used to serialize the different batch elements (e.g. header, message ,
  * ...). Message value writers can be managed with the add and remove
  * operations.

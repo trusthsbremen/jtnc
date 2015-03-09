@@ -102,7 +102,7 @@ class PbMessageRemediationParameterStringValueReader implements
 
                 byte[] sData = buffer.read((int) safeLength);
                 if (stringLength > safeLength) {
-                    // skip the rest that does not fit
+                    // skip the rest, that does not fit
                     buffer.read(stringLength - safeLength);
                 }
                 String remString = new String(sData,

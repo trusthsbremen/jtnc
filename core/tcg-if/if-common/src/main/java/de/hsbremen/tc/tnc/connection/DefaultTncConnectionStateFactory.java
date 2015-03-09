@@ -67,7 +67,7 @@ public final class DefaultTncConnectionStateFactory implements
     }
 
     /**
-     * Creates the factory an sorts the connection states into a list.
+     * Creates the factory and sorts the connection states into a list.
      */
     private DefaultTncConnectionStateFactory() {
         Comparator<TncConnectionState> comparator = new StateComparator();

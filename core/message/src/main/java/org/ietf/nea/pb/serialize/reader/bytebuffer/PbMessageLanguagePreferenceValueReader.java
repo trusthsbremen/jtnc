@@ -96,7 +96,7 @@ class PbMessageLanguagePreferenceValueReader implements
 
                 byte[] sData = buffer.read((int) safeLength);
                 if (messageLength > safeLength) {
-                    // skip the rest that does not fit
+                    // skip the rest, that does not fit
                     buffer.read(messageLength - safeLength);
                 }
                 String languagePreference = new String(sData,

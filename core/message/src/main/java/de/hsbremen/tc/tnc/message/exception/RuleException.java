@@ -36,7 +36,7 @@ package de.hsbremen.tc.tnc.message.exception;
 import de.hsbremen.tc.tnc.exception.ComprehensibleException;
 
 /**
- * Exception that signals that a rule was violated by a checked value.
+ * Exception signals that a rule was violated by a checked value.
  *
  *
  */
@@ -56,7 +56,7 @@ public class RuleException extends ComprehensibleException {
      * further handling.
      *
      * @param message the specified exception message
-     * @param fatal true if the exception is fatal an message processing
+     * @param fatal true if the exception is fatal and message processing
      * must be stopped
      * @param errorCode a defined code classifying the exception
      * @param errorCause a second qualifier to describe the exception
@@ -78,7 +78,7 @@ public class RuleException extends ComprehensibleException {
      * values describe the exception for further handling.
      *
      * @param message the specified exception message
-     * @param fatal true if the exception is fatal an message processing
+     * @param fatal true if the exception is fatal and message processing
      * must be stopped
      * @param errorCode a defined code classifying the exception
      * @param errorCause a second qualifier to describe the exception
@@ -114,7 +114,7 @@ public class RuleException extends ComprehensibleException {
     }
 
     /**
-     * Returns the error cause qualifier that describes the exception
+     * Returns the error cause qualifier, that describes the exception
      * in addition to the classification more precisely.
      *
      * @return the error cause qualifier

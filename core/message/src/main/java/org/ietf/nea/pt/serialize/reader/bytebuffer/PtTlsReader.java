@@ -60,9 +60,9 @@ import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Reader to parse an entire transport message compliant to RFC 6876 from a
- * buffer of bytes to a Java object. The reader is composed of several readers
- * that are used to parse the different batch elements (e.g. header, values,
- * ...). Message value readers can be managed with the add and remove
+ * buffer of bytes to a Java object. The reader is composed of several
+ * readers, that are used to parse the different batch elements (e.g. header,
+ * values, ...). Message value readers can be managed with the add and remove
  * operations.
  *
  *

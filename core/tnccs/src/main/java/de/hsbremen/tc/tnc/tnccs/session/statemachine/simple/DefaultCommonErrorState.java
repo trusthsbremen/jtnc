@@ -50,7 +50,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.util.StateUtil;
 
 /**
  * Default common error state. The TNC(C/S) handles messages
- * or exceptions that lead to a fatal error by closing the
+ * or exceptions, that lead to a fatal error by closing the
  * connection with error messages in a final message batch.
  *
  *

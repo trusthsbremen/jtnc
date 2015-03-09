@@ -92,7 +92,7 @@ public class DefaultImvHandler implements ImvHandler {
      * to manage the IMV and the given connection factory to create IMV
      * connections for every IMV with the given IMV connection
      * context. The message router is used to route the message
-     * based on its component type address to IMV that are interested
+     * based on its component type address to IMV, that are interested
      * in that type.
      *
      * @param manager the IMV manager

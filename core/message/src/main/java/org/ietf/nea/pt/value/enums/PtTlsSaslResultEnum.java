@@ -60,9 +60,8 @@ public enum PtTlsSaslResultEnum {
     /**
      * 3 - Mechanism Failure - SASL "mechanism failure" during the processing of
      * the client's authentication (e.g., not related to the user's input). For
-     * example, this could occur if the mechanism is unable to allocate memory
-     * (e.g., malloc) that is needed to process a received SASL mechanism
-     * message.
+     * example, this could occur if the mechanism is unable to allocate memory.
+     * that is needed to process a received SASL mechanism message.
      */
     MECHANISM_FAILURE(3);
 

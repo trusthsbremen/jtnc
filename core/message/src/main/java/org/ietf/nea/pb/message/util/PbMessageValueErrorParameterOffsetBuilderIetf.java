@@ -38,7 +38,7 @@ import org.ietf.nea.pb.message.enums.PbMessageTlvFixedLengthEnum;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
- * Builder to build an TNCCS message error parameter value with an
+ * Builder to build a TNCCS message error parameter value with an
  * error offset compliant to RFC 5793. It can be used in a fluent way.
  *
  *

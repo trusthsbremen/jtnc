@@ -2,13 +2,10 @@ TODOs
 ------
 
 Functionality:
-- Check if factory constructors do proper if null checking
 - Make a TncsHandler which can read an evaluation policy from a file.
 - Make a IMV example which can read an evaluation policy from a file.
-- Implement the IMC/V loader with the provided interfaces.
-- Proper not null check for arguments in all writer/reader classes.
+- Not null checking (already done for several classes, but there may be more)  
+- - Proper not null check for arguments in all writer/reader classes.
+- - Check if factory constructors do proper if null checking
+- - Check if builders do proper null checking
 
-Code cleanup:
-- Comment all files and remove wrong comments. Add license to all files. 
-- Format the code (e.g. format (whitespace, indentation)  
-- Finished: (if-imc/imv (ignored), if-common, transport, im, native, examples)

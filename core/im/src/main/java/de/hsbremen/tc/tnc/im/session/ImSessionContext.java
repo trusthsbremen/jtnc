@@ -39,7 +39,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 /**
- * Generic IM(C/V) session parameter set. It contains values that are specific
+ * Generic IM(C/V) session parameter set. It contains values, that are specific
  * for the underlying connection.
  *
  *

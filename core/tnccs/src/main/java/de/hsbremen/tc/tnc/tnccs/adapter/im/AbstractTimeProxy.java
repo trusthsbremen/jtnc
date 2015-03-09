@@ -124,7 +124,7 @@ public abstract class AbstractTimeProxy {
     }
 
     /**
-     * Runnable that control the execution time of a function
+     * Runnable, that controls the execution time of a function
      * and stops its execution, if a timeout is reached.
      *
          *

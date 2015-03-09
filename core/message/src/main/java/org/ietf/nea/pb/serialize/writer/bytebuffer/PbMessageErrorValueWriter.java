@@ -63,7 +63,7 @@ class PbMessageErrorValueWriter implements TnccsWriter<PbMessageValueError> {
     private final PbMessageErrorParameterVersionValueWriter versionWriter;
 
     /**
-     * Creates the writer with the given writers that are responsible to
+     * Creates the writer with the given writers, that are responsible to
      * serialize the contained supporting error parameter.
      *
      * @param offsetWriter the writer to serialize an error parameter containing

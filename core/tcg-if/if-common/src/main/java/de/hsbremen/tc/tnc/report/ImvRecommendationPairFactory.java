@@ -39,7 +39,7 @@ import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
- * Factory utility to create an ImvRecommendationPair object.
+ * Factory utility to create a ImvRecommendationPair object.
  *
  */
 public abstract class ImvRecommendationPairFactory {

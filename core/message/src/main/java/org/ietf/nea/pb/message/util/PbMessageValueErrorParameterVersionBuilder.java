@@ -36,7 +36,7 @@ package org.ietf.nea.pb.message.util;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
 /**
- * Generic builder to build an TNCCS message version error parameter value
+ * Generic builder to build a TNCCS message version error parameter value
  * compliant to RFC 5793. It can be used in a fluent way.
  *
  *

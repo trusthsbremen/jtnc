@@ -82,6 +82,10 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
  * An example Network Access Authority.
  * Listens for handshakes at localhost:10229.
  *
+ * The NAA uses a plain socket for testing, this
+ * cannot be used for production where TLS
+ * protection is mandatory. However to achieve
+ * TLS protection just us a Java SSL socket.
  *
  */
 public class Naa {

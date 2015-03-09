@@ -106,7 +106,7 @@ class PaAttributeProductInformationValueReader implements
 
                 byte[] sData = buffer.read((int) safeLength);
                 if (nameLength > safeLength) {
-                    // skip the rest that does not fit
+                    // skip the rest, that does not fit
                     buffer.read(nameLength - safeLength);
                 }
                 String productName = new String(sData,

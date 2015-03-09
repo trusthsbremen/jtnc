@@ -50,7 +50,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Writer to serialize an entire transport message compliant to RFC 6876 from a
- * Java object to a buffer of bytes. The writer is composed of several writers
+ * Java object to a buffer of bytes. The writer is composed of several writers,
  * that are used to serialize the different message elements (e.g. header,
  * message , ...). Message value writers can be managed with the add and remove
  * operations.

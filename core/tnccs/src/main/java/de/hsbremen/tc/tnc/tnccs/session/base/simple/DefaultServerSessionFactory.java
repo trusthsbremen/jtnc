@@ -118,8 +118,8 @@ public class DefaultServerSessionFactory extends AbstractSessionFactory {
      * @param writer the message writer
      * @param reader the message reader
      * @param imvHandlerBuilder the builder to build an IMV message handler
-     * @param tncsHandlerBuilder the builder to build an TNCS message handler
-     * @param tnccsValExBuilder  the builder to build an validation exception
+     * @param tncsHandlerBuilder the builder to build a TNCS message handler
+     * @param tnccsValExBuilder  the builder to build a validation exception
      * handler
      * @param tncsContentHandlerFactory the builder to build a content handler,
      * which manages the IMV, TNCS and validation exception handler

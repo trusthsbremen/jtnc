@@ -70,7 +70,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Reader to parse an entire TNCCS message batch compliant to RFC 5793 from
  * a buffer of bytes to a Java object. The reader is composed
- * of several readers that are used to parse the different batch elements
+ * of several readers, that are used to parse the different batch elements
  * (e.g. header, messages, ...). Message value readers can be managed with
  * the add and remove operations.
  *

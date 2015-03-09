@@ -37,7 +37,7 @@ import de.hsbremen.tc.tnc.message.m.ImData;
 
 /**
  * Generic integrity measurement component message header base
- * consisting of general parameters that describe a message.
+ * consisting of general parameters, that describe a message.
  *
  *
  */

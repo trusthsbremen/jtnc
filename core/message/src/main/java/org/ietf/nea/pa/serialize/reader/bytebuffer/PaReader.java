@@ -65,7 +65,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
 /**
  * Reader to parse an entire integrity measurement component message compliant
  * to RFC 5792 from a buffer of bytes to a Java object. The reader is composed
- * of several readers that are used to parse the different message elements
+ * of several readers, that are used to parse the different message elements
  * (e.g. header, attributes, ...). Attribute value readers can be managed with
  * the add and remove operations.
  *

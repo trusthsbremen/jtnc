@@ -103,7 +103,7 @@ class PtTlsMessageSaslResultValueReader implements
 
                     byte[] resultData = buffer.read((int) safeLength);
                     if (counter > safeLength) {
-                        // skip the rest that does not fit
+                        // skip the rest, that does not fit
                         buffer.read(counter - safeLength);
                     }
 

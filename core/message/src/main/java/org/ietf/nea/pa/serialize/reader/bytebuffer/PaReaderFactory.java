@@ -69,7 +69,7 @@ import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
 /**
- * Factory utility to create a reader that can parse an entire integrity
+ * Factory utility to create a reader, that can parse an entire integrity
  * measurement component message compliant to RFC 5792 from a buffer of bytes to
  * a Java object.
  *
@@ -84,7 +84,7 @@ public abstract class PaReaderFactory {
     }
 
     /**
-     * Returns the identifier of the RFC 5792 protocol supported by a reader
+     * Returns the identifier of the RFC 5792 protocol supported by a reader,
      * that is created with this factory.
      *
      * @return the protocol identifier
@@ -96,7 +96,7 @@ public abstract class PaReaderFactory {
     /**
      * Creates a reader to parse an entire integrity measurement component
      * message compliant to RFC 5792 from a buffer of bytes to a Java object.
-     * The reader supports all elements that are specified by RFC 5792 and
+     * The reader supports all elements, that are specified by RFC 5792 and
      * allowed in a production environment.
      *
      * @return the integrity measurement component message reader
@@ -203,7 +203,7 @@ public abstract class PaReaderFactory {
     /**
      * Creates a reader to parse an entire integrity measurement component
      * message compliant to RFC 5792 from a buffer of bytes to a Java object.
-     * The reader supports all elements that are specified by RFC 5792 including
+     * The reader supports all elements, that are specified by RFC 5792 including
      * the test attribute value.
      *
      * @return the integrity measurement component message reader

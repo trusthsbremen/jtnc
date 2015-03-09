@@ -165,7 +165,7 @@ public class DefaultConfigurationFileChangeMonitor implements
          *
          * @param file the file to check
          * @param messageDigestIdentifier the identifier for the message digest
-         * algorithm that should be used, if null only modification time check
+         * algorithm, that should be used, if null only modification time check
          * is used
          */
         public FileChecker(final File file,

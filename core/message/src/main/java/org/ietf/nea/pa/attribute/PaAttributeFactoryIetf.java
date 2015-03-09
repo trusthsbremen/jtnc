@@ -108,7 +108,7 @@ public abstract class PaAttributeFactoryIetf {
     }
 
     /**
-     * Creates an attribute that indicates if a default password is used.
+     * Creates an attribute, that indicates if a default password is used.
      * @param status indicator indicating if default password is used
      * @return an IETF RFC 5792 compliant integrity measurement attribute
      * @throws ValidationException if creation fails because of invalid values
@@ -128,7 +128,7 @@ public abstract class PaAttributeFactoryIetf {
     }
 
     /**
-     * Creates an attribute that indicates if traffic forwarding is enabled.
+     * Creates an attribute, that indicates if traffic forwarding is enabled.
      * @param status indicator indicating if traffic forwarding is enabled
      * @return an IETF RFC 5792 compliant integrity measurement attribute
      * @throws ValidationException if creation fails because of invalid values

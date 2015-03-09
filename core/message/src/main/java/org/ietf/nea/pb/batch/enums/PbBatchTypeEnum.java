@@ -56,30 +56,30 @@ public enum PbBatchTypeEnum {
     SDATA((byte) 2),
     /**
      * 3 - RESULT - The Posture Broker Server may send a batch with this Batch
-     * Type to indicate that it has completed its evaluation. The batch MUST
+     * Type to indicate, that it has completed its evaluation. The batch MUST
      * include a PB-Assessment-Result message and MAY include a
      * PB-Access-Recommendation message.
      */
     RESULT((byte) 3),
     /**
      * 4 - CRETRY - The Posture Broker Client may send a batch with this Batch
-     * Type to indicate that it wishes to restart an exchange. A Posture Broker
-     * Server MUST NOT send this Batch Type. A CRETRY batch may be empty
+     * Type to indicate, that it wishes to restart an exchange. A Posture
+     * Broker Server MUST NOT send this Batch Type. A CRETRY batch may be empty
      * (contain no messages) if the Posture Broker Client has nothing else to
      * send.
      */
     CRETRY((byte) 4),
     /**
      * 5 - SRETRY - The Posture Broker Server may send a batch with this Batch
-     * Type to indicate that it wishes to restart the exchange. A Posture Broker
-     * Client MUST NOT send this Batch Type. A SRETRY batch may be empty
+     * Type to indicate, that it wishes to restart the exchange. A Posture
+     * Broker Client MUST NOT send this Batch Type. A SRETRY batch may be empty
      * (contain no messages) if the Posture Broker Server has nothing else to
      * send.
      */
     SRETRY((byte) 5),
     /**
      * 6 - CLOSE - The Posture Broker Server or Posture Broker Client may send a
-     * batch with this Batch Type to indicate that it is about to terminate the
+     * batch with this Batch Type to indicate, that it is about to terminate the
      * underlying PT connection. A CLOSE batch may be empty (contain no
      * messages) if there is nothing to send. However, if the termination is due
      * to a fatal error, then the CLOSE batch MUST contain a PB-Error message.

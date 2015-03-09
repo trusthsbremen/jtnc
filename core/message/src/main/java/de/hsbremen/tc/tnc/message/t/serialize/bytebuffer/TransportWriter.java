@@ -38,7 +38,7 @@ import de.hsbremen.tc.tnc.message.t.TransportData;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 
 /**
- * Generic writer that accepts a transport message object and serializes
+ * Generic writer, that accepts a transport message object and serializes
  * it to the given byte buffer.
  *
  *

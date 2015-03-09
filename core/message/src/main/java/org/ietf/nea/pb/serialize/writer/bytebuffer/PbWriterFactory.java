@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 
 /**
- * Factory utility to create a writer that can serialize an entire TNCCS batch
+ * Factory utility to create a writer, that can serialize an entire TNCCS batch
  * compliant to RFC 5793 from a Java object to a buffer of bytes.
  *
  */
@@ -56,7 +56,7 @@ public abstract class PbWriterFactory {
     }
 
     /**
-     * Returns the identifier of the RFC 5793 protocol supported by a writer
+     * Returns the identifier of the RFC 5793 protocol supported by a writer,
      * that is created with this factory.
      *
      * @return the protocol identifier
@@ -67,8 +67,9 @@ public abstract class PbWriterFactory {
 
     /**
      * Creates a writer to serialize an entire TNCCS batch compliant to RFC 5793
-     * from a Java object to a buffer of bytes. The writer supports all elements
-     * that are specified by RFC 5793 and allowed in a production environment.
+     * from a Java object to a buffer of bytes. The writer supports all
+     * elements, that are specified by RFC 5793 and allowed in a production
+     * environment.
      *
      * @return the TNCCS batch writer
      */
@@ -128,8 +129,9 @@ public abstract class PbWriterFactory {
 
     /**
      * Creates a writer to serialize an entire TNCCS batch compliant to RFC 5793
-     * from a Java object to a buffer of bytes. The writer supports all elements
-     * that are specified by RFC 5793 including the experimental message value.
+     * from a Java object to a buffer of bytes. The writer supports all
+     * elements, that are specified by RFC 5793 including the experimental
+     * message value.
      *
      * @return the TNCCS batch writer
      */
