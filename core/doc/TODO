@@ -4,7 +4,7 @@ TODOs
 Functionality:
 - Make a TncsHandler which can read an evaluation policy from a file.
 - Make a IMV example which can read an evaluation policy from a file.
-- Not null checking (already done for several classes, but there may be more)  
+- Not null checking (already done for several situations, but there may be more)  
 - - Proper not null check for arguments in all writer/reader classes.
 - - Check if factory constructors do proper if null checking
 - - Check if builders do proper null checking

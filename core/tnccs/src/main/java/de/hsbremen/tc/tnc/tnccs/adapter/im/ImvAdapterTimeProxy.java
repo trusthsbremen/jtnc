@@ -47,7 +47,7 @@ import de.hsbremen.tc.tnc.tnccs.adapter.im.exception.TerminatedException;
  *
  *
  */
-public class ImvAdapterTimeProxy extends AbstractTimeProxy implements
+class ImvAdapterTimeProxy extends AbstractTimeProxy implements
         ImvAdapter {
 
     private final ImvAdapter adapter;

@@ -71,28 +71,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- report plugins for direct maven usage -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-					<propertyExpansion>samedir=${main.basedir}</propertyExpansion>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.0.1</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-			</plugin>
-
 			<!-- Copies all packages in one folder -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -125,7 +103,18 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9.1</version>
 				<configuration>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>                         
+	                <docletArtifact>                                                         
+	                    <groupId>org.umlgraph</groupId>                                      
+	                    <artifactId>umlgraph</artifactId>                                    
+	                    <version>5.6</version>                                               
+	                </docletArtifact>                                                        
+	                <additionalparam>-views -all</additionalparam>                           
+	                <useStandardDocletOptions>true</useStandardDocletOptions>
+	             	<show>private</show>
+	            	<author>false</author>
 					<aggregate>false</aggregate>
+					<bottom><![CDATA[Copyright &#169; {currentYear}, Carl-Heinz Genzel]]> </bottom>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -138,27 +127,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-					<propertyExpansion>samedir=${main.basedir}</propertyExpansion>
-				</configuration>
-			</plugin>
-
-
 		</plugins>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>2.5.2</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 </project>
