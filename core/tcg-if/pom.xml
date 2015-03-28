@@ -17,8 +17,10 @@
 		<module>if-imv</module>
 	</modules>
 
-	<!-- <properties> <main.basedir>${project.parent.basedir}</main.basedir> 
-		</properties> -->
+	<properties>
+		<javadoc.style>${project.parent.basedir}/doc/javadoc_stylesheet.css</javadoc.style>
+		<jxr.style>${project.parent.basedir}/doc/jxr_stylesheet.css</jxr.style>
+	</properties>
 
 
 	<dependencies>

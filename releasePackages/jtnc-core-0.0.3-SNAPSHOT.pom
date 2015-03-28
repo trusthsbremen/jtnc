@@ -25,6 +25,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- <main.basedir>${project.basedir}</main.basedir> -->
+		<!-- <doxygen.cfg.path>${basedir}</doxygen.cfg.path> -->
+		<javadoc.style>${basedir}/doc/javadoc_stylesheet.css</javadoc.style>
+		<jxr.style>${basedir}/doc/jxr_stylesheet.css</jxr.style>
 	</properties>
 <!-- 	<distributionManagement> -->
 <!-- 	    <repository> -->
@@ -76,16 +79,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- report plugins for direct maven usage -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-					<propertyExpansion>samedir=${main.basedir}</propertyExpansion>
-				</configuration>
-			</plugin>
 
 			<!-- Copies all packages in one folder -->
 			<plugin>
@@ -114,21 +107,35 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-			  <groupId>net.sf.doodleproject</groupId>
-			  <artifactId>doxygen-maven-plugin</artifactId>
-			  <configuration>
-			  	<executable>/usr/bin/doxygen</executable>
-			    <configurationFile>${basedir}/doxyfile</configurationFile>
-			  </configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 			  <groupId>net.sf.doodleproject</groupId> -->
+<!-- 			  <artifactId>doxygen-maven-plugin</artifactId> -->
+<!-- 			  <configuration> -->
+<!-- 			  	<executable>/usr/bin/doxygen</executable> -->
+<!-- 			  	<inputDirectory>${basedir}/src/main/java</inputDirectory> -->
+<!-- 			  	<outputDirectory>${project.build.directory}/dox</outputDirectory> -->
+<!-- 			    <configurationFile>${doxygen.cfg.path}/doxyfile</configurationFile> -->
+<!-- 			  </configuration> -->
+<!-- 			</plugin> -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9.1</version>
 				<configuration>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>                         
+	                <docletArtifact>                                                         
+	                    <groupId>org.umlgraph</groupId>                                      
+	                    <artifactId>umlgraph</artifactId>                                    
+	                    <version>5.6</version>                                               
+	                </docletArtifact>                                                        
+	                <additionalparam>-views -all -constructors</additionalparam>                           
+	                <useStandardDocletOptions>true</useStandardDocletOptions>
+	             	<show>private</show>
+	            	<author>false</author>
 					<aggregate>false</aggregate>
+					<stylesheetfile>${javadoc.style}</stylesheetfile>
+					<bottom><![CDATA[Copyright &#169; {currentYear}, Carl-Heinz Genzel]]> </bottom>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -138,10 +145,9 @@
 				<configuration>
 					<linkJavadoc>true</linkJavadoc>
 					<javadocDir>target/site/apidocs</javadocDir>
+					<stylesheet>${jxr.style}</stylesheet>
 				</configuration>
 			</plugin>
-
-
 		</plugins>
 	</build>
 </project>

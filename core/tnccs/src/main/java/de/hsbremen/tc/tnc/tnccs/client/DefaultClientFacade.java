@@ -110,7 +110,7 @@ public class DefaultClientFacade implements ClientFacade,
             throw new IllegalStateException("Client was not started.");
         }
 
-        if (change.equals(CommonConnectionChangeTypeEnum.CLOSED)) {
+        if (change.equals(CommonConnectionChangeTypeEnum.CLOSE)) {
             this.closeSession(connection);
         } else if (change.equals(CommonConnectionChangeTypeEnum.NEW)) {
             this.createSession(connection);
@@ -175,7 +175,7 @@ public class DefaultClientFacade implements ClientFacade,
         }
 
         // just to be sure
-        if (change.equals(CommonConnectionChangeTypeEnum.CLOSED)) {
+        if (change.equals(CommonConnectionChangeTypeEnum.CLOSE)) {
             this.runningSessions.clear();
         }
 
@@ -227,7 +227,7 @@ public class DefaultClientFacade implements ClientFacade,
         }
 
         this.notifyGlobalConnectionChange(
-                CommonConnectionChangeTypeEnum.CLOSED);
+                CommonConnectionChangeTypeEnum.CLOSE);
 
     }
 

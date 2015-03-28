@@ -11,8 +11,10 @@
 	<packaging>jar</packaging>
 	<name>NAR implementation examples</name>
 
-	<!-- <properties> <main.basedir>${project.parent.basedir}</main.basedir> 
-		</properties> -->
+	<properties>
+		<javadoc.style>${project.parent.basedir}/doc/javadoc_stylesheet.css</javadoc.style>
+		<jxr.style>${project.parent.basedir}/doc/jxr_stylesheet.css</jxr.style>
+	</properties>
 
 	<build>
 		<plugins>
@@ -27,6 +29,31 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<outputDirectory>${project.build.directory}/lib</outputDirectory>
+					<overWriteReleases>true</overWriteReleases>
+					<overWriteSnapshots>true</overWriteSnapshots>
+					<overWriteIfNewer>true</overWriteIfNewer>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>de.hsbremen.tc.tnc.examples.nar.NarCLI</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 			</plugin>
 		</plugins>

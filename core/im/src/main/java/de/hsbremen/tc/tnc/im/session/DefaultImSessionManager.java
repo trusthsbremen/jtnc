@@ -101,7 +101,7 @@ public class DefaultImSessionManager<K, V extends ImSession> implements
 
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         this.service = service;
-        service.scheduleWithFixedDelay(new Cleaner(),
+        service.scheduleWithFixedDelay(new Clean(),
                 this.sessionCleanUpInterval,
                 this.sessionCleanUpInterval,
                 TimeUnit.MILLISECONDS);
@@ -122,9 +122,8 @@ public class DefaultImSessionManager<K, V extends ImSession> implements
      * Runnable, that removes sessions from the manager,
      * which are closed or where the state is unknown.
      *
-     *
      */
-    private class Cleaner implements Runnable {
+    private class Clean implements Runnable {
 
         @Override
         public void run() {

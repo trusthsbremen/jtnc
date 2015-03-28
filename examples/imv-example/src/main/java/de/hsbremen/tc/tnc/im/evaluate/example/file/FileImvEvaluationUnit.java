@@ -196,6 +196,18 @@ public class FileImvEvaluationUnit extends AbstractImEvaluationUnitIetf
     private int handleTesting(final PaAttributeValueTesting value,
             final ImSessionContext context) {
 
+        if(LOGGER.isDebugEnabled()){
+            StringBuilder b =
+                    new StringBuilder("Checksum Test:\n")
+            .append("Property\t|Expected\t|Actual\t|\n")
+            .append("Name\t|")
+            .append(properties.getProperty("checksum").trim())
+            .append("\t|")
+            .append(value.getContent().trim())
+            .append("\t|\n");
+            LOGGER.debug(b.toString());
+        }
+
         if (value.getContent().trim()
                 .equals(properties.getProperty("checksum").trim())) {
             return 1;

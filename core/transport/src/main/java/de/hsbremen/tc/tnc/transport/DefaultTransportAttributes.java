@@ -31,7 +31,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.ietf.nea.pt;
+package de.hsbremen.tc.tnc.transport;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
@@ -40,11 +40,9 @@ import de.hsbremen.tc.tnc.attribute.TncHsbAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
-import de.hsbremen.tc.tnc.transport.TransportAttributes;
 
 /**
  * Default attributes for a TransportConnection.
- *
  *
  */
 public class DefaultTransportAttributes implements TransportAttributes {

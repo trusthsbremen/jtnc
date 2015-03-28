@@ -36,14 +36,13 @@ package org.ietf.nea.pt.socket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
 
-import org.ietf.nea.pt.DefaultTransportAttributes;
-
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
+import de.hsbremen.tc.tnc.transport.DefaultTransportAttributes;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.TransportConnectionBuilder;
 import de.hsbremen.tc.tnc.util.NotNull;

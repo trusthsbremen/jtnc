@@ -10,8 +10,10 @@
 	<packaging>jar</packaging>
 	<name>TCG IF-IMC interface specifications</name>
 
-	<!-- <properties> <main.basedir>${project.parent.parent.basedir}</main.basedir> 
-		</properties> -->
+	<properties>
+		<javadoc.style>${project.parent.parent.basedir}/doc/javadoc_stylesheet.css</javadoc.style>
+		<jxr.style>${project.parent.parent.basedir}/doc/jxr_stylesheet.css</jxr.style>
+	</properties>
 
 
 	<dependencies>

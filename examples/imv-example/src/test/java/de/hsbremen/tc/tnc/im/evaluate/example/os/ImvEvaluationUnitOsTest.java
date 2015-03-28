@@ -29,7 +29,7 @@ public class ImvEvaluationUnitOsTest {
 	
 	@Before
 	public void setUp(){
-		evlUnit = new OsImvEvaluationUnit("/os_imv.properties",Dummy.getHandshakeListener());
+		evlUnit = new OsImvEvaluationUnit("/validation/os_imv.properties",Dummy.getHandshakeListener());
 		ctx = Dummy.getSessionContext();
 	}
 	

@@ -10,9 +10,10 @@
 	<packaging>jar</packaging>
 	<name>TNC client and server</name>
 
-	<!-- <properties> <main.basedir>${project.parent.parent.basedir}</main.basedir> 
-		</properties> -->
-
+	<properties>
+		<javadoc.style>${project.parent.basedir}/doc/javadoc_stylesheet.css</javadoc.style>
+		<jxr.style>${project.parent.basedir}/doc/jxr_stylesheet.css</jxr.style>
+	</properties>
 
 	<dependencies>
 		<dependency>

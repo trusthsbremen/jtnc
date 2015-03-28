@@ -52,6 +52,8 @@ public abstract class NarCLI {
 
     private static final Pattern CONFIG_FILE_PATH =
             Pattern.compile("(start) (([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+)");
+    private static final Pattern HOST_PATTERN =
+            Pattern.compile("(\\S+):(\\d+)");
     /**
      * Main method to run the NAA.
      *
@@ -75,8 +77,8 @@ public abstract class NarCLI {
                 .append("\nstop \t\t\t stop NAR")
                 .append("\nquit \t\t\t quit input")
                 .append("\n")
-                .append("\nhandshake (start|stop) \t ")
-                .append("start/stop TNC handshake with TNCS")
+                .append("\nhandshake host:port \t ")
+                .append("start TNC handshake with TNCS")
                 .append("\n-------\n").toString();
 
         System.out.println(help);
@@ -119,12 +121,13 @@ public abstract class NarCLI {
                 if (input.contains("handshake")) {
 
                     try {
-                        if (input.contains("start")) {
-                            nar.startHandshake();
-                        } else if (input.contains("stop")) {
-                            nar.stopHandshake();
+                        Matcher m = HOST_PATTERN.matcher(input);
+
+                        if (m.find()) {
+                            nar.startHandshake(m.group(1),
+                                    Integer.parseInt(m.group(2)));
                         } else {
-                            System.err.println("Use start or stop.");
+                            System.out.println("Input malformed.");
                         }
                     } catch (IOException e) {
                         System.err.println("Handshake could not be started: "

@@ -46,7 +46,7 @@ public enum CommonConnectionChangeTypeEnum implements ConnectionChangeType {
     /**
      * Connection closed.
      */
-    CLOSED(Integer.MAX_VALUE);
+    CLOSE(Integer.MAX_VALUE);
 
     private int id;
 

@@ -91,7 +91,7 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
 public class Naa {
     private static final Logger LOGGER = LoggerFactory.getLogger(Naa.class);
     private static final long MAX_MSG_SIZE = 131072;
-    private static final int NAA_PORT = 10229;
+    private static final int NAA_PORT = 30271;
     private static final long SESSION_CLEAN_INTERVAL = 3000;
     private static final long FILE_CHECK_INTERVAL = 5000;
 
@@ -203,7 +203,7 @@ public class Naa {
             this.stopped = true;
 
             this.client.notifyGlobalConnectionChange(
-                    CommonConnectionChangeTypeEnum.CLOSED);
+                    CommonConnectionChangeTypeEnum.CLOSE);
 
             this.runner.shutdownNow();
 

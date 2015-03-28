@@ -26,6 +26,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- <main.basedir>${project.basedir}</main.basedir> -->
+		<javadoc.style>${basedir}/doc/javadoc_stylesheet.css</javadoc.style>
+		<jxr.style>${basedir}/doc/jxr_stylesheet.css</jxr.style>
 	</properties>
 	<pluginRepositories>
 		<pluginRepository>
@@ -71,28 +73,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- report plugins for direct maven usage -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-					<propertyExpansion>samedir=${main.basedir}</propertyExpansion>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.0.1</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-			</plugin>
-
 			<!-- Copies all packages in one folder -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -125,7 +105,19 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9.1</version>
 				<configuration>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>                         
+	                <docletArtifact>                                                         
+	                    <groupId>org.umlgraph</groupId>                                      
+	                    <artifactId>umlgraph</artifactId>                                    
+	                    <version>5.6</version>                                               
+	                </docletArtifact>                                                        
+	                <additionalparam>-views -all -constructors</additionalparam>                           
+	                <useStandardDocletOptions>true</useStandardDocletOptions>
+	             	<show>private</show>
+	            	<author>false</author>
 					<aggregate>false</aggregate>
+					<stylesheetfile>${javadoc.style}</stylesheetfile>
+					<bottom><![CDATA[Copyright &#169; {currentYear}, Carl-Heinz Genzel]]> </bottom>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -135,30 +127,11 @@
 				<configuration>
 					<linkJavadoc>true</linkJavadoc>
 					<javadocDir>target/site/apidocs</javadocDir>
+					<stylesheet>${jxr.style}</stylesheet>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-					<propertyExpansion>samedir=${main.basedir}</propertyExpansion>
-				</configuration>
-			</plugin>
-
 
 		</plugins>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>2.5.2</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 </project>

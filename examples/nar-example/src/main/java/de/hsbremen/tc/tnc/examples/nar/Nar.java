@@ -90,7 +90,6 @@ public class Nar {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Nar.class);
     private static final long MAX_MSG_SIZE = 131072;
-    private static final int NAA_PORT = 10229;
     private static final long SESSION_CLEAN_INTERVAL = 3000;
     private static final long FILE_CHECK_INTERVAL = 5000;
 
@@ -176,10 +175,16 @@ public class Nar {
     /**
      * Starts a new integrity handshake.
      *
+     * @param host the address of an NAA
+     * @param port the port of an NAA
      * @throws IOException if connection attempt fails
      */
-    public void startHandshake() throws IOException {
-        this.socket = new Socket("localhost", NAA_PORT);
+    public void startHandshake(String host, int port) throws IOException {
+        if(this.connection != null && this.connection.isOpen()){
+            this.client.notifyConnectionChange(this.connection,
+                    CommonConnectionChangeTypeEnum.CLOSE);
+        }
+        this.socket = new Socket(host, port);
 
         final int estimatedDefaultImCount = 10;
         SocketTransportConnectionBuilder builder =
@@ -206,7 +211,7 @@ public class Nar {
      */
     public void stopHandshake() throws IOException {
         this.client.notifyConnectionChange(this.connection,
-                CommonConnectionChangeTypeEnum.CLOSED);
+                CommonConnectionChangeTypeEnum.CLOSE);
         this.socket.close();
     }
 

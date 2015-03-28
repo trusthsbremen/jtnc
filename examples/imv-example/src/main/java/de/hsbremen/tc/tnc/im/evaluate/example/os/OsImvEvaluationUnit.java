@@ -230,6 +230,28 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
             i++;
         }
 
+        if(LOGGER.isDebugEnabled()){
+            StringBuilder b =
+                    new StringBuilder("String Version:\n")
+            .append("Property\t|Expected\t|Actual\t|\n")
+            .append("Build\t|")
+            .append(properties.getProperty("str_build_number").trim())
+            .append("\t|")
+            .append(value.getBuildVersion().trim())
+            .append("\t|\n")
+            .append("Version\t|")
+            .append(properties.getProperty("str_version_number").trim())
+            .append("\t|")
+            .append(value.getVersionNumber().trim())
+            .append("\t|\n")
+            .append("Config\t|")
+            .append(properties.getProperty("str_config_number").trim())
+            .append("\t|")
+            .append(value.getConfigurationVersion().trim())
+            .append("\t|\n");
+            LOGGER.debug(b.toString());
+        }
+
         return i;
     }
 
@@ -274,6 +296,28 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
             i++;
         }
 
+        if(LOGGER.isDebugEnabled()){
+            StringBuilder b =
+                    new StringBuilder("Product Info:\n")
+            .append("Property\t|Expected\t|Actual\t|\n")
+            .append("Name\t|")
+            .append(properties.getProperty("pi_name"))
+            .append("\t|")
+            .append(value.getName())
+            .append("\t|\n")
+            .append("Product ID\t|")
+            .append(Integer.parseInt(properties.getProperty("pi_id")))
+            .append("\t|")
+            .append(value.getProductId())
+            .append("\t|\n")
+            .append("Vendor ID\t|")
+            .append(Integer.parseInt(properties.getProperty("pi_vid")))
+            .append("\t|")
+            .append(value.getVendorId())
+            .append("\t|\n");
+            LOGGER.debug(b.toString());
+        }
+
         return i;
 
     }
@@ -307,6 +351,31 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
         }
 
         // the rest is not relevant right now
+
+        if(LOGGER.isDebugEnabled()){
+            StringBuilder b =
+                    new StringBuilder("Numeric Version:\n")
+            .append("Property\t|Expected\t|Actual\t|\n")
+            .append("Major\t|")
+            .append(Long.parseLong(properties
+                    .getProperty("nv_major")))
+            .append("\t|")
+            .append(value.getMajorVersion())
+            .append("\t|\n")
+            .append("Minor\t|")
+            .append(Long.parseLong(properties
+                    .getProperty("nv_minor")))
+            .append("\t|")
+            .append(value.getMinorVersion())
+            .append("\t|\n")
+            .append("Build\t|")
+            .append(Long.parseLong(properties
+                    .getProperty("nv_build")))
+            .append("\t|")
+            .append(value.getBuildVersion())
+            .append("\t|\n");
+            LOGGER.debug(b.toString());
+        }
 
         return i;
     }
