@@ -84,7 +84,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  *
  */
-public abstract class PaAttributeValueFactoryIetf {
+public final class PaAttributeValueFactoryIetf {
 
     private static final long VENDORID = IETFConstants.IETF_PEN_VENDORID;
 

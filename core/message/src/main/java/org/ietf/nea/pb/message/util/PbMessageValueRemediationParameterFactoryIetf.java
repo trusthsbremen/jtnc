@@ -46,7 +46,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  *
  */
-public abstract class PbMessageValueRemediationParameterFactoryIetf {
+public final class PbMessageValueRemediationParameterFactoryIetf {
 
     /**
      * Private constructor should never be invoked.

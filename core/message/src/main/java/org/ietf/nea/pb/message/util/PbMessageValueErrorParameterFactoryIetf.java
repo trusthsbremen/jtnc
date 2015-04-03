@@ -43,7 +43,7 @@ import de.hsbremen.tc.tnc.IETFConstants;
  *
  *
  */
-public abstract class PbMessageValueErrorParameterFactoryIetf {
+public final class PbMessageValueErrorParameterFactoryIetf {
 
     /**
      * Private constructor should never be invoked.

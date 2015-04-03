@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if message identifier is in range.
  *
  */
-public abstract class IdentifierLimits {
+public final class IdentifierLimits {
     /**
      * Private constructor should never be invoked.
      */

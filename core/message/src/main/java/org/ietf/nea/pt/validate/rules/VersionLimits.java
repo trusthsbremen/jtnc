@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if message version is in range.
  *
  */
-public abstract class VersionLimits {
+public final class VersionLimits {
     /**
      * Private constructor should never be invoked.
      */

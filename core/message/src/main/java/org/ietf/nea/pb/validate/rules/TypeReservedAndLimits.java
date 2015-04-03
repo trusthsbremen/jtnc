@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if the message type ID is reserved or not in range.
  *
  */
-public abstract class TypeReservedAndLimits {
+public final class TypeReservedAndLimits {
     /**
      * Private constructor should never be invoked.
      */

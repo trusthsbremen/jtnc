@@ -45,7 +45,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Rule, that checks if an URI string has a valid syntax.
  *
  */
-public abstract class UriSyntax {
+public final class UriSyntax {
     /**
      * Private constructor should never be invoked.
      */

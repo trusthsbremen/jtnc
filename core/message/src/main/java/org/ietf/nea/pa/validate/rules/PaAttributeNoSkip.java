@@ -48,7 +48,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * flag is contained in the set of lags.
  *
  */
-public abstract class PaAttributeNoSkip {
+public final class PaAttributeNoSkip {
     /**
      * Private constructor should never be invoked.
      */

@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if an IM(C/V) ID is in range.
  *
  */
-public abstract class ImIdLimits {
+public final class ImIdLimits {
     /**
      * Private constructor should never be invoked.
      */

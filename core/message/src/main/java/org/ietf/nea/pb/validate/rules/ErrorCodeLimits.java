@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if error code is known and in range.
  *
  */
-public abstract class ErrorCodeLimits {
+public final class ErrorCodeLimits {
     /**
      * Private constructor should never be invoked.
      */

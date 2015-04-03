@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if a given length value is within common limits.
  *
  */
-public abstract class CommonLengthLimits {
+public final class CommonLengthLimits {
     /**
      * Private constructor should never be invoked.
      */

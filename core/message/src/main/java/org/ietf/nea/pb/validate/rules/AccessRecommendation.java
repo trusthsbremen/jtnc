@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if access recommendation ID is known.
  *
  */
-public abstract class AccessRecommendation {
+public final class AccessRecommendation {
     /**
      * Private constructor should never be invoked.
      */

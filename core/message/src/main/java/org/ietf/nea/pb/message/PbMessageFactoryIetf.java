@@ -52,7 +52,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  *
  */
-public abstract class PbMessageFactoryIetf {
+public final class PbMessageFactoryIetf {
 
     private static final long VENDORID = IETFConstants.IETF_PEN_VENDORID;
 

@@ -55,7 +55,7 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
  *
  *
  */
-public abstract class StateUtil {
+public final class StateUtil {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(StateUtil.class);

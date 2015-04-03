@@ -46,7 +46,7 @@ import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
  * message compliant to RFC 6876 from a Java object to a buffer of bytes.
  *
  */
-public abstract class PtTlsWriterFactory {
+public final class PtTlsWriterFactory {
 
     /**
      * Private constructor should never be invoked.

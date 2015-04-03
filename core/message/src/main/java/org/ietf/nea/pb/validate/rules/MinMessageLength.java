@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * requirement.
  *
  */
-public abstract class MinMessageLength {
+public final class MinMessageLength {
     /**
      * Private constructor should never be invoked.
      */

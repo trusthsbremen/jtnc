@@ -38,7 +38,7 @@ package de.hsbremen.tc.tnc;
  *
  *
  */
-public abstract class IETFConstants {
+public final class IETFConstants {
 
     /**
      * Private constructor should never be invoked.

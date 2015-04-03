@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if SASL authentication result ID is known.
  *
  */
-public abstract class SaslResult {
+public final class SaslResult {
     /**
      * Private constructor should never be invoked.
      */

@@ -50,7 +50,7 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  *
  *
  */
-public abstract class PaMessageFactoryIetf {
+public final class PaMessageFactoryIetf {
 
     /**
      * Private constructor should never be invoked.

@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if batch type ID is known.
  *
  */
-public abstract class BatchType {
+public final class BatchType {
     /**
      * Private constructor should never be invoked.
      */

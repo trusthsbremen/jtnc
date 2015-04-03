@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Rule, that checks if string is not terminated with null.
  *
  */
-public abstract class NoNullTerminatedString {
+public final class NoNullTerminatedString {
     /**
      * Private constructor should never be invoked.
      */

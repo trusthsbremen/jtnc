@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if the message version is supported.
  *
  */
-public abstract class MessageVersion {
+public final class MessageVersion {
     /**
      * Private constructor should never be invoked.
      */

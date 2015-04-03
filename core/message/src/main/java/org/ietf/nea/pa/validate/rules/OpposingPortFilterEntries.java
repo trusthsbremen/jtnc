@@ -47,7 +47,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if the list contains valid port filter entries.
  *
  */
-public abstract class OpposingPortFilterEntries {
+public final class OpposingPortFilterEntries {
     /**
      * Private constructor should never be invoked.
      */

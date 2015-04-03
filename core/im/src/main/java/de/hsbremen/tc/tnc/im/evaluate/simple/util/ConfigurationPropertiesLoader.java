@@ -44,7 +44,7 @@ import java.util.Properties;
  *
  *
  */
-public abstract class ConfigurationPropertiesLoader {
+public final class ConfigurationPropertiesLoader {
 
     /**
      * Private constructor should never be invoked.

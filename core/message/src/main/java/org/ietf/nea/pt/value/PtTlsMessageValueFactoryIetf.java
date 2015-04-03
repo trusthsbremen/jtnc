@@ -49,7 +49,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  *
  */
-public abstract class PtTlsMessageValueFactoryIetf {
+public final class PtTlsMessageValueFactoryIetf {
 
     /**
      * Private constructor should never be invoked.

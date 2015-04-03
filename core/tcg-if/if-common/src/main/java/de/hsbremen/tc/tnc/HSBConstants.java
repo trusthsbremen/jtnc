@@ -38,7 +38,7 @@ package de.hsbremen.tc.tnc;
  *
  *
  */
-public abstract class HSBConstants {
+public final class HSBConstants {
 
     /**
      * Private constructor should never be invoked.

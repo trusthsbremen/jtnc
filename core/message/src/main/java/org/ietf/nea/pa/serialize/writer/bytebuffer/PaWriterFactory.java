@@ -47,7 +47,7 @@ import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
  * buffer of bytes.
  *
  */
-public abstract class PaWriterFactory {
+public final class PaWriterFactory {
 
     /**
      * Private constructor should never be invoked.

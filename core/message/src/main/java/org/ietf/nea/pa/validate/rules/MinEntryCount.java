@@ -43,7 +43,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if the given list contains a minimal amount of entries.
  *
  */
-public abstract class MinEntryCount {
+public final class MinEntryCount {
     /**
      * Private constructor should never be invoked.
      */

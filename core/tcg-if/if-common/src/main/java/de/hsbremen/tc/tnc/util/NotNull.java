@@ -38,7 +38,7 @@ package de.hsbremen.tc.tnc.util;
  *
  *
  */
-public abstract class NotNull {
+public final class NotNull {
 
     /**
      * Private constructor should never be invoked.

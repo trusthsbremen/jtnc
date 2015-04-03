@@ -44,7 +44,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * last us is valid.
  *
  */
-public abstract class LastUseSyntaxCheck {
+public final class LastUseSyntaxCheck {
     /**
      * Private constructor should never be invoked.
      */

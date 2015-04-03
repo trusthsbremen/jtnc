@@ -44,7 +44,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * length.
  *
  */
-public abstract class ConfiguredLengthLimit {
+public final class ConfiguredLengthLimit {
     /**
      * Private constructor should never be invoked.
      */

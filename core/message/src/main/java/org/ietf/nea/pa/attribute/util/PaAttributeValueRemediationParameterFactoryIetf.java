@@ -46,7 +46,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  *
  */
-public abstract class PaAttributeValueRemediationParameterFactoryIetf {
+public final class PaAttributeValueRemediationParameterFactoryIetf {
 
     /**
      * Private constructor should never be invoked.

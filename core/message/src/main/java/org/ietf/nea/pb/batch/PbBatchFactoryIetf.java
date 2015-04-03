@@ -52,7 +52,7 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
  *
  *
  */
-public abstract class PbBatchFactoryIetf {
+public final class PbBatchFactoryIetf {
 
     /**
      * Private constructor should never be invoked.

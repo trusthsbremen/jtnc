@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if string contains zero characters.
  *
  */
-public abstract class NoZeroString {
+public final class NoZeroString {
     /**
      * Private constructor should never be invoked.
      */

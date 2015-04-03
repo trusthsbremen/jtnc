@@ -43,7 +43,7 @@ import java.util.Arrays;
  *
  *
  */
-public abstract class ByteArrayHelper {
+public final class ByteArrayHelper {
 
     /**
      * Private constructor should never be invoked.

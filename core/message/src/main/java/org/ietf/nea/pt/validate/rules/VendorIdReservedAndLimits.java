@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if the message vendor ID is reserved or not in range.
  *
  */
-public abstract class VendorIdReservedAndLimits {
+public final class VendorIdReservedAndLimits {
     /**
      * Private constructor should never be invoked.
      */

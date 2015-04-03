@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if assessment result ID is known.
  *
  */
-public abstract class AssessmentResult {
+public final class AssessmentResult {
 
     /**
      * Private constructor should never be invoked.

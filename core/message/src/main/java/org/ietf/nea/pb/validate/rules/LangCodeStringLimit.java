@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if an RFC 4646 language code string is to large.
  *
  */
-public abstract class LangCodeStringLimit {
+public final class LangCodeStringLimit {
     /**
      * Private constructor should never be invoked.
      */

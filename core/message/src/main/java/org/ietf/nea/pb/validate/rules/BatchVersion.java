@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if given batch version is supported.
  *
  */
-public abstract class BatchVersion {
+public final class BatchVersion {
     /**
      * Private constructor should never be invoked.
      */

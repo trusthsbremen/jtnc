@@ -45,7 +45,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Rule, that checks if the batch type and the batch direction correlate.
  *
  */
-public abstract class BatchDirectionAndType {
+public final class BatchDirectionAndType {
     /**
      * Private constructor should never be invoked.
      */

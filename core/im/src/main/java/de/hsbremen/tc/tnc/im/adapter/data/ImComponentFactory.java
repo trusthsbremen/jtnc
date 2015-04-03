@@ -48,7 +48,7 @@ import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
  *
  *
  */
-public abstract class ImComponentFactory {
+public final class ImComponentFactory {
 
     private static final int VENDOR_ID_SHIFT = 8;
     private static final int MESSAGE_TYPE_MASK = 0xFF;

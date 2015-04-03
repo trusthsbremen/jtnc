@@ -43,7 +43,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if the batch direction ID is known.
  *
  */
-public abstract class BatchDirectionality {
+public final class BatchDirectionality {
     /**
      * Private constructor should never be invoked.
      */

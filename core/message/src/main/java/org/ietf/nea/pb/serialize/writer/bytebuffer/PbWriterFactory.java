@@ -46,7 +46,7 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
  * compliant to RFC 5793 from a Java object to a buffer of bytes.
  *
  */
-public abstract class PbWriterFactory {
+public final class PbWriterFactory {
 
     /**
      * Private constructor should never be invoked.

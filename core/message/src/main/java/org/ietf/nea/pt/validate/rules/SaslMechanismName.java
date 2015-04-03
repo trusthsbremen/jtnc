@@ -43,7 +43,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * RFC 4422 conventions.
  *
  */
-public abstract class SaslMechanismName {
+public final class SaslMechanismName {
     /**
      * Private constructor should never be invoked.
      */

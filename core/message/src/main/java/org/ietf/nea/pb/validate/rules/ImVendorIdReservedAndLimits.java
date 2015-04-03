@@ -44,7 +44,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * is reserved or not in range.
  *
  */
-public abstract class ImVendorIdReservedAndLimits {
+public final class ImVendorIdReservedAndLimits {
     /**
      * Private constructor should never be invoked.
      */

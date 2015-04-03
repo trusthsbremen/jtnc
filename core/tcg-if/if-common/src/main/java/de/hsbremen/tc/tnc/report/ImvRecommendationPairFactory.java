@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Factory utility to create a ImvRecommendationPair object.
  *
  */
-public abstract class ImvRecommendationPairFactory {
+public final class ImvRecommendationPairFactory {
 
     private static final ImvRecommendationPair DEFAULT_PAIR =
             new ImvRecommendationPair();

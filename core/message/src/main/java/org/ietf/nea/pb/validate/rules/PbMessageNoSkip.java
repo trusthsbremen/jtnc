@@ -47,7 +47,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Rule, that checks if a message needs a no skip flag and the no skip.
  *
  */
-public abstract class PbMessageNoSkip {
+public final class PbMessageNoSkip {
     /**
      * Private constructor should never be invoked.
      */

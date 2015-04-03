@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if error vendor ID is in range.
  *
  */
-public abstract class ErrorVendorIdLimits {
+public final class ErrorVendorIdLimits {
     /**
      * Private constructor should never be invoked.
      */

@@ -49,7 +49,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  *
  *
  */
-public abstract class RequestingForbiddenAttributes {
+public final class RequestingForbiddenAttributes {
     /**
      * Private constructor should never be invoked.
      */

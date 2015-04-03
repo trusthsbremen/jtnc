@@ -74,7 +74,7 @@ import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
  * a Java object.
  *
  */
-public abstract class PaReaderFactory {
+public final class PaReaderFactory {
 
     /**
      * Private constructor should never be invoked.

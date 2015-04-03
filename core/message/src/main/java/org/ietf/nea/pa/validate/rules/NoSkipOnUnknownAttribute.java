@@ -44,7 +44,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if no skip flag is set in the set of flags.
  *
  */
-public abstract class NoSkipOnUnknownAttribute {
+public final class NoSkipOnUnknownAttribute {
     /**
      * Private constructor should never be invoked.
      */

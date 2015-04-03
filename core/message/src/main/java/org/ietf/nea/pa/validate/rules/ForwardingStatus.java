@@ -42,7 +42,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if traffic forwarding status ID is known.
  *
  */
-public abstract class ForwardingStatus {
+public final class ForwardingStatus {
     /**
      * Private constructor should never be invoked.
      */

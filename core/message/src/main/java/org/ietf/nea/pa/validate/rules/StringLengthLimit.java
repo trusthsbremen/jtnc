@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * Rule, that checks if a string is to large.
  *
  */
-public abstract class StringLengthLimit {
+public final class StringLengthLimit {
     /**
      * Private constructor should never be invoked.
      */
