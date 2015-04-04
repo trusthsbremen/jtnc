@@ -16,13 +16,7 @@
 		<jxr.style>${project.parent.basedir}/doc/jxr_stylesheet.css</jxr.style>
 	</properties>
 
-
 	<dependencies>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
-			<artifactId>if-common</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
 			<artifactId>message</artifactId>
