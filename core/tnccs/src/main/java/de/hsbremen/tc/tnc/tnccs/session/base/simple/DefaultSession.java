@@ -64,7 +64,7 @@ import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception
 .StateMachineAccessException;
-import de.hsbremen.tc.tnc.transport.TnccsListener;
+import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
@@ -289,7 +289,7 @@ public class DefaultSession implements Session {
     private class Start implements Runnable {
 
         private boolean selfInitiated;
-        private TnccsListener listener;
+        private TransportListener listener;
 
         /**
          * Creates the runnable to start the session.
@@ -298,7 +298,7 @@ public class DefaultSession implements Session {
          * @param listener the listener for incoming messages
          */
         protected Start(final boolean selfInitiated,
-                final TnccsListener listener) {
+                final TransportListener listener) {
             this.selfInitiated = selfInitiated;
             this.listener = listener;
         }

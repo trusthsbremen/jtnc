@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+<class-diagram version="1.1.4" icons="false" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
   <interface id="1" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImEvaluationUnit" project="im" 
     file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImEvaluationUnit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1125" y="559"/>    
+    <position height="-1" width="-1" x="75" y="195"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="2" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImEvaluationComponent" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImEvaluationComponent.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="133" width="277" x="823" y="347"/>    
+  <interface id="2" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImcEvaluator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="324" y="298"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="3" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImcEvaluatorManager.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="288" y="682"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="4" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImEvaluator" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImEvaluator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1497" y="562"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="5" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImcEvaluationUnit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1283" y="690"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="6" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImEvaluatorManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="606" y="550"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="7" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationComponent" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImvEvaluationComponent.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1018" y="846"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="8" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager" project="im" 
+  <interface id="3" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluatorManager" project="im" 
     file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImvEvaluatorManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="608" y="683"/>    
+    <position height="-1" width="-1" x="314" y="541"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="9" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImvEvaluationUnit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="988" y="690"/>    
+  <interface id="4" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImEvaluationComponent" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImEvaluationComponent.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="219" y="65"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="10" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator" project="im" 
-    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImcEvaluator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1463" y="688"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="11" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator" project="im" 
+  <interface id="5" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluator" project="im" 
     file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImvEvaluator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1645" y="688"/>    
+    <position height="-1" width="-1" x="324" y="372"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImcEvaluatorManager" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImcEvaluatorManager.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="125" y="539"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImEvaluatorManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="219" y="460"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="8" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImEvaluator" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImEvaluator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="353" y="189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationComponent" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImvEvaluationComponent.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="220" y="636"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImcEvaluationUnit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="101" y="301"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="11" language="java" name="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit" project="im" 
+    file="/im/src/main/java/de/hsbremen/tc/tnc/im/evaluate/ImvEvaluationUnit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="103" y="371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -105,53 +105,60 @@
     </display>  
   </interface>  
   <generalization id="12">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
   </generalization>  
   <generalization id="13">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="14">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="16">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="10"/>    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
+  <generalization id="14">    
+    <bendpoint x="27" y="422"/>    
+    <bendpoint x="27" y="576"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="15">    
+    <bendpoint x="403" y="432"/>    
+    <bendpoint x="403" y="579"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="16">    
+    <bendpoint x="409" y="368"/>    
+    <bendpoint x="410" y="250"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="17">    
+    <bendpoint x="18" y="370"/>    
+    <bendpoint x="17" y="263"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
   <generalization id="18">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
   </generalization>  
   <generalization id="19">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
   </generalization>  
   <generalization id="20">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
   </generalization>  
   <generalization id="21">    
-    <bendpoint x="1518" y="776"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
   </generalization>  
   <generalization id="22">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
   </generalization>  
   <generalization id="23">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    

@@ -13,7 +13,7 @@ import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapter;
+import de.hsbremen.tc.tnc.im.adapter.tnccs.TncsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;

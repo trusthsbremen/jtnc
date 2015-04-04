@@ -40,7 +40,7 @@ import org.trustedcomputinggroup.tnc.ifimc.IMCConnection;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.adapter.imc.ImcAdapterIetf;
-import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapterFactoryIetf;
+import de.hsbremen.tc.tnc.im.adapter.tnccs.TnccAdapterFactoryIetf;
 import de.hsbremen.tc.tnc.im.evaluate.example.file.FileImcEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.DefaultImSessionManager;
 import de.hsbremen.tc.tnc.im.session.DefaultImcSessionFactory;

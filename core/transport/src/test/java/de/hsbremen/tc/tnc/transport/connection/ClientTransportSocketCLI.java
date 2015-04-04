@@ -14,7 +14,7 @@ import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.transport.DefaultTransportAttributes;
-import de.hsbremen.tc.tnc.transport.TnccsListener;
+import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
@@ -52,7 +52,7 @@ public class ClientTransportSocketCLI {
 					
 					try {
 						System.out.println("Try to open connection...");
-						connection.open(new TnccsListener() {
+						connection.open(new TransportListener() {
 							@Override
 							public void receive(ByteBuffer b) throws ListenerClosedException {
 								System.out.println("BufferReceived b");

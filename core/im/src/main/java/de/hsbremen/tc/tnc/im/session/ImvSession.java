@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
  *
  *
  */
-public interface ImvSession extends ImSession, ImSessionContext {
+public interface ImvSession extends ImSession {
 
     /**
      * Requests a recommendation from an IMV for the underlying connection.

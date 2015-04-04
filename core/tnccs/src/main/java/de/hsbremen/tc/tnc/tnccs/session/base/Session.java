@@ -35,7 +35,7 @@ package de.hsbremen.tc.tnc.tnccs.session.base;
 
 import de.hsbremen.tc.tnc.tnccs.adapter.connection
 .ConnectionHandshakeRetryListener;
-import de.hsbremen.tc.tnc.transport.TnccsListener;
+import de.hsbremen.tc.tnc.transport.TransportListener;
 
 /**
  * Generic TNC(C/S) session. The session manages a transport
@@ -43,7 +43,7 @@ import de.hsbremen.tc.tnc.transport.TnccsListener;
  *
  *
  */
-public interface Session extends SessionBase, TnccsListener,
+public interface Session extends SessionBase, TransportListener,
         ConnectionHandshakeRetryListener {
 
 }

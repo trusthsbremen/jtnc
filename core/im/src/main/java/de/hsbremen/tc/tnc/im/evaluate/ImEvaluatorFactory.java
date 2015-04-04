@@ -34,7 +34,7 @@
 package de.hsbremen.tc.tnc.im.evaluate;
 
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
-import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
+import de.hsbremen.tc.tnc.im.adapter.tnccs.TnccsAdapter;
 
 /**
  * Generic evaluator factory to compose the integrity measurement components.

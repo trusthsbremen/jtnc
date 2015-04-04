@@ -31,14 +31,14 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.adapter.tncs;
+package de.hsbremen.tc.tnc.im.adapter.tnccs;
 
 import java.util.Set;
 
-import org.trustedcomputinggroup.tnc.ifimv.IMV;
-import org.trustedcomputinggroup.tnc.ifimv.TNCException;
-import org.trustedcomputinggroup.tnc.ifimv.TNCS;
-import org.trustedcomputinggroup.tnc.ifimv.TNCSLong;
+import org.trustedcomputinggroup.tnc.ifimc.IMC;
+import org.trustedcomputinggroup.tnc.ifimc.TNCC;
+import org.trustedcomputinggroup.tnc.ifimc.TNCCLong;
+import org.trustedcomputinggroup.tnc.ifimc.TNCException;
 
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
@@ -48,24 +48,22 @@ import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 
 /**
- * TNCS adapter according to the IETF/TCG specifications.
- *
+ * TNCC adapter according to the IETF/TCG specifications.
  *
  */
-class TncsAdapterIetf implements TncsAdapter, GlobalHandshakeRetryListener {
+class TnccAdapterIetf implements TnccAdapter, GlobalHandshakeRetryListener {
 
-    private final IMV imv;
-    private final TNCS tncs;
+    private final IMC imc;
+    private final TNCC tncc;
 
     /**
-     * Creates a TNCS adapter based on the given TNCS for the given IMV.
-     *
-     * @param imv the IMV
-     * @param tncs the TNCS
+     * Creates a TNCC adapter based on the given TNCC for the given IMC.
+     * @param imc the IMC
+     * @param tncc the TNCC
      */
-    TncsAdapterIetf(final IMV imv, final TNCS tncs) {
-        this.imv = imv;
-        this.tncs = tncs;
+    TnccAdapterIetf(final IMC imc, final TNCC tncc) {
+        this.imc = imc;
+        this.tncc = tncc;
     }
 
     @Override
@@ -73,18 +71,18 @@ class TncsAdapterIetf implements TncsAdapter, GlobalHandshakeRetryListener {
             final Set<SupportedMessageType> supportedTypes)
             throws TncException {
         try {
-            if (this.tncs instanceof TNCSLong) {
+            if (this.tncc instanceof TNCCLong) {
 
                 long[][] messageTypes = SupportedMessageTypeFactory
                         .createSupportedMessageTypeArray(supportedTypes);
-                ((TNCSLong) this.tncs).reportMessageTypesLong(this.imv,
+                ((TNCCLong) this.tncc).reportMessageTypesLong(this.imc,
                         messageTypes[0], messageTypes[1]);
 
             } else {
 
                 long[] messageTypes = SupportedMessageTypeFactory
                         .createSupportedMessageTypeArrayLegacy(supportedTypes);
-                this.tncs.reportMessageTypes(this.imv, messageTypes);
+                this.tncc.reportMessageTypes(this.imc, messageTypes);
             }
         } catch (TNCException e) {
             throw new TncException(e);
@@ -98,31 +96,31 @@ class TncsAdapterIetf implements TncsAdapter, GlobalHandshakeRetryListener {
         if (reason.toString().contains("IMC")) {
 
             try {
-                this.tncs.requestHandshakeRetry(this.imv, reason.id());
+                this.tncc.requestHandshakeRetry(this.imc, reason.id());
             } catch (TNCException e) {
                 throw new TncException(e);
             }
 
         } else {
-            throw new TncException("Reason is not useable with IMC and TNCS.",
+            throw new TncException("Reason is not useable with IMC and TNCC.",
                     TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
         }
     }
 
     @Override
     public long reserveAdditionalId() throws TncException {
-        if (this.tncs instanceof TNCSLong) {
+        if (this.tncc instanceof TNCCLong) {
 
             try {
-                return ((TNCSLong) this.tncs).reserveAdditionalIMVID(this.imv);
+                return ((TNCCLong) this.tncc).reserveAdditionalIMCID(this.imc);
             } catch (TNCException e) {
                 throw new TncException(e);
             }
 
         }
 
-        throw new UnsupportedOperationException(this.tncs.getClass().getName()
-                + " instance is not of type " + TNCSLong.class.getSimpleName()
+        throw new UnsupportedOperationException(this.tncc.getClass().getName()
+                + " instance is not of type " + TNCCLong.class.getSimpleName()
                 + ".");
     }
 

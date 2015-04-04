@@ -46,7 +46,7 @@ import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
-import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapterFactory;
+import de.hsbremen.tc.tnc.im.adapter.tnccs.TncsAdapterFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
 import de.hsbremen.tc.tnc.im.session.ImvSession;

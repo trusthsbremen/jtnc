@@ -64,7 +64,7 @@ public interface TransportConnection {
      * @param listener the listener for incoming data
      * @throws ConnectionException if open fails
      */
-    void open(TnccsListener listener) throws ConnectionException;
+    void open(TransportListener listener) throws ConnectionException;
 
     /**
      * Sends data via this connection.

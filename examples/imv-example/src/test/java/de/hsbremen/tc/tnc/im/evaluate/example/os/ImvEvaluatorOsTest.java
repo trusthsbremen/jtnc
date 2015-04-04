@@ -17,7 +17,7 @@ import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
-import de.hsbremen.tc.tnc.im.adapter.tncs.TncsAdapter;
+import de.hsbremen.tc.tnc.im.adapter.tnccs.TncsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.evaluate.example.os.exception.PatternNotFoundException;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;

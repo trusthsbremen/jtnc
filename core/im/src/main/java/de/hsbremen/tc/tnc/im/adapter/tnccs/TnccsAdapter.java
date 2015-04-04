@@ -31,14 +31,40 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.adapter.tncc;
+package de.hsbremen.tc.tnc.im.adapter.tnccs;
 
-import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
+import java.util.Set;
+
+import de.hsbremen.tc.tnc.exception.TncException;
+import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
+import de.hsbremen.tc.tnc.report.SupportedMessageType;
 
 /**
- * Generic adapter for TNCC.
+ * Generic base adapter for TNC(C/S).
  *
  */
-public interface TnccAdapter extends TnccsAdapter {
+public interface TnccsAdapter {
+
+    /**
+     * Returns a listener to request global handshake retries.
+     * @return the handshake retry listener
+     */
+    GlobalHandshakeRetryListener getHandshakeRetryListener();
+
+    /**
+     * Submits a list of supported component messages to the TNC(C/S).
+     * @param supportedTypes the list of supported component message types
+     * @throws TncException if message types are not valid or a local exception
+     * occurred
+     */
+    void reportMessageTypes(
+            Set<SupportedMessageType> supportedTypes) throws TncException;
+
+    /**
+     * Reserves an additional ID from the TNC(C/S) for the IM(C/V).
+     * @return the additional ID
+     * @throws TncException if no additional ID can be allocated
+     */
+    long reserveAdditionalId() throws TncException;
 
 }

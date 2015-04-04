@@ -31,27 +31,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.adapter.tncs;
-
-import org.trustedcomputinggroup.tnc.ifimv.IMV;
-import org.trustedcomputinggroup.tnc.ifimv.TNCS;
-
-import de.hsbremen.tc.tnc.util.NotNull;
-
 /**
- * TNCS adapter factory, that creates TNCS adapter
- * according to the IETF/TCG specifications.
- *
- *
+ * TCG TNC(C/S) adapter.
  */
-public class TncsAdapterFactoryIetf implements TncsAdapterFactory {
-
-    @Override
-    public TncsAdapter createTncsAdapter(final IMV imv, final TNCS tncs) {
-        NotNull.check("IMV cannot be null.", imv);
-        NotNull.check("TNCS cannot be null.", tncs);
-
-        return new TncsAdapterIetf(imv, tncs);
-    }
-
-}
+package de.hsbremen.tc.tnc.im.adapter.tnccs;

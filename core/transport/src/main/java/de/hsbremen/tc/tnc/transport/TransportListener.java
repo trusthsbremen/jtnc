@@ -41,7 +41,7 @@ import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
  * TransportConnection is closed.
  *
  */
-public interface TnccsListener {
+public interface TransportListener {
 
     /**
      * Receives a data buffer from the TransportConnection for further

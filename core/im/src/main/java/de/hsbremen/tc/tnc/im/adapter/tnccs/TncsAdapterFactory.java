@@ -31,7 +31,25 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.hsbremen.tc.tnc.im.adapter.tnccs;
+
+import org.trustedcomputinggroup.tnc.ifimv.IMV;
+import org.trustedcomputinggroup.tnc.ifimv.TNCS;
+
 /**
- * TCG TNCS adapter.
+ * Generic TNCS adapter factory.
+ *
+ *
  */
-package de.hsbremen.tc.tnc.im.adapter.tncs;
+public interface TncsAdapterFactory {
+
+    /**
+     * Creates a TNCS adapter based on the given TNCS for the given IMV.
+     *
+     * @param imv the IMV
+     * @param tncs the TNCS
+     * @return the TNCS adapter
+     */
+    TncsAdapter createTncsAdapter(IMV imv, TNCS tncs);
+
+}

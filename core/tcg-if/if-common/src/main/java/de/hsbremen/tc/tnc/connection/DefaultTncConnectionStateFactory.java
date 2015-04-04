@@ -46,7 +46,7 @@ import java.util.List;
 public final class DefaultTncConnectionStateFactory implements
         TncConnectionStateFactory {
 
-    private final List<TncConnectionState> allAttributes;
+    private final List<TncConnectionState> allStates;
 
     /**
      * Singleton to instantiate the factory only on first access.
@@ -72,11 +72,11 @@ public final class DefaultTncConnectionStateFactory implements
     private DefaultTncConnectionStateFactory() {
         Comparator<TncConnectionState> comparator = new StateComparator();
 
-        this.allAttributes = new ArrayList<>();
-        allAttributes.addAll(Arrays.asList(DefaultTncConnectionStateEnum
+        this.allStates = new ArrayList<>();
+        allStates.addAll(Arrays.asList(DefaultTncConnectionStateEnum
                 .values()));
 
-        Collections.sort(this.allAttributes, comparator);
+        Collections.sort(this.allStates, comparator);
     }
 
     @Override
@@ -84,7 +84,7 @@ public final class DefaultTncConnectionStateFactory implements
 
         Comparator<TncConnectionState> comparator = new StateComparator();
 
-        int index = Collections.binarySearch(this.allAttributes,
+        int index = Collections.binarySearch(this.allStates,
                 new TncConnectionState() {
 
                     @Override
@@ -95,7 +95,7 @@ public final class DefaultTncConnectionStateFactory implements
                 }, comparator);
 
         if (index >= 0) {
-            return this.allAttributes.get(index);
+            return this.allStates.get(index);
         }
 
         return null;
@@ -103,7 +103,7 @@ public final class DefaultTncConnectionStateFactory implements
 
     @Override
     public List<TncConnectionState> getAllStates() {
-        return Collections.unmodifiableList(this.allAttributes);
+        return Collections.unmodifiableList(this.allStates);
     }
 
     /**

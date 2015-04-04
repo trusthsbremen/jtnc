@@ -31,14 +31,13 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.adapter.tncs;
+package de.hsbremen.tc.tnc.im.adapter.tnccs;
 
-import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
 
 /**
- * Generic adapter for TNCS.
+ * Generic adapter for TNCC.
  *
  */
-public interface TncsAdapter extends TnccsAdapter {
+public interface TnccAdapter extends TnccsAdapter {
 
 }

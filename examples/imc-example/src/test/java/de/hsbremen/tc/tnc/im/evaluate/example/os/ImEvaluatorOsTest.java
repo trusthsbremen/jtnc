@@ -20,7 +20,7 @@ import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImComponentFactory;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
-import de.hsbremen.tc.tnc.im.adapter.tncc.TnccAdapter;
+import de.hsbremen.tc.tnc.im.adapter.tnccs.TnccAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;

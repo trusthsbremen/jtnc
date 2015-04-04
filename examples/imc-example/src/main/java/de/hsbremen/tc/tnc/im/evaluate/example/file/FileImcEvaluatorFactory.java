@@ -42,7 +42,7 @@ import java.util.Map;
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
-import de.hsbremen.tc.tnc.im.adapter.TnccsAdapter;
+import de.hsbremen.tc.tnc.im.adapter.tnccs.TnccsAdapter;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluatorFactoryIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit;
 import de.hsbremen.tc.tnc.im.evaluate.ImcEvaluator;

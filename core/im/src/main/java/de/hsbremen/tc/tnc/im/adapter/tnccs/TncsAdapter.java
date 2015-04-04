@@ -31,27 +31,13 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.adapter.tncc;
+package de.hsbremen.tc.tnc.im.adapter.tnccs;
 
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
-import org.trustedcomputinggroup.tnc.ifimc.TNCC;
-
-import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
- * TNCC adapter factory, that creates TNCC adapter
- * according to the IETF/TCG specifications.
- *
+ * Generic adapter for TNCS.
  *
  */
-public class TnccAdapterFactoryIetf implements TnccAdapterFactory {
-
-    @Override
-    public TnccAdapter createTnccAdapter(final IMC imc, final TNCC tncc) {
-        NotNull.check("IMC cannot be null.", imc);
-        NotNull.check("TNCC cannot be null.", tncc);
-
-        return new TnccAdapterIetf(imc, tncc);
-    }
+public interface TncsAdapter extends TnccsAdapter {
 
 }
