@@ -100,6 +100,7 @@
 					<linkJavadoc>true</linkJavadoc>
 					<javadocDir>target/site/apidocs</javadocDir>
 					<stylesheet>${jxr.style}</stylesheet>
+					<bottom><![CDATA[Copyright &#169; {currentYear}, Carl-Heinz Genzel]]> </bottom>
 				</configuration>
 			</plugin>
 
