@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
 		<artifactId>tcg-if</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
+		<version>0.0.5-ALPHA</version>
 	</parent>
 	<artifactId>if-imv</artifactId>
 	<packaging>jar</packaging>

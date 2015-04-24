@@ -73,7 +73,7 @@ public enum PbBatchDirectionalityEnum {
      * @return the directionality bit
      */
     public byte toDirectionalityBit() {
-        return (byte) (this.directionality ? 1 : 0);
+        return (byte) (this.directionality ? 0 : 1);
     }
 
     /**
@@ -84,11 +84,11 @@ public enum PbBatchDirectionalityEnum {
     public static PbBatchDirectionalityEnum fromDirectionalityBit(
             final byte directionality) {
 
-        if (directionality == 0) {
+        if (directionality == 1) {
             return TO_PBC;
         }
 
-        if (directionality == 1) {
+        if (directionality == 0) {
             return TO_PBS;
         }
 

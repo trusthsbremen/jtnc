@@ -37,7 +37,7 @@ public class TestData {
 //	byte[] imMessageBody = new byte[] {0x00,0x00,0x01,0x00,0x00,0x00,0x03,0x02};
 	
 
-	byte[] mixedBatch = new byte[]{2, -128, 0, 1, 0, 0, 0, -128, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+	byte[] mixedBatch = new byte[]{2, 0, 0, 1, 0, 0, 0, -128, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 			0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, -1, -1, 80, 87, 78, 68, 0,
 			0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 
 			0, 7, 0, 0, 0, 76, 0, 0, 0, 57, 68, 111, 110, 39, 116, 32, 101, 
@@ -47,20 +47,20 @@ public class TestData {
 			101, 32, 112, 104, 111, 110, 101, 46, 2, 101, 110};
 
 	// TODO PaMessage is only a placeholder and nor real data. This will be changed as soon as the IMC message part is finished.
-	byte[] imBatch = new byte[]{2, -128, 0, 1, 0, 0, 0, 36, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, -1, -1, 80, 87, 78, 68};
+	byte[] imBatch = new byte[]{2, 0, 0, 1, 0, 0, 0, 36, -128, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, -1, -1, 80, 87, 78, 68};
 
-	byte[] reasonBatch = new byte[]{2, -128, 0, 1, 0, 0, 0, 84, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 76,
+	byte[] reasonBatch = new byte[]{2, 0, 0, 1, 0, 0, 0, 84, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 76,
 			0, 0, 0, 57, 68, 111, 110, 39, 116, 32, 101, 118, 101, 114, 32, 116,
 			97, 107, 101, 32, 105, 110, 116, 105, 109, 97, 116, 101, 32, 112, 105,
 			99, 116, 117, 114, 101, 115, 32, 119, 105, 116, 104, 32, 121, 111, 117,
 			114, 32, 109, 111, 98, 105, 108, 101, 32, 112, 104, 111, 110, 101, 
 			46, 2, 101, 110};
 	
-	byte[] recommendationBatchWrongBatchType = new byte[]{2, -128, 0, 1, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1};
+	byte[] recommendationBatchWrongBatchType = new byte[]{2, 0, 0, 1, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1};
 	
-	byte[] recommendationBatch = new byte[] {2, 0, 0, 3, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1, -128, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 16, 0, 0, 0, 0};
+	byte[] recommendationBatch = new byte[] {2, -128, 0, 3, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 16, 0, 0, 0, 1, -128, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 16, 0, 0, 0, 0};
 
-	byte[] faultyRecommendationBatch = new byte[] {2, 0, 0, 3, 
+	byte[] faultyRecommendationBatch = new byte[] {2, -128, 0, 3, 
 													0, 0, 0, 40,
 													0, 0, 0, 0,
 													0, 0, 0, 3, 
@@ -70,7 +70,7 @@ public class TestData {
 													0, 0, 0, 2,
 													0, 0, 0, 16,
 													0, 0, 0, 0};
-	byte[] faultyRecommendationBatchFatal = new byte[] {2, 0, 0, 3, 
+	byte[] faultyRecommendationBatchFatal = new byte[] {2, -128, 0, 3, 
 			0, 0, 0, 40,
 			0, 0, 0, 0,
 			0, 0, 0, 3, 

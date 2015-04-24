@@ -66,7 +66,7 @@ class PbBatchHeaderWriter implements TnccsWriter<PbBatchHeader> {
             /* Direction 1 bit(s) + Reserved 7 bit(s) */
             buffer.writeByte((byte) (bHead.getDirectionality()
                     .toDirectionalityBit() << 7 | RESERVED));
-
+            
             /* Reserved 8 bit(s) */
             buffer.writeByte(RESERVED);
 
