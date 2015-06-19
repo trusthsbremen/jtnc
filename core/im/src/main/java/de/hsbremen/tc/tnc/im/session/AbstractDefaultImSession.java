@@ -1,3 +1,4 @@
+package de.hsbremen.tc.tnc.im.session;
 /**
  * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
  *
@@ -31,7 +32,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.session;
+
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -197,10 +198,9 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
      * lower layers.
      *
      * @param componentList the list of component messages
-     * @throws TncException if the transmission fails
      */
-    private void dispatchMessagesToConnection(
-            final List<ImObjectComponent> componentList) throws TncException {
+    protected void dispatchMessagesToConnection(
+            final List<ImObjectComponent> componentList) {
         LOGGER.debug("Dispatch messages to connection "
                 + this.connection.toString() + ". Message count: "
                 + ((componentList != null) ? componentList.size() : 0));
@@ -230,6 +230,17 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
                                 .append("faulty values. \n ")
                                 .toString(),
                                 e1);
+                    } catch (TncException e1) {
+                        LOGGER.error(new StringBuilder()
+                        .append("Message with ")
+                        .append(imComponent.getVendorId())
+                        .append(" and type ")
+                        .append(imComponent.getType())
+                        .append(" could not be send, ")
+                        .append("because the connection ")
+                        .append("refused it. \n ")
+                        .toString(),
+                        e1);
                     }
                 }
 
@@ -252,6 +263,17 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
                             .append("faulty values. \n ")
                             .toString(),
                             e1);
+                } catch (TncException e1) {
+                    LOGGER.error(new StringBuilder()
+                    .append("Message with ")
+                    .append(imComponent.getVendorId())
+                    .append(" and type ")
+                    .append(imComponent.getType())
+                    .append(" could not be send, ")
+                    .append("because the connection ")
+                    .append("refused it. \n ")
+                    .toString(),
+                    e1);
                 }
             }
         }

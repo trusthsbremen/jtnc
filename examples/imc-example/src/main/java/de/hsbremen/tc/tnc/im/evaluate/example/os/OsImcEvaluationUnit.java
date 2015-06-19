@@ -1,3 +1,4 @@
+package de.hsbremen.tc.tnc.im.evaluate.example.os;
 /**
  * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
  *
@@ -31,7 +32,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.evaluate.example.os;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,13 +261,13 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
     private PaAttribute getNumericVersion(final UTSNAME systemDescription)
             throws ValidationException, PatternNotFoundException {
         String release = new String(systemDescription.release).trim();
-        Pattern p = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)-(\\d+)");
+        Pattern p = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)");
         Matcher m = p.matcher(release);
         if (m.find()) {
             long majorVersion = Long.parseLong(m.group(1));
             long minorVersion = Long.parseLong(m.group(2));
             long buildVersion = Long.parseLong(m.group(3));
-            int servicePackVersion = Integer.parseInt(m.group(4));
+            int servicePackVersion = 0;
             int servicePackVersionMinor = 0;
             return PaAttributeFactoryIetf.createNumericVersion(majorVersion,
                     minorVersion, buildVersion, servicePackVersion,

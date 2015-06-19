@@ -722,7 +722,7 @@ public class SocketTransportConnection implements TransportConnection {
      * Runnable which handles the transport phase with a remote peer.
      * It listens for incoming messages.
      *
-         *
+     *
      */
     private class TransportPhase implements Runnable {
         @Override
@@ -783,7 +783,9 @@ public class SocketTransportConnection implements TransportConnection {
             } catch (SerializationException | ConnectionException
                     | ListenerClosedException e) {
 
-                // ignore and just close
+                LOGGER.error(
+                        "Connection has thrown an error and will be closed.",
+                        e);
 
             } catch (ValidationException e) {
 

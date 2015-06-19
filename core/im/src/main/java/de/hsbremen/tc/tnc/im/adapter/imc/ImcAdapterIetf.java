@@ -173,10 +173,13 @@ public class ImcAdapterIetf extends AbstractImAdapter
                     }
 
                 } catch (TNCException | UnsupportedOperationException e) {
-                    LOGGER.info(
-                            "Preferred language attribute was not accessible, "
-                            + "using default language: "
-                            + this.parameter.getPreferredLanguage(), e);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Preferred language attribute was not accessible. ")
+                    .append(e.getMessage())
+                    .append("Using default language: ")
+                    .append(this.parameter.getPreferredLanguage())
+                    .append(".");
+                    LOGGER.info(sb.toString());
                 }
             }
 
