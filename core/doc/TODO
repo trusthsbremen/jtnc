@@ -1,5 +1,8 @@
 TODOs
 ------
+Usability:
+- Refactor logging to make it more consistent.
+- Add to String methods to messages/attributes.
 
 Functionality:
 - Make a TncsHandler which can read an evaluation policy from a file.
