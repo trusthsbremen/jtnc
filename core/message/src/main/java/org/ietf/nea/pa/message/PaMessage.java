@@ -33,6 +33,7 @@
  */
 package org.ietf.nea.pa.message;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,5 +75,13 @@ public class PaMessage implements ImMessage {
     public List<PaAttribute> getAttributes() {
         return Collections.unmodifiableList(this.attributes);
     }
+
+    @Override
+    public String toString() {
+        return "PaMessage [header=" + this.header.toString() + ", attributes="
+                + Arrays.toString(this.attributes.toArray()) + "]";
+    }
+    
+    
 
 }

@@ -55,6 +55,7 @@ public class ImvAdapterFactoryIetf implements ImvAdapterFactory {
             .getLogger(ImvAdapterFactory.class);
 
     public static final long DEFAULT_TIMEOUT = 800;
+    public static final long DISABLED_TIMEOUT = -1;
 
     private long timeout;
 
@@ -63,7 +64,7 @@ public class ImvAdapterFactoryIetf implements ImvAdapterFactory {
      * of 800 msec.
      */
     public ImvAdapterFactoryIetf() {
-        this(DEFAULT_TIMEOUT);
+        this(DISABLED_TIMEOUT);
     }
 
     /**

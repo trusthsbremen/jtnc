@@ -73,23 +73,41 @@ public class PbBatchHeader implements TnccsBatchHeader {
     }
 
     /**
-     * @return the directionality
+     * Returns the directionality bit describing the batch
+     * direction.
+     * @return the directionality bit
      */
     public PbBatchDirectionalityEnum getDirectionality() {
         return directionality;
     }
 
     /**
-     * @return the type
+     * Returns the batch type.
+     * @return the batch type 
      */
     public PbBatchTypeEnum getType() {
         return type;
     }
 
     /**
-     * @return the length
+     * Returns the batch length.
+     * @return the batch length
      */
     public long getLength() {
         return length;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "PbBatchHeader [version=" + this.version + ", directionality="
+                + this.directionality.name() + ", type="
+                + this.type.name() + ", length="
+                + this.length + "]";
+    }
+    
+    
+    
 }

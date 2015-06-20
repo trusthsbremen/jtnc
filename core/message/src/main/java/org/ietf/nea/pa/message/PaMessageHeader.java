@@ -82,4 +82,12 @@ public class PaMessageHeader implements ImMessageHeader {
         this.length = length;
     }
 
+    @Override
+    public String toString() {
+        return "PaMessageHeader [version=" + this.version + ", identifier="
+                + this.identifier + ", length=" + this.length + "]";
+    }
+    
+    
+
 }

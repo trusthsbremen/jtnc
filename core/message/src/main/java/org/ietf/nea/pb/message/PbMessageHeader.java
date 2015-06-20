@@ -76,23 +76,18 @@ public class PbMessageHeader implements TnccsMessageHeader {
     }
 
     /**
-     * @return the flags
+     * Returns the set of used message flags.
+     * @return the message flags
      */
     public Set<PbMessageFlagEnum> getFlags() {
         return Collections.unmodifiableSet(flags);
     }
 
-    /**
-     * @return the vendorId
-     */
     @Override
     public long getVendorId() {
         return vendorId;
     }
 
-    /**
-     * @return the type
-     */
     @Override
     public long getMessageType() {
         return type;
@@ -101,6 +96,13 @@ public class PbMessageHeader implements TnccsMessageHeader {
     @Override
     public long getLength() {
         return length;
+    }
+
+    @Override
+    public String toString() {
+        return "PbMessageHeader [flags=" + this.flags + ", vendorId="
+                + this.vendorId + ", type=" + this.type + ", length="
+                + this.length + "]";
     }
 
 }

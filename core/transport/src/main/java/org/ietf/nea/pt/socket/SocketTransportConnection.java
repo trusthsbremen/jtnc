@@ -329,7 +329,6 @@ public class SocketTransportConnection implements TransportConnection {
                 try {
 
                     ct = this.readFromStream();
-                    LOGGER.debug("Message received.");
 
                     if (ct != null
                             && ct.getResult() != null
@@ -396,7 +395,6 @@ public class SocketTransportConnection implements TransportConnection {
                 try {
 
                     ct = this.readFromStream();
-                    LOGGER.debug("Message received.");
 
                     if (ct != null
                             && ct.getResult() != null
@@ -528,7 +526,7 @@ public class SocketTransportConnection implements TransportConnection {
             while (ct == null) {
                 try {
                     ct = this.readFromStream();
-                    LOGGER.debug("Message received.");
+
                     if (ct != null
                             && ct.getResult() != null
                             && !(ct.getResult().getValue()
@@ -618,9 +616,22 @@ public class SocketTransportConnection implements TransportConnection {
                                     (buf.bytesWritten() - buf.bytesRead())));
                         }
                     }
-
+                    
+                    if(LOGGER.isDebugEnabled()){
+                        LOGGER.debug("Message bytes written: " + buf.bytesRead());
+                    }
+                    
                     this.out.flush();
                     this.txCounter++;
+                    
+                    if(LOGGER.isDebugEnabled()){
+                        if (message != null){
+                            
+                            LOGGER.debug("Message send: "
+                                + message.toString());
+                        }
+                    }
+                    
                 } catch (IOException e) {
                     throw new ConnectionException(
                             "Data could not be written to stream.", e);
@@ -653,15 +664,25 @@ public class SocketTransportConnection implements TransportConnection {
         if (isOpen()) {
             try {
 
-                ByteBuffer b = new StreamedReadOnlyByteBuffer(
+                ByteBuffer buf = new StreamedReadOnlyByteBuffer(
                         socket.getInputStream());
-
-                TransportMessageContainer ct = this.reader.read(b, -1);
-
-                b.clear();
+             
+                TransportMessageContainer ct = this.reader.read(buf, -1);
+                if(LOGGER.isDebugEnabled()){
+                    LOGGER.debug("Message bytes read: " + buf.bytesRead());
+                }
+                buf.clear();
 
                 this.rxCounter++;
 
+                if(LOGGER.isDebugEnabled()){
+                    if (ct != null
+                            && ct.getResult() != null){
+                        LOGGER.debug("Message received: "
+                            + ct.getResult().toString());
+                    }
+                }
+                
                 return ct;
 
             } catch (IOException e) {
@@ -733,7 +754,7 @@ public class SocketTransportConnection implements TransportConnection {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         ct = readFromStream();
-                        LOGGER.debug("Message received.");
+                        
                         if (ct != null && ct.getResult() != null) {
                             if (ct.getResult().getValue()
                                     instanceof PtTlsMessageValuePbBatch) {

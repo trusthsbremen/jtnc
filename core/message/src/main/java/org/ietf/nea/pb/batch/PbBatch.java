@@ -33,6 +33,7 @@
  */
 package org.ietf.nea.pb.batch;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,9 +64,6 @@ public class PbBatch implements TnccsBatch {
         this.messages = messages;
     }
 
-    /**
-     * @return the messages
-     */
     @Override
     public List<PbMessage> getMessages() {
         return Collections.unmodifiableList(messages);
@@ -76,4 +74,16 @@ public class PbBatch implements TnccsBatch {
         return this.header;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "PbBatch [header=" + this.header.toString()
+                + ", messages="
+                + Arrays.toString(this.messages.toArray())
+                + "]";
+    }
+
+    
 }

@@ -72,4 +72,12 @@ public class PtTlsMessage implements TransportMessage {
         return this.value;
     }
 
+    @Override
+    public String toString() {
+        return "PtTlsMessage [header=" + this.header.toString()
+                + ", value=" + this.value.toString()
+                + "]";
+    }
+
+    
 }

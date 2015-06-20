@@ -60,16 +60,11 @@ import de.hsbremen.tc.tnc.tnccs.client.enums.CommonConnectionChangeTypeEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileParser;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultConfigurationFileChangeListener;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultConfigurationFileChangeMonitor;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultConfigurationFileParserImJava;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultImLoader;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultImvManagerConfigurationEntryHandler;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileParserImJava;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImvManagerConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImvManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImvManager;
@@ -91,6 +86,7 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
 public class Naa {
     private static final Logger LOGGER = LoggerFactory.getLogger(Naa.class);
     private static final long MAX_MSG_SIZE = 131072;
+    private static final long MAX_ROUND_TRIP = 1;
     private static final int NAA_PORT = 30271;
     private static final long SESSION_CLEAN_INTERVAL = 3000;
     private static final long FILE_CHECK_INTERVAL = 5000;
@@ -111,8 +107,9 @@ public class Naa {
         GlobalHandshakeRetryProxy retryProxy = new GlobalHandshakeRetryProxy();
 
         this.manager = new DefaultImvManager(new DefaultImMessageRouter(),
-                new ImvAdapterFactoryIetf(), new TncsAdapterFactoryIetf(
-                        retryProxy));
+                new ImvAdapterFactoryIetf(
+                        ImvAdapterFactoryIetf.DEFAULT_TIMEOUT),
+                        new TncsAdapterFactoryIetf(retryProxy));
 
         final int estimatedDefaultImCount = 10;
         this.connectionBuilder = new SocketTransportConnectionBuilder(
@@ -120,11 +117,9 @@ public class Naa {
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault())
             .setMessageLength(MAX_MSG_SIZE)
-            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
-        /*
-         * Just for info, limiting possible but not done here.
-         * this.connectionBuilder.setMaxRoundTrips(1);
-         */
+            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount)
+            .setMaxRoundTrips(MAX_ROUND_TRIP);
+
         SessionFactory factory = new DefaultServerSessionFactory(
                 PbReaderFactory.getProtocolIdentifier(),
                 PbWriterFactory.createExperimentalDefault(),

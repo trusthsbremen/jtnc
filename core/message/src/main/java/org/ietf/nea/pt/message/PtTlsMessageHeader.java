@@ -64,33 +64,38 @@ public class PtTlsMessageHeader implements TransportMessageHeader {
     }
 
     /**
-     * @return the vendorId
+     * Returns the message vendor ID.
+     * @return the vendor ID
      */
     public long getVendorId() {
         return vendorId;
     }
 
     /**
-     * @return the type
+     * Returns the message type ID.
+     * @return the message type ID
      */
     public long getMessageType() {
         return type;
     }
 
-    /**
-     * @return the length
-     */
     @Override
     public long getLength() {
         return length;
     }
 
-    /**
-     * @return the identifier
-     */
     @Override
     public long getIdentifier() {
         return this.identifier;
     }
+
+    @Override
+    public String toString() {
+        return "PtTlsMessageHeader [vendorId=" + this.vendorId + ", type="
+                + this.type + ", length=" + this.length + ", identifier="
+                + this.identifier + "]";
+    }
+    
+    
 
 }

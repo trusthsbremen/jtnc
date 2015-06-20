@@ -58,4 +58,16 @@ public class AbstractPtTlsMessageValue implements PtTlsMessageValue {
         return this.length;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        //Omitted
+        
+        return "PtTlsMessageValue [length=" + this.length
+                + "] (content omitted)";
+    }
+
+    
 }

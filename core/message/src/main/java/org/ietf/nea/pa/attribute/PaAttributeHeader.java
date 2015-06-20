@@ -97,4 +97,13 @@ public class PaAttributeHeader implements ImAttributeHeader {
     public long getLength() {
         return length;
     }
+
+    @Override
+    public String toString() {
+        return "PaAttributeHeader [flags=" + this.flags + ", vendorId="
+                + this.vendorId + ", type=" + this.type + ", length="
+                + this.length + "]";
+    }
+    
+    
 }

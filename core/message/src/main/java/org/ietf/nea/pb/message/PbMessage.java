@@ -69,4 +69,12 @@ public class PbMessage implements TnccsMessage {
         return this.value;
     }
 
+    @Override
+    public String toString() {
+        return "PbMessage [header=" + this.header.toString()
+                + ", value=" + this.value.toString()
+                + "]";
+    }
+
+    
 }

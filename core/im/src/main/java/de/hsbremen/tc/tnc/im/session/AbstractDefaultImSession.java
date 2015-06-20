@@ -44,8 +44,8 @@ import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
-import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
@@ -64,7 +64,7 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
         implements ImSession, ImSessionContext {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(ImSession.class);
+            .getLogger(AbstractDefaultImSession.class);
 
     private long messageIndex;
 

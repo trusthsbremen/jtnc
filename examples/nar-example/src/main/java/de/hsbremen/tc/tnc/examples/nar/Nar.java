@@ -90,6 +90,7 @@ public class Nar {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Nar.class);
     private static final long MAX_MSG_SIZE = 131072;
+    private static final long MAX_ROUND_TRIP = 1;
     private static final long SESSION_CLEAN_INTERVAL = 3000;
     private static final long FILE_CHECK_INTERVAL = 5000;
 
@@ -107,8 +108,9 @@ public class Nar {
         GlobalHandshakeRetryProxy retryProxy = new GlobalHandshakeRetryProxy();
 
         this.manager = new DefaultImcManager(new DefaultImMessageRouter(),
-                new ImcAdapterFactoryIetf(), new TnccAdapterFactoryIetf(
-                        retryProxy));
+                new ImcAdapterFactoryIetf(
+                        ImcAdapterFactoryIetf.DEFAULT_TIMEOUT),
+                        new TnccAdapterFactoryIetf(retryProxy));
 
         SessionFactory factory = new DefaultClientSessionFactory(
                 PbReaderFactory.getProtocolIdentifier(),
@@ -193,11 +195,9 @@ public class Nar {
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault())
             .setMessageLength(MAX_MSG_SIZE)
-            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount);
-        /*
-         * Just for info, limiting possible but not done here.
-         * builder.setMaxRoundTrips(1);
-         */
+            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount)
+            .setMaxRoundTrips(MAX_ROUND_TRIP);
+         
 
         this.connection = builder.toConnection(true, false, socket);
         this.client.notifyConnectionChange(connection,

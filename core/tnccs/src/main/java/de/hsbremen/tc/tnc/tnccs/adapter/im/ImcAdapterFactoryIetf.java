@@ -55,7 +55,8 @@ public class ImcAdapterFactoryIetf implements ImcAdapterFactory {
             .getLogger(ImcAdapterFactoryIetf.class);
 
     public static final long DEFAULT_TIMEOUT = 800;
-
+    public static final long DISABLED_TIMEOUT = -1;
+    
     private long timeout;
 
     /**
@@ -63,7 +64,7 @@ public class ImcAdapterFactoryIetf implements ImcAdapterFactory {
      * of 800 msec.
      */
     public ImcAdapterFactoryIetf() {
-        this(DEFAULT_TIMEOUT);
+        this(DISABLED_TIMEOUT);
     }
 
     /**

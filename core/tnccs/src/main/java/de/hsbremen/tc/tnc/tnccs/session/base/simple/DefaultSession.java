@@ -183,9 +183,13 @@ public class DefaultSession implements Session {
 
     @Override
     public void notifyClose() {
+        /*
+        * !IMPORTANT: This may be fragile, because the runner
+        * running the task is forcefully shutdown at the end of the
+        * close method, that is called with the Close runnable. 
+        */ 
         if (!this.closed) {
-            LOGGER.info("Underlying transport was closed. Closing session.");
-            this.close();
+            this.runner.execute(new Close());
         }
     }
 
@@ -312,6 +316,7 @@ public class DefaultSession implements Session {
                     connection.open(listener);
 
                     if (batch != null) {
+                        LOGGER.debug("Sending batch: " + batch.toString());
                         ByteBuffer buf = new DefaultByteBuffer(
                                 ((PbBatchHeader) batch.getHeader())
                                 .getLength());
@@ -343,6 +348,23 @@ public class DefaultSession implements Session {
 
     }
 
+    /**
+     * Runnable which closes a session within the race conditions.
+     * This is needed for the notifyClose part, to let the session
+     * handle its previous tasks before closing down.
+     *
+     *
+     */
+    private class Close implements Runnable {
+        
+        @Override
+        public void run() {
+            LOGGER.info("Underlying transport was closed. Closing session.");
+            close();
+        }
+        
+    }
+    
     /**
      * Runnable which receives and parses a message batch
      * from the underlying connection.
@@ -377,10 +399,17 @@ public class DefaultSession implements Session {
                             new DefaultTnccsBatchContainer(null, exceptions);
                 }
 
+                if(LOGGER.isDebugEnabled()){
+                    if(container != null && container.getResult() != null){
+                        LOGGER.debug("Receiving batch: "
+                                + container.getResult().toString());
+                    }
+                }
+                
                 TnccsBatch batch = machine.receiveBatch(container);
 
                 if (batch != null) {
-
+                    LOGGER.debug("Sending batch: " + batch.toString());
                     ByteBuffer buf = new DefaultByteBuffer(
                             ((PbBatchHeader) batch.getHeader()).getLength());
                     writer.write(batch, buf);
@@ -437,6 +466,7 @@ public class DefaultSession implements Session {
                 if (batches != null) {
                     for (TnccsBatch batch : batches) {
                         if (batch != null) {
+                            LOGGER.debug("Sending batch: " + batch.toString());
                             ByteBuffer buf = new DefaultByteBuffer(
                                     ((PbBatchHeader) batch.getHeader())
                                             .getLength());

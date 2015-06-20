@@ -70,4 +70,13 @@ public class PaAttribute implements ImAttribute {
         return this.value;
     }
 
+    @Override
+    public String toString() {
+        return "PaAttribute [header=" + this.header.toString() +
+                ", value=" + this.value.toString()
+                + "]";
+    }
+    
+    
+
 }

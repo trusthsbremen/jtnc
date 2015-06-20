@@ -79,7 +79,7 @@ public abstract class AbstractPaAttributeValue implements PaAttributeValue {
 
     @Override
     public String toString() {
-        return "AbstractPaAttributeValue [length=" + this.length
-                + ", omittable=" + this.omittable + "]";
+        return "PaAttributeValue [length=" + this.length
+                + ", omittable=" + this.omittable + "] (content omitted)";
     }
 }
