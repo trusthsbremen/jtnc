@@ -9,8 +9,7 @@
 	<description>Java based TNC implementation attempt.</description>
 	<url>http://sidanet.hsbremen.de/</url>
 	<organization>
-		<name>Hochschule Bremen</name>
-		<url>http://www.hs-bremen.de/</url>
+		<name>Trust HS Bremen</name>
 	</organization>
 	<developers>
 		<!-- TODO: eintragen -->
@@ -33,7 +32,7 @@
 <!-- 	    <repository> -->
 <!-- 	      <id>tnc.repo</id> -->
 <!-- 	      <name>Java TNC Repository</name> -->
-<!-- 	      <url>file:/home/sidanetdev/git/smgw-app/main/repo/</url> -->
+<!-- 	      <url>file:{file-Repo-here}</url> -->
 <!-- 	    </repository> -->
 <!--     </distributionManagement> -->
 	<pluginRepositories>
@@ -95,7 +94,7 @@
 	            	<author>false</author>
 					<aggregate>false</aggregate>
 					<stylesheetfile>${javadoc.style}</stylesheetfile>
-					<bottom><![CDATA[Copyright &#169; {currentYear}, Carl-Heinz Genzel]]> </bottom>
+					<bottom><![CDATA[Copyright &#169; {currentYear}, Trust HS Bremen and its Contributors]]> </bottom>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -106,7 +105,7 @@
 					<linkJavadoc>true</linkJavadoc>
 					<javadocDir>target/site/apidocs</javadocDir>
 					<stylesheet>${jxr.style}</stylesheet>
-					<bottom><![CDATA[Copyright &#169; {currentYear}, Carl-Heinz Genzel]]></bottom>
+					<bottom><![CDATA[Copyright &#169; {currentYear}, Trust HS Bremen and its Contributors]]></bottom>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1,8 +1,11 @@
 /**
  * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
  *
- * Copyright (c) 2015, Carl-Heinz Genzel
- * All rights reserved.
+ * Copyright © 2015 Trust HS Bremen and its Contributors. All rights   
+ * reserved.
+ *
+ * See the CONTRIBUTORS file distributed with this work for additional
+ * information regarding copyright ownership.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
