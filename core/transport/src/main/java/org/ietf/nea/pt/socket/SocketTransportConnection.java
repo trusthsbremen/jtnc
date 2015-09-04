@@ -572,6 +572,7 @@ public class SocketTransportConnection implements TransportConnection {
 
             if (((PtTlsMessageValueSaslMechanisms) ct.getResult().getValue())
                     .getMechanisms().size() > 0) {
+                //TODO add SASL connector here to enable SASL support
                 throw new ValidationException(
                         "Extra SASL authentication not supported.",
                         new RuleException(
