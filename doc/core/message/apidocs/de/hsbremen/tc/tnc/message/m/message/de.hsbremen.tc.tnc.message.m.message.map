@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="c805" href="./ImMessage.html" title="de.hsbremen.tc.tnc.message.m.message.ImMessage" alt="" coords="15,19,238,125"/>
+<area shape="rect" id="node1" href="./ImMessage.html" title="&lt;TABLE&gt;" alt="" coords="5,14,248,130"/>
+<area shape="rect" id="c806" href="./ImMessageHeader.html" title="de.hsbremen.tc.tnc.message.m.message.ImMessageHeader" alt="" coords="282,11,427,133"/>
+<area shape="rect" id="node2" href="./ImMessageHeader.html" title="&lt;TABLE&gt;" alt="" coords="272,6,437,138"/>
+<area shape="rect" id="c807" href="./ImMessageHeaderBuilder.html" title="de.hsbremen.tc.tnc.message.m.message.ImMessageHeaderBuilder" alt="" coords="472,51,643,93"/>
+<area shape="rect" id="node3" href="./ImMessageHeaderBuilder.html" title="&lt;TABLE&gt;" alt="" coords="461,46,653,98"/>
+</map>

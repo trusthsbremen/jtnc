@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c4977" href="../ConfigurationEntryHandler.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryHandler" alt="" coords="590,11,1127,133"/>
+<area shape="rect" id="node1" href="../ConfigurationEntryHandler.html" title="&lt;TABLE&gt;" alt="" coords="580,6,1137,138"/>
+<area shape="rect" id="c4985" href="./AbstractImManagerConfigurationEntryHandler.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.AbstractImManagerConfigurationEntryHandler" alt="" coords="378,193,987,362"/>
+<area shape="rect" id="node2" href="./AbstractImManagerConfigurationEntryHandler.html" title="&lt;TABLE&gt;" alt="" coords="368,187,997,367"/>
+<area shape="rect" id="c4992" href="./DefaultImcManagerConfigurationEntryHandler.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationEntryHandler" alt="" coords="709,422,1360,511"/>
+<area shape="rect" id="node4" href="./DefaultImcManagerConfigurationEntryHandler.html" title="&lt;TABLE&gt;" alt="" coords="699,417,1371,517"/>
+<area shape="rect" id="c4987" href="./DefaultImvManagerConfigurationEntryHandler.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImvManagerConfigurationEntryHandler" alt="" coords="15,422,665,511"/>
+<area shape="rect" id="node3" href="./DefaultImvManagerConfigurationEntryHandler.html" title="&lt;TABLE&gt;" alt="" coords="5,417,675,517"/>
+</map>

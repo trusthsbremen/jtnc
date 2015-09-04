@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c4802" href="./ImManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.ImManager" alt="" coords="619,11,1111,181"/>
+<area shape="rect" id="node1" href="./ImManager.html" title="&lt;TABLE&gt;" alt="" coords="609,6,1121,186"/>
+<area shape="rect" id="c4804" href="./AbstractImManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.AbstractImManager" alt="" coords="619,241,1111,522"/>
+<area shape="rect" id="node2" href="./AbstractImManager.html" title="&lt;TABLE&gt;" alt="" coords="609,235,1121,527"/>
+<area shape="rect" id="c4806" href="./simple/DefaultImvManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImvManager" alt="" coords="16,582,843,831"/>
+<area shape="rect" id="node3" href="./simple/DefaultImvManager.html" title="&lt;TABLE&gt;" alt="" coords="5,577,853,837"/>
+<area shape="rect" id="c4808" href="./simple/DefaultImcManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager" alt="" coords="888,582,1715,831"/>
+<area shape="rect" id="node4" href="./simple/DefaultImcManager.html" title="&lt;TABLE&gt;" alt="" coords="877,577,1725,837"/>
+</map>

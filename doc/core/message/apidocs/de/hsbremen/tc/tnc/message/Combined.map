@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="c25695" href="./Combined.html" title="de.hsbremen.tc.tnc.message.Combined" alt="" coords="2843,11,3216,117"/>
+<area shape="rect" id="node1" href="./Combined.html" title="&lt;TABLE&gt;" alt="" coords="2832,6,3227,122"/>
+<area shape="rect" id="c25749" href="../../../../../org/ietf/nea/pt/serialize/reader/bytebuffer/PtTlsReader.html" title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader" alt="" coords="16,193,949,362"/>
+<area shape="rect" id="node2" href="../../../../../org/ietf/nea/pt/serialize/reader/bytebuffer/PtTlsReader.html" title="&lt;TABLE&gt;" alt="" coords="5,187,960,367"/>
+<area shape="rect" id="c25769" href="../../../../../org/ietf/nea/pt/serialize/writer/bytebuffer/PtTlsWriter.html" title="org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriter" alt="" coords="994,201,1891,354"/>
+<area shape="rect" id="node3" href="../../../../../org/ietf/nea/pt/serialize/writer/bytebuffer/PtTlsWriter.html" title="&lt;TABLE&gt;" alt="" coords="984,195,1901,359"/>
+<area shape="rect" id="c25810" href="../../../../../org/ietf/nea/pa/serialize/reader/bytebuffer/PaReader.html" title="org.ietf.nea.pa.serialize.reader.bytebuffer.PaReader" alt="" coords="1935,177,3019,378"/>
+<area shape="rect" id="node4" href="../../../../../org/ietf/nea/pa/serialize/reader/bytebuffer/PaReader.html" title="&lt;TABLE&gt;" alt="" coords="1925,171,3029,383"/>
+<area shape="rect" id="c25831" href="../../../../../org/ietf/nea/pa/serialize/writer/bytebuffer/PaWriter.html" title="org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriter" alt="" coords="3064,193,4099,362"/>
+<area shape="rect" id="node5" href="../../../../../org/ietf/nea/pa/serialize/writer/bytebuffer/PaWriter.html" title="&lt;TABLE&gt;" alt="" coords="3053,187,4109,367"/>
+<area shape="rect" id="c25945" href="../../../../../org/ietf/nea/pb/serialize/reader/bytebuffer/PbReader.html" title="org.ietf.nea.pb.serialize.reader.bytebuffer.PbReader" alt="" coords="4144,177,5280,378"/>
+<area shape="rect" id="node6" href="../../../../../org/ietf/nea/pb/serialize/reader/bytebuffer/PbReader.html" title="&lt;TABLE&gt;" alt="" coords="4133,171,5291,383"/>
+<area shape="rect" id="c25973" href="../../../../../org/ietf/nea/pb/serialize/writer/bytebuffer/PbWriter.html" title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter" alt="" coords="5325,193,6411,362"/>
+<area shape="rect" id="node7" href="../../../../../org/ietf/nea/pb/serialize/writer/bytebuffer/PbWriter.html" title="&lt;TABLE&gt;" alt="" coords="5315,187,6421,367"/>
+</map>

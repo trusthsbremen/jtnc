@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="c164837" href="./TnccsBatchHeader.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeader" alt="" coords="296,113,440,202"/>
+<area shape="rect" id="node1" href="./TnccsBatchHeader.html" title="&lt;TABLE&gt;" alt="" coords="285,107,451,207"/>
+<area shape="rect" id="c165185" href="../../../../../../../org/ietf/nea/pb/batch/PbBatchHeader.html" title="org.ietf.nea.pb.batch.PbBatchHeader" alt="" coords="15,262,721,463"/>
+<area shape="rect" id="node3" href="../../../../../../../org/ietf/nea/pb/batch/PbBatchHeader.html" title="&lt;TABLE&gt;" alt="" coords="5,257,731,469"/>
+<area shape="rect" id="c164840" href="../TnccsData.html" title="de.hsbremen.tc.tnc.message.tnccs.TnccsData" alt="" coords="325,11,411,53"/>
+<area shape="rect" id="node2" href="../TnccsData.html" title="&lt;TABLE&gt;" alt="" coords="315,6,421,58"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c112707" href="../../../../../../de/hsbremen/tc/tnc/message/tnccs/TnccsData.html" title="de.hsbremen.tc.tnc.message.tnccs.TnccsData" alt="" coords="379,11,464,53"/>
+<area shape="rect" id="node1" href="../../../../../../de/hsbremen/tc/tnc/message/tnccs/TnccsData.html" title="&lt;TABLE&gt;" alt="" coords="368,6,475,58"/>
+<area shape="rect" id="c113037" href="./PbMessageSubValue.html" title="org.ietf.nea.pb.message.util.PbMessageSubValue" alt="" coords="349,113,494,202"/>
+<area shape="rect" id="node2" href="./PbMessageSubValue.html" title="&lt;TABLE&gt;" alt="" coords="339,107,504,207"/>
+<area shape="rect" id="c113040" href="./AbstractPbMessageValueRemediationParameter.html" title="org.ietf.nea.pb.message.util.AbstractPbMessageValueRemediationParameter" alt="" coords="15,262,411,351"/>
+<area shape="rect" id="node3" href="./AbstractPbMessageValueRemediationParameter.html" title="&lt;TABLE&gt;" alt="" coords="5,257,421,357"/>
+<area shape="rect" id="c113042" href="./AbstractPbMessageValueErrorParameter.html" title="org.ietf.nea.pb.message.util.AbstractPbMessageValueErrorParameter" alt="" coords="455,262,806,351"/>
+<area shape="rect" id="node4" href="./AbstractPbMessageValueErrorParameter.html" title="&lt;TABLE&gt;" alt="" coords="445,257,816,357"/>
+</map>

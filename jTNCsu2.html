@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>IF-IMV API</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 146--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu3.html" >next</a>] [<a 
+href="jTNCsu1.html" >prev</a>] [<a 
+href="jTNCsu1.html#tailjTNCsu1.html" >prev-tail</a>] [<a 
+href="#tailjTNCsu2.html">tail</a>] [<a 
+href="jTNCse3.html#jTNCsu2.html" >up</a>] </p></div>
+<h4 class="subsectionHead"><span class="titlemark">3.2   </span> <a 
+ id="x6-50003.2"></a>IF-IMV API</h4>
+<!--l. 147--><p class="noindent" >In analogy to the module IF-IMC API, the module IF-IMV API contains Java
+classes and interfaces, which have been defined by the TNC-WG for the binding
+version 1.3 of the vertical IF-IMV interface. The names of the various classes and
+interfaces are shown in Fig. <a 
+href="jTNCsu1.html#x5-40012">2<!--tex4ht:ref: fig:imc_classes --></a>. The interfaces TNCS and TNCSLong provide
+methods, which can be used by an IMV to retrieve common parameters from a
+TNCS. On the other hand, the interfaces IMV, IMVLong, IMVSOH and
+IMVTNCSFirst are used by a TNCS to interact with an IMV. IMVConnection,
+IMVConnectionLong and IMVConnectionSOH represent the connection, the
+integrity assessment is executed for. These three interfaces provide methods for an
+IMV, to send messages and to initiate an integrity assessment. The interfaces
+IMV, TNCS and IMVConnection specify the basic functionality for an
+implementation of the IF-IMV interface. The interfaces marked by the
+keywords "Long", "SOH" or "TNCSFirst" in their names contain additional
+methods. Interfaces containing the keyword "Long" in their names provide
+methods to support a more complex message addressing scheme for the
+transmission of messages between an IMV and a TNCS. The interfaces
+containing the keyword "SOH" in their names are especially used for the
+transmission of messages between a TNCS and an IMV in case the binding
+IF-TNCCS-SOH is utilized for the communication between a TNCS and a TNCC.
+As already mentioned in the description of the module IF-IMC API (s. <a 
+href="jTNCsu1.html#x5-40003.1">3.1<!--tex4ht:ref: subsec:imc --></a>),
+                                                                          
+
+                                                                          
+the "SOH" type of interfaces is currently not used by jTNC, because the
+binding IF-TNCCS-SOH is not supported yet. The last interface type
+containing the keyword "TNCSFirst" is supported on the other hand.
+This interface type provides additional methods that can be used if a
+TNCS is able to initiate an integrity attestation instead of a TNCC <span class="cite">[<a 
+href="jTNCse7.html#XTCG13b">4</a>, pp.
+90-115]</span>.
+</p><!--l. 149--><p class="noindent" >An additional interface like the interface AttributeSupport contained in the
+module IF-IMC API does not exist in this module. Methods that can be
+used to query protocol properties such as the maximum transmission
+cycles (s. <span class="cite">[<a 
+href="jTNCse7.html#XTCG13a">3</a>, pp. 31-31]</span> and <span class="cite">[<a 
+href="jTNCse7.html#XTCG13b">4</a>, pp. 35-36]</span>) supported by the IF-T interface
+are integrated into the interfaces described above. But, as well as the
+module IF-IMC API, the module IF-IMV API does contain the interface
+TNCConstants that provides several constant default values, which have
+been defined by the TNC-WG for the IF-IMV interface. However, these
+values are partially the same as the values defined by the TNCConstants
+interface of the module IF-IMC API. For example, the interface of this
+module contains the same numeric identifiers that describe the state of a
+connection, while an integrity assessment is running. Not just partially the
+same, but fully identical is the class TNCException of this module in
+comparison to the class TNCException of the module IF-IMC API. Hence, it is
+used in the same manner to encapsulate and relay exceptions that may
+occur while calling a method of the Java interfaces described above <span class="cite">[<a 
+href="jTNCse7.html#XTCG13b">4</a>, pp.
+90-115]</span>.
+</p>
+<hr class="figure" /><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x6-50013"></a>
+                                                                          
+
+                                                                          
+<!--l. 153--><p class="noindent" ><img 
+src="jTNC2x.png" alt="PIC" class="graphics" width="252.94499pt" height="342.27873pt"  /><!--tex4ht:graphics  
+name="jTNC2x.png" src="figures/content/imv_classes.eps"  
+-->
+<br /> </p><div class="caption" 
+><span class="id">Figure&#x00A0;3: </span><span  
+class="content">Interfaces and classes from <span class="cite">[<a 
+href="jTNCse7.html#XTCG13b">4</a>, pp. 90-115]</span> contained in the module
+IF-IMV API</span></div><!--tex4ht:label?: x6-50013 -->
+                                                                          
+
+                                                                          
+</div><hr class="endfigure" />
+                                                                          
+
+                                                                          
+<!--l. 159--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu3.html" >next</a>] [<a 
+href="jTNCsu1.html" >prev</a>] [<a 
+href="jTNCsu1.html#tailjTNCsu1.html" >prev-tail</a>] [<a 
+href="jTNCsu2.html" >front</a>] [<a 
+href="jTNCse3.html#jTNCsu2.html" >up</a>] </p></div>
+<!--l. 159--><p class="noindent" ><a 
+ id="tailjTNCsu2.html"></a> </p> 
+</body></html> 

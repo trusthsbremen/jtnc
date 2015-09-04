@@ -1,0 +1,20 @@
+<map id="G" name="G">
+<area shape="rect" id="c843" href="./DefaultConfigurationFileParserImJava.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileParserImJava" alt="" coords="15,43,657,213"/>
+<area shape="rect" id="node1" href="./DefaultConfigurationFileParserImJava.html" title="&lt;TABLE&gt;" alt="" coords="5,38,667,218"/>
+<area shape="rect" id="c844" href="./AbstractImManagerConfigurationEntryHandler.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.AbstractImManagerConfigurationEntryHandler" alt="" coords="701,43,1310,213"/>
+<area shape="rect" id="node2" href="./AbstractImManagerConfigurationEntryHandler.html" title="&lt;TABLE&gt;" alt="" coords="691,38,1320,218"/>
+<area shape="rect" id="c846" href="./DefaultImvManagerConfigurationEntryHandler.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImvManagerConfigurationEntryHandler" alt="" coords="333,305,982,394"/>
+<area shape="rect" id="node4" href="./DefaultImvManagerConfigurationEntryHandler.html" title="&lt;TABLE&gt;" alt="" coords="323,299,992,399"/>
+<area shape="rect" id="c851" href="./DefaultImcManagerConfigurationEntryHandler.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationEntryHandler" alt="" coords="1027,305,1677,394"/>
+<area shape="rect" id="node9" href="./DefaultImcManagerConfigurationEntryHandler.html" title="&lt;TABLE&gt;" alt="" coords="1016,299,1688,399"/>
+<area shape="rect" id="c845" href="./DefaultConfigurationFileChangeListener.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeListener" alt="" coords="1354,27,1961,229"/>
+<area shape="rect" id="node3" href="./DefaultConfigurationFileChangeListener.html" title="&lt;TABLE&gt;" alt="" coords="1344,22,1971,234"/>
+<area shape="rect" id="c847" href="./DefaultConfigurationFileChangeMonitor.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor" alt="" coords="2005,11,2528,245"/>
+<area shape="rect" id="node5" href="./DefaultConfigurationFileChangeMonitor.html" title="&lt;TABLE&gt;" alt="" coords="1995,6,2539,250"/>
+<area shape="rect" id="c848" href="./DefaultConfigurationFileChangeMonitor.FileChecker.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor.FileChecker" alt="" coords="2573,11,3161,245"/>
+<area shape="rect" id="node6" href="./DefaultConfigurationFileChangeMonitor.FileChecker.html" title="&lt;TABLE&gt;" alt="" coords="2563,6,3171,250"/>
+<area shape="rect" id="c849" href="./DefaultImLoader.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader" alt="" coords="3205,51,3592,205"/>
+<area shape="rect" id="node7" href="./DefaultImLoader.html" title="&lt;TABLE&gt;" alt="" coords="3195,46,3603,210"/>
+<area shape="rect" id="c850" href="./DefaultConfigurationEntryImJava.html" title="de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationEntryImJava" alt="" coords="3637,27,4171,229"/>
+<area shape="rect" id="node8" href="./DefaultConfigurationEntryImJava.html" title="&lt;TABLE&gt;" alt="" coords="3627,22,4181,234"/>
+</map>

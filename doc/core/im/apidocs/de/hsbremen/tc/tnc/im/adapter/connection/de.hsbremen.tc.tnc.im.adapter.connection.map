@@ -1,0 +1,20 @@
+<map id="G" name="G">
+<area shape="rect" id="c411" href="./ImcConnectionAdapter.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapter" alt="" coords="329,233,482,274"/>
+<area shape="rect" id="node1" href="./ImcConnectionAdapter.html" title="&lt;TABLE&gt;" alt="" coords="319,227,492,279"/>
+<area shape="rect" id="c417" href="./ImcConnectionAdapterIetf.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterIetf" alt="" coords="15,382,622,567"/>
+<area shape="rect" id="node7" href="./ImcConnectionAdapterIetf.html" title="&lt;TABLE&gt;" alt="" coords="5,377,632,573"/>
+<area shape="rect" id="c412" href="./ImConnectionAdapter.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImConnectionAdapter" alt="" coords="330,11,755,133"/>
+<area shape="rect" id="node2" href="./ImConnectionAdapter.html" title="&lt;TABLE&gt;" alt="" coords="320,6,765,138"/>
+<area shape="rect" id="c419" href="./ImvConnectionAdapter.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapter" alt="" coords="700,209,1065,298"/>
+<area shape="rect" id="node9" href="./ImvConnectionAdapter.html" title="&lt;TABLE&gt;" alt="" coords="689,203,1076,303"/>
+<area shape="rect" id="c413" href="./ImcConnectionAdapterFactoryIetf.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactoryIetf" alt="" coords="1111,193,1609,314"/>
+<area shape="rect" id="node3" href="./ImcConnectionAdapterFactoryIetf.html" title="&lt;TABLE&gt;" alt="" coords="1100,187,1620,319"/>
+<area shape="rect" id="c414" href="./ImcConnectionAdapterFactory.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImcConnectionAdapterFactory" alt="" coords="1111,27,1609,117"/>
+<area shape="rect" id="node4" href="./ImcConnectionAdapterFactory.html" title="&lt;TABLE&gt;" alt="" coords="1100,22,1620,122"/>
+<area shape="rect" id="c415" href="./ImvConnectionAdapterIetf.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterIetf" alt="" coords="666,374,1273,575"/>
+<area shape="rect" id="node5" href="./ImvConnectionAdapterIetf.html" title="&lt;TABLE&gt;" alt="" coords="656,369,1283,581"/>
+<area shape="rect" id="c416" href="./ImvConnectionAdapterFactory.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactory" alt="" coords="1654,27,2151,117"/>
+<area shape="rect" id="node6" href="./ImvConnectionAdapterFactory.html" title="&lt;TABLE&gt;" alt="" coords="1644,22,2161,122"/>
+<area shape="rect" id="c418" href="./ImvConnectionAdapterFactoryIetf.html" title="de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactoryIetf" alt="" coords="1654,193,2151,314"/>
+<area shape="rect" id="node8" href="./ImvConnectionAdapterFactoryIetf.html" title="&lt;TABLE&gt;" alt="" coords="1644,187,2161,319"/>
+</map>

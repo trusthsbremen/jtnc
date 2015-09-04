@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="c4838" href="./TransmissionObjectBuilder.html" title="de.hsbremen.tc.tnc.message.TransmissionObjectBuilder" alt="" coords="16,19,323,125"/>
+<area shape="rect" id="node1" href="./TransmissionObjectBuilder.html" title="&lt;TABLE&gt;" alt="" coords="5,14,333,130"/>
+<area shape="rect" id="c4839" href="./TcgProtocolBindingIdentifier.html" title="de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier" alt="" coords="368,11,552,133"/>
+<area shape="rect" id="node2" href="./TcgProtocolBindingIdentifier.html" title="&lt;TABLE&gt;" alt="" coords="357,6,563,138"/>
+<area shape="rect" id="c4840" href="./Reader.html" title="de.hsbremen.tc.tnc.message.Reader" alt="" coords="597,19,822,125"/>
+<area shape="rect" id="node3" href="./Reader.html" title="&lt;TABLE&gt;" alt="" coords="587,14,832,130"/>
+<area shape="rect" id="c4841" href="./Data.html" title="de.hsbremen.tc.tnc.message.Data" alt="" coords="867,51,952,93"/>
+<area shape="rect" id="node4" href="./Data.html" title="&lt;TABLE&gt;" alt="" coords="856,46,963,98"/>
+<area shape="rect" id="c4842" href="./Combined.html" title="de.hsbremen.tc.tnc.message.Combined" alt="" coords="997,19,1371,125"/>
+<area shape="rect" id="node5" href="./Combined.html" title="&lt;TABLE&gt;" alt="" coords="987,14,1381,130"/>
+<area shape="rect" id="c4843" href="./ResultContainer.html" title="de.hsbremen.tc.tnc.message.ResultContainer" alt="" coords="1416,19,1704,125"/>
+<area shape="rect" id="node6" href="./ResultContainer.html" title="&lt;TABLE&gt;" alt="" coords="1405,14,1715,130"/>
+<area shape="rect" id="c4844" href="./Writer.html" title="de.hsbremen.tc.tnc.message.Writer" alt="" coords="1749,27,1955,117"/>
+<area shape="rect" id="node7" href="./Writer.html" title="&lt;TABLE&gt;" alt="" coords="1739,22,1965,122"/>
+</map>

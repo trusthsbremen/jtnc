@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de_DE" lang="de_DE">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>IMCLong xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/org/trustedcomputinggroup/tnc/ifimc/IMCLong.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.trustedcomputinggroup.tnc.ifimc;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * This interface can be implemented by an object that already supports</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * the IMC interface to indicate that this object is an IMC that </em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * supports receiveMessageLong.  To check whether an object implements</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * this interface use the instanceof operator. If so, cast the object </em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> * to the interface type and use the methods in this interface.</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * Copyright(c) 2005-2012, Trusted Computing Group, Inc. All rights</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> * reserved.</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> * Redistribution and use in source and binary forms, with or without</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> * modification, are permitted provided that the following conditions</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> * are met:</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_comment"> * - Redistributions of source code must retain the above copyright</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_comment"> *   notice, this list of conditions and the following disclaimer.</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment"> * - Redistributions in binary form must reproduce the above copyright</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_comment"> *   notice, this list of conditions and the following disclaimer in</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_comment"> *   the documentation and/or other materials provided with the  </em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_comment"> *   distribution.</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_comment"> * - Neither the name of the Trusted Computing Group nor the names of</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_comment"> *   its contributors may be used to endorse or promote products </em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_comment"> *   derived from this software without specific prior written </em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_comment"> *   permission.</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_comment"> * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS </em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_comment"> * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT </em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_comment"> * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS </em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_comment"> * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE </em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_comment"> * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, </em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_comment"> * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, </em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_comment"> * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; </em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_comment"> * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER </em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_comment"> * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT </em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_comment"> * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN </em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_comment"> * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE </em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_comment"> * POSSIBILITY OF SUCH DAMAGE.</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_comment"> * Contact the Trusted Computing Group at </em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_comment"> * admin@trustedcomputinggroup.org for information on specification </em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_comment"> * licensing through membership agreements.</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_comment"> * Any marks and brands contained herein are the property of their </em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_comment"> * respective owners.</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../org/trustedcomputinggroup/tnc/ifimc/IMCLong.html">IMCLong</a> {
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">	 * The TNC Client calls this method (if supported by the TNCC and </em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">	 * implemented by an IMC) to deliver a message to the IMC. This </em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">	 * method provides several features that receiveMessage does not: </em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">	 * longer (32 bit) vendor ID and message subtype fields, a </em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">	 * messageFlags field, and the ability to specify a source IMV ID </em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">	 * and destination IMC ID.</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">	 * The message is contained in the buffer referenced by message. </em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">	 * This parameter may be null to represent an empty message. The </em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">	 * type of the message is indicated by the messageVendorID and </em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">	 * messageSubtype parameters. The message must be from an IMV (or </em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">	 * a TNCS or other party acting as an IMV). Any flags associated </em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">	 * with the message are included in the messageFlags parameter. </em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">	 * The sourceIMVID and destinationIMCID parameters indicate the </em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">	 * IMV ID of the IMV that sent this message (if available) and the</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">	 * IMC ID of the intended recipient (if the EXCL flag is set) or </em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">	 * the IMC ID in response to whose message or messages this </em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">	 * message was sent. If the EXCL flag is set, destinationIMCID </em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">	 * MUST be either the primary IMC ID for this IMC (matching the </em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">	 * value of the TNC_AttributeID_PRIMARY_IMC_ID attribute) or an </em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">	 * additional IMC ID reserved when the IMC requested the TNCC to </em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">	 * do so by calling reserveAdditionalIMCID. If the EXCL flag is </em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">	 * not set, then destinationIMCID MAY be set to the wild card </em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">	 * TNC_IMCID_ANY.</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">	 * If an IF-TNCCS protocol that support long types or exclusive </em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">	 * delivery is used for a connection and the IMC and TNCC implement</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">	 * receiveMessageLong, the TNCC SHOULD use this method to deliver </em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">	 * messages instead of using receiveMessage. However, if the IMC </em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">	 * does not implement receiveMessageLong, the TNCC SHOULD use </em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">	 * receiveMessage instead. Messages whose vendor ID or message </em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">	 * subtype is too long to be represented in the parameters </em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">	 * supported by receiveMessage MUST NOT be delivered to an IMC </em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">	 * that does not support receiveMessageLong. This should be fine </em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">	 * since the IMC in question wouldn't have the ability to process </em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">	 * such messages. Also, the IMC probably calls reportMessageTypes </em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">	 * instead of reportMessageTypesLong so it couldn't have expressed</em>
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">	 * an interest in messages with long types except via wild cards. </em>
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">	 * Messages with flags or source IMV IDs can be handled fine using</em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">	 * the receiveMessage method.</em>
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">	 * The IMC SHOULD send any IMC-IMV messages it wants to send as </em>
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">	 * soon as possible after this method is called and then return </em>
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">	 * from this method to indicate that it is finished sending </em>
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">	 * messages in response to this message.</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">	 * As with all IMC methods, the IMC SHOULD NOT wait a long time </em>
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">	 * before returning from receiveMessageLong. To do otherwise would</em>
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">	 * risk delaying the handshake indefinitely. A long delay might </em>
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">	 * frustrate users or exceed network timeouts (PDP, PEP or otherwise).</em>
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">	 * IMCs are not required to implement this method but any IMC that</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">	 * implements the IMCLong interface MUST implement this method. An</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">	 * IMC should implement this method if it wants to receive </em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">	 * messages with long types or flags or source IMV IDs. Simple </em>
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">	 * IMCs need not implement this method. Since this method was not </em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">	 * included in IF-IMC 1.2, many IMCs do not implement it. TNCCs </em>
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">	 * MUST work properly if an IMC does not implement this method. </em>
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">	 * Likewise, many TNCCs do not implement this method so IMCs MUST </em>
+<a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment">	 * work properly if a TNCC does not implement this method.</em>
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">	 * The IMC MUST NOT ever modify the buffer contents and MUST NOT </em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">	 * access the buffer after receiveMessageLong has returned. If the</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">	 * IMC wants to retain the message, it should copy it before </em>
+<a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">	 * returning from receiveMessageLong.</em>
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">	 * In the messageVendorID and messageSubtype parameters, the TNCC </em>
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">	 * MUST pass the vendor ID and message subtype of the message. </em>
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">	 * These values MUST match one of the values previously supplied </em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">	 * by the IMC to the TNCC in the IMC�s most recent call to </em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">	 * reportMessageTypes or reportMessageTypesLong. The TNCC MUST NOT</em>
+<a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">	 * specify a message type whose vendor ID is 0xffffff or whose </em>
+<a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">	 * subtype is 0xff. These values are reserved for use as wild </em>
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">	 * cards, as described in section 3.9.1. IMCs MAY check these </em>
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">	 * parameters to make sure they are valid and throw an exception </em>
+<a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">	 * if not, but IMCs are not required to make these checks.</em>
+<a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> <em class="jxr_javadoccomment">	 * Any flags associated with the message are included in the </em>
+<a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">	 * messageFlags parameter. This may include the EXCL flag but the </em>
+<a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">	 * TNCC MUST process that flag itself to ensure that a message </em>
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">	 * with this flag set is only delivered to the intended recipient.</em>
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">	 * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * @param c the IMC connection object</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     * @param messageFlags flags associated with the message</em>
+<a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     * @param messageVendorID vendor ID associated with the message</em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     * @param messageSubtype message subtype associated with the message</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">     * @param message the message to be delivered</em>
+<a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">     * @param sourceIMVID source IMV ID for the message</em>
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     * @param destinationIMCID destination IMC ID for message</em>
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     * @exception TNCException if a TNC error occurs</em>
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L145" href="#L145">145</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> receiveMessageLong(<a href="../../../../org/trustedcomputinggroup/tnc/ifimc/IMCConnection.html">IMCConnection</a> c,
+<a class="jxr_linenumber" name="L146" href="#L146">146</a> 								   <strong class="jxr_keyword">long</strong> messageFlags,
+<a class="jxr_linenumber" name="L147" href="#L147">147</a> 								   <strong class="jxr_keyword">long</strong> messageVendorID,
+<a class="jxr_linenumber" name="L148" href="#L148">148</a> 								   <strong class="jxr_keyword">long</strong> messageSubtype,
+<a class="jxr_linenumber" name="L149" href="#L149">149</a> 								   byte[] message,
+<a class="jxr_linenumber" name="L150" href="#L150">150</a> 								   <strong class="jxr_keyword">long</strong> sourceIMVID,
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> 								   <strong class="jxr_keyword">long</strong> destinationIMCID) <strong class="jxr_keyword">throws</strong> TNCException;
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2015, Trust HS Bremen and its Contributors</div>
+</body>
+</html>

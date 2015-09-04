@@ -1,0 +1,28 @@
+<map id="G" name="G">
+<area shape="rect" id="c3250" href="./ImvAdapterTimeProxy.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterTimeProxy" alt="" coords="621,486,1181,671"/>
+<area shape="rect" id="node1" href="./ImvAdapterTimeProxy.html" title="&lt;TABLE&gt;" alt="" coords="611,481,1192,677"/>
+<area shape="rect" id="c3251" href="./ImcAdapterTimeProxy.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterTimeProxy" alt="" coords="1227,478,1787,679"/>
+<area shape="rect" id="node2" href="./ImcAdapterTimeProxy.html" title="&lt;TABLE&gt;" alt="" coords="1216,473,1797,685"/>
+<area shape="rect" id="c3252" href="./ImcAdapterFactory.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactory" alt="" coords="1596,51,1975,141"/>
+<area shape="rect" id="node3" href="./ImcAdapterFactory.html" title="&lt;TABLE&gt;" alt="" coords="1585,46,1985,146"/>
+<area shape="rect" id="c3258" href="./ImcAdapterFactoryIetf.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterFactoryIetf" alt="" coords="1596,241,1975,394"/>
+<area shape="rect" id="node9" href="./ImcAdapterFactoryIetf.html" title="&lt;TABLE&gt;" alt="" coords="1585,235,1985,399"/>
+<area shape="rect" id="c3253" href="./ImAdapter.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImAdapter" alt="" coords="900,11,1335,181"/>
+<area shape="rect" id="node4" href="./ImAdapter.html" title="&lt;TABLE&gt;" alt="" coords="889,6,1345,186"/>
+<area shape="rect" id="c3254" href="./ImcAdapter.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapter" alt="" coords="1463,297,1551,338"/>
+<area shape="rect" id="node5" href="./ImcAdapter.html" title="&lt;TABLE&gt;" alt="" coords="1452,291,1561,343"/>
+<area shape="rect" id="c3262" href="./ImvAdapter.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapter" alt="" coords="709,273,1094,362"/>
+<area shape="rect" id="node13" href="./ImvAdapter.html" title="&lt;TABLE&gt;" alt="" coords="699,267,1104,367"/>
+<area shape="rect" id="c3255" href="./ImcAdapterIetf.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImcAdapterIetf" alt="" coords="1832,454,2392,703"/>
+<area shape="rect" id="node6" href="./ImcAdapterIetf.html" title="&lt;TABLE&gt;" alt="" coords="1821,449,2403,709"/>
+<area shape="rect" id="c3256" href="./ImvAdapterFactoryIetf.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterFactoryIetf" alt="" coords="2019,241,2397,394"/>
+<area shape="rect" id="node7" href="./ImvAdapterFactoryIetf.html" title="&lt;TABLE&gt;" alt="" coords="2009,235,2407,399"/>
+<area shape="rect" id="c3257" href="./ImvAdapterFactory.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterFactory" alt="" coords="2019,51,2397,141"/>
+<area shape="rect" id="node8" href="./ImvAdapterFactory.html" title="&lt;TABLE&gt;" alt="" coords="2009,46,2407,146"/>
+<area shape="rect" id="c3259" href="./ImvAdapterIetf.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterIetf" alt="" coords="16,462,576,695"/>
+<area shape="rect" id="node10" href="./ImvAdapterIetf.html" title="&lt;TABLE&gt;" alt="" coords="5,457,587,701"/>
+<area shape="rect" id="c3260" href="./AbstractTimeProxy.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.AbstractTimeProxy" alt="" coords="1152,265,1405,370"/>
+<area shape="rect" id="node11" href="./AbstractTimeProxy.html" title="&lt;TABLE&gt;" alt="" coords="1141,259,1416,375"/>
+<area shape="rect" id="c3261" href="./AbstractTimeProxy.WatchDog.html" title="de.hsbremen.tc.tnc.tnccs.adapter.im.AbstractTimeProxy.WatchDog" alt="" coords="2441,51,2751,141"/>
+<area shape="rect" id="node12" href="./AbstractTimeProxy.WatchDog.html" title="&lt;TABLE&gt;" alt="" coords="2431,46,2761,146"/>
+</map>

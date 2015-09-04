@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>MESSAGE</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 162--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu5.html" >next</a>] [<a 
+href="jTNCsu3.html" >prev</a>] [<a 
+href="jTNCsu3.html#tailjTNCsu3.html" >prev-tail</a>] [<a 
+href="#tailjTNCsu4.html">tail</a>] [<a 
+href="jTNCse3.html#jTNCsu4.html" >up</a>] </p></div>
+<h4 class="subsectionHead"><span class="titlemark">3.4   </span> <a 
+ id="x8-70003.4"></a>MESSAGE</h4>
+<!--l. 163--><p class="noindent" >Messages are used for the communication between components on the
+same TNC communication layer. These messages and their format are
+specified by so called bindings for the interfaces IF-M, IF-TNCCS and IF-T.
+The module MESSAGE depicted in Fig. <a 
+href="#x8-70014">4<!--tex4ht:ref: fig:message_mod --></a> contains an object-oriented
+implementation of the various messages specified by the currently supported
+bindings (cf. section <a 
+href="jTNCse1.html#x2-10001">1<!--tex4ht:ref: sec:intro --></a>). Therefor, every message consists of a message
+header (Header) and a message content value (Value). The modules IM,
+TNCCS and TRANSPORT use the module to encode object-oriented
+messages for the transmission and decode messages into their object-oriented
+representation after reception. For this purpose, the module provides so
+called writers, which are used to encode a message into its format for
+transmission as defined by the TNC-WG as well as so called readers,
+which are used to decode a message after reception in its object-oriented
+representation for further processing. Furthermore, the modules IM, TNCCS
+and TRANSPORT can use Message Factories provided by the module
+MESSAGE, which aid in the creation of a new message. To control the
+creation of messages (e.g. when a message is created with a factory or
+a message is decoded by a reader), the module does contain so called
+Message Builder. A Message Builder validates the parameters, which are
+                                                                          
+
+                                                                          
+used for the creation of an object-oriented message against rules specified
+by the Validation part. A builder creates and returns a message only if
+all parameters are satisfying. A message is immutable after its creation.
+</p><hr class="figure" /><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x8-70014"></a>
+                                                                          
+
+                                                                          
+<!--l. 166--><p class="noindent" ><img 
+src="jTNC3x.png" alt="PIC" class="graphics" width="383.83545pt" height="257.76396pt"  /><!--tex4ht:graphics  
+name="jTNC3x.png" src="figures/content/message_mod.eps"  
+-->
+<br /> </p><div class="caption" 
+><span class="id">Figure&#x00A0;4: </span><span  
+class="content">Structure and relations of the module MESSAGE</span></div><!--tex4ht:label?: x8-70014 -->
+                                                                          
+
+                                                                          
+</div><hr class="endfigure" />
+                                                                          
+
+                                                                          
+<!--l. 172--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu5.html" >next</a>] [<a 
+href="jTNCsu3.html" >prev</a>] [<a 
+href="jTNCsu3.html#tailjTNCsu3.html" >prev-tail</a>] [<a 
+href="jTNCsu4.html" >front</a>] [<a 
+href="jTNCse3.html#jTNCsu4.html" >up</a>] </p></div>
+<!--l. 172--><p class="noindent" ><a 
+ id="tailjTNCsu4.html"></a> </p> 
+</body></html> 

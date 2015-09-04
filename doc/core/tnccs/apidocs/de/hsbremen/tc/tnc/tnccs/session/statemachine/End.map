@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="c18399" href="./End.html" title="de.hsbremen.tc.tnc.tnccs.session.statemachine.End" alt="" coords="188,11,273,53"/>
+<area shape="rect" id="node1" href="./End.html" title="&lt;TABLE&gt;" alt="" coords="177,6,284,58"/>
+<area shape="rect" id="c18410" href="./simple/DefaultCommonEndState.html" title="de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultCommonEndState" alt="" coords="16,113,445,282"/>
+<area shape="rect" id="node2" href="./simple/DefaultCommonEndState.html" title="&lt;TABLE&gt;" alt="" coords="5,107,456,287"/>
+</map>

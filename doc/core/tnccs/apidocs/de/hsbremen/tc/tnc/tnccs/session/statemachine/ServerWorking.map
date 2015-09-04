@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="c26489" href="./ServerWorking.html" title="de.hsbremen.tc.tnc.tnccs.session.statemachine.ServerWorking" alt="" coords="471,11,577,53"/>
+<area shape="rect" id="node1" href="./ServerWorking.html" title="&lt;TABLE&gt;" alt="" coords="460,6,588,58"/>
+<area shape="rect" id="c26503" href="./simple/DefaultClientServerWorkingState.html" title="de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultClientServerWorkingState" alt="" coords="16,113,501,234"/>
+<area shape="rect" id="node2" href="./simple/DefaultClientServerWorkingState.html" title="&lt;TABLE&gt;" alt="" coords="5,107,512,239"/>
+<area shape="rect" id="c26505" href="./simple/DefaultServerClientWorkingState.html" title="de.hsbremen.tc.tnc.tnccs.session.statemachine.simple.DefaultServerClientWorkingState" alt="" coords="547,129,1032,218"/>
+<area shape="rect" id="node3" href="./simple/DefaultServerClientWorkingState.html" title="&lt;TABLE&gt;" alt="" coords="536,123,1043,223"/>
+</map>

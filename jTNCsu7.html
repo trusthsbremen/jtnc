@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>TRANSPORT</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 200--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu6.html" >prev</a>] [<a 
+href="jTNCsu6.html#tailjTNCsu6.html" >prev-tail</a>] [<a 
+href="#tailjTNCsu7.html">tail</a>] [<a 
+href="jTNCse3.html#jTNCsu7.html" >up</a>] </p></div>
+<h4 class="subsectionHead"><span class="titlemark">3.7   </span> <a 
+ id="x11-100003.7"></a>TRANSPORT</h4>
+<!--l. 201--><p class="noindent" >The module TRANSPORT is used to represent an application specific physical
+connection for the transmission of TNC data associated to an integrity
+attestation. Therefor, the module is structured as depicted in Fig. <a 
+href="#x11-100017">7<!--tex4ht:ref: fig:transport_mod --></a>. Application
+specific means, a physical connection has to be established by the surrounding
+application and submitted to the module TRANSPORT, which adapts and
+controls it using a logical Connection as abstraction. A logical Connection may be
+used for a physical connection from an NAR to an NAA or the other way round.
+To send and receive TNC data, messages are used. Therefor, the logical
+Connection is utilizing the module MESSAGE to encode object-oriented
+messages for transmission and to decode messages into their object-oriented
+representation after reception. The logical Connection is linked to the
+module TNCCS through a IF-TNCCS Message Listener. This listener
+forwards received messages that contain data for a higher TNC layer to
+a session of a TNCC or TNCS that relates to the underlying physical
+connection for further processing. Likewise, the related Session is linked
+to the logical Connection to forward TNC data from a higher layer for
+transmission.
+</p>
+<hr class="figure" /><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x11-100017"></a>
+                                                                          
+
+                                                                          
+<!--l. 205--><p class="noindent" ><img 
+src="jTNC6x.png" alt="PIC" class="graphics" width="382.23073pt" height="160.40038pt"  /><!--tex4ht:graphics  
+name="jTNC6x.png" src="figures/content/transport_mod.eps"  
+-->
+<br /> </p><div class="caption" 
+><span class="id">Figure&#x00A0;7: </span><span  
+class="content">Structure and relations of the module TRANSPORT</span></div><!--tex4ht:label?: x11-100017 -->
+                                                                          
+
+                                                                          
+</div><hr class="endfigure" />
+<!--l. 211--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu6.html" >prev</a>] [<a 
+href="jTNCsu6.html#tailjTNCsu6.html" >prev-tail</a>] [<a 
+href="jTNCsu7.html" >front</a>] [<a 
+href="jTNCse3.html#jTNCsu7.html" >up</a>] </p></div>
+<!--l. 211--><p class="noindent" ><a 
+ id="tailjTNCsu7.html"></a> </p> 
+</body></html> 

@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c30163" href="./ImvHandler.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.ImvHandler" alt="" coords="16,225,389,314"/>
+<area shape="rect" id="node1" href="./ImvHandler.html" title="&lt;TABLE&gt;" alt="" coords="5,219,400,319"/>
+<area shape="rect" id="c30166" href="./TnccsHandler.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.TnccsHandler" alt="" coords="435,225,720,314"/>
+<area shape="rect" id="node2" href="./TnccsHandler.html" title="&lt;TABLE&gt;" alt="" coords="424,219,731,319"/>
+<area shape="rect" id="c30169" href="./TnccsMessageHandler.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.TnccsMessageHandler" alt="" coords="363,11,792,165"/>
+<area shape="rect" id="node3" href="./TnccsMessageHandler.html" title="&lt;TABLE&gt;" alt="" coords="352,6,803,170"/>
+<area shape="rect" id="c30172" href="./ImcHandler.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.ImcHandler" alt="" coords="765,249,853,290"/>
+<area shape="rect" id="node4" href="./ImcHandler.html" title="&lt;TABLE&gt;" alt="" coords="755,243,864,295"/>
+</map>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>IM</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 172--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu6.html" >next</a>] [<a 
+href="jTNCsu4.html" >prev</a>] [<a 
+href="jTNCsu4.html#tailjTNCsu4.html" >prev-tail</a>] [<a 
+href="#tailjTNCsu5.html">tail</a>] [<a 
+href="jTNCse3.html#jTNCsu5.html" >up</a>] </p></div>
+<h4 class="subsectionHead"><span class="titlemark">3.5   </span> <a 
+ id="x9-80003.5"></a>IM</h4>
+<!--l. 173--><p class="noindent" >The module IM contains the functions that are necessary to measure and validate
+values that describe the integrity state of a system that needs attestation. The
+module can be used to implement either an IMC or an IMV. The modules
+structure is depicted in Fig. <a 
+href="#x9-80015">5<!--tex4ht:ref: fig:im_mod --></a>.
+</p>
+<hr class="figure" /><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x9-80015"></a>
+                                                                          
+
+                                                                          
+<!--l. 177--><p class="noindent" ><img 
+src="jTNC4x.png" alt="PIC" class="graphics" width="393.47148pt" height="215.20479pt"  /><!--tex4ht:graphics  
+name="jTNC4x.png" src="figures/content/im_mod.eps"  
+-->
+<br /> </p><div class="caption" 
+><span class="id">Figure&#x00A0;5: </span><span  
+class="content">Structure and relations of the module IM</span></div><!--tex4ht:label?: x9-80015 -->
+                                                                          
+
+                                                                          
+</div><hr class="endfigure" />
+<!--l. 183--><p class="noindent" >An IMC or IMV is a self-contained unit a TNCC or TNCS can interact with using
+the IMC/V Interface depicted. The IMC/V Interface implements the methods
+defined by the TNC-WG, which must or at least may be supported by an IMC or
+IMV (cf. section <a 
+href="jTNCsu1.html#x5-40003.1">3.1<!--tex4ht:ref: subsec:imc --></a> and section <a 
+href="jTNCsu2.html#x6-50003.2">3.2<!--tex4ht:ref: subsec:imv --></a>). As soon as an IMC or IMV has been
+informed of a new connection for an integrity attestation by a TNCC or TNCS
+through the IMC/V Interface, a Session is created for this connection.
+Every message from the new connection destined to the particular IMC
+or IMV is decode by the IMC/V Interface with the help of the module
+MESSAGE and passed to this Session afterwards. The session passes the
+received messages to the Evaluation for further processing, which means
+the measurement of the system in case of an IMC or the validation of
+measurement values and the request of further measurement values, if
+necessary, in case of an IMV. Besides, the Evaluation processes the result of
+the integrity attestation. With regard to the task that is executed, the
+Evaluation may also create messages, which will be send back via the
+Session using the connection. So called Adapters, which adapt the methods
+that are defined by the TNC-WG (cf. section <a 
+href="jTNCsu1.html#x5-40003.1">3.1<!--tex4ht:ref: subsec:imc --></a> and section <a 
+href="jTNCsu2.html#x6-50003.2">3.2<!--tex4ht:ref: subsec:imv --></a>) for the
+transmission of messages over a connection are used for this purpose.
+The Adapters use the module MESSAGE to encode the messages for
+transmission.
+                                                                          
+
+                                                                          
+</p>
+<!--l. 185--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu6.html" >next</a>] [<a 
+href="jTNCsu4.html" >prev</a>] [<a 
+href="jTNCsu4.html#tailjTNCsu4.html" >prev-tail</a>] [<a 
+href="jTNCsu5.html" >front</a>] [<a 
+href="jTNCse3.html#jTNCsu5.html" >up</a>] </p></div>
+<!--l. 185--><p class="noindent" ><a 
+ id="tailjTNCsu5.html"></a> </p> 
+</body></html> 

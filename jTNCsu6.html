@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>TNCCS</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 185--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu7.html" >next</a>] [<a 
+href="jTNCsu5.html" >prev</a>] [<a 
+href="jTNCsu5.html#tailjTNCsu5.html" >prev-tail</a>] [<a 
+href="#tailjTNCsu6.html">tail</a>] [<a 
+href="jTNCse3.html#jTNCsu6.html" >up</a>] </p></div>
+<h4 class="subsectionHead"><span class="titlemark">3.6   </span> <a 
+ id="x10-90003.6"></a>TNCCS</h4>
+<!--l. 186--><p class="noindent" >The module TNCCS contains the logic to control an integrity attestation. The
+module can be used to implement either a TNCC or TNCS. Therefore, the
+module is structured as depicted in Fig. <a 
+href="#x10-90016">6<!--tex4ht:ref: fig:tnccs_mod --></a>. The Client Facade provides an
+interface for a surrounding application to interact with a TNCC or TNCS. To
+execute an integrity attestation, the surrounding application has to create a
+connection, using the module TRANSPORT, first. Than the application must
+submit the connection to the Client Facade to embed the connection into a
+Session. After its creation, this Session uses the Connection and the module
+TRANSPORT for the transmission of messages as well as the module MESSAGE
+to encode and decode such messages.
+</p><!--l. 188--><p class="noindent" >A State Machine with various States is used inside a Session to control an
+integrity attestation. Therefor, every State implements a unique step of the
+integrity attestation process and controls whether messages have to be received or
+need to be transmitted for this step to be executed successfully. Messages, which
+have been received in a receiving State, are passed to the Handlers that are
+registered at the State Machine. An IF-TNCCS Message Handler can
+process messages that are addressed to a TNCC or TNCS. If necessary the
+handler may also create messages for transmission. Because a message to
+a TNCC or TNCS may contain the result of an integrity attestation,
+                                                                          
+
+                                                                          
+which is usually important for the surrounding application, the handler
+is able to extract such information and forward it to the surrounding
+application. On the contrary, the purpose of a Message Error Handler is not to
+process messages but exceptions that may occur during the reception of
+messages (e.g. exceptions concerning the message format or a value of a
+message). This handler is able to create error messages as a response to
+an exception for transmission to the origin of the faulty message. The
+IF-M Message Handler is responsible for messages, which are addressed
+to an IMC or IMV. The State Machine forwards these messages to this
+handler, while the handler forwards them to the IMC or IMV, which are
+known to it. Therefor, it is using Adapters. An Adapter controls an IMC or
+IMV and negotiates the methods, which are supported by an IMC or
+IMV (cf. section <a 
+href="jTNCsu1.html#x5-40003.1">3.1<!--tex4ht:ref: subsec:imc --></a> and section <a 
+href="jTNCsu2.html#x6-50003.2">3.2<!--tex4ht:ref: subsec:imv --></a>) to forward messages. The Adapter
+may also be used to control the run-time an IMC or IMV is granted to
+process a message after it was forwarded by the handler. The available
+IMC and IMV, with their Adapters, are retrieved by the IF-M Message
+Handler at the beginning of an integrity attestation from the IMC/V
+Manager.
+</p><!--l. 190--><p class="noindent" >The IMC/V Manager is used by the Configuration Manager to initialize an IMC
+or IMV after it was loaded and to make it available for an integrity attestation.
+Therefor, the Configuration Manager is monitoring a configuration file
+(tnc_config s. <span class="cite">[<a 
+href="jTNCse7.html#XTCG13a">3</a>, pp. 75-77]</span> and <span class="cite">[<a 
+href="jTNCse7.html#XTCG13b">4</a>, pp. 85-87]</span>) that is specified by the TNC-WG
+to contain all IMC or IMV, which should be available for an integrity attestation.
+If a new IMC or IMV entry is added to the configuration file, the Configuration
+Manager will load the newly added IMC or IMV and request the IMC/V Manager
+to initialize the newly loaded IMC or IMV. On the other hand, if an existing IMC
+or IMV entry is removed, the Configuration Manager requests the IMC/V
+                                                                          
+
+                                                                          
+Manager to terminate the corresponding IMC or IMV. For this to work,
+an IMC or IMV has to support the methods, which are defined by the
+TNC-WG and are contained in the modules IF-IMC API and IF-IMV
+API.
+</p>
+<hr class="figure" /><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x10-90016"></a>
+                                                                          
+
+                                                                          
+<!--l. 194--><p class="noindent" ><img 
+src="jTNC5x.png" alt="PIC" class="graphics" width="396.27876pt" height="287.37236pt"  /><!--tex4ht:graphics  
+name="jTNC5x.png" src="figures/content/tnccs_mod.eps"  
+-->
+<br /> </p><div class="caption" 
+><span class="id">Figure&#x00A0;6: </span><span  
+class="content">Structure and relations of the module TNCCS</span></div><!--tex4ht:label?: x10-90016 -->
+                                                                          
+
+                                                                          
+</div><hr class="endfigure" />
+                                                                          
+
+                                                                          
+<!--l. 200--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu7.html" >next</a>] [<a 
+href="jTNCsu5.html" >prev</a>] [<a 
+href="jTNCsu5.html#tailjTNCsu5.html" >prev-tail</a>] [<a 
+href="jTNCsu6.html" >front</a>] [<a 
+href="jTNCse3.html#jTNCsu6.html" >up</a>] </p></div>
+<!--l. 200--><p class="noindent" ><a 
+ id="tailjTNCsu6.html"></a> </p> 
+</body></html> 

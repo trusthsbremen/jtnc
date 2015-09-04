@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>Getting started</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 211--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCse5.html" >next</a>] [<a 
+href="jTNCse3.html" >prev</a>] [<a 
+href="jTNCse3.html#tailjTNCse3.html" >prev-tail</a>] [<a 
+href="#tailjTNCse4.html">tail</a>] [<a 
+href="jTNC.html#jTNCse4.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x12-110004"></a>Getting started</h3>
+<!--l. 212--><p class="noindent" >Currently the library is only available as source code files, which are managed using
+Maven<span class="footnote-mark"><a 
+href="#fn5x0" id="fn5x0-bk"><sup class="textsuperscript">5</sup></a></span><a 
+ id="x12-11001f5"></a>
+projects. However, there will be a binary version in a Maven repository
+soon.
+</p><!--l. 214--><p class="noindent" >For now you need to clone the repository and import the different Maven projects
+into your Java development environment and install (Maven Goal "install") them
+to use them. To make the import easier, the repository consists of two umbrella
+Maven projects, which contain several sub projects. The first umbrella project is
+named <span 
+class="ec-lmbx-12">jtnc-core </span>and contains <span 
+class="ec-lmbx-12">all the core files sorted into Maven projects</span>
+<span 
+class="ec-lmbx-12">by their purpose </span>that make up the TNC implementation. The second umbrella
+project is called <span 
+class="ec-lmbx-12">jtnc-examples </span>and contains <span 
+class="ec-lmbx-12">all currently available</span>
+<span 
+class="ec-lmbx-12">implementation examples sorted into Maven projects by their</span>
+<span 
+class="ec-lmbx-12">purpose </span>these should show you how to use the core files for your own
+project. For example to build an Access Requestor, a Policy Decision
+Point, an Integrity Measurement Collector or an Integrity Measurement
+Verifier.
+</p><!--l. 216--><p class="noindent" >The source files contain Javadoc<span class="footnote-mark"><a 
+href="#fn6x0" id="fn6x0-bk"><sup class="textsuperscript">6</sup></a></span><a 
+ id="x12-11002f6"></a>
+style comments. If you want to create a documentation to look into, the Maven
+configuration includes entries to generate Javadoc based HTML documentation pages as
+well as JXR<span class="footnote-mark"><a 
+href="#fn7x0" id="fn7x0-bk"><sup class="textsuperscript">7</sup></a></span><a 
+ id="x12-11003f7"></a>
+                                                                          
+
+                                                                          
+based HTML code pages. There are also configuration entries for
+UMLGraph<span class="footnote-mark"><a 
+href="#fn8x0" id="fn8x0-bk"><sup class="textsuperscript">8</sup></a></span><a 
+ id="x12-11004f8"></a>
+which enable the inclusion of class diagrams in the Javadoc based HTML
+documentation pages. For UMLGraph to work properly, you should install Graphviz
+in your development environment (see the UMLGraph documentation for further
+instructions about this). To create a documentation use the Maven Goals
+"javadoc:javadoc" and "jxr:jxr". You can also find a current version of the <a href="doc/index.html"><u>source documentation here</u></a>.
+Additionally most of the projects have a folder called doc. These folders contains further
+documentation elements such as *.ucls files containing UML class diagrams of chosen
+code parts, which can be read using
+ObjectAid<span class="footnote-mark"><a 
+href="#fn9x0" id="fn9x0-bk"><sup class="textsuperscript">9</sup></a></span><a 
+ id="x12-11005f9"></a>.
+                                                                          
+
+                                                                          
+</p>
+<div class="footnotes"><!--l. 212--><p class="noindent" ><span class="footnote-mark"><a 
+href="#fn5x0-bk" id="fn5x0"><sup class="textsuperscript">5</sup></a></span><span 
+class="ec-lmr-10">Apache Maven: https://maven.apache.org/</span></p>
+<!--l. 216--><p class="noindent" ><span class="footnote-mark"><a 
+href="#fn6x0-bk" id="fn6x0"><sup class="textsuperscript">6</sup></a></span><span 
+class="ec-lmr-10">Javadoc: http://www.oracle.com/technetwork/articles/java/index-jsp-135444.html</span></p>
+<!--l. 216--><p class="noindent" ><span class="footnote-mark"><a 
+href="#fn7x0-bk" id="fn7x0"><sup class="textsuperscript">7</sup></a></span><span 
+class="ec-lmr-10">Maven JXR: http://maven.apache.org/jxr/</span></p>
+<!--l. 216--><p class="noindent" ><span class="footnote-mark"><a 
+href="#fn8x0-bk" id="fn8x0"><sup class="textsuperscript">8</sup></a></span><span 
+class="ec-lmr-10">UMLGraph: http://www.umlgraph.org/</span></p>
+<!--l. 216--><p class="noindent" ><span class="footnote-mark"><a 
+href="#fn9x0-bk" id="fn9x0"><sup class="textsuperscript">9</sup></a></span><span 
+class="ec-lmr-10">ObjectAid: http://www.objectaid.com/</span></p>                                      </div> <!--l. 218--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCse5.html" >next</a>]
+[<a 
+href="jTNCse3.html" >prev</a>] [<a 
+href="jTNCse3.html#tailjTNCse3.html" >prev-tail</a>] [<a 
+href="jTNCse4.html" >front</a>] [<a 
+href="jTNC.html#jTNCse4.html" >up</a>] </p></div>
+<!--l. 218--><p class="noindent" ><a 
+ id="tailjTNCse4.html"></a> </p> 
+</body></html> 

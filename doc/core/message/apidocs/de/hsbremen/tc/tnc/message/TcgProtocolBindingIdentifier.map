@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c162816" href="./m/enums/TcgMProtocolBindingEnum.html" title="de.hsbremen.tc.tnc.message.m.enums.TcgMProtocolBindingEnum" alt="" coords="16,233,195,338"/>
+<area shape="rect" id="node1" href="./m/enums/TcgMProtocolBindingEnum.html" title="&lt;TABLE&gt;" alt="" coords="5,227,205,343"/>
+<area shape="rect" id="c162834" href="./tnccs/enums/TcgTnccsProtocolBindingEnum.html" title="de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum" alt="" coords="239,209,443,362"/>
+<area shape="rect" id="node2" href="./tnccs/enums/TcgTnccsProtocolBindingEnum.html" title="&lt;TABLE&gt;" alt="" coords="229,203,453,367"/>
+<area shape="rect" id="c162837" href="./TcgProtocolBindingIdentifier.html" title="de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier" alt="" coords="249,11,433,133"/>
+<area shape="rect" id="node3" href="./TcgProtocolBindingIdentifier.html" title="&lt;TABLE&gt;" alt="" coords="239,6,444,138"/>
+<area shape="rect" id="c162859" href="./t/enums/TcgTProtocolBindingEnum.html" title="de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum" alt="" coords="488,193,664,378"/>
+<area shape="rect" id="node4" href="./t/enums/TcgTProtocolBindingEnum.html" title="&lt;TABLE&gt;" alt="" coords="477,187,675,383"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="c3253" href="./ImEvaluationUnit.html" title="de.hsbremen.tc.tnc.im.evaluate.ImEvaluationUnit" alt="" coords="631,209,777,314"/>
+<area shape="rect" id="node1" href="./ImEvaluationUnit.html" title="&lt;TABLE&gt;" alt="" coords="620,203,788,319"/>
+<area shape="rect" id="c3259" href="./AbstractImEvaluationUnitIetf.html" title="de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluationUnitIetf" alt="" coords="16,374,595,463"/>
+<area shape="rect" id="node2" href="./AbstractImEvaluationUnitIetf.html" title="&lt;TABLE&gt;" alt="" coords="5,369,605,469"/>
+<area shape="rect" id="c3261" href="./ImvEvaluationUnit.html" title="de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit" alt="" coords="640,398,768,439"/>
+<area shape="rect" id="node3" href="./ImvEvaluationUnit.html" title="&lt;TABLE&gt;" alt="" coords="629,393,779,445"/>
+<area shape="rect" id="c3262" href="./ImcEvaluationUnit.html" title="de.hsbremen.tc.tnc.im.evaluate.ImcEvaluationUnit" alt="" coords="813,398,941,439"/>
+<area shape="rect" id="node4" href="./ImcEvaluationUnit.html" title="&lt;TABLE&gt;" alt="" coords="803,393,952,445"/>
+<area shape="rect" id="c3263" href="./ImEvaluationComponent.html" title="de.hsbremen.tc.tnc.im.evaluate.ImEvaluationComponent" alt="" coords="487,11,921,149"/>
+<area shape="rect" id="node5" href="./ImEvaluationComponent.html" title="&lt;TABLE&gt;" alt="" coords="477,6,931,154"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="c29999" href="./HandlerBuilder.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.HandlerBuilder" alt="" coords="685,11,814,101"/>
+<area shape="rect" id="node1" href="./HandlerBuilder.html" title="&lt;TABLE&gt;" alt="" coords="675,6,824,106"/>
+<area shape="rect" id="c30000" href="./TnccsHandlerBuilder.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.TnccsHandlerBuilder" alt="" coords="553,161,946,250"/>
+<area shape="rect" id="node2" href="./TnccsHandlerBuilder.html" title="&lt;TABLE&gt;" alt="" coords="543,155,956,255"/>
+<area shape="rect" id="c30010" href="./simple/DefaultTncsHandlerBuilder.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTncsHandlerBuilder" alt="" coords="15,310,475,415"/>
+<area shape="rect" id="node3" href="./simple/DefaultTncsHandlerBuilder.html" title="&lt;TABLE&gt;" alt="" coords="5,305,485,421"/>
+<area shape="rect" id="c30016" href="./simple/DefaultTnccHandlerBuilder.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccHandlerBuilder" alt="" coords="519,310,979,415"/>
+<area shape="rect" id="node4" href="./simple/DefaultTnccHandlerBuilder.html" title="&lt;TABLE&gt;" alt="" coords="509,305,989,421"/>
+<area shape="rect" id="c30023" href="./simple/DefaultTnccsValidationExceptionHandlerBuilder.html" title="de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccsValidationExceptionHandlerBuilder" alt="" coords="1024,310,1605,415"/>
+<area shape="rect" id="node5" href="./simple/DefaultTnccsValidationExceptionHandlerBuilder.html" title="&lt;TABLE&gt;" alt="" coords="1013,305,1616,421"/>
+</map>

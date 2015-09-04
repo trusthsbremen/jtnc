@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>IF-COMMON</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 159--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu4.html" >next</a>] [<a 
+href="jTNCsu2.html" >prev</a>] [<a 
+href="jTNCsu2.html#tailjTNCsu2.html" >prev-tail</a>] [<a 
+href="#tailjTNCsu3.html">tail</a>] [<a 
+href="jTNCse3.html#jTNCsu3.html" >up</a>] </p></div>
+<h4 class="subsectionHead"><span class="titlemark">3.3   </span> <a 
+ id="x7-60003.3"></a>IF-COMMON</h4>
+<!--l. 160--><p class="noindent" >The module IF-COMMON contains helper objects that are used by several
+other modules. These are objects for exception handling, object oriented
+containers to hold certain data as well as various constant default values and
+parameters necessary for other modules. Further, the module IF-COMMON
+encapsulates source code that exists in the modules IF-IMC API and
+IF-IMV API redundantly (cf. section <a 
+href="jTNCsu1.html#x5-40003.1">3.1<!--tex4ht:ref: subsec:imc --></a> and section <a 
+href="jTNCsu2.html#x6-50003.2">3.2<!--tex4ht:ref: subsec:imv --></a>), to ease the
+implementation of the other modules. Therefor the module adapts the class
+named TNCException contained in the modules IF-IMC API and IF-IMV API, in
+a way that the other modules do not need to distinguish between the two
+modules for the handling of exceptions. This approach is also used for the
+constant default values that where explained briefly with the example of the
+numeric identifiers used to describe the state of a connection, while an
+integrity assessment is running. Although not all constant default values
+are redundant, the class TNCConstants is contained in both modules
+IF-IMC API and IF-IMV API and holds partially redundant values. These
+redundant values are encapsulated by the module IF-COMMON using an
+additional layer of abstraction, so that only one set of distinct values
+is available to the other modules. Thus, a differentiation between the
+modules IF-IMC API and IF-IMV API is not necessary beyond the module
+IF-COMMON.
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+</p>
+<!--l. 162--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCsu4.html" >next</a>] [<a 
+href="jTNCsu2.html" >prev</a>] [<a 
+href="jTNCsu2.html#tailjTNCsu2.html" >prev-tail</a>] [<a 
+href="jTNCsu3.html" >front</a>] [<a 
+href="jTNCse3.html#jTNCsu3.html" >up</a>] </p></div>
+<!--l. 162--><p class="noindent" ><a 
+ id="tailjTNCsu3.html"></a> </p> 
+</body></html> 

@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c20159" href="./ImcManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager" alt="" coords="16,361,109,402"/>
+<area shape="rect" id="node1" href="./ImcManager.html" title="&lt;TABLE&gt;" alt="" coords="5,355,120,407"/>
+<area shape="rect" id="c20160" href="./ImManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.ImManager" alt="" coords="154,11,646,181"/>
+<area shape="rect" id="node2" href="./ImManager.html" title="&lt;TABLE&gt;" alt="" coords="144,6,656,186"/>
+<area shape="rect" id="c20162" href="./AbstractImManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.AbstractImManager" alt="" coords="154,241,646,522"/>
+<area shape="rect" id="node3" href="./AbstractImManager.html" title="&lt;TABLE&gt;" alt="" coords="144,235,656,527"/>
+<area shape="rect" id="c20163" href="./ImvManager.html" title="de.hsbremen.tc.tnc.tnccs.im.manager.ImvManager" alt="" coords="691,361,784,402"/>
+<area shape="rect" id="node4" href="./ImvManager.html" title="&lt;TABLE&gt;" alt="" coords="680,355,795,407"/>
+</map>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>Modules</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 121--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCse4.html" >next</a>] [<a 
+href="jTNCse2.html" >prev</a>] [<a 
+href="jTNCse2.html#tailjTNCse2.html" >prev-tail</a>] [<a 
+href="#tailjTNCse3.html">tail</a>] [<a 
+href="jTNC.html#jTNCse3.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x4-30003"></a>Modules</h3>
+<!--l. 122--><p class="noindent" >TNC is defined by the TNC-WG as an open and generic architecture that is
+flexible throughout the use of different bindings for the interfaces that exist
+between its internal elements. Further, the TNC-WG has specified an API
+between an IMC and TNCC as well as between an IMV and TNCS for an
+uncoupled implementation and integration of IMC and IMV components. jTNC is
+developed, such as it offers the same flexibility and supports the detached
+implementation as well as integration of IMC and IMV components. Therefor, the
+architecture of jTNC is separated into the modules depicted in Fig. <a 
+href="#x4-30011">1<!--tex4ht:ref: fig:jtnc_arch --></a>. The main
+modules IM, TNCCS and TRANSPORT relate to the communication layers of
+the TNC architecture. The module IM contains the functionality that is needed
+for the development of an IMC or IMV. The module TNCCS contains the
+functions, which are necessary for the implementation of a TNCC or a TNCS.
+The module TRANSPORT is used by the module TNCCS and contains all
+functions that are needed for the communication of TNC data between an NAA
+and NAR. Additionally, the module TNCCS as well as the module IM are using
+the modules IF-IMC API and IF-IMV API. These two modules contain the API
+that is used between a TNCC and an IMC (IF-IMC API) or a TNCS and
+an IMV (IF-IMV API) as defined by the TNC-WG for Java. This leads
+                                                                          
+
+                                                                          
+to the fact that the modules TNCCS and IM are not directly related
+to each other. The modules MESSAGE and IF-COMMON support the
+modules IM, TNCCS and TRANSPORT. The module MESSAGE contains
+the functionality that is used to decode and encode TNC data to and
+from message objects that are used by the modules for further processing.
+On the other hand, the module IF-COMMON contains general helper
+functions for the modules IM, TNCCS, TRANSPORT as well as MESSAGE
+and encapsulates functions that are specified by the TNC-WG in the
+specifications IF-IMC 1.3 and IF-IMV 1.3 redundantly. This applies to the error
+handling and the management of protocol properties (cf. <span class="cite">[<a 
+href="jTNCse7.html#XTCG13a">3</a>, pp. 73, 77-79,
+81-82]</span> and <span class="cite">[<a 
+href="jTNCse7.html#XTCG13b">4</a>, pp. 84, 87-90, 91-93]</span>). jTNC supports the implementation of
+an AR or a PDP for an arbitrary Java based application. Therefor, the
+above mentioned modules have to be integrated into the application using
+interfaces provided by jTNC to interact with these modules. In the following,
+the modules of jTNC are described in more detail and the interfaces are
+introduced, which can be used to interact with these modules for a successful
+integration.
+</p>
+<hr class="figure" /><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x4-30011"></a>
+                                                                          
+
+                                                                          
+<!--l. 127--><p class="noindent" ><img 
+src="jTNC0x.png" alt="PIC" class="graphics" width="293.09499pt" height="450.68373pt"  /><!--tex4ht:graphics  
+name="jTNC0x.png" src="figures/content/jtnc_arch.eps"  
+-->
+<br /> </p><div class="caption" 
+><span class="id">Figure&#x00A0;1: </span><span  
+class="content">Architecture of jTNC</span></div><!--tex4ht:label?: x4-30011 -->
+                                                                          
+
+                                                                          
+</div><hr class="endfigure" />
+                                                                          
+
+                                                                          
+<div class="subsectionTOCS">
+&#x00A0;<span class="subsectionToc" >3.1 <a 
+href="jTNCsu1.html#x5-40003.1">IF-IMC API</a></span>
+<br />&#x00A0;<span class="subsectionToc" >3.2 <a 
+href="jTNCsu2.html#x6-50003.2">IF-IMV API</a></span>
+<br />&#x00A0;<span class="subsectionToc" >3.3 <a 
+href="jTNCsu3.html#x7-60003.3">IF-COMMON</a></span>
+<br />&#x00A0;<span class="subsectionToc" >3.4 <a 
+href="jTNCsu4.html#x8-70003.4">MESSAGE</a></span>
+<br />&#x00A0;<span class="subsectionToc" >3.5 <a 
+href="jTNCsu5.html#x9-80003.5">IM</a></span>
+<br />&#x00A0;<span class="subsectionToc" >3.6 <a 
+href="jTNCsu6.html#x10-90003.6">TNCCS</a></span>
+<br />&#x00A0;<span class="subsectionToc" >3.7 <a 
+href="jTNCsu7.html#x11-100003.7">TRANSPORT</a></span>
+</div>
+
+
+
+
+
+
+                                                                          
+
+                                                                          
+<!--l. 211--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCse4.html" >next</a>] [<a 
+href="jTNCse2.html" >prev</a>] [<a 
+href="jTNCse2.html#tailjTNCse2.html" >prev-tail</a>] [<a 
+href="jTNCse3.html" >front</a>] [<a 
+href="jTNC.html#jTNCse3.html" >up</a>] </p></div>
+<!--l. 211--><p class="noindent" ><a 
+ id="tailjTNCse3.html"></a> </p> 
+</body></html> 

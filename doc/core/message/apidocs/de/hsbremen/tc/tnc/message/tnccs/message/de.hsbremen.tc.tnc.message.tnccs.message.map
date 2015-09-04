@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="c3224" href="./TnccsMessage.html" title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage" alt="" coords="15,19,259,125"/>
+<area shape="rect" id="node1" href="./TnccsMessage.html" title="&lt;TABLE&gt;" alt="" coords="5,14,269,130"/>
+<area shape="rect" id="c3225" href="./TnccsMessageHeaderBuilder.html" title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageHeaderBuilder" alt="" coords="304,51,496,93"/>
+<area shape="rect" id="node2" href="./TnccsMessageHeaderBuilder.html" title="&lt;TABLE&gt;" alt="" coords="293,46,507,98"/>
+<area shape="rect" id="c3226" href="./TnccsMessageValue.html" title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue" alt="" coords="541,51,683,93"/>
+<area shape="rect" id="node3" href="./TnccsMessageValue.html" title="&lt;TABLE&gt;" alt="" coords="531,46,693,98"/>
+<area shape="rect" id="c3227" href="./TnccsMessageValueBuilder.html" title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValueBuilder" alt="" coords="727,51,910,93"/>
+<area shape="rect" id="node4" href="./TnccsMessageValueBuilder.html" title="&lt;TABLE&gt;" alt="" coords="717,46,920,98"/>
+<area shape="rect" id="c3228" href="./TnccsMessageHeader.html" title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageHeader" alt="" coords="954,11,1131,133"/>
+<area shape="rect" id="node5" href="./TnccsMessageHeader.html" title="&lt;TABLE&gt;" alt="" coords="944,6,1141,138"/>
+</map>

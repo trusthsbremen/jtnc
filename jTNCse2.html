@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>Code Conventions</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)" /> 
+<!-- xhtml,3,fn-in,html --> 
+<meta name="src" content="jTNC.tex" /> 
+<meta name="date" content="2015-09-03 17:32:00" /> 
+<link rel="stylesheet" type="text/css" href="jTNC.css" /> 
+</head><body 
+>
+<!--l. 97--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCse3.html" >next</a>] [<a 
+href="jTNCse1.html" >prev</a>] [<a 
+href="jTNCse1.html#tailjTNCse1.html" >prev-tail</a>] [<a 
+href="#tailjTNCse2.html">tail</a>] [<a 
+href="jTNC.html#jTNCse2.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x3-20002"></a>Code Conventions</h3>
+<!--l. 98--><p class="noindent" >The code conventions, which were used, can be distinguished in two parts. The
+first part describes the code style, while the second part describes good/best
+practices concerning the Java programming language in general.
+</p><!--l. 100--><p class="noindent" >The code style is based on the Google Java
+Style<span class="footnote-mark"><a 
+href="#fn3x0" id="fn3x0-bk"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x3-2001f3"></a>.
+This style guide describes rules regarding the source file structure, the format of the
+code, the naming strategy and code comments. The guide is licensed under Creative
+Commons<span class="footnote-mark"><a 
+href="#fn4x0" id="fn4x0-bk"><sup class="textsuperscript">4</sup></a></span><a 
+ id="x3-2002f4"></a>
+(CC BY 3.0) and was altered to fit this project. The current version of the style guide can be found
+in a separate <a href="Code_Conventions_jTNC.pdf"><u>coding conventions document here</u></a>.
+</p><!--l. 102--><p class="noindent" >The good/best practices concerning the Java programming language in general
+are taken from the rule set described by Joshua Bloch in <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>]</span>. This rule
+set consists of 78 so called items that describe implementation details,
+which are considered valuable by experts, if Java is used as programming
+language <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 1]</span>. The items are sorted into categories, which are among
+others:
+</p>
+                                                                          
+
+                                                                          
+      <ul class="itemize1">
+      <li class="itemize">Creation  and  destruction  of  objects  as  well  as  the  avoidance  of
+      unnecessary object creation <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 5]</span>
+      </li>
+      <li class="itemize">Methods,  which  ease  the  handling  of  objects  (e.  g.  toString()  or
+      equals()) <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 33]</span>
+      </li>
+      <li class="itemize">The usage of classes and interfaces and the application of inheritance
+      and composition <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 67]</span>
+      </li>
+      <li class="itemize">The advantages of Generics and suggestions for their application <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p.
+      109]</span>
+      </li>
+      <li class="itemize">The effective use of Enumerations (Enums) and the use of Annotations
+      <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 147]</span>
+      </li>
+      <li class="itemize">Important aspects, which should be considered when designing and
+      implementing methods <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 181]</span>
+      </li>
+      <li class="itemize">General aspects of Java, like primitives and loops <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 209]</span>
+      </li>
+      <li class="itemize">Proper  handling  of  Exceptions  to  improve  the  maintainability  and
+      robustness of a Java application <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 241]</span>
+      </li>
+      <li class="itemize">Suggestions about threading in Java <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 259]</span>
+      </li>
+      <li class="itemize">Serialization of objects <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 289]</span></li></ul>
+                                                                          
+
+                                                                          
+<!--l. 117--><p class="noindent" >The items of the categories mentioned above were considered during the initial
+implementation, were possible. However, the different items are not further
+elaborated here. A detailed description of the various items can be found
+in <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>]</span>. A few very important items should be mentioned at this point
+though. Since jTNC is a software library, which should be used by other
+Java based applications, items regarding extensibility, encapsulation of
+data and information hiding such as the items one (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 5-10]</span>) and
+two (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 11-16]</span>)are especially important. These items describe the
+separation of code between the creation of an object and its purpose.
+Further, the items 13 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 67-70]</span>), 14 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 71-72]</span>), 15 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp.
+73-80]</span>) and 16 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 81-86]</span>) are important, because they contain
+recommendations about the accessibility of an object&#8217;s inner state and the
+visibility of objects and their data. For the use of constant values that are
+defined by the TNC-WG, the information about the usage of Enums
+in general and for constant values of the items 30 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 147-157]</span>),
+31 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, p. 158]</span>), 32 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 159-160]</span>) and 34 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 165-169]</span>)
+are considered. The chapters seven (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 181-208]</span>) and eight <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp.
+209-240]</span>) are particularly helpful for programming with Java in general.
+Additionally, the items 26 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 124-128]</span>), 27 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 129-133]</span>) and 28
+(s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 134-141]</span>) about Generics as well as the items 61 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp.
+250-251]</span>) and 68 (s. <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>, pp. 271-273]</span>) about Exceptions and threading are
+important.
+</p><!--l. 119--><p class="noindent" >For the implementation of the items the author of <span class="cite">[<a 
+href="jTNCse7.html#XBlo08">1</a>]</span> refers to design patterns
+from <span class="cite">[<a 
+href="jTNCse7.html#XGHJ08">2</a>]</span> often. The design patterns described in <span class="cite">[<a 
+href="jTNCse7.html#XGHJ08">2</a>]</span> were used for the
+implementation of jTNC also, to create software that is modular and to aid the
+reusability of the code. Because these design patterns are well known for software
+development, they are not explained in detail here. However, the most important
+                                                                          
+
+                                                                          
+patterns are mentioned in the following shortly. The patterns Builder, Abstract
+Factory and Factory Method as well as Singleton are used to control the
+creation of objects. The design pattern Adapter is used to abstract the
+requirements for the interfaces IF-IMC and IF-IMV of TNC, while the
+pattern Proxy is used to enforce rules specified by the TNC-WG for the
+interaction with these two interfaces. Additionally the design patterns
+Composite and Decorator are used to create objects, which can be combined to
+offer different functionality while adhering to the same base. The design
+pattern Visitor is used for the encoding and decoding of TNC data for
+transmission, while the pattern State is used to realize the state machine for
+an integrity handshake as described by IF-TNCCS. The design pattern
+Observer aids in the separation of the modules, described in the following
+sections, because it enabled an event based implementation of certain
+processes.
+                                                                          
+
+                                                                          
+</p>
+<div class="footnotes"><!--l. 100--><p class="noindent" ><span class="footnote-mark"><a 
+href="#fn3x0-bk" id="fn3x0"><sup class="textsuperscript">3</sup></a></span><span 
+class="ec-lmr-10">Google Java Style: https://google-styleguide.googlecode.com/svn/trunk/javaguide.html</span></p>
+<!--l. 100--><p class="noindent" ><span class="footnote-mark"><a 
+href="#fn4x0-bk" id="fn4x0"><sup class="textsuperscript">4</sup></a></span><span 
+class="ec-lmr-10">CC BY 3.0: http://creativecommons.org/licenses/by/3.0/</span></p>                       </div> <!--l. 121--><div class="crosslinks"><p class="noindent">[<a 
+href="jTNCse3.html" >next</a>]
+[<a 
+href="jTNCse1.html" >prev</a>] [<a 
+href="jTNCse1.html#tailjTNCse1.html" >prev-tail</a>] [<a 
+href="jTNCse2.html" >front</a>] [<a 
+href="jTNC.html#jTNCse2.html" >up</a>] </p></div>
+<!--l. 121--><p class="noindent" ><a 
+ id="tailjTNCse2.html"></a> </p> 
+</body></html> 

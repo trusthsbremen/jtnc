@@ -1,0 +1,13 @@
+de.hsbremen.tc.tnc.im
+de.hsbremen.tc.tnc.im.adapter
+de.hsbremen.tc.tnc.im.adapter.connection
+de.hsbremen.tc.tnc.im.adapter.data
+de.hsbremen.tc.tnc.im.adapter.data.enums
+de.hsbremen.tc.tnc.im.adapter.imc
+de.hsbremen.tc.tnc.im.adapter.imv
+de.hsbremen.tc.tnc.im.adapter.tnccs
+de.hsbremen.tc.tnc.im.evaluate
+de.hsbremen.tc.tnc.im.evaluate.simple
+de.hsbremen.tc.tnc.im.evaluate.simple.util
+de.hsbremen.tc.tnc.im.session
+de.hsbremen.tc.tnc.im.session.enums

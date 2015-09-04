@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="c1350" href="./ImMessageRouteComponent.html" title="de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouteComponent" alt="" coords="475,19,877,157"/>
+<area shape="rect" id="node1" href="./ImMessageRouteComponent.html" title="&lt;TABLE&gt;" alt="" coords="465,14,887,162"/>
+<area shape="rect" id="c1352" href="./ImMessageRouteVendor.html" title="de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouteVendor" alt="" coords="15,257,425,410"/>
+<area shape="rect" id="node3" href="./ImMessageRouteVendor.html" title="&lt;TABLE&gt;" alt="" coords="5,251,435,415"/>
+<area shape="rect" id="c1353" href="./ImMessageRouteBase.html" title="de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouteBase" alt="" coords="469,257,883,410"/>
+<area shape="rect" id="node4" href="./ImMessageRouteBase.html" title="&lt;TABLE&gt;" alt="" coords="459,251,893,415"/>
+<area shape="rect" id="c1355" href="./ImMessageRouteType.html" title="de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouteType" alt="" coords="927,265,1329,402"/>
+<area shape="rect" id="node6" href="./ImMessageRouteType.html" title="&lt;TABLE&gt;" alt="" coords="917,259,1339,407"/>
+<area shape="rect" id="c1351" href="./ImMessageRouter.html" title="de.hsbremen.tc.tnc.tnccs.im.route.ImMessageRouter" alt="" coords="1373,11,1886,165"/>
+<area shape="rect" id="node2" href="./ImMessageRouter.html" title="&lt;TABLE&gt;" alt="" coords="1363,6,1896,170"/>
+<area shape="rect" id="c1354" href="./DefaultImMessageRouter.html" title="de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter" alt="" coords="1373,225,1886,442"/>
+<area shape="rect" id="node5" href="./DefaultImMessageRouter.html" title="&lt;TABLE&gt;" alt="" coords="1363,219,1896,447"/>
+</map>

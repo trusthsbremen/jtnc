@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="c102" href="./ImvRecommendationPairFactory.html" title="de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory" alt="" coords="15,59,886,181"/>
+<area shape="rect" id="node1" href="./ImvRecommendationPairFactory.html" title="&lt;TABLE&gt;" alt="" coords="5,54,896,186"/>
+<area shape="rect" id="c103" href="./SupportedMessageType.html" title="de.hsbremen.tc.tnc.report.SupportedMessageType" alt="" coords="930,27,1278,213"/>
+<area shape="rect" id="node2" href="./SupportedMessageType.html" title="&lt;TABLE&gt;" alt="" coords="920,22,1288,218"/>
+<area shape="rect" id="c104" href="./ImvRecommendationPair.html" title="de.hsbremen.tc.tnc.report.ImvRecommendationPair" alt="" coords="1322,11,2019,229"/>
+<area shape="rect" id="node3" href="./ImvRecommendationPair.html" title="&lt;TABLE&gt;" alt="" coords="1312,6,2029,234"/>
+<area shape="rect" id="c105" href="./SupportedMessageTypeFactory.html" title="de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory" alt="" coords="2064,27,2733,213"/>
+<area shape="rect" id="node4" href="./SupportedMessageTypeFactory.html" title="&lt;TABLE&gt;" alt="" coords="2053,22,2744,218"/>
+<area shape="rect" id="c106" href="./LeastPrivilegeRecommendationComparator.html" title="de.hsbremen.tc.tnc.report.LeastPrivilegeRecommendationComparator" alt="" coords="2778,51,3249,189"/>
+<area shape="rect" id="node5" href="./LeastPrivilegeRecommendationComparator.html" title="&lt;TABLE&gt;" alt="" coords="2768,46,3259,194"/>
+<area shape="rect" id="c107" href="./LeastPrivilegeRecommendationComparator.Singleton.html" title="de.hsbremen.tc.tnc.report.LeastPrivilegeRecommendationComparator.Singleton" alt="" coords="3293,83,3640,157"/>
+<area shape="rect" id="node6" href="./LeastPrivilegeRecommendationComparator.Singleton.html" title="&lt;TABLE&gt;" alt="" coords="3283,78,3651,162"/>
+</map>
