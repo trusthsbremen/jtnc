@@ -36,58 +36,18 @@
  */
 package de.hsbremen.tc.tnc.transport;
 
-import de.hsbremen.tc.tnc.attribute.Attributed;
-import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
-
 /**
- * Generic TransportConnection to control an underlying connection.
+ * Extensible enumeration for connection states.
+ *
  *
  */
-public interface TransportConnection {
+public interface TransportConnectionPhase {
 
     /**
-     * Returns if the connection was initiated by this side.
+     * Returns the state ID.
      *
-     * @return true if connection was initiated by this side and false if not
+     * @return the state ID
      */
-    boolean isSelfInititated();
-
-    /**
-     * Checks if the connection is open.
-     *
-     * @return true if connection is open and data can be written/read, false if
-     * connection is closed.
-     */
-    boolean isOpen();
-    
-    /**
-     * Opens the connection and registers a listener for incoming data.
-     *
-     * @param listener the listener for incoming data
-     * @throws ConnectionException if open fails
-     */
-    void open(TransportListener listener) throws ConnectionException;
-
-    /**
-     * Sends data via this connection.
-     *
-     * @param buffer the data to send
-     * @throws ConnectionException if send fails
-     */
-    void send(ByteBuffer buffer) throws ConnectionException;
-
-    /**
-     * Closes the connection. No further data can be send. Connection cannot be
-     * reopened.
-     */
-    void close();
-
-    /**
-     * Returns the connection's attributes.
-     *
-     * @return the connection's attributes
-     */
-    Attributed getAttributes();
+    long id();
 
 }

@@ -48,10 +48,13 @@ import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValuePbBatch;
+import org.ietf.nea.pt.value.PtTlsMessageValueSaslAuthenticationData;
+import org.ietf.nea.pt.value.PtTlsMessageValueSaslMechanismSelection;
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslMechanisms;
 import org.ietf.nea.pt.value.PtTlsMessageValueVersionRequest;
 import org.ietf.nea.pt.value.PtTlsMessageValueVersionResponse;
 import org.ietf.nea.pt.value.enums.PtTlsMessageErrorCodeEnum;
+import org.ietf.nea.pt.value.util.SaslMechanismEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,9 +81,9 @@ import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
  * Transport connection with an underlying Socket.
  *
  */
-public abstract class SocketTransportConnection implements TransportConnection {
+public class SocketTransportConnectionSasl implements TransportConnection {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(SocketTransportConnection.class);
+            .getLogger(SocketTransportConnectionSasl.class);
 
     private static final int DEFAULT_CHUNK_SIZE = 8192;
     private static final short MIN_VERSION = 1;
@@ -96,7 +99,9 @@ public abstract class SocketTransportConnection implements TransportConnection {
 
     private final TransportWriter<TransportMessage> writer;
     private final TransportReader<TransportMessageContainer> reader;
-
+    
+    private final SaslHandler sasl;
+    
     private OutputStream out;
     private InputStream in;
 
@@ -119,13 +124,15 @@ public abstract class SocketTransportConnection implements TransportConnection {
      * @param writer the protocol reader
      * @param reader the protocol writer
      * @param runner the connection thread executor
+     * @param sasl the handler to handle SASL authentication
      */
-    public SocketTransportConnection(final boolean selfInitiated,
+    public SocketTransportConnectionSasl(final boolean selfInitiated,
             final boolean server, final Socket socket,
             final TransportAttributes attributes,
             final TransportWriter<TransportMessage> writer,
             final TransportReader<TransportMessageContainer> reader,
-            final ExecutorService runner) {
+            final ExecutorService runner,
+            final SaslHandler sasl) {
         this.socket = socket;
         this.selfInitiated = selfInitiated;
         this.server = server;
@@ -133,6 +140,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
         this.reader = reader;
         this.writer = writer;
         this.runner = runner;
+        this.sasl = sasl;
         this.messageIdentifier = 0;
     }
 
@@ -461,7 +469,6 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                 PtTlsErrorCauseEnum.TRANSPORT_VERSION_NOT_SUPPORTED.id()),
                                 0, ct.getResult().getHeader());
             }
-
         }
     }
 
@@ -516,24 +523,35 @@ public abstract class SocketTransportConnection implements TransportConnection {
     private void makeAuthentication() throws ValidationException,
             ConnectionException, SerializationException {
         if (this.server) {
-            // empty for no extra authentication wanted and move on to transport
-            // phase
+
             TransportMessage m = PtTlsMessageFactoryIetf
-                    .createSaslMechanisms(this.getIdentifier());
+                    .createSaslMechanisms(this.getIdentifier(), this.sasl.getSupportedMechanisms().toArray(new SaslMechanismEntry[0]));
 
             this.writeToStream(m);
 
-        } else {
+        }
+        
+        if (!this.server || !this.sasl.getSupportedMechanisms().isEmpty()){
 
-            TransportMessageContainer ct = null;
-            while (ct == null) {
+           
+            while (!this.sasl.isFinished()) {
+                
+                TransportMessageContainer ct = null;
+                
+                while(ct != null){
                 try {
                     ct = this.readFromStream();
 
                     if (ct != null
                             && ct.getResult() != null
                             && !(ct.getResult().getValue()
-                                 instanceof PtTlsMessageValueSaslMechanisms)) {
+                                 instanceof PtTlsMessageValueSaslMechanisms)
+                            && !(ct.getResult().getValue()
+                                 instanceof PtTlsMessageValueSaslMechanismSelection
+                            && !(ct.getResult().getValue()
+                                 instanceof PtTlsMessageValueSaslAuthenticationData
+                            && !(ct.getResult().getValue()
+                                 instanceof PtTlsMessageValueSasl)))) {
 
                         throw new ValidationException(
                                 "Unexpected message received.",
@@ -572,6 +590,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
 
             if (((PtTlsMessageValueSaslMechanisms) ct.getResult().getValue())
                     .getMechanisms().size() > 0) {
+                //TODO add SASL connector here to enable SASL support
                 throw new ValidationException(
                         "Extra SASL authentication not supported.",
                         new RuleException(
@@ -583,6 +602,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                 ADDITIONAL_SASL_NOT_SUPPORTED.id()),
                                 0, ct.getResult().getHeader());
             }
+        }
         }
     }
 
