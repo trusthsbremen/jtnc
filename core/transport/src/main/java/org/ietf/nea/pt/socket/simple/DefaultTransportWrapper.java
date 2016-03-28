@@ -34,7 +34,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.ietf.nea.pt.socket.testx.simple;
+package org.ietf.nea.pt.socket.simple;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -45,8 +45,8 @@ import java.net.Socket;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
-import org.ietf.nea.pt.socket.testx.SocketHandler;
-import org.ietf.nea.pt.socket.testx.TransportMessenger;
+import org.ietf.nea.pt.socket.SocketHandler;
+import org.ietf.nea.pt.socket.TransportMessenger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

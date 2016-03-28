@@ -1,8 +1,11 @@
 /**
  * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
  *
- * Copyright (c) 2015, Carl-Heinz Genzel
- * All rights reserved.
+ * Copyright © 2015 Trust HS Bremen and its Contributors. All rights   
+ * reserved.
+ *
+ * See the CONTRIBUTORS file distributed with this work for additional
+ * information regarding copyright ownership.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -31,7 +34,30 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.hsbremen.tc.tnc.transport;
+
+import java.util.List;
+
 /**
+ * Generic connection state factory.
+ *
  *
  */
-package org.ietf.nea.pt.socket.testx;
+public interface TransportConnectionPhaseFactory {
+
+    /**
+     * Creates a connection state from state ID.
+     *
+     * @param id the state ID
+     * @return the connection state with the given state value or null
+     */
+    TransportConnectionPhase fromId(final long id);
+
+    /**
+     * Creates a list with all known connection states.
+     *
+     * @return the list of attribute types, list may be empty
+     */
+    List<TransportConnectionPhase> getAllPhases();
+
+}

@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx;
+package org.ietf.nea.pt.socket.simple;
 
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -9,8 +9,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
-import org.ietf.nea.pt.socket.testx.simple.DefaultNegotiationInitiator;
-import org.ietf.nea.pt.socket.testx.simple.DefaultNegotiationResponder;
+import org.ietf.nea.pt.socket.Negotiator;
+import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.simple.DefaultNegotiationInitiator;
+import org.ietf.nea.pt.socket.simple.DefaultNegotiationResponder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

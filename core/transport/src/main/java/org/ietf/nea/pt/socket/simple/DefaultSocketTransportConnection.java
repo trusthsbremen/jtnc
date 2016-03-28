@@ -1,12 +1,12 @@
-package org.ietf.nea.pt.socket.testx.simple;
+package org.ietf.nea.pt.socket.simple;
 
 import java.util.concurrent.ExecutorService;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
+import org.ietf.nea.pt.socket.Authenticator;
+import org.ietf.nea.pt.socket.Negotiator;
+import org.ietf.nea.pt.socket.Receiver;
 import org.ietf.nea.pt.socket.SocketTransportConnectionPhaseEnum;
-import org.ietf.nea.pt.socket.testx.Authenticator;
-import org.ietf.nea.pt.socket.testx.Negotiator;
-import org.ietf.nea.pt.socket.testx.Receiver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +60,7 @@ public class DefaultSocketTransportConnection implements TransportConnection {
      * @param runner the connection thread executor
      * @throws ConnectionException
      */
-    DefaultSocketTransportConnection(final boolean selfInitiated,
+    public DefaultSocketTransportConnection(final boolean selfInitiated,
             final TransportAttributes attributes,
             final DefaultTransportWrapper socketWrapper,
             final Negotiator negotiator, final Authenticator authenticator,

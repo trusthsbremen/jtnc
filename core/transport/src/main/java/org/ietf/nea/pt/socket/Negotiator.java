@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx;
+package org.ietf.nea.pt.socket;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;

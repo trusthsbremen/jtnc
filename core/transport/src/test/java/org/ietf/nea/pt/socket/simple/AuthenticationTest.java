@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx;
+package org.ietf.nea.pt.socket.simple;
 
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -13,14 +13,16 @@ import javax.security.sasl.SaslClient;
 import javax.security.sasl.SaslException;
 import javax.security.sasl.SaslServer;
 
+import org.ietf.nea.pt.socket.Authenticator;
+import org.ietf.nea.pt.socket.TransportMessenger;
 import org.ietf.nea.pt.socket.sasl.ExternalClient;
 import org.ietf.nea.pt.socket.sasl.ExternalServer;
 import org.ietf.nea.pt.socket.sasl.PlainClient;
 import org.ietf.nea.pt.socket.sasl.PlainServer;
 import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
 import org.ietf.nea.pt.socket.sasl.SaslServerMechansims;
-import org.ietf.nea.pt.socket.testx.simple.DefaultAuthenticationClient;
-import org.ietf.nea.pt.socket.testx.simple.DefaultAuthenticationServer;
+import org.ietf.nea.pt.socket.simple.DefaultAuthenticationClient;
+import org.ietf.nea.pt.socket.simple.DefaultAuthenticationServer;
 import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
 import org.junit.Assert;
 import org.junit.Before;

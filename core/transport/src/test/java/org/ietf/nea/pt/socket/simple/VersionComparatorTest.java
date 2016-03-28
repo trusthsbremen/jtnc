@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx;
+package org.ietf.nea.pt.socket.simple;
 
 import org.ietf.nea.pt.socket.sasl.Dummy;
 import org.junit.Assert;

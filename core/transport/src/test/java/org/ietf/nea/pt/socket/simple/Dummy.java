@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx;
+package org.ietf.nea.pt.socket.simple;
 
 import java.io.IOException;
 import java.util.Queue;
@@ -12,6 +12,7 @@ import javax.security.sasl.AuthorizeCallback;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
+import org.ietf.nea.pt.socket.TransportMessenger;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;

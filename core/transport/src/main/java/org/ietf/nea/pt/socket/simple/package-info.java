@@ -1,11 +1,8 @@
 /**
  * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
  *
- * Copyright © 2015 Trust HS Bremen and its Contributors. All rights   
- * reserved.
- *
- * See the CONTRIBUTORS file distributed with this work for additional
- * information regarding copyright ownership.
+ * Copyright (c) 2015, Carl-Heinz Genzel
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -34,43 +31,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.ietf.nea.pt.socket.testx;
-
-import de.hsbremen.tc.tnc.transport.TransportConnectionPhase;
-
 /**
- * Enumeration of known connection states.
- *
  *
  */
-public enum SocketTransportConnectionPhaseEnum implements TransportConnectionPhase {
-
-    /**
-     * Network connection created.
-     */
-
-    TRSPT_CONNECTION_PHASE_PENDING(0L),
-    
-    TRSPT_CONNECTION_PHASE_NEGOTIATE_VERSION(1L),
-    
-    TRSPT_CONNECTION_PHASE_AUTHENTICATE(2L),
-    
-    TRSPT_CONNECTION_PHASE_TRANSPORT(3L);
-
-
-    private long id;
-
-    /**
-     * Creates a connection state enumeration value with ID.
-     * @param id the state ID
-     */
-    private SocketTransportConnectionPhaseEnum(final long id) {
-        this.id = id;
-    }
-
-    @Override
-    public long id() {
-        return this.id;
-    }
-
-}
+package org.ietf.nea.pt.socket.simple;

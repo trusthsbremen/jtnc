@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx;
+package org.ietf.nea.pt.socket;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
@@ -13,7 +13,7 @@ public interface TransportMessenger {
      *
      * @return the growing identifier
      */
-    public abstract long getIdentifier();
+    long getIdentifier();
 
     /**
      * Write a transport message to an output stream
@@ -24,7 +24,7 @@ public interface TransportMessenger {
      * serialization
      * @throws ConnectionException if the connection is broken
      */
-    public abstract void writeToStream(TransportMessage message)
+    void writeToStream(TransportMessage message)
             throws ConnectionException, SerializationException;
 
     /**
@@ -38,7 +38,7 @@ public interface TransportMessenger {
      * @throws ValidationException if an error occurred at message parsing
      * @throws ConnectionException if the connection is broken
      */
-    public abstract TransportMessage readFromStream()
+    TransportMessage readFromStream()
             throws SerializationException, ValidationException,
             ConnectionException;
 
@@ -49,7 +49,7 @@ public interface TransportMessenger {
      * @return the transport message
      * @throws ValidationException if message creation fails
      */
-    public abstract TransportMessage createValidationErrorMessage(
+    TransportMessage createValidationErrorMessage(
             ValidationException exception) throws ValidationException;
 
 }

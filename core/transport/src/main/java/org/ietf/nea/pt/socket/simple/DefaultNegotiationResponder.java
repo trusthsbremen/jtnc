@@ -1,8 +1,8 @@
-package org.ietf.nea.pt.socket.testx.simple;
+package org.ietf.nea.pt.socket.simple;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
-import org.ietf.nea.pt.socket.testx.Negotiator;
-import org.ietf.nea.pt.socket.testx.TransportMessenger;
+import org.ietf.nea.pt.socket.Negotiator;
+import org.ietf.nea.pt.socket.TransportMessenger;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValueError;
 import org.ietf.nea.pt.value.PtTlsMessageValueVersionRequest;

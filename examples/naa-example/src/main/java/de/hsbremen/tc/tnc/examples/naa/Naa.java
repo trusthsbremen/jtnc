@@ -48,7 +48,8 @@ import org.ietf.nea.pb.serialize.reader.bytebuffer.PbReaderFactory;
 import org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriterFactory;
 import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
-import org.ietf.nea.pt.socket.SocketTransportConnectionBuilder;
+import org.ietf.nea.pt.socket.sasl.SaslServerMechansims;
+import org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnectionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
@@ -97,7 +98,7 @@ public class Naa {
     private ClientFacade client;
     private ImvManager manager;
     private ServerSocket serverSocket;
-    private SocketTransportConnectionBuilder connectionBuilder;
+    private DefaultSocketTransportConnectionBuilder<SaslServerMechansims> connectionBuilder;
     private ConfigurationFileChangeMonitor monitor;
     private ExecutorService runner;
     private boolean stopped;
@@ -115,7 +116,8 @@ public class Naa {
                         new TncsAdapterFactoryIetf(retryProxy));
 
         final int estimatedDefaultImCount = 10;
-        this.connectionBuilder = new SocketTransportConnectionBuilder(true,
+        this.connectionBuilder = new DefaultSocketTransportConnectionBuilder<SaslServerMechansims>(
+                true,
                 TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault())

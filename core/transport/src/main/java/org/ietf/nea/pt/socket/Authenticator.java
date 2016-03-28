@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx;
+package org.ietf.nea.pt.socket;
 
 import org.ietf.nea.pt.value.enums.PtTlsSaslResultEnum;
 

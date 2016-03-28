@@ -1,4 +1,4 @@
-package org.ietf.nea.pt.socket.testx.simple;
+package org.ietf.nea.pt.socket.simple;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,9 +9,9 @@ import javax.security.sasl.SaslClient;
 import javax.security.sasl.SaslException;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
+import org.ietf.nea.pt.socket.Authenticator;
+import org.ietf.nea.pt.socket.TransportMessenger;
 import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
-import org.ietf.nea.pt.socket.testx.Authenticator;
-import org.ietf.nea.pt.socket.testx.TransportMessenger;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValueError;
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslAuthenticationData;

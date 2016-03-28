@@ -1,9 +1,9 @@
-package org.ietf.nea.pt.socket.testx.simple;
+package org.ietf.nea.pt.socket.simple;
 
 import java.util.Arrays;
 
-import org.ietf.nea.pt.socket.testx.Receiver;
-import org.ietf.nea.pt.socket.testx.TransportMessenger;
+import org.ietf.nea.pt.socket.Receiver;
+import org.ietf.nea.pt.socket.TransportMessenger;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValueError;
 import org.ietf.nea.pt.value.PtTlsMessageValuePbBatch;

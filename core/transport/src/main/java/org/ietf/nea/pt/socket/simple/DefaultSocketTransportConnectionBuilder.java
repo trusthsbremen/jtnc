@@ -34,10 +34,17 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.ietf.nea.pt.socket;
+package org.ietf.nea.pt.socket.simple;
 
 import java.net.Socket;
 import java.util.concurrent.Executors;
+
+import org.ietf.nea.pt.socket.Authenticator;
+import org.ietf.nea.pt.socket.Negotiator;
+import org.ietf.nea.pt.socket.Receiver;
+import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
+import org.ietf.nea.pt.socket.sasl.SaslMechanismSelection;
+import org.ietf.nea.pt.socket.sasl.SaslServerMechansims;
 
 import de.hsbremen.tc.tnc.HSBConstants;
 import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
@@ -53,7 +60,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  * Builder to create a TransportConnection based on an underlying socket.
  *
  */
-public class SocketTransportConnectionBuilder implements
+public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSelection> implements
         TransportConnectionBuilder<Socket> {
 
     private static final int DEFAULT_IM_COUNT = 10;
@@ -62,7 +69,7 @@ public class SocketTransportConnectionBuilder implements
 
     private final TransportWriter<TransportMessage> writer;
     private final TransportReader<TransportMessage> reader;
-
+    
     private final long memoryBoarder;
 
     private final boolean server;
@@ -71,16 +78,17 @@ public class SocketTransportConnectionBuilder implements
     private long imMessageLength;
     private long maxRoundTrips;
     
+    private T mechanismSelection;
 
     /**
-     * Creates a builder for a TransportConnection objekt using the specified
+     * Creates a builder for a TransportConnection object using the specified
      * reader and writer for serialization.
      *
      * @param tProtocol the transport protocol identifier
      * @param writer the transport protocol serializer
      * @param reader the transport protocol parser
      */
-    public SocketTransportConnectionBuilder(final boolean server,
+    public DefaultSocketTransportConnectionBuilder(final boolean server,
             final TcgProtocolBindingIdentifier tProtocol,
             final TransportWriter<TransportMessage> writer,
             final TransportReader<TransportMessage> reader) {
@@ -88,7 +96,9 @@ public class SocketTransportConnectionBuilder implements
         NotNull.check("Protocol identifier cannot be null.", tProtocol);
         NotNull.check("Writer cannot be null.", writer);
         NotNull.check("Reader cannot be null.", reader);
-
+        
+        this.server = server;
+        
         this.tProtocol = tProtocol;
 
         this.writer = writer;
@@ -99,9 +109,10 @@ public class SocketTransportConnectionBuilder implements
         this.messageLength = (memoryBoarder / 2);
         this.imMessageLength = (memoryBoarder / DEFAULT_IM_COUNT);
         this.maxRoundTrips = HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN;
-        this.server = server;
+        
+        this.mechanismSelection = null;
     }
-    
+
     /**
      * @return the server
      */
@@ -109,7 +120,7 @@ public class SocketTransportConnectionBuilder implements
         return this.server;
     }
 
-
+    
     /**
      * Returns the transport protocol identifier.
      *
@@ -172,7 +183,7 @@ public class SocketTransportConnectionBuilder implements
      * or length > available heap space
      * @return the SocketTransportConnectionBuilder for fluent use
      */
-    public SocketTransportConnectionBuilder setMessageLength(
+    public DefaultSocketTransportConnectionBuilder<T> setMessageLength(
             final long messageLength) {
         if (messageLength <= 0 || messageLength > this.memoryBoarder) {
             throw new IllegalArgumentException(
@@ -193,7 +204,7 @@ public class SocketTransportConnectionBuilder implements
      * or length > available heap space
      * @return the SocketTransportConnectionBuilder for fluent use
      */
-    public SocketTransportConnectionBuilder setImMessageLength(
+    public DefaultSocketTransportConnectionBuilder<T> setImMessageLength(
             final long imMessageLength) {
         if (imMessageLength <= 0 || imMessageLength > this.memoryBoarder) {
             throw new IllegalArgumentException(
@@ -213,7 +224,7 @@ public class SocketTransportConnectionBuilder implements
      * @throws IllegalArgumentException if maximum round trips <= 0
      * @return the SocketTransportConnectionBuilder for fluent use
      */
-    public SocketTransportConnectionBuilder setMaxRoundTrips(
+    public DefaultSocketTransportConnectionBuilder<T> setMaxRoundTrips(
             final long maxRoundTrips) {
         if (maxRoundTrips <= 0) {
             throw new IllegalArgumentException("Round trips cannot be null.");
@@ -223,6 +234,42 @@ public class SocketTransportConnectionBuilder implements
         return this;
     }
 
+    /**
+     * Adds SASL authentication mechanisms for the next connection to be build.
+     * All added SASL authentication mechanisms must not be completed or the connection
+     * establishment will fail at a later point!
+     * Therefore new SASL mechanisms must be added for every connection that is build with
+     * this builder, if an authentication is needed.
+     * 
+     * @param mechanismSelection the SASL mechanisms to use for the next connection
+     * @throws IllegalArgumentException if mechanism selection does not match
+     * the connection type (server or client)
+     * @return the SocketTransportConnectionBuilder for fluent use
+     */
+    public DefaultSocketTransportConnectionBuilder<T> addAuthenticationMechanisms(T mechanismSelection){
+
+        if(mechanismSelection == null
+                || (this.server && mechanismSelection instanceof SaslServerMechansims)
+                || (!this.server && mechanismSelection instanceof SaslClientMechansims)){
+            
+            this.mechanismSelection = mechanismSelection;
+            
+        }else{
+            StringBuilder sb = new StringBuilder();
+            sb.append("Type of mechanism selection not expected. ");
+            if(this.server){
+                sb.append("Builder is configured to build server connections.");
+            }else{
+                sb.append("Builder is configured to build client connections.");
+            }
+            
+            throw new IllegalArgumentException(sb.toString());
+        }
+        
+        return this;
+        
+    }
+    
     @Override
     public TransportConnection toConnection(final String id,
             final boolean selfInitiated, final Socket underlying) {
@@ -234,17 +281,41 @@ public class SocketTransportConnectionBuilder implements
         DefaultTransportAttributes attributes = new DefaultTransportAttributes(
                 id, this.tProtocol, this.messageLength,
                 this.imMessageLength, this.maxRoundTrips);
+        
+        DefaultTransportWrapper socketWrapper = new DefaultTransportWrapper(
+                this.messageLength, socket, writer, reader);
 
-        SocketTransportConnection t = new SocketTransportConnection(
-                selfInitiated, server, socket, attributes, writer, reader,
-                Executors.newSingleThreadExecutor());
+        Negotiator negotiator = null;
+        if(selfInitiated){
+            negotiator = new DefaultNegotiationInitiator((short)1, (short)1, (short)1);
+        }else{
+            negotiator = new DefaultNegotiationResponder((short)1, (short)1, (short)1);
+        }
+        
+        Authenticator authenticator = null;
+        if(this.server){
+            authenticator  = new DefaultAuthenticationServer(
+                    (SaslServerMechansims)this.mechanismSelection);
+        }else{
+            authenticator  = new DefaultAuthenticationClient(
+                    (SaslClientMechansims)this.mechanismSelection);
+        }
+        
+        //remove side effects;
+        this.mechanismSelection = null; 
+        
+        Receiver receiver = new DefaultBatchReceiver();
+        
+        DefaultSocketTransportConnection t = new DefaultSocketTransportConnection(
+                selfInitiated,attributes, socketWrapper, negotiator, authenticator,
+                receiver, Executors.newSingleThreadExecutor());
 
         return t;
     }
 
     @Override
     public TransportConnection toConnection(final boolean selfInitiated,
-             final Socket underlying) {
+            final Socket underlying) {
 
         NotNull.check("Underlying cannot be null.", underlying);
 

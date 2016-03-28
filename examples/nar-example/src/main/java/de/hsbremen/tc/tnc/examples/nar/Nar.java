@@ -45,7 +45,8 @@ import org.ietf.nea.pb.serialize.reader.bytebuffer.PbReaderFactory;
 import org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriterFactory;
 import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
-import org.ietf.nea.pt.socket.SocketTransportConnectionBuilder;
+import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
+import org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnectionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimc.IMC;
@@ -61,16 +62,11 @@ import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileChangeMonitor;
 import de.hsbremen.tc.tnc.tnccs.im.loader.ConfigurationFileParser;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultConfigurationFileChangeListener;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultConfigurationFileChangeMonitor;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultConfigurationFileParserImJava;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultImLoader;
-import de.hsbremen.tc.tnc.tnccs.im.loader.simple
-.DefaultImcManagerConfigurationEntryHandler;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeListener;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileChangeMonitor;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultConfigurationFileParserImJava;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImLoader;
+import de.hsbremen.tc.tnc.tnccs.im.loader.simple.DefaultImcManagerConfigurationEntryHandler;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImcManager;
 import de.hsbremen.tc.tnc.tnccs.im.manager.exception.ImInitializeException;
 import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImcManager;
@@ -100,6 +96,7 @@ public class Nar {
     private ClientFacade client;
     private ImcManager manager;
     private ConfigurationFileChangeMonitor monitor;
+    private DefaultSocketTransportConnectionBuilder<SaslClientMechansims> connectionBuilder;
     private Socket socket;
     private TransportConnection connection;
 
@@ -125,6 +122,18 @@ public class Nar {
         if (this.client instanceof GlobalHandshakeRetryListener) {
             retryProxy.register((GlobalHandshakeRetryListener) this.client);
         }
+        
+
+        final int estimatedDefaultImCount = 10;
+        this.connectionBuilder =
+                new DefaultSocketTransportConnectionBuilder<SaslClientMechansims>(
+                false,
+                TcgTProtocolBindingEnum.PLAIN1,
+                PtTlsWriterFactory.createProductionDefault(),
+                PtTlsReaderFactory.createProductionDefault())
+            .setMessageLength(MAX_MSG_SIZE)
+            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount)
+            .setMaxRoundTrips(MAX_ROUND_TRIP);
 
     }
 
@@ -191,18 +200,7 @@ public class Nar {
         }
         this.socket = new Socket(host, port);
 
-        final int estimatedDefaultImCount = 10;
-        SocketTransportConnectionBuilder builder =
-                new SocketTransportConnectionBuilder(false,
-                TcgTProtocolBindingEnum.PLAIN1,
-                PtTlsWriterFactory.createProductionDefault(),
-                PtTlsReaderFactory.createProductionDefault())
-            .setMessageLength(MAX_MSG_SIZE)
-            .setImMessageLength(MAX_MSG_SIZE / estimatedDefaultImCount)
-            .setMaxRoundTrips(MAX_ROUND_TRIP);
-         
-
-        this.connection = builder.toConnection(true, socket);
+        this.connection = this.connectionBuilder.toConnection(true, socket);
         this.client.notifyConnectionChange(connection,
                 CommonConnectionChangeTypeEnum.NEW);
     }
