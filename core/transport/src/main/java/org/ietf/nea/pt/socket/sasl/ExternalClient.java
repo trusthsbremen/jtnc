@@ -1,11 +1,5 @@
 package org.ietf.nea.pt.socket.sasl;
 
-import java.io.IOException;
-
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.NameCallback;
-import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.sasl.SaslClient;
 import javax.security.sasl.SaslException;
 
@@ -20,7 +14,8 @@ public class ExternalClient implements SaslClient {
 
     private static final String MECH_NAME = "EXTERNAL";
     private boolean completed;
-    private CallbackHandler callbackHandler;
+
+    private final String authorizationId;
 
     /**
      * Constructs an External mechanism with optional authorization ID.
@@ -29,11 +24,9 @@ public class ExternalClient implements SaslClient {
      * @throws SaslException if cannot convert authorizationID into UTF-8
      * representation.
      */
-    ExternalClient(CallbackHandler callbackHandler) throws SaslException {
-        if (callbackHandler == null) {
-            throw new SaslException("Callback handler to get authorization id.");
-        }
-        this.callbackHandler = callbackHandler;
+    public ExternalClient(String authorizationId) throws SaslException {
+        
+        this.authorizationId = authorizationId;
         this.completed = false;
     }
 
@@ -76,24 +69,10 @@ public class ExternalClient implements SaslClient {
 
         completed = true;
 
-        String authorizationId = null;
-
-        try {
-            NameCallback ncb1 = new NameCallback("PLAIN authorization id: ");
-
-            this.callbackHandler.handle(new Callback[] { ncb1 });
-            authorizationId = ncb1.getName();
-
-        } catch (IOException e) {
-            throw new SaslException("Cannot get credential information", e);
-        } catch (UnsupportedCallbackException e) {
-            throw new SaslException("Cannot get credential information", e);
-        }
-
         byte[] authzid = null;
 
         try {
-            authzid = (authorizationId != null) ? authorizationId
+            authzid = (this.authorizationId != null) ? this.authorizationId
                     .getBytes("UTF8") : null;
         } catch (java.io.UnsupportedEncodingException e) {
             throw new SaslException("PLAIN no UTF-8 encoding", e);

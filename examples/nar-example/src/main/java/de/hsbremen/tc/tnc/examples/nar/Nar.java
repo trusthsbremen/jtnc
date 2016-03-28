@@ -193,7 +193,7 @@ public class Nar {
 
         final int estimatedDefaultImCount = 10;
         SocketTransportConnectionBuilder builder =
-                new SocketTransportConnectionBuilder(
+                new SocketTransportConnectionBuilder(false,
                 TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault())
@@ -202,7 +202,7 @@ public class Nar {
             .setMaxRoundTrips(MAX_ROUND_TRIP);
          
 
-        this.connection = builder.toConnection(true, false, socket);
+        this.connection = builder.toConnection(true, socket);
         this.client.notifyConnectionChange(connection,
                 CommonConnectionChangeTypeEnum.NEW);
     }

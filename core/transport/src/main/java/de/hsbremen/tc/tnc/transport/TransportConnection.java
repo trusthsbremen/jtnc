@@ -62,12 +62,24 @@ public interface TransportConnection {
     boolean isOpen();
     
     /**
-     * Opens the connection and registers a listener for incoming data.
+     * Initializes the connection and executes negotiation of connection
+     * parameters with peer. This processes needs time.
+     * It should be considered to call this method using a thread.
+     * 
+     * @throws ConnectionException
+     */
+    void bootstrap() throws ConnectionException;
+    
+    /**
+     * Activates the assessment flow and registers a listener for
+     * incoming data. The {@link #bootstrap()} method should be called
+     * first. Implementation may check for a proper call to this method
+     * and react accordingly. 
      *
      * @param listener the listener for incoming data
      * @throws ConnectionException if open fails
      */
-    void open(TransportListener listener) throws ConnectionException;
+    void activate(TransportListener listener) throws ConnectionException;
 
     /**
      * Sends data via this connection.

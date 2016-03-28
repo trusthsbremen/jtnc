@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.sasl.AuthorizeCallback;
 import javax.security.sasl.SaslException;
@@ -15,8 +16,13 @@ public class ExternalServer implements SaslServer {
     private static final String MECH_NAME = "EXTERNAL";
     private final static int MAX_MESSAGE_LENGTH = 65536;
     private boolean completed;
-    private CallbackHandler callbackHandler;
+    private final CallbackHandler callbackHandler;
     private String authorizationId;
+    
+    public ExternalServer(CallbackHandler callbackHandler) {
+        this.callbackHandler = callbackHandler;
+        this.completed = false;
+    }
 
     @Override
     public String getMechanismName() {
@@ -37,18 +43,31 @@ public class ExternalServer implements SaslServer {
         String authzid = new String(response, Charset.forName("UTF8"));
 
         try {
+            NameCallback ncb = new NameCallback("EXTERNAL authentication id: ");
+            this.callbackHandler.handle(new Callback[] { ncb});
+            String authcid= ncb.getName();
+            
+            if (authcid == null || authcid.isEmpty()) {
+                throw new SaslException("PLAIN authentication failed.");
+            }
+            
+            AuthorizeCallback acb = new AuthorizeCallback(authcid,
+                    (authzid == null || authzid.isEmpty()) ? authcid
+                            : authzid);
 
-            AuthorizeCallback acb = new AuthorizeCallback(authzid, authzid);
-
-            callbackHandler.handle(new Callback[] { acb });
+            this.callbackHandler.handle(new Callback[] { acb });
 
             if (!acb.isAuthorized()) {
-                throw new SaslException("PLAIN authentication failed.");
+                throw new SaslException("EXTERNAL authentication failed.");
             } else {
                 this.authorizationId = acb.getAuthorizedID();
             }
 
         } catch (IOException e) {
+            // SaslException is of type IOException!
+            if(e instanceof SaslException){
+                throw (SaslException)e;
+            }
             throw new SaslException("Cannot get credential information", e);
         } catch (UnsupportedCallbackException e) {
             throw new SaslException("Cannot get credential information", e);
@@ -64,6 +83,11 @@ public class ExternalServer implements SaslServer {
 
     @Override
     public String getAuthorizationID() {
+        if(!this.completed){
+            throw new IllegalStateException(
+                    "PLAIN authentication not completed.");
+        }
+        
         return this.authorizationId;
     }
 

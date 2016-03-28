@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
+import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
@@ -32,7 +32,7 @@ import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer;
 public class ReaderTest {
 
 	TestData transport;
-	TransportReader<TransportMessageContainer> bs;
+	TransportReader<TransportMessage> bs;
 	
 	@Before
 	public void setUp(){
@@ -47,9 +47,9 @@ public class ReaderTest {
 		
 		b.write(data);
 		
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_REQUEST.id(), m.getHeader().getMessageType());
 		Assert.assertEquals(1, ((PtTlsMessageValueVersionRequest)m.getValue()).getPreferredVersion());
@@ -63,9 +63,9 @@ public class ReaderTest {
 		
 		b.write(data);
 		
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_VERSION_RESPONSE.id(), m.getHeader().getMessageType());
 		Assert.assertEquals(1, ((PtTlsMessageValueVersionResponse)m.getValue()).getSelectedVersion());
@@ -79,9 +79,9 @@ public class ReaderTest {
 		
 		b.write(data);
 		
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISMS.id(), m.getHeader().getMessageType());
 		Assert.assertEquals("PLAIN", ((PtTlsMessageValueSaslMechanisms)m.getValue()).getMechanisms().get(0).getName());
@@ -95,9 +95,9 @@ public class ReaderTest {
 		
 		b.write(data);
 		
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_MECHANISM_SELECTION.id(), m.getHeader().getMessageType());
 		Assert.assertEquals("PLAIN", ((PtTlsMessageValueSaslMechanismSelection)m.getValue()).getMechanism().getName());
@@ -112,9 +112,9 @@ public class ReaderTest {
 		
 		b.write(data);
 		
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_AUTHENTICATION_DATA.id(), m.getHeader().getMessageType());
 		Assert.assertArrayEquals(Arrays.copyOfRange(data,data.length-4, data.length), ((PtTlsMessageValueSaslAuthenticationData)m.getValue()).getAuthenticationData());
@@ -128,9 +128,9 @@ public class ReaderTest {
 		
 		b.write(data);
 		
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_SASL_RESULT.id(), m.getHeader().getMessageType());
 		Assert.assertEquals(PtTlsSaslResultEnum.SUCCESS, ((PtTlsMessageValueSaslResult)m.getValue()).getResult());
@@ -145,9 +145,9 @@ public class ReaderTest {
 		
 		b.write(data);
 		
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.id(), m.getHeader().getMessageType());
 		Assert.assertEquals(PtTlsMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(), ((PtTlsMessageValueError)m.getValue()).getErrorCode());
@@ -162,9 +162,9 @@ public class ReaderTest {
 		
 		b.write(data);
 	
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_PB_BATCH.id(), m.getHeader().getMessageType());
 		
@@ -213,9 +213,9 @@ public class ReaderTest {
 		InputStream in = new ByteArrayInputStream(data);
 		ByteBuffer b = new StreamedReadOnlyByteBuffer(in);
 
-		TransportMessageContainer tc = bs.read(b, -1);
+		TransportMessage tc = bs.read(b, -1);
 		
-		PtTlsMessage m = (PtTlsMessage)tc.getResult();
+		PtTlsMessage m = (PtTlsMessage)tc;
 		
 		Assert.assertEquals(PtTlsMessageTypeEnum.IETF_PT_TLS_ERROR.id(), m.getHeader().getMessageType());
 		Assert.assertEquals(PtTlsMessageErrorCodeEnum.IETF_UNSUPPORTED_VERSION.code(), ((PtTlsMessageValueError)m.getValue()).getErrorCode());

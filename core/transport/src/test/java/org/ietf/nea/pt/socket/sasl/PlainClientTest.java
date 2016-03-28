@@ -24,7 +24,7 @@ public class PlainClientTest {
     
     @Before
     public void setUp() throws SaslException{
-        this.client = new PlainClient(Dummy.getPlainCallBackHandler(credentials, true));
+        this.client = new PlainClient(null,Dummy.getPlainCallBackHandler(credentials));
     }
     
     @Test

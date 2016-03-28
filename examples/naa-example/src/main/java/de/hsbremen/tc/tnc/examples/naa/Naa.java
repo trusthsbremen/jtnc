@@ -115,7 +115,7 @@ public class Naa {
                         new TncsAdapterFactoryIetf(retryProxy));
 
         final int estimatedDefaultImCount = 10;
-        this.connectionBuilder = new SocketTransportConnectionBuilder(
+        this.connectionBuilder = new SocketTransportConnectionBuilder(true,
                 TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault())
@@ -236,7 +236,7 @@ public class Naa {
                     LOGGER.info("Socket accepted " + socket.toString());
                     if (socket != null) {
                         TransportConnection connection = connectionBuilder
-                                .toConnection(false, true, socket);
+                                .toConnection(false, socket);
                         client.notifyConnectionChange(connection,
                                 CommonConnectionChangeTypeEnum.NEW);
                     }

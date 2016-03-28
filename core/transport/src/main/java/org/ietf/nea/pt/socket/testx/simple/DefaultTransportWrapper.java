@@ -34,7 +34,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.ietf.nea.pt.socket;
+package org.ietf.nea.pt.socket.testx.simple;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -45,6 +45,8 @@ import java.net.Socket;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
+import org.ietf.nea.pt.socket.testx.SocketHandler;
+import org.ietf.nea.pt.socket.testx.TransportMessenger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +55,6 @@ import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
@@ -65,19 +66,18 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
  * Transport connection with an underlying Socket.
  *
  */
-public abstract class AbstractSocketTransportConnection {
+public class DefaultTransportWrapper implements TransportMessenger, SocketHandler {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(AbstractSocketTransportConnection.class);
+            .getLogger(DefaultTransportWrapper.class);
 
     private static final int DEFAULT_CHUNK_SIZE = 8192;
 
     private final Socket socket;
 
     private final TransportWriter<TransportMessage> writer;
-    private final TransportReader<TransportMessageContainer> reader;
+    private final TransportReader<TransportMessage> reader;
     
     private final long maxMessageLength;
-    private final boolean selfInitiated;
 
     private OutputStream out;
     private InputStream in;
@@ -101,13 +101,12 @@ public abstract class AbstractSocketTransportConnection {
      * @param runner the connection thread executor
      * @throws ConnectionException if socket is not accessible
      */
-    protected AbstractSocketTransportConnection(final long maxMessageLength, final boolean selfInitiated, final Socket socket,
+    public DefaultTransportWrapper(final long maxMessageLength, final Socket socket,
             final TransportWriter<TransportMessage> writer,
-            final TransportReader<TransportMessageContainer> reader){
+            final TransportReader<TransportMessage> reader){
         
         this.maxMessageLength = this.maxMessageLength >= 0 ? maxMessageLength :
             HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN;
-        this.selfInitiated = selfInitiated;
         this.socket = socket;
         this.reader = reader;
         this.writer = writer;
@@ -115,7 +114,11 @@ public abstract class AbstractSocketTransportConnection {
     }
 
 
-    protected boolean isOpen() {
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.SocketHandler#isOpen()
+     */
+    @Override
+    public boolean isOpen() {
         if (socket != null && this.in != null && this.out != null) {
             if (!socket.isClosed() && !socket.isInputShutdown()
                     && !socket.isOutputShutdown()) {
@@ -125,11 +128,12 @@ public abstract class AbstractSocketTransportConnection {
         return false;
     }
 
-    protected boolean isSelfInititated() {
-        return selfInitiated;
-    }
 
-    protected void initialize() throws ConnectionException{
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.SocketHandler#initialize()
+     */
+    @Override
+    public void initialize() throws ConnectionException{
         try{
             this.in = new BufferedInputStream(socket.getInputStream());
             this.out = new BufferedOutputStream(socket.getOutputStream());
@@ -139,7 +143,11 @@ public abstract class AbstractSocketTransportConnection {
         
     }
     
-    protected void close() {
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.SocketHandler#close()
+     */
+    @Override
+    public void close() {
         try {
 
             this.socket.shutdownInput();
@@ -159,13 +167,11 @@ public abstract class AbstractSocketTransportConnection {
         }
     }
 
-    /**
-     * Returns a linear growing identifier for a transport message.
-     * If the identifier reaches a value >= 4294967295 it restarts at zero.
-     *
-     * @return the growing identifier
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#getIdentifier()
      */
-     protected long getIdentifier() {
+    @Override
+    public long getIdentifier() {
         if (this.messageIdentifier
                 < HSBConstants.TCG_MAX_MESSAGE_IDENTIFIER) {
             return messageIdentifier++;
@@ -175,28 +181,27 @@ public abstract class AbstractSocketTransportConnection {
         }
     }
 
-    protected long getRxCounter(){
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.SocketHandler#getRxCounter()
+     */
+    @Override
+    public long getRxCounter(){
        return this.rxCounter;
     }
     
-    protected long getTxCounter(){
-        return this.txCounter;
-     }
-     
-    /**
-     * Initializes the transport connection by going thru the following phases.
-     * <ul>
-     * <li>negotiation phase</li>
-     * <li>authentication phase (optional)</li>
-     * <li>transport phase (final)</li>
-     * </ul>
-     *
-     * @throws SerializationException if an error occurred at message
-     * serialization
-     * @throws ValidationException if an error occurred at message parsing
-     * @throws ConnectionException if the connection is broken
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.SocketHandler#getTxCounter()
      */
-    protected void resetCounters(){
+    @Override
+    public long getTxCounter(){
+        return this.txCounter;
+    }
+     
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.SocketHandler#resetCounters()
+     */
+    @Override
+    public void resetCounters(){
 
         // reset rx/tx counter to measure only the integrity transports
         long roundTrips = Math.max(this.rxCounter, this.txCounter);
@@ -208,16 +213,11 @@ public abstract class AbstractSocketTransportConnection {
 
     }
 
-    /**
-     * Write a transport message to an output stream
-     * using a writer for serialization.
-     *
-     * @param message the transport message
-     * @throws SerializationException if an error occurred at message
-     * serialization
-     * @throws ConnectionException if the connection is broken
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#writeToStream(de.hsbremen.tc.tnc.message.t.message.TransportMessage)
      */
-    protected void writeToStream(final TransportMessage message)
+    @Override
+    public void writeToStream(final TransportMessage message)
             throws ConnectionException, SerializationException {
 
         this.checkMessageLength(message.getHeader().getLength());
@@ -272,18 +272,11 @@ public abstract class AbstractSocketTransportConnection {
 
     }
 
-    /**
-     * Reads a transport message from an input stream
-     * using a reader for parsing.
-     *
-     * @return the container containing a transport message
-     * and minor parsing exceptions if any
-     * @throws SerializationException if an error occurred at message
-     * serialization
-     * @throws ValidationException if an error occurred at message parsing
-     * @throws ConnectionException if the connection is broken
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#readFromStream()
      */
-    protected TransportMessageContainer readFromStream()
+    @Override
+    public TransportMessage readFromStream()
             throws SerializationException, ValidationException,
             ConnectionException {
         if (isOpen()) {
@@ -292,7 +285,7 @@ public abstract class AbstractSocketTransportConnection {
                 ByteBuffer buf = new StreamedReadOnlyByteBuffer(
                         socket.getInputStream());
              
-                TransportMessageContainer ct = this.reader.read(buf, -1);
+                TransportMessage message = this.reader.read(buf, -1);
                 if(LOGGER.isDebugEnabled()){
                     LOGGER.debug("Message bytes read: " + buf.bytesRead());
                 }
@@ -301,14 +294,13 @@ public abstract class AbstractSocketTransportConnection {
                 this.rxCounter++;
 
                 if(LOGGER.isDebugEnabled()){
-                    if (ct != null
-                            && ct.getResult() != null){
+                    if (message != null){
                         LOGGER.debug("Message received: "
-                            + ct.getResult().toString());
+                            + message.toString());
                     }
                 }
                 
-                return ct;
+                return message;
 
             } catch (IOException e) {
                 throw new ConnectionException(
@@ -342,14 +334,11 @@ public abstract class AbstractSocketTransportConnection {
         }
     }
     
-    /**
-     * Creates a transport message containing a validation exception.
-     *
-     * @param exception the validation exception
-     * @return the transport message
-     * @throws ValidationException if message creation fails
+    /* (non-Javadoc)
+     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#createValidationErrorMessage(de.hsbremen.tc.tnc.message.exception.ValidationException)
      */
-    protected TransportMessage createValidationErrorMessage(
+    @Override
+    public TransportMessage createValidationErrorMessage(
             final ValidationException exception) throws ValidationException {
 
         if (exception.getReasons() != null

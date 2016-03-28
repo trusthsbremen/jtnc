@@ -46,6 +46,7 @@ import java.util.concurrent.ExecutorService;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
+
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValuePbBatch;
 import org.ietf.nea.pt.value.PtTlsMessageValueSaslMechanisms;
@@ -62,15 +63,15 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer;
-import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
+import de.hsbremen.tc.tnc.transport.TransportConnectionPhase;
+import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 
@@ -78,7 +79,7 @@ import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
  * Transport connection with an underlying Socket.
  *
  */
-public abstract class SocketTransportConnection implements TransportConnection {
+public class SocketTransportConnection implements TransportConnection {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(SocketTransportConnection.class);
 
@@ -95,8 +96,10 @@ public abstract class SocketTransportConnection implements TransportConnection {
     private final ExecutorService runner;
 
     private final TransportWriter<TransportMessage> writer;
-    private final TransportReader<TransportMessageContainer> reader;
+    private final TransportReader<TransportMessage> reader;
 
+    private TransportConnectionPhase phase;
+    
     private OutputStream out;
     private InputStream in;
 
@@ -124,7 +127,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
             final boolean server, final Socket socket,
             final TransportAttributes attributes,
             final TransportWriter<TransportMessage> writer,
-            final TransportReader<TransportMessageContainer> reader,
+            final TransportReader<TransportMessage> reader,
             final ExecutorService runner) {
         this.socket = socket;
         this.selfInitiated = selfInitiated;
@@ -134,6 +137,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
         this.writer = writer;
         this.runner = runner;
         this.messageIdentifier = 0;
+        this.phase = SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_PENDING;
     }
 
     @Override
@@ -153,59 +157,132 @@ public abstract class SocketTransportConnection implements TransportConnection {
     }
 
     @Override
-    public void open(final TransportListener listener) throws ConnectionException {
+    public void bootstrap() throws ConnectionException {
         LOGGER.debug("Open transport connection.");
-
-        try {
+        
+        if(!this.phase.equals(SocketTransportConnectionPhaseEnum
+                .TRSPT_CONNECTION_PHASE_PENDING)){
+            if(this.phase.equals(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_TRANSPORT)){
+                LOGGER.warn(
+                        "Initialize was already called. "
+                        + "Connection is in phase " + this.phase.toString()
+                        + " Ignoring this call.");
+            }else{
+                
+                LOGGER.error(new StringBuilder()
+                        .append("Connection is stuck in phase ")
+                        .append(this.phase.toString())
+                        .append(". Connection will be closed.").toString());
+                
+                this.close();
+                
+                throw new ConnectionException("Phase transition was stuck"
+                        + "in phase " + this.phase.toString()
+                        + "and connection was closed.");
+            }
+        }
+        
+        try{
             this.in = new BufferedInputStream(socket.getInputStream());
             this.out = new BufferedOutputStream(socket.getOutputStream());
-            this.listener = listener;
-
-            try {
-
-                this.initialize();
-
-            } catch (SerializationException | ConnectionException e) {
-                LOGGER.error(
-                        "Error occured, while initializing the connection. "
-                        + "Connection will be closed.", e);
-
-                this.close();
-
-                throw new ConnectionException("Fatal exception has occured "
-                        + "and connection was closed.", e);
-
-            } catch (ValidationException e) {
-
-                LOGGER.error(
-                        "Error occured, while initializing the connection. "
-                        + "Will try to close connection gracefully.", e);
-
-                try {
-                    // try to close gracefully
-                    TransportMessage m = this.createValidationErrorMessage(e);
-
-                    this.writeToStream(m);
-
-                } catch (ValidationException | SerializationException e1) {
-
-                    LOGGER.error(
-                            "Gracefull close was not successfull. "
-                            + "Connection will be closed.", e);
-
-                    this.close();
-
-                    throw new ConnectionException("Fatal exception has occured "
-                            + "and connection was closed.", e);
-
-                }
-
-            }
-
+            
         } catch (IOException e) {
             throw new ConnectionException(
                     "Socket stream is not accessible.", e);
         }
+        
+        try{
+            
+            this.phase = SocketTransportConnectionPhaseEnum
+                    .TRSPT_CONNECTION_PHASE_NEGOTIATE_VERSION;
+            
+            this.negotiateVersion();
+
+            this.phase = SocketTransportConnectionPhaseEnum
+                    .TRSPT_CONNECTION_PHASE_AUTHENTICATE;
+    
+            this.makeAuthentication();
+            
+            this.phase = SocketTransportConnectionPhaseEnum
+                    .TRSPT_CONNECTION_PHASE_TRANSPORT;
+            
+            
+        } catch (SerializationException | ConnectionException e) {
+            LOGGER.error(
+                    "Error occured, while initializing the connection. "
+                    + "Connection will be closed.", e);
+    
+            this.close();
+    
+            throw new ConnectionException("Fatal exception has occured "
+                    + "and connection was closed.", e);
+    
+        } catch (ValidationException e) {
+    
+            LOGGER.error(
+                    "Error occured, while initializing the connection. "
+                    + "Will try to close connection gracefully.", e);
+    
+            try {
+                // try to close gracefully
+                TransportMessage m = this.createValidationErrorMessage(e);
+    
+                this.writeToStream(m);
+    
+            } catch (ValidationException | SerializationException e1) {
+    
+                LOGGER.error(
+                        "Gracefull close was not successfull. "
+                        + "Connection will be closed.", e);
+    
+                this.close();
+    
+                throw new ConnectionException("Fatal exception has occured "
+                        + "and connection was closed.", e);
+    
+            }
+    
+        }
+        
+    }
+    
+    @Override
+    public void activate(TransportListener listener) throws ConnectionException {
+
+        if (this.phase
+                .equals(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_PENDING)) {
+            this.bootstrap();
+        }
+
+        if (!this.phase
+                .equals(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_TRANSPORT)) {
+
+            throw new ConnectionException(
+                    new StringBuilder(
+                            "Connection is not ready. Connection is in ")
+                            .append("phase ")
+                            .append(this.phase.toString())
+                            .append(". It has to be in phase ")
+                            .append(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_TRANSPORT
+                                    .toString())
+                            .append(" to receive messages for the upper layers. ")
+                            .append("Initialize must be called first.")
+                            .toString(), this.phase);
+        }
+
+        this.listener = listener;
+        
+        // reset rx/tx counter to measure only the integrity transports
+        long roundTrips = Math.max(this.rxCounter, this.txCounter);
+        LOGGER.debug("Negotiation phase completed ( Messages received:"
+                + rxCounter + ", Messages send:" + txCounter + ", Rounds:"
+                + roundTrips + ")");
+        this.rxCounter = 0;
+        this.txCounter = 0;
+
+        // start transport phase
+        this.runner.execute(new TransportPhase());
+
     }
 
     @Override
@@ -280,37 +357,6 @@ public abstract class SocketTransportConnection implements TransportConnection {
     }
 
     /**
-     * Initializes the transport connection by going thru the following phases.
-     * <ul>
-     * <li>negotiation phase</li>
-     * <li>authentication phase (optional)</li>
-     * <li>transport phase (final)</li>
-     * </ul>
-     *
-     * @throws SerializationException if an error occurred at message
-     * serialization
-     * @throws ValidationException if an error occurred at message parsing
-     * @throws ConnectionException if the connection is broken
-     */
-    private void initialize() throws SerializationException,
-            ValidationException, ConnectionException {
-        this.negotiateVersion();
-        this.makeAuthentication();
-
-        // reset rx/tx counter to measure only the integrity transports
-        long roundTrips = Math.max(this.rxCounter, this.txCounter);
-        LOGGER.debug("Negotiation phase completed ( Messages received:"
-                + rxCounter + ", Messages send:" + txCounter + ", Rounds:"
-                + roundTrips + ")");
-        this.rxCounter = 0;
-        this.txCounter = 0;
-
-        // start transport phase
-        this.runner.execute(new TransportPhase());
-
-    }
-
-    /**
      * Handles the transport protocol version negotiation phase
      * with a remote peer.
      *
@@ -327,22 +373,21 @@ public abstract class SocketTransportConnection implements TransportConnection {
                     PREF_VERSION);
             this.writeToStream(m);
 
-            TransportMessageContainer ct = null;
+            TransportMessage ct = null;
             while (ct == null) {
                 try {
 
                     ct = this.readFromStream();
 
                     if (ct != null
-                            && ct.getResult() != null
-                            && !(ct.getResult().getValue()
+                            && !(ct.getValue()
                                 instanceof PtTlsMessageValueVersionResponse)) {
 
                         throw new ValidationException(
                                 "Unexpected message received.",
                                 new RuleException(
                                         "Message of type "
-                                                + ct.getResult().getValue()
+                                                + ct.getValue()
                                                         .getClass()
                                                         .getCanonicalName()
                                                 + " was not expected.",
@@ -351,7 +396,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                         IETF_INVALID_MESSAGE.code(),
                                         PtTlsErrorCauseEnum.
                                         MESSAGE_TYPE_UNEXPECTED.id()),
-                                        0, ct.getResult().getHeader());
+                                        0, ct.getHeader());
                     }
 
                 } catch (ValidationException e) {
@@ -371,28 +416,28 @@ public abstract class SocketTransportConnection implements TransportConnection {
             }
 
             if (!(PREF_VERSION >= ((PtTlsMessageValueVersionResponse)
-                    ct.getResult().getValue()).getSelectedVersion()
+                    ct.getValue()).getSelectedVersion()
                     && PREF_VERSION >= ((PtTlsMessageValueVersionResponse)
-                    ct.getResult().getValue()).getSelectedVersion())) {
+                    ct.getValue()).getSelectedVersion())) {
 
                 throw new ValidationException(
                         "Version not supported.",
                         new RuleException(
                                 "Version "
                                         + ((PtTlsMessageValueVersionResponse) ct
-                                                .getResult().getValue())
+                                                .getValue())
                                                 .getSelectedVersion()
                                         + " not in supported version range.",
                                 true,
                                 PtTlsMessageErrorCodeEnum.
                                 IETF_UNSUPPORTED_VERSION.code(),
                                 PtTlsErrorCauseEnum.TRANSPORT_VERSION_NOT_SUPPORTED.id()),
-                                0, ct.getResult().getHeader());
+                                0, ct.getHeader());
             }
 
         } else {
 
-            TransportMessageContainer ct = null;
+            TransportMessage ct = null;
 
             while (ct == null) {
                 try {
@@ -400,15 +445,14 @@ public abstract class SocketTransportConnection implements TransportConnection {
                     ct = this.readFromStream();
 
                     if (ct != null
-                            && ct.getResult() != null
-                            && !(ct.getResult().getValue()
+                            && !(ct.getValue()
                                   instanceof PtTlsMessageValueVersionRequest)) {
 
                         throw new ValidationException(
                                 "Unexpected message received.",
                                 new RuleException(
                                         "Message of type "
-                                                + ct.getResult().getValue()
+                                                + ct.getValue()
                                                         .getClass()
                                                         .getCanonicalName()
                                                 + " was not expected.",
@@ -417,7 +461,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                         IETF_INVALID_MESSAGE.code(),
                                         PtTlsErrorCauseEnum.
                                         MESSAGE_TYPE_UNEXPECTED.id()),
-                                        0, ct.getResult().getHeader());
+                                        0, ct.getHeader());
                     }
 
                 } catch (ValidationException e) {
@@ -438,9 +482,9 @@ public abstract class SocketTransportConnection implements TransportConnection {
             }
 
             if (PREF_VERSION >= ((PtTlsMessageValueVersionRequest) ct
-                    .getResult().getValue()).getMinVersion()
+                    .getValue()).getMinVersion()
                     && PREF_VERSION >= ((PtTlsMessageValueVersionRequest) ct
-                            .getResult().getValue()).getMaxVersion()) {
+                            .getValue()).getMaxVersion()) {
 
                 TransportMessage m = PtTlsMessageFactoryIetf
                         .createVersionResponse(this.getIdentifier(),
@@ -459,7 +503,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                 PtTlsMessageErrorCodeEnum.
                                 IETF_UNSUPPORTED_VERSION.code(),
                                 PtTlsErrorCauseEnum.TRANSPORT_VERSION_NOT_SUPPORTED.id()),
-                                0, ct.getResult().getHeader());
+                                0, ct.getHeader());
             }
 
         }
@@ -525,21 +569,20 @@ public abstract class SocketTransportConnection implements TransportConnection {
 
         } else {
 
-            TransportMessageContainer ct = null;
+            TransportMessage ct = null;
             while (ct == null) {
                 try {
                     ct = this.readFromStream();
 
                     if (ct != null
-                            && ct.getResult() != null
-                            && !(ct.getResult().getValue()
+                            && !(ct.getValue()
                                  instanceof PtTlsMessageValueSaslMechanisms)) {
 
                         throw new ValidationException(
                                 "Unexpected message received.",
                                 new RuleException(
                                         "Message of type "
-                                                + ct.getResult().getValue()
+                                                + ct.getValue()
                                                         .getClass()
                                                         .getCanonicalName()
                                                 + " was not expected.",
@@ -548,7 +591,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                         IETF_INVALID_MESSAGE.code(),
                                         PtTlsErrorCauseEnum.
                                         MESSAGE_TYPE_UNEXPECTED.id()),
-                                        0, ct.getResult().getHeader());
+                                        0, ct.getHeader());
                     }
 
                 } catch (ValidationException e) {
@@ -570,7 +613,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                 }
             }
 
-            if (((PtTlsMessageValueSaslMechanisms) ct.getResult().getValue())
+            if (((PtTlsMessageValueSaslMechanisms) ct.getValue())
                     .getMechanisms().size() > 0) {
                 throw new ValidationException(
                         "Extra SASL authentication not supported.",
@@ -581,7 +624,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                 IETF_SASL_MECHANISM_ERROR.code(),
                                 PtTlsErrorCauseEnum.
                                 ADDITIONAL_SASL_NOT_SUPPORTED.id()),
-                                0, ct.getResult().getHeader());
+                                0, ct.getHeader());
             }
         }
     }
@@ -661,7 +704,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
      * @throws ValidationException if an error occurred at message parsing
      * @throws ConnectionException if the connection is broken
      */
-    private TransportMessageContainer readFromStream()
+    private TransportMessage readFromStream()
             throws SerializationException, ValidationException,
             ConnectionException {
         if (isOpen()) {
@@ -670,7 +713,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                 ByteBuffer buf = new StreamedReadOnlyByteBuffer(
                         socket.getInputStream());
              
-                TransportMessageContainer ct = this.reader.read(buf, -1);
+                TransportMessage ct = this.reader.read(buf, -1);
                 if(LOGGER.isDebugEnabled()){
                     LOGGER.debug("Message bytes read: " + buf.bytesRead());
                 }
@@ -679,10 +722,9 @@ public abstract class SocketTransportConnection implements TransportConnection {
                 this.rxCounter++;
 
                 if(LOGGER.isDebugEnabled()){
-                    if (ct != null
-                            && ct.getResult() != null){
+                    if (ct != null){
                         LOGGER.debug("Message received: "
-                            + ct.getResult().toString());
+                            + ct.toString());
                     }
                 }
                 
@@ -751,19 +793,19 @@ public abstract class SocketTransportConnection implements TransportConnection {
     private class TransportPhase implements Runnable {
         @Override
         public void run() {
-            TransportMessageContainer ct = null;
+            TransportMessage ct = null;
 
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         ct = readFromStream();
                         
-                        if (ct != null && ct.getResult() != null) {
-                            if (ct.getResult().getValue()
+                        if (ct != null) {
+                            if (ct.getValue()
                                     instanceof PtTlsMessageValuePbBatch) {
 
                                 listener.receive(((PtTlsMessageValuePbBatch)
-                                        ct.getResult().getValue())
+                                        ct.getValue())
                                         .getTnccsData());
 
                             } else {
@@ -772,8 +814,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                         "Unexpected message received.",
                                         new RuleException(
                                                 "Message of type "
-                                                        + ct.getResult()
-                                                             .getValue()
+                                                        + ct.getValue()
                                                              .getClass()
                                                              .getCanonicalName()
                                                         + " was not expected.",
@@ -782,7 +823,7 @@ public abstract class SocketTransportConnection implements TransportConnection {
                                                 .IETF_INVALID_MESSAGE.code(),
                                                 PtTlsErrorCauseEnum
                                                 .MESSAGE_TYPE_UNEXPECTED.id()),
-                                                0, ct.getResult().getHeader());
+                                                0, ct.getHeader());
                             }
                         }
                     } catch (ValidationException e) {

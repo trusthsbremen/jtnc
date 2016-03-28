@@ -42,8 +42,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception
-.StateMachineAccessException;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 
 /**
  * Generic TNC(C/S) session state machine to control the message flow

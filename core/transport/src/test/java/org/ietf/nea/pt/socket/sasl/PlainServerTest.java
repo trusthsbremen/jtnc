@@ -23,7 +23,7 @@ public class PlainServerTest {
     @Before
     public void setUp() throws SaslException{
 
-        this.server = new PlainServer(Dummy.getPlainCallBackHandler(credentials, false),null);
+        this.server = new PlainServer(Dummy.getPlainCallBackHandler(credentials));
     }
     
     @Test

@@ -18,7 +18,7 @@ public final class PlainClient implements SaslClient {
     private static final byte SEP = '\000'; // NUL
     private boolean completed;
     private CallbackHandler callbackHandler;
-    
+    private final String authorizationId;
 
     /**
      * Implements the PLAIN SASL client-side mechanism. (<A
@@ -27,14 +27,16 @@ public final class PlainClient implements SaslClient {
      * @param callbackHandler the callback handler to use. 
      * @throws SaslException if callback handler is null.
      */
-    PlainClient(CallbackHandler callbackHandler) throws SaslException {
+    public PlainClient(String authorizationId, CallbackHandler callbackHandler) throws SaslException {
 
         if (callbackHandler == null) {
             throw new SaslException(
                     "Callback handler to get username/password required.");
         }
 
+        this.authorizationId = authorizationId;
         this.callbackHandler = callbackHandler;
+       
         this.completed = false;
     }
 
@@ -76,22 +78,18 @@ public final class PlainClient implements SaslClient {
         this.completed = true;
         
         if(challengeData != null && challengeData .length > 0){
-            throw new SaslException("PLAIN does not expect a non empty challenge.");
+            throw new SaslException("PLAIN does not expect a non empty challenge.",
+                    new IllegalArgumentException("Challenge cannot be empty."));
         }
 
-        String authorizationId = null;
         String authenticationID = null;
         char[] password = null;
         
         try{
-            NameCallback ncb1 = new NameCallback("PLAIN authorization id: ");
-            
-            this.callbackHandler.handle(new Callback[]{ncb1});
-            authorizationId = ncb1.getName();
-      
-            NameCallback ncb2 = (authorizationId != null && !authorizationId
+
+            NameCallback ncb2 = (this.authorizationId != null && !this.authorizationId
                     .isEmpty()) ? new NameCallback("PLAIN authentication id: ",
-                    authorizationId)
+                    this.authorizationId)
                     : new NameCallback("PLAIN authentication id: ");
             
             
@@ -117,18 +115,18 @@ public final class PlainClient implements SaslClient {
                     + "authentication ID or password is missing.");
         }
 
-        return this.createResponse(authorizationId, authenticationID, password);
+        return this.createResponse(authenticationID, password);
 
     }
 
-    private byte[] createResponse(String authorizationId,
-            String authenticationID, char[] password) throws SaslException {
+    private byte[] createResponse(String authenticationID, 
+            char[] password) throws SaslException {
         
         byte[] authzid = null;
         byte[] authcid = new byte[0];
         
         try {
-            authzid = (authorizationId != null) ? authorizationId
+            authzid = (this.authorizationId != null) ? this.authorizationId
                     .getBytes("UTF8") : null;
 
             authcid = authenticationID.getBytes("UTF8");

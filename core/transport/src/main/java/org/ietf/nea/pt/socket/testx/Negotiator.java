@@ -1,10 +1,10 @@
-package org.ietf.nea.pt.socket;
+package org.ietf.nea.pt.socket.testx;
 
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
-public interface VersionNegotiator {
+public interface Negotiator {
 
     /**
      * Handles the transport protocol version negotiation phase
@@ -15,7 +15,13 @@ public interface VersionNegotiator {
      * @throws ValidationException if an error occurred at message parsing
      * @throws ConnectionException if the connection is broken
      */
-    public abstract void negotiate(AbstractSocketTransportConnection connection) throws SerializationException,
+    void negotiate(TransportMessenger connection) throws SerializationException,
             ValidationException, ConnectionException;
+    
+    /**
+     * Returns the negotiated version number.
+     * @return the negotiated version or 0 if version negotiation is pending or has failed
+     */
+    short getNegotiatedVersion();
 
 }

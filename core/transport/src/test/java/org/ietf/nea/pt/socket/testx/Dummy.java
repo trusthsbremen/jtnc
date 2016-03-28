@@ -1,6 +1,7 @@
-package org.ietf.nea.pt.socket.sasl;
+package org.ietf.nea.pt.socket.testx;
 
 import java.io.IOException;
+import java.util.Queue;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -9,10 +10,82 @@ import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.sasl.AuthorizeCallback;
 
+import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
+import org.ietf.nea.pt.message.PtTlsMessageHeader;
+
+import de.hsbremen.tc.tnc.IETFConstants;
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
+import de.hsbremen.tc.tnc.message.exception.ValidationException;
+import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.transport.AbstractDummy;
+import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class Dummy extends AbstractDummy {
+    
+    public static TransportMessenger createDummyMessenger(final Queue<TransportMessage> src, final Queue<TransportMessage> dest){
 
+        return new TransportMessenger() {
+            
+            private final Queue<TransportMessage> sBuffer = src;
+            private final Queue<TransportMessage> dBuffer = dest;
+            private int id = 0;
+
+
+            @Override
+            public long getIdentifier() {
+                return id = ((id + 1) <= Integer.MAX_VALUE) ? (id + 1) : 0 ;
+            }
+
+            @Override
+            public void writeToStream(TransportMessage message)
+                    throws ConnectionException, SerializationException {
+                System.out.println("Message send to Queue: " + message.toString());
+                this.dBuffer.offer(message);
+                
+            }
+
+            @Override
+            public TransportMessage readFromStream() throws SerializationException,
+                    ValidationException, ConnectionException {
+               
+               TransportMessage m =  this.sBuffer.poll();
+               if(m !=  null){
+                   System.out.println("Message received from Queue: " + m.toString());
+               }
+               return m;
+            }
+
+            @Override
+            public TransportMessage createValidationErrorMessage(
+                    ValidationException exception) throws ValidationException {
+                if (exception.getReasons() != null
+                        || exception.getReasons().size() >= 0) {
+
+                    Object firstReason = exception.getReasons().get(0);
+                    if (firstReason instanceof byte[]) {
+                        return PtTlsMessageFactoryIetf.createError(
+                                this.getIdentifier(), IETFConstants.IETF_PEN_VENDORID,
+                                exception.getCause().getErrorCode(),
+                                (byte[]) firstReason);
+                    }
+
+                    if (firstReason instanceof PtTlsMessageHeader) {
+                        return PtTlsMessageFactoryIetf.createError(
+                                this.getIdentifier(), IETFConstants.IETF_PEN_VENDORID,
+                                exception.getCause().getErrorCode(),
+                                (PtTlsMessageHeader) firstReason);
+                    }
+
+                }
+
+                return PtTlsMessageFactoryIetf.createError(this.getIdentifier(),
+                        IETFConstants.IETF_PEN_VENDORID,
+                        exception.getCause().getErrorCode(),
+                        new byte[0]);
+            }
+        };
+    }
+    
     public static final String[] getJoeCredentials(){
         return new String[]{"Joe", "Test1234"};
     }
@@ -21,57 +94,10 @@ public class Dummy extends AbstractDummy {
         return new String[]{"Molly", "1234Test"};
     }
     
-    public static final byte[] getResponse(String[] credentials){
-        
-        
-        final byte SEP = '\000'; // NUL
-        String authorizationId = null;
-        
-        byte[] authzid = null;
-        byte[] authcid = new byte[0];
-        byte[] password = new byte[0];
-        
-        try {
-            authzid = (authorizationId != null) ? authorizationId
-                    .getBytes("UTF8") : null;
-
-            authcid = (credentials[0] != null) ? credentials[0].getBytes("UTF8") : null;
-            
-            password = (credentials[1] != null) ? credentials[1].getBytes("UTF8") : null;
-            
-        } catch (java.io.UnsupportedEncodingException e) {
-            
-            throw new IllegalStateException("PLAIN no UTF-8 encoding", e);
-        }
-
-        
-        byte[] response = new byte[((password == null) ? 0 : password.length + 1) + ((authcid == null) ? 0 : authcid.length + 1)
-                + (authzid == null ? 0 : authzid.length)];
-
-        int pos = 0;
-//        DEAD CODE in this Test
-//        if (authzid != null) {
-//            System.arraycopy(authzid, 0, response, 0, authzid.length);
-//            pos = authzid.length;
-//        }
-        
-        if(authcid != null){
-            response[pos++] = SEP;
-            System.arraycopy(authcid, 0, response, pos, authcid.length);
-            pos += authcid.length;
-        }
-        
-        if(password != null){
-            response[pos++] = SEP;
-            System.arraycopy(password, 0, response, pos, password.length);
-        }
-
-        return response;
-    }
-    
     public static final CallbackHandler getPlainCallBackHandler(final String[] credentials){
         return new CallbackHandler() {
 
+            
             private final String[] creds = credentials;
             
             @Override
@@ -88,6 +114,7 @@ public class Dummy extends AbstractDummy {
                                 .getClass().getSimpleName(),
                                 ((NameCallback) callback).getPrompt()));
                         ((NameCallback) callback).setName(creds[0]);
+
                     }
 
                     if (callback instanceof PasswordCallback) {

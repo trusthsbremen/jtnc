@@ -46,8 +46,10 @@ import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
 import org.ietf.nea.pa.attribute.PaAttributeValueError;
 import org.ietf.nea.pa.attribute.PaAttributeValueTesting;
 import org.ietf.nea.pa.attribute.enums.PaAttributeAssessmentResultEnum;
+import org.ietf.nea.pa.attribute.enums.PaAttributeErrorCodeEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTypeEnum;
 import org.ietf.nea.pa.attribute.util.AttributeReferenceEntry;
+import org.ietf.nea.pa.attribute.util.PaAttributeValueErrorInformationInvalidParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -227,9 +229,25 @@ public class FileImvEvaluationUnit extends AbstractImEvaluationUnitIetf
      */
     private void handleError(final PaAttributeValueError value,
             final ImSessionContext context) {
-        // TODO better error handling
-        LOGGER.error("IMC has send an error: "
-                + value.getErrorInformation().toString());
+        // TODO implement error handling
+        StringBuilder b = new StringBuilder();
+        b.append("An error was received: \n")
+                .append("Error with vendor ID ")
+                .append(value.getErrorVendorId())
+                .append(" and type ")
+                .append(PaAttributeErrorCodeEnum.fromCode(
+                        value.getErrorCode()))
+                .append(".\n")
+                .append("Error was found in message ")
+                .append(value.getErrorInformation().getMessageHeader()
+                        .toString());
+
+        if (value.getErrorInformation() instanceof
+                PaAttributeValueErrorInformationInvalidParam) {
+            b.append(" at offset ").append(
+                    ((PaAttributeValueErrorInformationInvalidParam) value
+                            .getErrorInformation()).getOffset());
+        }
 
     }
 

@@ -83,7 +83,7 @@ public enum DefaultTncConnectionStateEnum implements TncConnectionState {
     TNC_CONNECTION_STATE_DELETE(5L),
 
     /**
-     * Not information about network connection available. Only internally used,
+     * No information about network connection available. Only internally used,
      * if TNCC does not support information about the network connection.
      * This value is specified by this implementation and not a known state.
      */

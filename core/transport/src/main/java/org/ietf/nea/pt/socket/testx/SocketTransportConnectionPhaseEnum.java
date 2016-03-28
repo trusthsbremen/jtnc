@@ -34,50 +34,43 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.ietf.nea.pt.message;
+package org.ietf.nea.pt.socket.testx;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
+import de.hsbremen.tc.tnc.transport.TransportConnectionPhase;
 
 /**
- * Default helper object to pass on a transport message and minor
- * validation errors after parsing for further processing.
+ * Enumeration of known connection states.
  *
  *
  */
-public class DefaultTransportMessageContainer implements
-        TransportMessageContainer {
-
-    private final TransportMessage message;
-    private final List<ValidationException> exceptions;
+public enum SocketTransportConnectionPhaseEnum implements TransportConnectionPhase {
 
     /**
-     * Creates the helper with the given message and minor errors.
-     *
-     * @param message the integrity measurement component message
-     * @param exceptions the minor validation errors
+     * Network connection created.
      */
-    public DefaultTransportMessageContainer(final TransportMessage message,
-            final List<ValidationException> exceptions) {
 
-        this.message = message;
-        this.exceptions = ((exceptions != null) ? exceptions
-                : new ArrayList<ValidationException>(0));
+    TRSPT_CONNECTION_PHASE_PENDING(0L),
+    
+    TRSPT_CONNECTION_PHASE_NEGOTIATE_VERSION(1L),
+    
+    TRSPT_CONNECTION_PHASE_AUTHENTICATE(2L),
+    
+    TRSPT_CONNECTION_PHASE_TRANSPORT(3L);
+
+
+    private long id;
+
+    /**
+     * Creates a connection state enumeration value with ID.
+     * @param id the state ID
+     */
+    private SocketTransportConnectionPhaseEnum(final long id) {
+        this.id = id;
     }
 
     @Override
-    public List<ValidationException> getExceptions() {
-        return Collections.unmodifiableList(this.exceptions);
-    }
-
-    @Override
-    public TransportMessage getResult() {
-        return this.message;
+    public long id() {
+        return this.id;
     }
 
 }

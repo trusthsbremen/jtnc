@@ -38,11 +38,8 @@ package org.ietf.nea.pt.serialize.reader.bytebuffer;
 
 import java.nio.BufferUnderflowException;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import org.ietf.nea.pt.message.DefaultTransportMessageContainer;
 import org.ietf.nea.pt.message.PtTlsMessage;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
 import org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum;
@@ -55,7 +52,7 @@ import de.hsbremen.tc.tnc.message.Combined;
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
+import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
@@ -70,7 +67,7 @@ import de.hsbremen.tc.tnc.util.NotNull;
  *
  *
  */
-public class PtTlsReader implements TransportReader<TransportMessageContainer>,
+public class PtTlsReader implements TransportReader<TransportMessage>,
         Combined<TransportReader<PtTlsMessageValue>> {
 
     private final TransportReader<PtTlsMessageHeader> mHeadReader;
@@ -106,7 +103,7 @@ public class PtTlsReader implements TransportReader<TransportMessageContainer>,
     }
 
     @Override
-    public TransportMessageContainer read(final ByteBuffer buffer,
+    public TransportMessage read(final ByteBuffer buffer,
             final long length) throws SerializationException,
             ValidationException {
 
@@ -115,8 +112,6 @@ public class PtTlsReader implements TransportReader<TransportMessageContainer>,
         if (!buffer.isReadable()) {
             throw new IllegalArgumentException("Buffer must be readable.");
         }
-
-        List<ValidationException> minorExceptions = new LinkedList<>();
 
         /* Message header */
         PtTlsMessageHeader mHead = null;
@@ -227,7 +222,7 @@ public class PtTlsReader implements TransportReader<TransportMessageContainer>,
 
         PtTlsMessage m = new PtTlsMessage(mHead, mValue);
 
-        return new DefaultTransportMessageContainer(m, minorExceptions);
+        return m;
 
     }
 

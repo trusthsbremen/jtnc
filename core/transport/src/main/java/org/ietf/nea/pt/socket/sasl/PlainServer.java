@@ -24,11 +24,8 @@ public class PlainServer implements SaslServer{
     private boolean completed;
     private CallbackHandler callbackHandler;
     private String authorizationId;
-    
-    
-    
-    public PlainServer(CallbackHandler callbackHandler,
-            String authorizationId) throws SaslException{
+
+    public PlainServer(CallbackHandler callbackHandler) throws SaslException{
         if (callbackHandler == null) {
             throw new SaslException(
                     "Callback handler to get username/password required.");
@@ -36,7 +33,6 @@ public class PlainServer implements SaslServer{
 
         this.callbackHandler = callbackHandler;
         this.completed = false;
-        this.authorizationId = authorizationId;
     }
 
     @Override
@@ -61,6 +57,7 @@ public class PlainServer implements SaslServer{
         String authzid;
         String authcid;
         char[] password;
+        
         if (tokens.size() > 2) {
             authzid = new String(tokens.get(0), Charset.forName("UTF8"));
             authcid = new String(tokens.get(1), Charset.forName("UTF8"));
@@ -105,6 +102,11 @@ public class PlainServer implements SaslServer{
 
     @Override
     public String getAuthorizationID() {
+        if(!this.completed){
+            throw new IllegalStateException(
+                    "PLAIN authentication not completed.");
+        }
+        
         return this.authorizationId;
     }
 
@@ -164,14 +166,17 @@ public class PlainServer implements SaslServer{
 
     private void checkResponse(byte[] response) throws SaslException {
         if (response == null || response.length <= 0) {
-            throw new SaslException("PLAIN response cannot be empty.");
+            throw new SaslException("PLAIN response cannot be empty.",
+                    new IllegalArgumentException("Response cannot be empty."));
         }else{
         
             if (response.length >= MAX_MESSAGE_LENGTH) {
                 throw new SaslException(
-                        "PLAIN Message to long. This implementation"
+                        "PLAIN Message to long.",
+                        new IllegalArgumentException("Message to long."
+                                + " This implementation"
                                 + " does support a maximum length of "
-                                + MAX_MESSAGE_LENGTH + " byte.");
+                                + MAX_MESSAGE_LENGTH + " byte."));
             }
             
             {
@@ -187,7 +192,8 @@ public class PlainServer implements SaslServer{
                 }
                 if(separatorCount < 2 || separatorCount > 2){
                     throw new SaslException(
-                            "PLAIN Message format is invalid.");
+                            "PLAIN Message format is invalid.",
+                            new IllegalArgumentException("Message separator count does not fit."));
                 }
             }
         }
@@ -263,6 +269,10 @@ public class PlainServer implements SaslServer{
             }
 
         } catch (IOException e) {
+            // SaslException is of type IOException!
+            if(e instanceof SaslException){
+                throw (SaslException)e;
+            }
             clearPassword(password);
             throw new SaslException("Cannot get credential information", e);
         } catch (UnsupportedCallbackException e) {

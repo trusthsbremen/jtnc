@@ -11,4 +11,4 @@ Functionality:
 - - Proper not null check for arguments in all writer/reader classes.
 - - Check if factory constructors do proper if null checking
 - - Check if builders do proper null checking
-
+- Implement StringPrep protocol with SaslPrep version for Sasl PLAIN/EXTERNAL Methods

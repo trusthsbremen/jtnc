@@ -1,11 +1,8 @@
 /**
  * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
  *
- * Copyright © 2015 Trust HS Bremen and its Contributors. All rights   
- * reserved.
- *
- * See the CONTRIBUTORS file distributed with this work for additional
- * information regarding copyright ownership.
+ * Copyright (c) 2015, Carl-Heinz Genzel
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -34,37 +31,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.transport;
-
 /**
- * Generic TransportConnectionBuilder to create a TransportConnection with an
- * underlying transport object (e.g. Socket).
  *
- *
- * @param <T> the type of the underlying transport object
  */
-public interface TransportConnectionBuilder<T extends Object> {
-
-    /**
-     * Creates a TransportConnection with the given parameters and a defined ID.
-     *
-     * @param id the definied ID.
-     * @param selfInitiated the parameter, which identifies, if the connection
-     * was initiated by this side
-     * @param underlying the underlying transport object (e.g. Socket)
-     * @return the TransportConnection
-     */
-    TransportConnection toConnection(String id, boolean selfInitiated,
-            T underlying);
-
-    /**
-     * Creates a TransportConnection with the given parameters and a generated
-     * ID.
-     *
-     * @param selfInitiated the parameter, which identifies, if the connection
-     * was initiated by this side
-     * @param underlying the underlying transport object (e.g. Socket)
-     * @return the TransportConnection
-     */
-    TransportConnection toConnection(boolean selfInitiated, T underlying);
-}
+package org.ietf.nea.pt.socket.testx.simple;

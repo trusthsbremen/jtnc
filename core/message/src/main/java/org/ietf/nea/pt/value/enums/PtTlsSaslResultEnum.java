@@ -91,7 +91,7 @@ public enum PtTlsSaslResultEnum {
      * @param id the result ID
      * @return a result or null
      */
-    public static PtTlsSaslResultEnum fromId(final long id) {
+    public static PtTlsSaslResultEnum fromId(final int id) {
 
         if (id == SUCCESS.id) {
             return SUCCESS;
