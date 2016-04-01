@@ -35,6 +35,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /**
- * IETF socket transport connection implementation.
+ * IETF socket transport connection enum constants.
  */
-package org.ietf.nea.pt.socket.simple;
+package org.ietf.nea.pt.socket.enums;

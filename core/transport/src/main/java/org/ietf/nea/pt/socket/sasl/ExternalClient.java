@@ -1,14 +1,48 @@
+/**
+ * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
+ *
+ * Copyright © 2015 Trust HS Bremen and its Contributors. All rights   
+ * reserved.
+ *
+ * See the CONTRIBUTORS file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.ietf.nea.pt.socket.sasl;
 
 import javax.security.sasl.SaslClient;
 import javax.security.sasl.SaslException;
 
 /**
- * Implements the EXTERNAL SASL client mechanism. (<A
- * HREF="http://www.ietf.org/rfc/rfc2222.txt">RFC 2222</A>). The EXTERNAL
- * mechanism returns the optional authorization ID as the initial response. It
- * processes no challenges.
- * 
+ * Implements the EXTERNAL SASL client-side mechanism. (<A
+ * HREF="http://www.ietf.org/rfc/rfc2222.txt">RFC 2222</A>).
+ * It processes no callback.
  */
 public class ExternalClient implements SaslClient {
 
@@ -18,50 +52,43 @@ public class ExternalClient implements SaslClient {
     private final String authorizationId;
 
     /**
+     * Constructs an External mechanism without authorization ID.
+     * 
+     */
+    public ExternalClient() {
+        this(null);
+    }
+    
+    /**
      * Constructs an External mechanism with optional authorization ID.
      * 
-     * @param authorizationID If non-null, used to specify authorization ID.
-     * @throws SaslException if cannot convert authorizationID into UTF-8
-     * representation.
+     * @param authorizationId If non-null, used to specify authorization ID
      */
-    public ExternalClient(String authorizationId) throws SaslException {
+    public ExternalClient(final String authorizationId) {
         
         this.authorizationId = authorizationId;
         this.completed = false;
     }
 
-    /**
-     * Retrieves this mechanism's name for initiating the "EXTERNAL" protocol
-     * exchange.
-     * 
-     * @return The string "EXTERNAL".
-     */
+    @Override
     public String getMechanismName() {
         return MECH_NAME;
     }
 
-    /**
-     * This mechanism has an initial response.
-     */
+    @Override
     public boolean hasInitialResponse() {
+        // this mechanism as an initial response
         return true;
     }
 
+    @Override
     public void dispose() throws SaslException {
         // Do nothing.
     }
 
-    /**
-     * Processes the challenge data. It returns the EXTERNAL mechanism's initial
-     * response, which is the authorization id encoded in UTF-8. This is the
-     * optional information that is sent along with the SASL command. After this
-     * method is called, isComplete() returns true.
-     * 
-     * @param challengeData Ignored.
-     * @return The possible empty initial response.
-     * @throws SaslException If authentication has already been called.
-     */
-    public byte[] evaluateChallenge(byte[] challengeData) throws SaslException {
+    @Override
+    public byte[] evaluateChallenge(final byte[] challengeData)
+            throws SaslException {
         if (completed) {
             throw new IllegalStateException(
                     "EXTERNAL authentication already completed");
@@ -73,30 +100,22 @@ public class ExternalClient implements SaslClient {
 
         try {
             authzid = (this.authorizationId != null) ? this.authorizationId
-                    .getBytes("UTF8") : null;
+                    .getBytes("UTF8") : new byte[0];
         } catch (java.io.UnsupportedEncodingException e) {
             throw new SaslException("PLAIN no UTF-8 encoding", e);
         }
 
-        return (authzid != null) ? authzid : new byte[0];
+        return authzid;
     }
 
-    /**
-     * Returns whether this mechanism is complete.
-     * 
-     * @return true if initial response has been sent; false otherwise.
-     */
+    @Override
     public boolean isComplete() {
         return completed;
     }
 
-    /**
-     * Unwraps the incoming buffer.
-     * 
-     * @throws SaslException Not applicable to this mechanism.
-     */
-    public byte[] unwrap(byte[] incoming, int offset, int len)
-            throws SaslException {
+    @Override
+    public byte[] unwrap(final byte[] incoming, final int offset,
+            final int len) throws SaslException {
         if (completed) {
             throw new SaslException(
                     "EXTERNAL supports neither integrity nor privacy.");
@@ -106,12 +125,8 @@ public class ExternalClient implements SaslClient {
         }
     }
 
-    /**
-     * Wraps the outgoing buffer.
-     * 
-     * @throws SaslException Not applicable to this mechanism.
-     */
-    public byte[] wrap(byte[] outgoing, int offset, int len)
+    @Override
+    public byte[] wrap(final byte[] outgoing, final int offset, final int len)
             throws SaslException {
         if (completed) {
             throw new SaslException(
@@ -122,17 +137,8 @@ public class ExternalClient implements SaslClient {
         }
     }
 
-    /**
-     * Retrieves the negotiated property. This method can be called only after
-     * the authentication exchange has completed (i.e., when
-     * <tt>isComplete()</tt> returns true); otherwise, a
-     * <tt>IllegalStateException</tt> is thrown.
-     * 
-     * @return null No property is applicable to this mechanism.
-     * @exception IllegalStateException if this authentication exchange has not
-     * completed
-     */
-    public Object getNegotiatedProperty(String propName) {
+    @Override
+    public Object getNegotiatedProperty(final String propName) {
         if (completed) {
             return null;
         } else {

@@ -37,16 +37,16 @@
 package de.hsbremen.tc.tnc.transport;
 
 /**
- * Extensible enumeration for connection states.
+ * Extensible enumeration for transport connection phases.
  *
  *
  */
 public interface TransportConnectionPhase {
 
     /**
-     * Returns the state ID.
+     * Returns the phase ID.
      *
-     * @return the state ID
+     * @return the phase ID
      */
     long id();
 

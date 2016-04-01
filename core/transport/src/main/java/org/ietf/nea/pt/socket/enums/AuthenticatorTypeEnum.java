@@ -34,7 +34,23 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.ietf.nea.pt.socket.enums;
+
 /**
- * IETF socket transport connection implementation.
+ * Enumeration of authenticator types based on roles
+ * in the authentication phase.
+ * 
  */
-package org.ietf.nea.pt.socket.simple;
+public enum AuthenticatorTypeEnum {
+
+    /**
+     * Authentication server type.
+     */
+    AUTH_SERVER,
+    
+    /**
+     * Authentication client type.
+     */
+    AUTH_CLIENT;
+
+}

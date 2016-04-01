@@ -63,12 +63,13 @@ import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 /**
- * Transport connection with an underlying Socket.
- *
+ * Wrapper to encapsulate a socket and mask its functions
+ * for the transmission and receipt of TNC messages thru the
+ * contained socket and for the management of the contained socket.
  */
-public class DefaultTransportWrapper implements TransportMessenger, SocketHandler {
+public class DefaultSocketWrapper implements TransportMessenger, SocketHandler {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DefaultTransportWrapper.class);
+            .getLogger(DefaultSocketWrapper.class);
 
     private static final int DEFAULT_CHUNK_SIZE = 8192;
 
@@ -88,25 +89,24 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
     private long txCounter;
 
     /**
-     * Creates a SocketTransportConnection with corresponding transport
-     * attributes and serializer.
+     * Creates a wrapper around the given socket using the provided attributes.
      *
-     * @param selfInitiated true if connection was initiated
-     * by this side and false if not
-     * @param server true if this is the server and false if not
-     * @param socket the underlying socket
-     * @param attributes the transport connection attributes
-     * @param writer the protocol reader
-     * @param reader the protocol writer
-     * @param runner the connection thread executor
-     * @throws ConnectionException if socket is not accessible
+     * @param maxMessageLength the maximum supported message length of
+     * the transport connection
+     * @param socket the socket to wrap
+     * @param writer the writer to encode a transport message
+     * as byte stream for transmission
+     * @param reader the reader to decode a byte stream
+     * into a transport message after reception
      */
-    public DefaultTransportWrapper(final long maxMessageLength, final Socket socket,
+    public DefaultSocketWrapper(final long maxMessageLength,
+            final Socket socket,
             final TransportWriter<TransportMessage> writer,
-            final TransportReader<TransportMessage> reader){
+            final TransportReader<TransportMessage> reader) {
         
-        this.maxMessageLength = this.maxMessageLength >= 0 ? maxMessageLength :
-            HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN;
+        this.maxMessageLength = this.maxMessageLength >= 0 ? maxMessageLength
+                : HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN;
+
         this.socket = socket;
         this.reader = reader;
         this.writer = writer;
@@ -114,9 +114,6 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
     }
 
 
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.SocketHandler#isOpen()
-     */
     @Override
     public boolean isOpen() {
         if (socket != null && this.in != null && this.out != null) {
@@ -128,24 +125,18 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
         return false;
     }
 
-
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.SocketHandler#initialize()
-     */
     @Override
-    public void initialize() throws ConnectionException{
-        try{
+    public void initialize() throws ConnectionException {
+        try {
             this.in = new BufferedInputStream(socket.getInputStream());
             this.out = new BufferedOutputStream(socket.getOutputStream());
         } catch (IOException e) {
-            throw new ConnectionException("Socket stream is not accessible.", e);
+            throw new ConnectionException(
+                    "Socket stream is not accessible.", e);
         }
         
     }
-    
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.SocketHandler#close()
-     */
+
     @Override
     public void close() {
         try {
@@ -167,9 +158,6 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#getIdentifier()
-     */
     @Override
     public long getIdentifier() {
         if (this.messageIdentifier
@@ -181,31 +169,23 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.SocketHandler#getRxCounter()
-     */
     @Override
-    public long getRxCounter(){
-       return this.rxCounter;
+    public long getRxCounter() {
+        return this.rxCounter;
     }
     
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.SocketHandler#getTxCounter()
-     */
     @Override
-    public long getTxCounter(){
+    public long getTxCounter() {
         return this.txCounter;
     }
      
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.SocketHandler#resetCounters()
-     */
     @Override
-    public void resetCounters(){
+    public void resetCounters() {
 
         // reset rx/tx counter to measure only the integrity transports
         long roundTrips = Math.max(this.rxCounter, this.txCounter);
-        LOGGER.debug("Counters will be reset, current counts ( Messages received:"
+        LOGGER.debug(
+                "Counters will be reset, current counts ( Messages received:"
                 + rxCounter + ", Messages send:" + txCounter + ", Rounds:"
                 + roundTrips + ")");
         this.rxCounter = 0;
@@ -213,9 +193,6 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
 
     }
 
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#writeToStream(de.hsbremen.tc.tnc.message.t.message.TransportMessage)
-     */
     @Override
     public void writeToStream(final TransportMessage message)
             throws ConnectionException, SerializationException {
@@ -242,15 +219,16 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
                         }
                     }
                     
-                    if(LOGGER.isDebugEnabled()){
-                        LOGGER.debug("Message bytes written: " + buf.bytesRead());
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("Message bytes written: "
+                                + buf.bytesRead());
                     }
                     
                     this.out.flush();
                     this.txCounter++;
                     
-                    if(LOGGER.isDebugEnabled()){
-                        if (message != null){
+                    if (LOGGER.isDebugEnabled()) {
+                        if (message != null) {
                             
                             LOGGER.debug("Message send: "
                                 + message.toString());
@@ -272,9 +250,6 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
 
     }
 
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#readFromStream()
-     */
     @Override
     public TransportMessage readFromStream()
             throws SerializationException, ValidationException,
@@ -286,15 +261,15 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
                         socket.getInputStream());
              
                 TransportMessage message = this.reader.read(buf, -1);
-                if(LOGGER.isDebugEnabled()){
+                if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("Message bytes read: " + buf.bytesRead());
                 }
                 buf.clear();
 
                 this.rxCounter++;
 
-                if(LOGGER.isDebugEnabled()){
-                    if (message != null){
+                if (LOGGER.isDebugEnabled()) {
+                    if (message != null) {
                         LOGGER.debug("Message received: "
                             + message.toString());
                     }
@@ -312,8 +287,8 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
     }
 
     /**
-     * Checks the message length according to the maximum
-     * full message length attribute.
+     * Checks the message length according to the {@link #maxMessageLength}
+     * class member.
      *
      * @param length the length of the current message
      * @throws SerializationException if message is to large
@@ -333,10 +308,7 @@ public class DefaultTransportWrapper implements TransportMessenger, SocketHandle
             }
         }
     }
-    
-    /* (non-Javadoc)
-     * @see org.ietf.nea.pt.socket.testx.TransportMessenger#createValidationErrorMessage(de.hsbremen.tc.tnc.message.exception.ValidationException)
-     */
+
     @Override
     public TransportMessage createValidationErrorMessage(
             final ValidationException exception) throws ValidationException {

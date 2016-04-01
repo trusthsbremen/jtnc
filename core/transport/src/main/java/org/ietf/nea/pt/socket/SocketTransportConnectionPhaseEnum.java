@@ -39,30 +39,38 @@ package org.ietf.nea.pt.socket;
 import de.hsbremen.tc.tnc.transport.TransportConnectionPhase;
 
 /**
- * Enumeration of known connection states.
- *
+ * Enumeration of known transport connection phases.
  *
  */
-public enum SocketTransportConnectionPhaseEnum implements TransportConnectionPhase {
+public enum SocketTransportConnectionPhaseEnum implements
+    TransportConnectionPhase {
 
     /**
-     * Network connection created.
+     * Transport connection initiated but not bootstrapped.
      */
-
     TRSPT_CONNECTION_PHASE_PENDING(0L),
     
+    /**
+     * Transport connection version negotiation started.
+     */
     TRSPT_CONNECTION_PHASE_NEGOTIATE_VERSION(1L),
     
+    /**
+     * Transport connection authentication started.
+     */
     TRSPT_CONNECTION_PHASE_AUTHENTICATE(2L),
     
+    /**
+     * Transport connection transport ready.
+     */
     TRSPT_CONNECTION_PHASE_TRANSPORT(3L);
 
 
     private long id;
 
     /**
-     * Creates a connection state enumeration value with ID.
-     * @param id the state ID
+     * Creates a connection phase enumeration value with ID.
+     * @param id the phase ID
      */
     private SocketTransportConnectionPhaseEnum(final long id) {
         this.id = id;

@@ -56,11 +56,15 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.TransportConnectionBuilder;
 import de.hsbremen.tc.tnc.util.NotNull;
 
+//TODO change to add authenticator and negotiator
 /**
  * Builder to create a TransportConnection based on an underlying socket.
- *
+ * 
+ * @param <T> the SaslMechanismSelection type, that is used by the builder
+ * according to which connection type is build (NAA (server) or NAR (client))
  */
-public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSelection> implements
+public class DefaultSocketTransportConnectionBuilder
+    <T extends SaslMechanismSelection> implements
         TransportConnectionBuilder<Socket> {
 
     private static final int DEFAULT_IM_COUNT = 10;
@@ -84,6 +88,8 @@ public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSele
      * Creates a builder for a TransportConnection object using the specified
      * reader and writer for serialization.
      *
+     * @param server the flag to determin if the build creates
+     * connections for an NAA or NAR
      * @param tProtocol the transport protocol identifier
      * @param writer the transport protocol serializer
      * @param reader the transport protocol parser
@@ -106,15 +112,17 @@ public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSele
 
         this.memoryBoarder = Runtime.getRuntime().totalMemory();
 
-        this.messageLength = (memoryBoarder / 2);
-        this.imMessageLength = (memoryBoarder / DEFAULT_IM_COUNT);
+        this.messageLength = memoryBoarder / 2;
+        this.imMessageLength = memoryBoarder / DEFAULT_IM_COUNT;
         this.maxRoundTrips = HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN;
         
         this.mechanismSelection = null;
     }
 
     /**
-     * @return the server
+     * Returns whether the builder is building connections for an NAA or NAR.
+     *
+     * @return the connection type to build (true = NAA, false = NAR)
      */
     public boolean isServerConnectionBuilder() {
         return this.server;
@@ -178,20 +186,20 @@ public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSele
     /**
      * Sets the maximum full message length.
      *
-     * @param messageLength the maximum message length
+     * @param maxMessageLength the maximum message length
      * @throws IllegalArgumentException if message length <= 0
      * or length > available heap space
      * @return the SocketTransportConnectionBuilder for fluent use
      */
     public DefaultSocketTransportConnectionBuilder<T> setMessageLength(
-            final long messageLength) {
-        if (messageLength <= 0 || messageLength > this.memoryBoarder) {
+            final long maxMessageLength) {
+        if (maxMessageLength <= 0 || maxMessageLength > this.memoryBoarder) {
             throw new IllegalArgumentException(
                     "Message length is not acceptable, "
                             + "it must be between 1 and " + this.memoryBoarder
                             + " bytes.");
         }
-        this.messageLength = messageLength;
+        this.messageLength = maxMessageLength;
 
         return this;
     }
@@ -199,20 +207,23 @@ public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSele
     /**
      * Sets the maximum IF-M message length.
      *
-     * @param imMessageLength the maximum IF-M message length
+     * @param maxImMessageLength the maximum IF-M message length
      * @throws IllegalArgumentException if message length <= 0
      * or length > available heap space
      * @return the SocketTransportConnectionBuilder for fluent use
      */
     public DefaultSocketTransportConnectionBuilder<T> setImMessageLength(
-            final long imMessageLength) {
-        if (imMessageLength <= 0 || imMessageLength > this.memoryBoarder) {
+            final long maxImMessageLength) {
+        if (maxImMessageLength <= 0
+                || maxImMessageLength > this.memoryBoarder) {
+
             throw new IllegalArgumentException(
                     "Message length is not acceptable, "
                             + "it must be between 1 and " + this.memoryBoarder
                             + " bytes.");
         }
-        this.imMessageLength = imMessageLength;
+
+        this.imMessageLength = maxImMessageLength;
 
         return this;
     }
@@ -220,46 +231,51 @@ public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSele
     /**
      * Sets the maximum round trips.
      *
-     * @param maxRoundTrips the maximum round trips
+     * @param maxRounds the maximum round trips
      * @throws IllegalArgumentException if maximum round trips <= 0
      * @return the SocketTransportConnectionBuilder for fluent use
      */
     public DefaultSocketTransportConnectionBuilder<T> setMaxRoundTrips(
-            final long maxRoundTrips) {
-        if (maxRoundTrips <= 0) {
+            final long maxRounds) {
+
+        if (maxRounds <= 0) {
             throw new IllegalArgumentException("Round trips cannot be null.");
         }
-        this.maxRoundTrips = maxRoundTrips;
+        this.maxRoundTrips = maxRounds;
 
         return this;
     }
-
+    
     /**
      * Adds SASL authentication mechanisms for the next connection to be build.
-     * All added SASL authentication mechanisms must not be completed or the connection
-     * establishment will fail at a later point!
-     * Therefore new SASL mechanisms must be added for every connection that is build with
-     * this builder, if an authentication is needed.
+     * All added SASL authentication mechanisms must not be completed or
+     * the connection establishment will fail at a later point!
+     * Therefore new SASL mechanisms must be added for every connection
+     * that is build with this builder, if an authentication is needed.
      * 
-     * @param mechanismSelection the SASL mechanisms to use for the next connection
+     * @param mechanisms the SASL mechanisms to use for
+     * the next connection
      * @throws IllegalArgumentException if mechanism selection does not match
      * the connection type (server or client)
      * @return the SocketTransportConnectionBuilder for fluent use
      */
-    public DefaultSocketTransportConnectionBuilder<T> addAuthenticationMechanisms(T mechanismSelection){
+    public DefaultSocketTransportConnectionBuilder<T>
+        addAuthenticationMechanisms(T mechanisms) {
 
-        if(mechanismSelection == null
-                || (this.server && mechanismSelection instanceof SaslServerMechansims)
-                || (!this.server && mechanismSelection instanceof SaslClientMechansims)){
+        if (mechanisms == null
+                || (this.server && mechanisms instanceof SaslServerMechansims)
+                || (!this.server && mechanisms instanceof SaslClientMechansims))
+        {
             
-            this.mechanismSelection = mechanismSelection;
+            this.mechanismSelection = mechanisms;
             
-        }else{
+        } else {
             StringBuilder sb = new StringBuilder();
             sb.append("Type of mechanism selection not expected. ");
-            if(this.server){
+
+            if (this.server) {
                 sb.append("Builder is configured to build server connections.");
-            }else{
+            } else {
                 sb.append("Builder is configured to build client connections.");
             }
             
@@ -282,23 +298,25 @@ public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSele
                 id, this.tProtocol, this.messageLength,
                 this.imMessageLength, this.maxRoundTrips);
         
-        DefaultTransportWrapper socketWrapper = new DefaultTransportWrapper(
+        DefaultSocketWrapper socketWrapper = new DefaultSocketWrapper(
                 this.messageLength, socket, writer, reader);
 
         Negotiator negotiator = null;
-        if(selfInitiated){
-            negotiator = new DefaultNegotiationInitiator((short)1, (short)1, (short)1);
-        }else{
-            negotiator = new DefaultNegotiationResponder((short)1, (short)1, (short)1);
+        if (selfInitiated) {
+            negotiator = new DefaultNegotiationInitiator(
+                    (short) 1, (short) 1, (short) 1);
+        } else {
+            negotiator = new DefaultNegotiationResponder(
+                    (short) 1, (short) 1, (short) 1);
         }
         
         Authenticator authenticator = null;
-        if(this.server){
+        if (this.server) {
             authenticator  = new DefaultAuthenticationServer(
-                    (SaslServerMechansims)this.mechanismSelection);
-        }else{
+                    (SaslServerMechansims) this.mechanismSelection);
+        } else {
             authenticator  = new DefaultAuthenticationClient(
-                    (SaslClientMechansims)this.mechanismSelection);
+                    (SaslClientMechansims) this.mechanismSelection);
         }
         
         //remove side effects;
@@ -306,9 +324,10 @@ public class DefaultSocketTransportConnectionBuilder<T extends SaslMechanismSele
         
         Receiver receiver = new DefaultBatchReceiver();
         
-        DefaultSocketTransportConnection t = new DefaultSocketTransportConnection(
-                selfInitiated,attributes, socketWrapper, negotiator, authenticator,
-                receiver, Executors.newSingleThreadExecutor());
+        DefaultSocketTransportConnection t =
+                new DefaultSocketTransportConnection(
+                selfInitiated, attributes, socketWrapper, negotiator,
+                authenticator, receiver, Executors.newSingleThreadExecutor());
 
         return t;
     }

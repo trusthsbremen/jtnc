@@ -34,30 +34,22 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.transport;
-
-import java.util.List;
+package org.ietf.nea.pt.socket.enums;
 
 /**
- * Generic connection state factory.
- *
- *
+ * Enumeration of negotiator types based on roles
+ * in the negotiation phase.
+ * 
  */
-public interface TransportConnectionPhaseFactory {
+public enum NegotiatorTypeEnum {
 
     /**
-     * Creates a connection state from state ID.
-     *
-     * @param id the state ID
-     * @return the connection state with the given state value or null
+     * Initiator of the connection and version negotiation initiator.
      */
-    TransportConnectionPhase fromId(final long id);
-
+    NEG_INITIATOR,
+    
     /**
-     * Creates a list with all known connection states.
-     *
-     * @return the list of attribute types, list may be empty
+     * Version negotiation responder.
      */
-    List<TransportConnectionPhase> getAllPhases();
-
+    NEG_RESPONDER;
 }

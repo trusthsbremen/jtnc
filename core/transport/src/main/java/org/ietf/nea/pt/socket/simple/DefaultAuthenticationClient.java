@@ -11,6 +11,7 @@ import javax.security.sasl.SaslException;
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.socket.Authenticator;
 import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.enums.AuthenticatorTypeEnum;
 import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValueError;
@@ -29,14 +30,36 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
+/**
+ * Default authentication implementation for a NAR.
+ * This implementation uses SASL for the authentication.
+ */
 public class DefaultAuthenticationClient implements Authenticator {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultAuthenticationClient.class);
+
+    private static final AuthenticatorTypeEnum TYPE =
+            AuthenticatorTypeEnum.AUTH_CLIENT;
     
     private final SaslClientMechansims mechanisms;
+    
     private PtTlsSaslResultEnum result;
     
+    /**
+     * Creates a default client-side authenticator with no supported
+     * SASL mechanisms.
+     */
+    public DefaultAuthenticationClient() {
+        this(null);
+    }
+    
+    /**
+     * Creates a default client-side authenticator with a selection
+     * of supported SASL client-side mechanisms.
+     * 
+     * @param mechanisms the supported SASL client-side mechanisms
+     */
     public DefaultAuthenticationClient(
             SaslClientMechansims mechanisms) {
         this.mechanisms = (mechanisms != null) ? mechanisms
@@ -45,36 +68,46 @@ public class DefaultAuthenticationClient implements Authenticator {
     }
     
     @Override
+    public AuthenticatorTypeEnum getType() {
+        return TYPE;
+    }
+    
+    @Override
     public void authenticate(TransportMessenger connection)
             throws ValidationException, ConnectionException,
             SerializationException {
         
         List<SaslMechanismEntry> suitableMechanisms = null;
-        try{ 
+        try {
             
             suitableMechanisms =
-                    this.negotiateMechanisms(this.mechanisms.getAllMechansims()
-                            .keySet(), connection);
+                    this.negotiateMechanisms(connection);
            
-            while(suitableMechanisms != null && !suitableMechanisms.isEmpty()){
-                LOGGER.debug("Suitable Mechanisms found: " + suitableMechanisms.toString()
+            while (suitableMechanisms != null
+                    && !suitableMechanisms.isEmpty()) {
+
+                LOGGER.debug("Suitable Mechanisms found: "
+                        + suitableMechanisms.toString()
                         + "\n Start Authentication.");
                 
-                //TODO make better mechanism selection, then by position in list and
+                //TODO make better mechanism selection,
+                // then by position in list and
                 // mechanism state "not completed".
                 
-                Iterator<SaslMechanismEntry> iter = suitableMechanisms.iterator();
+                Iterator<SaslMechanismEntry> iter =
+                        suitableMechanisms.iterator();
+                
                 SaslClient sc = null;
-                while(iter.hasNext() && sc == null){
+                while (iter.hasNext() && sc == null) {
                     
                     sc = this.mechanisms.getMechanism(
                         suitableMechanisms.iterator().next().getName());
-                    if(sc.isComplete()){
+                    if (sc.isComplete()) {
                         sc = null;
                     }
                 }
                 
-                if(sc == null){
+                if (sc == null) {
                     throw new ValidationException(
                             "Unacceptable SASL mechanism.",
                             new RuleException(
@@ -82,32 +115,30 @@ public class DefaultAuthenticationClient implements Authenticator {
                                             + mechanisms.toString()
                                             + " is not supported.",
                                     true,
-                                    PtTlsMessageErrorCodeEnum.IETF_INVALID_MESSAGE
-                                            .code(),
+                                    PtTlsMessageErrorCodeEnum
+                                        .IETF_INVALID_MESSAGE.code(),
                                     PtTlsErrorCauseEnum.SASL_NAMING_MISMATCH
                                             .id()), 0);
                 }
 
-                PtTlsSaslResultEnum result = this.executeAuthentication(sc
-                        ,connection);
+                PtTlsSaslResultEnum localResult =
+                        this.executeAuthentication(sc, connection);
                 
-                switch(result){
-                case ABORT:
-                case FAILURE:
-                case MECHANISM_FAILURE:
-                    throw new ConnectionException("Authentication failed with reason: "
-                           + result.toString(), result);
-                case SUCCESS:
-                    // everything ok, do nothing
-                    break;
+                switch (localResult) {
+                    case SUCCESS:
+                        // everything ok, do nothing
+                        break;
+                    default:
+                        throw new ConnectionException(
+                                "Authentication failed with reason: "
+                           + localResult.toString(), localResult);
                 }
                 
                 suitableMechanisms =
-                        this.negotiateMechanisms(this.mechanisms.getAllMechansims()
-                                .keySet(), connection);
+                        this.negotiateMechanisms(connection);
                 
             }
-        }catch(SaslException e){
+        } catch (SaslException e) {
             
             // if on authentication fails everything is 
             // shut down in this implementation. 
@@ -120,14 +151,14 @@ public class DefaultAuthenticationClient implements Authenticator {
             StringBuilder sb = new StringBuilder();
             sb.append("SASL Authentication failed: ");
             
-            if(e.getCause() != null){
+            if (e.getCause() != null) {
                 result = PtTlsSaslResultEnum.MECHANISM_FAILURE;
                 sb.append(result.toString());
                 m = PtTlsMessageFactoryIetf
                         .createSaslResult(connection.getIdentifier(),
                                 PtTlsSaslResultEnum.MECHANISM_FAILURE);
                 
-            }else{
+            } else {
                 result = PtTlsSaslResultEnum.FAILURE;
                 sb.append(result.toString());
                 m = PtTlsMessageFactoryIetf
@@ -148,18 +179,33 @@ public class DefaultAuthenticationClient implements Authenticator {
         return this.result;
     }
     
-    private List<SaslMechanismEntry> negotiateMechanisms(Set<String> mechanismNames,
-            TransportMessenger wrappedSocket)  throws ValidationException,
-            ConnectionException,
-            SerializationException {
+    /**
+     * Executes the client-side mechanism negotiation protocol flow.
+     * 
+     * @param wrappedSocket the message handler containing the socket
+     * for message transmission
+     * 
+     * @return a list of the names for suitable mechanisms
+     * @throws SerializationException if an error occurs at message
+     * serialization
+     * @throws ValidationException if an error occurs at message parsing
+     * @throws ConnectionException if the connection is broken
+     */
+    private List<SaslMechanismEntry> negotiateMechanisms(
+            TransportMessenger wrappedSocket)
+                    throws ValidationException,
+                    ConnectionException,
+                    SerializationException {
         
-        List<SaslMechanismEntry> suitableMechanism = new ArrayList<>();
+        Set<String> supportedMechanismNames =
+                this.mechanisms.getAllMechansims().keySet();
         
         List<SaslMechanismEntry> supportedMechanisms = new ArrayList<>();
-        
-        for (String mechanismName : mechanismNames) {
+        for (String mechanismName : supportedMechanismNames) {
             supportedMechanisms.add(new SaslMechanismEntry(mechanismName));
         }
+        
+        List<SaslMechanismEntry> suitableMechanism = new ArrayList<>();
         
         TransportMessage message = null;
         while (message == null) {
@@ -167,14 +213,19 @@ public class DefaultAuthenticationClient implements Authenticator {
             message = wrappedSocket.readFromStream();
 
             if (message != null) {
-                if (message.getValue() instanceof PtTlsMessageValueSaslMechanisms) {
+                if (message.getValue()
+                        instanceof PtTlsMessageValueSaslMechanisms) {
 
                     List<SaslMechanismEntry> mechanismEntries =
                             ((PtTlsMessageValueSaslMechanisms)
                             message.getValue()).getMechanisms();
                     
-                    if(mechanismEntries != null && !mechanismEntries.isEmpty()){
-                        List<SaslMechanismEntry> filteredList = new ArrayList<>(supportedMechanisms);
+                    if (mechanismEntries != null
+                            && !mechanismEntries.isEmpty()) {
+                        
+                        List<SaslMechanismEntry> filteredList =
+                                new ArrayList<>(supportedMechanisms);
+                                
                         filteredList.retainAll(mechanismEntries);
                         
                         if (filteredList.isEmpty()) {
@@ -183,20 +234,23 @@ public class DefaultAuthenticationClient implements Authenticator {
                                     "Unacceptable SASL mechanism.",
                                     new RuleException(
                                             "The collection of mechanisms "
-                                                    + mechanismEntries.toString()
+                                                    + mechanismEntries
+                                                        .toString()
                                                     + " is not supported.",
                                             true,
-                                            PtTlsMessageErrorCodeEnum.IETF_INVALID_MESSAGE
-                                                    .code(),
-                                            PtTlsErrorCauseEnum.SASL_NAMING_MISMATCH
-                                                    .id()), 16,
+                                            PtTlsMessageErrorCodeEnum
+                                                .IETF_INVALID_MESSAGE.code(),
+                                            PtTlsErrorCauseEnum
+                                                .SASL_NAMING_MISMATCH.id()),
+                                                16,
                                             message.getHeader());
                         }
                     
                         suitableMechanism = filteredList;
                     }
                     
-                } else if (message.getValue() instanceof PtTlsMessageValueError) {
+                } else if (message.getValue()
+                        instanceof PtTlsMessageValueError) {
                     this.handleErrorMessage(message);
 
                 } else {
@@ -209,8 +263,8 @@ public class DefaultAuthenticationClient implements Authenticator {
                                                     .getCanonicalName()
                                             + " was not expected.",
                                     true,
-                                    PtTlsMessageErrorCodeEnum.IETF_INVALID_MESSAGE
-                                            .code(),
+                                    PtTlsMessageErrorCodeEnum
+                                        .IETF_INVALID_MESSAGE.code(),
                                     PtTlsErrorCauseEnum.MESSAGE_TYPE_UNEXPECTED
                                             .id()), 0, message.getHeader());
                 }
@@ -225,6 +279,22 @@ public class DefaultAuthenticationClient implements Authenticator {
        
     }
     
+    /**
+     * Executes the client-side authentication protocol flow using a chosen
+     * SASL mechanism.
+     * 
+     * @param saslClient the chosen SASL client-side
+     * mechanism to use for the authentication
+     * @param wrappedSocket the message handler containing the socket
+     * for message transmission
+     * 
+     * @return the authentication result (e.g. SUCCESS)
+     * @throws SerializationException if an error occurs at message
+     * serialization
+     * @throws ValidationException if an error occurs at message parsing
+     * @throws ConnectionException if the connection is broken
+     * @throws SaslException if SASL authentication fails
+     */
     private PtTlsSaslResultEnum executeAuthentication(SaslClient saslClient,
             TransportMessenger wrappedSocket)
                     throws ValidationException,
@@ -234,20 +304,22 @@ public class DefaultAuthenticationClient implements Authenticator {
         PtTlsSaslResultEnum lokalResult = null;
         
         TransportMessage m = null;
-        if(saslClient.hasInitialResponse()){
+        if (saslClient.hasInitialResponse()) {
             byte[] response = saslClient.evaluateChallenge(new byte[0]);
             m = PtTlsMessageFactoryIetf
                     .createSaslMechanismSelection(wrappedSocket.getIdentifier(),
-                            new SaslMechanismEntry(saslClient.getMechanismName()),response);
-        }else{
+                            new SaslMechanismEntry(
+                                    saslClient.getMechanismName()), response);
+        } else {
             m = PtTlsMessageFactoryIetf
                     .createSaslMechanismSelection(wrappedSocket.getIdentifier(),
-                            new SaslMechanismEntry(saslClient.getMechanismName()));
+                            new SaslMechanismEntry(
+                                    saslClient.getMechanismName()));
         }
         
         wrappedSocket.writeToStream(m);
         
-        while(!saslClient.isComplete()){
+        while (!saslClient.isComplete()) {
             
             TransportMessage message = null;
             while (message == null) {
@@ -255,33 +327,44 @@ public class DefaultAuthenticationClient implements Authenticator {
                 message = wrappedSocket.readFromStream();
     
                 if (message != null) {
-                    if (message.getValue() instanceof PtTlsMessageValueSaslAuthenticationData) {
+                    if (message.getValue()
+                            instanceof PtTlsMessageValueSaslAuthenticationData)
+                    {
     
-                        byte[] serverChallenge = ((PtTlsMessageValueSaslAuthenticationData) message
-                                .getValue()).getAuthenticationData();
+                        byte[] serverChallenge =
+                                ((PtTlsMessageValueSaslAuthenticationData)
+                                        message.getValue())
+                                        .getAuthenticationData();
                         
-                        byte[] response = saslClient.evaluateChallenge(serverChallenge);
+                        byte[] response = saslClient
+                                .evaluateChallenge(serverChallenge);
                         
                         message = PtTlsMessageFactoryIetf
-                                .createSaslAuthenticationData(wrappedSocket.getIdentifier(),response);
+                                .createSaslAuthenticationData(
+                                        wrappedSocket.getIdentifier(),
+                                        response);
                         
                         wrappedSocket.writeToStream(m);
     
-                    }else if (message.getValue() instanceof PtTlsMessageValueSaslResult) {
+                    } else if (message.getValue()
+                            instanceof PtTlsMessageValueSaslResult) {
                         
                         PtTlsMessageValueSaslResult value =
-                                (PtTlsMessageValueSaslResult) message.getValue();
+                                (PtTlsMessageValueSaslResult)
+                                message.getValue();
                         
                         lokalResult = value.getResult();
                         
                         byte[] resultData = value.getResultData();
                         
-                        if(resultData != null && resultData.length > 0){
+                        if (resultData != null && resultData.length > 0) {
                             LOGGER.warn("SASL result contained additional data."
-                                    + "This  data is ignored by this implementation.");
+                                    + " This  data is ignored by "
+                                    + " this implementation.");
                         }
                         
-                    } else if (message.getValue() instanceof PtTlsMessageValueError) {
+                    } else if (message.getValue()
+                            instanceof PtTlsMessageValueError) {
                         this.handleErrorMessage(message);
     
                     } else {
@@ -293,10 +376,11 @@ public class DefaultAuthenticationClient implements Authenticator {
                                                         .getCanonicalName()
                                                 + " was not expected.",
                                         true,
-                                        PtTlsMessageErrorCodeEnum.IETF_INVALID_MESSAGE
-                                                .code(),
-                                        PtTlsErrorCauseEnum.MESSAGE_TYPE_UNEXPECTED
-                                                .id()), 0, message.getHeader());
+                                        PtTlsMessageErrorCodeEnum
+                                            .IETF_INVALID_MESSAGE.code(),
+                                        PtTlsErrorCauseEnum
+                                            .MESSAGE_TYPE_UNEXPECTED.id()),
+                                            0, message.getHeader());
                     }
                 }
     
@@ -308,28 +392,34 @@ public class DefaultAuthenticationClient implements Authenticator {
  
         }
         
-        if(lokalResult == null){
+        if (lokalResult == null) {
             TransportMessage message = null;
             while (message == null) {
     
                 message = wrappedSocket.readFromStream();
     
                 if (message != null) {
-                    if (message.getValue() instanceof PtTlsMessageValueSaslResult) {
+                    if (message.getValue()
+                            instanceof PtTlsMessageValueSaslResult) {
                         
                         PtTlsMessageValueSaslResult value =
-                                (PtTlsMessageValueSaslResult) message.getValue();
+                                (PtTlsMessageValueSaslResult)
+                                message.getValue();
                         
                         lokalResult = value.getResult();
                         
                         byte[] resultData = value.getResultData();
                         
-                        if(resultData != null && resultData.length > 0){
+                        if (resultData != null && resultData.length > 0) {
+                            
                             LOGGER.warn("SASL result contained additional data."
-                                    + "This  data is ignored by this implementation.");
+                                    + " This  data is ignored by this"
+                                    + " implementation.");
+                        
                         }
     
-                    } else if (message.getValue() instanceof PtTlsMessageValueError) {
+                    } else if (message.getValue()
+                            instanceof PtTlsMessageValueError) {
                         this.handleErrorMessage(message);
     
                     } else {
@@ -341,10 +431,11 @@ public class DefaultAuthenticationClient implements Authenticator {
                                                         .getCanonicalName()
                                                 + " was not expected.",
                                         true,
-                                        PtTlsMessageErrorCodeEnum.IETF_INVALID_MESSAGE
-                                                .code(),
-                                        PtTlsErrorCauseEnum.MESSAGE_TYPE_UNEXPECTED
-                                                .id()), 0, message.getHeader());
+                                        PtTlsMessageErrorCodeEnum
+                                            .IETF_INVALID_MESSAGE.code(),
+                                        PtTlsErrorCauseEnum
+                                            .MESSAGE_TYPE_UNEXPECTED.id()),
+                                            0, message.getHeader());
                     }
                 }
     
@@ -358,7 +449,13 @@ public class DefaultAuthenticationClient implements Authenticator {
         return lokalResult;
     }
 
-    private void handleErrorMessage(TransportMessage message) throws ConnectionException {
+    /**
+     * Handles an error message, if one is received.
+     * @param message the received error message
+     * @throws ConnectionException if the contained error is fatal
+     */
+    private void handleErrorMessage(TransportMessage message)
+            throws ConnectionException {
         PtTlsMessageValueError error = (PtTlsMessageValueError) message
                 .getValue();
         

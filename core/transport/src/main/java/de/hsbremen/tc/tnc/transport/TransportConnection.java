@@ -56,8 +56,8 @@ public interface TransportConnection {
     /**
      * Checks if the connection is open.
      *
-     * @return true if connection is open and data can be written/read, false if
-     * connection is closed.
+     * @return true if connection is open and data can be written/read, false
+     * if connection is closed.
      */
     boolean isOpen();
     
@@ -66,7 +66,7 @@ public interface TransportConnection {
      * parameters with peer. This processes needs time.
      * It should be considered to call this method using a thread.
      * 
-     * @throws ConnectionException
+     * @throws ConnectionException if bootstrap fails
      */
     void bootstrap() throws ConnectionException;
     

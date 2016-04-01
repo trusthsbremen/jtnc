@@ -1,3 +1,39 @@
+/**
+ * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
+ *
+ * Copyright © 2015 Trust HS Bremen and its Contributors. All rights   
+ * reserved.
+ *
+ * See the CONTRIBUTORS file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.ietf.nea.pt.socket.simple;
 
 import java.util.concurrent.ExecutorService;
@@ -23,6 +59,10 @@ import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 
+/**
+ * Transport connection with an underlying Socket.
+ *
+ */
 public class DefaultSocketTransportConnection implements TransportConnection {
 
     private static final Logger LOGGER = LoggerFactory
@@ -32,7 +72,7 @@ public class DefaultSocketTransportConnection implements TransportConnection {
 
     private final TransportAttributes attributes;
 
-    private final DefaultTransportWrapper socketWrapper;
+    private final DefaultSocketWrapper socketWrapper;
 
     private final ExecutorService runner;
 
@@ -48,21 +88,19 @@ public class DefaultSocketTransportConnection implements TransportConnection {
 
     /**
      * Creates a SocketTransportConnection with corresponding transport
-     * attributes and serializer.
-     * 
+     * attributes and a wrapped socket.
      * @param selfInitiated true if connection was initiated by this side and
      * false if not
-     * @param server true if this is the server and false if not
-     * @param socket the underlying socket
      * @param attributes the transport connection attributes
-     * @param writer the protocol reader
-     * @param reader the protocol writer
-     * @param runner the connection thread executor
-     * @throws ConnectionException
+     * @param socketWrapper the wrapped socket
+     * @param negotiator the version negotiator for version negotiation phase
+     * @param authenticator the authenticator for authentication phase
+     * @param receiver the message receiver for transport phase
+     * @param runner the executor to run the receiver in transport phase
      */
     public DefaultSocketTransportConnection(final boolean selfInitiated,
             final TransportAttributes attributes,
-            final DefaultTransportWrapper socketWrapper,
+            final DefaultSocketWrapper socketWrapper,
             final Negotiator negotiator, final Authenticator authenticator,
             final Receiver receiver, final ExecutorService runner) {
 
@@ -76,7 +114,8 @@ public class DefaultSocketTransportConnection implements TransportConnection {
         this.attributes = attributes;
         this.runner = runner;
 
-        this.phase = SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_PENDING;
+        this.phase = SocketTransportConnectionPhaseEnum
+                .TRSPT_CONNECTION_PHASE_PENDING;
     }
 
     @Override
@@ -94,9 +133,12 @@ public class DefaultSocketTransportConnection implements TransportConnection {
         LOGGER.debug("Open transport connection.");
 
         if (!this.phase
-                .equals(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_PENDING)) {
+                .equals(SocketTransportConnectionPhaseEnum
+                        .TRSPT_CONNECTION_PHASE_PENDING)) {
             if (this.phase
-                    .equals(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_TRANSPORT)) {
+                    .equals(SocketTransportConnectionPhaseEnum
+                            .TRSPT_CONNECTION_PHASE_TRANSPORT)) {
+
                 LOGGER.warn("Initialize was already called. "
                         + "Connection is in phase " + this.phase.toString()
                         + " Ignoring this call.");
@@ -119,23 +161,26 @@ public class DefaultSocketTransportConnection implements TransportConnection {
 
             this.socketWrapper.initialize();
 
-            this.phase = SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_NEGOTIATE_VERSION;
+            this.phase = SocketTransportConnectionPhaseEnum
+                    .TRSPT_CONNECTION_PHASE_NEGOTIATE_VERSION;
 
             this.negotiator.negotiate(this.socketWrapper);
 
             LOGGER.debug("Version " + this.negotiator.getNegotiatedVersion()
                     + " has been negotiated.");
 
-            this.phase = SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_AUTHENTICATE;
+            this.phase = SocketTransportConnectionPhaseEnum
+                    .TRSPT_CONNECTION_PHASE_AUTHENTICATE;
 
             this.authenticator.authenticate(this.socketWrapper);
 
             LOGGER.debug("Authentication result: "
-                    + ((this.authenticator.getAuthenticationResult() == null) ? "UNKNOWN"
-                            : this.authenticator.getAuthenticationResult()
-                                    .toString()));
+                    + ((this.authenticator.getAuthenticationResult() == null)
+                            ? "UNKNOWN" : this.authenticator
+                                    .getAuthenticationResult().toString()));
 
-            this.phase = SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_TRANSPORT;
+            this.phase = SocketTransportConnectionPhaseEnum
+                    .TRSPT_CONNECTION_PHASE_TRANSPORT;
 
         } catch (SerializationException | ConnectionException e) {
             LOGGER.error("Error occured, while initializing the connection. "
@@ -175,15 +220,18 @@ public class DefaultSocketTransportConnection implements TransportConnection {
     }
 
     @Override
-    public void activate(TransportListener listener) throws ConnectionException {
+    public void activate(final TransportListener tnccsMessageListener)
+            throws ConnectionException {
 
         if (this.phase
-                .equals(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_PENDING)) {
+                .equals(SocketTransportConnectionPhaseEnum
+                        .TRSPT_CONNECTION_PHASE_PENDING)) {
             this.bootstrap();
         }
 
         if (!this.phase
-                .equals(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_TRANSPORT)) {
+                .equals(SocketTransportConnectionPhaseEnum
+                        .TRSPT_CONNECTION_PHASE_TRANSPORT)) {
 
             throw new ConnectionException(
                     new StringBuilder(
@@ -191,18 +239,21 @@ public class DefaultSocketTransportConnection implements TransportConnection {
                             .append("phase ")
                             .append(this.phase.toString())
                             .append(". It has to be in phase ")
-                            .append(SocketTransportConnectionPhaseEnum.TRSPT_CONNECTION_PHASE_TRANSPORT
+                            .append(SocketTransportConnectionPhaseEnum
+                                    .TRSPT_CONNECTION_PHASE_TRANSPORT
                                     .toString())
-                            .append(" to receive messages for the upper layers. ")
-                            .append("Initialize must be called first.")
+                            .append(" to receive messages")
+                            .append(" for the upper layers.")
+                            .append(" Initialize must be called first.")
                             .toString(), this.phase);
         }
 
-        this.listener = listener;
+        this.listener = tnccsMessageListener;
 
         // reset rx/tx counter to measure only the integrity transports
-        LOGGER.debug("Version negotiation and authentication completed successfully. "
-                + "Transport phase started.");
+        LOGGER.debug("Version negotiation and authentication"
+                + " completed successfully."
+                + " Transport phase started.");
         this.socketWrapper.resetCounters();
 
         // start transport phase
@@ -253,7 +304,8 @@ public class DefaultSocketTransportConnection implements TransportConnection {
     private void checkRoundTrips() {
         long maxRoundTrips = this.attributes.getMaxRoundTrips();
         if (HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN < maxRoundTrips
-                && maxRoundTrips < HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNLIMITED) {
+                && maxRoundTrips < HSBConstants
+                    .TCG_IM_MAX_ROUND_TRIPS_UNLIMITED) {
 
             long rx = this.socketWrapper.getRxCounter();
             long tx = this.socketWrapper.getTxCounter();
@@ -273,9 +325,9 @@ public class DefaultSocketTransportConnection implements TransportConnection {
      * Runnable which handles the transport phase with a remote peer. It listens
      * for incoming messages.
      * 
-     * 
      */
     private class Receive implements Runnable {
+
         @Override
         public void run() {
             try {
@@ -293,7 +345,8 @@ public class DefaultSocketTransportConnection implements TransportConnection {
                     | ListenerClosedException e) {
 
                 LOGGER.error(
-                        "Connection has thrown an error and will be closed.", e);
+                        "Connection has thrown an error and will be closed.",
+                        e);
 
             } catch (ValidationException e) {
 

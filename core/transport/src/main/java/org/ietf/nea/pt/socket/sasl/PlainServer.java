@@ -1,3 +1,39 @@
+/**
+ * The BSD 3-Clause License ("BSD New" or "BSD Simplified")
+ *
+ * Copyright © 2015 Trust HS Bremen and its Contributors. All rights   
+ * reserved.
+ *
+ * See the CONTRIBUTORS file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.ietf.nea.pt.socket.sasl;
 
 import java.io.IOException;
@@ -16,16 +52,30 @@ import javax.security.sasl.Sasl;
 import javax.security.sasl.SaslException;
 import javax.security.sasl.SaslServer;
 
-public class PlainServer implements SaslServer{
+/**
+ * Implements the PLAIN SASL server-side mechanism. (<A
+ * HREF="http://www.ietf.org/rfc/rfc4616.txt">RFC 4616</A>)
+ * It processes a name callback for the authentication ID
+ * and a password callback for the associated password as well
+ * as an authorization callback for the given credentials. 
+ */
+public class PlainServer implements SaslServer {
 
     private static final String MECH_NAME = "PLAIN";
     private static final byte SEP = '\000'; // NUL
-    private final static int MAX_MESSAGE_LENGTH = 65536;
+    private static final int MAX_MESSAGE_LENGTH = 65536;
     private boolean completed;
     private CallbackHandler callbackHandler;
     private String authorizationId;
 
-    public PlainServer(CallbackHandler callbackHandler) throws SaslException{
+    /**
+     * Constructs a Plain mechanism.
+     * 
+     * @param callbackHandler the callback handler to use
+     * @throws SaslException if callback handler is null
+     */
+    public PlainServer(final CallbackHandler callbackHandler)
+            throws SaslException {
         if (callbackHandler == null) {
             throw new SaslException(
                     "Callback handler to get username/password required.");
@@ -41,7 +91,8 @@ public class PlainServer implements SaslServer{
     }
 
     @Override
-    public byte[] evaluateResponse(byte[] response) throws SaslException {
+    public byte[] evaluateResponse(final byte[] response)
+            throws SaslException {
         
         if (this.completed) {
             throw new IllegalStateException(
@@ -89,7 +140,7 @@ public class PlainServer implements SaslServer{
             tokens.remove(1);
         }
 
-        this.evaluate(authzid, authcid, password);
+        this.authenticate(authzid, authcid, password);
 
         return null;
     }
@@ -102,7 +153,7 @@ public class PlainServer implements SaslServer{
 
     @Override
     public String getAuthorizationID() {
-        if(!this.completed){
+        if (!this.completed) {
             throw new IllegalStateException(
                     "PLAIN authentication not completed.");
         }
@@ -111,7 +162,8 @@ public class PlainServer implements SaslServer{
     }
 
     @Override
-    public byte[] unwrap(byte[] incoming, int offset, int len)
+    public byte[] unwrap(final byte[] incoming, final int offset,
+            final int len)
             throws SaslException {
         if (this.completed) {
             throw new SaslException(
@@ -123,7 +175,7 @@ public class PlainServer implements SaslServer{
     }
 
     @Override
-    public byte[] wrap(byte[] outgoing, int offset, int len)
+    public byte[] wrap(final byte[] outgoing, final int offset, final int len)
             throws SaslException {
         if (this.completed) {
             throw new SaslException(
@@ -135,7 +187,7 @@ public class PlainServer implements SaslServer{
     }
 
     @Override
-    public Object getNegotiatedProperty(String propName) {
+    public Object getNegotiatedProperty(final String propName) {
         if (this.completed) {
             if (propName.equals(Sasl.QOP)) {
                 return "auth";
@@ -154,6 +206,10 @@ public class PlainServer implements SaslServer{
         
     }
     
+    /**
+     * Clears the password in memory using zeros.
+     * @param password the reference to the password to clear 
+     */
     private void clearPassword(char[] password) {
         if (password != null) {
             // zero out password
@@ -164,11 +220,16 @@ public class PlainServer implements SaslServer{
         }
     }
 
-    private void checkResponse(byte[] response) throws SaslException {
+    /**
+     * Checks if the format of the received response is valid.
+     * @param response the response in raw bytes to check
+     * @throws SaslException if message format is not valid
+     */
+    private void checkResponse(final byte[] response) throws SaslException {
         if (response == null || response.length <= 0) {
             throw new SaslException("PLAIN response cannot be empty.",
                     new IllegalArgumentException("Response cannot be empty."));
-        }else{
+        } else {
         
             if (response.length >= MAX_MESSAGE_LENGTH) {
                 throw new SaslException(
@@ -184,23 +245,29 @@ public class PlainServer implements SaslServer{
                 // the RFC format
                 int i = 0;
                 int separatorCount = 0;
-                while(i < response.length && separatorCount < 2){
-                    if(response[i] == 0){
-                        separatorCount ++;
+                while (i < response.length && separatorCount < 2) {
+                    if (response[i] == 0) {
+                        separatorCount++;
                     }
                     i++;
                 }
-                if(separatorCount < 2 || separatorCount > 2){
+                if (separatorCount < 2 || separatorCount > 2) {
                     throw new SaslException(
                             "PLAIN Message format is invalid.",
-                            new IllegalArgumentException("Message separator count does not fit."));
+                            new IllegalArgumentException(
+                                    "Message separator count does not fit."));
                 }
             }
         }
     }
     
-    private List<byte[]> tokenize(byte[] response){
-     // tokenize
+    /**
+     * Splits the fields of the given response into a List of field tokens.
+     * @param response the raw response containing the fields
+     * @return a list of field tokens as raw byte arrays
+     */
+    private List<byte[]> tokenize(final byte[] response) {
+        // tokenize
         int pos = -1;
         List<byte[]> token = new ArrayList<byte[]>(3);
         for (int i = 0; i < response.length; i++) {
@@ -222,7 +289,18 @@ public class PlainServer implements SaslServer{
         return token;
     }
     
-    private void evaluate(String authzid, String authcid, char[] password) throws SaslException {
+    /**
+     * Authenticates the given credentials using callbacks.
+     *
+     * @param authzid the given authorization ID
+     * @param authcid the given authentication ID
+     * @param password the given password
+     * @throws SaslException if authentication fails due to credential mismatch
+     * or internal error.
+     */
+    private void authenticate(final String authzid, final String authcid,
+            final char[] password) throws SaslException {
+        
         try {
             NameCallback ncb = new NameCallback("PLAIN authentication id: ",
                     authcid);
@@ -235,8 +313,10 @@ public class PlainServer implements SaslServer{
             char[] expectedPassword = pcb.getPassword();
             pcb.clearPassword();
 
-            if (authenticationID == null || authenticationID.isEmpty()
-                    || expectedPassword == null || expectedPassword.length == 0) {
+            if (authenticationID == null
+                    || authenticationID.isEmpty()
+                    || expectedPassword == null
+                    || expectedPassword.length == 0) {
 
                 clearPassword(password);
                 clearPassword(expectedPassword);
@@ -258,9 +338,9 @@ public class PlainServer implements SaslServer{
 
                 if (!acb.isAuthorized()) {
                     throw new SaslException("PLAIN authentication failed.");
-                } else {
-                    this.authorizationId = acb.getAuthorizedID();
                 }
+                
+                this.authorizationId = acb.getAuthorizedID();
 
             } else {
                 clearPassword(password);
@@ -270,10 +350,10 @@ public class PlainServer implements SaslServer{
 
         } catch (IOException e) {
             // SaslException is of type IOException!
-            if(e instanceof SaslException){
-                throw (SaslException)e;
-            }
             clearPassword(password);
+            if (e instanceof SaslException) {
+                throw (SaslException) e;
+            }
             throw new SaslException("Cannot get credential information", e);
         } catch (UnsupportedCallbackException e) {
             clearPassword(password);

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+
+	<!-- Henrik Voß (hevoss@stud.hs-bremen.de): Es dürfen nicht mehrere package-info.java 
+		Dateien in einem Package sein. Checkstyle fordert aber auch im Test-Folder 
+		eine. Daher habe ich es deaktiviert. -->
+	<suppress checks="JavadocPackage" files="src/tests/" />
+	<suppress checks="JavadocPackage" files="test.*" />
+
+	<!-- Test suites need public constructor. -->
+	<suppress checks="HideUtilityClassConstructor" files="AutomatedSuite.java" />
+
+	<!-- Don't require javadoc for testXXX methods. -->
+	<suppress checks="JavadocMethod" files="test.*Test\.java" />
+	<suppress checks="JavadocMethod" files="test.*Test\.java" />
+
+	<!-- Don't check visibility of fields for tests (Required for public rule 
+		field in contiperf tests). -->
+	<suppress checks="VisibilityModifier" files="test.*Test\.java" />
+
+	<!-- star import is very useful for easymock -->
+	<suppress checks="AvoidStarImport" files="src/tests/"  />
+	<suppress checks="AvoidStarImport" files="test.*" />
+	<suppress checks="AvoidStaticImport" files="src/tests/"  />
+	<suppress checks="AvoidStaticImport" files="test.*" />
+
+    <!-- Ingo Pohlschneider (ipohlschneider@stud.hs-bremen.de -->
+    <!-- Suppress checks of JKS files -->
+    <suppress files=".*\.jks" checks="."/>
+    
+	<!-- The following suppressions deal with project specific files -->
+    <suppress checks="InterfaceIsType" files="CommunicationProfileEntity.java"/>
+
+    <!-- Suppress checks for .DS_Store files on MacOS -->
+    <suppress files="\.DS_Store" checks="[a-zA-Z0-9]*"/>
+
+</suppressions>
