@@ -45,7 +45,6 @@ import org.ietf.nea.pb.serialize.reader.bytebuffer.PbReaderFactory;
 import org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriterFactory;
 import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
-import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
 import org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnectionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +95,7 @@ public class Nar {
     private ClientFacade client;
     private ImcManager manager;
     private ConfigurationFileChangeMonitor monitor;
-    private DefaultSocketTransportConnectionBuilder<SaslClientMechansims> connectionBuilder;
+    private DefaultSocketTransportConnectionBuilder connectionBuilder;
     private Socket socket;
     private TransportConnection connection;
 
@@ -126,7 +125,7 @@ public class Nar {
 
         final int estimatedDefaultImCount = 10;
         this.connectionBuilder =
-                new DefaultSocketTransportConnectionBuilder<SaslClientMechansims>(
+                new DefaultSocketTransportConnectionBuilder(
                 false,
                 TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),

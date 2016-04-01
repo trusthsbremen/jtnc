@@ -33,6 +33,10 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 /**
  * Default authentication implementation for a NAR.
  * This implementation uses SASL for the authentication.
+ * Because a SASL authentication mechanism can only be
+ * executed once a new authenticator must  be added for every connection
+ * that should be authenticated using this authenticator.
+ * The authenticator is not reusable!
  */
 public class DefaultAuthenticationClient implements Authenticator {
 
@@ -49,6 +53,7 @@ public class DefaultAuthenticationClient implements Authenticator {
     /**
      * Creates a default client-side authenticator with no supported
      * SASL mechanisms.
+     * 
      */
     public DefaultAuthenticationClient() {
         this(null);
@@ -56,7 +61,9 @@ public class DefaultAuthenticationClient implements Authenticator {
     
     /**
      * Creates a default client-side authenticator with a selection
-     * of supported SASL client-side mechanisms.
+     * of supported SASL client-side mechanisms. All added SASL
+     * authentication mechanisms must not be completed or the
+     * connection establishment will fail at a later point!
      * 
      * @param mechanisms the supported SASL client-side mechanisms
      */

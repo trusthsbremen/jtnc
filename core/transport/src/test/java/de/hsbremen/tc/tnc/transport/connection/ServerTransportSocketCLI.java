@@ -17,6 +17,7 @@ import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
 import org.ietf.nea.pt.socket.sasl.PlainServer;
 import org.ietf.nea.pt.socket.sasl.SaslServerMechansims;
+import org.ietf.nea.pt.socket.simple.DefaultAuthenticationServer;
 import org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnectionBuilder;
 import org.ietf.nea.pt.socket.simple.Dummy;
 
@@ -104,8 +105,8 @@ public class ServerTransportSocketCLI {
 					Socket socket = sSocket.accept();
 					System.out.println("Socket accepted.");
 					
-					DefaultSocketTransportConnectionBuilder<SaslServerMechansims> builder
-					    = new DefaultSocketTransportConnectionBuilder<>(true,
+					DefaultSocketTransportConnectionBuilder builder
+					    = new DefaultSocketTransportConnectionBuilder(true,
 					            TcgTProtocolBindingEnum.PLAIN1,
 							PtTlsWriterFactory.createProductionDefault(), 
 							PtTlsReaderFactory.createProductionDefault());
@@ -120,7 +121,7 @@ public class ServerTransportSocketCLI {
                         System.err.println(e1.getMessage());
                     }
 					
-					TransportConnection con = builder.addAuthenticationMechanisms(mechanisms)
+					TransportConnection con = builder.addAuthenticator(new DefaultAuthenticationServer(mechanisms))
 					        .toConnection(socket.getInetAddress().getHostAddress(),false, socket);
 					    
 					try {

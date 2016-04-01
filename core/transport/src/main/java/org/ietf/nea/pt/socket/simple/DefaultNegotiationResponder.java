@@ -54,6 +54,9 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 /**
  * Default version negotiation implementation for responder in
  * a the version negotiation phase of a transport connection.
+ * This negotiator has side effects. A new negotiator must be
+ * added for every connection that should be negotiated.
+ * The negotiator is not reusable
  */
 public class DefaultNegotiationResponder implements Negotiator {
 
