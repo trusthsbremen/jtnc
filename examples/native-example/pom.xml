@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
 		<artifactId>jtnc-examples</artifactId>
-		<version>0.0.5-ALPHA</version>
+		<version>0.0.6-ALPHA</version>
 	</parent>
 
 	<artifactId>native-example</artifactId>

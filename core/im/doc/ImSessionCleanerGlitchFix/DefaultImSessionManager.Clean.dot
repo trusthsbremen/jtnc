@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.im.session.DefaultImSessionManager.Clean
-	c1792 [label=<<table title="de.hsbremen.tc.tnc.im.session.DefaultImSessionManager.Clean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DefaultImSessionManager.Clean.html">
+	c1680 [label=<<table title="de.hsbremen.tc.tnc.im.session.DefaultImSessionManager.Clean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DefaultImSessionManager.Clean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Clean </td></tr>
 		</table></td></tr>
@@ -22,9 +22,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DefaultImSessionManager.Clean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.im.session.DefaultImSessionManager.Clean implements java.lang.Runnable
-	c1855:p -> c1792:p [dir=back,arrowtail=empty,style=dashed];
+	c1755:p -> c1680:p [dir=back,arrowtail=empty,style=dashed];
 	// java.lang.Runnable
-	c1855 [label=<<table title="java.lang.Runnable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Runnable.html">
+	c1755 [label=<<table title="java.lang.Runnable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Runnable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Runnable </td></tr>
