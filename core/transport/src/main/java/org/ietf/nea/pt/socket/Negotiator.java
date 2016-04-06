@@ -62,13 +62,13 @@ public interface Negotiator {
      * @throws ValidationException if an error occurs at message parsing
      * @throws ConnectionException if the connection is broken
      */
-    void negotiate(TransportMessenger connection)
+    void negotiate(SocketMessenger connection)
             throws ValidationException, ConnectionException,
             SerializationException;
     
     /**
      * Returns the negotiated version number after a call to
-     * {@link #negotiate(TransportMessenger)}.
+     * {@link #negotiate(SocketMessenger)}.
      * 
      * @return the negotiated version or 0 if version negotiation
      * is pending or has failed

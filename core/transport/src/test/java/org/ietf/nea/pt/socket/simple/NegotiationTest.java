@@ -10,7 +10,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 import org.ietf.nea.pt.socket.Negotiator;
-import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.SocketMessenger;
 import org.ietf.nea.pt.socket.simple.DefaultNegotiationInitiator;
 import org.ietf.nea.pt.socket.simple.DefaultNegotiationResponder;
 import org.junit.Assert;
@@ -28,8 +28,8 @@ public class NegotiationTest {
     private Queue<TransportMessage> initiatorQ;
     private Queue<TransportMessage> responderQ;
     
-    private TransportMessenger messengerI;
-    private TransportMessenger messengerR;
+    private SocketMessenger messengerI;
+    private SocketMessenger messengerR;
     
     
     @BeforeClass

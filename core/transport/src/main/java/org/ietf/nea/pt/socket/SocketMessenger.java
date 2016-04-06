@@ -46,7 +46,7 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
  * for the transmission and receipt of TNC messages thru the
  * contained socket.
  */
-public interface TransportMessenger {
+public interface SocketMessenger {
 
     /**
      * Returns a linear growing identifier for a transport message.

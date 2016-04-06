@@ -191,7 +191,7 @@ public class DefaultSocketTransportConnectionBuilder implements
      */
     public DefaultSocketTransportConnectionBuilder setMessageLength(
             final long maxMessageLength) {
-        if (maxMessageLength <= 0 || maxMessageLength > this.memoryBoarder) {
+        if (maxMessageLength < 0 || maxMessageLength > this.memoryBoarder) {
             
             // remove side effects
             this.negotiator = null;
@@ -199,7 +199,7 @@ public class DefaultSocketTransportConnectionBuilder implements
             
             throw new IllegalArgumentException(
                     "Message length is not acceptable, "
-                            + "it must be between 1 and " + this.memoryBoarder
+                            + "it must be between 0 and " + this.memoryBoarder
                             + " bytes.");
         }
         this.messageLength = maxMessageLength;
@@ -217,7 +217,7 @@ public class DefaultSocketTransportConnectionBuilder implements
      */
     public DefaultSocketTransportConnectionBuilder setImMessageLength(
             final long maxImMessageLength) {
-        if (maxImMessageLength <= 0
+        if (maxImMessageLength < 0
                 || maxImMessageLength > this.memoryBoarder) {
 
             // remove side effects
@@ -226,7 +226,7 @@ public class DefaultSocketTransportConnectionBuilder implements
             
             throw new IllegalArgumentException(
                     "Message length is not acceptable, "
-                            + "it must be between 1 and " + this.memoryBoarder
+                            + "it must be between 0 and " + this.memoryBoarder
                             + " bytes.");
         }
 
@@ -245,13 +245,14 @@ public class DefaultSocketTransportConnectionBuilder implements
     public DefaultSocketTransportConnectionBuilder setMaxRoundTrips(
             final long maxRounds) {
 
-        if (maxRounds <= 0) {
+        if (maxRounds < 0) {
             
             // remove side effects
             this.negotiator = null;
             this.authenticator = null;
             
-            throw new IllegalArgumentException("Round trips cannot be null.");
+            throw new IllegalArgumentException(
+                    "Round trips cannot be less than zero.");
         }
         this.maxRoundTrips = maxRounds;
 

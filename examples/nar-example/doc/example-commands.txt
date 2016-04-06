@@ -1,2 +1,5 @@
 # Start the NAR with a configuration file
 start /home/sidanetdev/git/jtnc/examples/nar-example/config/tnc_config
+
+# Do handshake with NAA using the default host:port configuration
+handshake 127.0.0.1:30271

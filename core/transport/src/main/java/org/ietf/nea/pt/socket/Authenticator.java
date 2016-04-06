@@ -63,13 +63,13 @@ public interface Authenticator {
      * @throws ValidationException if an error occurs at message parsing
      * @throws ConnectionException if the connection is broken
      */
-    void authenticate(TransportMessenger connection)
+    void authenticate(SocketMessenger connection)
             throws ValidationException, ConnectionException,
             SerializationException;
 
     /**
      * Returns the result of the authentication after a call to
-     * {@link #authenticate(TransportMessenger)}.
+     * {@link #authenticate(SocketMessenger)}.
      * 
      * @return the result or null if unknown because authentication is pending
      */

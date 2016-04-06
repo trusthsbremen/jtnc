@@ -67,23 +67,23 @@ public interface SocketHandler {
     void close();
 
     /**
-     * Returns the bytes received thru the socket since initialization
-     * or last reset.
+     * Returns the transport messages received thru the socket since
+     * initialization or last reset.
      *
-     * @return the number of bytes received
+     * @return the number of messages received
      */
     long getRxCounter();
 
     /**
-     * Returns the bytes transmitted thru the socket since initialization
-     * or last reset.
+     * Returns the messages transmitted thru the socket since
+     * initialization or last reset.
      *
-     * @return the number of bytes transmitted
+     * @return the number of messages transmitted
      */
     long getTxCounter();
 
     /**
-     * Resets the counters for the bytes received and transmitted to zero.
+     * Resets the counters for the messages received and transmitted to zero.
      */
     void resetCounters();
 

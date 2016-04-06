@@ -12,7 +12,7 @@ import javax.security.sasl.AuthorizeCallback;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
-import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.SocketMessenger;
 
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
@@ -23,9 +23,9 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 public class Dummy extends AbstractDummy {
     
-    public static TransportMessenger createDummyMessenger(final Queue<TransportMessage> src, final Queue<TransportMessage> dest){
+    public static SocketMessenger createDummyMessenger(final Queue<TransportMessage> src, final Queue<TransportMessage> dest){
 
-        return new TransportMessenger() {
+        return new SocketMessenger() {
             
             private final Queue<TransportMessage> sBuffer = src;
             private final Queue<TransportMessage> dBuffer = dest;

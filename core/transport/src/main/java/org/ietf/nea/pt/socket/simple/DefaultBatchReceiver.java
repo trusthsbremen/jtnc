@@ -39,7 +39,7 @@ package org.ietf.nea.pt.socket.simple;
 import java.util.Arrays;
 
 import org.ietf.nea.pt.socket.Receiver;
-import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.SocketMessenger;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
 import org.ietf.nea.pt.value.PtTlsMessageValueError;
 import org.ietf.nea.pt.value.PtTlsMessageValuePbBatch;
@@ -74,7 +74,7 @@ public class DefaultBatchReceiver implements Receiver {
     }
 
     @Override
-    public void receive(TransportMessenger wrappedSocket)
+    public void receive(SocketMessenger wrappedSocket)
             throws SerializationException, ValidationException,
             ConnectionException {
 

@@ -10,7 +10,7 @@ import javax.security.sasl.SaslException;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.socket.Authenticator;
-import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.SocketMessenger;
 import org.ietf.nea.pt.socket.enums.AuthenticatorTypeEnum;
 import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
 import org.ietf.nea.pt.validate.enums.PtTlsErrorCauseEnum;
@@ -80,7 +80,7 @@ public class DefaultAuthenticationClient implements Authenticator {
     }
     
     @Override
-    public void authenticate(TransportMessenger connection)
+    public void authenticate(SocketMessenger connection)
             throws ValidationException, ConnectionException,
             SerializationException {
         
@@ -199,7 +199,7 @@ public class DefaultAuthenticationClient implements Authenticator {
      * @throws ConnectionException if the connection is broken
      */
     private List<SaslMechanismEntry> negotiateMechanisms(
-            TransportMessenger wrappedSocket)
+            SocketMessenger wrappedSocket)
                     throws ValidationException,
                     ConnectionException,
                     SerializationException {
@@ -303,7 +303,7 @@ public class DefaultAuthenticationClient implements Authenticator {
      * @throws SaslException if SASL authentication fails
      */
     private PtTlsSaslResultEnum executeAuthentication(SaslClient saslClient,
-            TransportMessenger wrappedSocket)
+            SocketMessenger wrappedSocket)
                     throws ValidationException,
                     ConnectionException,
                     SerializationException, SaslException {

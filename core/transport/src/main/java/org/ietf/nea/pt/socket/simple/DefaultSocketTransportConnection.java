@@ -37,12 +37,14 @@
 package org.ietf.nea.pt.socket.simple;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.socket.Authenticator;
 import org.ietf.nea.pt.socket.Negotiator;
 import org.ietf.nea.pt.socket.Receiver;
 import org.ietf.nea.pt.socket.SocketTransportConnectionPhaseEnum;
+import org.ietf.nea.pt.socket.SocketWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +60,7 @@ import de.hsbremen.tc.tnc.transport.TransportConnectionPhase;
 import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
+import de.hsbremen.tc.tnc.util.NotNull;
 
 /**
  * Transport connection with an underlying Socket.
@@ -72,7 +75,7 @@ public class DefaultSocketTransportConnection implements TransportConnection {
 
     private final TransportAttributes attributes;
 
-    private final DefaultSocketWrapper socketWrapper;
+    private final SocketWrapper socketWrapper;
 
     private final ExecutorService runner;
 
@@ -100,10 +103,13 @@ public class DefaultSocketTransportConnection implements TransportConnection {
      */
     public DefaultSocketTransportConnection(final boolean selfInitiated,
             final TransportAttributes attributes,
-            final DefaultSocketWrapper socketWrapper,
+            final SocketWrapper socketWrapper,
             final Negotiator negotiator, final Authenticator authenticator,
             final Receiver receiver, final ExecutorService runner) {
-
+        
+        NotNull.check("Constructor arguments cannot be null.", attributes,
+                socketWrapper, negotiator, authenticator, receiver);
+        
         this.selfInitiated = selfInitiated;
         this.socketWrapper = socketWrapper;
 
@@ -112,7 +118,8 @@ public class DefaultSocketTransportConnection implements TransportConnection {
         this.transporter = receiver;
 
         this.attributes = attributes;
-        this.runner = runner;
+        this.runner = (runner == null) ? Executors.newSingleThreadExecutor()
+                : runner;
 
         this.phase = SocketTransportConnectionPhaseEnum
                 .TRSPT_CONNECTION_PHASE_PENDING;

@@ -42,11 +42,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.BufferOverflowException;
+import java.nio.BufferUnderflowException;
 
 import org.ietf.nea.pt.message.PtTlsMessageFactoryIetf;
 import org.ietf.nea.pt.message.PtTlsMessageHeader;
-import org.ietf.nea.pt.socket.SocketHandler;
-import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.SocketWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,8 +59,8 @@ import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer;
+import de.hsbremen.tc.tnc.message.util.StreamedWriteOnlyByteBuffer;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 
 /**
@@ -67,11 +68,9 @@ import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
  * for the transmission and receipt of TNC messages thru the
  * contained socket and for the management of the contained socket.
  */
-public class DefaultSocketWrapper implements TransportMessenger, SocketHandler {
+public class DefaultSocketWrapper implements SocketWrapper {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultSocketWrapper.class);
-
-    private static final int DEFAULT_CHUNK_SIZE = 8192;
 
     private final Socket socket;
 
@@ -199,74 +198,61 @@ public class DefaultSocketWrapper implements TransportMessenger, SocketHandler {
 
         this.checkMessageLength(message.getHeader().getLength());
 
-        ByteBuffer buf = new DefaultByteBuffer(message.getHeader().getLength());
-        this.writer.write(message, buf);
+        if (isOpen()) {
 
-        if (buf != null && buf.bytesWritten() > buf.bytesRead()) {
-            if (isOpen()) {
-                try {
+            ByteBuffer buf = new StreamedWriteOnlyByteBuffer(this.out);
 
-                    while (buf.bytesWritten() > buf.bytesRead()) {
-                        if ((buf.bytesWritten() - buf.bytesRead())
-                                > DEFAULT_CHUNK_SIZE) {
+            try {
 
-                            this.out.write(buf.read(DEFAULT_CHUNK_SIZE));
+                this.writer.write(message, buf);
 
-                        } else {
-
-                            this.out.write(buf.read((int)
-                                    (buf.bytesWritten() - buf.bytesRead())));
-                        }
-                    }
-                    
-                    if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("Message bytes written: "
-                                + buf.bytesRead());
-                    }
-                    
-                    this.out.flush();
-                    this.txCounter++;
-                    
-                    if (LOGGER.isDebugEnabled()) {
-                        if (message != null) {
-                            
-                            LOGGER.debug("Message send: "
-                                + message.toString());
-                        }
-                    }
-                    
-                } catch (IOException e) {
-                    throw new ConnectionException(
-                            "Data could not be written to stream.", e);
-                } finally {
-                    buf.clear();
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Message bytes written: "
+                            + buf.bytesWritten());
                 }
-            } else {
-                buf.clear();
-                throw new ConnectionException("Connection seems not open.");
-            }
-        }
-        buf.clear();
 
+                this.txCounter = (this.txCounter < Long.MAX_VALUE) ? 
+                        this.txCounter + 1 : 1;
+
+                if (LOGGER.isDebugEnabled()) {
+                    if (message != null) {
+                        LOGGER.debug("Message send: "
+                                + message.toString());
+                    }
+                }
+
+            } catch (BufferOverflowException e) {
+                throw new ConnectionException(
+                        "Data could not be written to stream.", e);
+            } finally {
+                buf.clear();
+            }
+
+        } else {
+
+            throw new ConnectionException("The socket seems not open.");
+        }
     }
 
     @Override
     public TransportMessage readFromStream()
             throws SerializationException, ValidationException,
             ConnectionException {
+        
         if (isOpen()) {
+            
+            ByteBuffer buf = new StreamedReadOnlyByteBuffer(
+                    this.in);
+            
             try {
 
-                ByteBuffer buf = new StreamedReadOnlyByteBuffer(
-                        socket.getInputStream());
-             
                 TransportMessage message = this.reader.read(buf, -1);
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("Message bytes read: " + buf.bytesRead());
                 }
-                buf.clear();
 
-                this.rxCounter++;
+                this.rxCounter = (this.rxCounter < Long.MAX_VALUE) ?
+                        this.rxCounter + 1 : 1;
 
                 if (LOGGER.isDebugEnabled()) {
                     if (message != null) {
@@ -277,13 +263,17 @@ public class DefaultSocketWrapper implements TransportMessenger, SocketHandler {
                 
                 return message;
 
-            } catch (IOException e) {
+            } catch (BufferUnderflowException e) {
                 throw new ConnectionException(
-                        "Socket InputStream is not accessible.", e);
+                        "Data could not be read from stream.", e);
+            } finally {
+                buf.clear();
             }
-        }
+            
+        } else { 
 
-        throw new ConnectionException("The socket seems not open.");
+            throw new ConnectionException("The socket seems not open.");
+        }
     }
 
     /**

@@ -36,37 +36,11 @@
  */
 package org.ietf.nea.pt.socket;
 
-import de.hsbremen.tc.tnc.message.exception.SerializationException;
-import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.message.util.ByteBuffer;
-import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
-
 /**
- * Generic message receiver for an IETF socket transport connection.
- * It is used to receive the TNC messages in the transport phase.
+ * Generic wrapper to encapsulate a socket and mask its functions
+ * for the transmission and receipt of TNC messages thru the
+ * contained socket and for the management of the contained socket.
  */
-public interface Receiver {
-
-    /**
-     * Returns the received message, after a call to
-     * {@link #receive(SocketMessenger)}.
-     * 
-     * @return the negotiated version or 0 if version negotiation
-     * is pending or has failed
-     */
-    ByteBuffer getTnccsData();
-
-    /**
-     * Executes one listening cycle on the transport connection to receive a
-     * message from a remote peer.
-     *
-     * @throws SerializationException if an error occurs at message
-     * serialization
-     * @throws ValidationException if an error occurs at message parsing
-     * @throws ConnectionException if the connection is broken
-     */
-    void receive(SocketMessenger wrappedSocket)
-            throws ValidationException, ConnectionException,
-            SerializationException;
+public interface SocketWrapper extends SocketHandler, SocketMessenger {
 
 }

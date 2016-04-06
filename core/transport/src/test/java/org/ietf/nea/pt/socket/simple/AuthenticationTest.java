@@ -14,7 +14,7 @@ import javax.security.sasl.SaslException;
 import javax.security.sasl.SaslServer;
 
 import org.ietf.nea.pt.socket.Authenticator;
-import org.ietf.nea.pt.socket.TransportMessenger;
+import org.ietf.nea.pt.socket.SocketMessenger;
 import org.ietf.nea.pt.socket.sasl.ExternalClient;
 import org.ietf.nea.pt.socket.sasl.ExternalServer;
 import org.ietf.nea.pt.socket.sasl.PlainClient;
@@ -39,8 +39,8 @@ public class AuthenticationTest {
     private Queue<TransportMessage> serverQ;
     private Queue<TransportMessage> clientQ;
 
-    private TransportMessenger messengerS;
-    private TransportMessenger messengerC;
+    private SocketMessenger messengerS;
+    private SocketMessenger messengerC;
     
     @BeforeClass
     public static void logSetup() {

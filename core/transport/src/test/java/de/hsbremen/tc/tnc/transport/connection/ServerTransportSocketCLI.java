@@ -129,7 +129,7 @@ public class ServerTransportSocketCLI {
 						con.activate(new TransportListener() {
 							@Override
 							public void receive(ByteBuffer b) throws ListenerClosedException {
-								System.out.println("BufferReceived b");
+								System.out.println("BufferReceived:" + b.toString());
 							}
 							
 
