@@ -52,8 +52,7 @@ import de.hsbremen.tc.tnc.tnccs.session.statemachine.State;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateHelper;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.enums.TnccsStateEnum;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception
-.StateMachineAccessException;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.util.NotNull;
 
 /**

@@ -377,10 +377,8 @@ public class Dummy extends AbstractDummy{
 			private boolean open;
 			
 			@Override
-			public void open(TransportListener listener) throws ConnectionException {
-				 in = new ByteArrayInputStream(Dummy.getBatchWithImMessageAsByte());
-				 out = new ByteArrayOutputStream();
-				 open = true;
+			public void activate(TransportListener listener) throws ConnectionException {
+				 bootstrap();
 				 attributes = Dummy.getTransportAttributes();
 			}
 			
@@ -423,6 +421,14 @@ public class Dummy extends AbstractDummy{
 				System.out.println("Send() called.");
 				
 			}
+
+            @Override
+            public void bootstrap() throws ConnectionException {
+                in = new ByteArrayInputStream(Dummy.getBatchWithImMessageAsByte());
+                out = new ByteArrayOutputStream();
+                open = true;
+                
+            }
 		};
 	}
 	

@@ -48,7 +48,7 @@ import org.ietf.nea.pb.serialize.reader.bytebuffer.PbReaderFactory;
 import org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriterFactory;
 import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
-import org.ietf.nea.pt.socket.SocketTransportConnectionBuilder;
+import org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnectionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trustedcomputinggroup.tnc.ifimv.IMV;
@@ -78,7 +78,7 @@ import de.hsbremen.tc.tnc.transport.TransportConnection;
 
 /**
  * An example Network Access Authority.
- * Listens for handshakes at localhost:10229.
+ * Listens for handshakes at localhost:30271.
  *
  * The NAA uses a plain socket for testing, this
  * cannot be used for production where TLS
@@ -97,7 +97,7 @@ public class Naa {
     private ClientFacade client;
     private ImvManager manager;
     private ServerSocket serverSocket;
-    private SocketTransportConnectionBuilder connectionBuilder;
+    private DefaultSocketTransportConnectionBuilder connectionBuilder;
     private ConfigurationFileChangeMonitor monitor;
     private ExecutorService runner;
     private boolean stopped;
@@ -115,7 +115,8 @@ public class Naa {
                         new TncsAdapterFactoryIetf(retryProxy));
 
         final int estimatedDefaultImCount = 10;
-        this.connectionBuilder = new SocketTransportConnectionBuilder(
+        this.connectionBuilder = new DefaultSocketTransportConnectionBuilder(
+                true,
                 TcgTProtocolBindingEnum.PLAIN1,
                 PtTlsWriterFactory.createProductionDefault(),
                 PtTlsReaderFactory.createProductionDefault())
@@ -236,7 +237,7 @@ public class Naa {
                     LOGGER.info("Socket accepted " + socket.toString());
                     if (socket != null) {
                         TransportConnection connection = connectionBuilder
-                                .toConnection(false, true, socket);
+                                .toConnection(false, socket);
                         client.notifyConnectionChange(connection,
                                 CommonConnectionChangeTypeEnum.NEW);
                     }

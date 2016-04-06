@@ -51,13 +51,11 @@ public interface TransportConnectionBuilder<T extends Object> {
      * @param id the definied ID.
      * @param selfInitiated the parameter, which identifies, if the connection
      * was initiated by this side
-     * @param server the parameter, which identifies, if the connection is a
-     * server connection
      * @param underlying the underlying transport object (e.g. Socket)
      * @return the TransportConnection
      */
     TransportConnection toConnection(String id, boolean selfInitiated,
-            boolean server, T underlying);
+            T underlying);
 
     /**
      * Creates a TransportConnection with the given parameters and a generated
@@ -65,11 +63,8 @@ public interface TransportConnectionBuilder<T extends Object> {
      *
      * @param selfInitiated the parameter, which identifies, if the connection
      * was initiated by this side
-     * @param server the parameter, which identifies, if the connection is a
-     * server connection
      * @param underlying the underlying transport object (e.g. Socket)
      * @return the TransportConnection
      */
-    TransportConnection toConnection(boolean selfInitiated, boolean server,
-            T underlying);
+    TransportConnection toConnection(boolean selfInitiated, T underlying);
 }

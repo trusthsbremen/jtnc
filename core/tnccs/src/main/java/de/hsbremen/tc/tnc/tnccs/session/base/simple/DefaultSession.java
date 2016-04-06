@@ -65,8 +65,7 @@ import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
-import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception
-.StateMachineAccessException;
+import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
@@ -316,7 +315,7 @@ public class DefaultSession implements Session {
             try {
                 TnccsBatch batch = machine.start(selfInitiated);
                 try {
-                    connection.open(listener);
+                    connection.activate(listener);
 
                     if (batch != null) {
                         LOGGER.debug("Sending batch: " + batch.toString());

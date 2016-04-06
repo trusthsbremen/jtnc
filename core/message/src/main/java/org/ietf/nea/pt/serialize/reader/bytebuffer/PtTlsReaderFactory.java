@@ -51,7 +51,7 @@ import org.ietf.nea.pt.value.PtTlsMessageValueVersionResponseBuilderIetf;
 import de.hsbremen.tc.tnc.IETFConstants;
 import de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier;
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
-import de.hsbremen.tc.tnc.message.t.serialize.TransportMessageContainer;
+import de.hsbremen.tc.tnc.message.t.message.TransportMessage;
 import de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader;
 
 /**
@@ -87,7 +87,7 @@ public final class PtTlsReaderFactory {
      * @return the transport message reader
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static TransportReader<TransportMessageContainer>
+    public static TransportReader<TransportMessage>
         createProductionDefault() {
 
         /*
@@ -148,7 +148,7 @@ public final class PtTlsReaderFactory {
      * @return the transport message reader
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static TransportReader<TransportMessageContainer>
+    public static TransportReader<TransportMessage>
         createExperimentalDefault() {
 
         /*

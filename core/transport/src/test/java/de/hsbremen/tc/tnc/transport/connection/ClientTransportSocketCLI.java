@@ -3,19 +3,23 @@ package de.hsbremen.tc.tnc.transport.connection;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.concurrent.Executors;
+
+import javax.security.sasl.SaslException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory;
 import org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriterFactory;
-import org.ietf.nea.pt.socket.SocketTransportConnection;
+import org.ietf.nea.pt.socket.sasl.PlainClient;
+import org.ietf.nea.pt.socket.sasl.SaslClientMechansims;
+import org.ietf.nea.pt.socket.simple.DefaultAuthenticationClient;
+import org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnectionBuilder;
+import org.ietf.nea.pt.socket.simple.Dummy;
 
 import de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
-import de.hsbremen.tc.tnc.transport.DefaultTransportAttributes;
-import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
+import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 
@@ -44,18 +48,31 @@ public class ClientTransportSocketCLI {
 						return;
 					}
 					System.out.println("Create transport connection.");
-					connection = new SocketTransportConnection(true, false, socket, 
-							new DefaultTransportAttributes(socket.getInetAddress().getHostAddress(),TcgTProtocolBindingEnum.PLAIN1), 
-							PtTlsWriterFactory.createProductionDefault(), 
-							PtTlsReaderFactory.createProductionDefault(), 
-							Executors.newSingleThreadExecutor());
 					
+					DefaultSocketTransportConnectionBuilder builder
+					    = new DefaultSocketTransportConnectionBuilder(false,
+					        TcgTProtocolBindingEnum.PLAIN1,
+					        PtTlsWriterFactory.createProductionDefault(),
+					        PtTlsReaderFactory.createProductionDefault());
+					
+					SaslClientMechansims mechanisms = new SaslClientMechansims();
+					try{
+					    mechanisms.addMechanism(new PlainClient(null,
+					            Dummy.getPlainCallBackHandler(Dummy.getJoeCredentials())));
+					    
+					}catch(SaslException e1){
+					    System.err.println(e1.getMessage());
+					}
+
+					connection = builder.addAuthenticator(new DefaultAuthenticationClient(mechanisms))
+					        .toConnection(socket.getInetAddress().getHostAddress(), true, socket);
+
 					try {
 						System.out.println("Try to open connection...");
-						connection.open(new TransportListener() {
+						connection.activate(new TransportListener() {
 							@Override
 							public void receive(ByteBuffer b) throws ListenerClosedException {
-								System.out.println("BufferReceived b");
+								System.out.println("BufferReceived:" + b.toString());
 							}
 
 							@Override
