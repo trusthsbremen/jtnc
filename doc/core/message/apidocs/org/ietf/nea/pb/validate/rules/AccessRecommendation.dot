@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pb.validate.rules.AccessRecommendation
-	c22456 [label=<<table title="org.ietf.nea.pb.validate.rules.AccessRecommendation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AccessRecommendation.html">
+	c22400 [label=<<table title="org.ietf.nea.pb.validate.rules.AccessRecommendation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AccessRecommendation.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AccessRecommendation </td></tr>
 		</table></td></tr>

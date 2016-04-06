@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.exception.RuleException
-	c159235 [label=<<table title="de.hsbremen.tc.tnc.message.exception.RuleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RuleException.html">
+	c158438 [label=<<table title="de.hsbremen.tc.tnc.message.exception.RuleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./RuleException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RuleException </td></tr>
 		</table></td></tr>
@@ -31,9 +31,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RuleException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.message.exception.RuleException extends de.hsbremen.tc.tnc.exception.ComprehensibleException
-	c159600:p -> c159235:p [dir=back,arrowtail=empty];
+	c158802:p -> c158438:p [dir=back,arrowtail=empty];
 	// de.hsbremen.tc.tnc.exception.ComprehensibleException
-	c159600 [label=<<table title="de.hsbremen.tc.tnc.exception.ComprehensibleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/de/hsbremen/tc/tnc/exception/ComprehensibleException.html">
+	c158802 [label=<<table title="de.hsbremen.tc.tnc.exception.ComprehensibleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/de/hsbremen/tc/tnc/exception/ComprehensibleException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ComprehensibleException </font></td></tr>
 		</table></td></tr>

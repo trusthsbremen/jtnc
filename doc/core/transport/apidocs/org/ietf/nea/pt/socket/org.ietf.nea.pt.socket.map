@@ -1,8 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="c27" href="./SocketTransportConnectionBuilder.html" title="org.ietf.nea.pt.socket.SocketTransportConnectionBuilder" alt="" coords="16,123,1085,485"/>
-<area shape="rect" id="node1" href="./SocketTransportConnectionBuilder.html" title="&lt;TABLE&gt;" alt="" coords="5,118,1096,490"/>
-<area shape="rect" id="c28" href="./SocketTransportConnection.html" title="org.ietf.nea.pt.socket.SocketTransportConnection" alt="" coords="1131,11,2595,597"/>
-<area shape="rect" id="node2" href="./SocketTransportConnection.html" title="&lt;TABLE&gt;" alt="" coords="1120,6,2605,602"/>
-<area shape="rect" id="c29" href="./SocketTransportConnection.TransportPhase.html" title="org.ietf.nea.pt.socket.SocketTransportConnection.TransportPhase" alt="" coords="2639,259,2934,349"/>
-<area shape="rect" id="node3" href="./SocketTransportConnection.TransportPhase.html" title="&lt;TABLE&gt;" alt="" coords="2629,254,2944,354"/>
+<area shape="rect" id="c74" href="./SocketWrapper.html" title="org.ietf.nea.pt.socket.SocketWrapper" alt="" coords="230,241,341,282"/>
+<area shape="rect" id="node1" href="./SocketWrapper.html" title="&lt;TABLE&gt;" alt="" coords="220,235,351,287"/>
+<area shape="rect" id="c75" href="./Receiver.html" title="org.ietf.nea.pt.socket.Receiver" alt="" coords="781,43,1070,149"/>
+<area shape="rect" id="node2" href="./Receiver.html" title="&lt;TABLE&gt;" alt="" coords="771,38,1080,154"/>
+<area shape="rect" id="c76" href="./Negotiator.html" title="org.ietf.nea.pt.socket.Negotiator" alt="" coords="1114,35,1387,157"/>
+<area shape="rect" id="node3" href="./Negotiator.html" title="&lt;TABLE&gt;" alt="" coords="1104,30,1397,162"/>
+<area shape="rect" id="c77" href="./SocketHandler.html" title="org.ietf.nea.pt.socket.SocketHandler" alt="" coords="16,11,173,181"/>
+<area shape="rect" id="node4" href="./SocketHandler.html" title="&lt;TABLE&gt;" alt="" coords="5,6,184,186"/>
+<area shape="rect" id="c78" href="./SocketMessenger.html" title="org.ietf.nea.pt.socket.SocketMessenger" alt="" coords="219,27,736,165"/>
+<area shape="rect" id="node5" href="./SocketMessenger.html" title="&lt;TABLE&gt;" alt="" coords="208,22,747,170"/>
+<area shape="rect" id="c79" href="./SocketTransportConnectionPhaseEnum.html" title="org.ietf.nea.pt.socket.SocketTransportConnectionPhaseEnum" alt="" coords="1432,27,1800,165"/>
+<area shape="rect" id="node6" href="./SocketTransportConnectionPhaseEnum.html" title="&lt;TABLE&gt;" alt="" coords="1421,22,1811,170"/>
+<area shape="rect" id="c80" href="./Authenticator.html" title="org.ietf.nea.pt.socket.Authenticator" alt="" coords="1845,35,2166,157"/>
+<area shape="rect" id="node7" href="./Authenticator.html" title="&lt;TABLE&gt;" alt="" coords="1835,30,2176,162"/>
 </map>

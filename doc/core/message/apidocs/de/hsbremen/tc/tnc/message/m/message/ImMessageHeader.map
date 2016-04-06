@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c34491" href="./ImMessageHeader.html" title="de.hsbremen.tc.tnc.message.m.message.ImMessageHeader" alt="" coords="146,113,291,234"/>
+<area shape="rect" id="c34005" href="./ImMessageHeader.html" title="de.hsbremen.tc.tnc.message.m.message.ImMessageHeader" alt="" coords="146,113,291,234"/>
 <area shape="rect" id="node1" href="./ImMessageHeader.html" title="&lt;TABLE&gt;" alt="" coords="136,107,301,239"/>
-<area shape="rect" id="c34662" href="../../../../../../../org/ietf/nea/pa/message/PaMessageHeader.html" title="org.ietf.nea.pa.message.PaMessageHeader" alt="" coords="15,294,422,479"/>
+<area shape="rect" id="c34175" href="../../../../../../../org/ietf/nea/pa/message/PaMessageHeader.html" title="org.ietf.nea.pa.message.PaMessageHeader" alt="" coords="15,294,422,479"/>
 <area shape="rect" id="node3" href="../../../../../../../org/ietf/nea/pa/message/PaMessageHeader.html" title="&lt;TABLE&gt;" alt="" coords="5,289,432,485"/>
-<area shape="rect" id="c34499" href="../ImData.html" title="de.hsbremen.tc.tnc.message.m.ImData" alt="" coords="176,11,261,53"/>
+<area shape="rect" id="c34013" href="../ImData.html" title="de.hsbremen.tc.tnc.message.m.ImData" alt="" coords="176,11,261,53"/>
 <area shape="rect" id="node2" href="../ImData.html" title="&lt;TABLE&gt;" alt="" coords="165,6,272,58"/>
 </map>

@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c132" href="./TransportConnectionBuilder.html" title="de.hsbremen.tc.tnc.transport.TransportConnectionBuilder" alt="" coords="237,11,864,117"/>
-<area shape="rect" id="node1" href="./TransportConnectionBuilder.html" title="&lt;TABLE&gt;" alt="" coords="227,6,875,122"/>
-<area shape="rect" id="c136" href="../../../../../org/ietf/nea/pt/socket/SocketTransportConnectionBuilder.html" title="org.ietf.nea.pt.socket.SocketTransportConnectionBuilder" alt="" coords="16,177,1085,538"/>
-<area shape="rect" id="node2" href="../../../../../org/ietf/nea/pt/socket/SocketTransportConnectionBuilder.html" title="&lt;TABLE&gt;" alt="" coords="5,171,1096,543"/>
+<area shape="rect" id="c1240" href="./TransportConnectionBuilder.html" title="de.hsbremen.tc.tnc.transport.TransportConnectionBuilder" alt="" coords="331,11,856,117"/>
+<area shape="rect" id="node1" href="./TransportConnectionBuilder.html" title="&lt;TABLE&gt;" alt="" coords="320,6,867,122"/>
+<area shape="rect" id="c1252" href="../../../../../org/ietf/nea/pt/socket/simple/DefaultSocketTransportConnectionBuilder.html" title="org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnectionBuilder" alt="" coords="15,177,1171,634"/>
+<area shape="rect" id="node2" href="../../../../../org/ietf/nea/pt/socket/simple/DefaultSocketTransportConnectionBuilder.html" title="&lt;TABLE&gt;" alt="" coords="5,171,1181,639"/>
 </map>

@@ -10,14 +10,14 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter<T extends de.hsbremen.tc.tnc.message.m.ImData>
-	c60153 [label=<<table title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/m/serialize/bytebuffer/ImWriter.html">
+	c59603 [label=<<table title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/m/serialize/bytebuffer/ImWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ImWriter&lt;T extends ImData&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../../../../de/hsbremen/tc/tnc/message/m/serialize/bytebuffer/ImWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeRemediationParameterUriValueWriter
-	c60304 [label=<<table title="org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeRemediationParameterUriValueWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeRemediationParameterUriValueWriter.html">
+	c59753 [label=<<table title="org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeRemediationParameterUriValueWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeRemediationParameterUriValueWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaAttributeRemediationParameterUriValueWriter </td></tr>
 		</table></td></tr>
@@ -30,6 +30,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PaAttributeRemediationParameterUriValueWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeRemediationParameterUriValueWriter implements de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter<T extends de.hsbremen.tc.tnc.message.m.ImData>
-	c60153:p -> c60304:p [dir=back,arrowtail=empty,style=dashed];
+	c59603:p -> c59753:p [dir=back,arrowtail=empty,style=dashed];
 }
 

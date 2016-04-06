@@ -10,14 +10,14 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer
-	c28084 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/TnccsBatchContainer.html">
+	c28014 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/TnccsBatchContainer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsBatchContainer </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/TnccsBatchContainer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.batch.DefaultTnccsBatchContainer
-	c28442 [label=<<table title="org.ietf.nea.pb.batch.DefaultTnccsBatchContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DefaultTnccsBatchContainer.html">
+	c28371 [label=<<table title="org.ietf.nea.pb.batch.DefaultTnccsBatchContainer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DefaultTnccsBatchContainer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DefaultTnccsBatchContainer </td></tr>
 		</table></td></tr>
@@ -32,6 +32,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DefaultTnccsBatchContainer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pb.batch.DefaultTnccsBatchContainer implements de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer
-	c28084:p -> c28442:p [dir=back,arrowtail=empty,style=dashed];
+	c28014:p -> c28371:p [dir=back,arrowtail=empty,style=dashed];
 }
 

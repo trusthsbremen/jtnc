@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage
-	c97059 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/message/TnccsMessage.html">
+	c96417 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/message/TnccsMessage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsMessage </td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../de/hsbremen/tc/tnc/message/tnccs/message/TnccsMessage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.message.PbMessage
-	c97360 [label=<<table title="org.ietf.nea.pb.message.PbMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbMessage.html">
+	c96717 [label=<<table title="org.ietf.nea.pb.message.PbMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbMessage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbMessage </td></tr>
 		</table></td></tr>
@@ -40,6 +40,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PbMessage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pb.message.PbMessage implements de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage
-	c97059:p -> c97360:p [dir=back,arrowtail=empty,style=dashed];
+	c96417:p -> c96717:p [dir=back,arrowtail=empty,style=dashed];
 }
 

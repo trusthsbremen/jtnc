@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c135986" href="../../../../../de/hsbremen/tc/tnc/message/t/message/TransportMessageHeader.html" title="de.hsbremen.tc.tnc.message.t.message.TransportMessageHeader" alt="" coords="177,11,348,117"/>
+<area shape="rect" id="c135247" href="../../../../../de/hsbremen/tc/tnc/message/t/message/TransportMessageHeader.html" title="de.hsbremen.tc.tnc.message.t.message.TransportMessageHeader" alt="" coords="177,11,348,117"/>
 <area shape="rect" id="node1" href="../../../../../de/hsbremen/tc/tnc/message/t/message/TransportMessageHeader.html" title="&lt;TABLE&gt;" alt="" coords="167,6,359,122"/>
-<area shape="rect" id="c136050" href="./PtTlsMessageHeader.html" title="org.ietf.nea.pt.message.PtTlsMessageHeader" alt="" coords="16,177,509,378"/>
+<area shape="rect" id="c135310" href="./PtTlsMessageHeader.html" title="org.ietf.nea.pt.message.PtTlsMessageHeader" alt="" coords="16,177,509,378"/>
 <area shape="rect" id="node2" href="./PtTlsMessageHeader.html" title="&lt;TABLE&gt;" alt="" coords="5,171,520,383"/>
 </map>

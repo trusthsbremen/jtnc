@@ -10,14 +10,14 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter<T extends de.hsbremen.tc.tnc.message.tnccs.TnccsData>
-	c131143 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html">
+	c130416 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsWriter&lt;T extends TnccsData&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.Combined<T>
-	c131158 [label=<<table title="de.hsbremen.tc.tnc.message.Combined" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/Combined.html">
+	c130431 [label=<<table title="de.hsbremen.tc.tnc.message.Combined" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/Combined.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Combined&lt;T&gt; </td></tr>
@@ -31,7 +31,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../../../de/hsbremen/tc/tnc/message/Combined.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter
-	c131436 [label=<<table title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbWriter.html">
+	c130708 [label=<<table title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbWriter </td></tr>
 		</table></td></tr>
@@ -49,8 +49,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PbWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter implements de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter<T extends de.hsbremen.tc.tnc.message.tnccs.TnccsData>
-	c131143:p -> c131436:p [dir=back,arrowtail=empty,style=dashed];
+	c130416:p -> c130708:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter implements de.hsbremen.tc.tnc.message.Combined<T>
-	c131158:p -> c131436:p [dir=back,arrowtail=empty,style=dashed];
+	c130431:p -> c130708:p [dir=back,arrowtail=empty,style=dashed];
 }
 

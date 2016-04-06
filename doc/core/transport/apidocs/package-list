@@ -1,3 +1,6 @@
 de.hsbremen.tc.tnc.transport
 de.hsbremen.tc.tnc.transport.exception
 org.ietf.nea.pt.socket
+org.ietf.nea.pt.socket.enums
+org.ietf.nea.pt.socket.sasl
+org.ietf.nea.pt.socket.simple

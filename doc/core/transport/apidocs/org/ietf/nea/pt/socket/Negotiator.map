@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="c781" href="./Negotiator.html" title="org.ietf.nea.pt.socket.Negotiator" alt="" coords="446,11,719,133"/>
+<area shape="rect" id="node1" href="./Negotiator.html" title="&lt;TABLE&gt;" alt="" coords="436,6,729,138"/>
+<area shape="rect" id="c786" href="./simple/DefaultNegotiationResponder.html" title="org.ietf.nea.pt.socket.simple.DefaultNegotiationResponder" alt="" coords="15,193,566,410"/>
+<area shape="rect" id="node2" href="./simple/DefaultNegotiationResponder.html" title="&lt;TABLE&gt;" alt="" coords="5,187,576,415"/>
+<area shape="rect" id="c790" href="./simple/DefaultNegotiationInitiator.html" title="org.ietf.nea.pt.socket.simple.DefaultNegotiationInitiator" alt="" coords="611,193,1141,410"/>
+<area shape="rect" id="node3" href="./simple/DefaultNegotiationInitiator.html" title="&lt;TABLE&gt;" alt="" coords="600,187,1152,415"/>
+</map>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters
-	c84420 [label=<<table title="org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeValueRemediationParameters.html">
+	c83809 [label=<<table title="org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeValueRemediationParameters.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaAttributeValueRemediationParameters </td></tr>
 		</table></td></tr>
@@ -28,7 +28,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PaAttributeValueRemediationParameters.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.attribute.AbstractPaAttributeValue
-	c84444 [label=<<table title="org.ietf.nea.pa.attribute.AbstractPaAttributeValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractPaAttributeValue.html">
+	c83833 [label=<<table title="org.ietf.nea.pa.attribute.AbstractPaAttributeValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractPaAttributeValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractPaAttributeValue </font></td></tr>
 		</table></td></tr>
@@ -45,6 +45,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractPaAttributeValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pa.attribute.PaAttributeValueRemediationParameters extends org.ietf.nea.pa.attribute.AbstractPaAttributeValue
-	c84444:p -> c84420:p [dir=back,arrowtail=empty];
+	c83833:p -> c83809:p [dir=back,arrowtail=empty];
 }
 

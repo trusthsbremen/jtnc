@@ -10,14 +10,14 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder
-	c165237 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TnccsBatchHeaderBuilder.html">
+	c164425 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TnccsBatchHeaderBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsBatchHeaderBuilder </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TnccsBatchHeaderBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.TransmissionObjectBuilder<T>
-	c165242 [label=<<table title="de.hsbremen.tc.tnc.message.TransmissionObjectBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../TransmissionObjectBuilder.html">
+	c164430 [label=<<table title="de.hsbremen.tc.tnc.message.TransmissionObjectBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../TransmissionObjectBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TransmissionObjectBuilder&lt;T&gt; </td></tr>
@@ -31,7 +31,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../TransmissionObjectBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.batch.PbBatchHeaderBuilder
-	c165591 [label=<<table title="org.ietf.nea.pb.batch.PbBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../org/ietf/nea/pb/batch/PbBatchHeaderBuilder.html">
+	c164778 [label=<<table title="org.ietf.nea.pb.batch.PbBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../org/ietf/nea/pb/batch/PbBatchHeaderBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> PbBatchHeaderBuilder </td></tr>
@@ -47,8 +47,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../../../org/ietf/nea/pb/batch/PbBatchHeaderBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder implements de.hsbremen.tc.tnc.message.TransmissionObjectBuilder<T>
-	c165242:p -> c165237:p [dir=back,arrowtail=empty,style=dashed];
+	c164430:p -> c164425:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pb.batch.PbBatchHeaderBuilder implements de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder
-	c165237:p -> c165591:p [dir=back,arrowtail=empty,style=dashed];
+	c164425:p -> c164778:p [dir=back,arrowtail=empty,style=dashed];
 }
 

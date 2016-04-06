@@ -10,14 +10,14 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder
-	c94658 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/batch/TnccsBatchHeaderBuilder.html">
+	c94022 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/batch/TnccsBatchHeaderBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsBatchHeaderBuilder </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../../de/hsbremen/tc/tnc/message/tnccs/batch/TnccsBatchHeaderBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf
-	c95009 [label=<<table title="org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PbBatchHeaderBuilderIetf.html">
+	c94372 [label=<<table title="org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PbBatchHeaderBuilderIetf.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbBatchHeaderBuilderIetf </td></tr>
 		</table></td></tr>
@@ -39,7 +39,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PbBatchHeaderBuilderIetf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.batch.PbBatchHeaderBuilder
-	c95012 [label=<<table title="org.ietf.nea.pb.batch.PbBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbBatchHeaderBuilder.html">
+	c94375 [label=<<table title="org.ietf.nea.pb.batch.PbBatchHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbBatchHeaderBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> PbBatchHeaderBuilder </td></tr>
@@ -55,8 +55,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PbBatchHeaderBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf implements org.ietf.nea.pb.batch.PbBatchHeaderBuilder
-	c95012:p -> c95009:p [dir=back,arrowtail=empty,style=dashed];
+	c94375:p -> c94372:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pb.batch.PbBatchHeaderBuilder implements de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder
-	c94658:p -> c95012:p [dir=back,arrowtail=empty,style=dashed];
+	c94022:p -> c94375:p [dir=back,arrowtail=empty,style=dashed];
 }
 

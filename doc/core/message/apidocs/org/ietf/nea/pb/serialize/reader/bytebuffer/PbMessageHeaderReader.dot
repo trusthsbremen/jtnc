@@ -10,14 +10,14 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader<T extends de.hsbremen.tc.tnc.message.tnccs.TnccsData>
-	c105879 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsReader.html">
+	c105215 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsReader&lt;T extends TnccsData&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.serialize.reader.bytebuffer.PbMessageHeaderReader
-	c106144 [label=<<table title="org.ietf.nea.pb.serialize.reader.bytebuffer.PbMessageHeaderReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbMessageHeaderReader.html">
+	c105479 [label=<<table title="org.ietf.nea.pb.serialize.reader.bytebuffer.PbMessageHeaderReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbMessageHeaderReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbMessageHeaderReader </td></tr>
 		</table></td></tr>
@@ -31,6 +31,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PbMessageHeaderReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pb.serialize.reader.bytebuffer.PbMessageHeaderReader implements de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader<T extends de.hsbremen.tc.tnc.message.tnccs.TnccsData>
-	c105879:p -> c106144:p [dir=back,arrowtail=empty,style=dashed];
+	c105215:p -> c105479:p [dir=back,arrowtail=empty,style=dashed];
 }
 

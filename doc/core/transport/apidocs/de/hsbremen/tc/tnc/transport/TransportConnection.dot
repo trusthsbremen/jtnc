@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.transport.TransportConnection
-	c123 [label=<<table title="de.hsbremen.tc.tnc.transport.TransportConnection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TransportConnection.html">
+	c1208 [label=<<table title="de.hsbremen.tc.tnc.transport.TransportConnection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TransportConnection.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TransportConnection </td></tr>
@@ -21,57 +21,43 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + isSelfInititated() : boolean </td></tr>
 <tr><td align="left" balign="left"> + isOpen() : boolean </td></tr>
-<tr><td align="left" balign="left"> + open(listener : TransportListener) </td></tr>
+<tr><td align="left" balign="left"> + bootstrap() </td></tr>
+<tr><td align="left" balign="left"> + activate(listener : TransportListener) </td></tr>
 <tr><td align="left" balign="left"> + send(buffer : ByteBuffer) </td></tr>
 <tr><td align="left" balign="left"> + close() </td></tr>
 <tr><td align="left" balign="left"> + getAttributes() : Attributed </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TransportConnection.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.ietf.nea.pt.socket.SocketTransportConnection
-	c127 [label=<<table title="org.ietf.nea.pt.socket.SocketTransportConnection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pt/socket/SocketTransportConnection.html">
+	// org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnection
+	c1223 [label=<<table title="org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnection" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pt/socket/simple/DefaultSocketTransportConnection.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SocketTransportConnection </td></tr>
+<tr><td align="center" balign="center"> DefaultSocketTransportConnection </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> - LOGGER : Logger </td></tr>
-<tr><td align="left" balign="left"> - DEFAULT_CHUNK_SIZE : int </td></tr>
-<tr><td align="left" balign="left"> - MIN_VERSION : short </td></tr>
-<tr><td align="left" balign="left"> - MAX_VERSION : short </td></tr>
-<tr><td align="left" balign="left"> - PREF_VERSION : short </td></tr>
-<tr><td align="left" balign="left"> - socket : Socket </td></tr>
 <tr><td align="left" balign="left"> - selfInitiated : boolean </td></tr>
-<tr><td align="left" balign="left"> - server : boolean </td></tr>
 <tr><td align="left" balign="left"> - attributes : TransportAttributes </td></tr>
+<tr><td align="left" balign="left"> - socketWrapper : SocketWrapper </td></tr>
 <tr><td align="left" balign="left"> - runner : ExecutorService </td></tr>
-<tr><td align="left" balign="left"> - writer : TransportWriter&lt;TransportMessage&gt; </td></tr>
-<tr><td align="left" balign="left"> - reader : TransportReader&lt;TransportMessageContainer&gt; </td></tr>
-<tr><td align="left" balign="left"> - out : OutputStream </td></tr>
-<tr><td align="left" balign="left"> - in : InputStream </td></tr>
+<tr><td align="left" balign="left"> - authenticator : Authenticator </td></tr>
+<tr><td align="left" balign="left"> - negotiator : Negotiator </td></tr>
+<tr><td align="left" balign="left"> - transporter : Receiver </td></tr>
+<tr><td align="left" balign="left"> - phase : TransportConnectionPhase </td></tr>
 <tr><td align="left" balign="left"> - listener : TransportListener </td></tr>
-<tr><td align="left" balign="left"> - messageIdentifier : long </td></tr>
-<tr><td align="left" balign="left"> - rxCounter : long </td></tr>
-<tr><td align="left" balign="left"> - txCounter : long </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + SocketTransportConnection(selfInitiated : boolean, server : boolean, socket : Socket, attributes : TransportAttributes, writer : TransportWriter&lt;TransportMessage&gt;, reader : TransportReader&lt;TransportMessageContainer&gt;, runner : ExecutorService) </td></tr>
+<tr><td align="left" balign="left"> + DefaultSocketTransportConnection(selfInitiated : boolean, attributes : TransportAttributes, socketWrapper : SocketWrapper, negotiator : Negotiator, authenticator : Authenticator, receiver : Receiver, runner : ExecutorService) </td></tr>
 <tr><td align="left" balign="left"> + isSelfInititated() : boolean </td></tr>
 <tr><td align="left" balign="left"> + isOpen() : boolean </td></tr>
-<tr><td align="left" balign="left"> + open(listener : TransportListener) </td></tr>
-<tr><td align="left" balign="left"> + close() </td></tr>
+<tr><td align="left" balign="left"> + bootstrap() </td></tr>
+<tr><td align="left" balign="left"> + activate(tnccsMessageListener : TransportListener) </td></tr>
 <tr><td align="left" balign="left"> + send(buf : ByteBuffer) </td></tr>
+<tr><td align="left" balign="left"> + close() </td></tr>
 <tr><td align="left" balign="left"> + getAttributes() : Attributed </td></tr>
-<tr><td align="left" balign="left"> - getIdentifier() : long </td></tr>
-<tr><td align="left" balign="left"> - initialize() </td></tr>
-<tr><td align="left" balign="left"> - negotiateVersion() </td></tr>
-<tr><td align="left" balign="left"> - createValidationErrorMessage(exception : ValidationException) : TransportMessage </td></tr>
-<tr><td align="left" balign="left"> - makeAuthentication() </td></tr>
-<tr><td align="left" balign="left"> - writeToStream(message : TransportMessage) </td></tr>
-<tr><td align="left" balign="left"> - readFromStream() : TransportMessageContainer </td></tr>
-<tr><td align="left" balign="left"> - checkMessageLength(length : long) </td></tr>
 <tr><td align="left" balign="left"> - checkRoundTrips() </td></tr>
 		</table></td></tr>
-		</table>>, URL="../../../../../org/ietf/nea/pt/socket/SocketTransportConnection.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//org.ietf.nea.pt.socket.SocketTransportConnection implements de.hsbremen.tc.tnc.transport.TransportConnection
-	c123:p -> c127:p [dir=back,arrowtail=empty,style=dashed];
+		</table>>, URL="../../../../../org/ietf/nea/pt/socket/simple/DefaultSocketTransportConnection.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//org.ietf.nea.pt.socket.simple.DefaultSocketTransportConnection implements de.hsbremen.tc.tnc.transport.TransportConnection
+	c1208:p -> c1223:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c3630" href="./TnccsBatchHeaderBuilder.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" alt="" coords="16,43,189,85"/>
+<area shape="rect" id="c3621" href="./TnccsBatchHeaderBuilder.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" alt="" coords="16,43,189,85"/>
 <area shape="rect" id="node1" href="./TnccsBatchHeaderBuilder.html" title="&lt;TABLE&gt;" alt="" coords="5,38,200,90"/>
-<area shape="rect" id="c3631" href="./TnccsBatchHeader.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeader" alt="" coords="235,19,379,109"/>
+<area shape="rect" id="c3622" href="./TnccsBatchHeader.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeader" alt="" coords="235,19,379,109"/>
 <area shape="rect" id="node2" href="./TnccsBatchHeader.html" title="&lt;TABLE&gt;" alt="" coords="224,14,389,114"/>
-<area shape="rect" id="c3632" href="./TnccsBatch.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch" alt="" coords="423,11,649,117"/>
+<area shape="rect" id="c3623" href="./TnccsBatch.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch" alt="" coords="423,11,649,117"/>
 <area shape="rect" id="node3" href="./TnccsBatch.html" title="&lt;TABLE&gt;" alt="" coords="413,6,659,122"/>
 </map>

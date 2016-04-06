@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory
-	c156481 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PtTlsReaderFactory.html">
+	c155691 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PtTlsReaderFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsReaderFactory </td></tr>
 		</table></td></tr>
@@ -20,8 +20,8 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> - PtTlsReaderFactory() </td></tr>
 <tr><td align="left" balign="left"> + getProtocolIdentifier() : TcgProtocolBindingIdentifier </td></tr>
-<tr><td align="left" balign="left"> + createProductionDefault() : TransportReader&lt;TransportMessageContainer&gt; </td></tr>
-<tr><td align="left" balign="left"> + createExperimentalDefault() : TransportReader&lt;TransportMessageContainer&gt; </td></tr>
+<tr><td align="left" balign="left"> + createProductionDefault() : TransportReader&lt;TransportMessage&gt; </td></tr>
+<tr><td align="left" balign="left"> + createExperimentalDefault() : TransportReader&lt;TransportMessage&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PtTlsReaderFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

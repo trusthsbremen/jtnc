@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c95855" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html" title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" alt="" coords="55,11,289,53"/>
+<area shape="rect" id="c95216" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html" title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" alt="" coords="55,11,289,53"/>
 <area shape="rect" id="node1" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html" title="&lt;TABLE&gt;" alt="" coords="45,6,299,58"/>
-<area shape="rect" id="c96140" href="./PbBatchHeaderWriter.html" title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbBatchHeaderWriter" alt="" coords="15,113,329,202"/>
+<area shape="rect" id="c95500" href="./PbBatchHeaderWriter.html" title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbBatchHeaderWriter" alt="" coords="15,113,329,202"/>
 <area shape="rect" id="node2" href="./PbBatchHeaderWriter.html" title="&lt;TABLE&gt;" alt="" coords="5,107,339,207"/>
 </map>

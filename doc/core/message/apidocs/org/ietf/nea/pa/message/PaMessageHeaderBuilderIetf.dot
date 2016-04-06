@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pa.message.PaMessageHeaderBuilder
-	c89995 [label=<<table title="org.ietf.nea.pa.message.PaMessageHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PaMessageHeaderBuilder.html">
+	c89370 [label=<<table title="org.ietf.nea.pa.message.PaMessageHeaderBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PaMessageHeaderBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> PaMessageHeaderBuilder </td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PaMessageHeaderBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf
-	c89999 [label=<<table title="org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaMessageHeaderBuilderIetf.html">
+	c89374 [label=<<table title="org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaMessageHeaderBuilderIetf.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaMessageHeaderBuilderIetf </td></tr>
 		</table></td></tr>
@@ -45,6 +45,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PaMessageHeaderBuilderIetf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pa.message.PaMessageHeaderBuilderIetf implements org.ietf.nea.pa.message.PaMessageHeaderBuilder
-	c89995:p -> c89999:p [dir=back,arrowtail=empty,style=dashed];
+	c89370:p -> c89374:p [dir=back,arrowtail=empty,style=dashed];
 }
 

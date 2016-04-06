@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslResultValueReader
-	c9707 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslResultValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslResultValueReader.html">
+	c9683 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslResultValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslResultValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageSaslResultValueReader </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageSaslResultValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader
-	c9708 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsReader.html">
+	c9684 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsReader </td></tr>
 		</table></td></tr>
@@ -35,14 +35,14 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> ~ PtTlsReader(mHeadReader : TransportReader&lt;PtTlsMessageHeader&gt;) </td></tr>
 <tr><td align="left" balign="left"> ~ PtTlsReader(mHeadReader : TransportReader&lt;PtTlsMessageHeader&gt;, valueReaders : Map&lt;Long, Map&lt;Long, TransportReader&lt;PtTlsMessageValue&gt;&gt;&gt;) </td></tr>
-<tr><td align="left" balign="left"> + read(buffer : ByteBuffer, length : long) : TransportMessageContainer </td></tr>
+<tr><td align="left" balign="left"> + read(buffer : ByteBuffer, length : long) : TransportMessage </td></tr>
 <tr><td align="left" balign="left"> + getMinDataLength() : byte </td></tr>
 <tr><td align="left" balign="left"> + add(vendorId : Long, messageType : Long, reader : TransportReader&lt;PtTlsMessageValue&gt;) </td></tr>
 <tr><td align="left" balign="left"> + remove(vendorId : Long, messageType : Long) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PtTlsReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageHeaderReader
-	c9709 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageHeaderReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageHeaderReader.html">
+	c9685 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageHeaderReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageHeaderReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageHeaderReader </td></tr>
 		</table></td></tr>
@@ -56,7 +56,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageHeaderReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageVersionResponseValueReader
-	c9710 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageVersionResponseValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageVersionResponseValueReader.html">
+	c9686 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageVersionResponseValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageVersionResponseValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageVersionResponseValueReader </td></tr>
 		</table></td></tr>
@@ -70,7 +70,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageVersionResponseValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessagePbBatchValueReader
-	c9711 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessagePbBatchValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessagePbBatchValueReader.html">
+	c9687 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessagePbBatchValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessagePbBatchValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessagePbBatchValueReader </td></tr>
 		</table></td></tr>
@@ -84,7 +84,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessagePbBatchValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslAuthenticationDataValueReader
-	c9712 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslAuthenticationDataValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslAuthenticationDataValueReader.html">
+	c9688 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslAuthenticationDataValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslAuthenticationDataValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageSaslAuthenticationDataValueReader </td></tr>
 		</table></td></tr>
@@ -98,7 +98,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageSaslAuthenticationDataValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslMechanismsValueReader
-	c9713 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslMechanismsValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslMechanismsValueReader.html">
+	c9689 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslMechanismsValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslMechanismsValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageSaslMechanismsValueReader </td></tr>
 		</table></td></tr>
@@ -112,7 +112,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageSaslMechanismsValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory
-	c9714 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsReaderFactory.html">
+	c9690 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReaderFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsReaderFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsReaderFactory </td></tr>
 		</table></td></tr>
@@ -122,12 +122,12 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> - PtTlsReaderFactory() </td></tr>
 <tr><td align="left" balign="left"> + getProtocolIdentifier() : TcgProtocolBindingIdentifier </td></tr>
-<tr><td align="left" balign="left"> + createProductionDefault() : TransportReader&lt;TransportMessageContainer&gt; </td></tr>
-<tr><td align="left" balign="left"> + createExperimentalDefault() : TransportReader&lt;TransportMessageContainer&gt; </td></tr>
+<tr><td align="left" balign="left"> + createProductionDefault() : TransportReader&lt;TransportMessage&gt; </td></tr>
+<tr><td align="left" balign="left"> + createExperimentalDefault() : TransportReader&lt;TransportMessage&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PtTlsReaderFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslMechanismSelectionValueReader
-	c9715 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslMechanismSelectionValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslMechanismSelectionValueReader.html">
+	c9691 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageSaslMechanismSelectionValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageSaslMechanismSelectionValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageSaslMechanismSelectionValueReader </td></tr>
 		</table></td></tr>
@@ -141,7 +141,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageSaslMechanismSelectionValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageExperimentalValueReader
-	c9716 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageExperimentalValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageExperimentalValueReader.html">
+	c9692 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageExperimentalValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageExperimentalValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageExperimentalValueReader </td></tr>
 		</table></td></tr>
@@ -155,7 +155,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageExperimentalValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageVersionRequestValueReader
-	c9717 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageVersionRequestValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageVersionRequestValueReader.html">
+	c9693 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageVersionRequestValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageVersionRequestValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageVersionRequestValueReader </td></tr>
 		</table></td></tr>
@@ -169,7 +169,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageVersionRequestValueReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageErrorValueReader
-	c9718 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageErrorValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageErrorValueReader.html">
+	c9694 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsMessageErrorValueReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageErrorValueReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsMessageErrorValueReader </td></tr>
 		</table></td></tr>

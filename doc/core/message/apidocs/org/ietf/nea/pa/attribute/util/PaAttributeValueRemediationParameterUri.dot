@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter
-	c83253 [label=<<table title="org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractPaAttributeValueRemediationParameter.html">
+	c82645 [label=<<table title="org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractPaAttributeValueRemediationParameter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractPaAttributeValueRemediationParameter </font></td></tr>
 		</table></td></tr>
@@ -23,7 +23,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractPaAttributeValueRemediationParameter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri
-	c83269 [label=<<table title="org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeValueRemediationParameterUri.html">
+	c82661 [label=<<table title="org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeValueRemediationParameterUri.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaAttributeValueRemediationParameterUri </td></tr>
 		</table></td></tr>
@@ -36,6 +36,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PaAttributeValueRemediationParameterUri.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pa.attribute.util.PaAttributeValueRemediationParameterUri extends org.ietf.nea.pa.attribute.util.AbstractPaAttributeValueRemediationParameter
-	c83253:p -> c83269:p [dir=back,arrowtail=empty];
+	c82645:p -> c82661:p [dir=back,arrowtail=empty];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.TnccsData
-	c4436 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.TnccsData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TnccsData.html">
+	c4425 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.TnccsData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TnccsData.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsData </td></tr>

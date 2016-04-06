@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="c230" href="./Authenticator.html" title="org.ietf.nea.pt.socket.Authenticator" alt="" coords="582,11,903,133"/>
+<area shape="rect" id="node1" href="./Authenticator.html" title="&lt;TABLE&gt;" alt="" coords="572,6,913,138"/>
+<area shape="rect" id="c236" href="./simple/DefaultAuthenticationServer.html" title="org.ietf.nea.pt.socket.simple.DefaultAuthenticationServer" alt="" coords="15,193,739,426"/>
+<area shape="rect" id="node2" href="./simple/DefaultAuthenticationServer.html" title="&lt;TABLE&gt;" alt="" coords="5,187,749,431"/>
+<area shape="rect" id="c238" href="./simple/DefaultAuthenticationClient.html" title="org.ietf.nea.pt.socket.simple.DefaultAuthenticationClient" alt="" coords="783,193,1435,426"/>
+<area shape="rect" id="node3" href="./simple/DefaultAuthenticationClient.html" title="&lt;TABLE&gt;" alt="" coords="773,187,1445,431"/>
+</map>

@@ -59,30 +59,25 @@
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">     * @param id the definied ID.</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     * @param selfInitiated the parameter, which identifies, if the connection</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     * was initiated by this side</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     * @param server the parameter, which identifies, if the connection is a</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">     * server connection</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">     * @param underlying the underlying transport object (e.g. Socket)</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     * @return the TransportConnection</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <a href="../../../../../de/hsbremen/tc/tnc/transport/TransportConnection.html">TransportConnection</a> toConnection(String id, <strong class="jxr_keyword">boolean</strong> selfInitiated,
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">boolean</strong> server, T underlying);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * Creates a TransportConnection with the given parameters and a generated</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * ID.</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * @param selfInitiated the parameter, which identifies, if the connection</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     * was initiated by this side</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     * @param server the parameter, which identifies, if the connection is a</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * server connection</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">     * @param underlying the underlying transport object (e.g. Socket)</em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     * @return the TransportConnection</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <a href="../../../../../de/hsbremen/tc/tnc/transport/TransportConnection.html">TransportConnection</a> toConnection(<strong class="jxr_keyword">boolean</strong> selfInitiated, <strong class="jxr_keyword">boolean</strong> server,
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              T underlying);
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  }
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     * @param underlying the underlying transport object (e.g. Socket)</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">     * @return the TransportConnection</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <a href="../../../../../de/hsbremen/tc/tnc/transport/TransportConnection.html">TransportConnection</a> toConnection(String id, <strong class="jxr_keyword">boolean</strong> selfInitiated,
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>              T underlying);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * Creates a TransportConnection with the given parameters and a generated</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     * ID.</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * @param selfInitiated the parameter, which identifies, if the connection</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     * was initiated by this side</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * @param underlying the underlying transport object (e.g. Socket)</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     * @return the TransportConnection</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <a href="../../../../../de/hsbremen/tc/tnc/transport/TransportConnection.html">TransportConnection</a> toConnection(<strong class="jxr_keyword">boolean</strong> selfInitiated, T underlying);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2015, Trust HS Bremen and its Contributors</div>
+<div id="footer">Copyright &#169; 2016, Trust HS Bremen and its Contributors</div>
 </body>
 </html>

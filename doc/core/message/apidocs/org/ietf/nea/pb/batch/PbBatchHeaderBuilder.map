@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c94658" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/batch/TnccsBatchHeaderBuilder.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" alt="" coords="100,11,273,53"/>
+<area shape="rect" id="c94022" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/batch/TnccsBatchHeaderBuilder.html" title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatchHeaderBuilder" alt="" coords="100,11,273,53"/>
 <area shape="rect" id="node1" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/batch/TnccsBatchHeaderBuilder.html" title="&lt;TABLE&gt;" alt="" coords="89,6,284,58"/>
-<area shape="rect" id="c95012" href="./PbBatchHeaderBuilder.html" title="org.ietf.nea.pb.batch.PbBatchHeaderBuilder" alt="" coords="16,113,357,250"/>
+<area shape="rect" id="c94375" href="./PbBatchHeaderBuilder.html" title="org.ietf.nea.pb.batch.PbBatchHeaderBuilder" alt="" coords="16,113,357,250"/>
 <area shape="rect" id="node3" href="./PbBatchHeaderBuilder.html" title="&lt;TABLE&gt;" alt="" coords="5,107,368,255"/>
-<area shape="rect" id="c95009" href="./PbBatchHeaderBuilderIetf.html" title="org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf" alt="" coords="16,310,357,543"/>
+<area shape="rect" id="c94372" href="./PbBatchHeaderBuilderIetf.html" title="org.ietf.nea.pb.batch.PbBatchHeaderBuilderIetf" alt="" coords="16,310,357,543"/>
 <area shape="rect" id="node2" href="./PbBatchHeaderBuilderIetf.html" title="&lt;TABLE&gt;" alt="" coords="5,305,368,549"/>
 </map>

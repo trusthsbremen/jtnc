@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c0" href="./NarCLI.html" title="de.hsbremen.tc.tnc.examples.nar.NarCLI" alt="" coords="16,115,229,221"/>
-<area shape="rect" id="node1" href="./NarCLI.html" title="&lt;TABLE&gt;" alt="" coords="5,110,240,226"/>
-<area shape="rect" id="c1" href="./TestImcOs.html" title="de.hsbremen.tc.tnc.examples.nar.TestImcOs" alt="" coords="274,131,379,205"/>
-<area shape="rect" id="node2" href="./TestImcOs.html" title="&lt;TABLE&gt;" alt="" coords="264,126,389,210"/>
-<area shape="rect" id="c2" href="./Nar.html" title="de.hsbremen.tc.tnc.examples.nar.Nar" alt="" coords="424,11,693,325"/>
-<area shape="rect" id="node3" href="./Nar.html" title="&lt;TABLE&gt;" alt="" coords="413,6,704,330"/>
+<area shape="rect" id="c0" href="./NarCLI.html" title="de.hsbremen.tc.tnc.examples.nar.NarCLI" alt="" coords="16,123,229,229"/>
+<area shape="rect" id="node1" href="./NarCLI.html" title="&lt;TABLE&gt;" alt="" coords="5,118,240,234"/>
+<area shape="rect" id="c1" href="./TestImcOs.html" title="de.hsbremen.tc.tnc.examples.nar.TestImcOs" alt="" coords="274,139,379,213"/>
+<area shape="rect" id="node2" href="./TestImcOs.html" title="&lt;TABLE&gt;" alt="" coords="264,134,389,218"/>
+<area shape="rect" id="c2" href="./Nar.html" title="de.hsbremen.tc.tnc.examples.nar.Nar" alt="" coords="423,11,811,341"/>
+<area shape="rect" id="node3" href="./Nar.html" title="&lt;TABLE&gt;" alt="" coords="413,6,821,346"/>
 </map>

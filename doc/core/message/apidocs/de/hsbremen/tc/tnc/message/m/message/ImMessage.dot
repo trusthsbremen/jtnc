@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.m.message.ImMessage
-	c33688 [label=<<table title="de.hsbremen.tc.tnc.message.m.message.ImMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ImMessage.html">
+	c33204 [label=<<table title="de.hsbremen.tc.tnc.message.m.message.ImMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ImMessage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ImMessage </td></tr>
@@ -24,14 +24,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ImMessage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.m.ImData
-	c33697 [label=<<table title="de.hsbremen.tc.tnc.message.m.ImData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ImData.html">
+	c33213 [label=<<table title="de.hsbremen.tc.tnc.message.m.ImData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ImData.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ImData </td></tr>
 		</table></td></tr>
 		</table>>, URL="../ImData.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.message.PaMessage
-	c33857 [label=<<table title="org.ietf.nea.pa.message.PaMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../org/ietf/nea/pa/message/PaMessage.html">
+	c33372 [label=<<table title="org.ietf.nea.pa.message.PaMessage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../org/ietf/nea/pa/message/PaMessage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaMessage </td></tr>
 		</table></td></tr>
@@ -47,8 +47,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../../../org/ietf/nea/pa/message/PaMessage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.message.m.message.ImMessage implements de.hsbremen.tc.tnc.message.m.ImData
-	c33697:p -> c33688:p [dir=back,arrowtail=empty,style=dashed];
+	c33213:p -> c33204:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pa.message.PaMessage implements de.hsbremen.tc.tnc.message.m.message.ImMessage
-	c33688:p -> c33857:p [dir=back,arrowtail=empty,style=dashed];
+	c33204:p -> c33372:p [dir=back,arrowtail=empty,style=dashed];
 }
 

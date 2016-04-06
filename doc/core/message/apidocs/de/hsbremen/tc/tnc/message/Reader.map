@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c157996" href="./m/serialize/bytebuffer/ImReader.html" title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader" alt="" coords="15,177,214,218"/>
+<area shape="rect" id="c157202" href="./m/serialize/bytebuffer/ImReader.html" title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader" alt="" coords="15,177,214,218"/>
 <area shape="rect" id="node1" href="./m/serialize/bytebuffer/ImReader.html" title="&lt;TABLE&gt;" alt="" coords="5,171,224,223"/>
-<area shape="rect" id="c158009" href="./tnccs/serialize/bytebuffer/TnccsReader.html" title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader" alt="" coords="258,177,499,218"/>
+<area shape="rect" id="c157215" href="./tnccs/serialize/bytebuffer/TnccsReader.html" title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader" alt="" coords="258,177,499,218"/>
 <area shape="rect" id="node2" href="./tnccs/serialize/bytebuffer/TnccsReader.html" title="&lt;TABLE&gt;" alt="" coords="248,171,509,223"/>
-<area shape="rect" id="c158023" href="./Reader.html" title="de.hsbremen.tc.tnc.message.Reader" alt="" coords="266,11,491,117"/>
+<area shape="rect" id="c157229" href="./Reader.html" title="de.hsbremen.tc.tnc.message.Reader" alt="" coords="266,11,491,117"/>
 <area shape="rect" id="node3" href="./Reader.html" title="&lt;TABLE&gt;" alt="" coords="256,6,501,122"/>
-<area shape="rect" id="c158039" href="./t/serialize/bytebuffer/TransportReader.html" title="de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader" alt="" coords="543,177,822,218"/>
+<area shape="rect" id="c157245" href="./t/serialize/bytebuffer/TransportReader.html" title="de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportReader" alt="" coords="543,177,822,218"/>
 <area shape="rect" id="node4" href="./t/serialize/bytebuffer/TransportReader.html" title="&lt;TABLE&gt;" alt="" coords="533,171,832,223"/>
 </map>

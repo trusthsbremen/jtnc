@@ -10,21 +10,21 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter<T extends de.hsbremen.tc.tnc.message.m.ImData>
-	c174843 [label=<<table title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./m/serialize/bytebuffer/ImWriter.html">
+	c174007 [label=<<table title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./m/serialize/bytebuffer/ImWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ImWriter&lt;T extends ImData&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./m/serialize/bytebuffer/ImWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter<T extends de.hsbremen.tc.tnc.message.tnccs.TnccsData>
-	c174856 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./tnccs/serialize/bytebuffer/TnccsWriter.html">
+	c174020 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./tnccs/serialize/bytebuffer/TnccsWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsWriter&lt;T extends TnccsData&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./tnccs/serialize/bytebuffer/TnccsWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.Writer<T extends de.hsbremen.tc.tnc.message.Data, S>
-	c174873 [label=<<table title="de.hsbremen.tc.tnc.message.Writer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Writer.html">
+	c174037 [label=<<table title="de.hsbremen.tc.tnc.message.Writer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Writer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Writer&lt;T extends Data, S&gt; </td></tr>
@@ -37,17 +37,17 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Writer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter<T extends de.hsbremen.tc.tnc.message.t.TransportData>
-	c174884 [label=<<table title="de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./t/serialize/bytebuffer/TransportWriter.html">
+	c174048 [label=<<table title="de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./t/serialize/bytebuffer/TransportWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TransportWriter&lt;T extends TransportData&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./t/serialize/bytebuffer/TransportWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter<T extends de.hsbremen.tc.tnc.message.m.ImData> implements de.hsbremen.tc.tnc.message.Writer<T extends de.hsbremen.tc.tnc.message.Data, S>
-	c174873:p -> c174843:p [dir=back,arrowtail=empty,style=dashed];
+	c174037:p -> c174007:p [dir=back,arrowtail=empty,style=dashed];
 	//de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter<T extends de.hsbremen.tc.tnc.message.tnccs.TnccsData> implements de.hsbremen.tc.tnc.message.Writer<T extends de.hsbremen.tc.tnc.message.Data, S>
-	c174873:p -> c174856:p [dir=back,arrowtail=empty,style=dashed];
+	c174037:p -> c174020:p [dir=back,arrowtail=empty,style=dashed];
 	//de.hsbremen.tc.tnc.message.t.serialize.bytebuffer.TransportWriter<T extends de.hsbremen.tc.tnc.message.t.TransportData> implements de.hsbremen.tc.tnc.message.Writer<T extends de.hsbremen.tc.tnc.message.Data, S>
-	c174873:p -> c174884:p [dir=back,arrowtail=empty,style=dashed];
+	c174037:p -> c174048:p [dir=back,arrowtail=empty,style=dashed];
 }
 

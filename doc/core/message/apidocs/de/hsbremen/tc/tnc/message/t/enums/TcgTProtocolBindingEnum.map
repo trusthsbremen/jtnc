@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c163238" href="../../TcgProtocolBindingIdentifier.html" title="de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier" alt="" coords="16,11,200,133"/>
+<area shape="rect" id="c162431" href="../../TcgProtocolBindingIdentifier.html" title="de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier" alt="" coords="16,11,200,133"/>
 <area shape="rect" id="node1" href="../../TcgProtocolBindingIdentifier.html" title="&lt;TABLE&gt;" alt="" coords="5,6,211,138"/>
-<area shape="rect" id="c163260" href="./TcgTProtocolBindingEnum.html" title="de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum" alt="" coords="20,193,196,378"/>
+<area shape="rect" id="c162453" href="./TcgTProtocolBindingEnum.html" title="de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum" alt="" coords="20,193,196,378"/>
 <area shape="rect" id="node2" href="./TcgTProtocolBindingEnum.html" title="&lt;TABLE&gt;" alt="" coords="9,187,207,383"/>
 </map>

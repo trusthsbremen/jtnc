@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilder
-	c129068 [label=<<table title="org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PbMessageValueRemediationParameterUriBuilder.html">
+	c128346 [label=<<table title="org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PbMessageValueRemediationParameterUriBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> PbMessageValueRemediationParameterUriBuilder </td></tr>
@@ -23,7 +23,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PbMessageValueRemediationParameterUriBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilderIetf
-	c129076 [label=<<table title="org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilderIetf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbMessageValueRemediationParameterUriBuilderIetf.html">
+	c128354 [label=<<table title="org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilderIetf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PbMessageValueRemediationParameterUriBuilderIetf.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbMessageValueRemediationParameterUriBuilderIetf </td></tr>
 		</table></td></tr>
@@ -39,6 +39,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PbMessageValueRemediationParameterUriBuilderIetf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilderIetf implements org.ietf.nea.pb.message.util.PbMessageValueRemediationParameterUriBuilder
-	c129068:p -> c129076:p [dir=back,arrowtail=empty,style=dashed];
+	c128346:p -> c128354:p [dir=back,arrowtail=empty,style=dashed];
 }
 

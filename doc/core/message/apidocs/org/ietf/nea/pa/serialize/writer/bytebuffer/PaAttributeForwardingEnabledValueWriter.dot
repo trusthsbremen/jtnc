@@ -10,14 +10,14 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter<T extends de.hsbremen.tc.tnc.message.m.ImData>
-	c50128 [label=<<table title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/m/serialize/bytebuffer/ImWriter.html">
+	c49603 [label=<<table title="de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../de/hsbremen/tc/tnc/message/m/serialize/bytebuffer/ImWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ImWriter&lt;T extends ImData&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../../../../de/hsbremen/tc/tnc/message/m/serialize/bytebuffer/ImWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeForwardingEnabledValueWriter
-	c50284 [label=<<table title="org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeForwardingEnabledValueWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeForwardingEnabledValueWriter.html">
+	c49758 [label=<<table title="org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeForwardingEnabledValueWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PaAttributeForwardingEnabledValueWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaAttributeForwardingEnabledValueWriter </td></tr>
 		</table></td></tr>
@@ -30,6 +30,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PaAttributeForwardingEnabledValueWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pa.serialize.writer.bytebuffer.PaAttributeForwardingEnabledValueWriter implements de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter<T extends de.hsbremen.tc.tnc.message.m.ImData>
-	c50128:p -> c50284:p [dir=back,arrowtail=empty,style=dashed];
+	c49603:p -> c49758:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.Combined<T>
-	c25695 [label=<<table title="de.hsbremen.tc.tnc.message.Combined" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Combined.html">
+	c25631 [label=<<table title="de.hsbremen.tc.tnc.message.Combined" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Combined.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Combined&lt;T&gt; </td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Combined.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader
-	c25749 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pt/serialize/reader/bytebuffer/PtTlsReader.html">
+	c25685 [label=<<table title="org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pt/serialize/reader/bytebuffer/PtTlsReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsReader </td></tr>
 		</table></td></tr>
@@ -35,14 +35,14 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> ~ PtTlsReader(mHeadReader : TransportReader&lt;PtTlsMessageHeader&gt;) </td></tr>
 <tr><td align="left" balign="left"> ~ PtTlsReader(mHeadReader : TransportReader&lt;PtTlsMessageHeader&gt;, valueReaders : Map&lt;Long, Map&lt;Long, TransportReader&lt;PtTlsMessageValue&gt;&gt;&gt;) </td></tr>
-<tr><td align="left" balign="left"> + read(buffer : ByteBuffer, length : long) : TransportMessageContainer </td></tr>
+<tr><td align="left" balign="left"> + read(buffer : ByteBuffer, length : long) : TransportMessage </td></tr>
 <tr><td align="left" balign="left"> + getMinDataLength() : byte </td></tr>
 <tr><td align="left" balign="left"> + add(vendorId : Long, messageType : Long, reader : TransportReader&lt;PtTlsMessageValue&gt;) </td></tr>
 <tr><td align="left" balign="left"> + remove(vendorId : Long, messageType : Long) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../../../org/ietf/nea/pt/serialize/reader/bytebuffer/PtTlsReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriter
-	c25769 [label=<<table title="org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pt/serialize/writer/bytebuffer/PtTlsWriter.html">
+	c25705 [label=<<table title="org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pt/serialize/writer/bytebuffer/PtTlsWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PtTlsWriter </td></tr>
 		</table></td></tr>
@@ -59,7 +59,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../org/ietf/nea/pt/serialize/writer/bytebuffer/PtTlsWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.serialize.reader.bytebuffer.PaReader
-	c25810 [label=<<table title="org.ietf.nea.pa.serialize.reader.bytebuffer.PaReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pa/serialize/reader/bytebuffer/PaReader.html">
+	c25745 [label=<<table title="org.ietf.nea.pa.serialize.reader.bytebuffer.PaReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pa/serialize/reader/bytebuffer/PaReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaReader </td></tr>
 		</table></td></tr>
@@ -79,7 +79,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../org/ietf/nea/pa/serialize/reader/bytebuffer/PaReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriter
-	c25831 [label=<<table title="org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pa/serialize/writer/bytebuffer/PaWriter.html">
+	c25766 [label=<<table title="org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pa/serialize/writer/bytebuffer/PaWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PaWriter </td></tr>
 		</table></td></tr>
@@ -97,7 +97,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../org/ietf/nea/pa/serialize/writer/bytebuffer/PaWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.serialize.reader.bytebuffer.PbReader
-	c25945 [label=<<table title="org.ietf.nea.pb.serialize.reader.bytebuffer.PbReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pb/serialize/reader/bytebuffer/PbReader.html">
+	c25880 [label=<<table title="org.ietf.nea.pb.serialize.reader.bytebuffer.PbReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pb/serialize/reader/bytebuffer/PbReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbReader </td></tr>
 		</table></td></tr>
@@ -117,7 +117,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../org/ietf/nea/pb/serialize/reader/bytebuffer/PbReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter
-	c25973 [label=<<table title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pb/serialize/writer/bytebuffer/PbWriter.html">
+	c25908 [label=<<table title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../org/ietf/nea/pb/serialize/writer/bytebuffer/PbWriter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbWriter </td></tr>
 		</table></td></tr>
@@ -135,16 +135,16 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../org/ietf/nea/pb/serialize/writer/bytebuffer/PbWriter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.ietf.nea.pt.serialize.reader.bytebuffer.PtTlsReader implements de.hsbremen.tc.tnc.message.Combined<T>
-	c25695:p -> c25749:p [dir=back,arrowtail=empty,style=dashed];
+	c25631:p -> c25685:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pt.serialize.writer.bytebuffer.PtTlsWriter implements de.hsbremen.tc.tnc.message.Combined<T>
-	c25695:p -> c25769:p [dir=back,arrowtail=empty,style=dashed];
+	c25631:p -> c25705:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pa.serialize.reader.bytebuffer.PaReader implements de.hsbremen.tc.tnc.message.Combined<T>
-	c25695:p -> c25810:p [dir=back,arrowtail=empty,style=dashed];
+	c25631:p -> c25745:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pa.serialize.writer.bytebuffer.PaWriter implements de.hsbremen.tc.tnc.message.Combined<T>
-	c25695:p -> c25831:p [dir=back,arrowtail=empty,style=dashed];
+	c25631:p -> c25766:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pb.serialize.reader.bytebuffer.PbReader implements de.hsbremen.tc.tnc.message.Combined<T>
-	c25695:p -> c25945:p [dir=back,arrowtail=empty,style=dashed];
+	c25631:p -> c25880:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pb.serialize.writer.bytebuffer.PbWriter implements de.hsbremen.tc.tnc.message.Combined<T>
-	c25695:p -> c25973:p [dir=back,arrowtail=empty,style=dashed];
+	c25631:p -> c25908:p [dir=back,arrowtail=empty,style=dashed];
 }
 

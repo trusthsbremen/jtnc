@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c161240" href="./ByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.ByteBuffer" alt="" coords="40,11,301,533"/>
+<area shape="rect" id="c160438" href="./ByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.ByteBuffer" alt="" coords="40,11,301,533"/>
 <area shape="rect" id="node1" href="./ByteBuffer.html" title="&lt;TABLE&gt;" alt="" coords="29,6,312,538"/>
-<area shape="rect" id="c161242" href="./StreamedReadOnlyByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer" alt="" coords="16,593,325,1162"/>
+<area shape="rect" id="c160440" href="./StreamedReadOnlyByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer" alt="" coords="16,593,325,1162"/>
 <area shape="rect" id="node2" href="./StreamedReadOnlyByteBuffer.html" title="&lt;TABLE&gt;" alt="" coords="5,587,336,1167"/>
 </map>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.util.StreamedWriteOnlyByteBuffer
-	c5246 [label=<<table title="de.hsbremen.tc.tnc.message.util.StreamedWriteOnlyByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StreamedWriteOnlyByteBuffer.html">
+	c5233 [label=<<table title="de.hsbremen.tc.tnc.message.util.StreamedWriteOnlyByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StreamedWriteOnlyByteBuffer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StreamedWriteOnlyByteBuffer </td></tr>
 		</table></td></tr>
@@ -53,7 +53,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StreamedWriteOnlyByteBuffer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.util.ByteBuffer
-	c5247 [label=<<table title="de.hsbremen.tc.tnc.message.util.ByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ByteBuffer.html">
+	c5234 [label=<<table title="de.hsbremen.tc.tnc.message.util.ByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ByteBuffer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ByteBuffer </td></tr>
@@ -93,7 +93,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ByteBuffer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.util.DefaultByteBuffer
-	c5248 [label=<<table title="de.hsbremen.tc.tnc.message.util.DefaultByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DefaultByteBuffer.html">
+	c5235 [label=<<table title="de.hsbremen.tc.tnc.message.util.DefaultByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DefaultByteBuffer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DefaultByteBuffer </td></tr>
 		</table></td></tr>
@@ -145,7 +145,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DefaultByteBuffer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer
-	c5249 [label=<<table title="de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StreamedReadOnlyByteBuffer.html">
+	c5236 [label=<<table title="de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StreamedReadOnlyByteBuffer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StreamedReadOnlyByteBuffer </td></tr>
 		</table></td></tr>
@@ -188,10 +188,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StreamedReadOnlyByteBuffer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.message.util.StreamedWriteOnlyByteBuffer implements de.hsbremen.tc.tnc.message.util.ByteBuffer
-	c5247:p -> c5246:p [dir=back,arrowtail=empty,style=dashed];
+	c5234:p -> c5233:p [dir=back,arrowtail=empty,style=dashed];
 	//de.hsbremen.tc.tnc.message.util.DefaultByteBuffer implements de.hsbremen.tc.tnc.message.util.ByteBuffer
-	c5247:p -> c5248:p [dir=back,arrowtail=empty,style=dashed];
+	c5234:p -> c5235:p [dir=back,arrowtail=empty,style=dashed];
 	//de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer implements de.hsbremen.tc.tnc.message.util.ByteBuffer
-	c5247:p -> c5249:p [dir=back,arrowtail=empty,style=dashed];
+	c5234:p -> c5236:p [dir=back,arrowtail=empty,style=dashed];
 }
 

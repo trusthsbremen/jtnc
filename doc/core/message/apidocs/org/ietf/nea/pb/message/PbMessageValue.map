@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c114304" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/message/TnccsMessageValue.html" title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue" alt="" coords="134,11,277,53"/>
+<area shape="rect" id="c113619" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/message/TnccsMessageValue.html" title="de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessageValue" alt="" coords="134,11,277,53"/>
 <area shape="rect" id="node1" href="../../../../../de/hsbremen/tc/tnc/message/tnccs/message/TnccsMessageValue.html" title="&lt;TABLE&gt;" alt="" coords="124,6,287,58"/>
-<area shape="rect" id="c114619" href="./PbMessageValue.html" title="org.ietf.nea.pb.message.PbMessageValue" alt="" coords="123,113,287,218"/>
+<area shape="rect" id="c113933" href="./PbMessageValue.html" title="org.ietf.nea.pb.message.PbMessageValue" alt="" coords="123,113,287,218"/>
 <area shape="rect" id="node3" href="./PbMessageValue.html" title="&lt;TABLE&gt;" alt="" coords="113,107,297,223"/>
-<area shape="rect" id="c114606" href="./AbstractPbMessageValue.html" title="org.ietf.nea.pb.message.AbstractPbMessageValue" alt="" coords="15,278,395,431"/>
+<area shape="rect" id="c113920" href="./AbstractPbMessageValue.html" title="org.ietf.nea.pb.message.AbstractPbMessageValue" alt="" coords="15,278,395,431"/>
 <area shape="rect" id="node2" href="./AbstractPbMessageValue.html" title="&lt;TABLE&gt;" alt="" coords="5,273,405,437"/>
 </map>

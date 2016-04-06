@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c5651" href="./RuleException.html" title="de.hsbremen.tc.tnc.message.exception.RuleException" alt="" coords="15,11,777,229"/>
+<area shape="rect" id="c5637" href="./RuleException.html" title="de.hsbremen.tc.tnc.message.exception.RuleException" alt="" coords="15,11,777,229"/>
 <area shape="rect" id="node1" href="./RuleException.html" title="&lt;TABLE&gt;" alt="" coords="5,6,787,234"/>
-<area shape="rect" id="c5652" href="./SerializationException.html" title="de.hsbremen.tc.tnc.message.exception.SerializationException" alt="" coords="821,51,1427,189"/>
+<area shape="rect" id="c5638" href="./SerializationException.html" title="de.hsbremen.tc.tnc.message.exception.SerializationException" alt="" coords="821,51,1427,189"/>
 <area shape="rect" id="node2" href="./SerializationException.html" title="&lt;TABLE&gt;" alt="" coords="811,46,1437,194"/>
-<area shape="rect" id="c5653" href="./ValidationException.html" title="de.hsbremen.tc.tnc.message.exception.ValidationException" alt="" coords="1472,43,2136,197"/>
+<area shape="rect" id="c5639" href="./ValidationException.html" title="de.hsbremen.tc.tnc.message.exception.ValidationException" alt="" coords="1472,43,2136,197"/>
 <area shape="rect" id="node3" href="./ValidationException.html" title="&lt;TABLE&gt;" alt="" coords="1461,38,2147,202"/>
 </map>

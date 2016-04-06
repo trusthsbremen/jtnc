@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch
-	c164036 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TnccsBatch.html">
+	c163227 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TnccsBatch.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsBatch </td></tr>
@@ -24,14 +24,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TnccsBatch.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.tnccs.TnccsData
-	c164038 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.TnccsData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TnccsData.html">
+	c163229 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.TnccsData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TnccsData.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TnccsData </td></tr>
 		</table></td></tr>
 		</table>>, URL="../TnccsData.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pb.batch.PbBatch
-	c164386 [label=<<table title="org.ietf.nea.pb.batch.PbBatch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../org/ietf/nea/pb/batch/PbBatch.html">
+	c163576 [label=<<table title="org.ietf.nea.pb.batch.PbBatch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../../../../../org/ietf/nea/pb/batch/PbBatch.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PbBatch </td></tr>
 		</table></td></tr>
@@ -47,8 +47,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../../../../../org/ietf/nea/pb/batch/PbBatch.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch implements de.hsbremen.tc.tnc.message.tnccs.TnccsData
-	c164038:p -> c164036:p [dir=back,arrowtail=empty,style=dashed];
+	c163229:p -> c163227:p [dir=back,arrowtail=empty,style=dashed];
 	//org.ietf.nea.pb.batch.PbBatch implements de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch
-	c164036:p -> c164386:p [dir=back,arrowtail=empty,style=dashed];
+	c163227:p -> c163576:p [dir=back,arrowtail=empty,style=dashed];
 }
 

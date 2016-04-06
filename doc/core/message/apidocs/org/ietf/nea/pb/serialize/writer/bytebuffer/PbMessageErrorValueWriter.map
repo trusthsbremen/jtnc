@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c102672" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html" title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" alt="" coords="355,11,589,53"/>
+<area shape="rect" id="c102016" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html" title="de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter" alt="" coords="355,11,589,53"/>
 <area shape="rect" id="node1" href="../../../../../../../de/hsbremen/tc/tnc/message/tnccs/serialize/bytebuffer/TnccsWriter.html" title="&lt;TABLE&gt;" alt="" coords="345,6,599,58"/>
-<area shape="rect" id="c102952" href="./PbMessageErrorValueWriter.html" title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbMessageErrorValueWriter" alt="" coords="15,113,929,234"/>
+<area shape="rect" id="c102295" href="./PbMessageErrorValueWriter.html" title="org.ietf.nea.pb.serialize.writer.bytebuffer.PbMessageErrorValueWriter" alt="" coords="15,113,929,234"/>
 <area shape="rect" id="node2" href="./PbMessageErrorValueWriter.html" title="&lt;TABLE&gt;" alt="" coords="5,107,939,239"/>
 </map>

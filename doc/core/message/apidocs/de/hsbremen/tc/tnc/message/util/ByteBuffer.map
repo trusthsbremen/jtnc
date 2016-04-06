@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c25297" href="./StreamedWriteOnlyByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.StreamedWriteOnlyByteBuffer" alt="" coords="16,665,344,1234"/>
+<area shape="rect" id="c25234" href="./StreamedWriteOnlyByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.StreamedWriteOnlyByteBuffer" alt="" coords="16,665,344,1234"/>
 <area shape="rect" id="node1" href="./StreamedWriteOnlyByteBuffer.html" title="&lt;TABLE&gt;" alt="" coords="5,659,355,1239"/>
-<area shape="rect" id="c25298" href="./ByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.ByteBuffer" alt="" coords="421,11,683,533"/>
+<area shape="rect" id="c25235" href="./ByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.ByteBuffer" alt="" coords="421,11,683,533"/>
 <area shape="rect" id="node2" href="./ByteBuffer.html" title="&lt;TABLE&gt;" alt="" coords="411,6,693,538"/>
-<area shape="rect" id="c25299" href="./DefaultByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.DefaultByteBuffer" alt="" coords="389,593,715,1306"/>
+<area shape="rect" id="c25236" href="./DefaultByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.DefaultByteBuffer" alt="" coords="389,593,715,1306"/>
 <area shape="rect" id="node3" href="./DefaultByteBuffer.html" title="&lt;TABLE&gt;" alt="" coords="379,587,725,1311"/>
-<area shape="rect" id="c25300" href="./StreamedReadOnlyByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer" alt="" coords="760,665,1069,1234"/>
+<area shape="rect" id="c25237" href="./StreamedReadOnlyByteBuffer.html" title="de.hsbremen.tc.tnc.message.util.StreamedReadOnlyByteBuffer" alt="" coords="760,665,1069,1234"/>
 <area shape="rect" id="node4" href="./StreamedReadOnlyByteBuffer.html" title="&lt;TABLE&gt;" alt="" coords="749,659,1080,1239"/>
 </map>

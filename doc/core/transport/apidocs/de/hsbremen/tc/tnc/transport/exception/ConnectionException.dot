@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.transport.exception.ConnectionException
-	c43 [label=<<table title="de.hsbremen.tc.tnc.transport.exception.ConnectionException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConnectionException.html">
+	c309 [label=<<table title="de.hsbremen.tc.tnc.transport.exception.ConnectionException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConnectionException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConnectionException </td></tr>
 		</table></td></tr>
@@ -23,9 +23,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ConnectionException.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.transport.exception.ConnectionException extends de.hsbremen.tc.tnc.exception.ComprehensibleException
-	c54:p -> c43:p [dir=back,arrowtail=empty];
+	c336:p -> c309:p [dir=back,arrowtail=empty];
 	// de.hsbremen.tc.tnc.exception.ComprehensibleException
-	c54 [label=<<table title="de.hsbremen.tc.tnc.exception.ComprehensibleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/de/hsbremen/tc/tnc/exception/ComprehensibleException.html">
+	c336 [label=<<table title="de.hsbremen.tc.tnc.exception.ComprehensibleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/de/hsbremen/tc/tnc/exception/ComprehensibleException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ComprehensibleException </font></td></tr>
 		</table></td></tr>

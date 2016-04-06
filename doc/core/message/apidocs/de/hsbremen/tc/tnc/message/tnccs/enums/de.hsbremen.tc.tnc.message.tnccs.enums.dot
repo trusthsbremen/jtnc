@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum
-	c4034 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TcgTnccsProtocolBindingEnum.html">
+	c4024 [label=<<table title="de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TcgTnccsProtocolBindingEnum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TcgTnccsProtocolBindingEnum </td></tr>

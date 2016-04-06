@@ -24,7 +24,7 @@ digraph G {
 <tr><td align="left" balign="left"> - client : ClientFacade </td></tr>
 <tr><td align="left" balign="left"> - manager : ImvManager </td></tr>
 <tr><td align="left" balign="left"> - serverSocket : ServerSocket </td></tr>
-<tr><td align="left" balign="left"> - connectionBuilder : SocketTransportConnectionBuilder </td></tr>
+<tr><td align="left" balign="left"> - connectionBuilder : DefaultSocketTransportConnectionBuilder </td></tr>
 <tr><td align="left" balign="left"> - monitor : ConfigurationFileChangeMonitor </td></tr>
 <tr><td align="left" balign="left"> - runner : ExecutorService </td></tr>
 <tr><td align="left" balign="left"> - stopped : boolean </td></tr>

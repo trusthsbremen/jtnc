@@ -23,6 +23,7 @@ digraph G {
 <tr><td align="left" balign="left"> - client : ClientFacade </td></tr>
 <tr><td align="left" balign="left"> - manager : ImcManager </td></tr>
 <tr><td align="left" balign="left"> - monitor : ConfigurationFileChangeMonitor </td></tr>
+<tr><td align="left" balign="left"> - connectionBuilder : DefaultSocketTransportConnectionBuilder </td></tr>
 <tr><td align="left" balign="left"> - socket : Socket </td></tr>
 <tr><td align="left" balign="left"> - connection : TransportConnection </td></tr>
 		</table></td></tr>

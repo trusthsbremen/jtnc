@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier
-	c163238 [label=<<table title="de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../TcgProtocolBindingIdentifier.html">
+	c162431 [label=<<table title="de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../TcgProtocolBindingIdentifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TcgProtocolBindingIdentifier </td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../TcgProtocolBindingIdentifier.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum
-	c163260 [label=<<table title="de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TcgTProtocolBindingEnum.html">
+	c162453 [label=<<table title="de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TcgTProtocolBindingEnum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TcgTProtocolBindingEnum </td></tr>
@@ -44,6 +44,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TcgTProtocolBindingEnum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//de.hsbremen.tc.tnc.message.t.enums.TcgTProtocolBindingEnum implements de.hsbremen.tc.tnc.message.TcgProtocolBindingIdentifier
-	c163238:p -> c163260:p [dir=back,arrowtail=empty,style=dashed];
+	c162431:p -> c162453:p [dir=back,arrowtail=empty,style=dashed];
 }
 

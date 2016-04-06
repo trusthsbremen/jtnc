@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum
-	c10940 [label=<<table title="org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageTypeEnum.html">
+	c10912 [label=<<table title="org.ietf.nea.pt.message.enums.PtTlsMessageTypeEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageTypeEnum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> PtTlsMessageTypeEnum </td></tr>
@@ -31,7 +31,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PtTlsMessageTypeEnum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum
-	c10941 [label=<<table title="org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageTlvFixedLengthEnum.html">
+	c10913 [label=<<table title="org.ietf.nea.pt.message.enums.PtTlsMessageTlvFixedLengthEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PtTlsMessageTlvFixedLengthEnum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> PtTlsMessageTlvFixedLengthEnum </td></tr>
