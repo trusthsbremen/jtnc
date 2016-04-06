@@ -1,6 +1,0 @@
-# Drop all library binaries
-Thumbs.db
-git_statistics.sh
-git_statistics.info
-repo/*
-copy_jtnc_doc.sh
