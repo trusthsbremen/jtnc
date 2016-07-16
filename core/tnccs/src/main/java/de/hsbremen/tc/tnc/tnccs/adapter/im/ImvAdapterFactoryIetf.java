@@ -108,8 +108,7 @@ public class ImvAdapterFactoryIetf implements ImvAdapterFactory {
                     .append(" with the following supported abilities: \n")
                     .append("TNCS first support: ")
                     .append((imv instanceof IMVTNCSFirst)).append("\n")
-                    .append("Long support: ").append((imv instanceof IMVLong))
-                    .append("\n");
+                    .append("Long support: ").append((imv instanceof IMVLong));
             LOGGER.debug(b.toString());
         }
 

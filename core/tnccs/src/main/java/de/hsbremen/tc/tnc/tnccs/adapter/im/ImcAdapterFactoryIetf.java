@@ -107,8 +107,7 @@ public class ImcAdapterFactoryIetf implements ImcAdapterFactory {
                     .append(" with the following supported abilities: \n")
                     .append("Attribut support: ")
                     .append((imc instanceof AttributeSupport)).append("\n")
-                    .append("Long support: ").append((imc instanceof IMCLong))
-                    .append("\n");
+                    .append("Long support: ").append((imc instanceof IMCLong));
             LOGGER.debug(b.toString());
         }
 
