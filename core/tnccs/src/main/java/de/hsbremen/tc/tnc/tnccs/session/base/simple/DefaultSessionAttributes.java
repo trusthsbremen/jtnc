@@ -155,18 +155,23 @@ public class DefaultSessionAttributes implements SessionAttributes {
     @Override
     public void setAttribute(final TncAttributeType type, final Object value)
             throws TncException {
+        
+        boolean attributeSet = false;
         if (type.equals(
                 TncCommonAttributeTypeEnum
                 .TNC_ATTRIBUTEID_PREFERRED_LANGUAGE)) {
 
             if (value instanceof String) {
                 this.preferredLanguage = (String) value;
+                attributeSet = true;
             }
         }
 
-        throw new TncException("The attribute with ID " + type.id()
-                + " is unknown or not writeable.",
-                TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+        if (!attributeSet) {
+            throw new TncException("The attribute with ID " + type.id()
+                    + " is unknown or not writeable.",
+                    TncExceptionCodeEnum.TNC_RESULT_INVALID_PARAMETER);
+        }
     }
 
 }

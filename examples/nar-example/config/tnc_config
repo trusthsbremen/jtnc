@@ -36,5 +36,5 @@
 #
 #
 # Simple Java IMC configuration file
-JAVA-IMC "OS_IMC" de.hsbremen.tc.tnc.im.example.OsImc /home/sidanetdev/git/jtnc/examples/imc-example/target/imc-example-0.0.5-ALPHA-jar-with-dependencies.jar
-JAVA-IMC "FILE_IMC" de.hsbremen.tc.tnc.im.example.FileImc /home/sidanetdev/git/jtnc/examples/imc-example/target/imc-example-0.0.5-ALPHA-jar-with-dependencies.jar
+JAVA-IMC "OS_IMC" de.hsbremen.tc.tnc.im.example.OsImc /home/sidanetdev/git/jtnc/examples/imc-example/target/imc-example-0.0.6-ALPHA-jar-with-dependencies.jar
+JAVA-IMC "FILE_IMC" de.hsbremen.tc.tnc.im.example.FileImc /home/sidanetdev/git/jtnc/examples/imc-example/target/imc-example-0.0.6-ALPHA-jar-with-dependencies.jar
