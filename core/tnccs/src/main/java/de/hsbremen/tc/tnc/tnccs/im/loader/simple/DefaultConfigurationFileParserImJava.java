@@ -165,12 +165,11 @@ public class DefaultConfigurationFileParserImJava implements
         // TODO maybe a more complex pattern here
         final String javaNaming = "([a-zA-Z_$]{1}[a-zA-Z_$0-9]*"
                 + "(\\.[a-zA-Z_$]{1}[a-zA-Z_$0-9]*)*)";
-        final String filePath = "((?!.*//.*)(?!.*/ .*)/{1}"
+        final String filePath = "(([\\w]:)?(?!.*//.*)(?!.*/ .*)/{1}"
                 + "([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+\\.(jar))";
         final String imName = "\"([^\"]+)\"";
         Pattern p = Pattern.compile("^" + this.lineClassifier.linePrefix()
                 + " " + imName + " " + javaNaming + " " + filePath + "$");
-
         final int nameGroupIdx = 1;
         final int classGroupIdx = 2;
         // 3 is an intermediate match
@@ -182,7 +181,7 @@ public class DefaultConfigurationFileParserImJava implements
                 String name = m.group(nameGroupIdx).trim();
                 String mainClass = m.group(classGroupIdx).trim();
                 String path = m.group(pathGroupIdx).trim();
-
+                System.out.println(path);
                 try {
                     URL url = new URL(URL_SHEMA + path);
                     ConfigurationEntry cfg =

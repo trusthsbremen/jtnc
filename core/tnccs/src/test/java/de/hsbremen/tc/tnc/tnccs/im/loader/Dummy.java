@@ -44,6 +44,13 @@ public class Dummy extends AbstractDummy {
 		String s = "JAVA-IMC \"Example IMC"+i+"\" de.hsbremen.sidanet.nar.imc.ExampleImc"+i+" /home/tnc/example_imc"+i+".jar";
 		return s;
 	}
+	
+	public static String getConfigLineWin(){
+        int i = new Random().nextInt(100);
+        String s = "JAVA-IMC \"Example IMC"+i+"\" de.hsbremen.sidanet.nar.imc.ExampleImc"+i+" c:/home/tnc/example_imc"+i+".jar";
+        return s;
+    }
+	
 	public static String getConfigLineToDummyImc(){
 	    String s = "JAVA-IMC \"Example IMC\" de.hsbremen.tc.tnc.DummyImc /home/sidanetdev/git/jtnc/core/tnccs/src/test/resources/DummyImc.jar";
 	    return s;
