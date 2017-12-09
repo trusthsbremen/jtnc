@@ -181,7 +181,6 @@ public class DefaultConfigurationFileParserImJava implements
                 String name = m.group(nameGroupIdx).trim();
                 String mainClass = m.group(classGroupIdx).trim();
                 String path = m.group(pathGroupIdx).trim();
-                System.out.println(path);
                 try {
                     URL url = new URL(URL_SHEMA + path);
                     ConfigurationEntry cfg =
