@@ -149,9 +149,6 @@ public final class SupportedMessageTypeFactory {
         long vendorId = messageType >>> VENDOR_ID_SHIFT;
         long type = messageType & MESSAGE_TYPE_MASK;
         
-        System.out.println("vendorId " + vendorId);
-        System.out.println("type " + type);
-
         return createSupportedMessageType(vendorId, type);
     }
 

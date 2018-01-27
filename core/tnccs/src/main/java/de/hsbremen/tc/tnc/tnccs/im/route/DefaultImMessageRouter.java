@@ -81,7 +81,6 @@ public class DefaultImMessageRouter implements ImMessageRouter {
             this.routeMap.unsubscribe(primaryId);
             for (SupportedMessageType type : types) {
                 this.routeMap.subscribe(primaryId, type);
-                System.out.println("Subscribed:" + primaryId + " - " + type.toString());
             }
         } finally {
             this.writeLock.unlock();
@@ -124,7 +123,6 @@ public class DefaultImMessageRouter implements ImMessageRouter {
         List<Long> result = null;
         this.readLock.lock();
         try {
-            System.out.println(this.routeMap.toString());
             result = this.routeMap.findRecipients(vendorId, messageType);
         } finally {
             this.readLock.unlock();
