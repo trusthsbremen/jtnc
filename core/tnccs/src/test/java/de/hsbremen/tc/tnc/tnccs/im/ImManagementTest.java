@@ -40,7 +40,7 @@ public class ImManagementTest {
 		this.imcFactory = new ImcAdapterFactoryIetf();
 		this.tnccFactory = new TnccAdapterFactoryIetf(Dummy.getRetryListener());
 		this.router = new DefaultImMessageRouter();
-		this.manager = new DefaultImcManager(router,imcFactory,tnccFactory);
+		this.manager = new DefaultImcManager(this.router,this.imcFactory,this.tnccFactory);
 	}
 	
 	@Test
@@ -66,21 +66,20 @@ public class ImManagementTest {
 	public void testRouting() throws ImInitializeException, NoRecipientFoundException{
 		System.out.println(Dummy.getTestDescriptionHead(this.getClass().getSimpleName(),"Test routing."));
 		Set<SupportedMessageType> types = new HashSet<>();
-		SupportedMessageType type = SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(0x0001);
+		SupportedMessageType type = SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(1L);
 		types.add(type);
-		types.add(SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(0x0003));
+		SupportedMessageType type2 = SupportedMessageTypeFactory.createSupportedMessageTypeLegacy(3L);
+		types.add(type2);
 	
 		Assert.assertEquals(0,type.getVendorId());
 		Assert.assertEquals(1,type.getType());
 		
 		long id0 = this.manager.add(Dummy.getIMCwithMessageSupport(types));
 		Assert.assertEquals(1, id0);
-		
 		Set<Long> ids = this.router.findRecipientIds(type.getVendorId(), type.getType());
 		Assert.assertEquals(new Long(id0),ids.iterator().next());
 		
 		this.manager.remove(id0);
-		
 		ids = this.router.findRecipientIds(type.getVendorId(), type.getType());
 		if(!ids.isEmpty()){
 			Assert.fail();

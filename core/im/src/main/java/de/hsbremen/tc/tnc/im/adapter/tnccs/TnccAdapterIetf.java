@@ -85,6 +85,7 @@ class TnccAdapterIetf implements TnccAdapter, GlobalHandshakeRetryListener {
 
                 long[] messageTypes = SupportedMessageTypeFactory
                         .createSupportedMessageTypeArrayLegacy(supportedTypes);
+                
                 this.tncc.reportMessageTypes(this.imc, messageTypes);
             }
         } catch (TNCException e) {

@@ -148,6 +148,9 @@ public final class SupportedMessageTypeFactory {
 
         long vendorId = messageType >>> VENDOR_ID_SHIFT;
         long type = messageType & MESSAGE_TYPE_MASK;
+        
+        System.out.println("vendorId " + vendorId);
+        System.out.println("type " + type);
 
         return createSupportedMessageType(vendorId, type);
     }
@@ -195,6 +198,7 @@ public final class SupportedMessageTypeFactory {
                     (supportedMessageType.getVendorId() << VENDOR_ID_SHIFT)
                     | (supportedMessageType.getType() & MESSAGE_TYPE_MASK);
             types[i] = messageType;
+            i++;
         }
 
         return types;

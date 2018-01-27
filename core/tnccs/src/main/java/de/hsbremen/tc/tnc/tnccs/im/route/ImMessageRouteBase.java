@@ -41,6 +41,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
@@ -114,7 +115,8 @@ public class ImMessageRouteBase<T> implements ImMessageRouteComponent<T> {
                     .iterator(); iter.hasNext();) {
                 Long vendorId = iter.next();
                 this.vendorDispatcher.get(vendorId).unsubscribe(connection);
-                if (this.vendorDispatcher.get(vendorId).countChildren() <= 0
+                
+                if (this.vendorDispatcher.get(vendorId).totalRecipients() <= 0
                         && vendorId != TNCConstants.TNC_VENDORID_ANY) {
                     iter.remove();
                 }
@@ -123,7 +125,27 @@ public class ImMessageRouteBase<T> implements ImMessageRouteComponent<T> {
     }
 
     @Override
-    public long countChildren() {
-        return this.vendorDispatcher.size();
+    public long totalRecipients() {
+        long count = 0;
+        for(Entry<Long,ImMessageRouteComponent<T>> entry :
+            this.vendorDispatcher.entrySet()) {
+            
+            if(Long.MAX_VALUE - entry.getValue().totalRecipients() <= count) {
+                count += entry.getValue().totalRecipients();
+            } else {
+                return Long.MAX_VALUE;
+            }
+            
+        }
+        return count;
+    }
+
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ImMessageRouteBase " + this.vendorDispatcher.toString();
     }
 }

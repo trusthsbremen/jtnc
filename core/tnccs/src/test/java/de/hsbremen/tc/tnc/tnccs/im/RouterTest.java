@@ -61,8 +61,7 @@ public class RouterTest {
 		this.router = new DefaultImMessageRouter();
 		this.router.updateMap(imId0, types0);
 		Set<Long> ids = this.router.findRecipientIds(testType.getVendorId(), testType.getType());
-		
-		System.out.println("Actuall size:" + ids.size());
+
 		if(ids.size() < 1){
 			Assert.fail();
 		}
@@ -80,14 +79,13 @@ public class RouterTest {
 		this.router.updateMap(imId1_0, types1);
 		
 		Long l = this.router.findExclRecipientId(imId0, testType.getVendorId(), testType.getType());
-		System.out.println(l);
+
 		if(l.longValue() != this.imId0){
 			Assert.fail();
 		}
 		
 		Set<Long> ids = this.router.findRecipientIds(testType.getVendorId(), testType.getType());
 		
-		System.out.println("Actuall size:" + ids.size());
 		if(ids.size() < 2){
 			Assert.fail();
 		}
@@ -112,7 +110,6 @@ public class RouterTest {
 		
 		Set<Long> ids = this.router.findRecipientIds(testType.getVendorId(), testType.getType());
 		
-		System.out.println("Actuall size:" + ids.size());
 		if(ids.size() < 2){
 			Assert.fail();
 		}
@@ -129,7 +126,6 @@ public class RouterTest {
 		
 		ids = this.router.findRecipientIds(testType.getVendorId(), testType.getType());
 		
-		System.out.println("Actuall size:" + ids.size());
 		if(ids.size() < 1){
 			Assert.fail();
 		}
@@ -148,7 +144,7 @@ public class RouterTest {
 		this.router.updateMap(imId1_0, types1);
 		
 		Long l = this.router.findExclRecipientId(imId0, testType.getVendorId(), testType.getType());
-		System.out.println(l);
+
 		if(l.longValue() != this.imId0){
 			Assert.fail();
 		}
@@ -164,7 +160,7 @@ public class RouterTest {
 		this.router.addExclusiveId(imId1_0, imId1_1);
 		
 		Long l = this.router.findExclRecipientId(imId1_1, testType.getVendorId(), testType.getType());
-		System.out.println(l);
+
 		if(l.longValue() != this.imId1_0){
 			Assert.fail();
 		}

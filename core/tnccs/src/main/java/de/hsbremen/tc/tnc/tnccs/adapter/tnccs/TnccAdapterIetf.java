@@ -97,6 +97,7 @@ class TnccAdapterIetf implements TNCC, AttributeSupport {
         if (supportedTypes != null) {
             for (long l : supportedTypes) {
                 try {
+                    System.out.println(l);
                     SupportedMessageType mType = SupportedMessageTypeFactory
                             .createSupportedMessageTypeLegacy(l);
                     sTypes.add(mType);

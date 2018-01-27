@@ -81,9 +81,10 @@ interface ImMessageRouteComponent<T> {
     void unsubscribe(T recipient);
 
     /**
-     * Returns the children count of this route element.
-     * @return the children count
+     * Returns the aggregated number of recipients/children
+     * along the underlying branch.
+     * @return the total number of recipients
      */
-    long countChildren();
+    long totalRecipients();
 
 }

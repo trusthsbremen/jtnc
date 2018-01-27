@@ -109,6 +109,7 @@ public abstract class AbstractImManager<T> implements ImManager<T> {
             throw new ImInitializeException(
                     "Intialization of IMC failed. IMC will be removed.", e);
         }
+
         return primaryId;
     }
 

@@ -84,8 +84,17 @@ class ImMessageRouteType<T> implements ImMessageRouteComponent<T> {
     }
 
     @Override
-    public long countChildren() {
+    public long totalRecipients() {
         return this.subscribers.size();
     }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.subscribers.toString();
+    }
 
+    
 }

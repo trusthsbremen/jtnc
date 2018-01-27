@@ -41,6 +41,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.trustedcomputinggroup.tnc.ifimc.TNCConstants;
 
@@ -115,7 +116,7 @@ class ImMessageRouteVendor<T> implements ImMessageRouteComponent<T> {
                     .hasNext();) {
                 Long type = iter.next();
                 this.typeDispatcher.get(type).unsubscribe(connection);
-                if (this.typeDispatcher.get(type).countChildren() <= 0
+                if (this.typeDispatcher.get(type).totalRecipients() <= 0
                         && type != TNCConstants.TNC_SUBTYPE_ANY) {
                     iter.remove();
                 }
@@ -124,7 +125,29 @@ class ImMessageRouteVendor<T> implements ImMessageRouteComponent<T> {
     }
 
     @Override
-    public long countChildren() {
-        return this.typeDispatcher.size();
+    public long totalRecipients() {
+        long count = 0;
+        for(Entry<Long,ImMessageRouteComponent<T>> entry :
+            this.typeDispatcher.entrySet()) {
+            
+            if(Long.MAX_VALUE - entry.getValue().totalRecipients() <= count) {
+                count += entry.getValue().totalRecipients();
+            } else {
+                return Long.MAX_VALUE;
+            }
+            
+        }
+        return count;
     }
+    
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.typeDispatcher.toString();
+    }
+    
+    
 }
