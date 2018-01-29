@@ -103,7 +103,7 @@ public class DefaultSocketWrapper implements SocketWrapper {
             final TransportWriter<TransportMessage> writer,
             final TransportReader<TransportMessage> reader) {
         
-        this.maxMessageLength = this.maxMessageLength >= 0 ? maxMessageLength
+        this.maxMessageLength = maxMessageLength >= 0 ? maxMessageLength
                 : HSBConstants.HSB_TRSPT_MAX_MESSAGE_SIZE_UNKNOWN;
 
         this.socket = socket;
