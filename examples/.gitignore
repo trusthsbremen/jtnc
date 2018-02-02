@@ -4,10 +4,9 @@
 
 # Ignore build dir
 build/
-**/releasePackages
-releasePackages/
-**/target
 
+releasePackages/
+target/
 
 **/*.sh
 
