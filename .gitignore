@@ -4,3 +4,4 @@ git_statistics.sh
 git_statistics.info
 repo/*
 bundle_scripts/*
+releasePackages/
