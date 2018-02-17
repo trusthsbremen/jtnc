@@ -95,6 +95,93 @@ public final class PaReaderFactory {
     public static TcgProtocolBindingIdentifier getProtocolIdentifier() {
         return TcgMProtocolBindingEnum.M1;
     }
+    
+    /**
+     * Creates a reader to parse an entire integrity measurement component
+     * message compliant to RFC 5792 from a buffer of bytes to a Java object.
+     * The reader supports a basic set of elements, that are specified by
+     * RFC 5792 and allowed in a production environment.
+     *
+     * @return the integrity measurement component message reader
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static ImReader<ImMessageContainer> createBasicDefault() {
+
+        /*
+         * TODO Remove raw types and unchecked conversion. Unfortunately I could
+         * not find a way around using raw types and unchecked conversion my be
+         * some one else can.
+         */
+
+        PaMessageHeaderReader mReader = new PaMessageHeaderReader(
+                new PaMessageHeaderBuilderIetf());
+
+        PaAttributeHeaderReader aReader = new PaAttributeHeaderReader(
+                new PaAttributeHeaderBuilderIetf());
+
+        PaReader reader = new PaReader(mReader, aReader);
+
+        reader.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(),
+                (ImReader) new PaAttributeAssessmentResultValueReader(
+                        new PaAttributeValueAssessmentResultBuilderIetf()));
+
+        reader.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id(),
+                (ImReader) new PaAttributeAttributeRequestValueReader(
+                        new PaAttributeValueAttributeRequestBuilderIetf()));
+
+
+        reader.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(),
+                (ImReader) new PaAttributeNumericVersionValueReader(
+                        new PaAttributeValueNumericVersionBuilderIetf()));
+
+        reader.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_OPERATIONAL_STATUS.id(),
+                (ImReader) new PaAttributeOperationalStatusValueReader(
+                        new PaAttributeValueOperationalStatusBuilderIetf()));
+
+        reader.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.id(),
+                (ImReader) new PaAttributeProductInformationValueReader(
+                        new PaAttributeValueProductInformationBuilderIetf()));
+
+        reader.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id(),
+                (ImReader) new PaAttributeStringVersionValueReader(
+                        new PaAttributeValueStringVersionBuilderIetf()));
+
+        reader.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id(),
+                (ImReader) new PaAttributeAttributeRequestValueReader(
+                        new PaAttributeValueAttributeRequestBuilderIetf()));
+
+        reader.add(
+                IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_REMEDIATION_INSTRUCTIONS.id(),
+                (ImReader) new PaAttributeRemediationParametersValueReader(
+                        new PaAttributeValueRemediationParametersBuilderIetf(),
+                        new PaAttributeRemediationParameterStringValueReader(
+                                new PaAttributeValueRemediationParameterStringBuilderIetf()),
+                        new PaAttributeRemediationParameterUriValueReader(
+                                new PaAttributeValueRemediationParameterUriBuilderIetf())));
+
+        reader.add(
+                IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_ERROR.id(),
+                (ImReader) new PaAttributeErrorValueReader(
+                        new PaAttributeValueErrorBuilderIetf(),
+                        new PaAttributeErrorInformationInvalidParamValueReader(
+                                new PaAttributeValueErrorInformationInvalidParamBuilderIetf()),
+                        new PaAttributeErrorInformationUnsupportedVersionValueReader(
+                                new PaAttributeValueErrorInformationUnsupportedVersionBuilderIetf()),
+                        new PaAttributeErrorInformationUnsupportedAttributeValueReader(
+                                new PaAttributeValueErrorInformationUnsupportedAttributeBuilderIetf(),
+                                new PaAttributeHeaderBuilderIetf())));
+
+        return reader;
+    }
 
     /**
      * Creates a reader to parse an entire integrity measurement component
@@ -220,7 +307,7 @@ public final class PaReaderFactory {
          * some one else can.
          */
 
-        PaReader reader = (PaReader) createProductionDefault();
+        PaReader reader = (PaReader) createBasicDefault();
 
         reader.add(IETFConstants.IETF_PEN_VENDORID,
                 PaAttributeTypeEnum.IETF_PA_TESTING.id(),

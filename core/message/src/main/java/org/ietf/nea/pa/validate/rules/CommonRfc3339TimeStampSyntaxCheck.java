@@ -47,11 +47,11 @@ import de.hsbremen.tc.tnc.message.exception.RuleException;
  * last us is valid.
  *
  */
-public final class LastUseSyntaxCheck {
+public final class CommonRfc3339TimeStampSyntaxCheck {
     /**
      * Private constructor should never be invoked.
      */
-    private LastUseSyntaxCheck() {
+    private CommonRfc3339TimeStampSyntaxCheck() {
         throw new AssertionError();
     }
 

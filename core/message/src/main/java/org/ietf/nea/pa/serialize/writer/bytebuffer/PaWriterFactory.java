@@ -72,6 +72,65 @@ public final class PaWriterFactory {
     /**
      * Creates a writer to serialize an entire integrity measurement component
      * message compliant to RFC 5792 from a Java object to a buffer of bytes.
+     * The writer supports a basic set of elements, that are specified by
+     * RFC 5792 and allowed in a production environment.
+     *
+     * @return the integrity measurement component message writer
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static ImWriter<ImMessage> createBasicDefault() {
+
+        /*
+         * TODO Remove raw types and unchecked conversion. Unfortunately I could
+         * not find a way around using raw types and unchecked conversion my be
+         * some one else can.
+         */
+
+        PaAttributeHeaderWriter aWriter = new PaAttributeHeaderWriter();
+
+        PaMessageHeaderWriter mWriter = new PaMessageHeaderWriter();
+
+        PaWriter writer = new PaWriter(mWriter, aWriter);
+
+        writer.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(),
+                (ImWriter) new PaAttributeAssessmentResultValueWriter());
+        writer.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id(),
+                (ImWriter) new PaAttributeAttributeRequestValueWriter());
+        writer.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(),
+                (ImWriter) new PaAttributeNumericVersionValueWriter());
+        writer.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_OPERATIONAL_STATUS.id(),
+                (ImWriter) new PaAttributeOperationalStatusValueWriter());
+        writer.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_PRODUCT_INFORMATION.id(),
+                (ImWriter) new PaAttributeProductInformationValueWriter());
+        writer.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_STRING_VERSION.id(),
+                (ImWriter) new PaAttributeStringVersionValueWriter());
+
+        writer.add(
+                IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_ERROR.id(),
+                (ImWriter) new PaAttributeErrorValueWriter(
+                    new PaAttributeErrorInformationInvalidParamValueWriter(),
+                    new PaAttributeErrorInformationUnsupportedVersionValueWriter(),
+                    new PaAttributeErrorInformationUnsupportedAttributeValueWriter()));
+
+        writer.add(IETFConstants.IETF_PEN_VENDORID,
+                PaAttributeTypeEnum.IETF_PA_REMEDIATION_INSTRUCTIONS.id(),
+                (ImWriter) new PaAttributeRemediationParametersValueWriter(
+                    new PaAttributeRemediationParameterStringValueWriter(),
+                    new PaAttributeRemediationParameterUriValueWriter()));
+
+        return writer;
+    }
+    
+    /**
+     * Creates a writer to serialize an entire integrity measurement component
+     * message compliant to RFC 5792 from a Java object to a buffer of bytes.
      * The writer supports all elements, that are specified by RFC 5792 and
      * allowed in a production environment.
      *
@@ -158,7 +217,7 @@ public final class PaWriterFactory {
          * some one else can.
          */
 
-        PaWriter writer = (PaWriter) createProductionDefault();
+        PaWriter writer = (PaWriter) createBasicDefault();
 
         writer.add(IETFConstants.IETF_PEN_VENDORID,
                 PaAttributeTypeEnum.IETF_PA_TESTING.id(),

@@ -46,7 +46,7 @@ import org.ietf.nea.pa.attribute.enums.PaAttributeOperationLastResultEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeOperationStatusEnum;
 import org.ietf.nea.pa.attribute.enums.PaAttributeTlvFixedLengthEnum;
 import org.ietf.nea.pa.validate.enums.PaErrorCauseEnum;
-import org.ietf.nea.pa.validate.rules.LastUseSyntaxCheck;
+import org.ietf.nea.pa.validate.rules.CommonRfc3339TimeStampSyntaxCheck;
 
 import de.hsbremen.tc.tnc.message.exception.RuleException;
 
@@ -105,7 +105,7 @@ public class PaAttributeValueOperationalStatusBuilderIetf implements
     public PaAttributeValueOperationalStatusBuilder setLastUse(
             final String dateTime) throws RuleException {
         if (dateTime != null && !dateTime.equals("0000-00-00T00:00:00Z")) {
-            LastUseSyntaxCheck.check(dateTime);
+            CommonRfc3339TimeStampSyntaxCheck.check(dateTime);
             try {
                 Date d = this.dateFormater.parse(dateTime);
                 this.lastUse = d;
