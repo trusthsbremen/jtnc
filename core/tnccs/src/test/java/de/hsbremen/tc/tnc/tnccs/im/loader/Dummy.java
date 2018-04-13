@@ -52,7 +52,8 @@ public class Dummy extends AbstractDummy {
     }
 	
 	public static String getConfigLineToDummyImc(){
-	    String s = "JAVA-IMC \"Example IMC\" de.hsbremen.tc.tnc.DummyImc /home/sidanetdev/git/jtnc/core/tnccs/src/test/resources/DummyImc.jar";
+	    String parentDir = System.getProperty("user.dir");
+	    String s = "JAVA-IMC \"Example IMC\" de.hsbremen.tc.tnc.DummyImc "+parentDir+"/src/test/resources/DummyImc.jar";
 	    return s;
 	}
 	
