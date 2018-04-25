@@ -51,14 +51,14 @@ public class ImcEvaluationUnitOsTest {
 		
 		for (ImAttribute imAttribute : attributes) {
 			if(imAttribute.getValue() instanceof PaAttributeValueProductInformation){
-				System.out.println(imAttribute.getClass().getCanonicalName() + " : ");
-				System.out.println(((PaAttributeValueProductInformation)imAttribute.getValue()).getName());
+				System.out.println(imAttribute.getValue().getClass().getCanonicalName() + " : ");
+				System.out.println(imAttribute.getValue().toString());
 			}else if(imAttribute.getValue() instanceof PaAttributeValueNumericVersion){
-				System.out.println(imAttribute.getClass().getCanonicalName() + " : ");
-				System.out.println(((PaAttributeValueNumericVersion)imAttribute.getValue()).getMinorVersion());
+				System.out.println(imAttribute.getValue().getClass().getCanonicalName() + " : ");
+				System.out.println(imAttribute.getValue().toString());
 			}else if(imAttribute.getValue() instanceof PaAttributeValueStringVersion){
-				System.out.println(imAttribute.getClass().getCanonicalName() + " : ");
-				System.out.println(((PaAttributeValueStringVersion)imAttribute.getValue()).getVersionNumber());
+				System.out.println(imAttribute.getValue().getClass().getCanonicalName() + " : ");
+				System.out.println(imAttribute.getValue().toString());
 			}else{
 				Assert.fail();
 			}
