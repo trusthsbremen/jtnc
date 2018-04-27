@@ -181,19 +181,4 @@ public class TestData {
 		return b.toString();
 	}
 	
-//	
-//	public PbBatch getInvalidImMessage() throws RuleException{
-//		PbMessageHeaderBuilderIetf builder = new PbMessageHeaderBuilderIetf();
-//		builder.setFlags((byte)0);
-//		builder.setVendorId(IETFConstants.IETF_PEN_VENDORID);
-//		builder.setType(PbMessageTypeEnum.IETF_PB_PA.messageType());
-//
-//
-//		List<PbMessage> messages = new ArrayList<>();
-//		messages.add(new PbMessage(builder.toMessageHeader(), PbMessageValueBuilderIetf.createImValue(new PbMessageImFlagsEnum[0], 0, 0, (short)0xFFFF, (short)1, new byte[]{ -128, 34, 12})));
-//		
-//		
-//		return PbBatchFactoryIetf.createClientData(messages);
-//	}
-	
 }

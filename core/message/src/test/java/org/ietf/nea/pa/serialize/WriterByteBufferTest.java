@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.message.ImMessage;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
@@ -32,22 +33,18 @@ public class WriterByteBufferTest {
 	}
 	
 	@Test
-	public void serializePaMessageWithAssessmentResult() throws ValidationException{
+	public void serializePaMessageWithAssessmentResult() throws ValidationException, SerializationException{
 		
 		PaMessage b = message.getMessageWithAssessmentResult();
 	
 		
 		ByteBuffer buffer = new DefaultByteBuffer(b.getHeader().getLength());
-		try{
-			bs.write(b, buffer);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
+
+		bs.write(b, buffer);
+
 		byte[] serialized = buffer.read((int)(buffer.bytesWritten()-buffer.bytesRead()));
 		
-		System.out.println(Arrays.toString(serialized));
-		
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		Assert.assertEquals(0x01,serialized[0]);
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 13, 16)));
 		Assert.assertEquals(PaAttributeAssessmentResultEnum.MINOR_DIFFERENCES.id(),ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 21, 24)));	
@@ -56,21 +53,17 @@ public class WriterByteBufferTest {
 	}
 	@Test
 	
-	public void serializePaMessageWithNumericVersion() throws ValidationException{
+	public void serializePaMessageWithNumericVersion() throws ValidationException, SerializationException{
 
 		
 		PaMessage b = message.getMessageWithNumericVersion();
 		ByteBuffer buffer = new DefaultByteBuffer(b.getHeader().getLength());
-		try{
-			bs.write(b, buffer);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+
+		bs.write(b, buffer);
 		
 		byte[] serialized = buffer.read((int)(buffer.bytesWritten()-buffer.bytesRead()));
 		
-		System.out.println(Arrays.toString(serialized));
-		
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		Assert.assertEquals(0x01,serialized[0]);
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_NUMERIC_VERSION.id(),  ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 13, 16)));
 		Assert.assertEquals(258,  ByteArrayHelper.toLong((Arrays.copyOfRange(serialized, 29, 32))));
@@ -78,20 +71,16 @@ public class WriterByteBufferTest {
 		
 	}
 	@Test
-	public void serializePaMessageWithInstalledPackages() throws ValidationException{
+	public void serializePaMessageWithInstalledPackages() throws ValidationException, SerializationException{
 			
 		PaMessage b = message.getMessageWithInstalledPackages();
 		ByteBuffer buffer = new DefaultByteBuffer(b.getHeader().getLength());
-		try{
-			bs.write(b, buffer);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
+
+		bs.write(b, buffer);
+
 		byte[] serialized = buffer.read((int)(buffer.bytesWritten()-buffer.bytesRead()));
 		
-		System.out.println(Arrays.toString(serialized));
-		
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		Assert.assertEquals(0x01,serialized[0]);
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_INSTALLED_PACKAGES.id(),  ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 13, 16)));
 		Assert.assertEquals(2,  ByteArrayHelper.toInt(Arrays.copyOfRange(serialized, 23, 24)));
@@ -100,20 +89,16 @@ public class WriterByteBufferTest {
 	}
 	
 	@Test
-	public void serializePaMessageWithAttributeRequest() throws ValidationException{
+	public void serializePaMessageWithAttributeRequest() throws ValidationException, SerializationException{
 			
 		PaMessage b = message.getMessageWithAttributeRequest();
 		ByteBuffer buffer = new DefaultByteBuffer(b.getHeader().getLength());
-		try{
-			bs.write(b, buffer);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
+
+		bs.write(b, buffer);
+
 		byte[] serialized = buffer.read((int)(buffer.bytesWritten()-buffer.bytesRead()));
 		
-		System.out.println(Arrays.toString(serialized));
-		
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		Assert.assertEquals(0x01,serialized[0]);
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST.id(),  ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 13, 16)));
 		Assert.assertEquals(((PaAttributeValueAttributeRequest)b.getAttributes().get(0).getValue()).getReferences().get(0).getVendorId(),  ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 21, 24)));
@@ -121,20 +106,16 @@ public class WriterByteBufferTest {
 	}
 	
 	@Test
-	public void serializePaMessageWithMixedAttributes() throws ValidationException{
+	public void serializePaMessageWithMixedAttributes() throws ValidationException, SerializationException{
 			
 		PaMessage b = message.getMessageWithMixedAttributes();
 		ByteBuffer buffer = new DefaultByteBuffer(b.getHeader().getLength());
-		
-		try{
-			bs.write(b, buffer);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+
+		bs.write(b, buffer);
 		
 		byte[] serialized = buffer.read((int)(buffer.bytesWritten()-buffer.bytesRead()));
 		
-		System.out.println(Arrays.toString(serialized));
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		
 		Assert.assertEquals(0x01,serialized[0]);
 		Assert.assertEquals(PaAttributeTypeEnum.IETF_PA_ASSESSMENT_RESULT.id(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 13, 16)));

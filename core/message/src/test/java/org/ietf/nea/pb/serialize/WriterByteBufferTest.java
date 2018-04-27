@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
@@ -33,19 +34,17 @@ public class WriterByteBufferTest {
 	}
 	
 	@Test
-	public void serializePbBatchWithIm() throws ValidationException{
+	public void serializePbBatchWithIm() throws ValidationException, SerializationException{
 		
 		PbBatch b = batch.getBatchWithImMessage();
 		
 		ByteBuffer out = new DefaultByteBuffer(b.getHeader().getLength());
-		try{
-			bs.write(b, out);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
+
+		bs.write(b, out);
+
 		byte[] serialized = out.read((int)(out.bytesWritten() - out.bytesRead()));
 		
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		Assert.assertEquals(0x02,serialized[0]);
 		Assert.assertEquals(PbBatchTypeEnum.CDATA.id(),serialized[3]);
 		Assert.assertEquals(b.getHeader().getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
@@ -53,19 +52,16 @@ public class WriterByteBufferTest {
 		Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchResult() throws ValidationException{
+	public void serializePbBatchResult() throws ValidationException, SerializationException{
 
 		PbBatch b = batch.getBatchResult();
 		ByteBuffer out = new DefaultByteBuffer(b.getHeader().getLength());
-		
-		try{
-			bs.write(b, out);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+
+		bs.write(b, out);
 		
 		byte[] serialized = out.read((int)(out.bytesWritten() - out.bytesRead()));
 		
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		Assert.assertEquals(0x02,serialized[0]);
 		Assert.assertEquals(PbBatchTypeEnum.RESULT.id(),serialized[3]);
 		Assert.assertEquals(b.getHeader().getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
@@ -73,19 +69,16 @@ public class WriterByteBufferTest {
 		Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithReasonString() throws ValidationException{
+	public void serializePbBatchWithReasonString() throws ValidationException, SerializationException{
 			
 		PbBatch b = batch.getBatchWithReasonString();
 		ByteBuffer out = new DefaultByteBuffer(b.getHeader().getLength());
-		
-		try{
-			bs.write(b, out);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+
+		bs.write(b, out);
 		
 		byte [] serialized = out.read((int)(out.bytesWritten() - out.bytesRead()));
 		
+		Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 		Assert.assertEquals(0x02,serialized[0]);
 		Assert.assertEquals(PbBatchTypeEnum.CDATA.id(),serialized[3]);
 		Assert.assertEquals(b.getHeader().getLength(), ByteArrayHelper.toLong(Arrays.copyOfRange(serialized, 4, 8)));
@@ -93,19 +86,16 @@ public class WriterByteBufferTest {
 		Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	}
 	@Test
-	public void serializePbBatchWithMixedMessageTypes() throws ValidationException{
+	public void serializePbBatchWithMixedMessageTypes() throws ValidationException, SerializationException{
 				
 		PbBatch b = batch.getBatchWithMixedMessages();
 		ByteBuffer out = new DefaultByteBuffer(b.getHeader().getLength());
 		
-		try{
-			bs.write(b, out);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		bs.write(b, out);
 		
 	    byte [] serialized = out.read((int)(out.bytesWritten() - out.bytesRead()));
 	    
+	    Assert.assertEquals(b.getHeader().getLength(), serialized.length);
 	    Assert.assertEquals(b.getHeader().getLength(),serialized.length);
 	    Assert.assertEquals(0x02,serialized[0]);
 		Assert.assertEquals(PbBatchTypeEnum.CDATA.id(),serialized[3]);
