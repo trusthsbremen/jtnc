@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
+		<artifactId>jtnc-ubuntu-native-examples</artifactId>
+		<version>0.0.6-ALPHA</version>
+	</parent>
+
+	<artifactId>ubuntu-os-imv-example</artifactId>
+	<packaging>jar</packaging>
+	<name>IMV implementation examples</name>
+
+	<properties>
+		<javadoc.style>${project.parent.basedir}/doc/javadoc_stylesheet.css</javadoc.style>
+		<jxr.style>${project.parent.basedir}/doc/jxr_stylesheet.css</jxr.style>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
+			<artifactId>im</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
+			<artifactId>native-example</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

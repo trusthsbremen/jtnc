@@ -38,13 +38,9 @@ package de.hsbremen.tc.tnc.examples.nar;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.trustedcomputinggroup.tnc.ifimc.IMC;
 
 /**
  * The CLI to interact with the NAR.
@@ -94,31 +90,18 @@ public abstract class NarCLI {
                         File file = new File(m.group(2).trim());
                         if (file.exists() && file.canRead()) {
                             nar.loadImcFromConfigurationFile(file);
+                            nar.start();
                         } else {
                             System.err.println("File at "
                                     + file.getPath().toString()
-                                    + " is not accessible."
-                                    + " Instantiate IMC from code.");
-
-                            List<IMC> imcs = new ArrayList<>();
-                            imcs.add(new TestImcOs());
-                            nar.loadImc(imcs);
+                                    + " is not accessible. Cannot start.");
                         }
                     } else {
-                        System.err.println("No file specified."
-                                + " Instantiate IMC from code.");
-                        List<IMC> imcs = new ArrayList<>();
-                        imcs.add(new TestImcOs());
-                        nar.loadImc(imcs);
+                        System.err.println("No file specified. Cannot start.");
                     }
                 } else {
-                    System.err.println("No file specified."
-                            + " Instantiate IMC from code.");
-                    List<IMC> imcs = new ArrayList<>();
-                    imcs.add(new TestImcOs());
-                    nar.loadImc(imcs);
+                    System.err.println("No file specified. Cannot start.");
                 }
-                nar.start();
                 System.out.println("");
             } else if (input.trim().startsWith("handshake")) {
                 if (input.contains("handshake")) {

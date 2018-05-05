@@ -37,13 +37,9 @@
 package de.hsbremen.tc.tnc.examples.naa;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.trustedcomputinggroup.tnc.ifimv.IMV;
 
 /**
  * The CLI to interact with the NAA.
@@ -93,31 +89,18 @@ public abstract class NaaCLI {
                         File file = new File(m.group(2).trim());
                         if (file.exists() && file.canRead()) {
                             naa.loadImvFromConfigurationFile(file);
+                            naa.start();
                         } else {
                             System.err.println("File at "
                                     + file.getPath().toString()
-                                    + " is not accessible."
-                                    + " Instantiate IMV from code.");
-
-                            List<IMV> imvs = new ArrayList<>();
-                            imvs.add(new TestImvOs());
-                            naa.loadImv(imvs);
+                                    + " is not accessible. Cannot start.");
                         }
                     } else {
-                        System.err.println("No file specified."
-                                + " Instantiate IMV from code.");
-                        List<IMV> imvs = new ArrayList<>();
-                        imvs.add(new TestImvOs());
-                        naa.loadImv(imvs);
+                        System.err.println("No file specified. Cannot start.");
                     }
                 } else {
-                    System.err.println("No file specified."
-                            + " Instantiate IMV from code.");
-                    List<IMV> imvs = new ArrayList<>();
-                    imvs.add(new TestImvOs());
-                    naa.loadImv(imvs);
+                    System.err.println("No file specified. Cannot start.");
                 }
-                naa.start();
                 System.out.println("");
             } else if (input.contains("stop")) {
                 naa.stop();

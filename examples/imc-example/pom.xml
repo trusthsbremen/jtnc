@@ -35,10 +35,5 @@
 			<artifactId>im</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
-			<artifactId>native-example</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 </project>

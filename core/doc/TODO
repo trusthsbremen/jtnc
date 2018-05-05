@@ -3,6 +3,7 @@ TODOs
 Usability:
 - Refactor logging to make it more consistent.
 - Add to String methods to messages/attributes.
+- In message module use existing builders in factories too, if possible (currently own checks are implemented by factories)
 
 Functionality:
 - Make a TncsHandler which can read an evaluation policy from a file.
