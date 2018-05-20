@@ -26,6 +26,7 @@ public class Dummy extends AbstractDummy {
 			
 			@Override
 			public void notifyChange(File config) {
+			    System.out.println("HHHH");
 				o.changeNotified = true;
 				
 			}
