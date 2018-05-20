@@ -73,7 +73,6 @@ public class DefaultConfigurationFileParserImJava implements
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DefaultConfigurationFileParserImJava.class);
-    private static final String URL_SHEMA = "file://";
 
     private final ConfigurationLineClassifier lineClassifier;
 
@@ -165,8 +164,11 @@ public class DefaultConfigurationFileParserImJava implements
         // TODO maybe a more complex pattern here
         final String javaNaming = "([a-zA-Z_$]{1}[a-zA-Z_$0-9]*"
                 + "(\\.[a-zA-Z_$]{1}[a-zA-Z_$0-9]*)*)";
-        final String filePath = "(([\\w]:)?(?!.*//.*)(?!.*/ .*)/{1}"
-                + "([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+\\.(jar))";
+
+        final String filePath = "(((((\\w+\\:\\\\)|(\\\\))" +
+                "([^\\\\\\/(){}:*?<>|\"']+\\\\)*)|(((\\/)|(\\w+\\:\\/))" +
+                "([^\\\\\\/(){}:*?<>|\"']+\\/)*))([^\\\\\\/(){}:*?<>|\"']+\\.jar))";
+
         final String imName = "\"([^\"]+)\"";
         Pattern p = Pattern.compile("^" + this.lineClassifier.linePrefix()
                 + " " + imName + " " + javaNaming + " " + filePath + "$");
@@ -174,15 +176,17 @@ public class DefaultConfigurationFileParserImJava implements
         final int classGroupIdx = 2;
         // 3 is an intermediate match
         final int pathGroupIdx = 4;
-
         for (String line : lines) {
             Matcher m = p.matcher(line);
             if (m.find()) {
                 String name = m.group(nameGroupIdx).trim();
                 String mainClass = m.group(classGroupIdx).trim();
                 String path = m.group(pathGroupIdx).trim();
+
                 try {
-                    URL url = new URL(URL_SHEMA + path);
+                    File f = new File(path);
+
+                    URL url = f.toURI().toURL();
                     ConfigurationEntry cfg =
                             new DefaultConfigurationEntryImJava(
                             name, mainClass, url);
