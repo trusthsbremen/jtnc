@@ -86,7 +86,7 @@ public class DefaultConfigurationFileChangeListener implements
         this.listeners = new ConcurrentHashMap<>();
         this.configurationEntries = new HashMap<>();
         this.parser = parser;
-
+        
         for (ConfigurationLineClassifier classifier : this.parser
                 .getSupportedConfigurationLines()) {
             if (!this.configurationEntries.containsKey(classifier)) {

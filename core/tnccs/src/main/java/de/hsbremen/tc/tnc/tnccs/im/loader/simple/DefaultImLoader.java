@@ -169,7 +169,9 @@ public class DefaultImLoader<T> implements ImLoader<T> {
         } catch (ClassNotFoundException e) {
             throw new LoadingException("Class named "
                     + config.getMainClassName()
-                    + " was not found. IM(C/V) will be ignored.", e);
+                    + " was not found. IM(C/V) in "
+                    + config.getPath().toString()
+                    + " will be ignored.", e);
 
         } catch (NoSuchMethodException e) {
             throw new LoadingException("Constructor was not found for class "

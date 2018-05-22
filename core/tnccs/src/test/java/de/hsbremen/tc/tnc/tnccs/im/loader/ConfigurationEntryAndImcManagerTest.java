@@ -195,5 +195,4 @@ public class ConfigurationEntryAndImcManagerTest {
         //Assert.assertTrue(this.imManager.getManaged().isEmpty());
         
     }
-    
 }

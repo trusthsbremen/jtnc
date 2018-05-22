@@ -102,7 +102,7 @@ public class DefaultConfigurationFileParserImJava implements
     @Override
     public Map<ConfigurationLineClassifier, Set<ConfigurationEntry>>
     parseConfigurationEntries(final File configFile) {
-
+        
         Map<ConfigurationLineClassifier, Set<ConfigurationEntry>> entries =
                 new HashMap<>();
 
@@ -144,7 +144,6 @@ public class DefaultConfigurationFileParserImJava implements
             // return empty line list;
             lines = new ArrayList<>();
         }
-
         return lines;
     }
 
@@ -161,28 +160,33 @@ public class DefaultConfigurationFileParserImJava implements
         if (lines == null || lines.size() <= 0) {
             return imSet;
         }
+
         // TODO maybe a more complex pattern here
         final String javaNaming = "([a-zA-Z_$]{1}[a-zA-Z_$0-9]*"
                 + "(\\.[a-zA-Z_$]{1}[a-zA-Z_$0-9]*)*)";
 
-        final String filePath = "(((((\\w+\\:\\\\)|(\\\\))" +
+        final String filePath = "(((((\\w+\\:\\\\)|(\\\\\\\\))" +
                 "([^\\\\\\/(){}:*?<>|\"']+\\\\)*)|(((\\/)|(\\w+\\:\\/))" +
                 "([^\\\\\\/(){}:*?<>|\"']+\\/)*))([^\\\\\\/(){}:*?<>|\"']+\\.jar))";
 
         final String imName = "\"([^\"]+)\"";
+
         Pattern p = Pattern.compile("^" + this.lineClassifier.linePrefix()
                 + " " + imName + " " + javaNaming + " " + filePath + "$");
+        
+            
         final int nameGroupIdx = 1;
         final int classGroupIdx = 2;
         // 3 is an intermediate match
         final int pathGroupIdx = 4;
+        
         for (String line : lines) {
             Matcher m = p.matcher(line);
             if (m.find()) {
                 String name = m.group(nameGroupIdx).trim();
                 String mainClass = m.group(classGroupIdx).trim();
                 String path = m.group(pathGroupIdx).trim();
-
+                
                 try {
                     File f = new File(path);
 
