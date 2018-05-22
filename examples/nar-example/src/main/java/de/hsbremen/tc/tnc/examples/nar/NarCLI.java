@@ -50,7 +50,10 @@ import java.util.regex.Pattern;
 public abstract class NarCLI {
 
     private static final Pattern CONFIG_FILE_PATH =
-            Pattern.compile("(start) (([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+)");
+            Pattern.compile("(start) (((((\\w+\\:\\\\)|(\\\\))" +
+                    "([^\\\\\\/(){}:*?<>|\"']+\\\\)*)|(((\\/)|(\\w+\\:\\/))" +
+                    "([^\\\\\\/(){}:*?<>|\"']+\\/)*))([^\\\\\\/(){}:*?<>|\"']+))");
+
     private static final Pattern HOST_PATTERN =
             Pattern.compile("(\\S+):(\\d+)");
     /**
@@ -97,7 +100,7 @@ public abstract class NarCLI {
                                     + " is not accessible. Cannot start.");
                         }
                     } else {
-                        System.err.println("No file specified. Cannot start.");
+                        System.err.println("Invalid path. Cannot start.");
                     }
                 } else {
                     System.err.println("No file specified. Cannot start.");

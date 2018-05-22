@@ -49,7 +49,9 @@ import java.util.regex.Pattern;
 public abstract class NaaCLI {
 
     private static final Pattern CONFIG_FILE_PATH =
-            Pattern.compile("(start) (([^\\\\(){}:\\*\\?<>\\|\\\"\\'])+)");
+            Pattern.compile("(start) (((((\\w+\\:\\\\)|(\\\\))" +
+                    "([^\\\\\\/(){}:*?<>|\"']+\\\\)*)|(((\\/)|(\\w+\\:\\/))" +
+                    "([^\\\\\\/(){}:*?<>|\"']+\\/)*))([^\\\\\\/(){}:*?<>|\"']+))");
 
     /**
      * Main method to run the NAA.
@@ -96,7 +98,7 @@ public abstract class NaaCLI {
                                     + " is not accessible. Cannot start.");
                         }
                     } else {
-                        System.err.println("No file specified. Cannot start.");
+                        System.err.println("Invalid path. Cannot start.");
                     }
                 } else {
                     System.err.println("No file specified. Cannot start.");
