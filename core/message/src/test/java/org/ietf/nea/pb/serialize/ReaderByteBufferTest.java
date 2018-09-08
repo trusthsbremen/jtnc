@@ -46,7 +46,7 @@ public class ReaderByteBufferTest {
 			ByteBuffer in = batch.getBatchWithImAsBuffer();
 			bc = bs.read(in, -1);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		if(!bc.getExceptions().isEmpty()){
@@ -67,7 +67,7 @@ public class ReaderByteBufferTest {
 			ByteBuffer in = batch.getBatchWithReasonAsBuffer();
 			bc = bs.read(in, -1);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		if(!bc.getExceptions().isEmpty()){
 			Assert.fail("Exceptions are present.");
@@ -87,7 +87,7 @@ public class ReaderByteBufferTest {
 			ByteBuffer in = batch.getBatchWithRecommendationAsBuffer();
 			bc = bs.read(in, -1);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		if(!bc.getExceptions().isEmpty()){
 			Assert.fail("Exceptions are present.");
@@ -124,7 +124,7 @@ public class ReaderByteBufferTest {
 			ByteBuffer in = batch.getBatchWithWrongTypeAndRecommendationAsBuffer();
 			bc = bs.read(in, -1);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		if(!bc.getExceptions().isEmpty()){
 			Assert.fail("Exceptions are present.");
@@ -144,7 +144,7 @@ public class ReaderByteBufferTest {
 			ByteBuffer in = batch.getBatchWithMixedAsBuffer();
 			bc = bs.read(in, -1);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		if(!bc.getExceptions().isEmpty()){
 			Assert.fail("Exceptions are present.");
@@ -182,7 +182,7 @@ public class ReaderByteBufferTest {
 				Assert.assertEquals(22, ((ValidationException) e).getExceptionOffset());
 				throw e;
 			}else{
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -199,7 +199,7 @@ public class ReaderByteBufferTest {
 				Assert.assertEquals(24, ((ValidationException) e).getExceptionOffset());
 				throw e;
 			}else{
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			}
 		}
 

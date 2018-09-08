@@ -43,13 +43,17 @@ package de.hsbremen.tc.tnc.tnccs.client.enums;
  */
 public enum CommonConnectionChangeTypeEnum implements ConnectionChangeType {
     /**
-     * Connection created.
+     * Connection has to be initiated.
      */
     NEW(0),
     /**
-     * Connection closed.
+     * Connection should do a handshake.
      */
-    CLOSE(Integer.MAX_VALUE);
+    HANDSHAKE_RETRY(100),
+    /**
+     * Connection should be closed.
+     */
+    CLOSE(Integer.MAX_VALUE); 
 
     private int id;
 

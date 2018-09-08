@@ -62,7 +62,7 @@ public abstract class NarCLI {
      * @param args the main arguments
      */
     public static void main(final String[] args) {
-        Nar nar = new Nar();
+        Nar nar = new Nar("/nar.properties");
 
         String input = "";
         Scanner in = new Scanner(System.in);

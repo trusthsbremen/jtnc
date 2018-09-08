@@ -39,7 +39,7 @@ package de.hsbremen.tc.tnc.im.session;
 import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Generic IM(C/V) session parameter set. It contains values, that are specific
@@ -73,6 +73,6 @@ public interface ImSessionContext {
      * @param reason the reason for the request.
      */
     void requestConnectionHandshakeRetry(
-            ImHandshakeRetryReasonEnum reason);
+            HandshakeRetryReasonEnum reason);
 
 }

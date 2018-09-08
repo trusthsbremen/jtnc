@@ -47,7 +47,7 @@ public class ReaderByteBufferTest {
 			in.write(msg);
 			mc = bs.read(in, msg.length);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		if(!mc.getExceptions().isEmpty()){
@@ -70,7 +70,7 @@ public class ReaderByteBufferTest {
 			in.write(msg);
 			mc = bs.read(in, msg.length);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		if(!mc.getExceptions().isEmpty()){
 			Assert.fail("Exceptions are present.");
@@ -92,7 +92,7 @@ public class ReaderByteBufferTest {
 			in.write(msg);
 			mc = bs.read(in, msg.length);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		if(!mc.getExceptions().isEmpty()){
 			Assert.fail("Exceptions are present.");
@@ -115,7 +115,7 @@ public class ReaderByteBufferTest {
 			in.write(msg);
 			mc = bs.read(in, msg.length);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		if(!mc.getExceptions().isEmpty()){
 			Assert.fail("Exceptions are present.");
@@ -138,7 +138,7 @@ public class ReaderByteBufferTest {
 			in.write(msg);
 			mc = bs.read(in, msg.length);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		if(!mc.getExceptions().isEmpty()){
@@ -180,7 +180,7 @@ public class ReaderByteBufferTest {
 			in.write(msg);
 			mc = bs.read(in, msg.length);
 		}catch(Exception e){
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		if(mc.getExceptions().isEmpty()){

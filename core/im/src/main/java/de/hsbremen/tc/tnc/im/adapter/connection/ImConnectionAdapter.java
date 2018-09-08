@@ -40,7 +40,7 @@ import de.hsbremen.tc.tnc.attribute.TncAttributeType;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Generic adapter base for an IM(C/V) connection.
@@ -66,7 +66,7 @@ public interface ImConnectionAdapter {
      * @param reason the reason for the request
      * @throws TncException if handshake is not acceptable
      */
-    void requestHandshakeRetry(ImHandshakeRetryReasonEnum reason)
+    void requestHandshakeRetry(HandshakeRetryReasonEnum reason)
             throws TncException;
 
     /**

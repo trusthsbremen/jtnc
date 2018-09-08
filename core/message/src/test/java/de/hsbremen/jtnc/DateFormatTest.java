@@ -26,7 +26,7 @@ public class DateFormatTest {
 			d = sd.parse(a);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 		c.setTime(d);
 

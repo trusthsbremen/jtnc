@@ -49,7 +49,7 @@ import de.hsbremen.tc.tnc.attribute.DefaultTncAttributeTypeFactory;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.manager.ImManager;
 
@@ -120,7 +120,7 @@ class TnccAdapterIetf implements TNCC, AttributeSupport {
         // TODO is the IMC needed as parameter?
         try {
             this.listener
-                    .requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum
+                    .requestGlobalHandshakeRetry(HandshakeRetryReasonEnum
                             .fromId(reason));
         } catch (TncException e) {
             throw new TNCException(e.getMessage(), e.getResultCode().id());

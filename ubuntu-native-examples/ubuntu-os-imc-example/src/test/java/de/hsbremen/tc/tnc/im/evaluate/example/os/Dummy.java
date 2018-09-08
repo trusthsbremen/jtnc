@@ -20,7 +20,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.natives.CLibrary;
 import de.hsbremen.tc.tnc.natives.CLibrary.UTSNAME;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 public class Dummy extends AbstractDummy{
 
@@ -29,7 +29,7 @@ public class Dummy extends AbstractDummy{
 			
 			@Override
 			public void requestConnectionHandshakeRetry(
-					ImHandshakeRetryReasonEnum reason) {
+					HandshakeRetryReasonEnum reason) {
 				System.out.println("Connection handshake retry requested.");
 				
 			}
@@ -51,7 +51,7 @@ public class Dummy extends AbstractDummy{
 		return new GlobalHandshakeRetryListener() {
 			
 			@Override
-			public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason)
+			public void requestGlobalHandshakeRetry(HandshakeRetryReasonEnum reason)
 					throws TncException {
 				System.out.println("Globale handshake retry requested.");
 				

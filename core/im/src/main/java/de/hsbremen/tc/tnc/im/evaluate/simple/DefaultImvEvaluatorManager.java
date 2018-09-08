@@ -102,7 +102,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
                 cmpList.addAll(components);
             }
 
-            if (evaluator.hasRecommendation()) {
+            if (evaluator.hasRecommendation(context)) {
                 this.evaluatorRecommendations.put(new Long(evaluator.getId()),
                         evaluator.getRecommendation(context));
             }
@@ -122,13 +122,13 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
         for (ImObjectComponent component : components) {
             // only use excl if there is an effective IM(C/V) ID
             if (component.getImFlags().contains(PaComponentFlagsEnum.EXCL)
-                    && component.getCollectorId()
+                    && component.getDestinationId()
                         != HSBConstants.HSB_IM_ID_UNKNOWN) {
 
-                if (this.evaluators.containsKey(component.getCollectorId())) {
+                if (this.evaluators.containsKey(component.getDestinationId())) {
 
                     ImvEvaluator evaluator = this.evaluators.get(component
-                            .getCollectorId());
+                            .getDestinationId());
 
                     List<ImObjectComponent> parameterList =
                             new ArrayList<ImObjectComponent>();
@@ -141,7 +141,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
                         cmpList.addAll(tmpComponents);
                     }
 
-                    if (evaluator.hasRecommendation()) {
+                    if (evaluator.hasRecommendation(context)) {
                         this.evaluatorRecommendations.put(
                                 new Long(evaluator.getId()),
                                 evaluator.getRecommendation(context));
@@ -161,7 +161,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
                         cmpList.addAll(tmpComponents);
                     }
 
-                    if (evaluator.hasRecommendation()) {
+                    if (evaluator.hasRecommendation(context)) {
                         this.evaluatorRecommendations.put(
                                 new Long(evaluator.getId()),
                                 evaluator.getRecommendation(context));
@@ -185,7 +185,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
                 cmpList.addAll(components);
             }
 
-            if (evaluator.hasRecommendation()) {
+            if (evaluator.hasRecommendation(context)) {
                 this.evaluatorRecommendations.put(new Long(evaluator.getId()),
                         evaluator.getRecommendation(context));
             }
@@ -242,7 +242,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
             final ImSessionContext context) {
         for (ImvEvaluator evaluator : this.evaluators.values()) {
             if (!this.evaluatorRecommendations.containsKey(evaluator.getId())) {
-                if (evaluator.hasRecommendation()) {
+                if (evaluator.hasRecommendation(context)) {
                     this.evaluatorRecommendations.put(
                             new Long(evaluator.getId()),
                             evaluator.getRecommendation(context));
@@ -254,7 +254,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
     }
 
     @Override
-    public boolean hasRecommendation() {
+    public boolean hasRecommendation(ImSessionContext context) {
         return (this.evaluators.size() == this.evaluatorRecommendations.size());
     }
 }

@@ -111,7 +111,7 @@ public class DefaultImvSession extends
             ImvEvaluatorManager manager = (ImvEvaluatorManager) super
                     .getEvaluator();
 
-            if (manager.hasRecommendation()) {
+            if (manager.hasRecommendation(this)) {
 
                 super.getConnection().provideRecommendation(
                         manager.getRecommendation(this));

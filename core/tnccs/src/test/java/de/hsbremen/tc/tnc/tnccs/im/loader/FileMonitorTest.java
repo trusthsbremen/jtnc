@@ -49,7 +49,7 @@ public class FileMonitorTest {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		this.monitor.stop();
@@ -69,7 +69,7 @@ public class FileMonitorTest {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		this.monitor.stop();

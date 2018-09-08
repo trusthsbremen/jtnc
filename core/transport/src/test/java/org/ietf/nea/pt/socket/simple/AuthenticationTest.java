@@ -83,7 +83,7 @@ public class AuthenticationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                     
                 }
             }
@@ -100,7 +100,7 @@ public class AuthenticationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
                 
             }
@@ -111,7 +111,7 @@ public class AuthenticationTest {
             runner.awaitTermination(2, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         Assert.assertEquals(PtTlsSaslResultEnum.SUCCESS, server.getAuthenticationResult());
@@ -146,7 +146,7 @@ public class AuthenticationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                     
                 }
             }
@@ -163,7 +163,7 @@ public class AuthenticationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
                 
             }
@@ -174,7 +174,7 @@ public class AuthenticationTest {
             runner.awaitTermination(2, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         Assert.assertEquals(PtTlsSaslResultEnum.SUCCESS, server.getAuthenticationResult());
@@ -213,7 +213,7 @@ public class AuthenticationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                     
                 }
             }
@@ -230,7 +230,7 @@ public class AuthenticationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
                 
             }
@@ -241,7 +241,7 @@ public class AuthenticationTest {
             runner.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         Assert.assertEquals(PtTlsSaslResultEnum.SUCCESS, server.getAuthenticationResult());
@@ -306,14 +306,14 @@ public class AuthenticationTest {
 
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         try{
             s.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -329,7 +329,7 @@ public class AuthenticationTest {
             c.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -402,14 +402,14 @@ public class AuthenticationTest {
 
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         try{
             s.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -425,7 +425,7 @@ public class AuthenticationTest {
             c.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -498,14 +498,14 @@ public class AuthenticationTest {
 
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         try{
             s.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -521,7 +521,7 @@ public class AuthenticationTest {
             c.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -590,14 +590,14 @@ public class AuthenticationTest {
 
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         try{
             s.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -613,7 +613,7 @@ public class AuthenticationTest {
             c.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();

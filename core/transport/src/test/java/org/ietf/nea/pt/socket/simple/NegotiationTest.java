@@ -66,7 +66,7 @@ public class NegotiationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                     
                 }
             }
@@ -83,7 +83,7 @@ public class NegotiationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
                 
             }
@@ -94,7 +94,7 @@ public class NegotiationTest {
             runner.awaitTermination(2, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         Assert.assertEquals(1, initiator.getNegotiatedVersion());
@@ -122,7 +122,7 @@ public class NegotiationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                     
                 }
             }
@@ -139,7 +139,7 @@ public class NegotiationTest {
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
                 
             }
@@ -149,8 +149,7 @@ public class NegotiationTest {
             runner.shutdown();
             runner.awaitTermination(2, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         // four is the highest version of both
@@ -177,8 +176,7 @@ public class NegotiationTest {
 
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                     
                 }
             }
@@ -194,8 +192,7 @@ public class NegotiationTest {
 
                 } catch (SerializationException | ValidationException
                         | ConnectionException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
                 
             }
@@ -206,7 +203,7 @@ public class NegotiationTest {
             runner.awaitTermination(2, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         // three is preferred
@@ -266,14 +263,14 @@ public class NegotiationTest {
 
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         try{
             i.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();
@@ -289,7 +286,7 @@ public class NegotiationTest {
             r.get(2, TimeUnit.SECONDS);
         }catch(Exception e){
             
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             
             if(!(e instanceof ExecutionException)){
                 Assert.fail();

@@ -55,7 +55,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorManager;
 import de.hsbremen.tc.tnc.im.session.enums.ImMessageTriggerEnum;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Generic base for an IM(C/V) session. Especially important for inheritance.
@@ -77,7 +77,7 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
 
     private final ImEvaluatorManager evaluatorManager;
 
-    private EnumSet<ImHandshakeRetryReasonEnum>
+    private EnumSet<HandshakeRetryReasonEnum>
         connectionHandshakeRetryRequested;
 
     /**
@@ -94,12 +94,12 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
         this.connectionState = connectionState;
         this.connection = connection;
         this.connectionHandshakeRetryRequested = EnumSet
-                .noneOf(ImHandshakeRetryReasonEnum.class);
+                .noneOf(HandshakeRetryReasonEnum.class);
     }
 
     @Override
     public final void requestConnectionHandshakeRetry(
-            final ImHandshakeRetryReasonEnum reason) {
+            final HandshakeRetryReasonEnum reason) {
         this.connectionHandshakeRetryRequested.add(reason);
     }
 

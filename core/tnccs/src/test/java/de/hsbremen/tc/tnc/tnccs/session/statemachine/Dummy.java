@@ -29,7 +29,7 @@ import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
@@ -131,7 +131,7 @@ public class Dummy extends AbstractDummy{
 			}
 			
 			@Override
-			public List<TnccsBatch> retryHandshake(ImHandshakeRetryReasonEnum reason)
+			public List<TnccsBatch> retryHandshake(HandshakeRetryReasonEnum reason)
 					throws TncException {
 				System.out.println("Retry handshake called with " + reason.toString() +".");
 				if(closed){
@@ -164,7 +164,7 @@ public class Dummy extends AbstractDummy{
 					return PbBatchFactoryIetf.createClientClose(new ArrayList<TnccsMessage>());
 				} catch (ValidationException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.err.println(e.getMessage());
 				}
 				return null;
 			}
@@ -243,7 +243,7 @@ public class Dummy extends AbstractDummy{
 						messages.add(m);
 					} catch (ValidationException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.err.println(e.getMessage());
 					}
 					handShakeBegin = false;
 				}
@@ -302,7 +302,7 @@ public class Dummy extends AbstractDummy{
 						messages.add(m);
 					} catch (ValidationException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.err.println(e.getMessage());
 					}
 					handShakeBegin = false;
 				}

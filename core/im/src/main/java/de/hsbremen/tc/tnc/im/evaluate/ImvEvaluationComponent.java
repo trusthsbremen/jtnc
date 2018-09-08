@@ -60,7 +60,8 @@ public interface ImvEvaluationComponent {
      * Checks whether the integrity measurement component part is ready to
      * provide a recommendation.
      *
+     * @param context the context, which holds connection specific values
      * @return true if it is ready to return a recommendation
      */
-    boolean hasRecommendation();
+    boolean hasRecommendation(ImSessionContext context);
 }

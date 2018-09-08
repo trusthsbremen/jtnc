@@ -51,13 +51,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
-import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeType;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.client.enums.CommonConnectionChangeTypeEnum;
+import de.hsbremen.tc.tnc.tnccs.client.enums.ConnectionChangeType;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
+import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
 import de.hsbremen.tc.tnc.util.NotNull;
 
@@ -117,8 +116,11 @@ public class DefaultClientFacade implements ClientFacade,
             this.closeSession(connection);
         } else if (change.equals(CommonConnectionChangeTypeEnum.NEW)) {
             this.createSession(connection);
+        } else if (change.equals(CommonConnectionChangeTypeEnum.HANDSHAKE_RETRY)) {
+            this.doHandshake(connection,
+                    HandshakeRetryReasonEnum.HSB_RETRY_REASON_MANUALLY_FORCED);
         } else {
-            LOGGER.warn("Type " + change.toString() + " not implemented.");
+            
         }
 
     }
@@ -138,6 +140,36 @@ public class DefaultClientFacade implements ClientFacade,
         s.start(connection.isSelfInititated());
 
         this.runningSessions.put(connection, s);
+
+    }
+    
+    /**
+     * Creates a new TNC(C/S) session for the given
+     * connection.
+     *
+     * @param connection the related connection
+     */
+    private void doHandshake(final TransportConnection connection, HandshakeRetryReasonEnum reason) {
+        if (this.runningSessions.containsKey(connection)) {
+
+            if (!this.runningSessions.get(connection).isClosed()) {
+                try {
+                    
+                    this.runningSessions.get(connection).retryHandshake(reason);
+                    
+                } catch (TncException e){
+                    LOGGER.warn("Handshake was not possible for "
+                            + connection.toString() + ". " + e.getMessage());
+                }
+            } else {
+                LOGGER.debug("Handshake impossible, session is closed for "
+                        + connection.toString() + ".");
+            }
+
+        } else {
+            LOGGER.debug("No session found for connection "
+                    + connection.toString() + ".");
+        }
 
     }
 
@@ -236,12 +268,22 @@ public class DefaultClientFacade implements ClientFacade,
 
     @Override
     public void requestGlobalHandshakeRetry(
-            final ImHandshakeRetryReasonEnum reason)
+            final HandshakeRetryReasonEnum reason)
             throws TncException {
-        // TODO make this possible?
-        throw new TncException("Global handshake retry is not supported.",
-                TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
+        
+        if (!started) {
+            throw new IllegalStateException("Client was not started.");
+        }
 
+        Set<TransportConnection> keys = new HashSet<>(
+                this.runningSessions.keySet());
+
+        for (Iterator<TransportConnection> iter = keys.iterator(); iter
+                .hasNext();) {
+            TransportConnection connection = iter.next();
+            this.doHandshake(connection, reason);
+            iter.remove();
+        }
     }
 
 }

@@ -48,7 +48,7 @@ import de.hsbremen.tc.tnc.attribute.TncCommonAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * IMC connection adapter adapting a simple IMC connection according to
@@ -130,7 +130,7 @@ class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implements
     @Override
     public void requestHandshakeRetry(final long reason) throws TNCException {
         try {
-            this.context.requestHandshakeRetry(ImHandshakeRetryReasonEnum
+            this.context.requestHandshakeRetry(HandshakeRetryReasonEnum
                     .fromId(reason));
         } catch (TncException e) {
             throw new TNCException(e.getMessage(), e.getResultCode().id());

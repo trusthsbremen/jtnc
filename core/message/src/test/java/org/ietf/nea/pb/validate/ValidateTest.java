@@ -22,7 +22,7 @@ public class ValidateTest {
 		try{ 
 			batch.getInvalidImMessage();
 		}catch(ValidationException e){
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 			throw e;
 		}
 	}

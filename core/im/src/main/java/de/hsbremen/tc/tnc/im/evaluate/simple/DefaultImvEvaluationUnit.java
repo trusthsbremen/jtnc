@@ -150,7 +150,7 @@ public class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf
     }
 
     @Override
-    public boolean hasRecommendation() {
+    public boolean hasRecommendation(ImSessionContext context) {
         LOGGER.debug("hasRecommendation() called. - TRUE");
         return true;
     }

@@ -53,7 +53,7 @@ import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * IMV connection adapter adapting a simple IMV connection according to
@@ -139,7 +139,7 @@ class ImvConnectionAdapterIetf extends AbstractImConnectionAdapter implements
     @Override
     public void requestHandshakeRetry(final long reason) throws TNCException {
         try {
-            this.context.requestHandshakeRetry(ImHandshakeRetryReasonEnum
+            this.context.requestHandshakeRetry(HandshakeRetryReasonEnum
                     .fromId(reason));
         } catch (TncException e) {
             throw new TNCException(e.getMessage(), e.getResultCode().id());

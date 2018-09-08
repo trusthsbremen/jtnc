@@ -102,6 +102,8 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
                 if (attributes != null && !attributes.isEmpty()) {
                     components.add(ImComponentFactory.createObjectComponent(
                             (byte) 0, unit.getVendorId(), unit.getType(),
+                            // be careful IMC_ID_ANY == IMV_ID_ANY this should
+                            // never change in TNC specs
                             this.getId(), TNCConstants.TNC_IMVID_ANY,
                             attributes));
                 }
@@ -127,26 +129,29 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
         for (ImObjectComponent component : components) {
 
             boolean useExcl = false;
-            if (component.getCollectorId()
+            if (component.getSourceId()
                         != HSBConstants.HSB_IM_ID_UNKNOWN
-                    && component.getValidatorId()
+                    && component.getDestinationId()
                         != HSBConstants.HSB_IM_ID_UNKNOWN
-                    && component.getValidatorId()
+                    && component.getDestinationId()
+                        // be careful IMC_ID_ANY == IMV_ID_ANY this should
+                        // never change in TNC specs
                         != TNCConstants.TNC_IMVID_ANY) {
-
+                    
                 useExcl = this.checkExclusiveDeliverySupport(context);
             }
 
-            for (ImEvaluationUnit unit : this.evaluationUnits) {
+            long givenVendorId = component.getVendorId();
+            long givenType = component.getType();
 
-                long givenVendorId = component.getVendorId();
-                long givenType = component.getType();
+            for (ImEvaluationUnit unit : this.evaluationUnits) {
+                
                 long interestedVendorId = unit.getVendorId();
                 long interestedType = unit.getType();
-
+                
                 if ((interestedVendorId == TNCConstants.TNC_VENDORID_ANY)
                         || ((givenVendorId == interestedVendorId)
-                                && ((givenType == TNCConstants.TNC_SUBTYPE_ANY)
+                                && ((interestedType == TNCConstants.TNC_SUBTYPE_ANY)
                                         || (givenType == interestedType)))) {
 
                     List<ImAttribute> attributes = unit.handle(
@@ -173,7 +178,7 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
                                         unit.getVendorId(),
                                         unit.getType(),
                                         this.getId(),
-                                        component.getValidatorId(),
+                                        component.getSourceId(),
                                         attributes));
                     }
                 }

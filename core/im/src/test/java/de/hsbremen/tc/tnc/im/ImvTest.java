@@ -70,7 +70,7 @@ public class ImvTest {
 		try {
 			this.initializeImv();
 		} catch (TNCException e) {
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 		
 		this.imv.notifyConnectionChange(Dummy.getIMVConnection(), DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.id());
@@ -83,7 +83,7 @@ public class ImvTest {
 //		try {
 //			this.initializeImv();
 //		} catch (TNCException e) {
-//			e.printStackTrace();
+//			System.err.println(e.getMessage());
 //		}
 //		this.imv.beginHandshake(Dummy.getIMVConnection());
 //		
@@ -96,7 +96,7 @@ public class ImvTest {
 		try {
 			this.initializeImv();
 		} catch (TNCException e) {
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 		this.imv.batchEnding(Dummy.getIMVConnection());
 		
@@ -111,7 +111,7 @@ public class ImvTest {
 		try {
 			this.initializeImv();
 		} catch (TNCException e) {
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 
 		this.imv.receiveMessage(Dummy.getIMVConnection(),messageType, component.getMessage());

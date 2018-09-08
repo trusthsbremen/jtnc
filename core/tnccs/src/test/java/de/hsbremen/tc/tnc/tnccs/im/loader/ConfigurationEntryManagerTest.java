@@ -56,7 +56,7 @@ public class ConfigurationEntryManagerTest {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		this.monitor.stop();
@@ -78,7 +78,7 @@ public class ConfigurationEntryManagerTest {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		this.monitor.stop();
@@ -105,7 +105,7 @@ public class ConfigurationEntryManagerTest {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		this.monitor.stop();
@@ -135,7 +135,7 @@ public class ConfigurationEntryManagerTest {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		Assert.assertTrue(o.changeNotified);
@@ -172,7 +172,7 @@ public class ConfigurationEntryManagerTest {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		
 		this.monitor.stop();

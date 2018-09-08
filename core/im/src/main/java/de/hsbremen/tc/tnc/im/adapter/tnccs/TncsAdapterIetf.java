@@ -48,7 +48,7 @@ import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * TNCS adapter according to the IETF/TCG specifications.
@@ -96,7 +96,7 @@ class TncsAdapterIetf implements TncsAdapter, GlobalHandshakeRetryListener {
 
     @Override
     public void requestGlobalHandshakeRetry(
-            final ImHandshakeRetryReasonEnum reason)
+            final HandshakeRetryReasonEnum reason)
             throws TncException {
         if (reason.toString().contains("IMC")) {
 

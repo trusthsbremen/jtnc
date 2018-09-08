@@ -41,7 +41,7 @@ import java.util.List;
 import de.hsbremen.tc.tnc.attribute.Attributed;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Generic connection context base. The context provides common attributes and
@@ -75,7 +75,7 @@ interface ImConnectionContext extends Attributed {
      * @param reason the retry reason
      * @throws TncException if handshake retry fails
      */
-    void requestHandshakeRetry(ImHandshakeRetryReasonEnum reason)
+    void requestHandshakeRetry(HandshakeRetryReasonEnum reason)
             throws TncException;
 
     /**

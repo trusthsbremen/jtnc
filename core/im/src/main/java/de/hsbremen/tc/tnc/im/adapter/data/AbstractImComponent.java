@@ -48,23 +48,23 @@ public abstract class AbstractImComponent {
 
     private final long vendorId;
     private final long type;
-    private final long collectorId;
-    private final long validatorId;
+    private final long sourceId;
+    private final long destinationId;
 
     /**
      * Creates a base with the necessary address attributes.
      * @param vendorId the vendor ID describing the component
      * @param type the type ID describing the component
-     * @param collectorId the referred IMC
-     * @param validatorId the referred IMV
+     * @param sourceId the referred IMC
+     * @param destinationId the referred IMV
      */
     protected AbstractImComponent(final long vendorId, final long type,
-            final long collectorId, final long validatorId) {
+            final long sourceId, final long destinationId) {
 
         this.vendorId = vendorId;
         this.type = type;
-        this.collectorId = collectorId;
-        this.validatorId = validatorId;
+        this.sourceId = sourceId;
+        this.destinationId = destinationId;
 
     }
 
@@ -88,16 +88,16 @@ public abstract class AbstractImComponent {
      * Returns the IMC ID.
      * @return the collector ID
      */
-    public long getCollectorId() {
-        return collectorId;
+    public long getSourceId() {
+        return sourceId;
     }
 
     /**
      * Returns the IMV ID.
      * @return the validator ID
      */
-    public long getValidatorId() {
-        return validatorId;
+    public long getDestinationId() {
+        return destinationId;
     }
 
 }

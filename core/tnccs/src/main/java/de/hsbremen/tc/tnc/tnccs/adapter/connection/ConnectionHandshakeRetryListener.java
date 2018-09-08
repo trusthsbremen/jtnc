@@ -37,7 +37,7 @@
 package de.hsbremen.tc.tnc.tnccs.adapter.connection;
 
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Generic listener for handshake retry requests from an IM(C/V) for a specific
@@ -54,7 +54,7 @@ public interface ConnectionHandshakeRetryListener {
      * @throws TncException if handshake is not acceptable
      */
     void retryHandshake(
-            final ImHandshakeRetryReasonEnum reason)
+            final HandshakeRetryReasonEnum reason)
             throws TncException;
 
 }

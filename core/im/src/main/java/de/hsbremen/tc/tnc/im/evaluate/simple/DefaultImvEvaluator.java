@@ -110,12 +110,12 @@ public class DefaultImvEvaluator extends AbstractImEvaluatorIetf implements
 
     @SuppressWarnings("unchecked")
     @Override
-    public boolean hasRecommendation() {
+    public boolean hasRecommendation(ImSessionContext context) {
 
         // cast save here because it must be initialized with ImvEvaluationUnits
         for (ImvEvaluationUnit unit : (List<ImvEvaluationUnit>) super
                 .getEvaluationUnits()) {
-            if (!((ImvEvaluationUnit) unit).hasRecommendation()) {
+            if (!((ImvEvaluationUnit) unit).hasRecommendation(context)) {
                 return false;
             }
         }

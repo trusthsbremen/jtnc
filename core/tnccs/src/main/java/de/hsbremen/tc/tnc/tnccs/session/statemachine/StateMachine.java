@@ -41,7 +41,7 @@ import java.util.List;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
 
 /**
@@ -85,7 +85,7 @@ public interface StateMachine {
      * @throws TncException if retry is not possible
      */
     List<TnccsBatch> retryHandshake(
-            ImHandshakeRetryReasonEnum reason) throws TncException;
+            HandshakeRetryReasonEnum reason) throws TncException;
 
     /**
      * Closes the state machine gracefully using a state

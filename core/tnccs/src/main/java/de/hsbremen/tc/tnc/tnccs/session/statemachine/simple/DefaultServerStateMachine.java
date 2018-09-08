@@ -44,7 +44,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TncsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.Decided;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.End;
@@ -171,7 +171,7 @@ public class DefaultServerStateMachine implements StateMachine {
 
     @Override
     public List<TnccsBatch> retryHandshake(
-            final ImHandshakeRetryReasonEnum reason)
+            final HandshakeRetryReasonEnum reason)
             throws TncException {
         synchronized (this) {
             if (!this.isClosed() && !this.busy) {

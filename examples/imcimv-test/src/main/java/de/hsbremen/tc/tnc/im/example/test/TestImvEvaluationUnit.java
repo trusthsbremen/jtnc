@@ -256,7 +256,7 @@ public class TestImvEvaluationUnit extends AbstractImEvaluationUnitIetf
     }
 
     @Override
-    public boolean hasRecommendation() {
+    public boolean hasRecommendation(ImSessionContext context) {
         return (this.recommendation != null);
     }
 

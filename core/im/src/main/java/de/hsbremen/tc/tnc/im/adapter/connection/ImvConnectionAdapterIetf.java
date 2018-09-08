@@ -60,7 +60,7 @@ import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Connection adapter for an IMV connection according to IETF/TCG
@@ -105,7 +105,7 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
 
             try {
                 this.send(flags, component.getVendorId(), component.getType(),
-                        component.getCollectorId(), component.getValidatorId(),
+                        component.getSourceId(), component.getDestinationId(),
                         byteMessage);
 
             } catch (TNCException e) {
@@ -117,7 +117,7 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
     }
 
     @Override
-    public void requestHandshakeRetry(final ImHandshakeRetryReasonEnum reason)
+    public void requestHandshakeRetry(final HandshakeRetryReasonEnum reason)
             throws TncException {
         if (reason.toString().contains("IMV")) {
             try {
@@ -167,22 +167,22 @@ class ImvConnectionAdapterIetf implements ImvConnectionAdapter {
      * @param flags the message flags as composed byte
      * @param vendorId the vendor ID describing the component
      * @param type the type ID describing the component
-     * @param collectorId the referred IMC
-     * @param validatorId the referred IMV
+     * @param sourceId the referred IMV
+     * @param destinationId the referred IMC
      * @param message the raw message
      * @throws TNCException if the message cannot be send
      */
     private void send(final byte flags,
             final long vendorId, final long type,
-            final long collectorId, final long validatorId,
+            final long sourceId, final long destinationId,
             final byte[] message) throws TNCException {
 
         // FIXME it maybe better to check the IMV type here too.
         if (this.connection instanceof IMVConnectionLong
-                && validatorId != HSBConstants.HSB_IM_ID_UNKNOWN) {
+                && sourceId != HSBConstants.HSB_IM_ID_UNKNOWN) {
 
             ((IMVConnectionLong) this.connection).sendMessageLong(flags,
-                    vendorId, type, message, collectorId, validatorId);
+                    vendorId, type, message, destinationId, sourceId);
 
         } else {
             if (type >= TNCConstants.TNC_SUBTYPE_ANY

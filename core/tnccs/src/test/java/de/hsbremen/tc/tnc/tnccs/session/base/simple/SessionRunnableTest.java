@@ -13,7 +13,7 @@ import org.junit.Test;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.SerializationException;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 public class SessionRunnableTest {
 
@@ -120,10 +120,10 @@ public class SessionRunnableTest {
 		this.waitShortly(10);
 		Assert.assertFalse(this.session.isClosed());
 		try {
-			this.session.retryHandshake(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_SERIOUS_EVENT);
+			this.session.retryHandshake(HandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_SERIOUS_EVENT);
 		} catch (TncException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -137,7 +137,7 @@ public class SessionRunnableTest {
 		Assert.assertFalse(this.session.isClosed());
 		this.session.close();
 		this.waitShortly(10);
-		this.session.retryHandshake(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_SERIOUS_EVENT);
+		this.session.retryHandshake(HandshakeRetryReasonEnum.TNC_RETRY_REASON_IMC_SERIOUS_EVENT);
 
 	}
 	
@@ -146,7 +146,7 @@ public class SessionRunnableTest {
 			Thread.sleep(millis);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		    System.err.println(e1.getMessage());
 		}
 	}
 }

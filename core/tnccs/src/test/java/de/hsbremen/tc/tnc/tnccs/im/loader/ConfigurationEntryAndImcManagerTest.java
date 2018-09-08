@@ -72,7 +72,7 @@ public class ConfigurationEntryAndImcManagerTest {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         this.monitor.stop();
@@ -97,7 +97,7 @@ public class ConfigurationEntryAndImcManagerTest {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         Assert.assertTrue(this.imManager.getManaged().size() > 0);
@@ -109,7 +109,7 @@ public class ConfigurationEntryAndImcManagerTest {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         this.monitor.stop();
@@ -133,7 +133,7 @@ public class ConfigurationEntryAndImcManagerTest {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         w.append("\n"+Dummy.getConfigLineToDummyImc());
@@ -145,7 +145,7 @@ public class ConfigurationEntryAndImcManagerTest {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         this.monitor.stop();
@@ -170,7 +170,7 @@ public class ConfigurationEntryAndImcManagerTest {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         Assert.assertTrue(this.imManager.getManaged().size() == 1);
@@ -186,7 +186,7 @@ public class ConfigurationEntryAndImcManagerTest {
             Thread.sleep(400);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
         this.monitor.stop();

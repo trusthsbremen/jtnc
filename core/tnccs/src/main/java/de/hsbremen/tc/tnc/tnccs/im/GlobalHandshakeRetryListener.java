@@ -37,7 +37,7 @@
 package de.hsbremen.tc.tnc.tnccs.im;
 
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Generic listener for global handshake retry requests from IM(C/V).
@@ -53,6 +53,6 @@ public interface GlobalHandshakeRetryListener {
      * @param reason the reason for the request
      * @throws TncException if handshake is not acceptable
      */
-    void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason)
+    void requestGlobalHandshakeRetry(HandshakeRetryReasonEnum reason)
             throws TncException;
 }

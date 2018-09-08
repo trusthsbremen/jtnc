@@ -34,7 +34,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hsbremen.tc.tnc.im.evaluate.simple.util;
+package de.hsbremen.tc.tnc.util;
 
 import java.io.BufferedInputStream;
 import java.io.File;

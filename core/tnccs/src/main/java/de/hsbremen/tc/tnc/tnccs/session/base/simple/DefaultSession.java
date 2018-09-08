@@ -61,7 +61,7 @@ import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsReader;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.bytebuffer.TnccsWriter;
 import de.hsbremen.tc.tnc.message.util.ByteBuffer;
 import de.hsbremen.tc.tnc.message.util.DefaultByteBuffer;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
@@ -196,7 +196,7 @@ public class DefaultSession implements Session {
     }
 
     @Override
-    public void retryHandshake(final ImHandshakeRetryReasonEnum reason)
+    public void retryHandshake(final HandshakeRetryReasonEnum reason)
             throws TncException {
 
         if (this.isClosed()) {
@@ -446,14 +446,14 @@ public class DefaultSession implements Session {
      */
     private class Retry implements Callable<Boolean> {
 
-        private ImHandshakeRetryReasonEnum reason;
+        private HandshakeRetryReasonEnum reason;
 
         /**
          * Creates the runnable with a given handshake
          * retry reason.
          * @param reason the reason for a handshake retry
          */
-        protected Retry(final ImHandshakeRetryReasonEnum reason) {
+        protected Retry(final HandshakeRetryReasonEnum reason) {
             this.reason = reason;
         }
 

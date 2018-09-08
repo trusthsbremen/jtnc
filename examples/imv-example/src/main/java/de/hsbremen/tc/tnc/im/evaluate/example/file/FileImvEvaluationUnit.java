@@ -58,7 +58,6 @@ import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.im.evaluate.AbstractImEvaluationUnitIetf;
 import de.hsbremen.tc.tnc.im.evaluate.ImvEvaluationUnit;
-import de.hsbremen.tc.tnc.im.evaluate.simple.util.ConfigurationPropertiesLoader;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.m.attribute.ImAttribute;
@@ -67,6 +66,7 @@ import de.hsbremen.tc.tnc.report.ImvRecommendationPair;
 import de.hsbremen.tc.tnc.report.ImvRecommendationPairFactory;
 import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
+import de.hsbremen.tc.tnc.util.ConfigurationPropertiesLoader;
 
 /**
  * Example file IMV evaluation unit, which uses
@@ -265,7 +265,7 @@ public class FileImvEvaluationUnit extends AbstractImEvaluationUnitIetf
     }
 
     @Override
-    public boolean hasRecommendation() {
+    public boolean hasRecommendation(ImSessionContext context) {
         return (this.recommendation != null);
     }
 

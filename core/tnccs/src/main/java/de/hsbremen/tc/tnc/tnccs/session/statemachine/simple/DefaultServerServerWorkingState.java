@@ -230,7 +230,7 @@ class DefaultServerServerWorkingState extends AbstractState implements
             LOGGER.debug(
                     "Not all round trip attributes where accessible. "
                     + "Round trips cannot be evaluated",
-                    e);
+                    e.getMessage());
             return false;
         }
     }

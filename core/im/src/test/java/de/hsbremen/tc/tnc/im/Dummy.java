@@ -17,7 +17,7 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImRawComponent;
 import de.hsbremen.tc.tnc.im.adapter.data.enums.PaComponentTypeEnum;
 import de.hsbremen.tc.tnc.report.SupportedMessageType;
 import de.hsbremen.tc.tnc.report.SupportedMessageTypeFactory;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvActionRecommendationEnum;
 import de.hsbremen.tc.tnc.report.enums.ImvEvaluationResultEnum;
 
@@ -61,11 +61,11 @@ public class Dummy extends AbstractDummy{
 			
 			@Override
 			public void requestHandshakeRetry(long reason) throws org.trustedcomputinggroup.tnc.ifimc.TNCException {
-				ImHandshakeRetryReasonEnum reasonE = ImHandshakeRetryReasonEnum.fromId(reason);
+				HandshakeRetryReasonEnum reasonE = HandshakeRetryReasonEnum.fromId(reason);
 				if(reasonE == null || reasonE.toString().contains("IMV")){
 				 throw new org.trustedcomputinggroup.tnc.ifimc.TNCException("Invalid reason code for IMCConnection and IMC: " + ((reasonE == null)? "null" : reasonE.toString()), org.trustedcomputinggroup.tnc.ifimc.TNCException.TNC_RESULT_INVALID_PARAMETER);
 				}
-				System.out.println("Handshake retry requested:" + ImHandshakeRetryReasonEnum.fromId(reason).toString().toString());
+				System.out.println("Handshake retry requested:" + HandshakeRetryReasonEnum.fromId(reason).toString().toString());
 			}
 		};
 	}
@@ -149,11 +149,11 @@ public class Dummy extends AbstractDummy{
 			
 			@Override
 			public void requestHandshakeRetry(long reason) throws org.trustedcomputinggroup.tnc.ifimv.TNCException {
-				ImHandshakeRetryReasonEnum reasonE = ImHandshakeRetryReasonEnum.fromId(reason);
+				HandshakeRetryReasonEnum reasonE = HandshakeRetryReasonEnum.fromId(reason);
 				if(reasonE == null || reasonE.toString().contains("IMC")){
 				 throw new org.trustedcomputinggroup.tnc.ifimv.TNCException("Invalid reason code for IMVConnection and IMV: " + ((reasonE == null)? "null" : reasonE.toString()), org.trustedcomputinggroup.tnc.ifimv.TNCException.TNC_RESULT_INVALID_PARAMETER);
 				}
-				System.out.println("Handshake retry requested:" + ImHandshakeRetryReasonEnum.fromId(reason).toString().toString());
+				System.out.println("Handshake retry requested:" + HandshakeRetryReasonEnum.fromId(reason).toString().toString());
 			}
 			
 			@Override

@@ -70,7 +70,7 @@ public class ImcTest {
 		try {
 			this.initializeImc();
 		} catch (TNCException e) {
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 		
 		this.imc.notifyConnectionChange(Dummy.getIMCConnection(), DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE.id());
@@ -83,7 +83,7 @@ public class ImcTest {
 		try {
 			this.initializeImc();
 		} catch (TNCException e) {
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 		this.imc.beginHandshake(Dummy.getIMCConnection());
 		
@@ -96,7 +96,7 @@ public class ImcTest {
 		try {
 			this.initializeImc();
 		} catch (TNCException e) {
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 		this.imc.batchEnding(Dummy.getIMCConnection());
 		
@@ -111,7 +111,7 @@ public class ImcTest {
 		try {
 			this.initializeImc();
 		} catch (TNCException e) {
-			e.printStackTrace();
+		    System.err.println(e.getMessage());
 		}
 
 		this.imc.receiveMessage(Dummy.getIMCConnection(),messageType, component.getMessage());

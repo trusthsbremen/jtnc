@@ -38,7 +38,7 @@ package de.hsbremen.tc.tnc.im.evaluate;
 
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.GlobalHandshakeRetryListener;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 
 /**
  * Generic base for an evaluation unit. Especially important for inheritance.
@@ -68,7 +68,7 @@ public abstract class AbstractImEvaluationUnitIetf implements ImEvaluationUnit {
      * @throws TncException if handshake is not acceptable
      */
     protected void requestGlobaleHandshakeRetry(
-            final ImHandshakeRetryReasonEnum reason) throws TncException {
+            final HandshakeRetryReasonEnum reason) throws TncException {
         this.globalHandshakeRetryListener.requestGlobalHandshakeRetry(reason);
     }
 }

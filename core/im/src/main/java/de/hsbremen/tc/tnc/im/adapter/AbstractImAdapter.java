@@ -96,8 +96,8 @@ public abstract class AbstractImAdapter {
             exceptions.add(e);
             component = ImComponentFactory.createFaultyObjectComponent(
                     rawComponent.getImFlags(), rawComponent.getVendorId(),
-                    rawComponent.getType(), rawComponent.getCollectorId(),
-                    rawComponent.getValidatorId(),
+                    rawComponent.getType(), rawComponent.getSourceId(),
+                    rawComponent.getDestinationId(),
                     new ArrayList<ImAttribute>(), exceptions, Arrays.copyOf(
                             rawComponent.getMessage(), messageHeaderLength));
         }
@@ -109,8 +109,8 @@ public abstract class AbstractImAdapter {
                         .createObjectComponent(rawComponent.getImFlags(),
                                 rawComponent.getVendorId(), rawComponent
                                         .getType(), rawComponent
-                                        .getCollectorId(), rawComponent
-                                        .getValidatorId(), (imMessage
+                                        .getSourceId(), rawComponent
+                                        .getDestinationId(), (imMessage
                                         .getResult() != null) ? imMessage
                                         .getResult().getAttributes()
                                         : new ArrayList<ImAttribute>());
@@ -119,8 +119,8 @@ public abstract class AbstractImAdapter {
                         .createFaultyObjectComponent(rawComponent.getImFlags(),
                                 rawComponent.getVendorId(), rawComponent
                                         .getType(), rawComponent
-                                        .getCollectorId(), rawComponent
-                                        .getValidatorId(), (imMessage
+                                        .getSourceId(), rawComponent
+                                        .getDestinationId(), (imMessage
                                         .getResult() != null) ? imMessage
                                         .getResult().getAttributes()
                                         : new ArrayList<ImAttribute>(),

@@ -112,17 +112,17 @@ public class DefaultImcEvaluatorManager implements ImcEvaluatorManager {
         for (ImObjectComponent component : components) {
             // only use excl if there is an effective IM(C/V) ID
             if (component.getImFlags().contains(PaComponentFlagsEnum.EXCL)
-                    && component.getCollectorId()
+                    && component.getDestinationId()
                         != HSBConstants.HSB_IM_ID_UNKNOWN) {
 
-                if (this.evaluators.containsKey(component.getCollectorId())) {
+                if (this.evaluators.containsKey(component.getDestinationId())) {
 
                     List<ImObjectComponent> parameterList =
                             new ArrayList<ImObjectComponent>();
                     parameterList.add(component);
 
                     List<ImObjectComponent> tmpComponents = this.evaluators
-                            .get(component.getCollectorId())
+                            .get(component.getDestinationId())
                             .handle(parameterList, context);
 
                     if (tmpComponents != null && tmpComponents.size() > 0) {

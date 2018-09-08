@@ -70,14 +70,14 @@ public final class ImComponentFactory {
      * @param imFlags the message flags as composed byte
      * @param vendorId the vendor ID describing the component
      * @param type the type ID describing the component
-     * @param collectorId the referred IMC
-     * @param validatorId the referred IMV
+     * @param sourceId the referred sender IMC/IMV
+     * @param destinationId the receiving IMC/IMV
      * @param attributes the measurement attributes
      * @return the component object
      */
     public static ImObjectComponent createObjectComponent(final byte imFlags,
             final long vendorId, final long type,
-            final long collectorId, final long validatorId,
+            final long sourceId, final long destinationId,
             final List<? extends ImAttribute> attributes) {
 
         if (vendorId >= IETFConstants.IETF_MAX_VENDOR_ID) {
@@ -100,8 +100,8 @@ public final class ImComponentFactory {
             flags = new PaComponentFlagsEnum[] {PaComponentFlagsEnum.EXCL};
         }
 
-        return new ImObjectComponent(flags, vendorId, type, collectorId,
-                validatorId, attributes);
+        return new ImObjectComponent(flags, vendorId, type, sourceId,
+                destinationId, attributes);
     }
 
     /**
@@ -111,8 +111,8 @@ public final class ImComponentFactory {
      * @param imFlags the message flags as composed byte
      * @param vendorId the vendor ID describing the component
      * @param type the type ID describing the component
-     * @param collectorId the referred IMC
-     * @param validatorId the referred IMV
+     * @param sourceId the referred sender IMC/IMV
+     * @param destinationId the receiving IMC/IMV
      * @param attributes the measurement attributes
      * @param exceptions the list of minor exception
      * @param messageHeader the raw message header
@@ -120,7 +120,7 @@ public final class ImComponentFactory {
      */
     public static ImFaultyObjectComponent createFaultyObjectComponent(
             final byte imFlags, final long vendorId, final long type,
-            final long collectorId, final long validatorId,
+            final long sourceId, final long destinationId,
             final List<? extends ImAttribute> attributes,
             final List<ValidationException> exceptions,
             final byte[] messageHeader) {
@@ -144,8 +144,8 @@ public final class ImComponentFactory {
             flags = new PaComponentFlagsEnum[] {PaComponentFlagsEnum.EXCL};
         }
 
-        return new ImFaultyObjectComponent(flags, vendorId, type, collectorId,
-                validatorId, attributes, exceptions, messageHeader);
+        return new ImFaultyObjectComponent(flags, vendorId, type, sourceId,
+                destinationId, attributes, exceptions, messageHeader);
     }
 
     /**
@@ -153,14 +153,14 @@ public final class ImComponentFactory {
      * @param imFlags the message flags as composed byte
      * @param vendorId the vendor ID describing the component
      * @param type the type ID describing the component
-     * @param collectorId the referred IMC
-     * @param validatorId the referred IMV
+     * @param sourceId the referred sender IMC/IMV
+     * @param destinationId the receiving IMC/IMV
      * @param message the raw message
      * @return the component object
      */
     public static ImRawComponent createRawComponent(final byte imFlags,
-            final long vendorId, final long type, final long collectorId,
-            final long validatorId, final byte[] message) {
+            final long vendorId, final long type, final long sourceId,
+            final long destinationId, final byte[] message) {
 
         if (vendorId >= IETFConstants.IETF_MAX_VENDOR_ID) {
             throw new IllegalArgumentException(
@@ -173,8 +173,8 @@ public final class ImComponentFactory {
                             + IETFConstants.IETF_MAX_TYPE + ".");
         }
 
-        return new ImRawComponent(imFlags, vendorId, type, collectorId,
-                validatorId, message);
+        return new ImRawComponent(imFlags, vendorId, type, sourceId,
+                destinationId, message);
     }
 
     /**
@@ -233,8 +233,8 @@ public final class ImComponentFactory {
                         component.getImFlags()).toArray(
                         new PaComponentFlagsEnum[component
                         .getImFlags().size()]), component.getVendorId(),
-                        component.getType(), component.getCollectorId(),
-                        component.getValidatorId(), attributes);
+                        component.getType(), component.getSourceId(),
+                        component.getDestinationId(), attributes);
     }
 
 }

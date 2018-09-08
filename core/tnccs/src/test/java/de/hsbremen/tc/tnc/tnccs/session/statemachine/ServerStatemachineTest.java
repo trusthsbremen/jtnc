@@ -18,7 +18,7 @@ import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.message.exception.ValidationException;
 import de.hsbremen.tc.tnc.message.tnccs.enums.TcgTnccsProtocolBindingEnum;
 import de.hsbremen.tc.tnc.message.tnccs.serialize.TnccsBatchContainer;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TncsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTnccsValidationExceptionHandler;
 import de.hsbremen.tc.tnc.tnccs.message.handler.simple.DefaultTncsContentHandler;
@@ -74,7 +74,7 @@ public class ServerStatemachineTest {
 			Assert.assertTrue(hasIm);
 			
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class ServerStatemachineTest {
 			}
 			
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -126,7 +126,7 @@ public class ServerStatemachineTest {
 			Assert.assertTrue(this.machine.isClosed());
 			
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -149,7 +149,7 @@ public class ServerStatemachineTest {
 			Assert.assertFalse(this.machine.isClosed());
 			
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -208,9 +208,9 @@ public class ServerStatemachineTest {
 			Assert.assertTrue(this.machine.isClosed());
 			
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (ValidationException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -263,9 +263,9 @@ public class ServerStatemachineTest {
 			Assert.assertTrue(this.machine.isClosed());
 			
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (ValidationException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -307,9 +307,9 @@ public class ServerStatemachineTest {
 			
 		
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (ValidationException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -353,9 +353,9 @@ public class ServerStatemachineTest {
 			
 		
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		} catch (ValidationException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -386,7 +386,7 @@ public class ServerStatemachineTest {
 			Assert.assertTrue(hasLanguage);
 			
 			try {
-				this.machine.retryHandshake(ImHandshakeRetryReasonEnum.TNC_RETRY_REASON_IMV_PERIODIC);
+				this.machine.retryHandshake(HandshakeRetryReasonEnum.TNC_RETRY_REASON_IMV_PERIODIC);
 			} catch (TncException e) {
 				System.out.println("Exception caught: " + e.getMessage());
 				throw e;
@@ -397,7 +397,7 @@ public class ServerStatemachineTest {
 			
 		
 		} catch (StateMachineAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	

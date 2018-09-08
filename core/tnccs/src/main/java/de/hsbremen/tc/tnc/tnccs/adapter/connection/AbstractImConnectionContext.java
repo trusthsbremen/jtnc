@@ -50,7 +50,7 @@ import de.hsbremen.tc.tnc.attribute.TncHsbAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.exception.enums.TncExceptionCodeEnum;
 import de.hsbremen.tc.tnc.message.tnccs.message.TnccsMessage;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.session.base.AttributeCollection;
 
 /**
@@ -124,7 +124,7 @@ public abstract class AbstractImConnectionContext implements
     }
 
     @Override
-    public void requestHandshakeRetry(final ImHandshakeRetryReasonEnum reason)
+    public void requestHandshakeRetry(final HandshakeRetryReasonEnum reason)
             throws TncException {
         this.checkRoundTrips();
         if (this.listener != null) {

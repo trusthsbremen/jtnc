@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 import de.hsbremen.tc.tnc.exception.TncException;
-import de.hsbremen.tc.tnc.report.enums.ImHandshakeRetryReasonEnum;
+import de.hsbremen.tc.tnc.report.enums.HandshakeRetryReasonEnum;
 import de.hsbremen.tc.tnc.tnccs.AbstractDummy;
 import de.hsbremen.tc.tnc.tnccs.im.GlobalHandshakeRetryListener;
 import de.hsbremen.tc.tnc.tnccs.im.loader.enums.ConfigurationLineClassifier;
@@ -100,7 +100,7 @@ public class Dummy extends AbstractDummy {
         return new GlobalHandshakeRetryListener() {
             
             @Override
-            public void requestGlobalHandshakeRetry(ImHandshakeRetryReasonEnum reason)
+            public void requestGlobalHandshakeRetry(HandshakeRetryReasonEnum reason)
                     throws TncException {
                 System.out.println("Retry requested with reason: "+ reason.toString());
                 

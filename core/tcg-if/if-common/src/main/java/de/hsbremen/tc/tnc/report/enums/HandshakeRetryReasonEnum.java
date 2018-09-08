@@ -44,7 +44,7 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVConnection;
  *
  *
  */
-public enum ImHandshakeRetryReasonEnum {
+public enum HandshakeRetryReasonEnum {
 
     /* IMC */
     /**
@@ -107,15 +107,21 @@ public enum ImHandshakeRetryReasonEnum {
      * Server retry reason periodic retry. May be used for global or
      * single retry on all/one connection(s).
      */
-    TNC_RETRY_REASON_IMV_PERIODIC(IMVConnection.TNC_RETRY_REASON_IMV_PERIODIC);
+    TNC_RETRY_REASON_IMV_PERIODIC(IMVConnection.TNC_RETRY_REASON_IMV_PERIODIC),
 
+    /**
+     * General retry reason forced manually by surrounding application.
+     * May be used for global or single retry on all/one connection(s).
+     */
+    HSB_RETRY_REASON_MANUALLY_FORCED(-1);
+    
     private final long id;
 
     /**
      * Creates a retry reason with an ID.
      * @param id the reason ID
      */
-    private ImHandshakeRetryReasonEnum(final long id) {
+    private HandshakeRetryReasonEnum(final long id) {
         this.id = id;
     }
 
@@ -133,7 +139,7 @@ public enum ImHandshakeRetryReasonEnum {
      * @param id the reason ID
      * @return the retry reason or null
      */
-    public static ImHandshakeRetryReasonEnum fromId(final long id) {
+    public static HandshakeRetryReasonEnum fromId(final long id) {
         /* IMC */
         if (id == TNC_RETRY_REASON_IMC_REMEDIATION_COMPLETE.id) {
             return TNC_RETRY_REASON_IMC_REMEDIATION_COMPLETE;
