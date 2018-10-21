@@ -162,7 +162,7 @@ public class DefaultServerSessionFactory extends AbstractSessionFactory {
         AttributeCollection attributes = new AttributeCollection();
         Attributed sessionAttributes = s.getAttributes();
         if (sessionAttributes != null) {
-            attributes.add(s.getAttributes());
+            attributes.add(sessionAttributes);
         }
 
         Attributed connectionAttributes = connection.getAttributes();

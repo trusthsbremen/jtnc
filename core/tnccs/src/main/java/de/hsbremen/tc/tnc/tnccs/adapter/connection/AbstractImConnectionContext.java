@@ -170,33 +170,34 @@ public abstract class AbstractImConnectionContext implements
      * @throws TncException if round trips exceeded
      */
     protected void checkRoundTrips() throws TncException {
-        if (HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN < maxRoundTrips
+        if (HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN < this.maxRoundTrips
                 && maxRoundTrips < HSBConstants
                     .TCG_IM_MAX_ROUND_TRIPS_UNLIMITED) {
 
             try {
-                Object o = attributes.getAttribute(
+                Object o = this.attributes.getAttribute(
                         TncHsbAttributeTypeEnum
                         .HSB_ATTRIBUTEID_CURRENT_ROUND_TRIPS);
-
+                
                 if (o instanceof Long) {
                     long currentRoundTrips = ((Long) o).longValue();
                     if (currentRoundTrips >= this.maxRoundTrips) {
-                        throw new TncException(
-                                "Maximum round trips exceeded.",
-                                TncExceptionCodeEnum
-                                .TNC_RESULT_EXCEEDED_MAX_ROUND_TRIPS);
+                        throw new IllegalStateException("Maximum round trips exceeded.");
                     }
                 }
+                
             } catch (TncException | UnsupportedOperationException e) {
                 LOGGER.debug(new StringBuilder()
                         .append("Custom attribute ")
                         .append(TncHsbAttributeTypeEnum
                         .HSB_ATTRIBUTEID_CURRENT_ROUND_TRIPS.toString())
                         .append(" not accessible. Round trip check cannot ")
-                        .append("evaluate round trip count.").toString());
+                        .append("evaluate round trip count.").toString(), e);
+            } catch (IllegalStateException e) {
+                throw new TncException(e.getMessage(),
+                        TncExceptionCodeEnum
+                        .TNC_RESULT_EXCEEDED_MAX_ROUND_TRIPS);
             }
-
         }
     }
 }

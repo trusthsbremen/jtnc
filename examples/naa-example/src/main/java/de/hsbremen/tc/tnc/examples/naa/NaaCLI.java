@@ -37,10 +37,15 @@
 package de.hsbremen.tc.tnc.examples.naa;
 
 import java.io.File;
-import java.util.Collection;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import de.hsbremen.tc.tnc.tnccs.adapter.im.ImvAdapterFactoryIetf;
 
 /**
  * The CLI to interact with the NAA.
@@ -50,10 +55,30 @@ import java.util.regex.Pattern;
 public abstract class NaaCLI {
 
     private static final Pattern CONFIG_FILE_PATH =
-            Pattern.compile("(start) (((((\\w+\\:\\\\)|(\\\\))" +
+            Pattern.compile("(((((\\w+\\:\\\\)|(\\\\))" +
                     "([^\\\\\\/(){}:*?<>|\"']+\\\\)*)|(((\\/)|(\\w+\\:\\/))" +
                     "([^\\\\\\/(){}:*?<>|\"']+\\/)*))([^\\\\\\/(){}:*?<>|\"']+))");
 
+    private static final File PROPERTIES_FILE = Paths.get(
+            System.getProperty("user.dir"), "config", "config.properties").toFile();
+    private static final String PROP_NAME_TNC_CONFIG_LOCATION = "tnc_config_location";
+    private static final String DEFAULT_TNC_CONFIG_LOCATION = Paths
+            .get(System.getProperty("user.dir"), "config", "tnc_config")
+            .toAbsolutePath().toString();
+
+    public static Properties getDefaultProperties(){
+        Properties properties = new Properties();
+        properties.setProperty(Naa.PROP_NAME_FILE_CHECK_INTERVAL, Naa.DEFAULT_FILE_CHECK_INTERVAL);
+        properties.setProperty(Naa.PROP_NAME_MAX_MSG_SIZE, Naa.DEFAULT_MAX_MSG_SIZE);
+        properties.setProperty(Naa.PROP_NAME_MAX_ROUND_TRIP, Naa.DEFAULT_MAX_ROUND_TRIP);
+        properties.setProperty(Naa.PROP_NAME_NAA_PORT, Naa.DEFAULT_NAA_PORT);
+        properties.setProperty(Naa.PROP_NAME_SESSION_CLEAN_INTERVAL, Naa.DEFAULT_SESSION_CLEAN_INTERVAL);
+        properties.setProperty(Naa.PROP_NAME_IM_DEFAULT_TIMEOUT,Long.toString(ImvAdapterFactoryIetf.DEFAULT_TIMEOUT));
+        properties.setProperty(NaaCLI.PROP_NAME_TNC_CONFIG_LOCATION, NaaCLI.DEFAULT_TNC_CONFIG_LOCATION);
+        
+        return properties;
+    }
+    
     /**
      * Main method to run the NAA.
      *
@@ -61,90 +86,24 @@ public abstract class NaaCLI {
      */
     public static void main(final String[] args) {
         
-        String help = new StringBuffer()
-        .append("\n=========================================")
-        .append("\n| Network Access Authority Demonstrator |")
-        .append("\n=========================================\n")
-        .append("\n1) Simple NAA listening to handshake requests from NAR")
-        .append("\n2) Active NAA initiating a handshake request with NAR")
-        .append("\nSelect example to load:").toString();
+        Properties properties = null;
         
-        System.out.print(help);
-        
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine().trim();
-        
-        if (input.equals("1")){
-            NaaCLI.getNaaCli(in);
-        } else if (input.equals("2")){
-            NaaCLI.getActiveNaaCli(in);
-        } else {
-            System.err.println("Could not recognize option. Cannot start.");
-        }
-
-    }
-    
-    public static void getNaaCli(Scanner in){
-        
-        String input = "";
-        
-        Naa naa = new Naa("/naa.properties");
-
-        String help = new StringBuffer()
-        .append("\n=========================================")
-        .append("\n| Network Access Authority Demonstrator |")
-        .append("\n=========================================\n")
-        .append("\nUsage:")
-        .append("\n-------")
-        .append("\nhelp \t\t\t show command help")
-        .append("\n")
-        .append("\nstart [file path] \t start NAR")
-        .append("\nstop \t\t\t stop NAR")
-        .append("\nquit \t\t\t quit input")
-        .append("\n-------\n").toString();
-
-        System.out.println(help);
-
-        do {
-            if (input.contains("start")) {
-                if (input.length() > "start".length()) {
-
-                    Matcher m  = CONFIG_FILE_PATH.matcher(input);
-                    if (m.find()) {
-
-                        File file = new File(m.group(2).trim());
-                        if (file.exists() && file.canRead()) {
-                            naa.loadImvFromConfigurationFile(file);
-                            naa.start();
-                        } else {
-                            System.err.println("File at "
-                                    + file.getPath().toString()
-                                    + " is not accessible. Cannot start.");
-                        }
-                    } else {
-                        System.err.println("Invalid path. Cannot start.");
-                    }
-                } else {
-                    System.err.println("No file specified. Cannot start.");
+        if (PROPERTIES_FILE.isFile() && PROPERTIES_FILE.canRead()) {
+                try {
+                    properties = new Properties();
+                    properties.load(new FileInputStream(PROPERTIES_FILE));
+                } catch (IOException e) {
+                    System.err.println("Could not read properties, will use defaults: " + e.getMessage());
+                    properties = NaaCLI.getDefaultProperties();
                 }
-                System.out.println("");
-            } else if (input.contains("stop")) {
-                naa.stop();
-                System.out.println("");
-            } else if (input.contains("help")) {
-                System.out.println(help);
-                System.out.println("");
-            }
-            System.out.print("#>");
-        } while (!(input = in.nextLine()).contains("quit"));
-
-        in.close();
-    }
-    
-    public static void getActiveNaaCli(Scanner in){
-        String input = "";
+        } else {
+            properties = NaaCLI.getDefaultProperties();
+        }
         
-        Naa naa = new Naa("/naa.properties");
+        Naa naa = new Naa(properties);
+        
+        String input = "";
+        Scanner in = new Scanner(System.in);
 
         String help = new StringBuffer()
         .append("\n=========================================")
@@ -154,23 +113,22 @@ public abstract class NaaCLI {
         .append("\n-------")
         .append("\nhelp \t\t\t show command help")
         .append("\n")
-        .append("\nstart [file path] \t start NAA")
+        .append("\nstart \t\t\t start NAA")
         .append("\nstop \t\t\t stop NAA")
         .append("\nquit \t\t\t quit input")
-        .append("\nhandshake \t\t ")
-        .append("dialog to select a TNCC for handshake")
         .append("\n-------\n").toString();
 
         System.out.println(help);
 
         do {
-            if (input.contains("start")) {
-                if (input.length() > "start".length()) {
-
-                    Matcher m  = CONFIG_FILE_PATH.matcher(input);
+            if (input.trim().startsWith("start")) {
+                if (properties.containsKey(PROP_NAME_TNC_CONFIG_LOCATION)) {
+                    Matcher m  = CONFIG_FILE_PATH.matcher(
+                            (String)properties.getOrDefault(PROP_NAME_TNC_CONFIG_LOCATION,
+                                    DEFAULT_TNC_CONFIG_LOCATION));
                     if (m.find()) {
-
-                        File file = new File(m.group(2).trim());
+                        
+                        File file = new File(m.group(1).trim());
                         if (file.exists() && file.canRead()) {
                             naa.loadImvFromConfigurationFile(file);
                             naa.start();
@@ -186,31 +144,10 @@ public abstract class NaaCLI {
                     System.err.println("No file specified. Cannot start.");
                 }
                 System.out.println("");
-                
-            } else if (input.trim().equals("handshake")) {
-                Collection<String> connectionIds = naa.getActiveConnectionById().keySet();
-                if (connectionIds.isEmpty()){
-                    System.out.println("No connections available for handshake.");
-                } else {
-                    System.out.println("Connections available for handshake:");
-                    for (String id : connectionIds) {
-                       System.out.println("- " + id);
-                    }
-                    System.out.print("\nSelect TNCC to load:");
-                    input = in.nextLine();
-                    String chosen = input.trim();
-                    if ( connectionIds.contains(chosen)) {
-                        System.out.print("Beginn handshake with " + chosen + ".");
-                        naa.startHandshake(chosen);
-                    } else {
-                        System.out.println("Cannot start handshake. Invalid ID: " + chosen);
-                    }
-                }
-
-            } else if (input.contains("stop")) {
+            } else if (input.trim().startsWith("stop")) {
                 naa.stop();
                 System.out.println("");
-            } else if (input.contains("help")) {
+            } else if (input.trim().startsWith("help")) {
                 System.out.println(help);
                 System.out.println("");
             }
@@ -218,6 +155,5 @@ public abstract class NaaCLI {
         } while (!(input = in.nextLine()).contains("quit"));
 
         in.close();
-        
     }
 }

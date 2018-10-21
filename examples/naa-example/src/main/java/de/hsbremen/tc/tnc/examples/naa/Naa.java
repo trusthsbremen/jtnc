@@ -40,14 +40,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -81,9 +75,7 @@ import de.hsbremen.tc.tnc.tnccs.im.manager.simple.DefaultImvManager;
 import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultServerSessionFactory;
-import de.hsbremen.tc.tnc.transport.TransportAttributes;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
-import de.hsbremen.tc.tnc.util.ConfigurationPropertiesLoader;
 
 /**
  * An example Network Access Authority. Listens for handshakes at
@@ -97,27 +89,25 @@ import de.hsbremen.tc.tnc.util.ConfigurationPropertiesLoader;
 public class Naa {
     private static final Logger LOGGER = LoggerFactory.getLogger(Naa.class);
 
-    private static final String PROP_NAME_MAX_MSG_SIZE = "max_msg_size";
-    private static final String PROP_NAME_MAX_ROUND_TRIP = "max_round_trip";
-    private static final String PROP_NAME_NAA_PORT = "naa_port";
-    private static final String PROP_NAME_SESSION_CLEAN_INTERVAL = "session_clean_interval";
-    private static final String PROP_NAME_FILE_CHECK_INTERVAL = "file_check_interval";
-    private static final String PROP_NAME_IM_DEFAULT_TIMEOUT = "im_default_timeout";
+    static final String PROP_NAME_MAX_MSG_SIZE = "max_msg_size";
+    static final String PROP_NAME_MAX_ROUND_TRIP = "max_round_trip";
+    static final String PROP_NAME_NAA_PORT = "naa_port";
+    static final String PROP_NAME_SESSION_CLEAN_INTERVAL = "session_clean_interval";
+    static final String PROP_NAME_FILE_CHECK_INTERVAL = "file_check_interval";
+    static final String PROP_NAME_IM_DEFAULT_TIMEOUT = "im_default_timeout";
 
-    private static final long DEFAULT_MAX_MSG_SIZE = 131072;
-    private static final long DEFAULT_MAX_ROUND_TRIP = 1;
-    private static final int DEFAULT_NAA_PORT = 30271;
-    private static final long DEFAULT_SESSION_CLEAN_INTERVAL = 3000;
-    private static final long DEFAULT_FILE_CHECK_INTERVAL = 5000;
-
+    static final String DEFAULT_MAX_MSG_SIZE = "131072";
+    static final String DEFAULT_MAX_ROUND_TRIP = "1";
+    static final String DEFAULT_NAA_PORT = "30271";
+    static final String DEFAULT_SESSION_CLEAN_INTERVAL = "3000";
+    static final String DEFAULT_FILE_CHECK_INTERVAL = "5000";
+    
     private final long maxMsgSize;
     private final long maxRoundTrip;
     private final int naaPort;
     private final long sessionCleanInterval;
     private final long fileCheckInterval;
     private final long imDefaultTimeout;
-
-    private Map<String, TransportConnection> activeConnections;
 
     private ClientFacade client;
     private ImvManager manager;
@@ -130,49 +120,32 @@ public class Naa {
     /**
      * Creates the NAA using default values.
      */
-    public Naa(String evaluationValuesFile) {
+    public Naa(Properties properties) {
 
-        Properties properties = null;
-        try {
-            properties = ConfigurationPropertiesLoader.loadProperties(
-                    evaluationValuesFile, this.getClass());
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage(), e);
-            properties = null;
-        }
+        this.maxMsgSize = Long.parseLong((properties != null) ? properties
+                .getProperty(PROP_NAME_MAX_MSG_SIZE, DEFAULT_MAX_MSG_SIZE)
+                : Naa.DEFAULT_MAX_MSG_SIZE);
+        this.maxRoundTrip = Long.parseLong((properties != null) ? properties
+                .getProperty(PROP_NAME_MAX_ROUND_TRIP, DEFAULT_MAX_ROUND_TRIP)
+                : Naa.DEFAULT_MAX_ROUND_TRIP);
 
-        this.maxMsgSize = (properties != null) ? Long.parseLong(properties
-                .getProperty(PROP_NAME_MAX_MSG_SIZE,
-                        Long.toString(Naa.DEFAULT_MAX_MSG_SIZE)))
-                : Naa.DEFAULT_MAX_MSG_SIZE;
-        this.maxRoundTrip = (properties != null) ? Long.parseLong(properties
-                .getProperty(PROP_NAME_MAX_ROUND_TRIP,
-                        Long.toString(Naa.DEFAULT_MAX_ROUND_TRIP)))
-                : Naa.DEFAULT_MAX_ROUND_TRIP;
+        this.naaPort = Integer.parseInt((properties != null) ? properties
+                .getProperty(PROP_NAME_NAA_PORT,DEFAULT_NAA_PORT)
+                : Naa.DEFAULT_NAA_PORT);
 
-        this.naaPort = (properties != null) ? Integer.parseInt(properties
-                .getProperty(PROP_NAME_NAA_PORT,
-                        Integer.toString(Naa.DEFAULT_NAA_PORT)))
-                : Naa.DEFAULT_NAA_PORT;
+        this.sessionCleanInterval = Long.parseLong((properties != null) ? properties
+                .getProperty(PROP_NAME_SESSION_CLEAN_INTERVAL, DEFAULT_SESSION_CLEAN_INTERVAL)
+                : Naa.DEFAULT_SESSION_CLEAN_INTERVAL);
 
-        this.sessionCleanInterval = (properties != null) ? Long
-                .parseLong(properties.getProperty(
-                        PROP_NAME_SESSION_CLEAN_INTERVAL,
-                        Long.toString(Naa.DEFAULT_SESSION_CLEAN_INTERVAL)))
-                : Naa.DEFAULT_SESSION_CLEAN_INTERVAL;
+        this.fileCheckInterval = Long.parseLong((properties != null) ? properties
+                .getProperty(PROP_NAME_FILE_CHECK_INTERVAL, DEFAULT_FILE_CHECK_INTERVAL)
+                : Naa.DEFAULT_FILE_CHECK_INTERVAL);
 
-        this.fileCheckInterval = (properties != null) ? Long
-                .parseLong(properties.getProperty(
-                        PROP_NAME_FILE_CHECK_INTERVAL,
-                        Long.toString(Naa.DEFAULT_FILE_CHECK_INTERVAL)))
-                : Naa.DEFAULT_FILE_CHECK_INTERVAL;
+        this.imDefaultTimeout = Long.parseLong((properties != null) ? properties
+                .getProperty(PROP_NAME_IM_DEFAULT_TIMEOUT,
+                        Long.toString(ImvAdapterFactoryIetf.DEFAULT_TIMEOUT))
+                : Long.toString(ImvAdapterFactoryIetf.DEFAULT_TIMEOUT));
 
-        this.imDefaultTimeout = (properties != null) ? Long
-                .parseLong(properties.getProperty(PROP_NAME_IM_DEFAULT_TIMEOUT,
-                        Long.toString(ImvAdapterFactoryIetf.DEFAULT_TIMEOUT)))
-                : ImvAdapterFactoryIetf.DEFAULT_TIMEOUT;
-
-        this.activeConnections = new ConcurrentHashMap<String, TransportConnection>();
 
         GlobalHandshakeRetryProxy retryProxy = new GlobalHandshakeRetryProxy();
 
@@ -247,28 +220,13 @@ public class Naa {
         }
     }
 
-    public Map<String, TransportConnection> getActiveConnectionById() {
-        return Collections.unmodifiableMap(this.activeConnections);
-    }
-
-    public void startHandshake(String connectionId) {
-        if (!this.stopped && this.activeConnections.containsKey(connectionId)) {
-            client.notifyConnectionChange(
-                    this.activeConnections.get(connectionId),
-                    CommonConnectionChangeTypeEnum.HANDSHAKE_RETRY);
-        } else {
-            LOGGER.warn("Unknown connection with id: " + connectionId);
-        }
-    }
-
     /**
      * Starts the NAA.
      */
     public void start() {
         this.client.start();
         this.stopped = false;
-        this.runner.execute(new ServerRunner(this.naaPort,
-                this.activeConnections));
+        this.runner.execute(new ServerRunner(this.naaPort));
     }
 
     /**
@@ -306,12 +264,9 @@ public class Naa {
     private class ServerRunner implements Runnable {
 
         private final int naaPort;
-        private final Map<String, TransportConnection> activeConnections;
 
-        public ServerRunner(final int naaPort,
-                final Map<String, TransportConnection> activeConnections) {
+        public ServerRunner(final int naaPort) {
             this.naaPort = naaPort;
-            this.activeConnections = activeConnections;
         }
 
         @Override
@@ -329,22 +284,6 @@ public class Naa {
                         client.notifyConnectionChange(connection,
                                 CommonConnectionChangeTypeEnum.NEW);
 
-                        List<String> staleOrClosed = new LinkedList<>();
-                        
-                        for (Entry<String, TransportConnection> entry :
-                            this.activeConnections.entrySet()) {
-                            
-                            if (!entry.getValue().isOpen()) {
-                                staleOrClosed.add(entry.getKey());
-                            }
-                        }
-                        for (String id : staleOrClosed) {
-                            this.activeConnections.remove(id);
-                        }
-                        this.activeConnections.put(
-                                ((TransportAttributes)connection
-                                        .getAttributes()).getTransportId(),
-                                connection);
                     }
                 }
             } catch (IOException e) {

@@ -198,17 +198,17 @@ class DefaultServerServerWorkingState extends AbstractState implements
                             .HSB_ATTRIBUTEID_CURRENT_ROUND_TRIPS);
 
                     if (temp2 instanceof Long) {
-                        currentRoundTrips = ((Long) temp1).longValue();
+                        currentRoundTrips = ((Long) temp2).longValue();
 
                         LOGGER.debug(new StringBuilder()
                             .append("Round trip overrun check ( Max:")
                                 .append(maxRoundTrips)
                                 .append(", Current:").append(currentRoundTrips)
                                 .append(", Overrun imminent:")
-                              .append((maxRoundTrips - currentRoundTrips <= 1))
+                              .append((maxRoundTrips - currentRoundTrips < 1))
                                 .append(").").toString());
 
-                        return (maxRoundTrips - currentRoundTrips <= 1);
+                        return (maxRoundTrips - currentRoundTrips < 1);
 
                     } else {
                         LOGGER.debug("Current round trip attribute not accessib"

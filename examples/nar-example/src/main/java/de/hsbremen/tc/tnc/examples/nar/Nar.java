@@ -74,7 +74,6 @@ import de.hsbremen.tc.tnc.tnccs.im.route.DefaultImMessageRouter;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionFactory;
 import de.hsbremen.tc.tnc.tnccs.session.base.simple.DefaultClientSessionFactory;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
-import de.hsbremen.tc.tnc.util.ConfigurationPropertiesLoader;
 
 /**
  * An example Network Access Requestor.
@@ -90,16 +89,16 @@ public class Nar {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Nar.class);
     
-    private static final String PROP_NAME_MAX_MSG_SIZE = "max_msg_size";
-    private static final String PROP_NAME_MAX_ROUND_TRIP = "max_round_trip";
-    private static final String PROP_NAME_SESSION_CLEAN_INTERVAL = "session_clean_interval";
-    private static final String PROP_NAME_FILE_CHECK_INTERVAL = "file_check_interval";
-    private static final String PROP_NAME_IM_DEFAULT_TIMEOUT = "im_default_timeout";
+    static final String PROP_NAME_MAX_MSG_SIZE = "max_msg_size";
+    static final String PROP_NAME_MAX_ROUND_TRIP = "max_round_trip";
+    static final String PROP_NAME_SESSION_CLEAN_INTERVAL = "session_clean_interval";
+    static final String PROP_NAME_FILE_CHECK_INTERVAL = "file_check_interval";
+    static final String PROP_NAME_IM_DEFAULT_TIMEOUT = "im_default_timeout";
     
-    private static final long DEFAULT_MAX_MSG_SIZE = 131072;
-    private static final long DEFAULT_MAX_ROUND_TRIP = 1;
-    private static final long DEFAULT_SESSION_CLEAN_INTERVAL = 3000;
-    private static final long DEFAULT_FILE_CHECK_INTERVAL = 5000;
+    static final String DEFAULT_MAX_MSG_SIZE = "131072";
+    static final String DEFAULT_MAX_ROUND_TRIP = "1";
+    static final String DEFAULT_SESSION_CLEAN_INTERVAL = "3000";
+    static final String DEFAULT_FILE_CHECK_INTERVAL = "5000";
 
     private final long maxMsgSize;
     private final long maxRoundTrip;
@@ -117,40 +116,31 @@ public class Nar {
     /**
      * Creates the NAR using default values.
      */
-    public Nar(String propertiesFile) {
+    public Nar(Properties properties) {
         
-        Properties properties = null;
-        try {
-            properties = ConfigurationPropertiesLoader
-                .loadProperties(propertiesFile, this.getClass());
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage(), e);
-            properties = null;
-        }
+        this.maxMsgSize = Long.parseLong((properties != null) ?
+                properties.getProperty(PROP_NAME_MAX_MSG_SIZE,
+                        Nar.DEFAULT_MAX_MSG_SIZE) :
+                            Nar.DEFAULT_MAX_MSG_SIZE);
+        this.maxRoundTrip = Long.parseLong((properties != null) ?
+                properties.getProperty(PROP_NAME_MAX_ROUND_TRIP,
+                        Nar.DEFAULT_MAX_ROUND_TRIP) :
+                            Nar.DEFAULT_MAX_ROUND_TRIP);
         
-        this.maxMsgSize = (properties != null) ?
-                Long.parseLong(properties.getProperty(PROP_NAME_MAX_MSG_SIZE,
-                        Long.toString(Nar.DEFAULT_MAX_MSG_SIZE))) :
-                            Nar.DEFAULT_MAX_MSG_SIZE;
-        this.maxRoundTrip = (properties != null) ?
-                Long.parseLong(properties.getProperty(PROP_NAME_MAX_ROUND_TRIP,
-                        Long.toString(Nar.DEFAULT_MAX_ROUND_TRIP))) :
-                            Nar.DEFAULT_MAX_ROUND_TRIP;
+        this.sessionCleanInterval = Long.parseLong((properties != null) ?
+               properties.getProperty(PROP_NAME_SESSION_CLEAN_INTERVAL,
+                        Nar.DEFAULT_SESSION_CLEAN_INTERVAL) :
+                            Nar.DEFAULT_SESSION_CLEAN_INTERVAL);
         
-        this.sessionCleanInterval = (properties != null) ?
-                Long.parseLong(properties.getProperty(PROP_NAME_SESSION_CLEAN_INTERVAL,
-                        Long.toString(Nar.DEFAULT_SESSION_CLEAN_INTERVAL))) :
-                            Nar.DEFAULT_SESSION_CLEAN_INTERVAL;
+        this.fileCheckInterval = Long.parseLong((properties != null) ?
+                properties.getProperty(PROP_NAME_FILE_CHECK_INTERVAL,
+                        Nar.DEFAULT_FILE_CHECK_INTERVAL) :
+                            Nar.DEFAULT_FILE_CHECK_INTERVAL);        
         
-        this.fileCheckInterval = (properties != null) ?
-                Long.parseLong(properties.getProperty(PROP_NAME_FILE_CHECK_INTERVAL,
-                        Long.toString(Nar.DEFAULT_FILE_CHECK_INTERVAL))) :
-                            Nar.DEFAULT_FILE_CHECK_INTERVAL;        
-        
-        this.imDefaultTimeout = (properties != null) ?
-                Long.parseLong(properties.getProperty(PROP_NAME_IM_DEFAULT_TIMEOUT,
-                        Long.toString(ImcAdapterFactoryIetf.DEFAULT_TIMEOUT))) :
-                            ImcAdapterFactoryIetf.DEFAULT_TIMEOUT;            
+        this.imDefaultTimeout = Long.parseLong((properties != null) ?
+                properties.getProperty(PROP_NAME_IM_DEFAULT_TIMEOUT,
+                        Long.toString(ImcAdapterFactoryIetf.DEFAULT_TIMEOUT)) :
+                            Long.toString(ImcAdapterFactoryIetf.DEFAULT_TIMEOUT));            
 
         GlobalHandshakeRetryProxy retryProxy = new GlobalHandshakeRetryProxy();
 
