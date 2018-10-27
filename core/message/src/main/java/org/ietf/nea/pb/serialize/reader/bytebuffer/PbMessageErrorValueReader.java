@@ -152,16 +152,10 @@ class PbMessageErrorValueReader implements TnccsReader<PbMessageValueError> {
             } else if (errorCode != PbMessageErrorCodeEnum.IETF_LOCAL.code()
                     && errorCode != PbMessageErrorCodeEnum
                         .IETF_UNEXPECTED_BATCH_TYPE.code()) {
-                try {
-                    // skip the remaining bytes of the message
-                    buffer.read(valueLength);
-                } catch (BufferUnderflowException e) {
-                    throw new SerializationException("Data length "
-                            + buffer.bytesWritten() + " in buffer to short.",
-                            e, true, Long.toString(buffer.bytesWritten()));
-                }
-                // TODO make a default error object?
-                return null;
+
+                throw new SerializationException(
+                        "Error message type is not supported.", false,
+                        Long.toString(errorVendorId), Long.toString(errorCode));
             }
 
             value = (PbMessageValueError) builder.toObject();

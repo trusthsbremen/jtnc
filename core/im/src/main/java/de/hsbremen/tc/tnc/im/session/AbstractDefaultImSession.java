@@ -101,6 +101,24 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
     public final void requestConnectionHandshakeRetry(
             final HandshakeRetryReasonEnum reason) {
         this.connectionHandshakeRetryRequested.add(reason);
+        
+        if(this.getConnectionState() != DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_CREATE &&
+                this.getConnectionState() != DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_DELETE &&
+                this.getConnectionState() != DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE) {
+           
+            try {
+                // use the first reason, because only one can be used. It is anyway
+                // usually only after remediation.
+                this.connection
+                        .requestHandshakeRetry(this.connectionHandshakeRetryRequested
+                                .iterator().next());
+            } catch (TncException e) {
+                LOGGER.warn("Handshake request for connection "
+                        + this.connection.toString() + " was not executed.", e);
+            } finally {
+                this.connectionHandshakeRetryRequested.clear();
+            }
+        }
     }
 
     @Override
@@ -168,7 +186,7 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
         if (components != null && !components.isEmpty()) {
             cmpList.addAll(components);
         }
-
+        
         this.dispatchMessagesToConnection(cmpList);
     }
 
@@ -195,22 +213,23 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
             return this.messageIndex;
         }
     }
-
+    
     /**
      * Sends a integrity measurement component message from the IM(C/V) to the
      * lower layers.
      *
      * @param componentList the list of component messages
      */
-    protected void dispatchMessagesToConnection(
+    private void dispatchMessagesToConnection(
             final List<ImObjectComponent> componentList) {
         LOGGER.debug("Dispatch messages to connection "
                 + this.connection.toString() + ". Message count: "
                 + ((componentList != null) ? componentList.size() : 0));
         if (this.connectionHandshakeRetryRequested.size() > 0) {
-            // use the first reason, because only one can be used. It is anyway
-            // usually only after remediation.
+            
             try {
+                // use the first reason, because only one can be used. It is anyway
+                // usually only after remediation.
                 this.connection
                         .requestHandshakeRetry(
                                 this.connectionHandshakeRetryRequested

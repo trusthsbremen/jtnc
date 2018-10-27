@@ -117,7 +117,7 @@ class DefaultClientRetryState extends AbstractState implements Retry {
     private TnccsBatch createServerBatch(final List<TnccsMessage> messages)
             throws ValidationException {
         return PbBatchFactoryIetf
-                .createClientData((messages != null) ? messages
+                .createClientRetry((messages != null) ? messages
                         : new ArrayList<TnccsMessage>(0));
     }
 }

@@ -122,7 +122,7 @@ public class PbMessageValueError extends AbstractPbMessageValue {
                 + Arrays.toString(
                         this.errorFlags.toArray(new PbMessageErrorFlagsEnum[0]))
                 + ", errorVendorId=" + this.errorVendorId + ", errorCode="
-                + this.errorCode + ", errorParameter="
-                + this.errorParameter.toString() + "]";
+                + this.errorCode + ", errorParameter=" +((this.errorParameter != null) ?
+                this.errorParameter.toString() : "null") + "]";
     }
 }

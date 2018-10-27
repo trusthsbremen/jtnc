@@ -255,7 +255,9 @@ public class DefaultClientFacade implements ClientFacade,
 
     @Override
     public void stop() {
-        this.sessionCleaner.shutdownNow();
+        if(this.sessionCleaner != null) {
+            this.sessionCleaner.shutdownNow();
+        }
 
         if (!started) {
             throw new IllegalStateException("Client was not started.");

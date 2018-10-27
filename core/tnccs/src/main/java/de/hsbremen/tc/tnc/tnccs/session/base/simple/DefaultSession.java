@@ -39,10 +39,8 @@ package de.hsbremen.tc.tnc.tnccs.session.base.simple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import org.ietf.nea.pb.batch.DefaultTnccsBatchContainer;
 import org.ietf.nea.pb.batch.PbBatchHeader;
@@ -66,8 +64,8 @@ import de.hsbremen.tc.tnc.tnccs.session.base.Session;
 import de.hsbremen.tc.tnc.tnccs.session.base.SessionAttributes;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.StateMachine;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.exception.StateMachineAccessException;
-import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.TransportConnection;
+import de.hsbremen.tc.tnc.transport.TransportListener;
 import de.hsbremen.tc.tnc.transport.exception.ConnectionException;
 import de.hsbremen.tc.tnc.transport.exception.ListenerClosedException;
 import de.hsbremen.tc.tnc.util.NotNull;
@@ -205,19 +203,20 @@ public class DefaultSession implements Session {
         }
 
         if (this.machine.canRetry()) {
-            Future<Boolean> future = this.runner.submit(new Retry(reason));
-            // this is a blocking call
-            try {
-                future.get();
-            } catch (ExecutionException e) {
-                if (e.getCause() instanceof TncException) {
-                    throw (TncException) e.getCause();
-                }
-            } catch (InterruptedException e) {
-                throw new TncException(
-                        "Retry cancled, because the thread was interrupted.",
-                        e, TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
-            }
+            this.runner.submit(new Retry(reason));
+//            Future<Boolean> future = this.runner.submit(new Retry(reason));
+//            // this is a blocking call
+//            try {
+//                future.get();
+//            } catch (ExecutionException e) {
+//                if (e.getCause() instanceof TncException) {
+//                    throw (TncException) e.getCause();
+//                }
+//            } catch (InterruptedException e) {
+//                throw new TncException(
+//                        "Retry cancled, because the thread was interrupted.",
+//                        e, TncExceptionCodeEnum.TNC_RESULT_CANT_RETRY);
+//            }
 
         } else {
             throw new TncException("Retry not allowed.",

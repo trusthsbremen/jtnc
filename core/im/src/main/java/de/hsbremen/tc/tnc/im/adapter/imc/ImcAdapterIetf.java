@@ -316,7 +316,7 @@ public class ImcAdapterIetf extends AbstractImAdapter
             final IMCConnection connection) {
 
         ImcSession s = this.sessions.getSession(connection);
-
+        
         if (s == null) {
 
             s = this.sessionFactory.createSession(
