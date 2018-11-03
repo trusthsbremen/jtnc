@@ -303,4 +303,10 @@ public class OsImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
         LOGGER.info("Last call received.");
         return new ArrayList<>(0);
     }
+    
+    @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        LOGGER.debug("Connection change notification received.");
+        
+    }
 }

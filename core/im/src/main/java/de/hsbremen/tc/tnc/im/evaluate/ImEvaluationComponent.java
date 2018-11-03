@@ -38,6 +38,7 @@ package de.hsbremen.tc.tnc.im.evaluate;
 
 import java.util.List;
 
+import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 
 /**
@@ -79,6 +80,13 @@ public interface ImEvaluationComponent<T> {
      * @return a list of results of the specific type
      */
     List<T> lastCall(ImSessionContext context);
+    
+    /**
+     * Notifies the evaluation component about a connection change and
+     * enables the component to react on a connection change.
+     * @param context the context, which holds connection specific values
+     */
+    void notifyConnectionChange(ImSessionContext context);
 
     /**
      * Terminates this integrity measurement component part.

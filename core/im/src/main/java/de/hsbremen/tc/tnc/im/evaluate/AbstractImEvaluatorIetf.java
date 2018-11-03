@@ -218,6 +218,16 @@ public class AbstractImEvaluatorIetf implements ImEvaluator {
         return components;
     }
 
+    @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        if (this.evaluationUnits != null) {
+            for (ImEvaluationUnit unit : this.evaluationUnits) {
+                unit.notifyConnectionChange(context);
+            }
+        }
+        
+    }
+    
     /**
      * Checks if exclusive delivery support to an IM(C/V) is possible.
      * @param context the context, which holds connection specific values

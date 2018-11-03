@@ -206,6 +206,11 @@ public class FileImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
         return new ArrayList<>(0);
     }
 
+    @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        LOGGER.debug("Connection change notification received.");
+    }
+    
     /**
      * Creates a message attribute containing the hash sum of the
      * monitored file.

@@ -79,6 +79,8 @@ class DefaultClientDecidedState extends AbstractState implements Decided {
             PbBatch b = (PbBatch) result;
 
             if (b.getHeader().getType().equals(PbBatchTypeEnum.SRETRY)) {
+                this.helper.getHandler().setConnectionState(
+                        DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
 
                 return this.helper.getState(TnccsStateEnum.SERVER_WORKING);
             }

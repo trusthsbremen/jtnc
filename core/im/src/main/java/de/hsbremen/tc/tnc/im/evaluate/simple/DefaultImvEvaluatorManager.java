@@ -160,12 +160,14 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
                     if (tmpComponents != null && tmpComponents.size() > 0) {
                         cmpList.addAll(tmpComponents);
                     }
-
-                    if (evaluator.hasRecommendation(context)) {
-                        this.evaluatorRecommendations.put(
-                                new Long(evaluator.getId()),
-                                evaluator.getRecommendation(context));
+                    
+                    if (!this.evaluatorRecommendations.containsKey(Long.valueOf(evaluator.getId()))){
+                        if (evaluator.hasRecommendation(context)) {
+                            this.evaluatorRecommendations.put(Long.valueOf(evaluator.getId()),
+                                    evaluator.getRecommendation(context));
+                        }
                     }
+                    
                 }
             }
         }
@@ -184,16 +186,25 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
             if (components != null && components.size() > 0) {
                 cmpList.addAll(components);
             }
-
-            if (evaluator.hasRecommendation(context)) {
-                this.evaluatorRecommendations.put(new Long(evaluator.getId()),
-                        evaluator.getRecommendation(context));
+            if (!this.evaluatorRecommendations.containsKey(Long.valueOf(evaluator.getId()))){
+                if (evaluator.hasRecommendation(context)) {
+                    this.evaluatorRecommendations.put(Long.valueOf(evaluator.getId()),
+                            evaluator.getRecommendation(context));
+                }
             }
+            
         }
 
         return cmpList;
     }
 
+    @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        for (ImvEvaluator evaluator : this.evaluators.values()) {
+            evaluator.notifyConnectionChange(context);
+        }
+    }
+    
     @Override
     public void terminate() {
         for (ImvEvaluator evaluator : this.evaluators.values()) {

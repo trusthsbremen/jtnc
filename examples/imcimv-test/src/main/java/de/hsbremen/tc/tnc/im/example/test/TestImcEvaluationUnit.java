@@ -114,6 +114,12 @@ public class TestImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
 
         return attributes;
     }
+    
+    @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        LOGGER.debug("Connection change notification received.");
+        
+    }
 
     @Override
     public void terminate() {

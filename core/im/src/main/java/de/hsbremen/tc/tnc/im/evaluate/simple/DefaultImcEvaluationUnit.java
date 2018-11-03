@@ -191,4 +191,11 @@ public class DefaultImcEvaluationUnit extends AbstractImcEvaluationUnitIetf
         return new ArrayList<>(0);
     }
 
+    @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        LOGGER.debug(new StringBuilder()
+        .append("notifyConnectionChange() called, with connection state: ")
+        .append(context.getConnectionState())
+        .append("\n").toString());
+    }
 }

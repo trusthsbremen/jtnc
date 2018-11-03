@@ -138,6 +138,7 @@ abstract class AbstractDefaultImSession<T extends ImConnectionAdapter>
         LOGGER.debug("Connection state has changed to: "
                 + connectionState.toString());
         this.connectionState = connectionState;
+        this.evaluatorManager.notifyConnectionChange(this);
     }
 
     @Override

@@ -166,6 +166,13 @@ public class DefaultImcEvaluatorManager implements ImcEvaluatorManager {
     }
 
     @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        for (ImcEvaluator evaluator : this.evaluators.values()) {
+            evaluator.notifyConnectionChange(context);
+        }
+    }
+    
+    @Override
     public void terminate() {
         for (ImcEvaluator evaluator : this.evaluators.values()) {
             evaluator.terminate();

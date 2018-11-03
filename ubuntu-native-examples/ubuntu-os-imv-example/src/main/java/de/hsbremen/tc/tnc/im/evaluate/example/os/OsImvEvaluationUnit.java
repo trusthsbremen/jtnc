@@ -429,6 +429,18 @@ public class OsImvEvaluationUnit extends AbstractImEvaluationUnitIetf implements
     }
 
     @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        LOGGER.debug(new StringBuilder()
+            .append("Connection change notification received. ")
+            .append("Any existing recommendation will be reset.")
+            .toString());
+        if (this.recommendation != null){
+            this.recommendation = null; // remove recommendation
+        }
+        
+    }
+    
+    @Override
     public void terminate() {
         LOGGER.debug("Terminate called.");
     }

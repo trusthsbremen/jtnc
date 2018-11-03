@@ -248,9 +248,6 @@ public class TestImvEvaluationUnit extends AbstractImEvaluationUnitIetf
         // look if recommendation is present and handle it if possible else
         // return default no recommendation
         ImvRecommendationPair rec = this.recommendation;
-        this.recommendation = null; // remove recommendation after it has been
-                                    // ask for, to make room for a new
-                                    // evaluation.
         return (rec != null) ? rec : ImvRecommendationPairFactory
                 .getDefaultRecommendationPair();
     }
@@ -266,6 +263,18 @@ public class TestImvEvaluationUnit extends AbstractImEvaluationUnitIetf
 
         LOGGER.info("Last call received.");
         return new ArrayList<>(0);
+    }
+    
+    @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        LOGGER.debug(new StringBuilder()
+            .append("Connection change notification received. ")
+            .append("Any existing recommendation will be reset.")
+            .toString());
+        if (this.recommendation != null){
+            this.recommendation = null; // remove recommendation
+        }
+        
     }
 
     @Override

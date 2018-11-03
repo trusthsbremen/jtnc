@@ -136,6 +136,14 @@ public class DefaultImvEvaluationUnit extends AbstractImEvaluationUnitIetf
     }
 
     @Override
+    public void notifyConnectionChange(ImSessionContext context) {
+        LOGGER.debug(new StringBuilder()
+        .append("notifyConnectionChange() called, with connection state: ")
+        .append(context.getConnectionState())
+        .append("\n").toString());
+    }
+    
+    @Override
     public synchronized ImvRecommendationPair getRecommendation(
             final ImSessionContext context) {
         ImvRecommendationPair object = ImvRecommendationPairFactory

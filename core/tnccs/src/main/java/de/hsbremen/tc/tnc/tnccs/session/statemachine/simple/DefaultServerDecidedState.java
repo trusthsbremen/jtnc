@@ -39,6 +39,7 @@ package de.hsbremen.tc.tnc.tnccs.session.statemachine.simple;
 import org.ietf.nea.pb.batch.PbBatch;
 import org.ietf.nea.pb.batch.enums.PbBatchTypeEnum;
 
+import de.hsbremen.tc.tnc.connection.DefaultTncConnectionStateEnum;
 import de.hsbremen.tc.tnc.message.tnccs.batch.TnccsBatch;
 import de.hsbremen.tc.tnc.tnccs.message.handler.TncsContentHandler;
 import de.hsbremen.tc.tnc.tnccs.session.statemachine.AbstractState;
@@ -73,7 +74,10 @@ class DefaultServerDecidedState extends AbstractState implements Decided {
             PbBatch b = (PbBatch) result;
 
             if (b.getHeader().getType().equals(PbBatchTypeEnum.CRETRY)) {
-
+                
+                this.helper.getHandler().setConnectionState(
+                        DefaultTncConnectionStateEnum.TNC_CONNECTION_STATE_HANDSHAKE);
+                
                 return this.helper.getState(TnccsStateEnum.SERVER_WORKING);
             }
 
