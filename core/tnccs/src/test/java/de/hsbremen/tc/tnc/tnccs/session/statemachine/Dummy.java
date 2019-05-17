@@ -44,8 +44,8 @@ public class Dummy extends AbstractDummy{
 			
 			private String tProtocol = TcgTProtocolBindingEnum.TLS1.label();
 			private String tVersion = TcgTProtocolBindingEnum.TLS1.version();
-			private Long maxMessageSize = new Long(512);
-			private Long maxRoundtrips = new Long(HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
+			private Long maxMessageSize = Long.valueOf(512);
+			private Long maxRoundtrips = Long.valueOf(HSBConstants.TCG_IM_MAX_ROUND_TRIPS_UNKNOWN);
 			
 			@Override
 			public Object getAttribute(TncAttributeType type) throws TncException {

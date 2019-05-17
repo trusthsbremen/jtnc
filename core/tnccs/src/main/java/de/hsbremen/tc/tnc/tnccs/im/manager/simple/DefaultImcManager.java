@@ -217,7 +217,7 @@ public class DefaultImcManager extends AbstractImManager<IMC> implements
                 throws TncException {
             if (type.id() == TncClientAttributeTypeEnum
                     .TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id()) {
-                return new Long(this.primaryImId);
+                return Long.valueOf(this.primaryImId);
             }
             throw new TncException("The attribute with ID " + type.id()
                     + " is unknown.",

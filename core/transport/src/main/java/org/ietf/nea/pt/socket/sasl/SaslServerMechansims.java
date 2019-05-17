@@ -77,7 +77,7 @@ public class SaslServerMechansims implements SaslMechanismSelection {
      * @return the number of contained mechanisms for the given stage
      */
     public int getStageMechanismCount(final byte stage) {
-        Byte key = new Byte(stage);
+        Byte key = Byte.valueOf(stage);
         if (this.mechanisms.containsKey(key)) {
             return this.mechanisms.get(key).size();
         } else {
@@ -100,7 +100,7 @@ public class SaslServerMechansims implements SaslMechanismSelection {
                     + " Hence it cannot be added."); 
         }
         
-        Byte tempStage = new Byte(stage);
+        Byte tempStage = Byte.valueOf(stage);
         
         if (tempStage.byteValue() <= 0) {
             throw new IllegalArgumentException(
@@ -109,7 +109,7 @@ public class SaslServerMechansims implements SaslMechanismSelection {
         
         if (tempStage.byteValue() > 1) {
             if (!this.mechanisms.containsKey(
-                    new Byte((byte) (tempStage.byteValue() - 1)))) {
+                    Byte.valueOf((byte) (tempStage.byteValue() - 1)))) {
                 
                 throw new IllegalStateException(
                         "Stages must be added in a consecutive way.");
@@ -133,7 +133,7 @@ public class SaslServerMechansims implements SaslMechanismSelection {
      * given state or null if stage does not exist
      */
     public Map<String, SaslServer> getAllMechanismsByStage(final byte stage) {
-        Byte key = new Byte(stage);
+        Byte key = Byte.valueOf(stage);
         if (this.mechanisms.containsKey(key)) {
             return Collections.unmodifiableMap(this.mechanisms.get(key));
         } else {
@@ -151,7 +151,7 @@ public class SaslServerMechansims implements SaslMechanismSelection {
      */
     public SaslServer getMechanismByStage(final byte stage,
             final String mechanismName) {
-        Byte key = new Byte(stage);
+        Byte key = Byte.valueOf(stage);
         if (this.mechanisms.containsKey(key)) {
             return this.mechanisms.get(key).get(mechanismName);
         } else {

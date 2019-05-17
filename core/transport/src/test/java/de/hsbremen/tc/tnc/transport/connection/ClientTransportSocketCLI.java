@@ -45,6 +45,13 @@ public class ClientTransportSocketCLI {
 						System.out.println("Connected to " + socket.getRemoteSocketAddress().toString());
 					} catch (IOException e) {
 						System.err.println(e.getMessage());
+						if(socket != null) {
+						    try {
+						      socket.close();  
+						    } catch (IOException e1) {
+						        System.err.println(e1.getMessage());
+						    }
+						}
 						return;
 					}
 					System.out.println("Create transport connection.");

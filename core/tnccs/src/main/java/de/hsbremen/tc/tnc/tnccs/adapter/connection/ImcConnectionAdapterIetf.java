@@ -143,7 +143,7 @@ class ImcConnectionAdapterIetf extends AbstractImConnectionAdapter implements
 
         if (attributeID == TncClientAttributeTypeEnum
                 .TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id()) {
-            return new Long(super.getImId());
+            return Long.valueOf(super.getImId());
         } else {
             try {
                 return this.context.getAttribute(DefaultTncAttributeTypeFactory

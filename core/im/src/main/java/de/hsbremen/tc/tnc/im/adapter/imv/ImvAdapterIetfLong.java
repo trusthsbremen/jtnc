@@ -43,7 +43,7 @@ import org.trustedcomputinggroup.tnc.ifimv.IMVLong;
 import org.trustedcomputinggroup.tnc.ifimv.TNCException;
 import org.trustedcomputinggroup.tnc.ifimv.TNCS;
 
-import de.hsbremen.tc.tnc.attribute.TncClientAttributeTypeEnum;
+import de.hsbremen.tc.tnc.attribute.TncServerAttributeTypeEnum;
 import de.hsbremen.tc.tnc.exception.TncException;
 import de.hsbremen.tc.tnc.im.adapter.ImParameter;
 import de.hsbremen.tc.tnc.im.adapter.connection.ImvConnectionAdapterFactory;
@@ -52,8 +52,8 @@ import de.hsbremen.tc.tnc.im.adapter.data.ImObjectComponent;
 import de.hsbremen.tc.tnc.im.adapter.tnccs.TncsAdapterFactory;
 import de.hsbremen.tc.tnc.im.evaluate.ImEvaluatorFactory;
 import de.hsbremen.tc.tnc.im.session.ImSessionFactory;
-import de.hsbremen.tc.tnc.im.session.ImvSession;
 import de.hsbremen.tc.tnc.im.session.ImSessionManager;
+import de.hsbremen.tc.tnc.im.session.ImvSession;
 import de.hsbremen.tc.tnc.message.m.serialize.ImMessageContainer;
 import de.hsbremen.tc.tnc.message.m.serialize.bytebuffer.ImReader;
 
@@ -110,8 +110,8 @@ public class ImvAdapterIetfLong extends ImvAdapterIetf implements IMVLong {
         try {
 
             Object o = tncs.getAttribute(
-                    TncClientAttributeTypeEnum.
-                    TNC_ATTRIBUTEID_PRIMARY_IMC_ID.id());
+                    TncServerAttributeTypeEnum.
+                    TNC_ATTRIBUTEID_PRIMARY_IMV_ID.id());
 
             if (o instanceof Long) {
 

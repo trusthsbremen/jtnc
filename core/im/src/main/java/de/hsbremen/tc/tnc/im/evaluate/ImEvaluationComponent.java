@@ -38,7 +38,6 @@ package de.hsbremen.tc.tnc.im.evaluate;
 
 import java.util.List;
 
-import de.hsbremen.tc.tnc.connection.TncConnectionState;
 import de.hsbremen.tc.tnc.im.session.ImSessionContext;
 
 /**

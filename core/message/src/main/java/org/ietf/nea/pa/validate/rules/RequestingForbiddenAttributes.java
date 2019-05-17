@@ -89,7 +89,7 @@ public final class RequestingForbiddenAttributes {
                                 IETFConstants.IETF_PEN_VENDORID,
                                 PaAttributeTypeEnum.IETF_PA_ATTRIBUTE_REQUEST
                                         .toString(), attributes
-                                        .indexOf(attributes));
+                                        .indexOf(ref));
                     }
 
                     if (ref.getType() == PaAttributeTypeEnum
@@ -107,7 +107,7 @@ public final class RequestingForbiddenAttributes {
                                 PaErrorCauseEnum.ILLEGAL_ATTRIBUTE_REQUEST.id(),
                                 IETFConstants.IETF_PEN_VENDORID,
                                 PaAttributeTypeEnum.IETF_PA_ERROR.toString(),
-                                attributes.indexOf(attributes));
+                                attributes.indexOf(ref));
                     }
 
                 }

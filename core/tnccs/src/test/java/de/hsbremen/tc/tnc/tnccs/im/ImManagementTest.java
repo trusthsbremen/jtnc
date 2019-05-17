@@ -77,7 +77,7 @@ public class ImManagementTest {
 		long id0 = this.manager.add(Dummy.getIMCwithMessageSupport(types));
 		Assert.assertEquals(1, id0);
 		Set<Long> ids = this.router.findRecipientIds(type.getVendorId(), type.getType());
-		Assert.assertEquals(new Long(id0),ids.iterator().next());
+		Assert.assertEquals(Long.valueOf(id0),ids.iterator().next());
 		
 		this.manager.remove(id0);
 		ids = this.router.findRecipientIds(type.getVendorId(), type.getType());
@@ -104,15 +104,15 @@ public class ImManagementTest {
 		this.manager.reserveAdditionalId(imc);
 		Long l;
 		try{
-    		l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
-    		Assert.assertEquals(new Long(id0),l);
+    		l = this.router.findExclRecipientId(Long.valueOf(2), type.getVendorId(), type.getType());
+    		Assert.assertEquals(Long.valueOf(id0),l);
 		}catch (NoRecipientFoundException e){
 		    Assert.fail();
 		}
 		this.manager.remove(id0);
 		
 		try{
-		    l = this.router.findExclRecipientId(new Long(2), type.getVendorId(), type.getType());
+		    l = this.router.findExclRecipientId(Long.valueOf(2), type.getVendorId(), type.getType());
 		    Assert.fail();
 		}catch(NoRecipientFoundException e){
 		    System.out.println(e.getMessage());
