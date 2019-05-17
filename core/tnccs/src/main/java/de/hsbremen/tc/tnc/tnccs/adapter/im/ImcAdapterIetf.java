@@ -93,7 +93,7 @@ class ImcAdapterIetf implements ImcAdapter {
             throw new TncException(e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMC with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         }
     }
@@ -108,7 +108,7 @@ class ImcAdapterIetf implements ImcAdapter {
             throw new TncException(e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMC with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         } finally {
             connection.denyMessageReceipt();
@@ -123,7 +123,7 @@ class ImcAdapterIetf implements ImcAdapter {
             this.dispatchMessageToImc(connection, message);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMC with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         }
     }
@@ -139,7 +139,7 @@ class ImcAdapterIetf implements ImcAdapter {
             throw new TncException(e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMC with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         } finally {
             connection.denyMessageReceipt();
@@ -194,7 +194,7 @@ class ImcAdapterIetf implements ImcAdapter {
                     + ". IMC/V will be removed anyway.", e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMC with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         }
 

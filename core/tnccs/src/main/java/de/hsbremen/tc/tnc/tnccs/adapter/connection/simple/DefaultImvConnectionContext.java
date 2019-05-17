@@ -78,7 +78,7 @@ public class DefaultImvConnectionContext extends AbstractImConnectionContext
             throws TncException {
 
         if (super.isValid()) {
-            this.recommendations.put(new Long(id), recommendationPair);
+            this.recommendations.put(Long.valueOf(id), recommendationPair);
         } else {
             throw new TncException(
                     "Cannot add message. Session and connection may be closed.",

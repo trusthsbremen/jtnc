@@ -35,16 +35,16 @@
 <!-- 	      <url>file:{file-Repo-here}</url> -->
 <!-- 	    </repository> -->
 <!--     </distributionManagement> -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>doodleproject-repo</id>
-			<name>DoodleProject Maven 2 Repository</name>
-			<url>http://doodleproject.sourceforge.net/maven2/release</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
+<!-- 	<pluginRepositories> -->
+<!-- 		<pluginRepository> -->
+<!-- 			<id>doodleproject-repo</id> -->
+<!-- 			<name>DoodleProject Maven 2 Repository</name> -->
+<!-- 			<url>http://doodleproject.sourceforge.net/maven2/release</url> -->
+<!-- 			<releases> -->
+<!-- 				<enabled>true</enabled> -->
+<!-- 			</releases> -->
+<!-- 		</pluginRepository> -->
+<!-- 	</pluginRepositories> -->
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -72,15 +72,15 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>11</source>
+					<target>11</target>
 					<fork>true</fork>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
+				<version>3.0.1</version>
 				<configuration>
 					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>                         
 	                <docletArtifact>                                                         

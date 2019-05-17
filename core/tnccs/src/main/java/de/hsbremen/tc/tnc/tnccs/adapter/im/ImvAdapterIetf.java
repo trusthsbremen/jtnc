@@ -92,7 +92,7 @@ class ImvAdapterIetf implements ImvAdapter {
             throw new TncException(e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMV with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         }
     }
@@ -114,7 +114,7 @@ class ImvAdapterIetf implements ImvAdapter {
             throw new TncException(e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMV with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         } finally {
             connection.denyMessageReceipt();
@@ -129,7 +129,7 @@ class ImvAdapterIetf implements ImvAdapter {
             this.dispatchMessageToImc(connection, message);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMV with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         }
     }
@@ -146,7 +146,7 @@ class ImvAdapterIetf implements ImvAdapter {
             throw new TncException(e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMV with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         } finally {
             connection.denyMessageReceipt();
@@ -163,7 +163,7 @@ class ImvAdapterIetf implements ImvAdapter {
                     + ". IMC/V will be removed anyway.", e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMV with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         }
         this.imv = null;
@@ -180,7 +180,7 @@ class ImvAdapterIetf implements ImvAdapter {
             throw new TncException(e);
         } catch (NullPointerException e) {
             throw new TerminatedException("The IMV with ID " + this.primaryId
-                    + " is terminated and should be removed.", e, new Long(
+                    + " is terminated and should be removed.", e, Long.valueOf(
                     this.primaryId));
         } finally {
             connection.denyMessageReceipt();

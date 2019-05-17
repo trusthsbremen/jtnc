@@ -137,7 +137,7 @@ public class DefaultImMessageRouter implements ImMessageRouter {
                 .append(" and message type ID ")
                 .append(messageType)
                 .append(".").toString(),
-                    new Long(vendorId), new Long(messageType));
+                    Long.valueOf(vendorId), Long.valueOf(messageType));
         }
     }
 
@@ -175,7 +175,7 @@ public class DefaultImMessageRouter implements ImMessageRouter {
                 .append(" and message type ID ")
                 .append(messageType)
                 .append(".").toString(),
-                    new Long(vendorId), new Long(messageType), recipientId);
+                    Long.valueOf(vendorId), Long.valueOf(messageType), recipientId);
         }
     }
 

@@ -44,9 +44,8 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-
-import javax.xml.bind.DatatypeConverter;
 
 import org.ietf.nea.pa.attribute.PaAttribute;
 import org.ietf.nea.pa.attribute.PaAttributeFactoryIetf;
@@ -254,7 +253,7 @@ public class FileImcEvaluationUnit extends AbstractImcEvaluationUnitIetf {
         }
 
         if (newDigest != null) {
-            content = DatatypeConverter.printBase64Binary(newDigest);
+            content = Base64.getEncoder().encodeToString(newDigest);
         }
 
         return PaAttributeFactoryIetf.createTestValue(content);

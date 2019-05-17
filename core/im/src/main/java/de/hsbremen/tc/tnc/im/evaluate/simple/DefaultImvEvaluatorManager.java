@@ -103,7 +103,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
             }
 
             if (evaluator.hasRecommendation(context)) {
-                this.evaluatorRecommendations.put(new Long(evaluator.getId()),
+                this.evaluatorRecommendations.put(Long.valueOf(evaluator.getId()),
                         evaluator.getRecommendation(context));
             }
 
@@ -143,7 +143,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
 
                     if (evaluator.hasRecommendation(context)) {
                         this.evaluatorRecommendations.put(
-                                new Long(evaluator.getId()),
+                                Long.valueOf(evaluator.getId()),
                                 evaluator.getRecommendation(context));
                     }
                 }
@@ -255,7 +255,7 @@ public class DefaultImvEvaluatorManager implements ImvEvaluatorManager {
             if (!this.evaluatorRecommendations.containsKey(evaluator.getId())) {
                 if (evaluator.hasRecommendation(context)) {
                     this.evaluatorRecommendations.put(
-                            new Long(evaluator.getId()),
+                            Long.valueOf(evaluator.getId()),
                             evaluator.getRecommendation(context));
                 } // else ignore the evaluators opinion
             }

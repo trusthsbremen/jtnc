@@ -121,7 +121,7 @@ public class ImvTest {
 	private void initializeImv() throws TNCException{
 		this.imv.initialize(Dummy.getTncs());
 //		if(this.imc instanceof AttributeSupport){
-//			((AttributeSupport) imc).setAttribute(AttributeSupport.TNC_ATTRIBUTEID_PRIMARY_IMC_ID, new Long(new Random().nextInt(100)));
+//			((AttributeSupport) imc).setAttribute(AttributeSupport.TNC_ATTRIBUTEID_PRIMARY_IMC_ID, Long.valueOf(new Random().nextInt(100)));
 //		}
 	}
 	
