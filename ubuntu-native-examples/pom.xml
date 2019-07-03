@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
 	<artifactId>jtnc-ubuntu-native-examples</artifactId>
-	<version>0.0.6-ALPHA</version>
+	<version>0.0.7-ALPHA</version>
 	<packaging>pom</packaging>
 	<name>jTNC ubuntu native examples</name>
 	<description>Java based TNC implementation examples based on ubuntu OS.</description>

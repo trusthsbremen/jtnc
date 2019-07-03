@@ -78,14 +78,16 @@ public class ImcAdapterFactoryIetf implements ImcAdapterFactory {
      * @param timeout the function call timeout
      */
     public ImcAdapterFactoryIetf(final long timeout) {
-        if (timeout < HSBConstants.TCG_IM_MAX_FUNCTION_RUNTIME) {
-            this.timeout = timeout;
-        } else {
-            throw new IllegalArgumentException(new StringBuilder()
+        this.timeout = timeout;
+        
+        if (timeout > HSBConstants.TCG_IM_MAX_FUNCTION_RUNTIME) {
+            LOGGER.warn(new StringBuilder()
                     .append("Timeout of ").append(timeout)
-                    .append(" milliseconds is to large, ")
-                    .append("timeout must be less than one second ")
-                    .append("( < 1000 milliseconds).").toString());
+                    .append(" milliseconds is larger than recommended, ")
+                    .append("timeout should be less than one second ")
+                    .append("( <= 1000 milliseconds). ")
+                    .append("This may result in a high delay between IMC and TNCC.")
+                    .toString());
         }
     }
 

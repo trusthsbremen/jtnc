@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
 		<artifactId>jtnc-ubuntu-native-examples</artifactId>
-		<version>0.0.6-ALPHA</version>
+		<version>0.0.7-ALPHA</version>
 	</parent>
 
 	<artifactId>ubuntu-os-imc-example</artifactId>

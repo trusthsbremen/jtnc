@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.hsbremen.tc.tnc.jtnc</groupId>
 	<artifactId>jtnc-core</artifactId>
-	<version>0.0.6-ALPHA</version>
+	<version>0.0.7-ALPHA</version>
 	<packaging>pom</packaging>
 	<name>jTNC</name>
 	<description>Java based TNC implementation attempt.</description>
